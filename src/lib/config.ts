@@ -8,7 +8,7 @@ export const config = {
   },
   app: {
     name: 'Bridgebox',
-    url: import.meta.env.VITE_APP_URL || 'http://localhost:5173',
+    url: import.meta.env.VITE_APP_URL || (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173'),
     environment: import.meta.env.MODE,
   },
 } as const;

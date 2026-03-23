@@ -88,7 +88,7 @@ export default function ProjectDetail() {
                 <Users className="w-4 h-4 text-slate-500" />
                 <div>
                   <p className="text-slate-400 text-xs">Client</p>
-                  <p className="text-white text-sm font-medium">{project.client}</p>
+                  <p className="text-white text-sm font-medium">{project.organizations?.name || 'Unknown Client'}</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
@@ -96,7 +96,7 @@ export default function ProjectDetail() {
                 <div>
                   <p className="text-slate-400 text-xs">Timeline</p>
                   <p className="text-white text-sm font-medium">
-                    {project.start_date} - {project.target_launch}
+                    {project.start_date ? new Date(project.start_date).toLocaleDateString() : 'TBD'} - {project.target_completion_date ? new Date(project.target_completion_date).toLocaleDateString() : 'TBD'}
                   </p>
                 </div>
               </div>
