@@ -8,10 +8,8 @@ import {
   Image,
   FileSpreadsheet,
   File,
-  Download,
   Trash2,
   Eye,
-  Filter,
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -32,20 +30,20 @@ const FILE_TYPE_ICONS: Record<string, any> = {
   'text/': FileText,
 };
 
-const TYPE_COLORS: Record<DocumentType, string> = {
-  financial: 'green',
-  legal: 'blue',
-  operational: 'slate',
-  contract: 'purple',
-  report: 'amber',
-  other: 'slate',
+const TYPE_VARIANTS: Record<DocumentType, 'primary' | 'secondary' | 'success' | 'outline'> = {
+  financial: 'success',
+  legal: 'primary',
+  operational: 'secondary',
+  contract: 'outline',
+  report: 'primary',
+  other: 'secondary',
 };
 
-const STATUS_COLORS: Record<DocumentStatus, string> = {
-  uploading: 'blue',
-  processing: 'amber',
-  completed: 'green',
-  failed: 'red',
+const STATUS_VARIANTS: Record<DocumentStatus, 'primary' | 'secondary' | 'success' | 'outline'> = {
+  uploading: 'primary',
+  processing: 'outline',
+  completed: 'success',
+  failed: 'secondary',
 };
 
 const getFileIcon = (fileType: string) => {
@@ -73,7 +71,7 @@ export function Documents() {
     try {
       setLoading(true);
       const data = await documentService.getDocuments(currentOrganization.id);
-      setDocuments(data);
+      setDocuments(data || []);
     } catch (err) {
       console.error('Failed to load documents:', err);
     } finally {
@@ -231,10 +229,10 @@ export function Documents() {
                               <h3 className="text-lg font-semibold text-white truncate">
                                 {document.file_name}
                               </h3>
-                              <Badge color={TYPE_COLORS[document.document_type]}>
+                              <Badge variant={TYPE_VARIANTS[document.document_type]} size="sm">
                                 {document.document_type}
                               </Badge>
-                              <Badge color={STATUS_COLORS[document.status]}>
+                              <Badge variant={STATUS_VARIANTS[document.status]} size="sm">
                                 {document.status}
                               </Badge>
                             </div>
@@ -244,7 +242,7 @@ export function Documents() {
                               <span>{new Date(document.created_at).toLocaleDateString()}</span>
                               {document.page_count && <span>{document.page_count} pages</span>}
                               {document.is_processed && (
-                                <Badge color="green" className="text-xs">
+                                <Badge variant="success" size="sm" className="text-xs">
                                   AI Analyzed
                                 </Badge>
                               )}
