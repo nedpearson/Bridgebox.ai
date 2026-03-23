@@ -197,7 +197,7 @@ export default function AppOverview() {
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-slate-400 text-sm">Progress</span>
-                      <span className="text-white text-sm font-medium">{project.progress}%</span>
+                      <span className="text-white text-sm font-medium">{project.progress_percentage || 0}%</span>
                     </div>
                     <div className="w-full bg-slate-700 rounded-full h-2">
                         <motion.div

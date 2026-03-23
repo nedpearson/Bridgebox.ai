@@ -1,25 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Search, Plus } from 'lucide-react';
+import { Search, Plus, FolderKanban } from 'lucide-react';
 import MobileLayout from '../../layouts/MobileLayout';
 import MobileProjectCard from '../../components/mobile/MobileProjectCard';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import EmptyState from '../../components/EmptyState';
 import { useAuth } from '../../contexts/AuthContext';
 
-interface Project {
-  id: string;
-  name: string;
-  status: string;
-  progress: number;
-  next_milestone?: string;
-}
+import { projectsService } from '../../lib/db/projects';
 
 export default function MobileProjects() {
   const navigate = useNavigate();
   const { currentOrganization } = useAuth();
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -28,48 +22,16 @@ export default function MobileProjects() {
   }, [currentOrganization]);
 
   const loadProjects = async () => {
-    setLoading(true);
-
-    // Mock data for demonstration
-    setTimeout(() => {
-      setProjects([
-        {
-          id: '1',
-          name: 'E-commerce Platform',
-          status: 'active',
-          progress: 65,
-          next_milestone: 'Payment Integration',
-        },
-        {
-          id: '2',
-          name: 'Mobile App Development',
-          status: 'active',
-          progress: 40,
-          next_milestone: 'User Testing',
-        },
-        {
-          id: '3',
-          name: 'CRM System',
-          status: 'planning',
-          progress: 15,
-          next_milestone: 'Requirements Review',
-        },
-        {
-          id: '4',
-          name: 'Website Redesign',
-          status: 'completed',
-          progress: 100,
-        },
-        {
-          id: '5',
-          name: 'Data Migration',
-          status: 'active',
-          progress: 80,
-          next_milestone: 'Final Testing',
-        },
-      ]);
+    if (!currentOrganization) return;
+    try {
+      setLoading(true);
+      const data = await projectsService.getProjectsByOrganization(currentOrganization.id);
+      setProjects(data || []);
+    } catch (error) {
+      console.error('Failed to load mobile projects:', error);
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   };
 
   const filteredProjects = projects.filter(project =>
@@ -101,6 +63,7 @@ export default function MobileProjects() {
             </div>
           ) : filteredProjects.length === 0 ? (
             <EmptyState
+              icon={FolderKanban}
               title="No projects found"
               description="Start your first project to get going"
             />
@@ -115,6 +78,7 @@ export default function MobileProjects() {
                 >
                   <MobileProjectCard
                     {...project}
+                    progress={project.progress_percentage || 0}
                     onClick={() => navigate(`/app/mobile/projects/${project.id}`)}
                   />
                 </motion.div>

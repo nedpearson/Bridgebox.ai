@@ -10,89 +10,32 @@ import {
   MessageSquare,
 } from 'lucide-react';
 import MobileLayout from '../../layouts/MobileLayout';
-import Badge from '../../components/Badge';
+import StatusBadge from '../../components/admin/StatusBadge';
 import Button from '../../components/Button';
+import { projectsService } from '../../lib/db/projects';
 
-interface Milestone {
-  id: string;
-  title: string;
-  status: 'pending' | 'in_progress' | 'completed';
-  due_date?: string;
-}
 
-interface Project {
-  id: string;
-  name: string;
-  status: string;
-  progress: number;
-  description?: string;
-  start_date?: string;
-  end_date?: string;
-  team_size?: number;
-  milestones: Milestone[];
-  updates: string[];
-}
-
-const STATUS_COLORS: Record<string, string> = {
-  planning: 'slate',
-  active: 'blue',
-  on_hold: 'amber',
-  completed: 'green',
-  cancelled: 'red',
-};
 
 export default function MobileProjectDetail() {
   const { id } = useParams();
-  const [project, setProject] = useState<Project | null>(null);
+  const [project, setProject] = useState<any>(null);
+  const [milestones, setMilestones] = useState<any[]>([]);
   const [newUpdate, setNewUpdate] = useState('');
 
   useEffect(() => {
     loadProject();
   }, [id]);
 
-  const loadProject = () => {
-    // Mock data
-    setProject({
-      id: id || '1',
-      name: 'E-commerce Platform',
-      status: 'active',
-      progress: 65,
-      description: 'Building a modern e-commerce platform with advanced features including AI recommendations, real-time inventory, and seamless checkout.',
-      start_date: new Date(Date.now() - 60 * 86400000).toISOString(),
-      end_date: new Date(Date.now() + 30 * 86400000).toISOString(),
-      team_size: 5,
-      milestones: [
-        {
-          id: '1',
-          title: 'Design System',
-          status: 'completed',
-          due_date: new Date(Date.now() - 30 * 86400000).toISOString(),
-        },
-        {
-          id: '2',
-          title: 'Payment Integration',
-          status: 'in_progress',
-          due_date: new Date(Date.now() + 7 * 86400000).toISOString(),
-        },
-        {
-          id: '3',
-          title: 'User Testing',
-          status: 'pending',
-          due_date: new Date(Date.now() + 14 * 86400000).toISOString(),
-        },
-        {
-          id: '4',
-          title: 'Launch',
-          status: 'pending',
-          due_date: new Date(Date.now() + 30 * 86400000).toISOString(),
-        },
-      ],
-      updates: [
-        'Payment integration testing completed successfully',
-        'Design system approved by client',
-        'Started development on checkout flow',
-      ],
-    });
+  const loadProject = async () => {
+    if (!id) return;
+    try {
+      const data = await projectsService.getProjectById(id);
+      setProject(data);
+      const mData = await projectsService.getProjectMilestones(id);
+      setMilestones(mData || []);
+    } catch (error) {
+      console.error('Failed to resolve project', error);
+    }
   };
 
   const handleAddUpdate = () => {
@@ -116,7 +59,7 @@ export default function MobileProjectDetail() {
           <div className="p-4 bg-slate-900/50 border-b border-slate-800">
             <div className="flex items-start justify-between mb-3">
               <h1 className="text-lg font-semibold text-white">{project.name}</h1>
-              <Badge color={STATUS_COLORS[project.status]}>{project.status}</Badge>
+              <StatusBadge status={project.status} />
             </div>
 
             {project.description && (
@@ -129,12 +72,12 @@ export default function MobileProjectDetail() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-slate-400">Overall Progress</span>
-                <span className="text-sm font-medium text-white">{project.progress}%</span>
+                <span className="text-sm font-medium text-white">{project.progress_percentage || 0}%</span>
               </div>
               <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
-                  animate={{ width: `${project.progress}%` }}
+                  animate={{ width: `${project.progress_percentage || 0}%` }}
                   className="h-full bg-blue-500 rounded-full"
                 />
               </div>
@@ -156,11 +99,11 @@ export default function MobileProjectDetail() {
             {project.team_size && (
               <StatItem icon={Users} label="Team" value={`${project.team_size}`} />
             )}
-            {project.end_date && (
+            {project.target_completion_date && (
               <StatItem
                 icon={TrendingUp}
                 label="Due"
-                value={new Date(project.end_date).toLocaleDateString('en-US', {
+                value={new Date(project.target_completion_date).toLocaleDateString('en-US', {
                   month: 'short',
                   day: 'numeric',
                 })}
@@ -175,9 +118,13 @@ export default function MobileProjectDetail() {
               Milestones
             </h3>
             <div className="space-y-2">
-              {project.milestones.map((milestone, index) => (
-                <MilestoneItem key={milestone.id} milestone={milestone} index={index} />
-              ))}
+              {milestones.length === 0 ? (
+                <div className="text-center py-4 text-slate-400 text-sm">No milestones</div>
+              ) : (
+                milestones.map((milestone: any, index: number) => (
+                  <MilestoneItem key={milestone.id} milestone={milestone} index={index} />
+                ))
+              )}
             </div>
           </div>
 
@@ -189,14 +136,18 @@ export default function MobileProjectDetail() {
             </h3>
 
             <div className="space-y-2 mb-4">
-              {project.updates.map((update, index) => (
-                <div
-                  key={index}
-                  className="p-3 bg-slate-800/50 rounded-lg border border-slate-700"
-                >
-                  <p className="text-sm text-slate-300">{update}</p>
-                </div>
-              ))}
+              {(project.updates || []).length === 0 ? (
+                <div className="text-center py-4 text-slate-400 text-sm">No updates yet</div>
+              ) : (
+                (project.updates || []).map((update: any, index: number) => (
+                  <div
+                    key={index}
+                    className="p-3 bg-slate-800/50 rounded-lg border border-slate-700"
+                  >
+                    <p className="text-sm text-slate-300">{update}</p>
+                  </div>
+                ))
+              )}
             </div>
 
             {/* Add Update */}
@@ -245,7 +196,7 @@ function StatItem({ icon: Icon, label, value }: StatItemProps) {
 }
 
 interface MilestoneItemProps {
-  milestone: Milestone;
+  milestone: any;
   index: number;
 }
 
