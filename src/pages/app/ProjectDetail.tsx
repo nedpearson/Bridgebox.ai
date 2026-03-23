@@ -187,7 +187,7 @@ export default function ProjectDetail() {
                       <span
                         className={milestone.status === 'completed' ? 'text-white' : 'text-slate-400'}
                       >
-                        {milestone.name}
+                        {milestone.title}
                       </span>
                     </div>
                     <span className="text-slate-500 text-sm">{milestone.completion_date || milestone.target_date || 'TBD'}</span>

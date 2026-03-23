@@ -39,19 +39,20 @@ export default function ClientDeliverables() {
           allDeliverables.push(...(projectDeliverables || []));
         }
 
-        const deliverablesWithFiles = await Promise.all(
-          allDeliverables.map(async (d) => {
-            if (d.file_path) {
-              try {
-                const url = await storageService.getFileUrl('deliverables', d.file_path);
-                return { ...d, url };
-              } catch (err) {
-                return d;
+          const deliverablesWithFiles = await Promise.all(
+            allDeliverables.map(async (d) => {
+              if (d.file_references && d.file_references.length > 0) {
+                try {
+                  const path = d.file_references[0].path || d.file_references[0];
+                  const url = await storageService.getFileUrl('deliverables', path);
+                  return { ...d, url, file_name: typeof d.file_references[0] === 'string' ? d.file_references[0] : d.file_references[0].name };
+                } catch (err) {
+                  return d;
+                }
               }
-            }
-            return d;
-          })
-        );
+              return d;
+            })
+          );
 
         setDeliverables(deliverablesWithFiles);
       }
@@ -135,10 +136,10 @@ export default function ClientDeliverables() {
                     <div className="flex-1">
                       <div className="flex items-start justify-between mb-2">
                         <div>
-                          <h3 className="text-lg font-semibold text-white mb-1">{deliverable.name}</h3>
+                          <h3 className="text-lg font-semibold text-white mb-1">{deliverable.title}</h3>
                           <p className="text-slate-400 text-sm mb-3">{deliverable.description}</p>
                           <div className="flex flex-wrap gap-2">
-                            <StatusBadge status={deliverable.deliverable_type} variant="info" />
+                            <StatusBadge status={deliverable.type} variant="info" />
                             <StatusBadge
                               status={deliverable.status}
                               variant={getStatusVariant(deliverable.status)}
@@ -150,28 +151,21 @@ export default function ClientDeliverables() {
                       <div className="mt-4 pt-4 border-t border-slate-800">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-6 text-sm">
-                            {deliverable.delivered_date && (
-                              <span className="text-slate-400">
-                                Delivered: <span className="text-white">{deliverable.delivered_date}</span>
-                              </span>
-                            )}
-                            {deliverable.approved_date && (
-                              <span className="text-[#10B981]">
-                                Approved: {deliverable.approved_date}
-                              </span>
-                            )}
+                            <span className="text-slate-400">
+                              Added: <span className="text-white">{new Date(deliverable.created_at).toLocaleDateString()}</span>
+                            </span>
                           </div>
 
                           <div className="flex items-center space-x-2">
-                            {(deliverable.url || deliverable.file_path) && (
+                            {deliverable.url && (
                               <a
-                                href={deliverable.url || '#'}
+                                href={deliverable.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                download={deliverable.file_name}
+                                download={deliverable.file_name || 'download'}
                                 className="flex items-center space-x-2 px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-medium rounded-lg transition-colors"
                               >
-                                {deliverable.file_path ? (
+                                {deliverable.file_references && deliverable.file_references.length > 0 ? (
                                   <>
                                     <Download className="w-4 h-4" />
                                     <span>Download</span>

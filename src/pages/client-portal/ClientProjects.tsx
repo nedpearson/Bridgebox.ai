@@ -98,16 +98,16 @@ export default function ClientProjects() {
                     <p className="text-slate-400 mb-4">{project.description}</p>
                     <div className="flex items-center space-x-4">
                       <StatusBadge status={project.type} variant="info" />
-                      {project.target_launch_date && (
+                      {project.target_completion_date && (
                         <div className="flex items-center space-x-2 text-slate-400 text-sm">
                           <Calendar className="w-4 h-4" />
-                          <span>Target: {project.target_launch_date}</span>
+                          <span>Target: {new Date(project.target_completion_date).toLocaleDateString()}</span>
                         </div>
                       )}
-                      {project.actual_launch_date && (
+                      {project.actual_completion_date && (
                         <div className="flex items-center space-x-2 text-[#10B981] text-sm">
                           <CheckCircle2 className="w-4 h-4" />
-                          <span>Launched: {project.actual_launch_date}</span>
+                          <span>Completed: {new Date(project.actual_completion_date).toLocaleDateString()}</span>
                         </div>
                       )}
                     </div>
@@ -125,7 +125,7 @@ export default function ClientProjects() {
                   />
                 </div>
 
-                {project.milestones && project.milestones.length > 0 && (
+                {project.project_milestones && project.project_milestones.length > 0 && (
                   <div className="mb-6">
                     <h3 className="text-white font-semibold mb-4 flex items-center space-x-2">
                       <Users className="w-5 h-5" />
@@ -134,7 +134,9 @@ export default function ClientProjects() {
                     <div className="relative">
                       <div className="absolute left-[10px] top-0 bottom-0 w-0.5 bg-slate-700" />
                       <div className="space-y-4">
-                        {project.milestones.map((milestone: any, idx: number) => (
+                        {project.project_milestones
+                         .sort((a: any, b: any) => (a.order_index || 0) - (b.order_index || 0))
+                         .map((milestone: any, idx: number) => (
                           <motion.div
                             key={milestone.id}
                             initial={{ opacity: 0, x: -20 }}
@@ -147,7 +149,7 @@ export default function ClientProjects() {
                             </div>
                             <div className="flex-1 pb-4">
                               <div className="flex items-center justify-between mb-1">
-                                <h4 className="text-white font-medium">{milestone.name}</h4>
+                                <h4 className="text-white font-medium">{milestone.title}</h4>
                                 <StatusBadge
                                   status={milestone.status}
                                   variant={
@@ -162,13 +164,13 @@ export default function ClientProjects() {
                               {milestone.description && (
                                 <p className="text-slate-400 text-sm mb-1">{milestone.description}</p>
                               )}
-                              {milestone.completion_date && (
+                              {milestone.completed_date && (
                                 <p className="text-slate-500 text-xs">
-                                  Completed: {milestone.completion_date}
+                                  Completed: {new Date(milestone.completed_date).toLocaleDateString()}
                                 </p>
                               )}
-                              {milestone.target_date && !milestone.completion_date && (
-                                <p className="text-slate-500 text-xs">Target: {milestone.target_date}</p>
+                              {milestone.target_date && !milestone.completed_date && (
+                                <p className="text-slate-500 text-xs">Target: {new Date(milestone.target_date).toLocaleDateString()}</p>
                               )}
                             </div>
                           </motion.div>

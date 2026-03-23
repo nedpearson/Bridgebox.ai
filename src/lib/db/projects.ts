@@ -50,7 +50,7 @@ export const projectsService = {
   async getProjectsByOrganization(organizationId: string) {
     const { data, error } = await supabase
       .from('projects')
-      .select('*, profiles!projects_project_manager_id_fkey(full_name), project_milestones(status), deliverables(status)')
+      .select('*, profiles!projects_project_manager_id_fkey(full_name), project_milestones(*), deliverables(*)')
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false });
 
