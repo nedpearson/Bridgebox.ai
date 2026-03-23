@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import BackgroundAtmosphere from '../../components/BackgroundAtmosphere';
+import { permissions } from '../../lib/permissions';
+import React from 'react';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -12,8 +14,22 @@ export default function Signup() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { signUp } = useAuth();
+  const { user, profile, currentOrganization, signUp, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (success && user && profile && !authLoading) {
+      const timer = setTimeout(() => {
+        const context = {
+          role: profile.role,
+          organizationId: currentOrganization?.id,
+          organizationType: currentOrganization?.type,
+        };
+        navigate(permissions.getDefaultRoute(context), { replace: true });
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [success, user, profile, currentOrganization, authLoading, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,10 +39,7 @@ export default function Signup() {
     try {
       await signUp(email, password, fullName);
       setSuccess(true);
-
-      setTimeout(() => {
-        navigate('/app');
-      }, 2000);
+      // navigation handled by useEffect when profile loads
     } catch (err: any) {
       setError(err.message || 'Failed to create account');
     } finally {

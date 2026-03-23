@@ -5,14 +5,26 @@ import { Mail, Lock, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { permissions } from '../../lib/permissions';
 import BackgroundAtmosphere from '../../components/BackgroundAtmosphere';
+import React from 'react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn, profile } = useAuth();
+  const { user, profile, currentOrganization, signIn, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (user && profile && !authLoading) {
+      const context = {
+        role: profile.role,
+        organizationId: currentOrganization?.id,
+        organizationType: currentOrganization?.type,
+      };
+      navigate(permissions.getDefaultRoute(context), { replace: true });
+    }
+  }, [user, profile, currentOrganization, authLoading, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

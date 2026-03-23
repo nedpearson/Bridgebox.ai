@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Plus, Filter, Users, Mail, Phone, DollarSign } from 'lucide-react';
+import { Search, Plus, Users, Mail, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -60,95 +60,6 @@ export default function LeadsList() {
     return <ErrorState message={error} />;
   }
 
-  const mockLeads: any[] = [
-    {
-      id: '1',
-      organization_name: 'FinTech Innovations',
-      contact_name: 'Jennifer Adams',
-      contact_email: 'j.adams@fintech.io',
-      contact_phone: '+1 (555) 234-5678',
-      contact_title: 'CTO',
-      service_interest: ['custom_software', 'ai_automation'],
-      budget_range: '250k_500k',
-      stage: 'discovery',
-      source: 'referral',
-      estimated_value: 350000,
-      assigned_to: { full_name: 'Alex Martinez' } as any,
-      last_contact_date: '2 days ago',
-      next_action: 'Schedule discovery call',
-      created_at: '2024-03-15',
-      updated_at: '2024-03-21',
-    },
-    {
-      id: '2',
-      organization_name: 'Healthcare Systems Co',
-      contact_name: 'Michael Chen',
-      contact_email: 'm.chen@healthsys.com',
-      contact_phone: '+1 (555) 345-6789',
-      contact_title: 'VP of Operations',
-      service_interest: ['dashboard', 'integration'],
-      budget_range: '100k_250k',
-      stage: 'proposal_sent',
-      source: 'website',
-      estimated_value: 180000,
-      assigned_to: { full_name: 'Sarah Williams' } as any,
-      last_contact_date: '5 hours ago',
-      next_action: 'Follow up on proposal',
-      created_at: '2024-03-10',
-      updated_at: '2024-03-22',
-    },
-    {
-      id: '3',
-      organization_name: 'Retail Solutions Ltd',
-      contact_name: 'David Parker',
-      contact_email: 'd.parker@retail.com',
-      contact_title: 'Director of IT',
-      service_interest: ['mobile_app', 'dashboard'],
-      budget_range: '50k_100k',
-      stage: 'qualified',
-      source: 'linkedin',
-      estimated_value: 75000,
-      assigned_to: { full_name: 'Alex Martinez' } as any,
-      last_contact_date: '1 day ago',
-      next_action: 'Send case studies',
-      created_at: '2024-03-18',
-      updated_at: '2024-03-22',
-    },
-    {
-      id: '4',
-      organization_name: 'Manufacturing Plus',
-      contact_name: 'Rachel Thompson',
-      contact_email: 'r.thompson@mfgplus.com',
-      contact_phone: '+1 (555) 456-7890',
-      contact_title: 'COO',
-      service_interest: ['custom_software', 'integration'],
-      budget_range: '500k_plus',
-      stage: 'negotiation',
-      source: 'conference',
-      estimated_value: 625000,
-      assigned_to: { full_name: 'Emily Watson' } as any,
-      last_contact_date: '3 hours ago',
-      next_action: 'Contract review meeting',
-      created_at: '2024-02-28',
-      updated_at: '2024-03-23',
-    },
-    {
-      id: '5',
-      organization_name: 'EdTech Ventures',
-      contact_name: 'Lisa Rodriguez',
-      contact_email: 'l.rodriguez@edtech.io',
-      service_interest: ['mobile_app', 'ai_automation'],
-      budget_range: '100k_250k',
-      stage: 'new',
-      source: 'partner',
-      estimated_value: 150000,
-      last_contact_date: undefined,
-      next_action: 'Initial outreach',
-      created_at: '2024-03-23',
-      updated_at: '2024-03-23',
-    },
-  ];
-
   const getBudgetDisplay = (range?: string) => {
     const map: Record<string, string> = {
       under_25k: '<$25K',
@@ -165,7 +76,7 @@ export default function LeadsList() {
       case 'converted':
         return 'success';
       case 'lost':
-        return 'error';
+        return 'danger';
       case 'proposal_sent':
       case 'negotiation':
         return 'warning';
@@ -281,10 +192,10 @@ export default function LeadsList() {
                               <Mail className="w-3 h-3" />
                               <span>{lead.email}</span>
                             </div>
-                            {lead.phone && (
+                            {(lead as any).phone && (
                               <div className="flex items-center space-x-2 text-slate-400 text-sm">
                                 <Phone className="w-3 h-3" />
-                                <span>{lead.phone}</span>
+                                <span>{(lead as any).phone}</span>
                               </div>
                             )}
                           </div>
@@ -310,7 +221,7 @@ export default function LeadsList() {
                             )}
                             <div>
                               <p className="text-slate-500 text-xs mb-1">Source</p>
-                              <StatusBadge status={lead.source || 'website'} variant="default" />
+                              <StatusBadge status={(lead as any).source || 'website'} variant="default" />
                             </div>
                           </div>
                         </div>
@@ -324,10 +235,10 @@ export default function LeadsList() {
                                 variant={getStatusVariant(lead.status)}
                               />
                             </div>
-                            {lead.priority && (
+                            {(lead as any).priority && (
                               <div>
                                 <p className="text-slate-500 text-xs mb-1">Priority</p>
-                                <StatusBadge status={lead.priority} variant={lead.priority === 'urgent' ? 'error' : lead.priority === 'high' ? 'warning' : 'default'} />
+                                <StatusBadge status={(lead as any).priority} variant={(lead as any).priority === 'urgent' ? 'danger' : (lead as any).priority === 'high' ? 'warning' : 'default'} />
                               </div>
                             )}
                             <div>

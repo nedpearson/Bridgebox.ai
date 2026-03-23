@@ -29,8 +29,6 @@ import ErrorState from '../../components/ErrorState';
 import SimpleBarChart from '../../components/analytics/SimpleBarChart';
 import DonutChart from '../../components/analytics/DonutChart';
 import { ServiceTrendCard, IndustryTrendCard } from '../../components/trends/TrendCard';
-import { HotIndicator } from '../../components/trends/TrendBadge';
-import { InsightList } from '../../components/ai/InsightCard';
 import AIContent, { AIButton } from '../../components/ai/AIContent';
 import { useMetrics, type TimeFilter } from '../../hooks/useMetrics';
 import { useBusinessInsights } from '../../hooks/useAI';
@@ -407,7 +405,7 @@ export default function Analytics() {
 }
 
 function OverviewView({ metrics }: { metrics: any }) {
-  const { conversion, revenue, projects, support, clients, onboarding, engagement } = metrics;
+  const { conversion, revenue, projects, support, clients } = metrics;
 
   const kpis = [
     {
@@ -416,6 +414,7 @@ function OverviewView({ metrics }: { metrics: any }) {
       change: `${conversion.qualifiedLeads} qualified`,
       icon: Users,
       color: '#3B82F6',
+      link: '/app/leads',
     },
     {
       label: 'Active Projects',
@@ -423,6 +422,7 @@ function OverviewView({ metrics }: { metrics: any }) {
       change: `${projects.atRiskProjects} at risk`,
       icon: Package,
       color: '#10B981',
+      link: '/app/projects',
     },
     {
       label: 'Monthly Recurring Revenue',
@@ -430,6 +430,7 @@ function OverviewView({ metrics }: { metrics: any }) {
       change: `$${revenue.arr.toLocaleString()} ARR`,
       icon: DollarSign,
       color: '#F59E0B',
+      link: '/app/billing',
     },
     {
       label: 'Open Support Tickets',
@@ -437,6 +438,7 @@ function OverviewView({ metrics }: { metrics: any }) {
       change: `${support.resolvedTickets} resolved`,
       icon: AlertCircle,
       color: '#EF4444',
+      link: '/app/support',
     },
     {
       label: 'Active Clients',
@@ -444,6 +446,7 @@ function OverviewView({ metrics }: { metrics: any }) {
       change: `${clients.retentionRate.toFixed(1)}% retention`,
       icon: Building2,
       color: '#8B5CF6',
+      link: '/app/clients',
     },
     {
       label: 'Conversion Rate',
@@ -451,6 +454,7 @@ function OverviewView({ metrics }: { metrics: any }) {
       change: `${conversion.proposalsAccepted} won`,
       icon: Target,
       color: '#10B981',
+      link: '/app/conversions',
     },
   ];
 
@@ -465,19 +469,21 @@ function OverviewView({ metrics }: { metrics: any }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
           >
-            <Card glass className="p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{ backgroundColor: `${kpi.color}20` }}
-                >
-                  <kpi.icon className="w-5 h-5" style={{ color: kpi.color }} />
+            <Link to={kpi.link} className="block transition-transform hover:-translate-y-1">
+              <Card glass className="p-6">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: `${kpi.color}20` }}
+                  >
+                    <kpi.icon className="w-5 h-5" style={{ color: kpi.color }} />
+                  </div>
                 </div>
-              </div>
-              <p className="text-slate-400 text-sm mb-1">{kpi.label}</p>
-              <p className="text-2xl font-bold text-white mb-1">{kpi.value}</p>
-              <p className="text-xs text-slate-500">{kpi.change}</p>
-            </Card>
+                <p className="text-slate-400 text-sm mb-1">{kpi.label}</p>
+                <p className="text-2xl font-bold text-white mb-1">{kpi.value}</p>
+                <p className="text-xs text-slate-500">{kpi.change}</p>
+              </Card>
+            </Link>
           </motion.div>
         ))}
       </div>
@@ -679,7 +685,7 @@ function DeliveryView({ data }: { data: any }) {
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Projects by Status</h3>
           <DonutChart
-            data={data.projectsByStatus.map(item => ({
+            data={data.projectsByStatus.map((item: any) => ({
               label: item.status.replace('_', ' '),
               value: item.count,
             }))}
@@ -689,7 +695,7 @@ function DeliveryView({ data }: { data: any }) {
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Projects by Phase</h3>
           <SimpleBarChart
-            data={data.projectsByPhase.map(item => ({
+            data={data.projectsByPhase.map((item: any) => ({
               label: item.phase.replace('_', ' '),
               value: item.count,
             }))}
@@ -699,7 +705,7 @@ function DeliveryView({ data }: { data: any }) {
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Projects by Service Type</h3>
           <SimpleBarChart
-            data={data.projectsByServiceType.map(item => ({
+            data={data.projectsByServiceType.map((item: any) => ({
               label: item.service_type.replace('_', ' '),
               value: item.count,
             }))}
@@ -709,7 +715,7 @@ function DeliveryView({ data }: { data: any }) {
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Health Status</h3>
           <DonutChart
-            data={data.projectsByHealthStatus.map(item => ({
+            data={data.projectsByHealthStatus.map((item: any) => ({
               label: item.health_status,
               value: item.count,
               color:

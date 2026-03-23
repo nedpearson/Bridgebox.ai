@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import type { User, Session, AuthError } from '@supabase/supabase-js';
+import type { User, Session } from '@supabase/supabase-js';
 
 export interface AuthUser extends User {
   role?: 'super_admin' | 'internal_staff' | 'client_admin' | 'client_member';
@@ -96,11 +96,9 @@ export const authService = {
     return data;
   },
 
-  onAuthStateChange(callback: (session: Session | null) => void) {
-    return supabase.auth.onAuthStateChange((_event, session) => {
-      (async () => {
-        callback(session);
-      })();
+  onAuthStateChange(callback: (event: string, session: Session | null) => void) {
+    return supabase.auth.onAuthStateChange((event, session) => {
+      callback(event, session);
     });
   },
 };

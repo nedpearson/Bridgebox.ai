@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FolderKanban, Package, Headphones, CreditCard, Calendar, Users, ExternalLink, CheckCircle2, Clock } from 'lucide-react';
+import { FolderKanban, Package, Headphones, Calendar, ExternalLink, CheckCircle2, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
@@ -18,6 +18,7 @@ export default function ClientHome() {
   const [organization, setOrganization] = useState<any>(null);
   const [activeProjects, setActiveProjects] = useState<any[]>([]);
   const [recentTickets, setRecentTickets] = useState<any[]>([]);
+  const [recentDeliverables, setRecentDeliverables] = useState<any[]>([]);
   const [stats, setStats] = useState({
     totalProjects: 0,
     activeProjects: 0,
@@ -57,9 +58,16 @@ export default function ClientHome() {
           openTickets: 0,
         });
 
-        const tickets = await supportService.getTicketsByOrganization(primaryOrg.id);
+        const tickets = await supportService.getAllTickets({ organization_id: primaryOrg.id });
         setRecentTickets(tickets?.filter((t: any) => t.status !== 'closed').slice(0, 3) || []);
         setStats(prev => ({ ...prev, openTickets: tickets?.filter((t: any) => t.status !== 'closed').length || 0 }));
+
+        const allDeliverables: any[] = [];
+        for (const project of projects || []) {
+          const dlvs = await projectsService.getProjectDeliverables(project.id);
+          allDeliverables.push(...(dlvs || []));
+        }
+        setRecentDeliverables(allDeliverables.slice(0, 3));
       }
     } catch (err: any) {
       setError(err.message || 'Failed to load dashboard');
@@ -84,12 +92,12 @@ export default function ClientHome() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Welcome back, {clientOrg.name}</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Welcome back{organization?.name ? `, ${organization.name}` : ''}</h1>
           <p className="text-slate-400">Here's what's happening with your projects</p>
         </div>
 
         <div className="grid lg:grid-cols-4 gap-6 mb-8">
-          <Link to="/app/client-portal/projects">
+          <Link to="/portal/projects">
             <Card glass className="p-6 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer">
               <div className="flex items-center justify-between mb-2">
                 <FolderKanban className="w-8 h-8 text-[#3B82F6]" />
@@ -99,7 +107,7 @@ export default function ClientHome() {
             </Card>
           </Link>
 
-          <Link to="/app/client-portal/projects">
+          <Link to="/portal/projects">
             <Card glass className="p-6 hover:border-[#10B981]/30 transition-all duration-300 cursor-pointer">
               <div className="flex items-center justify-between mb-2">
                 <CheckCircle2 className="w-8 h-8 text-[#10B981]" />
@@ -109,7 +117,7 @@ export default function ClientHome() {
             </Card>
           </Link>
 
-          <Link to="/app/client-portal/support">
+          <Link to="/portal/support">
             <Card glass className="p-6 hover:border-yellow-500/30 transition-all duration-300 cursor-pointer">
               <div className="flex items-center justify-between mb-2">
                 <Headphones className="w-8 h-8 text-yellow-500" />
@@ -133,7 +141,7 @@ export default function ClientHome() {
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-white">Active Projects</h2>
               <Link
-                to="/app/client-portal/projects"
+                to="/portal/projects"
                 className="text-[#3B82F6] text-sm font-medium hover:text-[#3B82F6]/80 transition-colors"
               >
                 View All
@@ -147,7 +155,7 @@ export default function ClientHome() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Link to={`/app/client-portal/projects/${project.id}`}>
+                  <Link to="/portal/projects">
                     <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
@@ -190,14 +198,16 @@ export default function ClientHome() {
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-white">Recent Deliverables</h2>
               <Link
-                to="/app/client-portal/deliverables"
+                to="/portal/deliverables"
                 className="text-[#3B82F6] text-sm font-medium hover:text-[#3B82F6]/80 transition-colors"
               >
                 View All
               </Link>
             </div>
             <div className="space-y-3">
-              {recentDeliverables.map((deliverable, index) => (
+              {recentDeliverables.length === 0 ? (
+                <div className="text-slate-400 text-sm p-4 text-center">No recent deliverables</div>
+              ) : recentDeliverables.map((deliverable, index) => (
                 <motion.div
                   key={deliverable.id}
                   initial={{ opacity: 0, x: -20 }}
@@ -247,33 +257,36 @@ export default function ClientHome() {
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-white">Support</h2>
               <Link
-                to="/app/client-portal/support"
+                to="/portal/support"
                 className="text-[#3B82F6] text-sm font-medium hover:text-[#3B82F6]/80 transition-colors"
               >
                 View All
               </Link>
             </div>
             <div className="space-y-3">
-              {supportTickets.map((ticket, index) => (
-                <motion.div
-                  key={ticket.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer"
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-white font-medium flex-1">{ticket.title}</h3>
-                    <StatusBadge
-                      status={ticket.status || 'open'}
-                      variant={ticket.status === 'in_progress' ? 'warning' : 'info'}
-                    />
-                  </div>
-                  <div className="flex items-center space-x-3 text-sm">
-                    <StatusBadge status={ticket.priority || 'medium'} variant="default" />
-                    <span className="text-slate-500">{ticket.created_at}</span>
-                  </div>
-                </motion.div>
+              {recentTickets.length === 0 ? (
+                <div className="text-slate-400 text-sm p-4 text-center">No recent tickets</div>
+              ) : recentTickets.map((ticket, index) => (
+                <Link to={`/portal/support/${ticket.id}`} key={ticket.id}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="text-white font-medium flex-1 group-hover:text-[#3B82F6] transition-colors">{ticket.title}</h3>
+                      <StatusBadge
+                        status={ticket.status || 'open'}
+                        variant={ticket.status === 'in_progress' ? 'warning' : 'info'}
+                      />
+                    </div>
+                    <div className="flex items-center space-x-3 text-sm">
+                      <StatusBadge status={ticket.priority || 'medium'} variant="default" />
+                      <span className="text-slate-500">{new Date(ticket.created_at).toLocaleDateString()}</span>
+                    </div>
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </Card>
@@ -283,23 +296,23 @@ export default function ClientHome() {
             <div className="space-y-4">
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold">{clientOrg.accountManager.avatar}</span>
+                  <span className="text-white font-bold">TM</span>
                 </div>
                 <div className="flex-1">
                   <p className="text-slate-400 text-xs mb-1">Account Manager</p>
-                  <p className="text-white font-semibold">{clientOrg.accountManager.name}</p>
-                  <p className="text-slate-400 text-sm">{clientOrg.accountManager.email}</p>
+                  <p className="text-white font-semibold">Support Team</p>
+                  <p className="text-slate-400 text-sm">support@bridgebox.ai</p>
                 </div>
               </div>
 
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold">{clientOrg.technicalLead.avatar}</span>
+                  <span className="text-white font-bold">TL</span>
                 </div>
                 <div className="flex-1">
                   <p className="text-slate-400 text-xs mb-1">Technical Lead</p>
-                  <p className="text-white font-semibold">{clientOrg.technicalLead.name}</p>
-                  <p className="text-slate-400 text-sm">{clientOrg.technicalLead.email}</p>
+                  <p className="text-white font-semibold">Technical Support</p>
+                  <p className="text-slate-400 text-sm">tech@bridgebox.ai</p>
                 </div>
               </div>
             </div>
