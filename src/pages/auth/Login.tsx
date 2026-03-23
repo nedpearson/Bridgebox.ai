@@ -94,6 +94,21 @@ export default function Login() {
               </div>
             </div>
 
+            <div className="flex items-center justify-between">
+              <label className="flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  defaultChecked
+                  className="w-4 h-4 rounded border-slate-700 bg-slate-800/50 text-[#3B82F6] focus:ring-[#3B82F6] focus:ring-offset-slate-900 transition-colors cursor-pointer" 
+                />
+                <span className="ml-2 text-sm text-slate-400 select-none">Remember me</span>
+              </label>
+              
+              <Link to="/forgot-password" className="text-sm text-[#3B82F6] hover:text-[#2563EB] font-medium transition-colors">
+                Forgot password?
+              </Link>
+            </div>
+
             <button
               type="submit"
               disabled={loading}
