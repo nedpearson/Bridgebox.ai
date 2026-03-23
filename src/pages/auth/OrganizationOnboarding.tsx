@@ -19,7 +19,7 @@ export default function OrganizationOnboarding() {
     setLoading(true);
 
     try {
-      const org = await organizationsService.createOrganization(organizationName);
+      const org = await organizationsService.createOrganization({ name: organizationName });
       setCurrentOrganization(org);
       navigate('/setup');
     } catch (err: any) {
