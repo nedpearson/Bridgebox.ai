@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import {
   Send,
   Plus,
@@ -7,8 +8,8 @@ import {
   Sparkles,
   Lightbulb,
   Archive,
-  Trash2,
   Brain,
+  Zap,
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -17,8 +18,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import EmptyState from '../../components/EmptyState';
 import ChatMessage from '../../components/copilot/ChatMessage';
 import SuggestionCard from '../../components/copilot/SuggestionCard';
-import { InsightList, InsightSummary } from '../../components/ai/InsightCard';
-import { ActionCard } from '../../components/agents/ActionCard';
+import { InsightList } from '../../components/ai/InsightCard';
 import {
   copilotService,
   CONTEXT_TYPE_LABELS,
@@ -331,12 +331,12 @@ export default function Copilot() {
               </div>
 
               {pendingActions.length > 3 && (
-                <a
-                  href="/app/agent-actions"
+                <Link
+                  to="/app/agent-actions"
                   className="block mt-3 text-xs text-center text-purple-400 hover:text-purple-300"
                 >
                   View all {pendingActions.length} actions →
-                </a>
+                </Link>
               )}
             </Card>
           )}
