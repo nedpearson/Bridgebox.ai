@@ -1,0 +1,1068 @@
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import {
+  TrendingUp,
+  Users,
+  DollarSign,
+  Package,
+  AlertCircle,
+  CheckCircle2,
+  Clock,
+  Target,
+  Building2,
+  FileText,
+  Zap,
+  BarChart3,
+  Activity,
+  Heart,
+  Flame,
+  ArrowRight,
+  Brain,
+  Sparkles,
+  Lightbulb,
+} from 'lucide-react';
+import AppHeader from '../../components/app/AppHeader';
+import Card from '../../components/Card';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import ErrorState from '../../components/ErrorState';
+import SimpleBarChart from '../../components/analytics/SimpleBarChart';
+import DonutChart from '../../components/analytics/DonutChart';
+import { ServiceTrendCard, IndustryTrendCard } from '../../components/trends/TrendCard';
+import { HotIndicator } from '../../components/trends/TrendBadge';
+import { InsightList } from '../../components/ai/InsightCard';
+import AIContent, { AIButton } from '../../components/ai/AIContent';
+import { useMetrics, type TimeFilter } from '../../hooks/useMetrics';
+import { useBusinessInsights } from '../../hooks/useAI';
+import { trendDetection } from '../../lib/trendDetection';
+import { intelligenceOrchestrator, type IntelligenceBriefing } from '../../lib/intelligenceOrchestrator';
+import type { ServiceTrend, IndustryTrend } from '../../lib/trendDetection';
+
+type AnalyticsView = 'overview' | 'sales' | 'delivery' | 'billing' | 'support' | 'clients';
+
+export default function Analytics() {
+  const [view, setView] = useState<AnalyticsView>('overview');
+  const [timeFilter, setTimeFilter] = useState<TimeFilter>('30d');
+  const { loading, metrics, error } = useMetrics(timeFilter);
+  const [hotOpportunities, setHotOpportunities] = useState<any>(null);
+  const [briefings, setBriefings] = useState<IntelligenceBriefing[]>([]);
+  const [businessHealth, setBusinessHealth] = useState<any>(null);
+  const aiInsights = useBusinessInsights();
+
+  const views = [
+    { id: 'overview' as const, label: 'Overview', icon: BarChart3 },
+    { id: 'sales' as const, label: 'Sales & CRM', icon: TrendingUp },
+    { id: 'delivery' as const, label: 'Delivery', icon: Package },
+    { id: 'billing' as const, label: 'Revenue', icon: DollarSign },
+    { id: 'support' as const, label: 'Support', icon: AlertCircle },
+    { id: 'clients' as const, label: 'Clients', icon: Building2 },
+  ];
+
+  useEffect(() => {
+    loadIntelligenceData();
+  }, []);
+
+  const loadIntelligenceData = async () => {
+    try {
+      const [opportunities, executiveBriefings, health] = await Promise.all([
+        trendDetection.getHotOpportunities(),
+        intelligenceOrchestrator.generateExecutiveBriefing(),
+        intelligenceOrchestrator.getBusinessHealth(),
+      ]);
+      setHotOpportunities(opportunities);
+      setBriefings(executiveBriefings);
+      setBusinessHealth(health);
+    } catch (err) {
+      console.error('Failed to load intelligence data:', err);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <ErrorState message={error} />;
+  }
+
+  if (!metrics) {
+    return <ErrorState message="No metrics available" />;
+  }
+
+  return (
+    <>
+      <AppHeader
+        title="Business Analytics"
+        subtitle="Executive insights into sales, delivery, billing, and operations"
+      />
+
+      <div className="p-8 space-y-8">
+        {businessHealth && view === 'overview' && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-4"
+          >
+            <Card className={`p-6 ${
+              businessHealth.overall === 'excellent' ? 'bg-green-500/10 border-green-500/30' :
+              businessHealth.overall === 'good' ? 'bg-blue-500/10 border-blue-500/30' :
+              businessHealth.overall === 'fair' ? 'bg-yellow-500/10 border-yellow-500/30' :
+              'bg-red-500/10 border-red-500/30'
+            }`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className={`p-3 rounded-lg ${
+                    businessHealth.overall === 'excellent' ? 'bg-green-500/20' :
+                    businessHealth.overall === 'good' ? 'bg-blue-500/20' :
+                    businessHealth.overall === 'fair' ? 'bg-yellow-500/20' :
+                    'bg-red-500/20'
+                  }`}>
+                    <Heart className={`w-8 h-8 ${
+                      businessHealth.overall === 'excellent' ? 'text-green-400' :
+                      businessHealth.overall === 'good' ? 'text-blue-400' :
+                      businessHealth.overall === 'fair' ? 'text-yellow-400' :
+                      'text-red-400'
+                    }`} />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white capitalize">
+                      {businessHealth.overall} Health
+                    </h2>
+                    <p className="text-sm text-slate-400">Business health score: {businessHealth.score}/100</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  {businessHealth.factors.map((factor: any, index: number) => (
+                    <div key={index} className="text-right">
+                      <p className="text-xs text-slate-400">{factor.name}</p>
+                      <p className={`text-lg font-bold ${
+                        factor.status === 'good' ? 'text-green-400' :
+                        factor.status === 'warning' ? 'text-yellow-400' :
+                        'text-red-400'
+                      }`}>
+                        {factor.impact > 0 ? '+' : ''}{factor.impact}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+        )}
+
+        {briefings.length > 0 && view === 'overview' && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-4"
+          >
+            <div className="flex items-center gap-3">
+              <Brain className="w-6 h-6 text-blue-400" />
+              <h2 className="text-xl font-bold text-white">Executive Intelligence Briefing</h2>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {briefings.map((briefing, index) => (
+                <Card key={index} className={`p-6 ${
+                  briefing.priority === 'critical' ? 'bg-red-500/10 border-red-500/30' :
+                  briefing.priority === 'high' ? 'bg-orange-500/10 border-orange-500/30' :
+                  'bg-blue-500/10 border-blue-500/30'
+                }`}>
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className={`p-2 rounded-lg ${
+                      briefing.priority === 'critical' ? 'bg-red-500/20' :
+                      briefing.priority === 'high' ? 'bg-orange-500/20' :
+                      'bg-blue-500/20'
+                    }`}>
+                      {briefing.priority === 'critical' || briefing.priority === 'high' ? (
+                        <AlertCircle className="w-5 h-5 text-white" />
+                      ) : (
+                        <Lightbulb className="w-5 h-5 text-white" />
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-white mb-1">{briefing.title}</h3>
+                      <p className="text-sm text-slate-300 mb-3">{briefing.summary}</p>
+                      {briefing.keyPoints.length > 0 && (
+                        <div className="space-y-1 mb-3">
+                          {briefing.keyPoints.map((point, idx) => (
+                            <div key={idx} className="flex items-start gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                              <span className="text-xs text-slate-400">{point}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {briefing.recommendations.length > 0 && (
+                        <div className="pt-3 border-t border-slate-700">
+                          <p className="text-xs font-medium text-slate-400 mb-2">Recommended Actions</p>
+                          {briefing.recommendations.slice(0, 2).map((rec, idx) => (
+                            <p key={idx} className="text-xs text-blue-400 mb-1">→ {rec}</p>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {view === 'overview' && metrics && aiInsights.isAvailable && (
+          <Card className="p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-500/30">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-6 h-6 text-blue-400" />
+                <h2 className="text-xl font-bold text-white">AI Business Insights</h2>
+              </div>
+              {!aiInsights.data && !aiInsights.loading && (
+                <AIButton onClick={() => aiInsights.generate({
+                  totalLeads: metrics.sales?.totalLeads || 0,
+                  conversionRate: metrics.sales?.conversionRate || 0,
+                  activeProjects: metrics.operations?.activeProjects || 0,
+                  revenue: metrics.financial?.revenue || 0,
+                  clientCount: metrics.client?.totalClients || 0,
+                })}>
+                  Generate Insights
+                </AIButton>
+              )}
+            </div>
+
+            <AIContent
+              loading={aiInsights.loading}
+              error={aiInsights.error}
+              isAIGenerated={aiInsights.isAIGenerated}
+              fromCache={aiInsights.fromCache}
+              provider={aiInsights.provider}
+              onRetry={() => aiInsights.generate({
+                totalLeads: metrics.sales?.totalLeads || 0,
+                conversionRate: metrics.sales?.conversionRate || 0,
+                activeProjects: metrics.operations?.activeProjects || 0,
+                revenue: metrics.financial?.revenue || 0,
+                clientCount: metrics.client?.totalClients || 0,
+              }, false)}
+            >
+              {aiInsights.data && (
+                <div className="space-y-6">
+                  <div>
+                    <p className="text-slate-300 leading-relaxed">{aiInsights.data.summary}</p>
+                  </div>
+
+                  {aiInsights.data.opportunities && aiInsights.data.opportunities.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-bold text-white mb-3">Growth Opportunities</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {aiInsights.data.opportunities.map((opp: any, idx: number) => (
+                          <div key={idx} className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+                            <div className="flex items-start justify-between mb-2">
+                              <h4 className="font-medium text-white">{opp.title}</h4>
+                              <div className="flex gap-1">
+                                <span className={`text-xs px-2 py-0.5 rounded ${
+                                  opp.impact === 'high' ? 'bg-green-500/20 text-green-300' :
+                                  opp.impact === 'medium' ? 'bg-yellow-500/20 text-yellow-300' :
+                                  'bg-slate-500/20 text-slate-300'
+                                }`}>
+                                  {opp.impact} impact
+                                </span>
+                              </div>
+                            </div>
+                            <p className="text-sm text-slate-400">{opp.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {aiInsights.data.risks && aiInsights.data.risks.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-bold text-white mb-3">Risk Factors</h3>
+                      <div className="space-y-3">
+                        {aiInsights.data.risks.map((risk: any, idx: number) => (
+                          <div key={idx} className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                            <div className="flex items-start justify-between mb-2">
+                              <h4 className="font-medium text-white">{risk.title}</h4>
+                              <span className={`text-xs px-2 py-0.5 rounded ${
+                                risk.severity === 'high' ? 'bg-red-500/20 text-red-300' :
+                                risk.severity === 'medium' ? 'bg-yellow-500/20 text-yellow-300' :
+                                'bg-slate-500/20 text-slate-300'
+                              }`}>
+                                {risk.severity}
+                              </span>
+                            </div>
+                            <p className="text-sm text-slate-400 mb-2">{risk.description}</p>
+                            <p className="text-xs text-slate-500">
+                              <span className="text-slate-400 font-medium">Mitigation:</span> {risk.mitigation}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {aiInsights.data.recommendations && aiInsights.data.recommendations.length > 0 && (
+                    <div className="pt-4 border-t border-slate-700">
+                      <h3 className="text-sm font-bold text-white mb-3">Key Recommendations</h3>
+                      <div className="space-y-2">
+                        {aiInsights.data.recommendations.map((rec: string, idx: number) => (
+                          <div key={idx} className="flex items-start gap-2">
+                            <ArrowRight className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                            <span className="text-sm text-slate-300">{rec}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </AIContent>
+          </Card>
+        )}
+
+        {/* View and Time Filter */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2 overflow-x-auto pb-2">
+            {views.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => setView(id)}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all whitespace-nowrap ${
+                  view === id
+                    ? 'bg-[#3B82F6] text-white'
+                    : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span className="text-sm font-medium">{label}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 bg-slate-800/50 border border-slate-700 rounded-lg p-1">
+            {(['7d', '30d', '90d', 'all'] as TimeFilter[]).map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setTimeFilter(filter)}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  timeFilter === filter
+                    ? 'bg-blue-500 text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                {filter === 'all' ? 'All Time' : filter.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {view === 'overview' && (
+          <>
+            {hotOpportunities && (hotOpportunities.hotServices.length > 0 || hotOpportunities.hotIndustries.length > 0) && (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-lg">
+                      <Flame className="w-6 h-6 text-orange-400" />
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-bold text-white">Hot Opportunities</h2>
+                      <p className="text-sm text-slate-400">High-growth areas detected</p>
+                    </div>
+                  </div>
+                  <Link
+                    to="/app/trends"
+                    className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    View All Trends
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {hotOpportunities.hotServices.slice(0, 2).map((trend: ServiceTrend, index: number) => (
+                    <ServiceTrendCard key={index} trend={trend} />
+                  ))}
+                  {hotOpportunities.hotIndustries.slice(0, 1).map((trend: IndustryTrend, index: number) => (
+                    <IndustryTrendCard key={index} trend={trend} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <OverviewView metrics={metrics} />
+          </>
+        )}
+
+        {view === 'sales' && <SalesView data={metrics.conversion} />}
+        {view === 'delivery' && <DeliveryView data={metrics.projects} />}
+        {view === 'billing' && <BillingView data={metrics.revenue} />}
+        {view === 'support' && <SupportView data={metrics.support} />}
+        {view === 'clients' && <ClientsView data={metrics.clients} />}
+      </div>
+    </>
+  );
+}
+
+function OverviewView({ metrics }: { metrics: any }) {
+  const { conversion, revenue, projects, support, clients, onboarding, engagement } = metrics;
+
+  const kpis = [
+    {
+      label: 'Total Leads',
+      value: conversion.totalLeads.toLocaleString(),
+      change: `${conversion.qualifiedLeads} qualified`,
+      icon: Users,
+      color: '#3B82F6',
+    },
+    {
+      label: 'Active Projects',
+      value: projects.activeProjects.toLocaleString(),
+      change: `${projects.atRiskProjects} at risk`,
+      icon: Package,
+      color: '#10B981',
+    },
+    {
+      label: 'Monthly Recurring Revenue',
+      value: `$${revenue.mrr.toLocaleString()}`,
+      change: `$${revenue.arr.toLocaleString()} ARR`,
+      icon: DollarSign,
+      color: '#F59E0B',
+    },
+    {
+      label: 'Open Support Tickets',
+      value: support.openTickets.toLocaleString(),
+      change: `${support.resolvedTickets} resolved`,
+      icon: AlertCircle,
+      color: '#EF4444',
+    },
+    {
+      label: 'Active Clients',
+      value: clients.activeClients.toLocaleString(),
+      change: `${clients.retentionRate.toFixed(1)}% retention`,
+      icon: Building2,
+      color: '#8B5CF6',
+    },
+    {
+      label: 'Conversion Rate',
+      value: `${conversion.overallConversionRate.toFixed(1)}%`,
+      change: `${conversion.proposalsAccepted} won`,
+      icon: Target,
+      color: '#10B981',
+    },
+  ];
+
+  return (
+    <div className="space-y-8">
+      {/* Key Metrics */}
+      <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
+        {kpis.map((kpi, index) => (
+          <motion.div
+            key={kpi.label}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05 }}
+          >
+            <Card glass className="p-6">
+              <div className="flex items-center space-x-3 mb-4">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center"
+                  style={{ backgroundColor: `${kpi.color}20` }}
+                >
+                  <kpi.icon className="w-5 h-5" style={{ color: kpi.color }} />
+                </div>
+              </div>
+              <p className="text-slate-400 text-sm mb-1">{kpi.label}</p>
+              <p className="text-2xl font-bold text-white mb-1">{kpi.value}</p>
+              <p className="text-xs text-slate-500">{kpi.change}</p>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Quick Insights Grid */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-6">
+            <Activity className="w-5 h-5 text-[#3B82F6]" />
+            <h3 className="text-lg font-bold text-white">Pipeline Health</h3>
+          </div>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <p className="text-slate-400 text-sm mb-2">Pipeline Value</p>
+              <p className="text-3xl font-bold text-white">
+                ${(conversion.projectedRevenue / 1000).toFixed(0)}K
+              </p>
+            </div>
+            <div>
+              <p className="text-slate-400 text-sm mb-2">Conversion Rate</p>
+              <p className="text-3xl font-bold text-[#10B981]">
+                {conversion.overallConversionRate.toFixed(1)}%
+              </p>
+            </div>
+          </div>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-6">
+            <Zap className="w-5 h-5 text-[#F59E0B]" />
+            <h3 className="text-lg font-bold text-white">Delivery Performance</h3>
+          </div>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <p className="text-slate-400 text-sm mb-2">Project Completion</p>
+              <p className="text-3xl font-bold text-white">
+                {projects.completionRate.toFixed(0)}%
+              </p>
+            </div>
+            <div>
+              <p className="text-slate-400 text-sm mb-2">Avg. Project Length</p>
+              <p className="text-3xl font-bold text-[#3B82F6]">
+                {projects.avgProjectDuration.toFixed(0)}d
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function SalesView({ data }: { data: any }) {
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-4 gap-6">
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <Users className="w-5 h-5 text-[#3B82F6]" />
+            <p className="text-slate-400 text-sm">Total Leads</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.totalLeads}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
+            <p className="text-slate-400 text-sm">Qualified</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.qualifiedLeads}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <Target className="w-5 h-5 text-[#F59E0B]" />
+            <p className="text-slate-400 text-sm">Conversion Rate</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.overallConversionRate.toFixed(1)}%</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <DollarSign className="w-5 h-5 text-[#10B981]" />
+            <p className="text-slate-400 text-sm">Pipeline Value</p>
+          </div>
+          <p className="text-3xl font-bold text-white">
+            ${(data.projectedRevenue / 1000).toFixed(0)}K
+          </p>
+        </Card>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Conversion Funnel</h3>
+          <div className="space-y-6">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-slate-400 text-sm">Total Leads</span>
+                <span className="text-white font-bold">{data.totalLeads}</span>
+              </div>
+              <div className="w-full bg-slate-800/50 rounded-full h-2">
+                <div
+                  className="h-full bg-[#3B82F6] rounded-full"
+                  style={{ width: '100%' }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-slate-400 text-sm">Proposals Sent</span>
+                <span className="text-white font-bold">{data.proposalsSent}</span>
+              </div>
+              <div className="w-full bg-slate-800/50 rounded-full h-2">
+                <div
+                  className="h-full bg-[#8B5CF6] rounded-full"
+                  style={{ width: `${data.leadToProposalRate}%` }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-slate-400 text-sm">Proposals Accepted</span>
+                <span className="text-white font-bold">{data.proposalsAccepted}</span>
+              </div>
+              <div className="w-full bg-slate-800/50 rounded-full h-2">
+                <div
+                  className="h-full bg-[#10B981] rounded-full"
+                  style={{ width: `${data.proposalAcceptanceRate}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Key Metrics</h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-slate-400">Lead to Proposal</span>
+              <span className="text-white font-bold">{data.leadToProposalRate.toFixed(1)}%</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-slate-400">Proposal Acceptance</span>
+              <span className="text-white font-bold">{data.proposalAcceptanceRate.toFixed(1)}%</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-slate-400">Overall Conversion</span>
+              <span className="text-white font-bold">{data.overallConversionRate.toFixed(1)}%</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-slate-400">Qualified Leads</span>
+              <span className="text-white font-bold">{data.qualifiedLeads}</span>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function DeliveryView({ data }: { data: any }) {
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-4 gap-6">
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <Package className="w-5 h-5 text-[#3B82F6]" />
+            <p className="text-slate-400 text-sm">Active Projects</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.activeProjects}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <AlertCircle className="w-5 h-5 text-[#EF4444]" />
+            <p className="text-slate-400 text-sm">At Risk</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.projectsAtRisk}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
+            <p className="text-slate-400 text-sm">Completed</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.completedProjects}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <Clock className="w-5 h-5 text-[#F59E0B]" />
+            <p className="text-slate-400 text-sm">Avg. Duration</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.averageCompletion.toFixed(0)}d</p>
+        </Card>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Projects by Status</h3>
+          <DonutChart
+            data={data.projectsByStatus.map(item => ({
+              label: item.status.replace('_', ' '),
+              value: item.count,
+            }))}
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Projects by Phase</h3>
+          <SimpleBarChart
+            data={data.projectsByPhase.map(item => ({
+              label: item.phase.replace('_', ' '),
+              value: item.count,
+            }))}
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Projects by Service Type</h3>
+          <SimpleBarChart
+            data={data.projectsByServiceType.map(item => ({
+              label: item.service_type.replace('_', ' '),
+              value: item.count,
+            }))}
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Health Status</h3>
+          <DonutChart
+            data={data.projectsByHealthStatus.map(item => ({
+              label: item.health_status,
+              value: item.count,
+              color:
+                item.health_status === 'green'
+                  ? '#10B981'
+                  : item.health_status === 'yellow'
+                  ? '#F59E0B'
+                  : '#EF4444',
+            }))}
+          />
+        </Card>
+      </div>
+
+      <Card glass className="p-6">
+        <h3 className="text-lg font-bold text-white mb-4">Milestone Completion</h3>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-slate-400">Overall Progress</span>
+            <span className="text-white font-bold">
+              {data.milestoneCompletionRate.toFixed(1)}%
+            </span>
+          </div>
+          <div className="w-full bg-slate-800/50 rounded-full h-3">
+            <div
+              className="h-full bg-gradient-to-r from-[#3B82F6] to-[#10B981] rounded-full"
+              style={{ width: `${data.milestoneCompletionRate}%` }}
+            />
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function BillingView({ data }: { data: any }) {
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-4 gap-6">
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <DollarSign className="w-5 h-5 text-[#10B981]" />
+            <p className="text-slate-400 text-sm">MRR</p>
+          </div>
+          <p className="text-3xl font-bold text-white">${data.totalMRR.toLocaleString()}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <TrendingUp className="w-5 h-5 text-[#3B82F6]" />
+            <p className="text-slate-400 text-sm">Active Subscriptions</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.activeSubscriptions}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <FileText className="w-5 h-5 text-[#10B981]" />
+            <p className="text-slate-400 text-sm">Paid Invoices</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.invoicesPaid}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <AlertCircle className="w-5 h-5 text-[#F59E0B]" />
+            <p className="text-slate-400 text-sm">Outstanding</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.invoicesOutstanding}</p>
+        </Card>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Revenue Mix</h3>
+          <DonutChart
+            data={[
+              {
+                label: 'Platform Revenue',
+                value: Math.round(data.platformRevenue),
+                color: '#3B82F6',
+              },
+              {
+                label: 'Project Revenue',
+                value: Math.round(data.projectRevenue),
+                color: '#10B981',
+              },
+            ]}
+            centerText={`$${((data.platformRevenue + data.projectRevenue) / 1000).toFixed(0)}K`}
+            centerSubtext="Total"
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Subscriptions by Plan</h3>
+          <SimpleBarChart
+            data={data.subscriptionsByPlan.map(item => ({
+              label: item.plan,
+              value: item.count,
+            }))}
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Subscription Status</h3>
+          <DonutChart
+            data={data.subscriptionsByStatus.map(item => ({
+              label: item.status,
+              value: item.count,
+            }))}
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Key Metrics</h3>
+          <div className="space-y-6">
+            <div>
+              <p className="text-slate-400 text-sm mb-2">Total Revenue</p>
+              <p className="text-3xl font-bold text-white">
+                ${data.totalRevenue.toLocaleString()}
+              </p>
+            </div>
+            <div>
+              <p className="text-slate-400 text-sm mb-2">Avg. Project Value</p>
+              <p className="text-3xl font-bold text-[#3B82F6]">
+                ${data.averageProjectValue.toLocaleString()}
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function SupportView({ data }: { data: any }) {
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-4 gap-6">
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <AlertCircle className="w-5 h-5 text-[#EF4444]" />
+            <p className="text-slate-400 text-sm">Open Tickets</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.openTickets}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
+            <p className="text-slate-400 text-sm">Resolved</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.resolvedTickets}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <Clock className="w-5 h-5 text-[#F59E0B]" />
+            <p className="text-slate-400 text-sm">Avg. Resolution</p>
+          </div>
+          <p className="text-3xl font-bold text-white">
+            {data.averageResolutionTime.toFixed(0)}h
+          </p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <Activity className="w-5 h-5 text-[#3B82F6]" />
+            <p className="text-slate-400 text-sm">This Week</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.ticketsThisWeek}</p>
+        </Card>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Tickets by Priority</h3>
+          <DonutChart
+            data={data.ticketsByPriority.map(item => ({
+              label: item.priority,
+              value: item.count,
+              color:
+                item.priority === 'urgent'
+                  ? '#EF4444'
+                  : item.priority === 'high'
+                  ? '#F59E0B'
+                  : item.priority === 'medium'
+                  ? '#3B82F6'
+                  : '#10B981',
+            }))}
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Tickets by Category</h3>
+          <SimpleBarChart
+            data={data.ticketsByCategory.map(item => ({
+              label: item.category.replace('_', ' '),
+              value: item.count,
+            }))}
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Tickets by Status</h3>
+          <SimpleBarChart
+            data={data.ticketsByStatus.map(item => ({
+              label: item.status.replace('_', ' '),
+              value: item.count,
+            }))}
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Recent Activity</h3>
+          <div className="space-y-4">
+            <div>
+              <p className="text-slate-400 text-sm mb-1">This Week</p>
+              <p className="text-2xl font-bold text-white">{data.ticketsThisWeek} tickets</p>
+            </div>
+            <div>
+              <p className="text-slate-400 text-sm mb-1">This Month</p>
+              <p className="text-2xl font-bold text-white">{data.ticketsThisMonth} tickets</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function ClientsView({ data }: { data: any }) {
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-4 gap-6">
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <Building2 className="w-5 h-5 text-[#3B82F6]" />
+            <p className="text-slate-400 text-sm">Total Clients</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.totalClients}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
+            <p className="text-slate-400 text-sm">Active</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.activeClients}</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <Heart className="w-5 h-5 text-[#EC4899]" />
+            <p className="text-slate-400 text-sm">Retention Rate</p>
+          </div>
+          <p className="text-3xl font-bold text-white">{data.retentionRate.toFixed(1)}%</p>
+        </Card>
+
+        <Card glass className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <DollarSign className="w-5 h-5 text-[#F59E0B]" />
+            <p className="text-slate-400 text-sm">Avg. Client Value</p>
+          </div>
+          <p className="text-3xl font-bold text-white">
+            ${(data.averageClientValue / 1000).toFixed(0)}K
+          </p>
+        </Card>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Client Type Distribution</h3>
+          <DonutChart
+            data={data.clientsByType.map(item => ({
+              label: item.type,
+              value: item.count,
+            }))}
+            centerText={data.totalClients.toString()}
+            centerSubtext="Clients"
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Clients by Industry</h3>
+          <SimpleBarChart
+            data={data.clientsByIndustry
+              .sort((a, b) => b.count - a.count)
+              .slice(0, 8)
+              .map(item => ({
+                label: item.industry,
+                value: item.count,
+              }))}
+          />
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Onboarding Status</h3>
+          <div className="space-y-6">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-slate-400">Completed</span>
+                <span className="text-white font-bold">{data.onboardingCompleted}</span>
+              </div>
+              <div className="w-full bg-slate-800/50 rounded-full h-2">
+                <div
+                  className="h-full bg-[#10B981] rounded-full"
+                  style={{
+                    width: `${(data.onboardingCompleted / data.totalClients) * 100}%`,
+                  }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-slate-400">In Progress</span>
+                <span className="text-white font-bold">{data.onboardingInProgress}</span>
+              </div>
+              <div className="w-full bg-slate-800/50 rounded-full h-2">
+                <div
+                  className="h-full bg-[#3B82F6] rounded-full"
+                  style={{
+                    width: `${(data.onboardingInProgress / data.totalClients) * 100}%`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card glass className="p-6">
+          <h3 className="text-lg font-bold text-white mb-6">Client Segments</h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-slate-800/30 rounded-lg border border-slate-700/50">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-[#10B981]/10 rounded-lg flex items-center justify-center">
+                  <Building2 className="w-5 h-5 text-[#10B981]" />
+                </div>
+                <span className="text-slate-300">Enterprise</span>
+              </div>
+              <span className="text-xl font-bold text-white">{data.enterpriseClients}</span>
+            </div>
+            <div className="flex items-center justify-between p-4 bg-slate-800/30 rounded-lg border border-slate-700/50">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-[#3B82F6]/10 rounded-lg flex items-center justify-center">
+                  <Users className="w-5 h-5 text-[#3B82F6]" />
+                </div>
+                <span className="text-slate-300">Active</span>
+              </div>
+              <span className="text-xl font-bold text-white">{data.activeClients}</span>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}

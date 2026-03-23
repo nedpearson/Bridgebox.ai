@@ -1,0 +1,218 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import RoleGuard from './components/auth/RoleGuard';
+import MainLayout from './layouts/MainLayout';
+import AppLayout from './layouts/AppLayout';
+import ClientPortalLayout from './layouts/ClientPortalLayout';
+import Home from './pages/Home';
+import Platform from './pages/Platform';
+import Solutions from './pages/Solutions';
+import UseCases from './pages/UseCases';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Pricing from './pages/Pricing';
+import Services from './pages/Services';
+import CustomSoftware from './pages/CustomSoftware';
+import Dashboards from './pages/Dashboards';
+import MobileApps from './pages/MobileApps';
+import CaseStudies from './pages/CaseStudies';
+import CaseStudyDetail from './pages/CaseStudyDetail';
+import Industries from './pages/Industries';
+import FAQ from './pages/FAQ';
+import Start from './pages/Start';
+import Login from './pages/auth/Login';
+import Signup from './pages/auth/Signup';
+import OrganizationOnboarding from './pages/auth/OrganizationOnboarding';
+import AdminPreview from './pages/AdminPreview';
+import AppOverview from './pages/app/AppOverview';
+import Pipeline from './pages/app/Pipeline';
+import LeadsList from './pages/app/LeadsList';
+import LeadDetail from './pages/app/LeadDetail';
+import ProposalsList from './pages/app/ProposalsList';
+import ProposalDetail from './pages/app/ProposalDetail';
+import ClientsList from './pages/app/ClientsList';
+import ClientDetail from './pages/app/ClientDetail';
+import ProjectsList from './pages/app/ProjectsList';
+import ProjectDetail from './pages/app/ProjectDetail';
+import BillingOverview from './pages/app/BillingOverview';
+import Integrations from './pages/app/Integrations';
+import Settings from './pages/app/Settings';
+import ClientHome from './pages/client-portal/ClientHome';
+import ClientProjects from './pages/client-portal/ClientProjects';
+import ClientDeliverables from './pages/client-portal/ClientDeliverables';
+import ClientSupport from './pages/client-portal/ClientSupport';
+import ClientBilling from './pages/client-portal/ClientBilling';
+import ClientSettings from './pages/client-portal/ClientSettings';
+import OnboardingFlow from './pages/onboarding/OnboardingFlow';
+import AcceptInvitation from './pages/auth/AcceptInvitation';
+import Team from './pages/app/Team';
+import ProposalForm from './pages/app/ProposalForm';
+import SupportQueue from './pages/app/SupportQueue';
+import SupportTicketDetail from './pages/app/SupportTicketDetail';
+import ClientSupportDetail from './pages/client-portal/ClientSupportDetail';
+import DeliveryOverview from './pages/app/DeliveryOverview';
+import ProjectDeliveryDetail from './pages/app/ProjectDeliveryDetail';
+import ConversionsDashboard from './pages/app/ConversionsDashboard';
+import ProposalView from './pages/ProposalView';
+import Analytics from './pages/app/Analytics';
+import ExecutiveCommandCenter from './pages/app/ExecutiveCommandCenter';
+import ImplementationCenter from './pages/app/ImplementationCenter';
+import ImplementationDetail from './pages/app/ImplementationDetail';
+import ClientSuccess from './pages/app/ClientSuccess';
+import ClientSuccessDetail from './pages/app/ClientSuccessDetail';
+import Automations from './pages/app/Automations';
+import AutomationForm from './pages/app/AutomationForm';
+import Knowledge from './pages/app/Knowledge';
+import KnowledgeDetail from './pages/app/KnowledgeDetail';
+import Copilot from './pages/app/Copilot';
+import DataActivity from './pages/app/DataActivity';
+import TrendsCenter from './pages/app/TrendsCenter';
+import MarketSignals from './pages/app/MarketSignals';
+import Opportunities from './pages/app/Opportunities';
+import AgentActions from './pages/app/AgentActions';
+import { Workflows } from './pages/app/Workflows';
+import { WorkflowBuilder } from './pages/app/WorkflowBuilder';
+import { WorkflowTemplates } from './pages/app/WorkflowTemplates';
+import { WorkflowExecutions } from './pages/app/WorkflowExecutions';
+import { Documents } from './pages/app/Documents';
+import { DocumentDetail } from './pages/app/DocumentDetail';
+import MobileHome from './pages/mobile/MobileHome';
+import MobileTasks from './pages/mobile/MobileTasks';
+import MobileTaskDetail from './pages/mobile/MobileTaskDetail';
+import MobileProjects from './pages/mobile/MobileProjects';
+import MobileProjectDetail from './pages/mobile/MobileProjectDetail';
+import MobileUpload from './pages/mobile/MobileUpload';
+import BrandingSettings from './pages/app/BrandingSettings';
+import FeatureSettings from './pages/app/FeatureSettings';
+import RolesSettings from './pages/app/RolesSettings';
+
+function App() {
+  return (
+    <Router>
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/onboarding" element={<ProtectedRoute><OrganizationOnboarding /></ProtectedRoute>} />
+          <Route path="/setup" element={<ProtectedRoute><OnboardingFlow /></ProtectedRoute>} />
+          <Route path="/invitations/accept" element={<AcceptInvitation />} />
+          <Route path="/admin-preview" element={<AdminPreview />} />
+          <Route path="/proposal/:token" element={<ProposalView />} />
+          <Route
+            path="/app/*"
+            element={
+              <ProtectedRoute>
+                <RoleGuard requireInternalStaff>
+                  <AppLayout>
+                    <Routes>
+                      <Route path="/" element={<AppOverview />} />
+                      <Route path="/executive" element={<ExecutiveCommandCenter />} />
+                      <Route path="/pipeline" element={<Pipeline />} />
+                      <Route path="/leads" element={<LeadsList />} />
+                      <Route path="/leads/:id" element={<LeadDetail />} />
+                      <Route path="/proposals" element={<ProposalsList />} />
+                      <Route path="/proposals/new" element={<ProposalForm />} />
+                      <Route path="/proposals/:id" element={<ProposalDetail />} />
+                      <Route path="/clients" element={<ClientsList />} />
+                      <Route path="/clients/:id" element={<ClientDetail />} />
+                      <Route path="/projects" element={<ProjectsList />} />
+                      <Route path="/projects/:id" element={<ProjectDetail />} />
+                      <Route path="/billing" element={<BillingOverview />} />
+                      <Route path="/integrations" element={<Integrations />} />
+                      <Route path="/delivery" element={<DeliveryOverview />} />
+                      <Route path="/delivery/:projectId" element={<ProjectDeliveryDetail />} />
+                      <Route path="/implementation" element={<ImplementationCenter />} />
+                      <Route path="/implementation/:projectId" element={<ImplementationDetail />} />
+                      <Route path="/client-success" element={<ClientSuccess />} />
+                      <Route path="/client-success/:clientId" element={<ClientSuccessDetail />} />
+                      <Route path="/automations" element={<Automations />} />
+                      <Route path="/automations/new" element={<AutomationForm />} />
+                      <Route path="/workflows" element={<Workflows />} />
+                      <Route path="/workflows/new" element={<WorkflowBuilder />} />
+                      <Route path="/workflows/templates" element={<WorkflowTemplates />} />
+                      <Route path="/workflows/:id" element={<WorkflowBuilder />} />
+                      <Route path="/workflows/:id/executions" element={<WorkflowExecutions />} />
+                      <Route path="/documents" element={<Documents />} />
+                      <Route path="/documents/:id" element={<DocumentDetail />} />
+                      <Route path="/knowledge" element={<Knowledge />} />
+                      <Route path="/knowledge/:docId" element={<KnowledgeDetail />} />
+                      <Route path="/copilot" element={<Copilot />} />
+                      <Route path="/support" element={<SupportQueue />} />
+                      <Route path="/support/:id" element={<SupportTicketDetail />} />
+                      <Route path="/team" element={<Team />} />
+                      <Route path="/conversions" element={<ConversionsDashboard />} />
+                      <Route path="/analytics" element={<Analytics />} />
+                      <Route path="/trends" element={<TrendsCenter />} />
+                      <Route path="/market-signals" element={<MarketSignals />} />
+                      <Route path="/opportunities" element={<Opportunities />} />
+                      <Route path="/agent-actions" element={<AgentActions />} />
+                      <Route path="/data-activity" element={<DataActivity />} />
+                      <Route path="/settings" element={<Settings />} />
+                      <Route path="/settings/branding" element={<BrandingSettings />} />
+                      <Route path="/settings/features" element={<FeatureSettings />} />
+                      <Route path="/settings/roles" element={<RolesSettings />} />
+                      <Route path="/mobile" element={<MobileHome />} />
+                      <Route path="/mobile/tasks" element={<MobileTasks />} />
+                      <Route path="/mobile/tasks/:id" element={<MobileTaskDetail />} />
+                      <Route path="/mobile/projects" element={<MobileProjects />} />
+                      <Route path="/mobile/projects/:id" element={<MobileProjectDetail />} />
+                      <Route path="/mobile/upload" element={<MobileUpload />} />
+                    </Routes>
+                  </AppLayout>
+                </RoleGuard>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/portal/*"
+            element={
+              <ProtectedRoute>
+                <RoleGuard requireClientUser>
+                  <ClientPortalLayout>
+                    <Routes>
+                      <Route path="/" element={<ClientHome />} />
+                      <Route path="/projects" element={<ClientProjects />} />
+                      <Route path="/deliverables" element={<ClientDeliverables />} />
+                      <Route path="/support" element={<ClientSupport />} />
+                      <Route path="/support/:id" element={<ClientSupportDetail />} />
+                      <Route path="/billing" element={<ClientBilling />} />
+                      <Route path="/settings" element={<ClientSettings />} />
+                    </Routes>
+                  </ClientPortalLayout>
+                </RoleGuard>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <MainLayout>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/platform" element={<Platform />} />
+                  <Route path="/solutions" element={<Solutions />} />
+                  <Route path="/use-cases" element={<UseCases />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/custom-software" element={<CustomSoftware />} />
+                  <Route path="/dashboards" element={<Dashboards />} />
+                  <Route path="/mobile-apps" element={<MobileApps />} />
+                  <Route path="/case-studies" element={<CaseStudies />} />
+                  <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
+                  <Route path="/industries" element={<Industries />} />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/start" element={<Start />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/pricing" element={<Pricing />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </MainLayout>
+            }
+          />
+        </Routes>
+      </AuthProvider>
+    </Router>
+  );
+}
+
+export default App;
