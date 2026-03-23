@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, ExternalLink, Users, CheckCircle2, FolderKanban } from 'lucide-react';
-import { Link } from 'react-router-dom';
+
 import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -40,19 +40,6 @@ export default function ClientProjects() {
     }
   };
 
-  const getStatusVariant = (status: string) => {
-    switch (status) {
-      case 'deployed':
-      case 'completed':
-        return 'success';
-      case 'testing':
-        return 'warning';
-      case 'in_progress':
-        return 'info';
-      default:
-        return 'default';
-    }
-  };
 
   if (loading) {
     return (
@@ -66,177 +53,6 @@ export default function ClientProjects() {
     return <ErrorState message={error} />;
   }
 
-  const mockProjects: any[] = [
-    {
-      id: '1',
-      name: 'Enterprise Analytics Dashboard',
-      description: 'Real-time analytics platform with custom reporting and data visualization',
-      type: 'dashboard',
-      status: 'in_progress',
-      progress_percentage: 65,
-      target_launch_date: 'May 15, 2024',
-      staging_url: 'https://staging-analytics.example.com',
-      client_id: '1',
-      created_at: '2024-02-01',
-      updated_at: '2024-03-20',
-      milestones: [
-        {
-          id: '1',
-          project_id: '1',
-          name: 'Discovery & Planning',
-          status: 'completed',
-          completion_date: 'Feb 15, 2024',
-          order: 1,
-          created_at: '2024-02-01',
-          updated_at: '2024-02-15',
-        },
-        {
-          id: '2',
-          project_id: '1',
-          name: 'UI/UX Design',
-          status: 'completed',
-          completion_date: 'Mar 5, 2024',
-          order: 2,
-          created_at: '2024-02-01',
-          updated_at: '2024-03-05',
-        },
-        {
-          id: '3',
-          project_id: '1',
-          name: 'Core Development',
-          status: 'in_progress',
-          order: 3,
-          created_at: '2024-02-01',
-          updated_at: '2024-03-20',
-        },
-        {
-          id: '4',
-          project_id: '1',
-          name: 'Testing & QA',
-          status: 'pending',
-          order: 4,
-          created_at: '2024-02-01',
-          updated_at: '2024-02-01',
-        },
-        {
-          id: '5',
-          project_id: '1',
-          name: 'Deployment',
-          status: 'pending',
-          order: 5,
-          created_at: '2024-02-01',
-          updated_at: '2024-02-01',
-        },
-      ],
-    },
-    {
-      id: '2',
-      name: 'Mobile Field Service App',
-      description: 'iOS and Android application for field technicians with offline capabilities',
-      type: 'mobile_app',
-      status: 'testing',
-      progress_percentage: 85,
-      target_launch_date: 'Apr 30, 2024',
-      client_id: '1',
-      created_at: '2024-01-15',
-      updated_at: '2024-03-22',
-      milestones: [
-        {
-          id: '6',
-          project_id: '2',
-          name: 'Requirements Gathering',
-          status: 'completed',
-          completion_date: 'Jan 25, 2024',
-          order: 1,
-          created_at: '2024-01-15',
-          updated_at: '2024-01-25',
-        },
-        {
-          id: '7',
-          project_id: '2',
-          name: 'Development Sprint 1',
-          status: 'completed',
-          completion_date: 'Feb 20, 2024',
-          order: 2,
-          created_at: '2024-01-15',
-          updated_at: '2024-02-20',
-        },
-        {
-          id: '8',
-          project_id: '2',
-          name: 'Development Sprint 2',
-          status: 'completed',
-          completion_date: 'Mar 15, 2024',
-          order: 3,
-          created_at: '2024-01-15',
-          updated_at: '2024-03-15',
-        },
-        {
-          id: '9',
-          project_id: '2',
-          name: 'Beta Testing',
-          status: 'in_progress',
-          order: 4,
-          created_at: '2024-01-15',
-          updated_at: '2024-03-22',
-        },
-        {
-          id: '10',
-          project_id: '2',
-          name: 'App Store Launch',
-          status: 'pending',
-          order: 5,
-          created_at: '2024-01-15',
-          updated_at: '2024-01-15',
-        },
-      ],
-    },
-    {
-      id: '3',
-      name: 'CRM Integration',
-      description: 'Salesforce integration with custom middleware and real-time sync',
-      type: 'integration',
-      status: 'deployed',
-      progress_percentage: 100,
-      actual_launch_date: 'Mar 1, 2024',
-      production_url: 'https://crm-sync.example.com',
-      client_id: '1',
-      created_at: '2024-01-01',
-      updated_at: '2024-03-01',
-      milestones: [
-        {
-          id: '11',
-          project_id: '3',
-          name: 'Integration Setup',
-          status: 'completed',
-          completion_date: 'Jan 15, 2024',
-          order: 1,
-          created_at: '2024-01-01',
-          updated_at: '2024-01-15',
-        },
-        {
-          id: '12',
-          project_id: '3',
-          name: 'Data Migration',
-          status: 'completed',
-          completion_date: 'Feb 5, 2024',
-          order: 2,
-          created_at: '2024-01-01',
-          updated_at: '2024-02-05',
-        },
-        {
-          id: '13',
-          project_id: '3',
-          name: 'Go Live',
-          status: 'completed',
-          completion_date: 'Mar 1, 2024',
-          order: 3,
-          created_at: '2024-01-01',
-          updated_at: '2024-03-01',
-        },
-      ],
-    },
-  ];
 
   const getMilestoneIcon = (status: string) => {
     switch (status) {
@@ -257,8 +73,15 @@ export default function ClientProjects() {
           <p className="text-slate-400">Track progress and milestones for your active projects</p>
         </div>
 
-        <div className="space-y-6">
-          {projects.map((project, index) => (
+        {projects.length === 0 ? (
+          <EmptyState
+            icon={FolderKanban}
+            title="No Active Projects"
+            description="You don't have any active projects at the moment."
+          />
+        ) : (
+          <div className="space-y-6">
+            {projects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
@@ -311,7 +134,7 @@ export default function ClientProjects() {
                     <div className="relative">
                       <div className="absolute left-[10px] top-0 bottom-0 w-0.5 bg-slate-700" />
                       <div className="space-y-4">
-                        {project.milestones.map((milestone, idx) => (
+                        {project.milestones.map((milestone: any, idx: number) => (
                           <motion.div
                             key={milestone.id}
                             initial={{ opacity: 0, x: -20 }}
@@ -381,8 +204,9 @@ export default function ClientProjects() {
                 </div>
               </Card>
             </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

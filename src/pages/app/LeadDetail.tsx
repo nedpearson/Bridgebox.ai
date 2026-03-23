@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Users, Mail, Phone, Globe, Calendar, DollarSign, FileText, ArrowRight, Brain, Clock, Target, AlertCircle } from 'lucide-react';
+
+import { ArrowLeft, Users, Mail, Phone, FileText, ArrowRight, Brain, Clock, Target, AlertCircle } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -73,7 +73,7 @@ export default function LeadDetail() {
       case 'converted':
         return 'success';
       case 'lost':
-        return 'error';
+        return 'danger';
       case 'proposal_sent':
       case 'negotiation':
         return 'warning';
@@ -193,10 +193,10 @@ export default function LeadDetail() {
                 <Mail className="w-4 h-4 text-slate-500" />
                 <span className="text-sm">{lead.email}</span>
               </div>
-              {lead.phone && (
+              {(lead as any).phone && (
                 <div className="flex items-center space-x-3 text-slate-300">
                   <Phone className="w-4 h-4 text-slate-500" />
-                  <span className="text-sm">{lead.phone}</span>
+                  <span className="text-sm">{(lead as any).phone}</span>
                 </div>
               )}
             </div>
@@ -212,12 +212,12 @@ export default function LeadDetail() {
               </div>
               <div>
                 <p className="text-slate-500 text-xs mb-1">Source</p>
-                <StatusBadge status={lead.source || 'website'} variant="default" />
+                <StatusBadge status={(lead as any).source || 'website'} variant="default" />
               </div>
-              {lead.priority && (
+              {(lead as any).priority && (
                 <div>
                   <p className="text-slate-500 text-xs mb-1">Priority</p>
-                  <StatusBadge status={lead.priority} variant={lead.priority === 'urgent' ? 'error' : lead.priority === 'high' ? 'warning' : 'default'} />
+                  <StatusBadge status={(lead as any).priority} variant={(lead as any).priority === 'urgent' ? 'danger' : (lead as any).priority === 'high' ? 'warning' : 'default'} />
                 </div>
               )}
               <div>
@@ -335,10 +335,10 @@ export default function LeadDetail() {
                 </div>
               )}
 
-              {lead.message && lead.message !== lead.project_description && (
+              {(lead as any).message && (lead as any).message !== lead.project_description && (
                 <div className="mb-6">
                   <p className="text-slate-500 text-xs mb-2">Additional Message</p>
-                  <p className="text-slate-300 leading-relaxed">{lead.message}</p>
+                  <p className="text-slate-300 leading-relaxed">{(lead as any).message}</p>
                 </div>
               )}
 
@@ -349,20 +349,20 @@ export default function LeadDetail() {
                 </div>
               )}
 
-              {lead.requested_service && (
+              {(lead as any).requested_service && (
                 <div className="mb-6">
                   <p className="text-slate-500 text-xs mb-2">Requested Service</p>
-                  <StatusBadge status={lead.requested_service} variant="info" />
+                  <StatusBadge status={(lead as any).requested_service} variant="info" />
                 </div>
               )}
 
             </Card>
 
-            {lead.notes && (
+            {(lead as any).notes && (
               <Card glass className="p-6">
                 <h3 className="text-xl font-bold text-white mb-4">Internal Notes</h3>
                 <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50">
-                  <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{lead.notes}</p>
+                  <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{(lead as any).notes}</p>
                 </div>
               </Card>
             )}
@@ -370,18 +370,20 @@ export default function LeadDetail() {
             <Card glass className="p-6">
               <h3 className="text-xl font-bold text-white mb-4">Actions</h3>
               <div className="flex flex-wrap gap-3">
-                <button className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
+                <Link
+                  to={`/app/proposals/new?lead_id=${lead.id}`}
+                  className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors"
+                >
                   <FileText className="w-5 h-5" />
                   <span>Create Proposal</span>
-                </button>
-                <button className="flex items-center space-x-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-lg transition-colors border border-slate-700">
-                  <Calendar className="w-5 h-5" />
-                  <span>Schedule Meeting</span>
-                </button>
-                <button className="flex items-center space-x-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-lg transition-colors border border-slate-700">
+                </Link>
+                <a
+                  href={`mailto:${lead.email}`}
+                  className="flex items-center space-x-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-lg transition-colors border border-slate-700"
+                >
                   <Mail className="w-5 h-5" />
                   <span>Send Email</span>
-                </button>
+                </a>
               </div>
             </Card>
           </div>

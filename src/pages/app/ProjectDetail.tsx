@@ -4,47 +4,54 @@ import { Link, useParams } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import ErrorState from '../../components/ErrorState';
+import { projectsService } from '../../lib/db/projects';
+import { useState, useEffect } from 'react';
 
 export default function ProjectDetail() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const [project, setProject] = useState<any>(null);
+  const [milestones, setMilestones] = useState<any[]>([]);
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const project = {
-    id: id,
-    name: 'Enterprise Dashboard Platform',
-    client: 'TechCorp Industries',
-    type: 'dashboard',
-    status: 'in_progress',
-    description: 'A comprehensive analytics and reporting dashboard for enterprise data visualization and business intelligence.',
-    progress: 65,
-    budget: 125000,
-    contract_value: 125000,
-    start_date: 'Jan 15, 2024',
-    target_launch: 'Apr 30, 2024',
-    staging_url: 'https://staging.techcorp-dashboard.com',
-    production_url: null,
+  useEffect(() => {
+    loadProjectData();
+  }, [id]);
+
+  const loadProjectData = async () => {
+    if (!id) return;
+    try {
+      setLoading(true);
+      const [projectData, milestonesData] = await Promise.all([
+        projectsService.getProjectById(id),
+        projectsService.getProjectMilestones(id),
+      ]);
+      setProject(projectData);
+      setMilestones(milestonesData || []);
+      setTeamMembers([]);
+      setRecentActivity([]);
+    } catch (err: any) {
+      setError(err.message || 'Failed to load project details');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const milestones = [
-    { name: 'Requirements & Planning', completed: true, date: 'Jan 20, 2024' },
-    { name: 'UI/UX Design', completed: true, date: 'Feb 5, 2024' },
-    { name: 'Core Development', completed: false, date: 'Mar 15, 2024' },
-    { name: 'Integration & Testing', completed: false, date: 'Apr 10, 2024' },
-    { name: 'Deployment & Launch', completed: false, date: 'Apr 30, 2024' },
-  ];
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
-  const teamMembers = [
-    { name: 'Alex Martinez', role: 'Lead Developer', avatar: 'A' },
-    { name: 'Sarah Chen', role: 'UI/UX Designer', avatar: 'S' },
-    { name: 'Michael Roberts', role: 'Backend Engineer', avatar: 'M' },
-    { name: 'Emily Watson', role: 'Project Manager', avatar: 'E' },
-  ];
-
-  const recentActivity = [
-    { event: 'Completed analytics module', user: 'Alex Martinez', date: '2 hours ago' },
-    { event: 'Updated dashboard wireframes', user: 'Sarah Chen', date: '5 hours ago' },
-    { event: 'Database schema finalized', user: 'Michael Roberts', date: '1 day ago' },
-    { event: 'Client review meeting', user: 'Emily Watson', date: '2 days ago' },
-  ];
+  if (error || !project) {
+    return <ErrorState message={error || 'Project not found'} />;
+  }
 
   return (
     <>
@@ -98,7 +105,7 @@ export default function ProjectDetail() {
                 <div>
                   <p className="text-slate-400 text-xs">Contract Value</p>
                   <p className="text-white text-sm font-medium">
-                    ${project.contract_value.toLocaleString()}
+                    ${(project.budget || 0).toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -132,12 +139,12 @@ export default function ProjectDetail() {
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-slate-400">Overall Completion</span>
-                  <span className="text-white text-lg font-bold">{project.progress}%</span>
+                  <span className="text-white text-lg font-bold">{project.progress_percentage || 0}%</span>
                 </div>
                 <div className="w-full bg-slate-700 rounded-full h-3">
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: `${project.progress}%` }}
+                    animate={{ width: `${project.progress_percentage || 0}%` }}
                     transition={{ duration: 1.5 }}
                     className="bg-gradient-to-r from-[#3B82F6] to-[#10B981] h-3 rounded-full"
                   />
@@ -156,12 +163,12 @@ export default function ProjectDetail() {
                     <div className="flex items-center space-x-3">
                       <div
                         className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                          milestone.completed
+                          milestone.status === 'completed'
                             ? 'bg-[#10B981] border-[#10B981]'
                             : 'border-slate-600'
                         }`}
                       >
-                        {milestone.completed && (
+                        {milestone.status === 'completed' && (
                           <svg
                             className="w-4 h-4 text-white"
                             fill="none"
@@ -178,12 +185,12 @@ export default function ProjectDetail() {
                         )}
                       </div>
                       <span
-                        className={milestone.completed ? 'text-white' : 'text-slate-400'}
+                        className={milestone.status === 'completed' ? 'text-white' : 'text-slate-400'}
                       >
                         {milestone.name}
                       </span>
                     </div>
-                    <span className="text-slate-500 text-sm">{milestone.date}</span>
+                    <span className="text-slate-500 text-sm">{milestone.completion_date || milestone.target_date || 'TBD'}</span>
                   </motion.div>
                 ))}
               </div>
@@ -200,12 +207,12 @@ export default function ProjectDetail() {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-center space-x-3 p-3 bg-slate-800/30 rounded-lg border border-slate-700/50"
                   >
-                    <div className="w-10 h-10 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold">{member.avatar}</span>
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
+                      {member.profiles?.full_name ? member.profiles.full_name[0] : 'U'}
                     </div>
-                    <div>
-                      <p className="text-white font-medium text-sm">{member.name}</p>
-                      <p className="text-slate-400 text-xs">{member.role}</p>
+                    <div className="min-w-0">
+                      <p className="text-white font-medium text-sm truncate">{member.profiles?.full_name || 'User'}</p>
+                      <p className="text-slate-400 text-xs truncate capitalize">{member.role?.replace('_', ' ')}</p>
                     </div>
                   </motion.div>
                 ))}

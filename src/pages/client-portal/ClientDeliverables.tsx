@@ -6,7 +6,7 @@ import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
 import EmptyState from '../../components/EmptyState';
-import { FileList } from '../../components/FileUpload';
+
 import { projectsService } from '../../lib/db/projects';
 import { organizationsService } from '../../lib/db/organizations';
 import { storageService } from '../../lib/storage';
@@ -74,103 +74,7 @@ export default function ClientDeliverables() {
     return <ErrorState message={error} />;
   }
 
-  const mockDeliverables: any[] = [
-    {
-      id: '1',
-      project_id: '1',
-      name: 'User Authentication Module',
-      description: 'Complete authentication system with SSO, MFA, and role-based access control',
-      deliverable_type: 'dashboard',
-      status: 'delivered',
-      url: 'https://staging-analytics.example.com/auth',
-      delivered_date: 'Mar 18, 2024',
-      created_at: '2024-03-10',
-      updated_at: '2024-03-18',
-    },
-    {
-      id: '2',
-      project_id: '1',
-      name: 'Real-time Analytics Engine',
-      description: 'Live data processing and visualization with custom metrics and KPI tracking',
-      deliverable_type: 'dashboard',
-      status: 'review',
-      url: 'https://staging-analytics.example.com/analytics',
-      delivered_date: 'Mar 22, 2024',
-      created_at: '2024-03-15',
-      updated_at: '2024-03-22',
-    },
-    {
-      id: '3',
-      project_id: '1',
-      name: 'API Documentation v2.0',
-      description: 'Comprehensive API documentation with interactive examples and SDKs',
-      deliverable_type: 'documentation',
-      status: 'approved',
-      url: 'https://docs.example.com/api/v2',
-      delivered_date: 'Mar 15, 2024',
-      approved_date: 'Mar 16, 2024',
-      created_at: '2024-03-08',
-      updated_at: '2024-03-16',
-    },
-    {
-      id: '4',
-      project_id: '2',
-      name: 'Mobile App Beta Build',
-      description: 'iOS and Android beta versions with core functionality for field testing',
-      deliverable_type: 'mobile_app',
-      status: 'review',
-      delivered_date: 'Mar 20, 2024',
-      notes: 'TestFlight and internal testing builds available',
-      created_at: '2024-03-12',
-      updated_at: '2024-03-20',
-    },
-    {
-      id: '5',
-      project_id: '1',
-      name: 'Custom Reporting Module',
-      description: 'Flexible report builder with export capabilities and scheduled delivery',
-      deliverable_type: 'dashboard',
-      status: 'in_progress',
-      created_at: '2024-03-20',
-      updated_at: '2024-03-23',
-    },
-    {
-      id: '6',
-      project_id: '3',
-      name: 'Salesforce Integration API',
-      description: 'Bidirectional sync with Salesforce including custom objects and fields',
-      deliverable_type: 'integration',
-      status: 'delivered',
-      url: 'https://crm-sync.example.com',
-      delivered_date: 'Feb 28, 2024',
-      approved_date: 'Mar 1, 2024',
-      created_at: '2024-02-15',
-      updated_at: '2024-03-01',
-    },
-    {
-      id: '7',
-      project_id: '2',
-      name: 'Mobile App Design Assets',
-      description: 'Complete UI/UX design files, components, and style guide',
-      deliverable_type: 'design',
-      status: 'approved',
-      delivered_date: 'Feb 10, 2024',
-      approved_date: 'Feb 12, 2024',
-      created_at: '2024-02-01',
-      updated_at: '2024-02-12',
-    },
-    {
-      id: '8',
-      project_id: '1',
-      name: 'Database Schema & Migration Scripts',
-      description: 'Optimized database design with migration and rollback procedures',
-      deliverable_type: 'api',
-      status: 'delivered',
-      delivered_date: 'Mar 5, 2024',
-      created_at: '2024-02-25',
-      updated_at: '2024-03-05',
-    },
-  ];
+
 
   const getStatusIcon = (status: string) => {
     switch (status) {

@@ -1,55 +1,60 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, Building2, Mail, Phone, Globe, Calendar, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Building2, Mail, Phone, Globe, Calendar } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import ErrorState from '../../components/ErrorState';
+import { organizationsService } from '../../lib/db/organizations';
+import { projectsService } from '../../lib/db/projects';
+
+import { useState, useEffect } from 'react';
 
 export default function ClientDetail() {
-  const { id } = useParams();
 
-  const client = {
-    id: id,
-    name: 'TechCorp Industries',
-    status: 'active',
-    email: 'contact@techcorp.com',
-    phone: '+1 (555) 123-4567',
-    website: 'techcorp.com',
-    onboarded: 'Jan 15, 2024',
-    health_score: 92,
-    mrr: 12500,
-    lifetime_value: 150000,
+  const { id } = useParams<{ id: string }>();
+  const [client, setClient] = useState<any>(null);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    loadClientData();
+  }, [id]);
+
+  const loadClientData = async () => {
+    if (!id) return;
+    try {
+      setLoading(true);
+      const [clientData, activeProjects] = await Promise.all([
+        organizationsService.getOrganizationById(id),
+        projectsService.getProjectsByOrganization(id),
+      ]);
+      setClient(clientData);
+      setProjects(activeProjects || []);
+      
+      // We can fetch tickets or audit logs for recent activity if needed. For now it's empty realistically.
+      setRecentActivity([]);
+    } catch (err: any) {
+      setError(err.message || 'Failed to load client details');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const projects = [
-    {
-      id: '1',
-      name: 'Enterprise Dashboard Platform',
-      type: 'dashboard',
-      status: 'In Progress',
-      progress: 65,
-    },
-    {
-      id: '2',
-      name: 'Mobile Sales App',
-      type: 'mobile_app',
-      status: 'Testing',
-      progress: 85,
-    },
-    {
-      id: '3',
-      name: 'CRM Integration',
-      type: 'integration',
-      status: 'Deployed',
-      progress: 100,
-    },
-  ];
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
-  const recentActivity = [
-    { event: 'Project milestone reached', date: '2 days ago' },
-    { event: 'Monthly review meeting', date: '1 week ago' },
-    { event: 'Support ticket resolved', date: '2 weeks ago' },
-  ];
+  if (error || !client) {
+    return <ErrorState message={error || 'Client not found'} />;
+  }
 
   return (
     <>
@@ -129,16 +134,16 @@ export default function ClientDetail() {
                       <div className="flex-1">
                         <h4 className="text-white font-semibold mb-1">{project.name}</h4>
                         <div className="flex items-center space-x-2">
-                          <StatusBadge status={project.type} variant="info" />
-                          <StatusBadge status={project.status} variant="info" />
+                          <StatusBadge status={project.type || 'project'} variant="info" />
+                          <StatusBadge status={project.status || 'active'} variant="info" />
                         </div>
                       </div>
-                      <span className="text-white text-sm font-medium">{project.progress}%</span>
+                      <span className="text-white text-sm font-medium">{project.progress_percentage || 0}%</span>
                     </div>
                     <div className="w-full bg-slate-700 rounded-full h-2">
                       <motion.div
                         initial={{ width: 0 }}
-                        animate={{ width: `${project.progress}%` }}
+                        animate={{ width: `${project.progress_percentage || 0}%` }}
                         transition={{ duration: 1, delay: index * 0.1 }}
                         className="bg-gradient-to-r from-[#3B82F6] to-[#10B981] h-2 rounded-full"
                       />
