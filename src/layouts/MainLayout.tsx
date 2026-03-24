@@ -15,7 +15,7 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
   const location = useLocation();
   const showFinalCTA = location.pathname !== '/' && location.pathname !== '/contact';
-  const { isOpen, closeModal } = useLeadModal();
+  const { isOpen, formType, closeModal } = useLeadModal();
 
   return (
     <div className="min-h-screen bg-[#0B0F1A] relative overflow-hidden">
@@ -26,7 +26,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       </PageTransition>
       {showFinalCTA && <FinalCTA />}
       <Footer />
-      <LeadModal isOpen={isOpen} onClose={closeModal} formType="custom_build" />
+      <LeadModal isOpen={isOpen} onClose={closeModal} formType={formType} />
     </div>
   );
 }
