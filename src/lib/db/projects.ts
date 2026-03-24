@@ -14,7 +14,7 @@ export const projectsService = {
     status: string;
     organization_id: string;
     start_date?: string;
-    target_completion_date?: string;
+    target_launch_date?: string;
   }) {
     const { data, error } = await supabase
       .from('projects')
@@ -129,7 +129,7 @@ export const projectsService = {
     description?: string;
     status?: string;
     start_date?: string;
-    target_completion_date?: string;
+    target_launch_date?: string;
   }) {
     const { data, error } = await supabase
       .from('projects')

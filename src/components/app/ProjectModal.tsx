@@ -23,7 +23,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
     type: 'web_app',
     organization_id: currentOrganization?.type === 'client' ? currentOrganization.id : '',
     start_date: '',
-    target_completion_date: '',
+    target_launch_date: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -97,7 +97,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
         status: 'planning',
         organization_id: formData.organization_id,
         start_date: formData.start_date || undefined,
-        target_completion_date: formData.target_completion_date || undefined,
+        target_launch_date: formData.target_launch_date || undefined,
       });
 
       if (onSuccess) {
@@ -227,8 +227,8 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                       </label>
                       <input
                         type="date"
-                        value={formData.target_completion_date}
-                        onChange={(e) => setFormData({ ...formData, target_completion_date: e.target.value })}
+                        value={formData.target_launch_date}
+                        onChange={(e) => setFormData({ ...formData, target_launch_date: e.target.value })}
                         className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
                       />
                     </div>
