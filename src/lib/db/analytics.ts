@@ -63,7 +63,7 @@ export interface ClientHealthAnalytics {
 }
 
 export const analyticsService = {
-  async getSalesAnalytics(): Promise<SalesAnalytics> {
+  async getSalesAnalytics(organizationId?: string): Promise<SalesAnalytics> {
     try {
       const [
         leadsResult,
@@ -78,7 +78,7 @@ export const analyticsService = {
         supabase.from('leads').select('source'),
         supabase.from('leads').select('service_type_category'),
         supabase.from('leads').select('status'),
-        supabase.from('proposals').select('status, pricing_amount'),
+        (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('status, pricing_amount'),
       ]);
 
       const totalLeads = leadsResult.count || 0;
@@ -152,7 +152,7 @@ export const analyticsService = {
     }
   },
 
-  async getDeliveryAnalytics(): Promise<DeliveryAnalytics> {
+  async getDeliveryAnalytics(organizationId?: string): Promise<DeliveryAnalytics> {
     try {
       const [
         projectsResult,
@@ -161,9 +161,9 @@ export const analyticsService = {
         deliveryResult,
         milestonesResult,
       ] = await Promise.all([
-        supabase.from('projects').select('*'),
-        supabase.from('projects').select('status'),
-        supabase.from('projects').select('service_type_category'),
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('*'),
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('status'),
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('service_type_category'),
         supabase.from('project_delivery').select('*'),
         supabase.from('milestones').select('status'),
       ]);
@@ -244,7 +244,7 @@ export const analyticsService = {
     }
   },
 
-  async getBillingAnalytics(): Promise<BillingAnalytics> {
+  async getBillingAnalytics(organizationId?: string): Promise<BillingAnalytics> {
     try {
       const [
         subscriptionsResult,
@@ -252,10 +252,10 @@ export const analyticsService = {
         invoicesResult,
         projectsResult,
       ] = await Promise.all([
-        supabase.from('subscriptions').select('*'),
-        supabase.from('stripe_subscriptions').select('*'),
-        supabase.from('invoices').select('*'),
-        supabase.from('projects').select('contract_value'),
+        (organizationId ? supabase.from('subscriptions').eq('organization_id', organizationId) : supabase.from('subscriptions')).select('*'),
+        (organizationId ? supabase.from('stripe_subscriptions').eq('organization_id', organizationId) : supabase.from('stripe_subscriptions')).select('*'),
+        (organizationId ? supabase.from('invoices').eq('organization_id', organizationId) : supabase.from('invoices')).select('*'),
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('contract_value'),
       ]);
 
       const subscriptions = subscriptionsResult.data || [];
@@ -320,7 +320,7 @@ export const analyticsService = {
     }
   },
 
-  async getSupportAnalytics(): Promise<SupportAnalytics> {
+  async getSupportAnalytics(organizationId?: string): Promise<SupportAnalytics> {
     try {
       const [
         ticketsResult,
@@ -328,10 +328,10 @@ export const analyticsService = {
         ticketsByCategoryResult,
         ticketsByStatusResult,
       ] = await Promise.all([
-        supabase.from('support_tickets').select('*'),
-        supabase.from('support_tickets').select('priority'),
-        supabase.from('support_tickets').select('category'),
-        supabase.from('support_tickets').select('status'),
+        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('*'),
+        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('priority'),
+        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('category'),
+        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('status'),
       ]);
 
       const tickets = ticketsResult.data || [];
@@ -405,7 +405,7 @@ export const analyticsService = {
     }
   },
 
-  async getClientHealthAnalytics(): Promise<ClientHealthAnalytics> {
+  async getClientHealthAnalytics(organizationId?: string): Promise<ClientHealthAnalytics> {
     try {
       const [
         organizationsResult,
@@ -414,7 +414,7 @@ export const analyticsService = {
       ] = await Promise.all([
         supabase.from('organizations').select('*'),
         supabase.from('organizations').select('*').eq('type', 'client'),
-        supabase.from('projects').select('organization_id, contract_value'),
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('organization_id, contract_value'),
       ]);
 
       const allOrgs = organizationsResult.data || [];
@@ -478,11 +478,11 @@ export const analyticsService = {
     }
   },
 
-  async getConversionMetrics() {
+  async getConversionMetrics(organizationId?: string) {
     const [leads, proposals, projects, orgs] = await Promise.all([
       supabase.from('leads').select('id, converted_to_client'),
-      supabase.from('proposals').select('id, status, converted_to_project'),
-      supabase.from('projects').select('id, source'),
+      (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('id, status, converted_to_project'),
+      (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('id, source'),
       supabase.from('organizations').select('id, onboarding_status'),
     ]);
 
@@ -497,7 +497,7 @@ export const analyticsService = {
     };
   },
 
-  async getConversionTracking(limit = 50) {
+  async getConversionTracking(limit = 50, organizationId?: string) {
     const { data, error } = await supabase
       .from('conversion_tracking')
       .select('*')
@@ -508,13 +508,13 @@ export const analyticsService = {
     return data;
   },
 
-  async getAllAnalytics() {
+  async getAllAnalytics(organizationId?: string) {
     const [sales, delivery, billing, support, clientHealth] = await Promise.all([
-      this.getSalesAnalytics(),
-      this.getDeliveryAnalytics(),
-      this.getBillingAnalytics(),
-      this.getSupportAnalytics(),
-      this.getClientHealthAnalytics(),
+      this.getSalesAnalytics(organizationId),
+      this.getDeliveryAnalytics(organizationId),
+      this.getBillingAnalytics(organizationId),
+      this.getSupportAnalytics(organizationId),
+      this.getClientHealthAnalytics(organizationId),
     ]);
 
     return {

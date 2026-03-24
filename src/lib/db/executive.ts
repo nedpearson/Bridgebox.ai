@@ -79,7 +79,7 @@ export interface RecentActivity {
 }
 
 export const executiveService = {
-  async getExecutiveKPIs(): Promise<ExecutiveKPIs> {
+  async getExecutiveKPIs(organizationId?: string): Promise<ExecutiveKPIs> {
     try {
       const [
         subscriptionsResult,
@@ -89,11 +89,11 @@ export const executiveService = {
         ticketsResult,
         orgsResult,
       ] = await Promise.all([
-        supabase.from('subscriptions').select('mrr'),
+        (organizationId ? supabase.from('subscriptions').eq('organization_id', organizationId) : supabase.from('subscriptions')).select('mrr'),
         supabase.from('organizations').select('*', { count: 'exact', head: true }).eq('type', 'client'),
         supabase.from('leads').select('*', { count: 'exact', head: true }).in('status', ['new', 'contacted', 'qualified']),
-        supabase.from('projects').select('*', { count: 'exact', head: true }).in('status', ['planning', 'in_progress', 'testing']),
-        supabase.from('support_tickets').select('*'),
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('*', { count: 'exact', head: true }).in('status', ['planning', 'in_progress', 'testing']),
+        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('*'),
         supabase.from('organizations').select('onboarding_completed').eq('type', 'client'),
       ]);
 
@@ -137,14 +137,14 @@ export const executiveService = {
     }
   },
 
-  async getSalesSnapshot(): Promise<SalesSnapshot> {
+  async getSalesSnapshot(organizationId?: string): Promise<SalesSnapshot> {
     try {
       const [
         proposalsResult,
         leadsResult,
         serviceTypesResult,
       ] = await Promise.all([
-        supabase.from('proposals').select('status, pricing_amount'),
+        (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('status, pricing_amount'),
         supabase.from('leads').select('*'),
         supabase.from('leads').select('service_type_category'),
       ]);
@@ -194,7 +194,7 @@ export const executiveService = {
     }
   },
 
-  async getDeliverySnapshot(): Promise<DeliverySnapshot> {
+  async getDeliverySnapshot(organizationId?: string): Promise<DeliverySnapshot> {
     try {
       const [
         deliveryResult,
@@ -208,7 +208,7 @@ export const executiveService = {
           .in('status', ['not_started', 'in_progress'])
           .order('due_date', { ascending: true })
           .limit(10),
-        supabase.from('projects').select('*'),
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('*'),
       ]);
 
       const deliveryData = deliveryResult.data || [];
@@ -252,7 +252,7 @@ export const executiveService = {
     }
   },
 
-  async getClientHealthSnapshot(): Promise<ClientHealthSnapshot> {
+  async getClientHealthSnapshot(organizationId?: string): Promise<ClientHealthSnapshot> {
     try {
       const [
         orgsResult,
@@ -260,12 +260,11 @@ export const executiveService = {
         projectsResult,
       ] = await Promise.all([
         supabase.from('organizations').select('*').eq('type', 'client'),
-        supabase
-          .from('support_tickets')
+        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets'))
           .select('*')
           .eq('priority', 'urgent')
           .in('status', ['open', 'in_progress']),
-        supabase.from('projects').select('organization_id'),
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('organization_id'),
       ]);
 
       const clients = orgsResult.data || [];
@@ -304,7 +303,7 @@ export const executiveService = {
     }
   },
 
-  async getBillingSnapshot(): Promise<BillingSnapshot> {
+  async getBillingSnapshot(organizationId?: string): Promise<BillingSnapshot> {
     try {
       const [
         stripeSubscriptionsResult,
@@ -312,10 +311,10 @@ export const executiveService = {
         projectsResult,
         subscriptionsResult,
       ] = await Promise.all([
-        supabase.from('stripe_subscriptions').select('*'),
-        supabase.from('invoices').select('*'),
-        supabase.from('projects').select('contract_value'),
-        supabase.from('subscriptions').select('mrr'),
+        (organizationId ? supabase.from('stripe_subscriptions').eq('organization_id', organizationId) : supabase.from('stripe_subscriptions')).select('*'),
+        (organizationId ? supabase.from('invoices').eq('organization_id', organizationId) : supabase.from('invoices')).select('*'),
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('contract_value'),
+        (organizationId ? supabase.from('subscriptions').eq('organization_id', organizationId) : supabase.from('subscriptions')).select('mrr'),
       ]);
 
       const stripeSubscriptions = stripeSubscriptionsResult.data || [];
@@ -358,7 +357,7 @@ export const executiveService = {
     }
   },
 
-  async getOperationalAlerts(): Promise<OperationalAlert[]> {
+  async getOperationalAlerts(organizationId?: string): Promise<OperationalAlert[]> {
     try {
       const alerts: OperationalAlert[] = [];
 
@@ -373,8 +372,7 @@ export const executiveService = {
           .select('id, title, due_date, project_id, projects(name)')
           .eq('status', 'in_progress')
           .lt('due_date', new Date().toISOString()),
-        supabase
-          .from('support_tickets')
+        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets'))
           .select('id, title, priority')
           .eq('priority', 'urgent')
           .in('status', ['open', 'in_progress']),
@@ -383,8 +381,7 @@ export const executiveService = {
           .select('id, name, onboarding_status')
           .eq('type', 'client')
           .eq('onboarding_completed', false),
-        supabase
-          .from('proposals')
+        (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals'))
           .select('id, title, sent_at')
           .eq('status', 'sent')
           .lt('sent_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
@@ -450,7 +447,7 @@ export const executiveService = {
     }
   },
 
-  async getRecentActivity(): Promise<RecentActivity[]> {
+  async getRecentActivity(organizationId?: string): Promise<RecentActivity[]> {
     try {
       const activities: RecentActivity[] = [];
 
@@ -470,27 +467,23 @@ export const executiveService = {
           .gte('created_at', sevenDaysAgo.toISOString())
           .order('created_at', { ascending: false })
           .limit(5),
-        supabase
-          .from('proposals')
+        (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals'))
           .select('id, title, approved_at')
           .eq('status', 'approved')
           .gte('approved_at', sevenDaysAgo.toISOString())
           .order('approved_at', { ascending: false })
           .limit(5),
-        supabase
-          .from('projects')
+        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects'))
           .select('id, name, created_at')
           .gte('created_at', sevenDaysAgo.toISOString())
           .order('created_at', { ascending: false })
           .limit(5),
-        supabase
-          .from('support_tickets')
+        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets'))
           .select('id, title, created_at')
           .gte('created_at', sevenDaysAgo.toISOString())
           .order('created_at', { ascending: false })
           .limit(5),
-        supabase
-          .from('invoices')
+        (organizationId ? supabase.from('invoices').eq('organization_id', organizationId) : supabase.from('invoices'))
           .select('id, invoice_number, paid_at')
           .eq('status', 'paid')
           .gte('paid_at', sevenDaysAgo.toISOString())
@@ -567,7 +560,7 @@ export const executiveService = {
     }
   },
 
-  async getExecutiveDashboard() {
+  async getExecutiveDashboard(organizationId?: string) {
     const [
       kpis,
       sales,
@@ -577,13 +570,13 @@ export const executiveService = {
       alerts,
       activity,
     ] = await Promise.all([
-      this.getExecutiveKPIs(),
-      this.getSalesSnapshot(),
-      this.getDeliverySnapshot(),
-      this.getClientHealthSnapshot(),
-      this.getBillingSnapshot(),
-      this.getOperationalAlerts(),
-      this.getRecentActivity(),
+      this.getExecutiveKPIs(organizationId),
+      this.getSalesSnapshot(organizationId),
+      this.getDeliverySnapshot(organizationId),
+      this.getClientHealthSnapshot(organizationId),
+      this.getBillingSnapshot(organizationId),
+      this.getOperationalAlerts(organizationId),
+      this.getRecentActivity(organizationId),
     ]);
 
     return {

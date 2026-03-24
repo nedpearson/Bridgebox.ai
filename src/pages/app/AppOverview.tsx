@@ -35,8 +35,8 @@ export default function AppOverview() {
       setLoading(true);
       const [onboarding, allAnalytics, recentProj] = await Promise.all([
         onboardingService.getOnboardingByOrganization(currentOrganization.id),
-        analyticsService.getAllAnalytics(),
-        projectsService.getAllProjects(), // we'll slice the first 5
+        analyticsService.getAllAnalytics(currentOrganization.id),
+        projectsService.getAllProjects({ organization_id: currentOrganization.id }), // we'll slice the first 5
       ]);
 
       setShowOnboardingBanner(!onboarding || onboarding.status !== 'completed');

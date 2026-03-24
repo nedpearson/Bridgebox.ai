@@ -81,7 +81,7 @@ export default function ExecutiveCommandCenter() {
       setError('');
 
       const [dashboardData, predictionsData, insights, trendsData, oppsData] = await Promise.all([
-        executiveService.getExecutiveDashboard(),
+        executiveService.getExecutiveDashboard(currentOrganization?.id),
         predictiveAnalytics.generateExecutivePredictions(currentOrganization?.id),
         aiDecisionEngine.getDashboardInsights(currentOrganization?.id, 8),
         marketSignalService.getTopEmergingSignals(currentOrganization?.id || '', 3),
