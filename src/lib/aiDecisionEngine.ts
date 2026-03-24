@@ -74,12 +74,13 @@ class AIDecisionEngine {
     return `insight-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  async analyzeSalesOpportunities(): Promise<SalesRecommendation[]> {
-    const { data: leads } = await supabase
-      .from('leads')
+  async analyzeSalesOpportunities(organizationId?: string): Promise<SalesRecommendation[]> {
+    let query_leads = supabase.from('leads')
       .select('*')
       .in('status', ['new', 'contacted', 'qualified', 'proposal_sent'])
       .order('created_at', { ascending: false });
+    if (organizationId) query_leads = query_leads.eq('organization_id', organizationId);
+    const { data: leads } = await query_leads;
 
     if (!leads) return [];
 
@@ -164,11 +165,12 @@ class AIDecisionEngine {
     return recommendations.sort((a, b) => b.score - a.score).slice(0, 10);
   }
 
-  async analyzeProjectRisks(): Promise<ProjectRecommendation[]> {
-    const { data: projects } = await supabase
-      .from('projects')
+  async analyzeProjectRisks(organizationId?: string): Promise<ProjectRecommendation[]> {
+    let query_projects = supabase.from('projects')
       .select('*, project_deliveries(*)')
       .in('status', ['in_progress', 'planning']);
+    if (organizationId) query_projects = query_projects.eq('organization_id', organizationId);
+    const { data: projects } = await query_projects;
 
     if (!projects) return [];
 
@@ -237,10 +239,11 @@ class AIDecisionEngine {
     });
   }
 
-  async analyzeClientOpportunities(): Promise<ClientRecommendation[]> {
-    const { data: organizations } = await supabase
-      .from('organizations')
+  async analyzeClientOpportunities(organizationId?: string): Promise<ClientRecommendation[]> {
+    let query_organizations = supabase.from('organizations')
       .select('*, projects(*), subscriptions(*)');
+    if (organizationId) query_organizations = query_organizations.eq('organization_id', organizationId);
+    const { data: organizations } = await query_organizations;
 
     if (!organizations) return [];
 
@@ -312,11 +315,12 @@ class AIDecisionEngine {
     return recommendations.sort((a, b) => (b.confidence * b.value) - (a.confidence * a.value));
   }
 
-  async analyzeAutomationOpportunities(): Promise<AutomationRecommendation[]> {
-    const { data: activityLogs } = await supabase
-      .from('activity_logs')
+  async analyzeAutomationOpportunities(organizationId?: string): Promise<AutomationRecommendation[]> {
+    let query_activityLogs = supabase.from('activity_logs')
       .select('action, user_id, created_at')
       .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
+    if (organizationId) query_activityLogs = query_activityLogs.eq('organization_id', organizationId);
+    const { data: activityLogs } = await query_activityLogs;
 
     if (!activityLogs) return [];
 
@@ -388,11 +392,11 @@ class AIDecisionEngine {
     return recommendations.sort((a, b) => b.priority - a.priority);
   }
 
-  async generateStrategicInsights(): Promise<StrategicInsight[]> {
+  async generateStrategicInsights(organizationId?: string): Promise<StrategicInsight[]> {
     const [trends, serviceDemand, industryGrowth] = await Promise.all([
-      trendDetection.getHotOpportunities(),
-      trendDetection.detectTrendingServices(90),
-      trendDetection.detectIndustryGrowth(90),
+      trendDetection.getHotOpportunities(organizationId),
+      trendDetection.detectTrendingServices(organizationId, 90),
+      trendDetection.detectIndustryGrowth(organizationId, 90),
     ]);
 
     const insights: StrategicInsight[] = [];
@@ -477,7 +481,7 @@ class AIDecisionEngine {
     return insights;
   }
 
-  async generateInsights(): Promise<AIInsight[]> {
+  async generateInsights(organizationId?: string): Promise<AIInsight[]> {
     const [
       salesRecs,
       projectRecs,
@@ -485,11 +489,11 @@ class AIDecisionEngine {
       automationRecs,
       strategicInsights,
     ] = await Promise.all([
-      this.analyzeSalesOpportunities(),
-      this.analyzeProjectRisks(),
-      this.analyzeClientOpportunities(),
-      this.analyzeAutomationOpportunities(),
-      this.generateStrategicInsights(),
+      this.analyzeSalesOpportunities(organizationId),
+      this.analyzeProjectRisks(organizationId),
+      this.analyzeClientOpportunities(organizationId),
+      this.analyzeAutomationOpportunities(organizationId),
+      this.generateStrategicInsights(organizationId),
     ]);
 
     const insights: AIInsight[] = [];
@@ -627,9 +631,10 @@ class AIDecisionEngine {
 
   async getRecommendationsForContext(context: {
     type: 'lead' | 'project' | 'client';
+    organizationId?: string;
     id: string;
   }): Promise<AIInsight[]> {
-    const allInsights = await this.generateInsights();
+    const allInsights = await this.generateInsights(context.organizationId);
 
     return allInsights.filter(insight => {
       if (context.type === 'lead' && insight.type === 'sales') {
@@ -645,8 +650,8 @@ class AIDecisionEngine {
     });
   }
 
-  async getDashboardInsights(limit: number = 5): Promise<AIInsight[]> {
-    const insights = await this.generateInsights();
+  async getDashboardInsights(organizationId?: string, limit: number = 5): Promise<AIInsight[]> {
+    const insights = await this.generateInsights(organizationId);
     return insights.slice(0, limit);
   }
 }

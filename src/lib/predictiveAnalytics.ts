@@ -40,12 +40,12 @@ export interface RevenueForecast {
 }
 
 class PredictiveAnalyticsEngine {
-  async predictLeadConversion(leadId: string): Promise<LeadPrediction> {
-    const { data: lead } = await supabase
-      .from('leads')
+  async predictLeadConversion(leadId: string, organizationId?: string): Promise<LeadPrediction> {
+    let query_lead = supabase.from('leads')
       .select('*, organization:organizations(*)')
-      .eq('id', leadId)
-      .single();
+      .eq('id', leadId);
+    if (organizationId) query_lead = query_lead.eq('organization_id', organizationId);
+    const { data: lead } = await query_lead.single();
 
     if (!lead) {
       throw new Error('Lead not found');
@@ -148,18 +148,18 @@ class PredictiveAnalyticsEngine {
     if (!leads) return [];
 
     const predictions = await Promise.all(
-      leads.map(lead => this.predictLeadConversion(lead.id))
+      leads.map(lead => this.predictLeadConversion(lead.id, organizationId))
     );
 
     return predictions;
   }
 
-  async predictProjectDelay(projectId: string): Promise<ProjectRiskPrediction> {
-    const { data: project } = await supabase
-      .from('projects')
+  async predictProjectDelay(projectId: string, organizationId?: string): Promise<ProjectRiskPrediction> {
+    let query_project = supabase.from('projects')
       .select('*')
-      .eq('id', projectId)
-      .single();
+      .eq('id', projectId);
+    if (organizationId) query_project = query_project.eq('organization_id', organizationId);
+    const { data: project } = await query_project.single();
 
     if (!project) {
       throw new Error('Project not found');
@@ -207,11 +207,12 @@ class PredictiveAnalyticsEngine {
       }
     }
 
-    const { data: openTickets } = await supabase
-      .from('support_tickets')
+    let query_openTickets = supabase.from('support_tickets')
       .select('id')
       .eq('project_id', projectId)
       .in('status', ['open', 'in_progress']);
+    if (organizationId) query_openTickets = query_openTickets.eq('organization_id', organizationId);
+    const { data: openTickets } = await query_openTickets;
 
     if (openTickets && openTickets.length > 5) {
       riskScore += 15;
@@ -286,19 +287,19 @@ class PredictiveAnalyticsEngine {
     if (!projects) return [];
 
     const predictions = await Promise.all(
-      projects.map(project => this.predictProjectDelay(project.id))
+      projects.map(project => this.predictProjectDelay(project.id, organizationId))
     );
 
     return predictions;
   }
 
-  async predictClientRisk(clientId: string): Promise<ClientChurnPrediction> {
-    const { data: client } = await supabase
-      .from('organizations')
+  async predictClientRisk(clientId: string, organizationId?: string): Promise<ClientChurnPrediction> {
+    let query_client = supabase.from('organizations')
       .select('*')
       .eq('id', clientId)
-      .eq('type', 'client')
-      .single();
+      .eq('type', 'client');
+    if (organizationId) query_client = query_client.eq('organization_id', organizationId);
+    const { data: client } = await query_client.single();
 
     if (!client) {
       throw new Error('Client not found');
@@ -344,11 +345,12 @@ class PredictiveAnalyticsEngine {
       }
     }
 
-    const { data: openTickets } = await supabase
-      .from('support_tickets')
+    let query_openTickets = supabase.from('support_tickets')
       .select('id, priority')
       .eq('organization_id', clientId)
       .in('status', ['open', 'in_progress']);
+    if (organizationId) query_openTickets = query_openTickets.eq('organization_id', organizationId);
+    const { data: openTickets } = await query_openTickets;
 
     if (openTickets) {
       const highPriorityTickets = openTickets.filter(t => t.priority === 'urgent' || t.priority === 'high');
@@ -382,11 +384,12 @@ class PredictiveAnalyticsEngine {
       }
     }
 
-    const { data: recentActivity } = await supabase
-      .from('activity_logs')
+    let query_recentActivity = supabase.from('activity_logs')
       .select('id')
       .eq('organization_id', clientId)
       .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
+    if (organizationId) query_recentActivity = query_recentActivity.eq('organization_id', organizationId);
+    const { data: recentActivity } = await query_recentActivity;
 
     if (!recentActivity || recentActivity.length < 5) {
       riskScore += 25;
@@ -394,11 +397,12 @@ class PredictiveAnalyticsEngine {
       retentionActions.push('Re-engage with value demonstration');
     }
 
-    const { data: activeProjects } = await supabase
-      .from('projects')
+    let query_activeProjects = supabase.from('projects')
       .select('id')
       .eq('organization_id', clientId)
       .eq('status', 'in_progress');
+    if (organizationId) query_activeProjects = query_activeProjects.eq('organization_id', organizationId);
+    const { data: activeProjects } = await query_activeProjects;
 
     if (!activeProjects || activeProjects.length === 0) {
       riskScore += 15;
@@ -437,13 +441,13 @@ class PredictiveAnalyticsEngine {
     if (!clients) return [];
 
     const predictions = await Promise.all(
-      clients.map(client => this.predictClientRisk(client.id))
+      clients.map(client => this.predictClientRisk(client.id, organizationId))
     );
 
     return predictions;
   }
 
-  async forecastRevenue(months: number = 6): Promise<RevenueForecast[]> {
+  async forecastRevenue(organizationId?: string, months: number = 6): Promise<RevenueForecast[]> {
     const { data: historicalMRR } = await supabase
       .from('subscriptions')
       .select('monthly_amount, created_at, status')
@@ -513,7 +517,7 @@ class PredictiveAnalyticsEngine {
       this.predictLeadConversionBatch(organizationId),
       this.predictProjectDelayBatch(organizationId),
       this.predictClientRiskBatch(organizationId),
-      this.forecastRevenue(6),
+      this.forecastRevenue(organizationId, 6),
     ]);
 
     const highValueLeads = leadPredictions

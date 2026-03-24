@@ -32,6 +32,7 @@ import { ServiceTrendCard, IndustryTrendCard } from '../../components/trends/Tre
 import AIContent, { AIButton } from '../../components/ai/AIContent';
 import { useMetrics, type TimeFilter } from '../../hooks/useMetrics';
 import { useBusinessInsights } from '../../hooks/useAI';
+import { useAuth } from '../../contexts/AuthContext';
 import { trendDetection } from '../../lib/trendDetection';
 import { intelligenceOrchestrator, type IntelligenceBriefing } from '../../lib/intelligenceOrchestrator';
 import type { ServiceTrend, IndustryTrend } from '../../lib/trendDetection';
@@ -39,6 +40,7 @@ import type { ServiceTrend, IndustryTrend } from '../../lib/trendDetection';
 type AnalyticsView = 'overview' | 'sales' | 'delivery' | 'billing' | 'support' | 'clients';
 
 export default function Analytics() {
+  const { currentOrganization } = useAuth();
   const [view, setView] = useState<AnalyticsView>('overview');
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('30d');
   const { loading, metrics, error } = useMetrics(timeFilter);
@@ -61,11 +63,12 @@ export default function Analytics() {
   }, []);
 
   const loadIntelligenceData = async () => {
+    if (!currentOrganization) return;
     try {
       const [opportunities, executiveBriefings, health] = await Promise.all([
-        trendDetection.getHotOpportunities(),
-        intelligenceOrchestrator.generateExecutiveBriefing(),
-        intelligenceOrchestrator.getBusinessHealth(),
+        trendDetection.getHotOpportunities(currentOrganization.id),
+        intelligenceOrchestrator.generateExecutiveBriefing(currentOrganization.id),
+        intelligenceOrchestrator.getBusinessHealth(currentOrganization.id),
       ]);
       setHotOpportunities(opportunities);
       setBriefings(executiveBriefings);

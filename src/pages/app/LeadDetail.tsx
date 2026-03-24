@@ -11,6 +11,7 @@ import { ConversionBadge, ConfidenceIndicator } from '../../components/predictio
 import { InsightList } from '../../components/ai/InsightCard';
 import AIContent, { AIButton } from '../../components/ai/AIContent';
 import { useLeadSummary } from '../../hooks/useAI';
+import { useAuth } from '../../contexts/AuthContext';
 import { leadsService } from '../../lib/db/leads';
 import { predictiveAnalytics } from '../../lib/predictiveAnalytics';
 import { intelligenceOrchestrator } from '../../lib/intelligenceOrchestrator';
@@ -19,6 +20,7 @@ import type { LeadPrediction } from '../../lib/predictiveAnalytics';
 import type { AIInsight } from '../../lib/aiDecisionEngine';
 
 export default function LeadDetail() {
+  const { currentOrganization } = useAuth();
   const { id } = useParams();
   const [lead, setLead] = useState<LeadRecord | null>(null);
   const [prediction, setPrediction] = useState<LeadPrediction | null>(null);
@@ -48,8 +50,8 @@ export default function LeadDetail() {
       setLoading(true);
       const [leadData, predictionData, contextInsights] = await Promise.all([
         leadsService.getLeadById(id),
-        predictiveAnalytics.predictLeadConversion(id).catch(() => null),
-        intelligenceOrchestrator.getContextualInsights({ type: 'lead', id }).catch(() => []),
+        predictiveAnalytics.predictLeadConversion(id, currentOrganization?.id).catch(() => null),
+        intelligenceOrchestrator.getContextualInsights({ type: 'lead', id, organizationId: currentOrganization?.id }).catch(() => []),
       ]);
 
       if (!leadData) {

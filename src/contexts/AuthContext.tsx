@@ -17,6 +17,9 @@ interface Organization {
   name: string;
   type: 'internal' | 'client';
   organization_type?: 'internal' | 'client';
+  is_enterprise_client?: boolean;
+  billing_plan?: string;
+  subscription_status?: string;
 }
 
 interface AuthContextType {
@@ -30,6 +33,7 @@ interface AuthContextType {
   signUp: (email: string, password: string, fullName?: string) => Promise<void>;
   signOut: () => Promise<void>;
   setCurrentOrganization: (org: Organization | null) => void;
+  isLoadingOrg: boolean;
   permissionContext: PermissionContext | null;
   can: (check: (ctx: PermissionContext) => boolean) => boolean;
   isInternalStaff: boolean;
@@ -45,6 +49,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [organizations, setOrganizations] = useState<Organization[]>([]);
   const [currentOrganization, setCurrentOrganization] = useState<Organization | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isLoadingOrg, setIsLoadingOrg] = useState(true);
+
+  const handleSetCurrentOrganization = (org: Organization | null) => {
+    if (org) {
+      localStorage.setItem('bridgebox_active_org', org.id);
+    } else {
+      localStorage.removeItem('bridgebox_active_org');
+    }
+    setCurrentOrganization(org);
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -105,12 +119,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setOrganizations(orgsData || []);
 
       if (orgsData && orgsData.length > 0 && !currentOrganization) {
-        setCurrentOrganization(orgsData[0]);
+        const storedOrgId = localStorage.getItem('bridgebox_active_org');
+        const defaultOrg = orgsData.find(o => o.id === storedOrgId) || orgsData[0];
+        handleSetCurrentOrganization(defaultOrg);
       }
     } catch (error) {
       console.error('Error loading user data:', error);
     } finally {
       setLoading(false);
+      setIsLoadingOrg(false);
     }
   }
 
@@ -138,7 +155,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
     setProfile(null);
     setOrganizations([]);
-    setCurrentOrganization(null);
+    handleSetCurrentOrganization(null);
   }
 
   const permissionContext = useMemo<PermissionContext | null>(() => {
@@ -165,17 +182,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return profile ? permissions.isClientUser(profile.role) : false;
   }, [profile]);
 
+  // Safely inject Enterprise plan entitlements for super admin's internal workspaces 
+  // while preserving explicit plan layouts for downstream client organizations
+  const activeOrganization = useMemo(() => {
+    if (!currentOrganization) return null;
+    
+    // Check if nedpearson@gmail.com is operating in an internal host organization
+    if (
+      profile?.role === 'super_admin' && 
+      profile.email?.toLowerCase() === 'nedpearson@gmail.com' &&
+      currentOrganization.type === 'internal'
+    ) {
+      return {
+        ...currentOrganization,
+        is_enterprise_client: true,
+        billing_plan: 'enterprise',
+        subscription_status: 'active'
+      };
+    }
+    
+    return currentOrganization;
+  }, [currentOrganization, profile]);
+
   const value: AuthContextType = {
     session,
     user,
     profile,
     organizations,
-    currentOrganization,
+    currentOrganization: activeOrganization,
     loading,
     signIn,
     signUp,
     signOut,
-    setCurrentOrganization,
+    setCurrentOrganization: handleSetCurrentOrganization,
+    isLoadingOrg,
     permissionContext,
     can,
     isInternalStaff,

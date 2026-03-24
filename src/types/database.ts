@@ -20,6 +20,9 @@ export interface Organization {
   size?: string;
   created_at: string;
   updated_at: string;
+  is_enterprise_client?: boolean;
+  billing_plan?: string;
+  subscription_status?: string;
 }
 
 export type OrganizationType = 'internal' | 'client';

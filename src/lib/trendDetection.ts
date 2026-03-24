@@ -81,21 +81,23 @@ class TrendDetectionEngine {
     return 'weak';
   }
 
-  async detectTrendingServices(daysBack: number = 90): Promise<ServiceTrend[]> {
+  async detectTrendingServices(organizationId?: string, daysBack: number = 90): Promise<ServiceTrend[]> {
     const currentPeriodStart = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000);
     const previousPeriodStart = new Date(Date.now() - (daysBack * 2) * 24 * 60 * 60 * 1000);
     const previousPeriodEnd = currentPeriodStart;
 
-    const { data: currentLeads } = await supabase
-      .from('leads')
+    let query_currentLeads = supabase.from('leads')
       .select('lead_type, estimated_budget')
       .gte('created_at', currentPeriodStart.toISOString());
+    if (organizationId) query_currentLeads = query_currentLeads.eq('organization_id', organizationId);
+    const { data: currentLeads } = await query_currentLeads;
 
-    const { data: previousLeads } = await supabase
-      .from('leads')
+    let query_previousLeads = supabase.from('leads')
       .select('lead_type, estimated_budget')
       .gte('created_at', previousPeriodStart.toISOString())
       .lt('created_at', previousPeriodEnd.toISOString());
+    if (organizationId) query_previousLeads = query_previousLeads.eq('organization_id', organizationId);
+    const { data: previousLeads } = await query_previousLeads;
 
     const currentCounts = new Map<string, { count: number; revenue: number }>();
     const previousCounts = new Map<string, { count: number; revenue: number }>();
@@ -146,21 +148,23 @@ class TrendDetectionEngine {
     return trends.sort((a, b) => b.growthRate - a.growthRate);
   }
 
-  async detectIndustryGrowth(daysBack: number = 90): Promise<IndustryTrend[]> {
+  async detectIndustryGrowth(organizationId?: string, daysBack: number = 90): Promise<IndustryTrend[]> {
     const currentPeriodStart = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000);
     const previousPeriodStart = new Date(Date.now() - (daysBack * 2) * 24 * 60 * 60 * 1000);
     const previousPeriodEnd = currentPeriodStart;
 
-    const { data: currentLeads } = await supabase
-      .from('leads')
+    let query_currentLeads = supabase.from('leads')
       .select('industry, estimated_budget, status')
       .gte('created_at', currentPeriodStart.toISOString());
+    if (organizationId) query_currentLeads = query_currentLeads.eq('organization_id', organizationId);
+    const { data: currentLeads } = await query_currentLeads;
 
-    const { data: previousLeads } = await supabase
-      .from('leads')
+    let query_previousLeads = supabase.from('leads')
       .select('industry, estimated_budget, status')
       .gte('created_at', previousPeriodStart.toISOString())
       .lt('created_at', previousPeriodEnd.toISOString());
+    if (organizationId) query_previousLeads = query_previousLeads.eq('organization_id', organizationId);
+    const { data: previousLeads } = await query_previousLeads;
 
     const currentCounts = new Map<string, { count: number; revenue: number; converted: number }>();
     const previousCounts = new Map<string, { count: number; revenue: number; converted: number }>();
@@ -216,18 +220,20 @@ class TrendDetectionEngine {
     return trends.sort((a, b) => b.growthRate - a.growthRate);
   }
 
-  async detectDemandSpikes(daysBack: number = 90): Promise<DemandSpike[]> {
+  async detectDemandSpikes(organizationId?: string, daysBack: number = 90): Promise<DemandSpike[]> {
     const periodStart = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000);
 
-    const { data: leads } = await supabase
-      .from('leads')
+    let query_leads = supabase.from('leads')
       .select('message, lead_type, source, created_at')
       .gte('created_at', periodStart.toISOString());
+    if (organizationId) query_leads = query_leads.eq('organization_id', organizationId);
+    const { data: leads } = await query_leads;
 
-    const { data: tickets } = await supabase
-      .from('support_tickets')
+    let query_tickets = supabase.from('support_tickets')
       .select('title, description, category, created_at')
       .gte('created_at', periodStart.toISOString());
+    if (organizationId) query_tickets = query_tickets.eq('organization_id', organizationId);
+    const { data: tickets } = await query_tickets;
 
     const keywordFrequency = new Map<string, {
       count: number;
@@ -318,20 +324,22 @@ class TrendDetectionEngine {
     return spikes.sort((a, b) => b.frequency - a.frequency);
   }
 
-  async detectFeatureUsageTrends(daysBack: number = 90): Promise<FeatureUsageTrend[]> {
+  async detectFeatureUsageTrends(organizationId?: string, daysBack: number = 90): Promise<FeatureUsageTrend[]> {
     const currentPeriodStart = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000);
     const previousPeriodStart = new Date(Date.now() - (daysBack * 2) * 24 * 60 * 60 * 1000);
 
-    const { data: currentActivity } = await supabase
-      .from('activity_logs')
+    let query_currentActivity = supabase.from('activity_logs')
       .select('action, user_id')
       .gte('created_at', currentPeriodStart.toISOString());
+    if (organizationId) query_currentActivity = query_currentActivity.eq('organization_id', organizationId);
+    const { data: currentActivity } = await query_currentActivity;
 
-    const { data: previousActivity } = await supabase
-      .from('activity_logs')
+    let query_previousActivity = supabase.from('activity_logs')
       .select('action')
       .gte('created_at', previousPeriodStart.toISOString())
       .lt('created_at', currentPeriodStart.toISOString());
+    if (organizationId) query_previousActivity = query_previousActivity.eq('organization_id', organizationId);
+    const { data: previousActivity } = await query_previousActivity;
 
     const { data: totalUsers } = await supabase
       .from('users')
@@ -383,18 +391,20 @@ class TrendDetectionEngine {
     return trends.sort((a, b) => b.usageCount - a.usageCount);
   }
 
-  async detectClientRequestPatterns(daysBack: number = 90): Promise<ClientRequestPattern[]> {
+  async detectClientRequestPatterns(organizationId?: string, daysBack: number = 90): Promise<ClientRequestPattern[]> {
     const periodStart = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000);
 
-    const { data: tickets } = await supabase
-      .from('support_tickets')
+    let query_tickets = supabase.from('support_tickets')
       .select('title, description, category, organization_id')
       .gte('created_at', periodStart.toISOString());
+    if (organizationId) query_tickets = query_tickets.eq('organization_id', organizationId);
+    const { data: tickets } = await query_tickets;
 
-    const { data: projects } = await supabase
-      .from('projects')
+    let query_projects = supabase.from('projects')
       .select('name, description, service_type, budget, organization_id')
       .gte('created_at', periodStart.toISOString());
+    if (organizationId) query_projects = query_projects.eq('organization_id', organizationId);
+    const { data: projects } = await query_projects;
 
     const patterns = new Map<string, {
       count: number;
@@ -486,12 +496,12 @@ class TrendDetectionEngine {
     return results.sort((a, b) => b.frequency - a.frequency);
   }
 
-  async generateTrendInsights(): Promise<TrendInsight[]> {
+  async generateTrendInsights(organizationId?: string): Promise<TrendInsight[]> {
     const [serviceTrends, industryTrends, demandSpikes, requestPatterns] = await Promise.all([
-      this.detectTrendingServices(),
-      this.detectIndustryGrowth(),
-      this.detectDemandSpikes(),
-      this.detectClientRequestPatterns(),
+      this.detectTrendingServices(organizationId),
+      this.detectIndustryGrowth(organizationId),
+      this.detectDemandSpikes(organizationId),
+      this.detectClientRequestPatterns(organizationId),
     ]);
 
     const insights: TrendInsight[] = [];
@@ -556,12 +566,12 @@ class TrendDetectionEngine {
     return insights;
   }
 
-  async getHotOpportunities() {
+  async getHotOpportunities(organizationId?: string) {
     const [serviceTrends, industryTrends, demandSpikes, insights] = await Promise.all([
-      this.detectTrendingServices(),
-      this.detectIndustryGrowth(),
-      this.detectDemandSpikes(),
-      this.generateTrendInsights(),
+      this.detectTrendingServices(organizationId),
+      this.detectIndustryGrowth(organizationId),
+      this.detectDemandSpikes(organizationId),
+      this.generateTrendInsights(organizationId),
     ]);
 
     const hotServices = serviceTrends

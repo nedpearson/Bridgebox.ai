@@ -65,7 +65,7 @@ export default function Copilot() {
       const [convos, suggs, insights, actionsData] = await Promise.all([
         copilotService.getConversations(user.id),
         copilotService.getSuggestions(user.id, { status: 'pending' }),
-        aiDecisionEngine.getDashboardInsights(10),
+        aiDecisionEngine.getDashboardInsights(currentOrganization.id, 10),
         actionReviewer.getPendingReviewActions(currentOrganization.id),
       ]);
       setConversations(convos);

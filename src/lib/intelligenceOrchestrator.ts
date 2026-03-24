@@ -87,7 +87,7 @@ class IntelligenceOrchestrator {
       this.generateAllTrends(),
       organizationId ? this.gatherMarketIntelligence(organizationId) : this.getEmptyMarketData(),
       organizationId ? this.analyzeOpportunities(organizationId) : this.getEmptyOpportunityData(),
-      aiDecisionEngine.generateInsights(),
+      aiDecisionEngine.generateInsights(organizationId),
     ]);
 
     const criticalInsights = insights.filter(i => i.priority === 'critical');
@@ -137,7 +137,7 @@ class IntelligenceOrchestrator {
 
   private async generateAllPredictions(organizationId?: string) {
     const [revenue, projectDelivery, clientChurn, leadConversion] = await Promise.all([
-      predictiveAnalytics.predictRevenue(90).catch(() => null),
+      predictiveAnalytics.predictRevenue(organizationId, 90).catch(() => null),
       predictiveAnalytics.predictProjectDeliverySuccess(organizationId).catch(() => null),
       predictiveAnalytics.predictClientChurn(organizationId).catch(() => null),
       predictiveAnalytics.predictLeadConversion().catch(() => null),
@@ -148,9 +148,9 @@ class IntelligenceOrchestrator {
 
   private async generateAllTrends() {
     const [hotOpportunities, serviceGrowth, industryGrowth] = await Promise.all([
-      trendDetection.getHotOpportunities().catch(() => ({ hotServices: [], hotIndustries: [], emergingKeywords: [] })),
-      trendDetection.detectTrendingServices(90).catch(() => []),
-      trendDetection.detectIndustryGrowth(90).catch(() => []),
+      trendDetection.getHotOpportunities(organizationId).catch(() => ({ hotServices: [], hotIndustries: [], emergingKeywords: [] })),
+      trendDetection.detectTrendingServices(organizationId, 90).catch(() => []),
+      trendDetection.detectIndustryGrowth(organizationId, 90).catch(() => []),
     ]);
 
     return {
@@ -335,10 +335,11 @@ class IntelligenceOrchestrator {
 
   async getContextualInsights(context: {
     type: 'lead' | 'project' | 'client' | 'general';
+    organizationId?: string;
     id?: string;
   }): Promise<AIInsight[]> {
     if (context.type === 'general') {
-      return await aiDecisionEngine.getDashboardInsights();
+      return await aiDecisionEngine.getDashboardInsights(context.organizationId);
     }
 
     if (context.id) {
@@ -348,7 +349,7 @@ class IntelligenceOrchestrator {
       });
     }
 
-    const allInsights = await aiDecisionEngine.generateInsights();
+    const allInsights = await aiDecisionEngine.generateInsights(organizationId);
     return allInsights.filter(i => {
       if (context.type === 'lead') return i.type === 'sales';
       if (context.type === 'project') return i.type === 'project';

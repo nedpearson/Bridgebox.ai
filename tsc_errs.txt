@@ -1,0 +1,639 @@
+src/components/AccordionItem.tsx(1,20): error TS6133: 'ReactNode' is declared but its value is never read.
+src/components/AccordionItem.tsx(3,32): error TS6133: 'LucideIcon' is declared but its value is never read.
+src/components/AccordionItem.tsx(6,9): error TS2749: 'LucideIcon' refers to a value, but is being used as a type here. Did you mean 'typeof LucideIcon'?
+src/components/admin/AdminSidebar.tsx(2,184): error TS6133: 'LucideIcon' is declared but its value is never read.
+src/components/admin/AdminSidebar.tsx(3,1): error TS6133: 'useState' is declared but its value is never read.
+src/components/admin/AdminSidebar.tsx(6,9): error TS2749: 'LucideIcon' refers to a value, but is being used as a type here. Did you mean 'typeof LucideIcon'?
+src/components/admin/KPICard.tsx(2,1): error TS6133: 'LucideIcon' is declared but its value is never read.
+src/components/admin/KPICard.tsx(8,9): error TS2749: 'LucideIcon' refers to a value, but is being used as a type here. Did you mean 'typeof LucideIcon'?
+src/components/ai/InsightCard.tsx(10,3): error TS6133: 'Users' is declared but its value is never read.
+src/components/ai/InsightCard.tsx(90,9): error TS2322: Type '{ children: Element; className: string; onClick: (() => void) | undefined; }' is not assignable to type 'IntrinsicAttributes & CardProps'.
+  Property 'onClick' does not exist on type 'IntrinsicAttributes & CardProps'.
+src/components/app/AppSidebar.tsx(4,3): error TS6133: 'Briefcase' is declared but its value is never read.
+src/components/app/NotificationBell.tsx(3,35): error TS6133: 'X' is declared but its value is never read.
+src/components/automations/RuleBuilder.tsx(2,15): error TS6133: 'Plus' is declared but its value is never read.
+src/components/automations/RuleBuilder.tsx(2,21): error TS6133: 'X' is declared but its value is never read.
+src/components/automations/RuleBuilder.tsx(4,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/automations/RuleBuilder.tsx(10,8): error TS6133: 'TriggerConfig' is declared but its value is never read.
+src/components/automations/RuleBuilder.tsx(11,8): error TS6133: 'ActionConfig' is declared but its value is never read.
+src/components/Button.tsx(70,8): error TS2322: Type '{ children: Element; className: string; whileHover?: undefined; whileTap?: undefined; transition?: undefined; } | { children: Element; className: string; whileHover: { scale: number; y: number; }; whileTap: { ...; }; transition: { ...; }; }' is not assignable to type 'IntrinsicAttributes & Omit<HTMLMotionProps<"div">, "ref"> & RefAttributes<HTMLDivElement>'.
+  Type '{ children: Element; className: string; whileHover: { scale: number; y: number; }; whileTap: { scale: number; }; transition: { duration: number; ease: number[]; }; }' is not assignable to type 'Omit<HTMLMotionProps<"div">, "ref">'.
+    Types of property 'transition' are incompatible.
+      Type '{ duration: number; ease: number[]; }' is not assignable to type 'Transition<any> | undefined'.
+        Type '{ duration: number; ease: number[]; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+          Type '{ duration: number; ease: number[]; }' is not assignable to type 'ValueAnimationTransition<any>'.
+            Types of property 'ease' are incompatible.
+              Type 'number[]' is not assignable to type 'Easing | Easing[] | undefined'.
+                Type 'number[]' is not assignable to type 'EasingFunction | Easing[]'.
+                  Type 'number[]' is not assignable to type 'Easing[]'.
+                    Type 'number' is not assignable to type 'Easing'.
+src/components/Button.tsx(80,8): error TS2322: Type '{ children: Element; className: string; whileHover?: undefined; whileTap?: undefined; transition?: undefined; } | { children: Element; className: string; whileHover: { scale: number; y: number; }; whileTap: { ...; }; transition: { ...; }; }' is not assignable to type 'IntrinsicAttributes & Omit<HTMLMotionProps<"div">, "ref"> & RefAttributes<HTMLDivElement>'.
+  Type '{ children: Element; className: string; whileHover: { scale: number; y: number; }; whileTap: { scale: number; }; transition: { duration: number; ease: number[]; }; }' is not assignable to type 'Omit<HTMLMotionProps<"div">, "ref">'.
+    Types of property 'transition' are incompatible.
+      Type '{ duration: number; ease: number[]; }' is not assignable to type 'Transition<any> | undefined'.
+        Type '{ duration: number; ease: number[]; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+          Type '{ duration: number; ease: number[]; }' is not assignable to type 'ValueAnimationTransition<any>'.
+            Types of property 'ease' are incompatible.
+              Type 'number[]' is not assignable to type 'Easing | Easing[] | undefined'.
+                Type 'number[]' is not assignable to type 'EasingFunction | Easing[]'.
+                  Type 'number[]' is not assignable to type 'Easing[]'.
+                    Type 'number' is not assignable to type 'Easing'.
+src/components/Button.tsx(89,6): error TS2322: Type '{ children: Element; whileHover?: undefined; whileTap?: undefined; transition?: undefined; onClick: (() => void) | undefined; type: "button" | "submit" | "reset" | undefined; disabled: boolean; className: string; } | { ...; }' is not assignable to type 'IntrinsicAttributes & Omit<HTMLMotionProps<"button">, "ref"> & RefAttributes<HTMLButtonElement>'.
+  Type '{ children: Element; whileHover: { scale: number; y: number; }; whileTap: { scale: number; }; transition: { duration: number; ease: number[]; }; onClick: (() => void) | undefined; type: "button" | "submit" | "reset" | undefined; disabled: boolean; className: string; }' is not assignable to type 'Omit<HTMLMotionProps<"button">, "ref">'.
+    Types of property 'transition' are incompatible.
+      Type '{ duration: number; ease: number[]; }' is not assignable to type 'Transition<any> | undefined'.
+        Type '{ duration: number; ease: number[]; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+          Type '{ duration: number; ease: number[]; }' is not assignable to type 'ValueAnimationTransition<any>'.
+            Types of property 'ease' are incompatible.
+              Type 'number[]' is not assignable to type 'Easing | Easing[] | undefined'.
+                Type 'number[]' is not assignable to type 'EasingFunction | Easing[]'.
+                  Type 'number[]' is not assignable to type 'Easing[]'.
+                    Type 'number' is not assignable to type 'Easing'.
+src/components/connectors/ConnectorCard.tsx(1,1): error TS6133: 'motion' is declared but its value is never read.
+src/components/connectors/ConnectorCard.tsx(2,36): error TS6133: 'ExternalLink' is declared but its value is never read.
+src/components/connectors/ConnectorCard.tsx(64,10): error TS18048: 'connector.recordCount' is possibly 'undefined'.
+src/components/connectors/ConnectorCard.tsx(67,47): error TS18048: 'connector.recordCount' is possibly 'undefined'.
+src/components/connectors/ConnectorCard.tsx(71,10): error TS18048: 'connector.syncCount' is possibly 'undefined'.
+src/components/connectors/ConnectorSetupModal.tsx(3,10): error TS2614: Module '"../Button"' has no exported member 'Button'. Did you mean to use 'import Button from "../Button"' instead?
+src/components/connectors/ConnectorSetupModal.tsx(140,23): error TS2339: Property 'icon_url' does not exist on type 'ConnectorProvider'.
+src/components/connectors/ConnectorSetupModal.tsx(141,34): error TS2339: Property 'icon_url' does not exist on type 'ConnectorProvider'.
+src/components/connectors/ConnectorSetupModal.tsx(168,38): error TS2339: Property 'config_schema' does not exist on type 'ConnectorProvider'.
+src/components/connectors/ProviderCard.tsx(1,1): error TS6133: 'motion' is declared but its value is never read.
+src/components/copilot/FloatingAssistant.tsx(3,23): error TS6133: 'Minimize2' is declared but its value is never read.
+src/components/copilot/FloatingAssistant.tsx(5,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/DashboardMockup.tsx(5,1): error TS6133: 'AnimatedMetric' is declared but its value is never read.
+src/components/documents/BatchProcessor.tsx(3,10): error TS6133: 'Play' is declared but its value is never read.
+src/components/documents/BatchProcessor.tsx(3,16): error TS6133: 'Pause' is declared but its value is never read.
+src/components/documents/BatchProcessor.tsx(3,23): error TS6133: 'RotateCcw' is declared but its value is never read.
+src/components/documents/BatchProcessor.tsx(5,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/documents/BatchProcessor.tsx(70,26): error TS2322: Type '{ children: number; color: string; className: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/documents/BatchProcessor.tsx(76,26): error TS2322: Type '{ children: number; color: string; className: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/documents/BatchProcessor.tsx(82,26): error TS2322: Type '{ children: number; color: string; className: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/documents/BatchProcessor.tsx(89,28): error TS2322: Type '{ children: number; color: string; className: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/documents/ExtractedDataPanel.tsx(50,22): error TS2322: Type '{ children: ExtractedDataType; color: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/documents/ExtractedDataPanel.tsx(53,22): error TS2322: Type '{ children: ValidationStatus; color: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/documents/ProcessingStatus.tsx(54,56): error TS2339: Property 'animate' does not exist on type '{ icon: LucideIcon; color: string; bgColor: string; label: string; } | { icon: LucideIcon; color: string; bgColor: string; label: string; animate: boolean; } | { icon: LucideIcon; color: string; bgColor: string; label: string; } | { ...; } | { ...; }'.
+  Property 'animate' does not exist on type '{ icon: LucideIcon; color: string; bgColor: string; label: string; }'.
+src/components/EmptyState.tsx(2,1): error TS6133: 'LucideIcon' is declared but its value is never read.
+src/components/EmptyState.tsx(5,9): error TS2749: 'LucideIcon' refers to a value, but is being used as a type here. Did you mean 'typeof LucideIcon'?
+src/components/enterprise/EnterpriseDashboard.tsx(56,17): error TS2345: Argument of type '{ connectors: string; workflows: string; overall: string; }' is not assignable to parameter of type 'SetStateAction<DashboardHealth | null>'.
+  Type '{ connectors: string; workflows: string; overall: string; }' is not assignable to type 'DashboardHealth'.
+    Types of property 'connectors' are incompatible.
+      Type 'string' is not assignable to type '"error" | "warning" | "info" | "healthy"'.
+src/components/enterprise/EnterpriseDashboard.tsx(154,34): error TS2322: Type '{ children: string; key: string; color: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/enterprise/EnterpriseDashboard.tsx(256,24): error TS6133: 'Icon' is declared but its value is never read.
+src/components/enterprise/EnterpriseDashboard.tsx(298,18): error TS2322: Type '{ children: "active" | "inactive"; color: string; className: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/FileUpload.tsx(2,21): error TS6133: 'File' is declared but its value is never read.
+src/components/FileUpload.tsx(4,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/FileUpload.tsx(16,3): error TS6133: 'onUploadComplete' is declared but its value is never read.
+src/components/FileUpload.tsx(24,21): error TS6133: 'setUploading' is declared but its value is never read.
+src/components/LeadForm.tsx(223,9): error TS2322: Type '{ children: string | Element; type: "submit"; variant: "primary"; size: "lg"; fullWidth: true; disabled: boolean; }' is not assignable to type 'IntrinsicAttributes & ButtonPropsExtended'.
+  Property 'fullWidth' does not exist on type 'IntrinsicAttributes & ButtonPropsExtended'.
+src/components/market/EmergingTrendCard.tsx(1,10): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/components/market/EmergingTrendCard.tsx(1,22): error TS6133: 'Zap' is declared but its value is never read.
+src/components/market/MarketSignalChart.tsx(46,29): error TS6133: 'index' is declared but its value is never read.
+src/components/market/OpportunityCard.tsx(1,10): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/components/market/OpportunityCard.tsx(1,22): error TS6133: 'AlertCircle' is declared but its value is never read.
+src/components/market/OpportunityCard.tsx(3,1): error TS6133: 'GrowthDirectionBadge' is declared but its value is never read.
+src/components/market/OpportunityCard.tsx(28,7): error TS2322: Type '{ children: Element; hover: true; className: string; onClick: (() => void) | undefined; }' is not assignable to type 'IntrinsicAttributes & CardProps'.
+  Property 'onClick' does not exist on type 'IntrinsicAttributes & CardProps'.
+src/components/MetricsDashboard.tsx(2,1): error TS6133: 'LucideIcon' is declared but its value is never read.
+src/components/MetricsDashboard.tsx(9,9): error TS2749: 'LucideIcon' refers to a value, but is being used as a type here. Did you mean 'typeof LucideIcon'?
+src/components/MetricsDashboard.tsx(119,10): error TS2749: 'LucideIcon' refers to a value, but is being used as a type here. Did you mean 'typeof LucideIcon'?
+src/components/mobile/MobileProjectCard.tsx(23,3): error TS6133: 'id' is declared but its value is never read.
+src/components/mobile/MobileProjectCard.tsx(48,20): error TS2322: Type '{ children: string; color: string; className: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/mobile/MobileTaskCard.tsx(83,22): error TS2322: Type '{ children: "low" | "medium" | "high"; color: string; className: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/mobile/QuickActionButton.tsx(2,1): error TS6133: 'LucideIcon' is declared but its value is never read.
+src/components/mobile/QuickActionButton.tsx(5,9): error TS2749: 'LucideIcon' refers to a value, but is being used as a type here. Did you mean 'typeof LucideIcon'?
+src/components/opportunities/OpportunityScoreCard.tsx(1,42): error TS6133: 'Zap' is declared but its value is never read.
+src/components/opportunities/OpportunityScoreCard.tsx(1,47): error TS6133: 'Users' is declared but its value is never read.
+src/components/opportunities/OpportunityScoreCard.tsx(1,54): error TS6133: 'Signal' is declared but its value is never read.
+src/components/opportunities/OpportunityScoreCard.tsx(1,62): error TS6133: 'Award' is declared but its value is never read.
+src/components/opportunities/OpportunityScoreCard.tsx(21,56): error TS2322: Type '{ children: Element; hover: boolean; className: string; onClick: (() => void) | undefined; }' is not assignable to type 'IntrinsicAttributes & CardProps'.
+  Property 'onClick' does not exist on type 'IntrinsicAttributes & CardProps'.
+src/components/ProductDashboard.tsx(3,20): error TS6133: 'useEffect' is declared but its value is never read.
+src/components/ProductDashboard.tsx(5,1): error TS6133: 'AnimatedChart' is declared but its value is never read.
+src/components/ProductDashboard.tsx(9,10): error TS6133: 'activeTab' is declared but its value is never read.
+src/components/ProductDashboard.tsx(9,21): error TS6133: 'setActiveTab' is declared but its value is never read.
+src/components/ProductDashboard.tsx(98,51): error TS2322: Type '{ value: number; className: string; }' is not assignable to type 'IntrinsicAttributes & AnimatedMetricProps'.
+  Property 'className' does not exist on type 'IntrinsicAttributes & AnimatedMetricProps'.
+src/components/trends/TrendBadge.tsx(10,41): error TS6133: 'strength' is declared but its value is never read.
+src/hooks/useBilling.ts(3,33): error TS6196: 'Subscription' is declared but never used.
+src/hooks/useBilling.ts(3,47): error TS6196: 'Invoice' is declared but never used.
+src/hooks/useOrganizations.ts(3,1): error TS6133: 'Organization' is declared but its value is never read.
+src/hooks/useSupport.ts(3,1): error TS6133: 'SupportTicket' is declared but its value is never read.
+src/lib/agents/actions/ActionExecutor.ts(39,26): error TS2339: Property 'raw' does not exist on type 'SupabaseClient<any, "public", "public", any, any>'.
+src/lib/agents/actions/ActionExecutor.ts(85,42): error TS6133: 'healthError' is declared but its value is never read.
+src/lib/agents/actions/ActionRecommender.ts(5,3): error TS6196: 'ActionCategory' is declared but never used.
+src/lib/agents/actions/ActionRecommender.ts(6,3): error TS6196: 'ActionType' is declared but never used.
+src/lib/agents/actions/ActionRecommender.ts(7,3): error TS6196: 'ActionContext' is declared but never used.
+src/lib/agents/actions/ActionRecommender.ts(8,3): error TS6196: 'ActionReasoning' is declared but never used.
+src/lib/agents/actions/ActionRecommender.ts(9,3): error TS6196: 'ActionPayload' is declared but never used.
+src/lib/agents/actions/ActionRecommender.ts(10,3): error TS6196: 'ActionPriority' is declared but never used.
+src/lib/aiDecisionEngine.ts(3,1): error TS6133: 'predictiveAnalytics' is declared but its value is never read.
+src/lib/aiDecisionEngine.ts(145,33): error TS2367: This comparison appears to be unintentional because the types '"low" | "medium"' and '"critical"' have no overlap.
+src/lib/aiDecisionEngine.ts(158,20): error TS2367: This comparison appears to be unintentional because the types '"low" | "medium" | "high"' and '"critical"' have no overlap.
+src/lib/connectors/core/BaseConnector.ts(54,5): error TS6133: 'severity' is declared but its value is never read.
+src/lib/connectors/providers/CSVConnector.ts(18,14): error TS2654: Non-abstract class 'CSVConnector' is missing implementations for the following members of 'BaseConnector': 'testConnection', 'fetchExternalData', 'syncNow', 'normalizeData'.
+src/lib/connectors/providers/CSVConnector.ts(23,5): error TS2554: Expected 2 arguments, but got 1.
+src/lib/connectors/providers/CSVConnector.ts(25,30): error TS2339: Property 'parseCredentials' does not exist on type 'CSVConnector'.
+src/lib/connectors/providers/CSVConnector.ts(25,65): error TS2339: Property 'credentials' does not exist on type 'ConnectorConfig'.
+src/lib/connectors/providers/CSVConnector.ts(32,34): error TS2339: Property 'mapping_config' does not exist on type 'ConnectorConfig'.
+src/lib/connectors/providers/CSVConnector.ts(53,16): error TS2322: Type 'string' is not assignable to type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CSVConnector.ts(68,13): error TS2322: Type 'string' is not assignable to type 'ConnectorCapability'.
+src/lib/connectors/providers/CSVConnector.ts(73,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/CSVConnector.ts(87,9): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CSVConnector.ts(87,29): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CSVConnector.ts(104,17): error TS6133: 'rowData' is declared but its value is never read.
+src/lib/connectors/providers/CSVConnector.ts(109,11): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CSVConnector.ts(109,31): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CSVConnector.ts(117,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CSVConnector.ts(117,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CSVConnector.ts(125,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/CSVConnector.ts(138,9): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CSVConnector.ts(138,29): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CSVConnector.ts(160,11): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CSVConnector.ts(160,31): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CSVConnector.ts(168,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CSVConnector.ts(168,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CSVConnector.ts(264,16): error TS2339: Property 'storeData' does not exist on type 'CSVConnector'.
+src/lib/connectors/providers/CSVConnector.ts(265,26): error TS2339: Property 'connectorConfig' does not exist on type 'CSVConnector'.
+src/lib/connectors/providers/CustomAPIConnector.ts(20,14): error TS2654: Non-abstract class 'CustomAPIConnector' is missing implementations for the following members of 'BaseConnector': 'testConnection', 'fetchExternalData', 'syncNow', 'normalizeData'.
+src/lib/connectors/providers/CustomAPIConnector.ts(25,5): error TS2554: Expected 2 arguments, but got 1.
+src/lib/connectors/providers/CustomAPIConnector.ts(26,24): error TS2339: Property 'parseCredentials' does not exist on type 'CustomAPIConnector'.
+src/lib/connectors/providers/CustomAPIConnector.ts(26,65): error TS2339: Property 'credentials' does not exist on type 'ConnectorConfig'.
+src/lib/connectors/providers/CustomAPIConnector.ts(27,29): error TS2339: Property 'mapping_config' does not exist on type 'ConnectorConfig'.
+src/lib/connectors/providers/CustomAPIConnector.ts(47,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/CustomAPIConnector.ts(66,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CustomAPIConnector.ts(66,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CustomAPIConnector.ts(81,13): error TS2322: Type 'string' is not assignable to type 'ConnectorCapability'.
+src/lib/connectors/providers/CustomAPIConnector.ts(81,21): error TS2322: Type 'string' is not assignable to type 'ConnectorCapability'.
+src/lib/connectors/providers/CustomAPIConnector.ts(112,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/CustomAPIConnector.ts(154,13): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CustomAPIConnector.ts(154,33): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CustomAPIConnector.ts(176,11): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CustomAPIConnector.ts(176,31): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CustomAPIConnector.ts(183,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CustomAPIConnector.ts(183,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/CustomAPIConnector.ts(207,5): error TS18048: 'target.errors' is possibly 'undefined'.
+src/lib/connectors/providers/CustomAPIConnector.ts(219,16): error TS2339: Property 'storeData' does not exist on type 'CustomAPIConnector'.
+src/lib/connectors/providers/CustomAPIConnector.ts(220,26): error TS2339: Property 'connectorConfig' does not exist on type 'CustomAPIConnector'.
+src/lib/connectors/providers/GoogleConnector.ts(29,11): error TS6196: 'GoogleSheetData' is declared but never used.
+src/lib/connectors/providers/GoogleConnector.ts(35,14): error TS2654: Non-abstract class 'GoogleConnector' is missing implementations for the following members of 'BaseConnector': 'testConnection', 'fetchExternalData', 'syncNow', 'normalizeData'.
+src/lib/connectors/providers/GoogleConnector.ts(39,5): error TS2554: Expected 2 arguments, but got 1.
+src/lib/connectors/providers/GoogleConnector.ts(40,24): error TS2339: Property 'parseCredentials' does not exist on type 'GoogleConnector'.
+src/lib/connectors/providers/GoogleConnector.ts(40,62): error TS2339: Property 'credentials' does not exist on type 'ConnectorConfig'.
+src/lib/connectors/providers/GoogleConnector.ts(66,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/GoogleConnector.ts(95,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/GoogleConnector.ts(95,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/GoogleConnector.ts(118,13): error TS2322: Type 'string' is not assignable to type 'ConnectorCapability'.
+src/lib/connectors/providers/GoogleConnector.ts(118,21): error TS2322: Type 'string' is not assignable to type 'ConnectorCapability'.
+src/lib/connectors/providers/GoogleConnector.ts(122,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/GoogleConnector.ts(171,11): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/GoogleConnector.ts(171,31): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/GoogleConnector.ts(178,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/GoogleConnector.ts(178,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/GoogleConnector.ts(184,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/GoogleConnector.ts(232,33): error TS2769: No overload matches this call.
+  Overload 1 of 4, '(value: string | number | Date): Date', gave the following error.
+    Argument of type 'string | undefined' is not assignable to parameter of type 'string | number | Date'.
+      Type 'undefined' is not assignable to type 'string | number | Date'.
+  Overload 2 of 4, '(value: string | number): Date', gave the following error.
+    Argument of type 'string | undefined' is not assignable to parameter of type 'string | number'.
+      Type 'undefined' is not assignable to type 'string | number'.
+src/lib/connectors/providers/GoogleConnector.ts(239,11): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/GoogleConnector.ts(239,31): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/GoogleConnector.ts(246,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/GoogleConnector.ts(246,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/GoogleConnector.ts(252,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/GoogleConnector.ts(262,34): error TS2339: Property 'connectorConfig' does not exist on type 'GoogleConnector'.
+src/lib/connectors/providers/GoogleConnector.ts(266,9): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/GoogleConnector.ts(266,29): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/GoogleConnector.ts(314,11): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/GoogleConnector.ts(314,31): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/GoogleConnector.ts(321,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/GoogleConnector.ts(321,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/GoogleConnector.ts(331,5): error TS18048: 'target.errors' is possibly 'undefined'.
+src/lib/connectors/providers/GoogleConnector.ts(331,27): error TS2488: Type '{ record?: any; error: string; }[] | undefined' must have a '[Symbol.iterator]()' method that returns an iterator.
+src/lib/connectors/providers/GoogleConnector.ts(343,16): error TS2339: Property 'storeData' does not exist on type 'GoogleConnector'.
+src/lib/connectors/providers/GoogleConnector.ts(344,26): error TS2339: Property 'connectorConfig' does not exist on type 'GoogleConnector'.
+src/lib/connectors/providers/MockConnector.ts(5,17): error TS6133: 'credentials' is declared but its value is never read.
+src/lib/connectors/providers/MockConnector.ts(19,27): error TS6133: 'options' is declared but its value is never read.
+src/lib/connectors/providers/StripeConnector.ts(52,14): error TS2654: Non-abstract class 'StripeConnector' is missing implementations for the following members of 'BaseConnector': 'testConnection', 'fetchExternalData', 'syncNow', 'normalizeData'.
+src/lib/connectors/providers/StripeConnector.ts(57,5): error TS2554: Expected 2 arguments, but got 1.
+src/lib/connectors/providers/StripeConnector.ts(58,24): error TS2339: Property 'parseCredentials' does not exist on type 'StripeConnector'.
+src/lib/connectors/providers/StripeConnector.ts(58,62): error TS2339: Property 'credentials' does not exist on type 'ConnectorConfig'.
+src/lib/connectors/providers/StripeConnector.ts(78,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/StripeConnector.ts(101,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/StripeConnector.ts(101,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/StripeConnector.ts(116,13): error TS2322: Type 'string' is not assignable to type 'ConnectorCapability'.
+src/lib/connectors/providers/StripeConnector.ts(116,21): error TS2322: Type 'string' is not assignable to type 'ConnectorCapability'.
+src/lib/connectors/providers/StripeConnector.ts(116,29): error TS2322: Type 'string' is not assignable to type 'ConnectorCapability'.
+src/lib/connectors/providers/StripeConnector.ts(120,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/StripeConnector.ts(177,13): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/StripeConnector.ts(177,33): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/StripeConnector.ts(185,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/StripeConnector.ts(185,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/StripeConnector.ts(191,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/StripeConnector.ts(252,13): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/StripeConnector.ts(252,33): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/StripeConnector.ts(260,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/StripeConnector.ts(260,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/StripeConnector.ts(266,11): error TS2739: Type '{ success: true; recordsProcessed: number; recordsCreated: number; recordsUpdated: number; recordsFailed: number; errors: never[]; }' is missing the following properties from type 'SyncResult': recordsSkipped, duration, startedAt, completedAt
+src/lib/connectors/providers/StripeConnector.ts(333,13): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/StripeConnector.ts(333,33): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/StripeConnector.ts(341,7): error TS18048: 'results.errors' is possibly 'undefined'.
+src/lib/connectors/providers/StripeConnector.ts(341,27): error TS2345: Argument of type 'string' is not assignable to parameter of type '{ record?: any; error: string; }'.
+src/lib/connectors/providers/StripeConnector.ts(351,5): error TS18048: 'target.errors' is possibly 'undefined'.
+src/lib/connectors/providers/StripeConnector.ts(362,16): error TS2339: Property 'storeData' does not exist on type 'StripeConnector'.
+src/lib/connectors/providers/StripeConnector.ts(363,26): error TS2339: Property 'connectorConfig' does not exist on type 'StripeConnector'.
+src/lib/connectors/services/ConnectorInitializer.ts(14,5): error TS2322: Type '"productivity"' is not assignable to type 'ConnectorCategory'.
+src/lib/connectors/services/ConnectorInitializer.ts(38,5): error TS2322: Type '"payment"' is not assignable to type 'ConnectorCategory'.
+src/lib/connectors/services/ConnectorInitializer.ts(63,5): error TS2322: Type '"custom"' is not assignable to type 'ConnectorCategory'.
+src/lib/connectors/services/ConnectorInitializer.ts(94,5): error TS2322: Type '"file"' is not assignable to type 'ConnectorCategory'.
+src/lib/connectors/services/ConnectorInitializer.ts(121,5): error TS2322: Type '"development"' is not assignable to type 'ConnectorCategory'.
+src/lib/db/analytics.ts(159,9): error TS6133: 'projectsByStatusResult' is declared but its value is never read.
+src/lib/db/analytics.ts(420,13): error TS6133: 'allOrgs' is declared but its value is never read.
+src/lib/db/connectors.ts(78,22): error TS18048: 'connector.auth' is possibly 'undefined'.
+src/lib/db/connectors.ts(79,29): error TS18048: 'connector.auth' is possibly 'undefined'.
+src/lib/db/connectors.ts(80,24): error TS18048: 'connector.auth' is possibly 'undefined'.
+src/lib/db/copilot.ts(250,5): error TS6133: 'conversationId' is declared but its value is never read.
+src/lib/db/copilot.ts(252,5): error TS6133: 'userId' is declared but its value is never read.
+src/lib/db/documents.ts(106,46): error TS2339: Property 'generateContent' does not exist on type 'AIService'.
+src/lib/db/executive.ts(202,9): error TS6133: 'projectsResult' is declared but its value is never read.
+src/lib/db/executive.ts(260,9): error TS6133: 'projectsResult' is declared but its value is never read.
+src/lib/db/implementation.ts(192,17): error TS2783: 'implementation_id' is specified more than once, so this usage will be overwritten.
+src/lib/db/implementation.ts(259,17): error TS2783: 'implementation_id' is specified more than once, so this usage will be overwritten.
+src/lib/db/implementation.ts(290,177): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(290,197): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(291,181): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(291,201): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(292,170): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(292,190): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(293,166): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(293,186): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(296,167): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(296,187): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(297,172): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(297,192): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(298,179): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(298,199): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(299,172): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(299,192): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(302,167): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(302,187): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(303,154): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(303,174): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(304,162): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(304,182): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(305,153): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(305,173): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(308,143): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(308,163): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(309,154): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(309,174): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(310,154): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(310,174): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(311,153): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(311,173): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(312,157): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(312,177): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(315,160): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(315,180): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(316,173): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(316,193): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(317,168): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(317,188): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(320,172): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(320,192): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(321,161): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(321,181): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(322,152): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(322,172): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(323,163): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(323,183): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(324,152): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(324,172): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(325,159): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/implementation.ts(325,179): error TS2322: Type 'null' is not assignable to type 'string | undefined'.
+src/lib/db/leads.ts(141,34): error TS2353: Object literal may only specify known properties, and 'assigned_to' does not exist in type 'Partial<LeadRecord>'.
+src/lib/db/leads.ts(148,32): error TS2339: Property 'notes' does not exist on type 'LeadRecord'.
+src/lib/db/leads.ts(154,34): error TS2353: Object literal may only specify known properties, and 'notes' does not exist in type 'Partial<LeadRecord>'.
+src/lib/db/marketSignals.ts(8,3): error TS6196: 'SignalScoreInput' is declared but never used.
+src/lib/documents/DocumentProcessor.ts(3,15): error TS6196: 'Document' is declared but never used.
+src/lib/documents/DocumentProcessor.ts(99,38): error TS2339: Property 'generateContent' does not exist on type 'AIService'.
+src/lib/documents/DocumentProcessor.ts(289,26): error TS6133: 'pdfContent' is declared but its value is never read.
+src/lib/documents/DocumentProcessor.ts(293,28): error TS6133: 'imageData' is declared but its value is never read.
+src/lib/enterpriseIntegration.ts(30,47): error TS2551: Property 'getConnector' does not exist on type '{ getProviders(): Promise<ConnectorProvider[]>; getProviderById(id: string): Promise<ConnectorProvider | null>; ... 10 more ...; mapConnectorFromDB(data: any): Connector; }'. Did you mean 'getConnectorById'?
+src/lib/enterpriseIntegration.ts(33,51): error TS2339: Property 'createRun' does not exist on type 'DataPipelineService'.
+src/lib/enterpriseIntegration.ts(43,33): error TS2339: Property 'processRecord' does not exist on type 'DataPipelineService'.
+src/lib/enterpriseIntegration.ts(65,44): error TS2551: Property 'getDocument' does not exist on type 'DocumentService'. Did you mean 'getDocuments'?
+src/lib/enterpriseIntegration.ts(132,45): error TS2339: Property 'getWorkflowsByOrganization' does not exist on type 'WorkflowService'.
+src/lib/enterpriseIntegration.ts(139,31): error TS2551: Property 'executeWorkflow' does not exist on type 'WorkflowService'. Did you mean 'deleteWorkflow'?
+src/lib/enterpriseIntegration.ts(307,23): error TS2339: Property 'getWorkflowsByOrganization' does not exist on type 'WorkflowService'.
+src/lib/enterpriseIntegration.ts(313,48): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/lib/enterpriseIntegration.ts(314,46): error TS7006: Parameter 'w' implicitly has an 'any' type.
+src/lib/enterpriseIntegration.ts(341,45): error TS2339: Property 'getWorkflowsByOrganization' does not exist on type 'WorkflowService'.
+src/lib/enterpriseIntegration.ts(342,43): error TS7006: Parameter 'w' implicitly has an 'any' type.
+src/lib/enterpriseIntegration.ts(347,29): error TS2551: Property 'executeWorkflow' does not exist on type 'WorkflowService'. Did you mean 'deleteWorkflow'?
+src/lib/integrationHelpers.ts(51,14): error TS7022: 'project' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.
+src/lib/integrationHelpers.ts(75,34): error TS2448: Block-scoped variable 'project' used before its declaration.
+src/lib/integrationHelpers.ts(127,14): error TS7022: 'ticket' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.
+src/lib/integrationHelpers.ts(141,34): error TS2448: Block-scoped variable 'ticket' used before its declaration.
+src/lib/integrationHelpers.ts(208,36): error TS6133: 'organizationId' is declared but its value is never read.
+src/lib/integrationHelpers.ts(210,30): error TS6133: 'projects' is declared but its value is never read.
+src/lib/intelligenceOrchestrator.ts(82,21): error TS2339: Property 'getSalesMetrics' does not exist on type 'MetricsEngine'.
+src/lib/intelligenceOrchestrator.ts(83,21): error TS2339: Property 'getOperationsMetrics' does not exist on type 'MetricsEngine'.
+src/lib/intelligenceOrchestrator.ts(84,21): error TS2339: Property 'getClientMetrics' does not exist on type 'MetricsEngine'.
+src/lib/intelligenceOrchestrator.ts(85,21): error TS2339: Property 'getFinancialMetrics' does not exist on type 'MetricsEngine'.
+src/lib/intelligenceOrchestrator.ts(93,46): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(94,50): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(95,43): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(96,35): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(99,26): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(99,31): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(140,27): error TS2339: Property 'predictRevenue' does not exist on type 'PredictiveAnalyticsEngine'.
+src/lib/intelligenceOrchestrator.ts(141,27): error TS2339: Property 'predictProjectDeliverySuccess' does not exist on type 'PredictiveAnalyticsEngine'.
+src/lib/intelligenceOrchestrator.ts(142,27): error TS2551: Property 'predictClientChurn' does not exist on type 'PredictiveAnalyticsEngine'. Did you mean 'predictClientRisk'?
+src/lib/intelligenceOrchestrator.ts(143,27): error TS2554: Expected 1 arguments, but got 0.
+src/lib/intelligenceOrchestrator.ts(151,42): error TS2304: Cannot find name 'organizationId'.
+src/lib/intelligenceOrchestrator.ts(152,45): error TS2304: Cannot find name 'organizationId'.
+src/lib/intelligenceOrchestrator.ts(153,43): error TS2304: Cannot find name 'organizationId'.
+src/lib/intelligenceOrchestrator.ts(333,36): error TS2339: Property 'getRealTimeMetrics' does not exist on type 'MetricsAggregator'.
+src/lib/intelligenceOrchestrator.ts(352,65): error TS2304: Cannot find name 'organizationId'.
+src/lib/intelligenceOrchestrator.ts(371,49): error TS2339: Property 'getRecentSignals' does not exist on type 'MarketSignalService'.
+src/lib/intelligenceOrchestrator.ts(372,44): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(373,45): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(388,55): error TS2339: Property 'analyzeCurrent' does not exist on type 'OpportunityAnalyzer'.
+src/lib/intelligenceOrchestrator.ts(389,54): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(390,48): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/lib/intelligenceOrchestrator.ts(390,53): error TS7006: Parameter 'o' implicitly has an 'any' type.
+src/lib/market/scoring.ts(7,3): error TS6196: 'GrowthDirection' is declared but never used.
+src/lib/market/signals.ts(46,3): error TS6133: 'strengthScore' is declared but its value is never read.
+src/lib/metricsAggregator.ts(1,36): error TS6133: 'TimePeriod' is declared but its value is never read.
+src/lib/opportunities/OpportunityAnalyzer.ts(20,3): error TS6133: 'getNextBestMarkets' is declared but its value is never read.
+src/lib/opportunities/OpportunityAnalyzer.ts(21,3): error TS6133: 'getNextBestServiceFocus' is declared but its value is never read.
+src/lib/opportunities/OpportunityAnalyzer.ts(66,60): error TS6133: 'p' is declared but its value is never read.
+src/lib/opportunities/OpportunityAnalyzer.ts(66,66): error TS2304: Cannot find name 'l'.
+src/lib/opportunities/OpportunityAnalyzer.ts(145,37): error TS6133: 'deliverablesRes' is declared but its value is never read.
+src/lib/opportunities/ranking.ts(21,56): error TS18048: 'filter.min_score' is possibly 'undefined'.
+src/lib/permissions.ts(76,26): error TS6133: 'context' is declared but its value is never read.
+src/lib/permissions.ts(151,21): error TS6133: 'context' is declared but its value is never read.
+src/lib/predictiveAnalytics.ts(48,9): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(48,49): error TS2339: Property 'eq' does not exist on type 'PostgrestBuilder<any, any, false>'.
+src/lib/predictiveAnalytics.ts(48,71): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(117,11): error TS6133: 'baseCloseDays' is declared but its value is never read.
+src/lib/predictiveAnalytics.ts(163,9): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(163,55): error TS2339: Property 'eq' does not exist on type 'PostgrestBuilder<any, any, false>'.
+src/lib/predictiveAnalytics.ts(163,77): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(216,9): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(216,85): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(304,9): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(304,53): error TS2339: Property 'eq' does not exist on type 'PostgrestBuilder<any, any, false>'.
+src/lib/predictiveAnalytics.ts(304,75): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(355,9): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(355,85): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(394,9): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(394,91): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(407,9): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(407,91): error TS2304: Cannot find name 'organizationId'.
+src/lib/predictiveAnalytics.ts(434,5): error TS6133: 'organizationId' is declared but its value is never read.
+src/lib/predictiveAnalytics.ts(453,25): error TS6133: 'organizationId' is declared but its value is never read.
+src/lib/predictiveAnalytics.ts(523,28): error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
+src/lib/projectTemplates.ts(1,25): error TS6133: 'MilestoneStatus' is declared but its value is never read.
+src/lib/storage.ts(26,5): error TS6133: 'onProgress' is declared but its value is never read.
+src/lib/stripe.ts(42,3): error TS6133: 'request' is declared but its value is never read.
+src/lib/stripe.ts(48,3): error TS6133: 'request' is declared but its value is never read.
+src/lib/stripe/webhookHandlers.ts(29,11): error TS6133: 'subscriptionId' is declared but its value is never read.
+src/lib/systemIntegration.ts(98,38): error TS2339: Property 'createRisk' does not exist on type 'ClientSuccessService'.
+src/lib/systemIntegration.ts(200,50): error TS2339: Property 'getHealthMetrics' does not exist on type 'ClientSuccessService'.
+src/lib/systemIntegration.ts(225,34): error TS2339: Property 'updateHealthScore' does not exist on type 'ClientSuccessService'.
+src/lib/systemIntegration.ts(274,57): error TS2554: Expected 1 arguments, but got 2.
+src/lib/systemIntegration.ts(341,36): error TS2339: Property 'createRisk' does not exist on type 'ClientSuccessService'.
+src/lib/systemIntegration.ts(367,34): error TS2339: Property 'createRisk' does not exist on type 'ClientSuccessService'.
+src/lib/trendDetection.ts(434,40): error TS2339: Property 'created_at' does not exist on type '{ title: any; description: any; category: any; organization_id: any; }'.
+src/lib/trendDetection.ts(458,41): error TS2339: Property 'created_at' does not exist on type '{ name: any; description: any; service_type: any; budget: any; organization_id: any; }'.
+src/lib/workflowExecutor.ts(6,3): error TS6196: 'WorkflowStepExecution' is declared but never used.
+src/lib/workflowExecutor.ts(229,5): error TS6133: 'step' is declared but its value is never read.
+src/lib/workflowExecutor.ts(230,5): error TS6133: 'execution' is declared but its value is never read.
+src/lib/workflowExecutor.ts(231,5): error TS6133: 'context' is declared but its value is never read.
+src/pages/About.tsx(5,1): error TS6133: 'Button' is declared but its value is never read.
+src/pages/AdminPreview.tsx(13,3): error TS6133: 'AlertCircle' is declared but its value is never read.
+src/pages/app/AgentActions.tsx(2,36): error TS6133: 'XCircle' is declared but its value is never read.
+src/pages/app/BillingOverview.tsx(5,3): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/pages/app/BillingOverview.tsx(22,1): error TS6133: 'billingService' is declared but its value is never read.
+src/pages/app/BillingOverview.tsx(30,3): error TS6133: 'getBillingPlanDisplay' is declared but its value is never read.
+src/pages/app/BillingOverview.tsx(73,9): error TS6133: 'getStatusVariant' is declared but its value is never read.
+src/pages/app/BrandingSettings.tsx(2,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/app/BrandingSettings.tsx(13,11): error TS6133: 'user' is declared but its value is never read.
+src/pages/app/BrandingSettings.tsx(13,38): error TS2339: Property 'userRole' does not exist on type 'AuthContextType'.
+src/pages/app/BrandingSettings.tsx(14,10): error TS6133: 'branding' is declared but its value is never read.
+src/pages/app/BrandingSettings.tsx(94,11): error TS2322: Type '{ title: string; subtitle: string; icon: LucideIcon; }' is not assignable to type 'IntrinsicAttributes & HeadingProps'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & HeadingProps'.
+src/pages/app/ClientsList.tsx(3,35): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/pages/app/ClientsList.tsx(3,47): error TS6133: 'Clock' is declared but its value is never read.
+src/pages/app/ClientsList.tsx(7,1): error TS6133: 'StatusBadge' is declared but its value is never read.
+src/pages/app/ClientsList.tsx(13,11): error TS6196: 'ClientWithStats' is declared but never used.
+src/pages/app/ClientSuccessDetail.tsx(3,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/app/ConversionsDashboard.tsx(4,73): error TS6133: 'AlertCircle' is declared but its value is never read.
+src/pages/app/DataActivity.tsx(3,54): error TS6133: 'Filter' is declared but its value is never read.
+src/pages/app/DataActivity.tsx(128,18): error TS2322: Type '{ children: Element; title: string; subtitle: string; }' is not assignable to type 'IntrinsicAttributes & AppLayoutProps'.
+  Property 'title' does not exist on type 'IntrinsicAttributes & AppLayoutProps'.
+src/pages/app/DataActivity.tsx(137,16): error TS2322: Type '{ children: Element; title: string; subtitle: string; }' is not assignable to type 'IntrinsicAttributes & AppLayoutProps'.
+  Property 'title' does not exist on type 'IntrinsicAttributes & AppLayoutProps'.
+src/pages/app/DataActivity.tsx(238,32): error TS2322: Type '"blue" | "orange" | "red" | "amber" | "slate"' is not assignable to type '"primary" | "secondary" | "outline" | "success" | undefined'.
+  Type '"blue"' is not assignable to type '"primary" | "secondary" | "outline" | "success" | undefined'.
+src/pages/app/DataActivity.tsx(241,32): error TS2322: Type '"blue" | "green" | "orange" | "purple" | "slate"' is not assignable to type '"primary" | "secondary" | "outline" | "success" | undefined'.
+  Type '"blue"' is not assignable to type '"primary" | "secondary" | "outline" | "success" | undefined'.
+src/pages/app/DataActivity.tsx(244,32): error TS2322: Type '"slate"' is not assignable to type '"primary" | "secondary" | "outline" | "success" | undefined'.
+src/pages/app/DataActivity.tsx(300,32): error TS2322: Type '"blue" | "green" | "orange" | "purple" | "slate"' is not assignable to type '"primary" | "secondary" | "outline" | "success" | undefined'.
+  Type '"blue"' is not assignable to type '"primary" | "secondary" | "outline" | "success" | undefined'.
+src/pages/app/DeliveryOverview.tsx(13,55): error TS6133: 'DeliveryPhase' is declared but its value is never read.
+src/pages/app/DeliveryOverview.tsx(13,70): error TS6133: 'HealthStatus' is declared but its value is never read.
+src/pages/app/DeliveryOverview.tsx(83,34): error TS2353: Object literal may only specify known properties, and 'isPositive' does not exist in type '{ value: number; direction: "up" | "down"; }'.
+src/pages/app/DeliveryOverview.tsx(89,34): error TS2353: Object literal may only specify known properties, and 'isPositive' does not exist in type '{ value: number; direction: "up" | "down"; }'.
+src/pages/app/DeliveryOverview.tsx(95,34): error TS2353: Object literal may only specify known properties, and 'isPositive' does not exist in type '{ value: number; direction: "up" | "down"; }'.
+src/pages/app/DeliveryOverview.tsx(101,34): error TS2353: Object literal may only specify known properties, and 'isPositive' does not exist in type '{ value: number; direction: "up" | "down"; }'.
+src/pages/app/DocumentDetail.tsx(3,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/app/DocumentDetail.tsx(9,3): error TS6133: 'Tag' is declared but its value is never read.
+src/pages/app/DocumentDetail.tsx(11,3): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/pages/app/DocumentDetail.tsx(110,13): error TS2353: Object literal may only specify known properties, and 'label' does not exist in type 'ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal'.
+src/pages/app/DocumentDetail.tsx(152,17): error TS2322: Type 'DocumentStatus' is not assignable to type 'ProcessingStatus'.
+  Type '"uploading"' is not assignable to type 'ProcessingStatus'.
+src/pages/app/ExecutiveCommandCenter.tsx(13,3): error TS6133: 'FileText' is declared but its value is never read.
+src/pages/app/ExecutiveCommandCenter.tsx(14,3): error TS6133: 'Clock' is declared but its value is never read.
+src/pages/app/ExecutiveCommandCenter.tsx(15,3): error TS6133: 'Zap' is declared but its value is never read.
+src/pages/app/ExecutiveCommandCenter.tsx(22,3): error TS6133: 'Calendar' is declared but its value is never read.
+src/pages/app/ExecutiveCommandCenter.tsx(31,10): error TS6133: 'ForecastCard' is declared but its value is never read.
+src/pages/app/ExecutiveCommandCenter.tsx(32,25): error TS6133: 'CompactRiskIndicator' is declared but its value is never read.
+src/pages/app/ExecutiveCommandCenter.tsx(37,10): error TS6133: 'DataQualityBadge' is declared but its value is never read.
+src/pages/app/ExecutiveCommandCenter.tsx(43,1): error TS6133: 'intelligenceOrchestrator' is declared but its value is never read.
+src/pages/app/ExecutiveCommandCenter.tsx(362,65): error TS6133: 'index' is declared but its value is never read.
+src/pages/app/FeatureSettings.tsx(16,38): error TS2339: Property 'userRole' does not exist on type 'AuthContextType'.
+src/pages/app/FeatureSettings.tsx(67,7): error TS2322: Type '[]' is not assignable to type 'readonly [{ readonly key: "crm"; readonly name: "CRM"; readonly description: "Lead management and pipeline tracking"; readonly category: "core"; }, { readonly key: "analytics"; readonly name: "Analytics"; readonly description: "Advanced analytics and reporting"; readonly category: "core"; }, ... 6 more ..., { ...; }]'.
+  Source has 0 element(s) but target requires 9.
+src/pages/app/FeatureSettings.tsx(69,27): error TS2339: Property 'push' does not exist on type 'readonly [{ readonly key: "crm"; readonly name: "CRM"; readonly description: "Lead management and pipeline tracking"; readonly category: "core"; }, { readonly key: "analytics"; readonly name: "Analytics"; readonly description: "Advanced analytics and reporting"; readonly category: "core"; }, ... 6 more ..., { ...; }]'.
+src/pages/app/FeatureSettings.tsx(87,11): error TS2322: Type '{ title: string; subtitle: string; icon: LucideIcon; }' is not assignable to type 'IntrinsicAttributes & HeadingProps'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & HeadingProps'.
+src/pages/app/ImplementationCenter.tsx(11,3): error TS6133: 'Plus' is declared but its value is never read.
+src/pages/app/ImplementationCenter.tsx(15,1): error TS6133: 'Button' is declared but its value is never read.
+src/pages/app/ImplementationCenter.tsx(99,11): error TS2322: Type '{ message: string; onRetry: () => Promise<void>; }' is not assignable to type 'IntrinsicAttributes & ErrorStateProps'.
+  Property 'onRetry' does not exist on type 'IntrinsicAttributes & ErrorStateProps'.
+src/pages/app/ImplementationDetail.tsx(18,1): error TS6133: 'Button' is declared but its value is never read.
+src/pages/app/ImplementationDetail.tsx(94,9): error TS2322: Type '(ImplementationChecklist | { is_completed: boolean; completed_at: string | null; id: string; implementation_id: string; category: ChecklistCategory; ... 5 more ...; updated_at: string; })[]' is not assignable to type 'ImplementationChecklist[]'.
+  Type 'ImplementationChecklist | { is_completed: boolean; completed_at: string | null; id: string; implementation_id: string; category: ChecklistCategory; ... 5 more ...; updated_at: string; }' is not assignable to type 'ImplementationChecklist'.
+    Type '{ is_completed: boolean; completed_at: string | null; id: string; implementation_id: string; category: ChecklistCategory; item_title: string; item_description?: string; completed_by_id?: string; order_index: number; created_at: string; updated_at: string; }' is not assignable to type 'ImplementationChecklist'.
+      Types of property 'completed_at' are incompatible.
+        Type 'string | null' is not assignable to type 'string | undefined'.
+          Type 'null' is not assignable to type 'string | undefined'.
+src/pages/app/ImplementationDetail.tsx(136,37): error TS2322: Type '{ message: string; onRetry: () => Promise<void>; }' is not assignable to type 'IntrinsicAttributes & ErrorStateProps'.
+  Property 'onRetry' does not exist on type 'IntrinsicAttributes & ErrorStateProps'.
+src/pages/app/Integrations.tsx(3,10): error TS6133: 'Plus' is declared but its value is never read.
+src/pages/app/Integrations.tsx(18,11): error TS6133: 'user' is declared but its value is never read.
+src/pages/app/IntegrationsOverview.tsx(3,10): error TS6133: 'Plus' is declared but its value is never read.
+src/pages/app/IntegrationsOverview.tsx(6,10): error TS2614: Module '"../../components/Button"' has no exported member 'Button'. Did you mean to use 'import Button from "../../components/Button"' instead?
+src/pages/app/IntegrationsOverview.tsx(7,1): error TS6133: 'StatusBadge' is declared but its value is never read.
+src/pages/app/IntegrationsOverview.tsx(8,10): error TS2614: Module '"../../components/connectors/ConnectorCard"' has no exported member 'ConnectorCard'. Did you mean to use 'import ConnectorCard from "../../components/connectors/ConnectorCard"' instead?
+src/pages/app/IntegrationsOverview.tsx(9,10): error TS2614: Module '"../../components/connectors/ProviderCard"' has no exported member 'ProviderCard'. Did you mean to use 'import ProviderCard from "../../components/connectors/ProviderCard"' instead?
+src/pages/app/IntegrationsOverview.tsx(16,11): error TS6133: 'user' is declared but its value is never read.
+src/pages/app/IntegrationsOverview.tsx(45,66): error TS6133: 'config' is declared but its value is never read.
+src/pages/app/IntegrationsOverview.tsx(77,9): error TS6133: 'integrations' is declared but its value is never read.
+src/pages/app/IntegrationsOverview.tsx(140,9): error TS6133: 'integrationStats' is declared but its value is never read.
+src/pages/app/IntegrationsOverview.tsx(146,9): error TS6133: 'getStatusVariant' is declared but its value is never read.
+src/pages/app/IntegrationsOverview.tsx(159,9): error TS6133: 'getStatusIcon' is declared but its value is never read.
+src/pages/app/Knowledge.tsx(11,3): error TS6133: 'Tag' is declared but its value is never read.
+src/pages/app/Knowledge.tsx(13,3): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/pages/app/KnowledgeDetail.tsx(8,3): error TS6133: 'User' is declared but its value is never read.
+src/pages/app/KnowledgeDetail.tsx(12,3): error TS6133: 'Share2' is declared but its value is never read.
+src/pages/app/KnowledgeDetail.tsx(13,3): error TS6133: 'Bookmark' is declared but its value is never read.
+src/pages/app/KnowledgeDetail.tsx(99,13): error TS2322: Type 'Element' is not assignable to type '() => void'.
+  Type 'ReactElement<any, any>' provides no match for the signature '(): void'.
+src/pages/app/MarketSignals.tsx(2,50): error TS6133: 'Filter' is declared but its value is never read.
+src/pages/app/MarketSignals.tsx(22,10): error TS6133: 'filter' is declared but its value is never read.
+src/pages/app/MarketSignals.tsx(22,18): error TS6133: 'setFilter' is declared but its value is never read.
+src/pages/app/MarketSignals.tsx(62,9): error TS6133: 'recentSignals' is declared but its value is never read.
+src/pages/app/MarketSignals.tsx(75,9): error TS6133: 'avgStrength' is declared but its value is never read.
+src/pages/app/Opportunities.tsx(2,30): error TS6133: 'Filter' is declared but its value is never read.
+src/pages/app/Opportunities.tsx(6,1): error TS6133: 'OpportunityLevelBadge' is declared but its value is never read.
+src/pages/app/ProjectDeliveryDetail.tsx(4,70): error TS6133: 'Plus' is declared but its value is never read.
+src/pages/app/ProposalDetail.tsx(4,139): error TS6133: 'Edit' is declared but its value is never read.
+src/pages/app/ProposalDetail.tsx(168,59): error TS2339: Property 'converted_to_project' does not exist on type 'ProposalWithDetails'.
+src/pages/app/ProposalDetail.tsx(222,30): error TS2339: Property 'lead_name' does not exist on type 'ProposalWithDetails'.
+src/pages/app/ProposalDetail.tsx(225,31): error TS2339: Property 'converted_to_project' does not exist on type 'ProposalWithDetails'.
+src/pages/app/ProposalDetail.tsx(238,29): error TS2339: Property 'approver_name' does not exist on type 'ProposalWithDetails'.
+src/pages/app/ProposalDetail.tsx(240,53): error TS2339: Property 'approver_name' does not exist on type 'ProposalWithDetails'.
+src/pages/app/ProposalDetail.tsx(241,33): error TS2339: Property 'approver_title' does not exist on type 'ProposalWithDetails'.
+src/pages/app/ProposalDetail.tsx(241,65): error TS2339: Property 'approver_title' does not exist on type 'ProposalWithDetails'.
+src/pages/app/ProposalDetail.tsx(244,29): error TS2339: Property 'approver_email' does not exist on type 'ProposalWithDetails'.
+src/pages/app/ProposalDetail.tsx(245,74): error TS2339: Property 'approver_email' does not exist on type 'ProposalWithDetails'.
+src/pages/app/ProposalDetail.tsx(269,29): error TS2551: Property 'declined_reason' does not exist on type 'ProposalWithDetails'. Did you mean 'declined_at'?
+src/pages/app/ProposalDetail.tsx(271,71): error TS2551: Property 'declined_reason' does not exist on type 'ProposalWithDetails'. Did you mean 'declined_at'?
+src/pages/app/ProposalForm.tsx(3,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/app/ProposalForm.tsx(52,30): error TS2551: Property 'getAllOrganizations' does not exist on type '{ getMyOrganizations(): Promise<any[]>; getAllClientOrganizations(): Promise<any[]>; getOrganizationById(id: string): Promise<any>; getOrganizationWithStats(id: string): Promise<...>; getOrganizationMembers(organizationId: string): Promise<...>; searchOrganizations(query: string): Promise<...>; createOrganization(or...'. Did you mean 'getMyOrganizations'?
+src/pages/app/ProposalForm.tsx(71,62): error TS2345: Argument of type '{ status: string; title: string; organization_id: string; lead_id?: string; client_name: string; client_email?: string; service_types: string[]; scope_summary?: string; deliverables: Deliverable[]; ... 4 more ...; internal_notes?: string; }' is not assignable to parameter of type 'CreateProposalData'.
+  Types of property 'status' are incompatible.
+    Type 'string' is not assignable to type 'ProposalStatus | undefined'.
+src/pages/app/ProposalForm.tsx(100,9): error TS6133: 'addAddon' is declared but its value is never read.
+src/pages/app/ProposalForm.tsx(106,12): error TS2488: Type 'Addon[] | undefined' must have a '[Symbol.iterator]()' method that returns an iterator.
+src/pages/app/ProposalForm.tsx(113,9): error TS6133: 'removeAddon' is declared but its value is never read.
+src/pages/app/ProposalForm.tsx(116,24): error TS18048: 'formData.optional_addons' is possibly 'undefined'.
+src/pages/app/RolesSettings.tsx(10,1): error TS6133: 'hasPermission' is declared but its value is never read.
+src/pages/app/RolesSettings.tsx(13,11): error TS6133: 'user' is declared but its value is never read.
+src/pages/app/RolesSettings.tsx(13,38): error TS2339: Property 'userRole' does not exist on type 'AuthContextType'.
+src/pages/app/RolesSettings.tsx(16,10): error TS6133: 'showCreateModal' is declared but its value is never read.
+src/pages/app/RolesSettings.tsx(66,11): error TS2322: Type '{ title: string; subtitle: string; icon: LucideIcon; }' is not assignable to type 'IntrinsicAttributes & HeadingProps'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & HeadingProps'.
+src/pages/app/SupportQueue.tsx(4,20): error TS6133: 'Plus' is declared but its value is never read.
+src/pages/app/SupportQueue.tsx(7,1): error TS6133: 'Button' is declared but its value is never read.
+src/pages/app/SupportQueue.tsx(14,45): error TS6133: 'TicketStatus' is declared but its value is never read.
+src/pages/app/SupportQueue.tsx(14,59): error TS6133: 'TicketPriority' is declared but its value is never read.
+src/pages/app/SupportQueue.tsx(17,9): error TS6133: 'navigate' is declared but its value is never read.
+src/pages/app/Team.tsx(3,33): error TS6133: 'MoreVertical' is declared but its value is never read.
+src/pages/app/Team.tsx(3,47): error TS6133: 'Shield' is declared but its value is never read.
+src/pages/app/Team.tsx(17,38): error TS2339: Property 'userRole' does not exist on type 'AuthContextType'.
+src/pages/app/Team.tsx(23,10): error TS6133: 'actionMenuOpen' is declared but its value is never read.
+src/pages/app/Team.tsx(23,26): error TS6133: 'setActionMenuOpen' is declared but its value is never read.
+src/pages/app/WorkflowBuilder.tsx(3,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/app/WorkflowBuilder.tsx(4,16): error TS6133: 'Play' is declared but its value is never read.
+src/pages/app/WorkflowBuilder.tsx(10,15): error TS6196: 'Workflow' is declared but never used.
+src/pages/app/WorkflowBuilder.tsx(10,78): error TS6196: 'WorkflowStepType' is declared but never used.
+src/pages/app/WorkflowBuilder.tsx(138,43): error TS2322: Type '{ size: "sm"; className: string; }' is not assignable to type 'IntrinsicAttributes & LoadingSpinnerProps'.
+  Property 'className' does not exist on type 'IntrinsicAttributes & LoadingSpinnerProps'.
+src/pages/app/Workflows.tsx(4,37): error TS6133: 'Copy' is declared but its value is never read.
+src/pages/app/Workflows.tsx(4,93): error TS6133: 'XCircle' is declared but its value is never read.
+src/pages/app/Workflows.tsx(105,21): error TS2353: Object literal may only specify known properties, and 'label' does not exist in type '() => void'.
+src/pages/app/Workflows.tsx(243,21): error TS2322: Type '{ label: string; onClick: () => string; } | undefined' is not assignable to type 'ReactNode'.
+  Object literal may only specify known properties, and 'label' does not exist in type 'ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal'.
+src/pages/app/Workflows.tsx(265,32): error TS2322: Type '{ children: string; color: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/pages/app/Workflows.tsx(269,34): error TS2322: Type '{ children: (string | Element)[]; color: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/pages/app/Workflows.tsx(274,34): error TS2322: Type '{ children: (string | Element)[]; color: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'color' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/pages/auth/AcceptInvitation.tsx(4,10): error TS6133: 'Mail' is declared but its value is never read.
+src/pages/CaseStudies.tsx(6,1): error TS6133: 'Button' is declared but its value is never read.
+src/pages/client-portal/ClientBilling.tsx(103,59): error TS2322: Type '"error" | "default" | "success" | "warning"' is not assignable to type '"default" | "success" | "warning" | "danger" | "info" | undefined'.
+  Type '"error"' is not assignable to type '"default" | "success" | "warning" | "danger" | "info" | undefined'.
+src/pages/client-portal/ClientBilling.tsx(216,64): error TS2322: Type '"error" | "default" | "success" | "warning"' is not assignable to type '"default" | "success" | "warning" | "danger" | "info" | undefined'.
+  Type '"error"' is not assignable to type '"default" | "success" | "warning" | "danger" | "info" | undefined'.
+src/pages/client-portal/ClientSettings.tsx(1,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/client-portal/ClientSupport.tsx(4,33): error TS6133: 'MessageSquare' is declared but its value is never read.
+src/pages/CustomSoftware.tsx(2,10): error TS6133: 'Code2' is declared but its value is never read.
+src/pages/CustomSoftware.tsx(2,17): error TS6133: 'Zap' is declared but its value is never read.
+src/pages/CustomSoftware.tsx(2,74): error TS6133: 'Cpu' is declared but its value is never read.
+src/pages/Dashboards.tsx(2,10): error TS6133: 'BarChart3' is declared but its value is never read.
+src/pages/Dashboards.tsx(2,21): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/pages/Dashboards.tsx(2,33): error TS6133: 'Zap' is declared but its value is never read.
+src/pages/Dashboards.tsx(2,99): error TS6133: 'LineChart' is declared but its value is never read.
+src/pages/FAQ.tsx(73,19): error TS2322: Type '{ children: Element; className: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & CardProps'.
+  Property 'onClick' does not exist on type 'IntrinsicAttributes & CardProps'.
+src/pages/Home.tsx(2,69): error TS6133: 'Users' is declared but its value is never read.
+src/pages/Home.tsx(10,10): error TS6133: 'fadeUp' is declared but its value is never read.
+src/pages/Home.tsx(10,49): error TS6133: 'textReveal' is declared but its value is never read.
+src/pages/Home.tsx(16,9): error TS6133: 'features' is declared but its value is never read.
+src/pages/Industries.tsx(6,1): error TS6133: 'Button' is declared but its value is never read.
+src/pages/Industries.tsx(75,49): error TS2322: Type '{ className: string; style: { color: string; }; }' is not assignable to type 'IntrinsicAttributes & { className?: string | undefined; }'.
+  Property 'style' does not exist on type 'IntrinsicAttributes & { className?: string | undefined; }'.
+src/pages/mobile/MobileHome.tsx(9,3): error TS6133: 'Clock' is declared but its value is never read.
+src/pages/mobile/MobileHome.tsx(15,1): error TS6133: 'Card' is declared but its value is never read.
+src/pages/mobile/MobileHome.tsx(16,1): error TS6133: 'Badge' is declared but its value is never read.
+src/pages/mobile/MobileHome.tsx(22,17): error TS6133: 'setStats' is declared but its value is never read.
+src/pages/mobile/MobileTaskDetail.tsx(3,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/mobile/MobileTaskDetail.tsx(4,41): error TS6133: 'AlertCircle' is declared but its value is never read.
+src/pages/mobile/MobileTaskDetail.tsx(4,89): error TS6133: 'Edit3' is declared but its value is never read.
+src/pages/mobile/MobileTaskDetail.tsx(7,1): error TS6133: 'Badge' is declared but its value is never read.
+src/pages/mobile/MobileTaskDetail.tsx(34,9): error TS6133: 'navigate' is declared but its value is never read.
+src/pages/mobile/MobileTasks.tsx(4,16): error TS6133: 'Filter' is declared but its value is never read.
+src/pages/mobile/MobileTasks.tsx(102,14): error TS2741: Property 'icon' is missing in type '{ title: string; description: string; }' but required in type 'EmptyStateProps'.
+src/pages/mobile/MobileUpload.tsx(4,51): error TS6133: 'ImageIcon' is declared but its value is never read.
+src/pages/mobile/MobileUpload.tsx(48,29): error TS2339: Property 'uploadDocument' does not exist on type 'DocumentService'.
+src/pages/MobileApps.tsx(2,10): error TS6133: 'Smartphone' is declared but its value is never read.
+src/pages/MobileApps.tsx(2,74): error TS6133: 'Battery' is declared but its value is never read.
+src/pages/MobileApps.tsx(2,83): error TS6133: 'Lock' is declared but its value is never read.
+src/pages/onboarding/CompanyDetails.tsx(2,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/onboarding/CurrentSystems.tsx(2,1): error TS6133: 'motion' is declared but its value is never read.
+src/pages/onboarding/OnboardingFlow.tsx(1,1): error TS6133: 'useEffect' is declared but its value is never read.
+src/pages/Platform.tsx(5,1): error TS6133: 'Button' is declared but its value is never read.
+src/pages/ProposalView.tsx(9,3): error TS6133: 'Calendar' is declared but its value is never read.
+src/pages/ProposalView.tsx(49,9): error TS6133: 'navigate' is declared but its value is never read.
+src/pages/Services.tsx(2,45): error TS6133: 'Network' is declared but its value is never read.
+src/pages/Services.tsx(259,55): error TS2322: Type '{ children: (string | Element)[]; variant: "primary"; size: "lg"; fullWidth: true; }' is not assignable to type 'IntrinsicAttributes & ButtonPropsExtended'.
+  Property 'fullWidth' does not exist on type 'IntrinsicAttributes & ButtonPropsExtended'.
+src/pages/Start.tsx(230,12): error TS2322: Type '{ children: string; level: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeadingProps'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & HeadingProps'.
+src/pages/Start.tsx(263,12): error TS2322: Type '{ children: string; level: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeadingProps'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & HeadingProps'.
+src/pages/Start.tsx(306,12): error TS2322: Type '{ children: string; level: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeadingProps'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & HeadingProps'.
+src/pages/Start.tsx(341,12): error TS2322: Type '{ children: string; level: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeadingProps'.
+  Property 'children' does not exist on type 'IntrinsicAttributes & HeadingProps'.

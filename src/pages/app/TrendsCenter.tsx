@@ -5,6 +5,7 @@ import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   ServiceTrendCard,
   IndustryTrendCard,
@@ -22,6 +23,7 @@ import type {
 } from '../../lib/trendDetection';
 
 export default function TrendsCenter() {
+  const { currentOrganization } = useAuth();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -36,16 +38,17 @@ export default function TrendsCenter() {
   }, []);
 
   const loadTrends = async () => {
+    if (!currentOrganization) return;
     try {
       setLoading(true);
       setError('');
 
       const [services, industries, spikes, patterns, trendInsights] = await Promise.all([
-        trendDetection.detectTrendingServices(90),
-        trendDetection.detectIndustryGrowth(90),
-        trendDetection.detectDemandSpikes(90),
-        trendDetection.detectClientRequestPatterns(90),
-        trendDetection.generateTrendInsights(),
+        trendDetection.detectTrendingServices(currentOrganization.id, 90),
+        trendDetection.detectIndustryGrowth(currentOrganization.id, 90),
+        trendDetection.detectDemandSpikes(currentOrganization.id, 90),
+        trendDetection.detectClientRequestPatterns(currentOrganization.id, 90),
+        trendDetection.generateTrendInsights(currentOrganization.id),
       ]);
 
       setServiceTrends(services);
