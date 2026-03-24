@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Building2, Truck, Briefcase, Scale, Users, ArrowRight } from 'lucide-react';
 import Section from '../components/Section';
 import Card from '../components/Card';
-import Button from '../components/Button';
 import GridPattern from '../components/GridPattern';
 import FinalCTA from '../components/FinalCTA';
 import { staggerContainer, staggerItem } from '../utils/animations';
@@ -165,14 +165,16 @@ export default function Solutions() {
                     </div>
                   </div>
 
-                  <motion.div
-                    className="mt-6 flex items-center text-sm font-medium group-hover:text-[#3B82F6] transition-colors duration-300"
-                    style={{ color: solution.color }}
-                    whileHover={{ x: 5 }}
-                  >
-                    Learn More
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </motion.div>
+                  <Link to={`/contact?solution=${encodeURIComponent(solution.title)}`}>
+                    <motion.div
+                      className="mt-6 flex items-center text-sm font-medium group-hover:text-[#3B82F6] transition-colors duration-300"
+                      style={{ color: solution.color }}
+                      whileHover={{ x: 5 }}
+                    >
+                      Learn More
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </motion.div>
+                  </Link>
                 </div>
               </Card>
             </motion.div>
