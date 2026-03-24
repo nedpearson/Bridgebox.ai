@@ -10,9 +10,11 @@ import ErrorState from '../../components/ErrorState';
 import EmptyState from '../../components/EmptyState';
 import { useAuth } from '../../contexts/AuthContext';
 import { projectsService } from '../../lib/db/projects';
+import ProjectModal from '../../components/app/ProjectModal';
 
 export default function ProjectsList() {
   const { currentOrganization } = useAuth();
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -134,7 +136,9 @@ export default function ProjectsList() {
             <option value="completed">Completed</option>
           </select>
 
-          <button className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
+          <button 
+            onClick={() => setIsProjectModalOpen(true)}
+            className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
             <Plus className="w-5 h-5" />
             <span>New Project</span>
           </button>
@@ -212,6 +216,12 @@ export default function ProjectsList() {
           </div>
         )}
       </div>
+
+      <ProjectModal 
+        isOpen={isProjectModalOpen}
+        onClose={() => setIsProjectModalOpen(false)}
+        onSuccess={loadProjects}
+      />
     </>
   );
 }

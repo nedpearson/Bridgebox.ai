@@ -7,6 +7,25 @@ export interface ProjectFilters {
 }
 
 export const projectsService = {
+  async createProject(project: {
+    name: string;
+    description?: string;
+    type: string;
+    status: string;
+    organization_id: string;
+    start_date?: string;
+    target_completion_date?: string;
+  }) {
+    const { data, error } = await supabase
+      .from('projects')
+      .insert([project])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  },
+
   async getAllProjects(filters?: ProjectFilters) {
     let query = supabase
       .from('projects')
