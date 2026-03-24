@@ -12,7 +12,6 @@ import {
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
-import Button from '../../components/Button';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import EmptyState from '../../components/EmptyState';
 import { clientSuccessService, type ClientSuccessOverview } from '../../lib/db/clientSuccess';
@@ -74,6 +73,7 @@ export default function ClientSuccess() {
       icon: Users,
       color: 'text-blue-400',
       bgColor: 'bg-blue-500/10',
+      filterVal: 'all',
     },
     {
       label: 'Healthy Clients',
@@ -81,6 +81,7 @@ export default function ClientSuccess() {
       icon: TrendingUp,
       color: 'text-green-400',
       bgColor: 'bg-green-500/10',
+      filterVal: 'healthy',
     },
     {
       label: 'At Risk',
@@ -88,6 +89,7 @@ export default function ClientSuccess() {
       icon: AlertTriangle,
       color: 'text-yellow-400',
       bgColor: 'bg-yellow-500/10',
+      filterVal: 'at_risk',
     },
     {
       label: 'Active Opportunities',
@@ -95,6 +97,7 @@ export default function ClientSuccess() {
       icon: DollarSign,
       color: 'text-emerald-400',
       bgColor: 'bg-emerald-500/10',
+      filterVal: null,
     },
   ];
 
@@ -115,19 +118,30 @@ export default function ClientSuccess() {
 
       <div className="p-8 space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat) => (
-            <Card key={stat.label}>
-              <div className="flex items-center gap-4">
-                <div className={`p-3 rounded-xl ${stat.bgColor}`}>
-                  <stat.icon className={`w-6 h-6 ${stat.color}`} />
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-white">{stat.value}</div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
-                </div>
+          {stats.map((stat) => {
+            const isClickable = stat.filterVal !== null;
+            const isActive = filterRisk === stat.filterVal;
+            
+            return (
+              <div
+                key={stat.label}
+                onClick={isClickable ? () => setFilterRisk(stat.filterVal as any) : undefined}
+                className={isClickable ? 'block cursor-pointer transition-transform hover:-translate-y-1' : ''}
+              >
+                <Card glass={!isActive} className={`h-full ${isActive ? 'bg-white/10 border-white/20' : 'hover:border-white/20 transition-colors'}`}>
+                  <div className="flex items-center gap-4 p-2">
+                    <div className={`p-3 rounded-xl ${stat.bgColor}`}>
+                      <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-white">{stat.value}</div>
+                      <div className="text-sm text-slate-400">{stat.label}</div>
+                    </div>
+                  </div>
+                </Card>
               </div>
-            </Card>
-          ))}
+            );
+          })}
         </div>
 
         <Card>
@@ -158,6 +172,7 @@ export default function ClientSuccess() {
 
           {filteredClients.length === 0 ? (
             <EmptyState
+              icon={Users}
               title="No clients found"
               description="No clients match your search criteria"
             />

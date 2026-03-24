@@ -23,9 +23,11 @@ import {
   Sparkles,
   TrendingUp,
   Radar,
+  X,
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { useMobileNav } from '../../contexts/MobileNavContext';
 import { permissions } from '../../lib/permissions';
 
 interface NavItem {
@@ -44,6 +46,7 @@ export default function AppSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { can, signOut, profile } = useAuth();
+  const { isOpen, setIsOpen } = useMobileNav();
 
   const handleSignOut = async () => {
     try {
@@ -115,18 +118,38 @@ export default function AppSidebar() {
   };
 
   return (
-    <div className="w-64 bg-slate-900/50 backdrop-blur-sm border-r border-slate-800 h-screen fixed left-0 top-0 flex flex-col">
-      <div className="p-6 border-b border-slate-800">
-        <Link to="/" className="flex items-center space-x-3 group">
-          <Box className="w-7 h-7 text-[#3B82F6] group-hover:text-[#10B981] transition-colors duration-300" />
-          <div>
-            <h2 className="text-xl font-bold text-white">Bridgebox</h2>
-            <p className="text-xs text-slate-400">Internal Portal</p>
-          </div>
-        </Link>
-      </div>
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
 
-      <nav className="flex-1 p-4 overflow-y-auto">
+      {/* Sidebar */}
+      <div
+        className={`w-64 bg-slate-900/95 md:bg-slate-900/50 backdrop-blur-md border-r border-slate-800 h-screen fixed left-0 top-0 z-50 flex flex-col transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        }`}
+      >
+        <div className="p-6 border-b border-slate-800 flex justify-between items-center">
+          <Link to="/" className="flex items-center space-x-3 group" onClick={() => setIsOpen(false)}>
+            <Box className="w-7 h-7 text-[#3B82F6] group-hover:text-[#10B981] transition-colors duration-300" />
+            <div>
+              <h2 className="text-xl font-bold text-white">Bridgebox</h2>
+              <p className="text-xs text-slate-400">Internal Portal</p>
+            </div>
+          </Link>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="md:hidden p-2 -mr-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800/50"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <nav className="flex-1 p-4 overflow-y-auto">
         {navSections.map((section, sectionIndex) => {
           const visibleItems = filterItems(section.items);
           if (visibleItems.length === 0) return null;
@@ -202,5 +225,6 @@ export default function AppSidebar() {
         </motion.button>
       </div>
     </div>
+    </>
   );
 }

@@ -90,59 +90,67 @@ export default function ConversionsDashboard() {
       <div className="p-8 space-y-6">
         {/* Metrics Overview */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card glass className="p-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-slate-400">Lead Conversion</h3>
-              <Users className="w-5 h-5 text-[#3B82F6]" />
-            </div>
-            <div className="flex items-baseline space-x-2">
-              <p className="text-3xl font-bold text-white">
-                {getConversionRate(metrics?.convertedLeads || 0, metrics?.totalLeads || 0)}
+          <Link to="/app/leads" className="block transition-transform hover:-translate-y-1">
+            <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-medium text-slate-400">Lead Conversion</h3>
+                <Users className="w-5 h-5 text-[#3B82F6]" />
+              </div>
+              <div className="flex items-baseline space-x-2">
+                <p className="text-3xl font-bold text-white">
+                  {getConversionRate(metrics?.convertedLeads || 0, metrics?.totalLeads || 0)}
+                </p>
+              </div>
+              <p className="text-xs text-slate-500 mt-1">
+                {metrics?.convertedLeads} of {metrics?.totalLeads} leads converted
               </p>
-            </div>
-            <p className="text-xs text-slate-500 mt-1">
-              {metrics?.convertedLeads} of {metrics?.totalLeads} leads converted
-            </p>
-          </Card>
+            </Card>
+          </Link>
 
-          <Card glass className="p-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-slate-400">Proposal Success</h3>
-              <FileText className="w-5 h-5 text-[#10B981]" />
-            </div>
-            <div className="flex items-baseline space-x-2">
-              <p className="text-3xl font-bold text-white">
-                {getConversionRate(metrics?.approvedProposals || 0, metrics?.totalProposals || 0)}
+          <Link to="/app/proposals" className="block transition-transform hover:-translate-y-1">
+            <Card glass className="p-6 hover:border-[#10B981]/50 transition-colors h-full">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-medium text-slate-400">Proposal Success</h3>
+                <FileText className="w-5 h-5 text-[#10B981]" />
+              </div>
+              <div className="flex items-baseline space-x-2">
+                <p className="text-3xl font-bold text-white">
+                  {getConversionRate(metrics?.approvedProposals || 0, metrics?.totalProposals || 0)}
+                </p>
+              </div>
+              <p className="text-xs text-slate-500 mt-1">
+                {metrics?.approvedProposals} of {metrics?.totalProposals} proposals approved
               </p>
-            </div>
-            <p className="text-xs text-slate-500 mt-1">
-              {metrics?.approvedProposals} of {metrics?.totalProposals} proposals approved
-            </p>
-          </Card>
+            </Card>
+          </Link>
 
-          <Card glass className="p-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-slate-400">Projects Created</h3>
-              <FolderKanban className="w-5 h-5 text-[#3B82F6]" />
-            </div>
-            <div className="flex items-baseline space-x-2">
-              <p className="text-3xl font-bold text-white">{metrics?.totalProjects || 0}</p>
-            </div>
-            <p className="text-xs text-slate-500 mt-1">
-              {metrics?.convertedProposals} from proposals
-            </p>
-          </Card>
+          <Link to="/app/projects" className="block transition-transform hover:-translate-y-1">
+            <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-medium text-slate-400">Projects Created</h3>
+                <FolderKanban className="w-5 h-5 text-[#3B82F6]" />
+              </div>
+              <div className="flex items-baseline space-x-2">
+                <p className="text-3xl font-bold text-white">{metrics?.totalProjects || 0}</p>
+              </div>
+              <p className="text-xs text-slate-500 mt-1">
+                {metrics?.convertedProposals} from proposals
+              </p>
+            </Card>
+          </Link>
 
-          <Card glass className="p-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-slate-400">Pending Onboarding</h3>
-              <Clock className="w-5 h-5 text-yellow-500" />
-            </div>
-            <div className="flex items-baseline space-x-2">
-              <p className="text-3xl font-bold text-white">{metrics?.pendingOnboarding || 0}</p>
-            </div>
-            <p className="text-xs text-slate-500 mt-1">Organizations in progress</p>
-          </Card>
+          <Link to="/app/clients" className="block transition-transform hover:-translate-y-1">
+            <Card glass className="p-6 hover:border-yellow-500/50 transition-colors h-full">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-medium text-slate-400">Pending Onboarding</h3>
+                <Clock className="w-5 h-5 text-yellow-500" />
+              </div>
+              <div className="flex items-baseline space-x-2">
+                <p className="text-3xl font-bold text-white">{metrics?.pendingOnboarding || 0}</p>
+              </div>
+              <p className="text-xs text-slate-500 mt-1">Organizations in progress</p>
+            </Card>
+          </Link>
         </div>
 
         {/* Conversion Timeline */}

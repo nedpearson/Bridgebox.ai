@@ -52,7 +52,7 @@ export default function DonutChart({
   };
 
   return (
-    <div className="flex items-center space-x-6">
+    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size} viewBox="0 0 100 100">
           <circle

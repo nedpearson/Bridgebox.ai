@@ -140,8 +140,8 @@ export default function SupportQueue() {
               />
             </div>
 
-            <div className="flex items-center space-x-2">
-              <Filter className="w-5 h-5 text-slate-400" />
+            <div className="flex flex-wrap items-center gap-3">
+              <Filter className="w-5 h-5 text-slate-400 hidden sm:block" />
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}

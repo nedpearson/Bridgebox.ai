@@ -321,8 +321,8 @@ export default function Analytics() {
         )}
 
         {/* View and Time Filter */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 overflow-x-auto pb-2">
+        <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+          <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-hide w-full xl:w-auto">
             {views.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
@@ -339,7 +339,7 @@ export default function Analytics() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 bg-slate-800/50 border border-slate-700 rounded-lg p-1">
+          <div className="flex items-center gap-2 bg-slate-800/50 border border-slate-700 rounded-lg p-1 overflow-x-auto scrollbar-hide w-full xl:w-auto">
             {(['7d', '30d', '90d', 'all'] as TimeFilter[]).map((filter) => (
               <button
                 key={filter}
@@ -540,39 +540,47 @@ function SalesView({ data }: { data: any }) {
   return (
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-6">
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <Users className="w-5 h-5 text-[#3B82F6]" />
-            <p className="text-slate-400 text-sm">Total Leads</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.totalLeads}</p>
-        </Card>
+        <Link to="/app/leads" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <Users className="w-5 h-5 text-[#3B82F6]" />
+              <p className="text-slate-400 text-sm">Total Leads</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.totalLeads}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
-            <p className="text-slate-400 text-sm">Qualified</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.qualifiedLeads}</p>
-        </Card>
+        <Link to="/app/leads?status=qualified" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#10B981]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
+              <p className="text-slate-400 text-sm">Qualified</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.qualifiedLeads}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <Target className="w-5 h-5 text-[#F59E0B]" />
-            <p className="text-slate-400 text-sm">Conversion Rate</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.overallConversionRate.toFixed(1)}%</p>
-        </Card>
+        <Link to="/app/conversions" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#F59E0B]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <Target className="w-5 h-5 text-[#F59E0B]" />
+              <p className="text-slate-400 text-sm">Conversion Rate</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.overallConversionRate.toFixed(1)}%</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <DollarSign className="w-5 h-5 text-[#10B981]" />
-            <p className="text-slate-400 text-sm">Pipeline Value</p>
-          </div>
-          <p className="text-3xl font-bold text-white">
-            ${(data.projectedRevenue / 1000).toFixed(0)}K
-          </p>
-        </Card>
+        <Link to="/app/pipeline" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#10B981]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <DollarSign className="w-5 h-5 text-[#10B981]" />
+              <p className="text-slate-400 text-sm">Pipeline Value</p>
+            </div>
+            <p className="text-3xl font-bold text-white">
+              ${(data.projectedRevenue / 1000).toFixed(0)}K
+            </p>
+          </Card>
+        </Link>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
@@ -648,37 +656,45 @@ function DeliveryView({ data }: { data: any }) {
   return (
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-6">
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <Package className="w-5 h-5 text-[#3B82F6]" />
-            <p className="text-slate-400 text-sm">Active Projects</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.activeProjects}</p>
-        </Card>
+        <Link to="/app/projects?status=in_progress" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <Package className="w-5 h-5 text-[#3B82F6]" />
+              <p className="text-slate-400 text-sm">Active Projects</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.activeProjects}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <AlertCircle className="w-5 h-5 text-[#EF4444]" />
-            <p className="text-slate-400 text-sm">At Risk</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.projectsAtRisk}</p>
-        </Card>
+        <Link to="/app/projects?status=needs_attention" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#EF4444]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <AlertCircle className="w-5 h-5 text-[#EF4444]" />
+              <p className="text-slate-400 text-sm">At Risk</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.projectsAtRisk}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
-            <p className="text-slate-400 text-sm">Completed</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.completedProjects}</p>
-        </Card>
+        <Link to="/app/projects?status=completed" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#10B981]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
+              <p className="text-slate-400 text-sm">Completed</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.completedProjects}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <Clock className="w-5 h-5 text-[#F59E0B]" />
-            <p className="text-slate-400 text-sm">Avg. Duration</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.averageCompletion.toFixed(0)}d</p>
-        </Card>
+        <Link to="/app/projects" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#F59E0B]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <Clock className="w-5 h-5 text-[#F59E0B]" />
+              <p className="text-slate-400 text-sm">Avg. Duration</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.averageCompletion.toFixed(0)}d</p>
+          </Card>
+        </Link>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
@@ -754,37 +770,45 @@ function BillingView({ data }: { data: any }) {
   return (
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-6">
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <DollarSign className="w-5 h-5 text-[#10B981]" />
-            <p className="text-slate-400 text-sm">MRR</p>
-          </div>
-          <p className="text-3xl font-bold text-white">${data.totalMRR.toLocaleString()}</p>
-        </Card>
+        <Link to="/app/billing" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#10B981]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <DollarSign className="w-5 h-5 text-[#10B981]" />
+              <p className="text-slate-400 text-sm">MRR</p>
+            </div>
+            <p className="text-3xl font-bold text-white">${data.totalMRR.toLocaleString()}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <TrendingUp className="w-5 h-5 text-[#3B82F6]" />
-            <p className="text-slate-400 text-sm">Active Subscriptions</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.activeSubscriptions}</p>
-        </Card>
+        <Link to="/app/billing?tab=subscriptions" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <TrendingUp className="w-5 h-5 text-[#3B82F6]" />
+              <p className="text-slate-400 text-sm">Active Subscriptions</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.activeSubscriptions}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <FileText className="w-5 h-5 text-[#10B981]" />
-            <p className="text-slate-400 text-sm">Paid Invoices</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.invoicesPaid}</p>
-        </Card>
+        <Link to="/app/billing?status=paid" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#10B981]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <FileText className="w-5 h-5 text-[#10B981]" />
+              <p className="text-slate-400 text-sm">Paid Invoices</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.invoicesPaid}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <AlertCircle className="w-5 h-5 text-[#F59E0B]" />
-            <p className="text-slate-400 text-sm">Outstanding</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.invoicesOutstanding}</p>
-        </Card>
+        <Link to="/app/billing?status=outstanding" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#F59E0B]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <AlertCircle className="w-5 h-5 text-[#F59E0B]" />
+              <p className="text-slate-400 text-sm">Outstanding</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.invoicesOutstanding}</p>
+          </Card>
+        </Link>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
@@ -811,7 +835,7 @@ function BillingView({ data }: { data: any }) {
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Subscriptions by Plan</h3>
           <SimpleBarChart
-            data={data.subscriptionsByPlan.map(item => ({
+            data={data.subscriptionsByPlan.map((item: any) => ({
               label: item.plan,
               value: item.count,
             }))}
@@ -821,7 +845,7 @@ function BillingView({ data }: { data: any }) {
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Subscription Status</h3>
           <DonutChart
-            data={data.subscriptionsByStatus.map(item => ({
+            data={data.subscriptionsByStatus.map((item: any) => ({
               label: item.status,
               value: item.count,
             }))}
@@ -854,46 +878,54 @@ function SupportView({ data }: { data: any }) {
   return (
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-6">
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <AlertCircle className="w-5 h-5 text-[#EF4444]" />
-            <p className="text-slate-400 text-sm">Open Tickets</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.openTickets}</p>
-        </Card>
+        <Link to="/app/support?status=open" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#EF4444]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <AlertCircle className="w-5 h-5 text-[#EF4444]" />
+              <p className="text-slate-400 text-sm">Open Tickets</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.openTickets}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
-            <p className="text-slate-400 text-sm">Resolved</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.resolvedTickets}</p>
-        </Card>
+        <Link to="/app/support?status=resolved" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#10B981]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
+              <p className="text-slate-400 text-sm">Resolved</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.resolvedTickets}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <Clock className="w-5 h-5 text-[#F59E0B]" />
-            <p className="text-slate-400 text-sm">Avg. Resolution</p>
-          </div>
-          <p className="text-3xl font-bold text-white">
-            {data.averageResolutionTime.toFixed(0)}h
-          </p>
-        </Card>
+        <Link to="/app/support" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#F59E0B]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <Clock className="w-5 h-5 text-[#F59E0B]" />
+              <p className="text-slate-400 text-sm">Avg. Resolution</p>
+            </div>
+            <p className="text-3xl font-bold text-white">
+              {data.averageResolutionTime.toFixed(0)}h
+            </p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <Activity className="w-5 h-5 text-[#3B82F6]" />
-            <p className="text-slate-400 text-sm">This Week</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.ticketsThisWeek}</p>
-        </Card>
+        <Link to="/app/support" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <Activity className="w-5 h-5 text-[#3B82F6]" />
+              <p className="text-slate-400 text-sm">This Week</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.ticketsThisWeek}</p>
+          </Card>
+        </Link>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Tickets by Priority</h3>
           <DonutChart
-            data={data.ticketsByPriority.map(item => ({
+            data={data.ticketsByPriority.map((item: any) => ({
               label: item.priority,
               value: item.count,
               color:
@@ -911,7 +943,7 @@ function SupportView({ data }: { data: any }) {
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Tickets by Category</h3>
           <SimpleBarChart
-            data={data.ticketsByCategory.map(item => ({
+            data={data.ticketsByCategory.map((item: any) => ({
               label: item.category.replace('_', ' '),
               value: item.count,
             }))}
@@ -921,7 +953,7 @@ function SupportView({ data }: { data: any }) {
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Tickets by Status</h3>
           <SimpleBarChart
-            data={data.ticketsByStatus.map(item => ({
+            data={data.ticketsByStatus.map((item: any) => ({
               label: item.status.replace('_', ' '),
               value: item.count,
             }))}
@@ -950,46 +982,54 @@ function ClientsView({ data }: { data: any }) {
   return (
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-6">
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <Building2 className="w-5 h-5 text-[#3B82F6]" />
-            <p className="text-slate-400 text-sm">Total Clients</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.totalClients}</p>
-        </Card>
+        <Link to="/app/clients" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <Building2 className="w-5 h-5 text-[#3B82F6]" />
+              <p className="text-slate-400 text-sm">Total Clients</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.totalClients}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
-            <p className="text-slate-400 text-sm">Active</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.activeClients}</p>
-        </Card>
+        <Link to="/app/clients?status=active" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#10B981]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
+              <p className="text-slate-400 text-sm">Active</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.activeClients}</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <Heart className="w-5 h-5 text-[#EC4899]" />
-            <p className="text-slate-400 text-sm">Retention Rate</p>
-          </div>
-          <p className="text-3xl font-bold text-white">{data.retentionRate.toFixed(1)}%</p>
-        </Card>
+        <Link to="/app/client-success" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#EC4899]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <Heart className="w-5 h-5 text-[#EC4899]" />
+              <p className="text-slate-400 text-sm">Retention Rate</p>
+            </div>
+            <p className="text-3xl font-bold text-white">{data.retentionRate.toFixed(1)}%</p>
+          </Card>
+        </Link>
 
-        <Card glass className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <DollarSign className="w-5 h-5 text-[#F59E0B]" />
-            <p className="text-slate-400 text-sm">Avg. Client Value</p>
-          </div>
-          <p className="text-3xl font-bold text-white">
-            ${(data.averageClientValue / 1000).toFixed(0)}K
-          </p>
-        </Card>
+        <Link to="/app/clients" className="block transition-transform hover:-translate-y-1">
+          <Card glass className="p-6 hover:border-[#F59E0B]/50 transition-colors h-full">
+            <div className="flex items-center space-x-3 mb-2">
+              <DollarSign className="w-5 h-5 text-[#F59E0B]" />
+              <p className="text-slate-400 text-sm">Avg. Client Value</p>
+            </div>
+            <p className="text-3xl font-bold text-white">
+              ${(data.averageClientValue / 1000).toFixed(0)}K
+            </p>
+          </Card>
+        </Link>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
         <Card glass className="p-6">
           <h3 className="text-lg font-bold text-white mb-6">Client Type Distribution</h3>
           <DonutChart
-            data={data.clientsByType.map(item => ({
+            data={data.clientsByType.map((item: any) => ({
               label: item.type,
               value: item.count,
             }))}
@@ -1002,9 +1042,9 @@ function ClientsView({ data }: { data: any }) {
           <h3 className="text-lg font-bold text-white mb-6">Clients by Industry</h3>
           <SimpleBarChart
             data={data.clientsByIndustry
-              .sort((a, b) => b.count - a.count)
+              .sort((a: any, b: any) => b.count - a.count)
               .slice(0, 8)
-              .map(item => ({
+              .map((item: any) => ({
                 label: item.industry,
                 value: item.count,
               }))}
