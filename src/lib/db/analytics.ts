@@ -478,6 +478,36 @@ export const analyticsService = {
     }
   },
 
+  async getConversionMetrics() {
+    const [leads, proposals, projects, orgs] = await Promise.all([
+      supabase.from('leads').select('id, converted_to_client'),
+      supabase.from('proposals').select('id, status, converted_to_project'),
+      supabase.from('projects').select('id, source'),
+      supabase.from('organizations').select('id, onboarding_status'),
+    ]);
+
+    return {
+      totalLeads: leads.data?.length || 0,
+      convertedLeads: leads.data?.filter(l => l.converted_to_client).length || 0,
+      totalProposals: proposals.data?.length || 0,
+      approvedProposals: proposals.data?.filter(p => p.status === 'approved').length || 0,
+      convertedProposals: proposals.data?.filter(p => p.converted_to_project).length || 0,
+      totalProjects: projects.data?.length || 0,
+      pendingOnboarding: orgs.data?.filter(o => o.onboarding_status === 'in_progress').length || 0,
+    };
+  },
+
+  async getConversionTracking(limit = 50) {
+    const { data, error } = await supabase
+      .from('conversion_tracking')
+      .select('*')
+      .order('lead_converted_at', { ascending: false })
+      .limit(limit);
+
+    if (error) throw error;
+    return data;
+  },
+
   async getAllAnalytics() {
     const [sales, delivery, billing, support, clientHealth] = await Promise.all([
       this.getSalesAnalytics(),

@@ -47,21 +47,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    authService.getSession().then((session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        loadUserData();
-      } else {
-        setLoading(false);
-      }
-    });
+    let mounted = true;
 
-    const { data: { subscription } } = authService.onAuthStateChange((event, session) => {
+    const initialize = async () => {
+      try {
+        const session = await authService.getSession();
+        if (!mounted) return;
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        if (session?.user) {
+          await loadUserData();
+        } else {
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error('Initial session fetch error:', err);
+        if (mounted) setLoading(false);
+      }
+    };
+
+    initialize();
+
+    const { data: { subscription } } = authService.onAuthStateChange(async (event, session) => {
+      if (!mounted) return;
+      
       setSession(session);
       setUser(session?.user ?? null);
+      
       if (session?.user) {
-        loadUserData();
+        // Prevent duplicate loads if already loading or if the session just initialized
+        if (event !== 'INITIAL_SESSION') {
+          await loadUserData();
+        }
       } else {
         setProfile(null);
         setOrganizations([]);
@@ -71,6 +89,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     return () => {
+      mounted = false;
       subscription.unsubscribe();
     };
   }, []);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Plus, LifeBuoy, Clock, MessageSquare } from 'lucide-react';
 import Card from '../../components/Card';
@@ -14,7 +14,9 @@ import { useAuth } from '../../contexts/AuthContext';
 
 export default function ClientSupport() {
   const { currentOrganization } = useAuth();
+  const [searchParams] = useSearchParams();
   const [tickets, setTickets] = useState<TicketWithDetails[]>([]);
+  const statusFilter = searchParams.get('status') || 'all';
   const [loading, setLoading] = useState(true);
   const [showNewTicket, setShowNewTicket] = useState(false);
   const [newTicket, setNewTicket] = useState({
@@ -182,7 +184,9 @@ export default function ClientSupport() {
             />
           </Card>
         ) : (
-          tickets.map((ticket) => (
+          tickets
+           .filter(t => statusFilter === 'all' || t.status === statusFilter)
+           .map((ticket) => (
             <motion.div
               key={ticket.id}
               initial={{ opacity: 0, y: 20 }}

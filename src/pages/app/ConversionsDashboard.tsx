@@ -6,7 +6,7 @@ import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import StatusBadge from '../../components/admin/StatusBadge';
-import { supabase } from '../../lib/supabase';
+import { analyticsService } from '../../lib/db/analytics';
 
 interface ConversionMetrics {
   totalLeads: number;
@@ -47,35 +47,13 @@ export default function ConversionsDashboard() {
     try {
       setLoading(true);
 
-      // Load metrics
-      const [leads, proposals, projects, orgs] = await Promise.all([
-        supabase.from('leads').select('id, converted_to_client'),
-        supabase.from('proposals').select('id, status, converted_to_project'),
-        supabase.from('projects').select('id, source'),
-        supabase.from('organizations').select('id, onboarding_status'),
+      const [metricsData, trackingData] = await Promise.all([
+        analyticsService.getConversionMetrics(),
+        analyticsService.getConversionTracking(50)
       ]);
 
-      const metricsData: ConversionMetrics = {
-        totalLeads: leads.data?.length || 0,
-        convertedLeads: leads.data?.filter((l) => l.converted_to_client).length || 0,
-        totalProposals: proposals.data?.length || 0,
-        approvedProposals: proposals.data?.filter((p) => p.status === 'approved').length || 0,
-        convertedProposals: proposals.data?.filter((p) => p.converted_to_project).length || 0,
-        totalProjects: projects.data?.length || 0,
-        pendingOnboarding:
-          orgs.data?.filter((o) => o.onboarding_status === 'in_progress').length || 0,
-      };
-
       setMetrics(metricsData);
-
-      // Load conversion tracking
-      const { data: conversionData } = await supabase
-        .from('conversion_tracking')
-        .select('*')
-        .order('lead_converted_at', { ascending: false })
-        .limit(50);
-
-      setConversions((conversionData as ConversionRecord[]) || []);
+      setConversions((trackingData as ConversionRecord[]) || []);
     } catch (error) {
       console.error('Failed to load conversion data:', error);
     } finally {

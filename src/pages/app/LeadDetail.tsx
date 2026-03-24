@@ -27,6 +27,16 @@ export default function LeadDetail() {
   const [error, setError] = useState('');
   const aiSummary = useLeadSummary();
 
+  const handleStatusChange = async (newStatus: string) => {
+    if (!lead || lead.status === newStatus) return;
+    try {
+      await leadsService.updateLead(lead.id, { status: newStatus as any });
+      setLead({ ...lead, status: newStatus as any });
+    } catch (err) {
+      console.error('Failed to update status:', err);
+    }
+  };
+
   useEffect(() => {
     loadLead();
   }, [id]);
@@ -67,22 +77,6 @@ export default function LeadDetail() {
   if (error || !lead) {
     return <ErrorState message={error || 'Lead not found'} />;
   }
-
-  const getStatusVariant = (status: string) => {
-    switch (status) {
-      case 'converted':
-        return 'success';
-      case 'lost':
-        return 'danger';
-      case 'proposal_sent':
-      case 'negotiation':
-        return 'warning';
-      case 'qualified':
-        return 'info';
-      default:
-        return 'default';
-    }
-  };
 
   const getTypeLabel = (type: string) => {
     const map: Record<string, string> = {
@@ -180,7 +174,25 @@ export default function LeadDetail() {
               </div>
               <div>
                 <h2 className="text-xl font-bold text-white mb-2">{lead.name}</h2>
-                <StatusBadge status={lead.status} variant={getStatusVariant(lead.status)} />
+                <select
+                  value={lead.status}
+                  onChange={(e) => handleStatusChange(e.target.value)}
+                  className={`border-none rounded-full px-3 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#3B82F6] cursor-pointer ${
+                    (lead.status as string) === 'converted' ? 'text-[#10B981] bg-[#10B981]/10' :
+                    (lead.status as string) === 'lost' ? 'text-red-500 bg-red-500/10' :
+                    (lead.status as string) === 'proposal_sent' || (lead.status as string) === 'negotiation' ? 'text-yellow-500 bg-yellow-500/10' :
+                    'text-[#3B82F6] bg-[#3B82F6]/10'
+                  }`}
+                >
+                  <option value="new">New</option>
+                  <option value="contacted">Contacted</option>
+                  <option value="qualified">Qualified</option>
+                  <option value="discovery">Discovery</option>
+                  <option value="proposal_sent">Proposal Sent</option>
+                  <option value="negotiation">Negotiation</option>
+                  <option value="converted">Converted</option>
+                  <option value="lost">Lost</option>
+                </select>
               </div>
             </div>
 

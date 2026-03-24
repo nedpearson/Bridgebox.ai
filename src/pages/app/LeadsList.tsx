@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Plus, Users, Mail, Phone } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
@@ -11,12 +11,13 @@ import { leadsService } from '../../lib/db/leads';
 import type { LeadRecord } from '../../types/database';
 
 export default function LeadsList() {
+  const [searchParams] = useSearchParams();
   const [leads, setLeads] = useState<LeadRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterStatus, setFilterStatus] = useState<string>('all');
-  const [filterType, setFilterType] = useState<string>('all');
+  const [filterStatus, setFilterStatus] = useState<string>(searchParams.get('status') || 'all');
+  const [filterType, setFilterType] = useState<string>(searchParams.get('type') || 'all');
 
   useEffect(() => {
     loadLeads();

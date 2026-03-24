@@ -6,17 +6,22 @@ import NotificationBell from './NotificationBell';
 interface AppHeaderProps {
   title: string;
   subtitle?: string;
+  action?: React.ReactNode;
 }
 
-export default function AppHeader({ title, subtitle }: AppHeaderProps) {
+export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
   const { profile } = useAuth();
 
   return (
     <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-10">
       <div className="px-4 md:px-8 py-4 flex items-center justify-between">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold text-white">{title}</h1>
+          <div className="flex items-center space-x-4">
+            <h1 className="text-xl md:text-2xl font-bold text-white">{title}</h1>
+            {action && <div className="hidden sm:block">{action}</div>}
+          </div>
           {subtitle && <p className="text-slate-400 text-sm mt-1">{subtitle}</p>}
+          {action && <div className="mt-4 sm:hidden">{action}</div>}
         </div>
 
         <div className="flex items-center space-x-3 md:space-x-4">

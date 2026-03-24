@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, ExternalLink, Users, CheckCircle2, FolderKanban } from 'lucide-react';
-
+import { useSearchParams } from 'react-router-dom';
 import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -13,9 +13,11 @@ import { organizationsService } from '../../lib/db/organizations';
 
 export default function ClientProjects() {
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const statusFilter = searchParams.get('status') || 'all';
 
   useEffect(() => {
     loadProjects();
@@ -81,14 +83,16 @@ export default function ClientProjects() {
           />
         ) : (
           <div className="space-y-6">
-            {projects.map((project, index) => (
+            {projects
+             .filter(p => statusFilter === 'all' || p.status === statusFilter)
+             .map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card glass className="p-6">
+              <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-all duration-300">
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">

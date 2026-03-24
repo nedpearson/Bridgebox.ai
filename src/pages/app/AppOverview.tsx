@@ -90,8 +90,8 @@ export default function AppOverview() {
   ];
 
   const salesKpis = [
-    { label: 'Active Leads', value: analytics?.sales?.totalLeads || 0, icon: Users, color: 'text-[#3B82F6]', link: '/app/leads' },
-    { label: 'Proposals Out', value: analytics?.sales?.proposalsSent || 0, icon: FileText, color: 'text-yellow-500', link: '/app/proposals' },
+    { label: 'New Leads', value: analytics?.sales?.leadsByStatus?.find((s: any) => s.status === 'new')?.count || 0, icon: Users, color: 'text-[#3B82F6]', link: '/app/leads?status=new' },
+    { label: 'Proposals Out', value: analytics?.sales?.proposalsSent || 0, icon: FileText, color: 'text-yellow-500', link: '/app/proposals?status=sent' },
     { label: 'Pipeline Val', value: analytics?.sales?.pipelineValue || 0, icon: DollarSign, color: 'text-[#10B981]', prefix: '$', link: '/app/pipeline' },
   ];
 

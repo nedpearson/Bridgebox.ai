@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FileText, Plus, DollarSign, Calendar, Building2, Filter, Search } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
@@ -13,11 +13,12 @@ import { proposalsService, ProposalWithDetails } from '../../lib/db/proposals';
 
 export default function ProposalsList() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [proposals, setProposals] = useState<ProposalWithDetails[]>([]);
   const [filteredProposals, setFilteredProposals] = useState<ProposalWithDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [statusFilter, setStatusFilter] = useState<string>(searchParams.get('status') || 'all');
 
   useEffect(() => {
     loadProposals();

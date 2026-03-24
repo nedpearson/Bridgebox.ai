@@ -1,119 +1,70 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { DollarSign, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { leadsService } from '../../lib/db/leads';
 import type { PipelineStage, LeadStage } from '../../types';
 
 export default function Pipeline() {
-  const pipelineData: PipelineStage[] = [
-    {
-      stage: 'new',
-      leads: [
-        {
-          id: '5',
-          organization_name: 'EdTech Ventures',
-          contact_name: 'Lisa Rodriguez',
-          estimated_value: 150000,
-          service_interest: ['mobile_app', 'ai_automation'],
-        },
-        {
-          id: '6',
-          organization_name: 'Legal Services Pro',
-          contact_name: 'Mark Johnson',
-          estimated_value: 85000,
-          service_interest: ['custom_software'],
-        },
-      ],
-      total_value: 235000,
-      count: 2,
-    } as PipelineStage,
-    {
-      stage: 'contacted',
-      leads: [
-        {
-          id: '7',
-          organization_name: 'PropTech Innovations',
-          contact_name: 'Sarah Kim',
-          estimated_value: 220000,
-          service_interest: ['dashboard', 'integration'],
-        },
-      ],
-      total_value: 220000,
-      count: 1,
-    } as PipelineStage,
-    {
-      stage: 'qualified',
-      leads: [
-        {
-          id: '3',
-          organization_name: 'Retail Solutions Ltd',
-          contact_name: 'David Parker',
-          estimated_value: 75000,
-          service_interest: ['mobile_app', 'dashboard'],
-        },
-        {
-          id: '8',
-          organization_name: 'Energy Systems Co',
-          contact_name: 'James Wilson',
-          estimated_value: 425000,
-          service_interest: ['custom_software', 'ai_automation'],
-        },
-      ],
-      total_value: 500000,
-      count: 2,
-    } as PipelineStage,
-    {
-      stage: 'discovery',
-      leads: [
-        {
-          id: '1',
-          organization_name: 'FinTech Innovations',
-          contact_name: 'Jennifer Adams',
-          estimated_value: 350000,
-          service_interest: ['custom_software', 'ai_automation'],
-        },
-      ],
-      total_value: 350000,
-      count: 1,
-    } as PipelineStage,
-    {
-      stage: 'proposal_sent',
-      leads: [
-        {
-          id: '2',
-          organization_name: 'Healthcare Systems Co',
-          contact_name: 'Michael Chen',
-          estimated_value: 180000,
-          service_interest: ['dashboard', 'integration'],
-        },
-        {
-          id: '9',
-          organization_name: 'Supply Chain Partners',
-          contact_name: 'Amanda Lee',
-          estimated_value: 195000,
-          service_interest: ['integration', 'custom_software'],
-        },
-      ],
-      total_value: 375000,
-      count: 2,
-    } as PipelineStage,
-    {
-      stage: 'negotiation',
-      leads: [
-        {
-          id: '4',
-          organization_name: 'Manufacturing Plus',
-          contact_name: 'Rachel Thompson',
-          estimated_value: 625000,
-          service_interest: ['custom_software', 'integration'],
-        },
-      ],
-      total_value: 625000,
-      count: 1,
-    } as PipelineStage,
-  ];
+  const [pipelineData, setPipelineData] = useState<PipelineStage[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadPipeline();
+  }, []);
+
+  const parseBudgetRange = (range: string | null | undefined): number => {
+    if (!range) return 0;
+    const map: Record<string, number> = {
+      under_25k: 15000,
+      '25k_50k': 35000,
+      '50k_100k': 75000,
+      '100k_250k': 150000,
+      '250k_plus': 250000,
+    };
+    return map[range] || 0;
+  };
+
+  const loadPipeline = async () => {
+    try {
+      setLoading(true);
+      const data = await leadsService.getAllLeads();
+      const stages: LeadStage[] = [
+        'new', 'contacted', 'qualified', 'discovery', 
+        'proposal_sent', 'negotiation', 'won', 'lost'
+      ];
+      
+      const computedPipeline = stages.map(stage => {
+        const stageLeads: any[] = data.filter(lead => lead.status === stage).map(lead => ({
+          id: lead.id,
+          company_name: lead.company || lead.name,
+          contact_name: lead.name,
+          contact_email: lead.email,
+          estimated_value: parseBudgetRange(lead.budget_range),
+          service_interest: Object.keys(lead).includes('requested_service') 
+            ? [((lead as any).requested_service)] 
+            : [lead.lead_type],
+        }));
+        
+        return {
+          stage,
+          leads: stageLeads,
+          total_value: stageLeads.reduce((sum, l) => sum + (l.estimated_value || 0), 0),
+          count: stageLeads.length
+        };
+      });
+
+      setPipelineData(computedPipeline);
+    } catch (err) {
+      console.error('Failed to load pipeline:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const stageLabels: Record<LeadStage, string> = {
     new: 'New',
@@ -128,6 +79,17 @@ export default function Pipeline() {
 
   const totalPipelineValue = pipelineData.reduce((sum, stage) => sum + stage.total_value, 0);
   const totalLeads = pipelineData.reduce((sum, stage) => sum + stage.count, 0);
+
+  if (loading) {
+    return (
+      <>
+        <AppHeader title="Sales Pipeline" subtitle="Track deals through your sales process" />
+        <div className="min-h-screen flex items-center justify-center">
+          <LoadingSpinner />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -207,7 +169,7 @@ export default function Pipeline() {
                         <Link to={`/app/leads/${lead.id}`}>
                           <div className="bg-slate-800/50 border border-slate-700/50 hover:border-[#3B82F6]/50 rounded-lg p-4 transition-all duration-300 cursor-pointer">
                             <h4 className="text-white font-semibold mb-1 line-clamp-1">
-                              {lead.organization_name}
+                              {lead.company_name || lead.contact_name}
                             </h4>
                             <p className="text-slate-400 text-sm mb-3">{lead.contact_name}</p>
 

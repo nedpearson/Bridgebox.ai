@@ -18,6 +18,16 @@ export default function ProjectDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const handleStatusChange = async (newStatus: string) => {
+    if (!project || project.status === newStatus) return;
+    try {
+      await projectsService.updateProject(project.id, { status: newStatus });
+      setProject({ ...project, status: newStatus });
+    } catch (err) {
+      console.error('Failed to update project status:', err);
+    }
+  };
+
   useEffect(() => {
     loadProjectData();
   }, [id]);
@@ -76,7 +86,24 @@ export default function ProjectDetail() {
                 <h2 className="text-xl font-bold text-white mb-2">{project.name}</h2>
                 <div className="flex flex-wrap gap-2">
                   <StatusBadge status={project.type} variant="info" />
-                  <StatusBadge status={project.status} variant="info" />
+                  <select
+                    value={project.status}
+                    onChange={(e) => handleStatusChange(e.target.value)}
+                    className={`border-none rounded-full px-3 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#3B82F6] cursor-pointer ${
+                      project.status === 'completed' || project.status === 'deployed' ? 'text-[#10B981] bg-[#10B981]/10' :
+                      project.status === 'cancelled' ? 'text-red-500 bg-red-500/10' :
+                      project.status === 'in_progress' ? 'text-yellow-500 bg-yellow-500/10' :
+                      'text-[#3B82F6] bg-[#3B82F6]/10'
+                    }`}
+                  >
+                    <option value="planning">Planning</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="testing">Testing</option>
+                    <option value="deployed">Deployed</option>
+                    <option value="completed">Completed</option>
+                    <option value="on_hold">On Hold</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
                 </div>
               </div>
             </div>

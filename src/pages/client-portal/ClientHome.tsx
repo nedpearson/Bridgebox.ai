@@ -117,7 +117,7 @@ export default function ClientHome() {
             </Card>
           </Link>
 
-          <Link to="/portal/support">
+          <Link to="/portal/support?status=open">
             <Card glass className="p-6 hover:border-yellow-500/30 transition-all duration-300 cursor-pointer">
               <div className="flex items-center justify-between mb-2">
                 <Headphones className="w-8 h-8 text-yellow-500" />

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { LifeBuoy, Plus, Search, Filter, Clock } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
@@ -15,11 +15,12 @@ import { supportService, TicketWithDetails, TicketStatus, TicketPriority } from 
 
 export default function SupportQueue() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [tickets, setTickets] = useState<TicketWithDetails[]>([]);
   const [filteredTickets, setFilteredTickets] = useState<TicketWithDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [statusFilter, setStatusFilter] = useState<string>(searchParams.get('status') || 'all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [stats, setStats] = useState<any>(null);
 
@@ -103,25 +104,25 @@ export default function SupportQueue() {
               title="Open Tickets"
               value={stats.open}
               icon={LifeBuoy}
-              trend={{ value: 0, isPositive: false }}
+              trend={{ value: 0, direction: 'down' }}
             />
             <KPICard
               title="In Progress"
               value={stats.in_progress}
               icon={Clock}
-              trend={{ value: 0, isPositive: true }}
+              trend={{ value: 0, direction: 'up' }}
             />
             <KPICard
               title="Urgent"
               value={stats.urgent}
               icon={LifeBuoy}
-              trend={{ value: 0, isPositive: false }}
+              trend={{ value: 0, direction: 'down' }}
             />
             <KPICard
               title="Resolved"
               value={stats.resolved}
               icon={LifeBuoy}
-              trend={{ value: 0, isPositive: true }}
+              trend={{ value: 0, direction: 'up' }}
             />
           </div>
         )}
