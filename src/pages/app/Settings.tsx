@@ -3,9 +3,11 @@ import { User, Bell, Shield, CreditCard, Users, Settings as SettingsIcon, Palett
 import { useNavigate } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Settings() {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const settingsSections = [
     {
@@ -112,7 +114,7 @@ export default function Settings() {
                 </label>
                 <input
                   type="text"
-                  defaultValue="User Account"
+                  defaultValue={user?.user_metadata?.full_name || ''}
                   className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
                 />
               </div>
@@ -123,7 +125,7 @@ export default function Settings() {
                 </label>
                 <input
                   type="email"
-                  defaultValue="user@bridgebox.ai"
+                  defaultValue={user?.email || ''}
                   className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
                 />
               </div>

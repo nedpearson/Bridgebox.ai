@@ -13,11 +13,13 @@ import { organizationsService } from '../../lib/db/organizations';
 
 export default function ClientProjects() {
   const { user } = useAuth();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const statusFilter = searchParams.get('status') || 'all';
+
+  const filteredProjects = projects.filter(p => statusFilter === 'all' || p.status === statusFilter);
 
   useEffect(() => {
     loadProjects();
@@ -70,22 +72,43 @@ export default function ClientProjects() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Projects</h1>
-          <p className="text-slate-400">Track progress and milestones for your active projects</p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-white mb-2">Projects</h1>
+            <p className="text-slate-400">Track progress and milestones for your active projects</p>
+          </div>
+          
+          <div className="flex bg-slate-800/50 p-1 rounded-lg border border-slate-700">
+            <button
+              onClick={() => setSearchParams({ status: 'all' })}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'all' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              All Projects
+            </button>
+            <button
+              onClick={() => setSearchParams({ status: 'in_progress' })}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'in_progress' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              Active
+            </button>
+            <button
+              onClick={() => setSearchParams({ status: 'completed' })}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'completed' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              Completed
+            </button>
+          </div>
         </div>
 
-        {projects.length === 0 ? (
+        {filteredProjects.length === 0 ? (
           <EmptyState
             icon={FolderKanban}
-            title="No Active Projects"
-            description="You don't have any active projects at the moment."
+            title={projects.length === 0 ? "No Active Projects" : "No Projects Found"}
+            description={projects.length === 0 ? "You don't have any active projects at the moment." : "No projects match the selected filter."}
           />
         ) : (
           <div className="space-y-6">
-            {projects
-             .filter(p => statusFilter === 'all' || p.status === statusFilter)
-             .map((project, index) => (
+            {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 20 }}

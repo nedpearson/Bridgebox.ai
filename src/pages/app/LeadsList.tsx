@@ -11,7 +11,7 @@ import { leadsService } from '../../lib/db/leads';
 import type { LeadRecord } from '../../types/database';
 
 export default function LeadsList() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [leads, setLeads] = useState<LeadRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -22,6 +22,19 @@ export default function LeadsList() {
   useEffect(() => {
     loadLeads();
   }, []);
+
+  useEffect(() => {
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      if (filterStatus !== 'all') newParams.set('status', filterStatus);
+      else newParams.delete('status');
+      
+      if (filterType !== 'all') newParams.set('type', filterType);
+      else newParams.delete('type');
+      
+      return newParams;
+    }, { replace: true });
+  }, [filterStatus, filterType, setSearchParams]);
 
   const loadLeads = async () => {
     try {

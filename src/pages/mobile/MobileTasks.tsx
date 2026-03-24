@@ -30,48 +30,14 @@ export default function MobileTasks() {
 
   const loadTasks = async () => {
     setLoading(true);
-
-    // Mock data for demonstration
-    setTimeout(() => {
-      setTasks([
-        {
-          id: '1',
-          title: 'Review client proposal',
-          status: 'in_progress',
-          priority: 'high',
-          due_date: new Date(Date.now() + 86400000).toISOString(),
-        },
-        {
-          id: '2',
-          title: 'Update project documentation',
-          status: 'pending',
-          priority: 'medium',
-          due_date: new Date(Date.now() + 172800000).toISOString(),
-        },
-        {
-          id: '3',
-          title: 'Client follow-up call',
-          status: 'completed',
-          priority: 'high',
-          due_date: new Date(Date.now() - 3600000).toISOString(),
-        },
-        {
-          id: '4',
-          title: 'Prepare weekly report',
-          status: 'pending',
-          priority: 'low',
-          due_date: new Date(Date.now() + 259200000).toISOString(),
-        },
-        {
-          id: '5',
-          title: 'Team standup meeting',
-          status: 'in_progress',
-          priority: 'medium',
-          due_date: new Date().toISOString(),
-        },
-      ]);
+    try {
+      // Fetch from API
+      setTasks([]);
+    } catch (e) {
+      console.error(e);
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   };
 
   const handleStatusToggle = (id: string, newStatus: string) => {

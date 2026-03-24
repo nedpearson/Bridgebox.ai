@@ -20,11 +20,17 @@ export default function MobileHome() {
   const navigate = useNavigate();
   const { currentOrganization } = useAuth();
   const [stats, setStats] = useState({
-    tasksToday: 5,
-    projectsActive: 3,
-    documentsUploaded: 12,
-    pendingActions: 2,
+    tasksToday: 0,
+    projectsActive: 0,
+    documentsUploaded: 0,
+    pendingActions: 0,
   });
+
+  useEffect(() => {
+    if (currentOrganization?.id) {
+      // Fetch real stats from API
+    }
+  }, [currentOrganization?.id]);
 
   return (
     <MobileLayout title="Bridgebox">

@@ -53,7 +53,7 @@ export default function ClientSuccess() {
   };
 
   const filteredClients = clients.filter((client) => {
-    const matchesSearch = client.organization_name
+    const matchesSearch = (client.organization_name || '')
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
 

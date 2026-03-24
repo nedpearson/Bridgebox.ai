@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
-import Badge from '../../components/Badge';
 import Button from '../../components/Button';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import EmptyState from '../../components/EmptyState';
@@ -171,7 +170,7 @@ export function DocumentDetail() {
 
                 <div>
                   <div className="text-sm text-slate-400 mb-1">Type</div>
-                  <Badge color="blue">{document.document_type}</Badge>
+                  <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">{document.document_type}</span>
                 </div>
 
                 <div>
@@ -183,9 +182,9 @@ export function DocumentDetail() {
 
                 <div>
                   <div className="text-sm text-slate-400 mb-1">Status</div>
-                  <Badge color={document.status === 'completed' ? 'green' : 'amber'}>
+                  <span className={`inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full border ${document.status === 'completed' ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'}`}>
                     {document.status}
-                  </Badge>
+                  </span>
                 </div>
 
                 <div>
@@ -215,9 +214,9 @@ export function DocumentDetail() {
                   <div className="text-sm text-slate-400 mb-2">Tags</div>
                   <div className="flex flex-wrap gap-2">
                     {document.tags.map((tag, index) => (
-                      <Badge key={index} color="slate">
+                      <span key={index} className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">
                         {tag}
-                      </Badge>
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -268,17 +267,17 @@ export function DocumentDetail() {
                   {analysis.sentiment && (
                     <div className="mt-4 pt-4 border-t border-slate-800">
                       <div className="text-sm text-slate-400 mb-2">Sentiment</div>
-                      <Badge
-                        color={
+                      <span
+                        className={`inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full border ${
                           analysis.sentiment === 'positive'
-                            ? 'green'
+                            ? 'bg-green-500/10 text-green-400 border-green-500/20'
                             : analysis.sentiment === 'negative'
-                            ? 'red'
-                            : 'slate'
-                        }
+                            ? 'bg-red-500/10 text-red-400 border-red-500/20'
+                            : 'bg-slate-500/10 text-slate-400 border-slate-500/20'
+                        }`}
                       >
                         {analysis.sentiment}
-                      </Badge>
+                      </span>
                     </div>
                   )}
 
@@ -313,9 +312,9 @@ export function DocumentDetail() {
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {analysis.key_entities.people.slice(0, 5).map((person, index) => (
-                              <Badge key={index} color="blue">
+                              <span key={index} className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
                                 {person}
-                              </Badge>
+                              </span>
                             ))}
                           </div>
                         </div>
@@ -329,9 +328,9 @@ export function DocumentDetail() {
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {analysis.key_entities.organizations.slice(0, 5).map((org, index) => (
-                              <Badge key={index} color="purple">
+                              <span key={index} className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
                                 {org}
-                              </Badge>
+                              </span>
                             ))}
                           </div>
                         </div>
@@ -345,9 +344,9 @@ export function DocumentDetail() {
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {analysis.key_entities.dates.slice(0, 5).map((date, index) => (
-                              <Badge key={index} color="amber">
+                              <span key={index} className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
                                 {date}
-                              </Badge>
+                              </span>
                             ))}
                           </div>
                         </div>
@@ -361,9 +360,9 @@ export function DocumentDetail() {
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {analysis.key_entities.amounts.slice(0, 5).map((amount, index) => (
-                              <Badge key={index} color="green">
+                              <span key={index} className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-green-500/10 text-green-400 border border-green-500/20">
                                 ${amount.value.toLocaleString()}
-                              </Badge>
+                              </span>
                             ))}
                           </div>
                         </div>
@@ -377,9 +376,9 @@ export function DocumentDetail() {
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {analysis.key_entities.locations.slice(0, 5).map((location, index) => (
-                              <Badge key={index} color="slate">
+                              <span key={index} className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">
                                 {location}
-                              </Badge>
+                              </span>
                             ))}
                           </div>
                         </div>

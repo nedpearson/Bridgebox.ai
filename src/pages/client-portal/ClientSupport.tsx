@@ -14,9 +14,10 @@ import { useAuth } from '../../contexts/AuthContext';
 
 export default function ClientSupport() {
   const { currentOrganization } = useAuth();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [tickets, setTickets] = useState<TicketWithDetails[]>([]);
   const statusFilter = searchParams.get('status') || 'all';
+  const filteredTickets = tickets.filter(t => statusFilter === 'all' || t.status === statusFilter);
   const [loading, setLoading] = useState(true);
   const [showNewTicket, setShowNewTicket] = useState(false);
   const [newTicket, setNewTicket] = useState({
@@ -86,16 +87,39 @@ export default function ClientSupport() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2">Support</h1>
           <p className="text-slate-400">Get help with your projects and services</p>
         </div>
 
-        <Button variant="primary" onClick={() => setShowNewTicket(!showNewTicket)}>
-          <Plus className="w-5 h-5 mr-2" />
-          New Ticket
-        </Button>
+        <div className="flex items-center gap-4">
+          <div className="flex bg-slate-800/50 p-1 rounded-lg border border-slate-700">
+            <button
+              onClick={() => setSearchParams({ status: 'all' })}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'all' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setSearchParams({ status: 'open' })}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'open' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              Open
+            </button>
+            <button
+              onClick={() => setSearchParams({ status: 'closed' })}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'closed' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              Closed
+            </button>
+          </div>
+
+          <Button variant="primary" onClick={() => setShowNewTicket(!showNewTicket)}>
+            <Plus className="w-5 h-5 mr-2" />
+            New Ticket
+          </Button>
+        </div>
       </div>
 
       {showNewTicket && (
@@ -175,18 +199,16 @@ export default function ClientSupport() {
       )}
 
       <div className="space-y-4">
-        {tickets.length === 0 ? (
+        {filteredTickets.length === 0 ? (
           <Card glass className="p-12">
             <EmptyState
               icon={LifeBuoy}
-              title="No Support Tickets"
-              description="Create a ticket to get help from our team"
+              title={tickets.length === 0 ? "No Support Tickets" : "No Tickets Found"}
+              description={tickets.length === 0 ? "Create a ticket to get help from our team" : "No tickets match the selected filter."}
             />
           </Card>
         ) : (
-          tickets
-           .filter(t => statusFilter === 'all' || t.status === statusFilter)
-           .map((ticket) => (
+          filteredTickets.map((ticket) => (
             <motion.div
               key={ticket.id}
               initial={{ opacity: 0, y: 20 }}

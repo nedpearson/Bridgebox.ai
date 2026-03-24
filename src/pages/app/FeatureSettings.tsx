@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Shield, Check, X } from 'lucide-react';
 import Card from '../../components/Card';
-import Badge from '../../components/Badge';
 import Heading from '../../components/Heading';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useAuth } from '../../contexts/AuthContext';
@@ -87,7 +86,7 @@ export default function FeatureSettings() {
           subtitle="Enable or disable features for your organization"
           icon={Zap}
         />
-        <Badge color="blue">{planId} Plan</Badge>
+        <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">{planId} Plan</span>
       </div>
 
       {!canEdit && (
@@ -105,9 +104,9 @@ export default function FeatureSettings() {
               <h3 className="text-lg font-semibold text-white capitalize">
                 {category} Features
               </h3>
-              <Badge color="slate" className="text-xs">
+              <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">
                 {categoryFeatures.length}
-              </Badge>
+              </span>
             </div>
 
             <div className="space-y-3">
@@ -169,15 +168,15 @@ function FeatureRow({ feature, enabled, onToggle, disabled }: FeatureRowProps) {
         <div className="flex items-center gap-3 mb-1">
           <h4 className="text-base font-medium text-white">{feature.name}</h4>
           {enabled ? (
-            <Badge color="green" className="text-xs">
+            <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-green-500/10 text-green-400 border border-green-500/20">
               <Check className="w-3 h-3 mr-1" />
               Enabled
-            </Badge>
+            </span>
           ) : (
-            <Badge color="slate" className="text-xs">
+            <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">
               <X className="w-3 h-3 mr-1" />
               Disabled
-            </Badge>
+            </span>
           )}
         </div>
         <p className="text-sm text-slate-400">{feature.description}</p>

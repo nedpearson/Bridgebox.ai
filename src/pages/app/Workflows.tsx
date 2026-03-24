@@ -30,7 +30,7 @@ const CATEGORY_LABELS: Record<WorkflowCategory, string> = {
 };
 
 export function Workflows() {
-  const { currentOrganization } = useOrganizations();
+  const { currentOrganization } = useAuth();
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [stats, setStats] = useState<WorkflowStats | null>(null);
   const [loading, setLoading] = useState(true);

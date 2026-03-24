@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Plus, FolderKanban, Filter } from 'lucide-react';
+import { Search, Plus, FolderKanban } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -8,24 +8,38 @@ import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
 import EmptyState from '../../components/EmptyState';
+import { useAuth } from '../../contexts/AuthContext';
 import { projectsService } from '../../lib/db/projects';
 
 export default function ProjectsList() {
+  const { currentOrganization } = useAuth();
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState(searchParams.get('status') || 'all');
 
   useEffect(() => {
     loadProjects();
-  }, [statusFilter]);
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      if (statusFilter !== 'all') {
+        newParams.set('status', statusFilter);
+      } else {
+        newParams.delete('status');
+      }
+      return newParams;
+    }, { replace: true });
+  }, [statusFilter, setSearchParams]);
 
   const loadProjects = async () => {
     try {
       setLoading(true);
-      const filters = statusFilter !== 'all' ? { status: statusFilter } : undefined;
+      const filters: any = {};
+      if (statusFilter !== 'all') filters.status = statusFilter;
+      if (currentOrganization?.id) filters.organization_id = currentOrganization.id;
+      
       const data = await projectsService.getAllProjects(filters);
       setProjects(data || []);
     } catch (err: any) {
@@ -39,7 +53,7 @@ export default function ProjectsList() {
     setSearchQuery(query);
     if (query.trim()) {
       try {
-        const data = await projectsService.searchProjects(query);
+        const data = await projectsService.searchProjects(query, currentOrganization?.id);
         setProjects(data || []);
       } catch (err) {
         console.error('Search failed:', err);

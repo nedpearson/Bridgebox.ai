@@ -37,8 +37,8 @@ export default function ImplementationCenter() {
       const query = searchQuery.toLowerCase();
       const filtered = implementations.filter(
         (impl) =>
-          impl.project?.name.toLowerCase().includes(query) ||
-          impl.project?.organization?.name.toLowerCase().includes(query)
+          (impl.project?.name || '').toLowerCase().includes(query) ||
+          (impl.project?.organization?.name || '').toLowerCase().includes(query)
       );
       setFilteredImplementations(filtered);
     } else {

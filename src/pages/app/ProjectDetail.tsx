@@ -6,6 +6,7 @@ import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
+import EmptyState from '../../components/EmptyState';
 import { projectsService } from '../../lib/db/projects';
 import { useState, useEffect } from 'react';
 
@@ -179,92 +180,116 @@ export default function ProjectDetail() {
               </div>
 
               <div className="space-y-3">
-                {milestones.map((milestone, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg border border-slate-700/50"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div
-                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                          milestone.status === 'completed'
-                            ? 'bg-[#10B981] border-[#10B981]'
-                            : 'border-slate-600'
-                        }`}
-                      >
-                        {milestone.status === 'completed' && (
-                          <svg
-                            className="w-4 h-4 text-white"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                        )}
+                {milestones.length === 0 ? (
+                  <EmptyState
+                    icon={FolderKanban}
+                    title="No Milestones"
+                    description="No milestones have been created for this project."
+                  />
+                ) : (
+                  milestones.map((milestone, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg border border-slate-700/50"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                            milestone.status === 'completed'
+                              ? 'bg-[#10B981] border-[#10B981]'
+                              : 'border-slate-600'
+                          }`}
+                        >
+                          {milestone.status === 'completed' && (
+                            <svg
+                              className="w-4 h-4 text-white"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          )}
+                        </div>
+                        <span
+                          className={milestone.status === 'completed' ? 'text-white' : 'text-slate-400'}
+                        >
+                          {milestone.title}
+                        </span>
                       </div>
-                      <span
-                        className={milestone.status === 'completed' ? 'text-white' : 'text-slate-400'}
-                      >
-                        {milestone.title}
-                      </span>
-                    </div>
-                    <span className="text-slate-500 text-sm">{milestone.completion_date || milestone.target_date || 'TBD'}</span>
-                  </motion.div>
-                ))}
+                      <span className="text-slate-500 text-sm">{milestone.completion_date || milestone.target_date || 'TBD'}</span>
+                    </motion.div>
+                  ))
+                )}
               </div>
             </Card>
 
             <Card glass className="p-6">
               <h3 className="text-xl font-bold text-white mb-6">Team Members</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {teamMembers.map((member, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center space-x-3 p-3 bg-slate-800/30 rounded-lg border border-slate-700/50"
-                  >
-                    <div className="w-10 h-10 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
-                      {member.profiles?.full_name ? member.profiles.full_name[0] : 'U'}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-white font-medium text-sm truncate">{member.profiles?.full_name || 'User'}</p>
-                      <p className="text-slate-400 text-xs truncate capitalize">{member.role?.replace('_', ' ')}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+              {teamMembers.length === 0 ? (
+                <EmptyState
+                  icon={Users}
+                  title="No Team Members"
+                  description="No team members assigned to this project yet."
+                />
+              ) : (
+                <div className="grid md:grid-cols-2 gap-4">
+                  {teamMembers.map((member, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-center space-x-3 p-3 bg-slate-800/30 rounded-lg border border-slate-700/50"
+                    >
+                      <div className="w-10 h-10 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
+                        {member.profiles?.full_name ? member.profiles.full_name[0] : 'U'}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-white font-medium text-sm truncate">{member.profiles?.full_name || 'User'}</p>
+                        <p className="text-slate-400 text-xs truncate capitalize">{member.role?.replace('_', ' ')}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </Card>
 
             <Card glass className="p-6">
               <h3 className="text-xl font-bold text-white mb-6">Recent Activity</h3>
-              <div className="space-y-4">
-                {recentActivity.map((activity, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start justify-between py-3 border-b border-slate-800 last:border-0"
-                  >
-                    <div>
-                      <p className="text-white mb-1">{activity.event}</p>
-                      <p className="text-slate-500 text-sm">{activity.user}</p>
-                    </div>
-                    <p className="text-slate-500 text-sm">{activity.date}</p>
-                  </motion.div>
-                ))}
-              </div>
+              {recentActivity.length === 0 ? (
+                <EmptyState
+                  icon={Calendar}
+                  title="No Recent Activity"
+                  description="No recorded activity for this project yet."
+                />
+              ) : (
+                <div className="space-y-4">
+                  {recentActivity.map((activity, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-start justify-between py-3 border-b border-slate-800 last:border-0"
+                    >
+                      <div>
+                        <p className="text-white mb-1">{activity.event}</p>
+                        <p className="text-slate-500 text-sm">{activity.user}</p>
+                      </div>
+                      <p className="text-slate-500 text-sm">{activity.date}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </Card>
           </div>
         </div>

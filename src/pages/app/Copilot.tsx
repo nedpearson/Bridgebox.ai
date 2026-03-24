@@ -105,7 +105,7 @@ export default function Copilot() {
     try {
       const newConvo = await copilotService.createConversation(
         user.id,
-        null,
+        currentOrganization?.id || null,
         selectedContext
       );
       setConversations([newConvo, ...conversations]);
@@ -124,7 +124,7 @@ export default function Copilot() {
 
       let convo = currentConversation;
       if (!convo) {
-        convo = await copilotService.createConversation(user.id, null, selectedContext);
+        convo = await copilotService.createConversation(user.id, currentOrganization?.id || null, selectedContext);
         setCurrentConversation(convo);
         setConversations([convo, ...conversations]);
       }

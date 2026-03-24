@@ -6,6 +6,7 @@ import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
+import EmptyState from '../../components/EmptyState';
 import { organizationsService } from '../../lib/db/organizations';
 import { projectsService } from '../../lib/db/projects';
 
@@ -155,20 +156,28 @@ export default function ClientDetail() {
 
             <Card glass className="p-6">
               <h3 className="text-xl font-bold text-white mb-6">Recent Activity</h3>
-              <div className="space-y-4">
-                {recentActivity.map((activity, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center justify-between py-3 border-b border-slate-800 last:border-0"
-                  >
-                    <p className="text-slate-300">{activity.event}</p>
-                    <p className="text-slate-500 text-sm">{activity.date}</p>
-                  </motion.div>
-                ))}
-              </div>
+              {recentActivity.length === 0 ? (
+                <EmptyState
+                  icon={Calendar}
+                  title="No Recent Activity"
+                  description="No recorded activity for this client yet."
+                />
+              ) : (
+                <div className="space-y-4">
+                  {recentActivity.map((activity, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-center justify-between py-3 border-b border-slate-800 last:border-0"
+                    >
+                      <p className="text-slate-300">{activity.event}</p>
+                      <p className="text-slate-500 text-sm">{activity.date}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </Card>
           </div>
         </div>

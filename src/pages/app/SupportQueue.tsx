@@ -15,13 +15,13 @@ import { supportService, TicketWithDetails, TicketStatus, TicketPriority } from 
 
 export default function SupportQueue() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [tickets, setTickets] = useState<TicketWithDetails[]>([]);
   const [filteredTickets, setFilteredTickets] = useState<TicketWithDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>(searchParams.get('status') || 'all');
-  const [priorityFilter, setPriorityFilter] = useState<string>('all');
+  const [priorityFilter, setPriorityFilter] = useState<string>(searchParams.get('priority') || 'all');
   const [stats, setStats] = useState<any>(null);
 
   useEffect(() => {
@@ -30,7 +30,17 @@ export default function SupportQueue() {
 
   useEffect(() => {
     filterTickets();
-  }, [tickets, searchTerm, statusFilter, priorityFilter]);
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      if (statusFilter !== 'all') newParams.set('status', statusFilter);
+      else newParams.delete('status');
+      
+      if (priorityFilter !== 'all') newParams.set('priority', priorityFilter);
+      else newParams.delete('priority');
+      
+      return newParams;
+    }, { replace: true });
+  }, [tickets, searchTerm, statusFilter, priorityFilter, setSearchParams]);
 
   const loadData = async () => {
     try {

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Shield, Plus, CreditCard as Edit3, Trash2 } from 'lucide-react';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
-import Badge from '../../components/Badge';
 import Heading from '../../components/Heading';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useAuth } from '../../contexts/AuthContext';
@@ -113,7 +112,7 @@ export default function RolesSettings() {
       <Card>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-white">Custom Roles</h3>
-          <Badge color="slate">{roles.length} roles</Badge>
+          <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">{roles.length} roles</span>
         </div>
 
         {roles.length === 0 ? (
@@ -171,9 +170,9 @@ function SystemRoleCard({ name, description, permissions }: SystemRoleCardProps)
           <h4 className="text-base font-medium text-white mb-1">{name}</h4>
           <p className="text-sm text-slate-400">{description}</p>
         </div>
-        <Badge color="slate" className="text-xs">
+        <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">
           System
-        </Badge>
+        </span>
       </div>
       <div className="flex flex-wrap gap-2 mt-3">
         {permissions.map((permission, index) => (
@@ -208,13 +207,13 @@ function CustomRoleCard({ role, onDelete, canManage }: CustomRoleCardProps) {
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
             <h4 className="text-base font-medium text-white">{role.display_name}</h4>
-            <Badge color="blue" className="text-xs">
+            <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
               Custom
-            </Badge>
+            </span>
             {role.inherits_from && (
-              <Badge color="slate" className="text-xs">
+              <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">
                 Inherits: {role.inherits_from}
-              </Badge>
+              </span>
             )}
           </div>
           {role.description && (

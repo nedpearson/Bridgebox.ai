@@ -247,9 +247,9 @@ export default function Knowledge() {
                           <div className="flex items-center gap-3 flex-wrap">
                             <DocumentCategoryBadge category={doc.category} />
                             <DocumentVisibilityBadge visibility={doc.visibility} />
-                            {doc.tags.length > 0 && (
+                            {(doc.tags || []).length > 0 && (
                               <div className="flex items-center gap-1.5">
-                                {doc.tags.slice(0, 3).map((tag) => (
+                                {(doc.tags || []).slice(0, 3).map((tag) => (
                                   <span
                                     key={tag}
                                     className="px-2 py-0.5 bg-white/5 border border-white/10 rounded text-xs text-slate-400"

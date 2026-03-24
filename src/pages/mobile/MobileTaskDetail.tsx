@@ -40,20 +40,9 @@ export default function MobileTaskDetail() {
   }, [id]);
 
   const loadTask = () => {
-    // Mock data
-    setTask({
-      id: id || '1',
-      title: 'Review client proposal',
-      description: 'Review and provide feedback on the Q1 proposal for Acme Corp. Focus on pricing structure and timeline.',
-      status: 'in_progress',
-      priority: 'high',
-      due_date: new Date(Date.now() + 86400000).toISOString(),
-      assigned_to: 'John Doe',
-      notes: [
-        'Initial review completed - pricing needs adjustment',
-        'Scheduled meeting with client for tomorrow',
-      ],
-    });
+    // In a real application, fetch the task data from the server.
+    // Replace mock data with an empty state to avoid phantom assignments.
+    setTask(null);
   };
 
   const handleStatusChange = (newStatus: string) => {
@@ -72,7 +61,15 @@ export default function MobileTaskDetail() {
     }
   };
 
-  if (!task) return null;
+  if (!task) {
+    return (
+      <MobileLayout title="Task Details" showBack>
+        <div className="flex-1 flex items-center justify-center p-8 text-slate-500">
+          Task not found
+        </div>
+      </MobileLayout>
+    );
+  }
 
   const statusConfig = STATUS_CONFIG[task.status];
   const StatusIcon = statusConfig.icon;
@@ -91,11 +88,13 @@ export default function MobileTaskDetail() {
               <div className="flex-1">
                 <h1 className="text-lg font-semibold text-white mb-2">{task.title}</h1>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <Badge color={statusConfig.color}>{statusConfig.label}</Badge>
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium bg-${statusConfig.color}-500/10 text-${statusConfig.color}-400 border border-${statusConfig.color}-500/20`}>
+                    {statusConfig.label}
+                  </span>
                   {task.priority && (
-                    <Badge color={PRIORITY_COLORS[task.priority]}>
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium bg-${PRIORITY_COLORS[task.priority]}-500/10 text-${PRIORITY_COLORS[task.priority]}-400 border border-${PRIORITY_COLORS[task.priority]}-500/20`}>
                       {task.priority} priority
-                    </Badge>
+                    </span>
                   )}
                 </div>
               </div>

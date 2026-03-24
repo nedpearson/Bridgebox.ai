@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft, Sparkles, Loader2 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
-import Badge from '../../components/Badge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import EmptyState from '../../components/EmptyState';
 import { workflowService } from '../../lib/db/workflows';
@@ -22,7 +21,7 @@ const CATEGORY_COLORS: Record<WorkflowCategory, string> = {
 
 export function WorkflowTemplates() {
   const navigate = useNavigate();
-  const { currentOrganization } = useOrganizations();
+  const { currentOrganization } = useAuth();
   const [templates, setTemplates] = useState<WorkflowTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterCategory, setFilterCategory] = useState<WorkflowCategory | 'all'>('all');
@@ -108,7 +107,7 @@ export function WorkflowTemplates() {
           <EmptyState
             icon={Sparkles}
             title="No templates available"
-            message="Check back soon for pre-built workflow templates"
+            description="Check back soon for pre-built workflow templates"
           />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -130,9 +129,9 @@ export function WorkflowTemplates() {
                       <h3 className="text-lg font-semibold text-white mb-1">
                         {template.name}
                       </h3>
-                      <Badge color={CATEGORY_COLORS[template.category]}>
+                      <span className={`px-2.5 py-1 text-xs rounded-full bg-${CATEGORY_COLORS[template.category]}-500/10 text-${CATEGORY_COLORS[template.category]}-400 border border-${CATEGORY_COLORS[template.category]}-500/20`}>
                         {template.category}
-                      </Badge>
+                      </span>
                     </div>
                   </div>
 
@@ -153,7 +152,7 @@ export function WorkflowTemplates() {
                     >
                       {creating === template.id ? (
                         <>
-                          <LoadingSpinner size="sm" className="mr-2" />
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                           Creating...
                         </>
                       ) : (

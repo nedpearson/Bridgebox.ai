@@ -138,12 +138,17 @@ export const projectsService = {
     return data;
   },
 
-  async searchProjects(query: string) {
-    const { data, error } = await supabase
+  async searchProjects(query: string, organizationId?: string) {
+    let dbQuery = supabase
       .from('projects')
       .select('*, organizations(name)')
-      .ilike('name', `%${query}%`)
-      .order('created_at', { ascending: false });
+      .ilike('name', `%${query}%`);
+
+    if (organizationId) {
+      dbQuery = dbQuery.eq('organization_id', organizationId);
+    }
+
+    const { data, error } = await dbQuery.order('created_at', { ascending: false });
 
     if (error) throw error;
     return data;

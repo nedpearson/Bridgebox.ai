@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, CheckCircle, XCircle, Pause, AlertCircle } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
-import Badge from '../../components/Badge';
+import Button from '../../components/Button';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import EmptyState from '../../components/EmptyState';
 import { workflowService } from '../../lib/db/workflows';
@@ -99,11 +99,12 @@ export function WorkflowExecutions() {
         <EmptyState
           icon={AlertCircle}
           title="Workflow not found"
-          message="The workflow you're looking for doesn't exist"
-          action={{
-            label: 'Back to Workflows',
-            onClick: () => navigate('/app/workflows'),
-          }}
+          description="The workflow you're looking for doesn't exist"
+          action={
+            <Button onClick={() => navigate('/app/workflows')}>
+              Back to Workflows
+            </Button>
+          }
         />
       </div>
     );
@@ -171,7 +172,7 @@ export function WorkflowExecutions() {
           <EmptyState
             icon={Clock}
             title="No executions found"
-            message={
+            description={
               executions.length === 0
                 ? 'This workflow has not been executed yet'
                 : 'No executions match the selected filter'
@@ -204,9 +205,9 @@ export function WorkflowExecutions() {
                             <span className="text-sm text-slate-400">
                               {new Date(execution.started_at).toLocaleString()}
                             </span>
-                            <Badge color={statusConfig.color}>
+                            <span className={`px-2.5 py-1 text-xs font-medium rounded-full bg-${statusConfig.color}-500/10 text-${statusConfig.color}-400 border border-${statusConfig.color}-500/20`}>
                               {statusConfig.label}
-                            </Badge>
+                            </span>
                           </div>
 
                           <div className="grid grid-cols-3 gap-4 text-sm">

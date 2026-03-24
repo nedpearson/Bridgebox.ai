@@ -30,7 +30,7 @@ const CATEGORY_OPTIONS: { value: WorkflowCategory; label: string }[] = [
 export function WorkflowBuilder() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { currentOrganization } = useOrganizations();
+  const { currentOrganization } = useAuth();
   const [loading, setLoading] = useState(!!id);
   const [saving, setSaving] = useState(false);
   const [name, setName] = useState('');

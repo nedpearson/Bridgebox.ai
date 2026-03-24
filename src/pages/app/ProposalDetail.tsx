@@ -287,7 +287,8 @@ export default function ProposalDetail() {
               {proposal.status !== 'approved' && proposal.status !== 'declined' && (
                 <div className="flex flex-col space-y-2">
                   <Button
-                    variant="success"
+                    variant="primary"
+                    className="bg-green-600 hover:bg-green-700 text-white border-green-600 hover:border-green-700"
                     size="sm"
                     onClick={() => handleStatusChange('approved')}
                   >
@@ -295,7 +296,8 @@ export default function ProposalDetail() {
                     Mark Approved
                   </Button>
                   <Button
-                    variant="error"
+                    variant="primary"
+                    className="bg-red-600 hover:bg-red-700 text-white border-red-600 hover:border-red-700"
                     size="sm"
                     onClick={() => handleStatusChange('declined')}
                   >
@@ -406,7 +408,7 @@ export default function ProposalDetail() {
             <div className="space-y-4">
               {proposal.deliverables.map((deliverable, idx) => (
                 <motion.div
-                  key={deliverable.id}
+                  key={deliverable.id || `deliverable-${idx}`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.1 }}
@@ -434,7 +436,7 @@ export default function ProposalDetail() {
             <div className="space-y-4">
               {proposal.optional_addons.map((addon, idx) => (
                 <div
-                  key={addon.id}
+                  key={addon.id || `addon-${idx}`}
                   className="p-4 bg-slate-800/30 border border-slate-700 rounded-lg flex justify-between items-start"
                 >
                   <div className="flex-1">

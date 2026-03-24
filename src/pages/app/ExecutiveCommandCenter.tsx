@@ -118,6 +118,14 @@ export default function ExecutiveCommandCenter() {
     return <ErrorState message={error} />;
   }
 
+  if (!kpis || !sales || !delivery || !clientHealth || !billing) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
   return (
     <>
       <AppHeader
@@ -169,43 +177,43 @@ export default function ExecutiveCommandCenter() {
           <KPICard
             icon={DollarSign}
             label="MRR"
-            value={`$${kpis!.mrr.toLocaleString()}`}
+            value={`$${kpis.mrr.toLocaleString()}`}
             color="#10B981"
             link="/app/billing"
           />
           <KPICard
             icon={Building2}
             label="Active Clients"
-            value={kpis!.activeClients.toString()}
+            value={kpis.activeClients.toString()}
             color="#3B82F6"
             link="/app/clients"
           />
           <KPICard
             icon={Target}
             label="Open Opportunities"
-            value={kpis!.openOpportunities.toString()}
+            value={kpis.openOpportunities.toString()}
             color="#F59E0B"
             link="/app/pipeline"
           />
           <KPICard
             icon={Package}
             label="Active Projects"
-            value={kpis!.activeProjects.toString()}
+            value={kpis.activeProjects.toString()}
             color="#8B5CF6"
             link="/app/projects"
           />
           <KPICard
             icon={AlertCircle}
             label="Support Health"
-            value={kpis!.supportHealth.open.toString()}
-            subtext={`${kpis!.supportHealth.urgent} urgent`}
-            color={kpis!.supportHealth.urgent > 0 ? '#EF4444' : '#10B981'}
+            value={kpis.supportHealth.open.toString()}
+            subtext={`${kpis.supportHealth.urgent} urgent`}
+            color={kpis.supportHealth.urgent > 0 ? '#EF4444' : '#10B981'}
             link="/app/support"
           />
           <KPICard
             icon={CheckCircle2}
             label="Onboarding"
-            value={`${kpis!.onboardingCompletion.toFixed(0)}%`}
+            value={`${kpis.onboardingCompletion.toFixed(0)}%`}
             color="#10B981"
             link="/app/clients"
           />
@@ -333,25 +341,25 @@ export default function ExecutiveCommandCenter() {
               <div>
                 <p className="text-slate-400 text-sm mb-1">Pipeline Value</p>
                 <p className="text-3xl font-bold text-white">
-                  ${(sales!.pipelineValue / 1000).toFixed(0)}K
+                  ${(sales.pipelineValue / 1000).toFixed(0)}K
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Pending Proposals</p>
-                  <p className="text-xl font-bold text-white">{sales!.proposalsPending}</p>
+                  <p className="text-xl font-bold text-white">{sales.proposalsPending}</p>
                 </div>
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Win Rate</p>
                   <p className="text-xl font-bold text-[#10B981]">
-                    {sales!.winRate.toFixed(0)}%
+                    {sales.winRate.toFixed(0)}%
                   </p>
                 </div>
               </div>
               <div>
                 <p className="text-slate-400 text-sm mb-3">Top Service Types</p>
                 <div className="space-y-2">
-                  {sales!.topServiceTypes.slice(0, 3).map((type, index) => (
+                  {sales.topServiceTypes.slice(0, 3).map((type, index) => (
                     <div key={type.service_type} className="flex items-center justify-between">
                       <span className="text-sm text-slate-300">
                         {type.service_type.replace('_', ' ')}
@@ -383,13 +391,13 @@ export default function ExecutiveCommandCenter() {
                 <div>
                   <p className="text-slate-400 text-xs mb-1">At Risk</p>
                   <p className="text-xl font-bold text-[#EF4444]">
-                    {delivery!.projectsAtRisk}
+                    {delivery.projectsAtRisk}
                   </p>
                 </div>
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Upcoming Milestones</p>
                   <p className="text-xl font-bold text-white">
-                    {delivery!.upcomingMilestones.length}
+                    {delivery.upcomingMilestones.length}
                   </p>
                 </div>
               </div>
@@ -398,22 +406,22 @@ export default function ExecutiveCommandCenter() {
                 <div className="space-y-2">
                   <WorkloadBar
                     label="Discovery"
-                    value={delivery!.deliveryWorkload.discovery}
+                    value={delivery.deliveryWorkload.discovery}
                     color="#3B82F6"
                   />
                   <WorkloadBar
                     label="Development"
-                    value={delivery!.deliveryWorkload.development}
+                    value={delivery.deliveryWorkload.development}
                     color="#10B981"
                   />
                   <WorkloadBar
                     label="Testing"
-                    value={delivery!.deliveryWorkload.testing}
+                    value={delivery.deliveryWorkload.testing}
                     color="#F59E0B"
                   />
                   <WorkloadBar
                     label="Deployment"
-                    value={delivery!.deliveryWorkload.deployment}
+                    value={delivery.deliveryWorkload.deployment}
                     color="#8B5CF6"
                   />
                 </div>
@@ -440,13 +448,13 @@ export default function ExecutiveCommandCenter() {
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Active Accounts</p>
                   <p className="text-xl font-bold text-white">
-                    {clientHealth!.activeAccounts}
+                    {clientHealth.activeAccounts}
                   </p>
                 </div>
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Retention</p>
                   <p className="text-xl font-bold text-[#10B981]">
-                    {clientHealth!.retentionRate.toFixed(0)}%
+                    {clientHealth.retentionRate.toFixed(0)}%
                   </p>
                 </div>
               </div>
@@ -454,19 +462,19 @@ export default function ExecutiveCommandCenter() {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-slate-400 text-xs">Incomplete Onboarding</span>
                   <span className="text-white font-bold">
-                    {clientHealth!.onboardingIncomplete}
+                    {clientHealth.onboardingIncomplete}
                   </span>
                 </div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-slate-400 text-xs">Support Escalations</span>
                   <span className="text-[#EF4444] font-bold">
-                    {clientHealth!.supportEscalations}
+                    {clientHealth.supportEscalations}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-400 text-xs">Risk Accounts</span>
                   <span className="text-[#F59E0B] font-bold">
-                    {clientHealth!.riskAccounts}
+                    {clientHealth.riskAccounts}
                   </span>
                 </div>
               </div>
@@ -495,17 +503,17 @@ export default function ExecutiveCommandCenter() {
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Total Revenue</p>
                   <p className="text-xl font-bold text-white">
-                    ${(billing!.totalRevenue / 1000).toFixed(0)}K
+                    ${(billing.totalRevenue / 1000).toFixed(0)}K
                   </p>
                 </div>
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Invoices Due</p>
-                  <p className="text-xl font-bold text-[#F59E0B]">{billing!.invoicesDue}</p>
+                  <p className="text-xl font-bold text-[#F59E0B]">{billing.invoicesDue}</p>
                 </div>
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Outstanding</p>
                   <p className="text-xl font-bold text-[#EF4444]">
-                    {billing!.outstandingIssues}
+                    {billing.outstandingIssues}
                   </p>
                 </div>
               </div>
@@ -514,12 +522,12 @@ export default function ExecutiveCommandCenter() {
                   data={[
                     {
                       label: 'Platform Revenue',
-                      value: Math.round(billing!.recurringRevenue),
+                      value: Math.round(billing.recurringRevenue),
                       color: '#3B82F6',
                     },
                     {
                       label: 'Custom Revenue',
-                      value: Math.round(billing!.customRevenue),
+                      value: Math.round(billing.customRevenue),
                       color: '#10B981',
                     },
                   ]}

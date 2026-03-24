@@ -47,6 +47,7 @@ const STATUS_VARIANTS: Record<DocumentStatus, 'primary' | 'secondary' | 'success
 };
 
 const getFileIcon = (fileType: string) => {
+  if (!fileType) return File;
   for (const [key, icon] of Object.entries(FILE_TYPE_ICONS)) {
     if (fileType.startsWith(key)) return icon;
   }

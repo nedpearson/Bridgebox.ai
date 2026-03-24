@@ -219,11 +219,11 @@ export default function Analytics() {
               </div>
               {!aiInsights.data && !aiInsights.loading && (
                 <AIButton onClick={() => aiInsights.generate({
-                  totalLeads: metrics.sales?.totalLeads || 0,
-                  conversionRate: metrics.sales?.conversionRate || 0,
-                  activeProjects: metrics.operations?.activeProjects || 0,
-                  revenue: metrics.financial?.revenue || 0,
-                  clientCount: metrics.client?.totalClients || 0,
+                  totalLeads: metrics.conversion?.totalLeads || 0,
+                  conversionRate: metrics.conversion?.conversionRate || 0,
+                  activeProjects: metrics.projects?.activeProjects || 0,
+                  revenue: metrics.revenue?.mrr || 0,
+                  clientCount: metrics.clients?.activeClients || 0,
                 })}>
                   Generate Insights
                 </AIButton>
@@ -237,11 +237,11 @@ export default function Analytics() {
               fromCache={aiInsights.fromCache}
               provider={aiInsights.provider}
               onRetry={() => aiInsights.generate({
-                totalLeads: metrics.sales?.totalLeads || 0,
-                conversionRate: metrics.sales?.conversionRate || 0,
-                activeProjects: metrics.operations?.activeProjects || 0,
-                revenue: metrics.financial?.revenue || 0,
-                clientCount: metrics.client?.totalClients || 0,
+                totalLeads: metrics.conversion?.totalLeads || 0,
+                conversionRate: metrics.conversion?.conversionRate || 0,
+                activeProjects: metrics.projects?.activeProjects || 0,
+                revenue: metrics.revenue?.mrr || 0,
+                clientCount: metrics.clients?.activeClients || 0,
               }, false)}
             >
               {aiInsights.data && (

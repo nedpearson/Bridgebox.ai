@@ -13,7 +13,7 @@ import { proposalsService, ProposalWithDetails } from '../../lib/db/proposals';
 
 export default function ProposalsList() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [proposals, setProposals] = useState<ProposalWithDetails[]>([]);
   const [filteredProposals, setFilteredProposals] = useState<ProposalWithDetails[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,13 @@ export default function ProposalsList() {
 
   useEffect(() => {
     filterProposals();
-  }, [proposals, searchTerm, statusFilter]);
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      if (statusFilter !== 'all') newParams.set('status', statusFilter);
+      else newParams.delete('status');
+      return newParams;
+    }, { replace: true });
+  }, [proposals, searchTerm, statusFilter, setSearchParams]);
 
   const loadProposals = async () => {
     try {
