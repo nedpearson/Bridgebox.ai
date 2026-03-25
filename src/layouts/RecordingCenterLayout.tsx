@@ -15,7 +15,8 @@ import {
   PieChart,
   Code2,
   Bug,
-  TestTube2
+  TestTube2,
+  Database
 } from 'lucide-react';
 
 export default function RecordingCenterLayout({ children }: { children: React.ReactNode }) {
@@ -32,6 +33,7 @@ export default function RecordingCenterLayout({ children }: { children: React.Re
     { name: 'Support Analytics', path: '/app/internal/recording-center/support-analytics', icon: PieChart },
     { name: 'Web Access', path: '/app/internal/recording-center/web', icon: Globe },
     { name: 'AI Capability Editor', path: '/app/internal/recording-center/ai-knowledge', icon: Brain },
+    { name: 'AI Validation Suite', path: '/app/internal/recording-center/ai-validation', icon: Database },
   ];
 
   return (

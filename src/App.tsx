@@ -111,6 +111,7 @@ import InternalNotes from './pages/internal/modules/InternalNotes';
 import SystemDiagnostics from './pages/internal/modules/SystemDiagnostics';
 import AuditTrail from './pages/internal/modules/AuditTrail';
 import AiKnowledgeBase from './pages/internal/modules/AiKnowledgeBase';
+import AiValidationSuite from './pages/internal/modules/AiValidationSuite';
 
 function App() {
   return (
@@ -211,15 +212,16 @@ function App() {
                       <Route path="/recording-center/qa-test-cases/:id" element={<QaTestCaseDetail />} />
                       <Route path="/recording-center/web" element={<WebAccess />} />
                       <Route path="/recording-center/logs" element={<LogsViewer />} />
-                      <Route path="/recording-center/errors" element={<ErrorConsole />} />
                       <Route path="/recording-center/jobs" element={<JobsMonitor />} />
-                      <Route path="/recording-center/ai" element={<AiPipelineMonitor />} />
+                      <Route path="/recording-center/ai-pipeline" element={<AiPipelineMonitor />} />
+                      <Route path="/recording-center/ai-knowledge" element={<AiKnowledgeBase />} />
+                      <Route path="/recording-center/ai-validation" element={<AiValidationSuite />} />
+                      <Route path="/recording-center/errors" element={<ErrorConsole />} />
                       <Route path="/recording-center/integrations" element={<IntegrationHealth />} />
                       <Route path="/recording-center/notes" element={<InternalNotes />} />
                       <Route path="/recording-center/config" element={<ConfigInspector />} />
                       <Route path="/recording-center/diagnostics" element={<SystemDiagnostics />} />
                       <Route path="/recording-center/audit" element={<AuditTrail />} />
-                      <Route path="/recording-center/ai-knowledge" element={<AiKnowledgeBase />} />
                     </Routes>
                   </RecordingCenterLayout>
                 </RoleGuard>
