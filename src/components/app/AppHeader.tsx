@@ -1,4 +1,5 @@
-import { Search, User, Menu } from 'lucide-react';
+import { Search, User, Menu, Video } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMobileNav } from '../../contexts/MobileNavContext';
 import OrganizationSwitcher from './OrganizationSwitcher';
@@ -35,6 +36,16 @@ export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
         </div>
 
         <div className="flex items-center space-x-3 md:space-x-4">
+          {profile?.role === 'super_admin' && (
+            <Link 
+              to="/app/internal/recording-center" 
+              className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 rounded-lg text-sm font-medium transition-colors"
+              title="Quick Record"
+            >
+              <Video className="w-4 h-4" />
+              Record
+            </Link>
+          )}
           <OrganizationSwitcher />
           <div className="relative hidden md:block">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />

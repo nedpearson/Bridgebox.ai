@@ -261,8 +261,7 @@ export const executiveService = {
         projectsResult,
       ] = await Promise.all([
         supabase.from('organizations').select('*').eq('type', 'client'),
-        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets'))
-          .select('*')
+        (organizationId ? supabase.from('support_tickets').select('*').eq('organization_id', organizationId) : supabase.from('support_tickets').select('*'))
           .eq('priority', 'urgent')
           .in('status', ['open', 'in_progress']),
         (organizationId ? supabase.from('projects').select('organization_id').eq('organization_id', organizationId) : supabase.from('projects').select('organization_id')),
@@ -373,8 +372,7 @@ export const executiveService = {
           .select('id, title, due_date, project_id, projects(name)')
           .eq('status', 'in_progress')
           .lt('due_date', new Date().toISOString()),
-        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets'))
-          .select('id, title, priority')
+        (organizationId ? supabase.from('support_tickets').select('id, title, priority').eq('organization_id', organizationId) : supabase.from('support_tickets').select('id, title, priority'))
           .eq('priority', 'urgent')
           .in('status', ['open', 'in_progress']),
         supabase
@@ -382,8 +380,7 @@ export const executiveService = {
           .select('id, name, onboarding_status')
           .eq('type', 'client')
           .eq('onboarding_completed', false),
-        (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals'))
-          .select('id, title, sent_at')
+        (organizationId ? supabase.from('proposals').select('id, title, sent_at').eq('organization_id', organizationId) : supabase.from('proposals').select('id, title, sent_at'))
           .eq('status', 'sent')
           .lt('sent_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
       ]);
@@ -468,24 +465,20 @@ export const executiveService = {
           .gte('created_at', sevenDaysAgo.toISOString())
           .order('created_at', { ascending: false })
           .limit(5),
-        (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals'))
-          .select('id, title, approved_at')
+        (organizationId ? supabase.from('proposals').select('id, title, approved_at').eq('organization_id', organizationId) : supabase.from('proposals').select('id, title, approved_at'))
           .eq('status', 'approved')
           .gte('approved_at', sevenDaysAgo.toISOString())
           .order('approved_at', { ascending: false })
           .limit(5),
-        (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects'))
-          .select('id, name, created_at')
+        (organizationId ? supabase.from('projects').select('id, name, created_at').eq('organization_id', organizationId) : supabase.from('projects').select('id, name, created_at'))
           .gte('created_at', sevenDaysAgo.toISOString())
           .order('created_at', { ascending: false })
           .limit(5),
-        (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets'))
-          .select('id, title, created_at')
+        (organizationId ? supabase.from('support_tickets').select('id, title, created_at').eq('organization_id', organizationId) : supabase.from('support_tickets').select('id, title, created_at'))
           .gte('created_at', sevenDaysAgo.toISOString())
           .order('created_at', { ascending: false })
           .limit(5),
-        (organizationId ? supabase.from('invoices').eq('organization_id', organizationId) : supabase.from('invoices'))
-          .select('id, invoice_number, paid_at')
+        (organizationId ? supabase.from('invoices').select('id, invoice_number, paid_at').eq('organization_id', organizationId) : supabase.from('invoices').select('id, invoice_number, paid_at'))
           .eq('status', 'paid')
           .gte('paid_at', sevenDaysAgo.toISOString())
           .order('paid_at', { ascending: false })

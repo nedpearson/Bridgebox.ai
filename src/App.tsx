@@ -5,6 +5,7 @@ import RoleGuard from './components/auth/RoleGuard';
 import MainLayout from './layouts/MainLayout';
 import AppLayout from './layouts/AppLayout';
 import ClientPortalLayout from './layouts/ClientPortalLayout';
+import RecordingCenterLayout from './layouts/RecordingCenterLayout';
 import Home from './pages/Home';
 import Platform from './pages/Platform';
 import Solutions from './pages/Solutions';
@@ -86,6 +87,19 @@ import MobileUpload from './pages/mobile/MobileUpload';
 import BrandingSettings from './pages/app/BrandingSettings';
 import FeatureSettings from './pages/app/FeatureSettings';
 import RolesSettings from './pages/app/RolesSettings';
+import CommandCenterDashboard from './pages/internal/CommandCenterDashboard';
+import RecorderUI from './components/internal/RecorderUI';
+import RecordingLibrary from './components/internal/RecordingLibrary';
+import WebAccess from './components/internal/WebAccess';
+import LogsViewer from './pages/internal/modules/LogsViewer';
+import JobsMonitor from './pages/internal/modules/JobsMonitor';
+import AiPipelineMonitor from './pages/internal/modules/AiPipelineMonitor';
+import ErrorConsole from './pages/internal/modules/ErrorConsole';
+import IntegrationHealth from './pages/internal/modules/IntegrationHealth';
+import ConfigInspector from './pages/internal/modules/ConfigInspector';
+import InternalNotes from './pages/internal/modules/InternalNotes';
+import SystemDiagnostics from './pages/internal/modules/SystemDiagnostics';
+import AuditTrail from './pages/internal/modules/AuditTrail';
 
 function App() {
   return (
@@ -160,6 +174,32 @@ function App() {
                       <Route path="/mobile/upload" element={<MobileUpload />} />
                     </Routes>
                   </AppLayout>
+                </RoleGuard>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/app/internal/*"
+            element={
+              <ProtectedRoute>
+                <RoleGuard allowedRoles={['super_admin']}>
+                  <RecordingCenterLayout>
+                    <Routes>
+                      <Route path="/recording-center" element={<CommandCenterDashboard />} />
+                      <Route path="/recording-center/capture" element={<RecorderUI />} />
+                      <Route path="/recording-center/library" element={<RecordingLibrary />} />
+                      <Route path="/recording-center/web" element={<WebAccess />} />
+                      <Route path="/recording-center/logs" element={<LogsViewer />} />
+                      <Route path="/recording-center/errors" element={<ErrorConsole />} />
+                      <Route path="/recording-center/jobs" element={<JobsMonitor />} />
+                      <Route path="/recording-center/ai" element={<AiPipelineMonitor />} />
+                      <Route path="/recording-center/integrations" element={<IntegrationHealth />} />
+                      <Route path="/recording-center/notes" element={<InternalNotes />} />
+                      <Route path="/recording-center/config" element={<ConfigInspector />} />
+                      <Route path="/recording-center/diagnostics" element={<SystemDiagnostics />} />
+                      <Route path="/recording-center/audit" element={<AuditTrail />} />
+                    </Routes>
+                  </RecordingCenterLayout>
                 </RoleGuard>
               </ProtectedRoute>
             }

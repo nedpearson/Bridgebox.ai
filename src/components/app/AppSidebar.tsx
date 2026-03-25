@@ -24,6 +24,8 @@ import {
   TrendingUp,
   Radar,
   X,
+  Shield,
+  Video,
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -58,6 +60,12 @@ export default function AppSidebar() {
   };
 
   const navSections: NavSection[] = [
+    {
+      title: 'Super Admin',
+      items: [
+        { icon: Video, label: 'Recording Center', path: '/app/internal/recording-center', requirePermission: (ctx) => ctx.role === 'super_admin' },
+      ],
+    },
     {
       title: 'Executive',
       items: [

@@ -11,12 +11,12 @@ import { whiteLabelService, CustomRole } from '../../lib/db/whiteLabel';
 import { hasPermission } from '../../lib/permissions';
 
 export default function RolesSettings() {
-  const { user, currentOrganization, userRole } = useAuth();
+  const { user, currentOrganization, profile } = useAuth();
   const [roles, setRoles] = useState<CustomRole[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const canManage = userRole === 'super_admin';
+  const canManage = profile?.role === 'super_admin';
 
   useEffect(() => {
     if (currentOrganization) {
