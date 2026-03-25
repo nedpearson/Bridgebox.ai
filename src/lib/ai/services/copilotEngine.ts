@@ -26,11 +26,16 @@ export class CopilotEngine {
     userPrompt: string,
     systemContext: UserContext,
     domContext: DOMContext
-  ): Promise<string> {
+  ): Promise<{ text: string; provenance: GraphNode[], execution_time_ms: number }> {
+    const startTime = Date.now();
     const provider = AIProviderFactory.getProvider();
     
     if (!provider.isConfigured()) {
-      return "The AI Copilot Intelligence layer is disabled because no AI provider is configured.";
+      return {
+        text: "The AI Copilot Intelligence layer is disabled because no AI provider is configured.",
+        provenance: [],
+        execution_time_ms: 0
+      };
     }
 
     // 1. Resolve which nodes the user is allowed to "know" about
@@ -69,10 +74,18 @@ export class CopilotEngine {
         maxTokens: 1000,
       });
 
-      return response.content.trim();
+      return {
+        text: response.content.trim(),
+        provenance: contextNodes.length > 0 ? contextNodes : authorizedNodes.slice(0, 3), // Return the matching nodes
+        execution_time_ms: Date.now() - startTime
+      };
     } catch (e: any) {
       console.error('Copilot Engine RAG Execution Error', e);
-      return "An error occurred while securely resolving your query against the Bridgebox Intelligence Graph.";
+      return {
+        text: "An error occurred while securely resolving your query against the Bridgebox Intelligence Graph.",
+        provenance: [],
+        execution_time_ms: Date.now() - startTime
+      };
     }
   }
 
@@ -102,8 +115,13 @@ You are operating in a multi-tenant environment. When generating strategies, dis
 
 ${activeModuleDescription}${domActions}
 
-AVAILABLE PLATFORM KNOWLEDGE BASE (Role-Filtered):
-${authorizedNodes.map((n, i) => `${i + 1}. [${n.type.toUpperCase()}] ${n.name} (ID: ${n.id})\nDescription: ${n.description}\n`).join('\n')}
+ACTIVE CONTEXT KNOWLEDGE BASE (Deep Dive):
+${contextNodes.length > 0 
+  ? contextNodes.map((n, i) => `${i + 1}. [${n.type.toUpperCase()}] ${n.name} (ID: ${n.id})\nDescription: ${n.description}\nActions: ${n.actions.map(a => a.name).join(', ')}`).join('\n')
+  : 'The user is not actively viewing a deep-mapped module. Utilize general knowledge.'}
+
+PLATFORM MODULE DIRECTORY (Global Overview):
+${authorizedNodes.map((n) => `- ${n.name} (${n.id})`).join('\n')}
 
 OPERATIONAL MODES (Implicitly adopt the best mode based on the user's question):
 1. Navigation Mode: Tell them exactly where to go.
@@ -115,6 +133,7 @@ OPERATIONAL MODES (Implicitly adopt the best mode based on the user's question):
 RULES:
 - Answer confidently based on the knowledge base.
 - If uncertain, explain that the answer depends on configuration and point them towards the relevant module above.
+- If you recommend an interactive action from the ACTIVE CONTEXT KNOWLEDGE BASE, you MUST render it as a clickable button using this exact markdown token format: [Action:action_id|Button Label]. Example: [Action:add_lead|Create New Lead]
 - Never write raw markdown code blocks unless explicitly requested. 
 - Format your response for a beautiful chat UI.
     `.trim();

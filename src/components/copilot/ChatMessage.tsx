@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { Bot, User } from 'lucide-react';
+import { Bot, User, Zap } from 'lucide-react';
 import type { CopilotMessage } from '../../lib/db/copilot';
+import { useCopilotContext } from '../../contexts/CopilotContext';
 
 interface ChatMessageProps {
   message: CopilotMessage;
@@ -9,6 +10,38 @@ interface ChatMessageProps {
 export default function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.role === 'user';
   const isSystem = message.role === 'system';
+  const { executeAction, actionHandlers } = useCopilotContext();
+
+  const renderContentWithActions = (content: string) => {
+    // Regex matches [Action:action_id|Button Label]
+    const parts = content.split(/(\[Action:[^|]+\|[^\]]+\])/g);
+
+    return parts.map((part, i) => {
+      const match = part.match(/\[Action:([^|]+)\|([^\]]+)\]/);
+      if (match) {
+        const actionId = match[1];
+        const label = match[2];
+        const canExecute = !!actionHandlers[actionId];
+
+        return (
+          <button
+            key={i}
+            onClick={() => executeAction(actionId)}
+            disabled={!canExecute}
+            className={`mt-2 mb-2 w-full text-left px-4 py-2 rounded-lg border transition-all flex items-center gap-2 ${
+              canExecute 
+                ? 'bg-purple-500/10 border-purple-500/30 text-purple-400 hover:bg-purple-500/20' 
+                : 'bg-slate-800/50 border-slate-700/50 text-slate-500 cursor-not-allowed hidden'
+            }`}
+          >
+            <Zap className="w-4 h-4" />
+            <span className="font-medium text-sm">{label}</span>
+          </button>
+        );
+      }
+      return <span key={i}>{part}</span>;
+    });
+  };
 
   if (isSystem) {
     return (
@@ -44,7 +77,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
               : 'bg-white/5 border border-white/10 text-slate-200 rounded-tl-sm'
           }`}
         >
-          <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+          <div className="text-sm leading-relaxed whitespace-pre-wrap">
+            {renderContentWithActions(message.content)}
+          </div>
         </div>
 
         <span className="text-xs text-slate-500 mt-1 px-2">
@@ -53,6 +88,23 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             minute: '2-digit',
           })}
         </span>
+
+        {!isUser && message.metadata?.provenance && message.metadata.provenance.length > 0 && (
+          <div className="mt-2 ml-2 flex flex-wrap gap-1">
+            <span className="text-[10px] text-slate-500 flex items-center mr-1">
+              Grounded in:
+            </span>
+            {message.metadata.provenance.map((node: any) => (
+              <span 
+                key={node.id} 
+                className="text-[10px] bg-slate-800 border border-slate-700 text-slate-400 px-1.5 py-0.5 rounded cursor-help"
+                title={node.description}
+              >
+                {node.name}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </motion.div>
   );

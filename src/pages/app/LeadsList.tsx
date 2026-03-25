@@ -11,6 +11,7 @@ import { leadsService } from '../../lib/db/leads';
 import type { LeadRecord } from '../../types/database';
 import AddLeadModal from '../../components/app/AddLeadModal';
 import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
+import { useCopilotContext } from '../../contexts/CopilotContext';
 
 export default function LeadsList() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,6 +22,7 @@ export default function LeadsList() {
   const [filterStatus, setFilterStatus] = useState<string>(searchParams.get('status') || 'all');
   const [filterType, setFilterType] = useState<string>(searchParams.get('type') || 'all');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const { registerActionHandler, unregisterActionHandler } = useCopilotContext();
 
   usePlatformIntelligence({
     id: 'page:leads_list',
@@ -34,6 +36,11 @@ export default function LeadsList() {
       { id: 'search_leads', name: 'Search Leads', type: 'navigation', description: 'Filters the Leads view in real-time.' }
     ]
   });
+
+  useEffect(() => {
+    registerActionHandler('add_lead', () => setIsAddModalOpen(true));
+    return () => unregisterActionHandler('add_lead');
+  }, [registerActionHandler, unregisterActionHandler]);
 
   useEffect(() => {
     loadLeads();

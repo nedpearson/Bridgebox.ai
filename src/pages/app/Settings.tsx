@@ -4,10 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import { useAuth } from '../../contexts/AuthContext';
+import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
 
 export default function Settings() {
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  usePlatformIntelligence({
+    id: 'page:settings',
+    name: 'Global Platform Settings',
+    type: 'page',
+    description: 'The root configuration page governing user profiles, team branding, active features, billing access, and global roles.',
+    relatedNodes: ['setting:branding', 'setting:roles', 'setting:features'],
+    visibility: { roles: ['super_admin', 'tenant_admin', 'manager', 'agent'] },
+    actions: []
+  });
 
   const settingsSections = [
     {

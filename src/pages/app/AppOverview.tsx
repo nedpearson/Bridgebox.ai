@@ -15,10 +15,22 @@ import { analyticsService } from '../../lib/db/analytics';
 import { projectsService } from '../../lib/db/projects';
 import { useBranding } from '../../hooks/useBranding';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
+
 export default function AppOverview() {
   const { currentOrganization } = useAuth();
   const [showOnboardingBanner, setShowOnboardingBanner] = useState(false);
   const branding = useBranding();
+
+  usePlatformIntelligence({
+    id: 'page:app_overview',
+    name: 'Unified Executive Dashboard',
+    type: 'page',
+    description: 'The primary landing page displaying high-level KPIs, Sales Pipeline Value, Active Projects, Client Health, and Recent Deployments. This answers "How is the business doing?".',
+    relatedNodes: ['module:analytics', 'module:crm', 'module:delivery'],
+    visibility: { roles: ['super_admin', 'tenant_admin', 'manager', 'agent'] },
+    actions: []
+  });
 
   const [analytics, setAnalytics] = useState<any>(null);
   const [recentProjects, setRecentProjects] = useState<any[]>([]);

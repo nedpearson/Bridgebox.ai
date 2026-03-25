@@ -11,9 +11,25 @@ import EmptyState from '../../components/EmptyState';
 import { useAuth } from '../../contexts/AuthContext';
 import { projectsService } from '../../lib/db/projects';
 import ProjectModal from '../../components/app/ProjectModal';
+import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
+import { useCopilotContext } from '../../contexts/CopilotContext';
 
 export default function ProjectsList() {
   const { currentOrganization } = useAuth();
+  const { registerActionHandler, unregisterActionHandler } = useCopilotContext();
+
+  usePlatformIntelligence({
+    id: 'page:projects_list',
+    name: 'Project Delivery List',
+    type: 'page',
+    description: 'Grid view of all active implementation projects, their start/target dates, and current deployment progress percent.',
+    relatedNodes: ['module:delivery', 'entity:project'],
+    visibility: { roles: ['super_admin', 'tenant_admin', 'manager', 'agent'] },
+    actions: [
+      { id: 'add_project', name: 'New Project', type: 'modal', description: 'Create a new implementation project.' }
+    ]
+  });
+
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +37,11 @@ export default function ProjectsList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState(searchParams.get('status') || 'all');
+
+  useEffect(() => {
+    registerActionHandler('add_project', () => setIsProjectModalOpen(true));
+    return () => unregisterActionHandler('add_project');
+  }, [registerActionHandler, unregisterActionHandler]);
 
   useEffect(() => {
     loadProjects();

@@ -13,6 +13,7 @@ import ErrorState from '../../components/ErrorState';
 import { workflowService } from '../../lib/db/workflows';
 import type { Workflow, WorkflowStats, WorkflowCategory } from '../../types/workflow';
 import { useAuth } from '../../contexts/AuthContext';
+import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
 
 const CATEGORY_COLORS: Record<WorkflowCategory, string> = {
   lead: 'blue',
@@ -32,6 +33,19 @@ const CATEGORY_LABELS: Record<WorkflowCategory, string> = {
 
 export function Workflows() {
   const { currentOrganization } = useAuth();
+
+  usePlatformIntelligence({
+    id: 'page:workflows_list',
+    name: 'Automations & Workflows List',
+    type: 'page',
+    description: 'Displays all logic chains executing across the platform, including current stats on lead engagement automations and project triggers.',
+    relatedNodes: ['module:automations', 'entity:workflow'],
+    visibility: { roles: ['super_admin', 'tenant_admin', 'manager'] },
+    actions: [
+      { id: 'create_workflow', name: 'Create Workflow', type: 'navigation', description: 'Opens the node-based workflow builder.' }
+    ]
+  });
+
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [stats, setStats] = useState<WorkflowStats | null>(null);
   const [loading, setLoading] = useState(true);

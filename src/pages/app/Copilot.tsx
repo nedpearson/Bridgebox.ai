@@ -153,7 +153,11 @@ export default function Copilot() {
       const assistantMessage = await copilotService.createMessage(
         convo.id,
         'assistant',
-        response
+        response.text,
+        { 
+          provenance: response.provenance,
+          execution_time_ms: response.execution_time_ms 
+        }
       );
       setMessages((prev) => [...prev, assistantMessage]);
 

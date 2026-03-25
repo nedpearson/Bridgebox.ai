@@ -99,7 +99,7 @@ export const bridgeboxOntology: GraphNode[] = [
     name: 'Super Admin Recording & Observability Center',
     type: 'module',
     description: 'Highly restricted master observatory. Records internal interactions, audits API traces, triggers internal Bug & Dev QA generations via Copilot, and maps underlying cluster health.',
-    relatedNodes: ['page:admin_logs', 'page:ai_pipeline_monitor', 'page:bug_reports'],
+    relatedNodes: ['page:admin_logs', 'page:ai_pipeline_monitor', 'page:bug_reports', 'page:dev_tasks', 'page:qa_test_cases'],
     visibility: { roles: ['super_admin'] },
     actions: [],
     sourceOfTruth: 'static',
