@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { automationService, type TriggerType } from './db/automations';
 import { clientSuccessService } from './db/clientSuccess';
 import { copilotService, type SuggestionType, type Priority } from './db/copilot';

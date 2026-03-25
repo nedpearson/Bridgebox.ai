@@ -317,7 +317,7 @@ class MetricsEngine {
     const startDate = dateRange?.startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
     const endDate = dateRange?.endDate || new Date();
 
-    let orgsQuery = supabase
+    const orgsQuery = supabase
       .from('organizations')
       .select('id, type, status, created_at')
       .eq('type', 'client');

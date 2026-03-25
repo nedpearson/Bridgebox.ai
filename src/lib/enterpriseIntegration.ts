@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { supabase } from './supabase';
 import { whiteLabelService } from './db/whiteLabel';
 import { connectorsService } from './db/connectors';

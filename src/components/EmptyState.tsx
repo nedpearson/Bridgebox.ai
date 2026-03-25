@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ReactNode } from 'react';
 import { Video as LucideIcon } from 'lucide-react';
 

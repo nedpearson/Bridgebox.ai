@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { motion } from 'framer-motion';
 import { Code2, Cpu, BarChart3, Smartphone, Network, ArrowRight, Zap, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';

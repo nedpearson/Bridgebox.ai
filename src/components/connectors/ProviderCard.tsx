@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+
 import { Plus, ExternalLink, Star, Building2 } from 'lucide-react';
 import Button from '../Button';
 import Card from '../Card';
@@ -88,6 +88,14 @@ export default function ProviderCard({
             BETA
           </span>
           This integration is in beta
+        </div>
+      )}
+      {provider.status === 'import_only' && (
+        <div className="mt-3 text-xs text-purple-400 flex items-center gap-1">
+          <span className="px-1.5 py-0.5 bg-purple-500/20 border border-purple-500/30 rounded">
+            IMPORT ONLY
+          </span>
+          This integration supports importing data only
         </div>
       )}
     </Card>

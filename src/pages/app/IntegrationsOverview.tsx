@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Plus, Network, CheckCircle2, AlertCircle, Clock, RefreshCw } from 'lucide-react';

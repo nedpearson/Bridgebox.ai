@@ -6,9 +6,7 @@ import {
   FileText,
   Calendar,
   User,
-  Tag,
   Sparkles,
-  TrendingUp,
   Users,
   DollarSign,
   MapPin,
@@ -22,6 +20,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import EmptyState from '../../components/EmptyState';
 import ProcessingStatus from '../../components/documents/ProcessingStatus';
 import ExtractedDataPanel from '../../components/documents/ExtractedDataPanel';
+import IntegrationBadge from '../../components/connectors/IntegrationBadge';
 import { documentService } from '../../lib/db/documents';
 import { documentProcessor } from '../../lib/documents/DocumentProcessor';
 import type { DocumentWithAnalysis } from '../../types/document';
@@ -106,10 +105,11 @@ export function DocumentDetail() {
           icon={FileText}
           title="Document not found"
           description="The document you're looking for doesn't exist"
-          action={{
-            label: 'Back to Documents',
-            onClick: () => navigate('/app/documents'),
-          }}
+          action={
+            <Button onClick={() => navigate('/app/documents')}>
+              Back to Documents
+            </Button>
+          }
         />
       </div>
     );
@@ -149,7 +149,7 @@ export function DocumentDetail() {
               </div>
 
               <ProcessingStatus
-                status={document.status}
+                status={document.status as any}
                 message={
                   document.status === 'completed'
                     ? 'Document processed successfully'
@@ -205,6 +205,18 @@ export function DocumentDetail() {
                   <div>
                     <div className="text-sm text-slate-400 mb-1">Language</div>
                     <div className="text-white">{document.language}</div>
+                  </div>
+                )}
+
+                {document.metadata?.provider_name && (
+                  <div>
+                    <div className="text-sm text-slate-400 mb-1">Source</div>
+                    <IntegrationBadge 
+                      providerName={document.metadata.provider_name}
+                      externalId={document.metadata.external_id}
+                      lastSynced={document.metadata.last_synced_at}
+                      sourceUrl={document.metadata.source_url}
+                    />
                   </div>
                 )}
               </div>

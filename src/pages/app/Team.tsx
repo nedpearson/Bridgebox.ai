@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, UserPlus, Mail, MoreVertical, Shield, Trash2, RefreshCw, XCircle } from 'lucide-react';

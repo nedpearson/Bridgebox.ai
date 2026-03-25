@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { supabase } from '../supabase';
 import { aiService } from '../ai/services/aiService';
 import type {

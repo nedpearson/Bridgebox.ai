@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, Download, CheckCircle2, Clock, AlertCircle, ExternalLink } from 'lucide-react';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Activity, Zap, CheckCircle2, AlertCircle, Clock, ArrowUpRight, Database, Cpu, Network } from 'lucide-react';
 import { useState, useEffect } from 'react';

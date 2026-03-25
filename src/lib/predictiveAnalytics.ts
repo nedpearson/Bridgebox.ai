@@ -430,7 +430,7 @@ class PredictiveAnalyticsEngine {
   async predictClientRiskBatch(
     organizationId?: string
   ): Promise<ClientChurnPrediction[]> {
-    let query = supabase
+    const query = supabase
       .from('organizations')
       .select('id')
       .eq('type', 'client')

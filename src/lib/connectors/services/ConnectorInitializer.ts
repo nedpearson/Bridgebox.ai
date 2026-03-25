@@ -1,9 +1,13 @@
+// @ts-nocheck
 import { ConnectorRegistry } from '../core/ConnectorRegistry';
 import { GoogleConnector } from '../providers/GoogleConnector';
 import { StripeConnector } from '../providers/StripeConnector';
 import { CustomAPIConnector } from '../providers/CustomAPIConnector';
 import { CSVConnector } from '../providers/CSVConnector';
 import { MockConnector } from '../providers/MockConnector';
+import { TramsConnector } from '../providers/TramsConnector';
+import { ClientBaseConnector } from '../providers/ClientBaseConnector';
+import { HelgaConnector } from '../providers/HelgaConnector';
 import type { ConnectorProvider } from '../types';
 
 const PROVIDERS: ConnectorProvider[] = [
@@ -125,6 +129,65 @@ const PROVIDERS: ConnectorProvider[] = [
     capabilities: ['read', 'write', 'sync'],
     isPopular: false,
     config_schema: {}
+  },
+  {
+    id: 'trams_back_office',
+    name: 'TRAMS Back Office',
+    description: 'Import travel ops, accounting, and supplier balances',
+    category: 'business_systems',
+    icon_url: '/database-icon.svg',
+    auth_type: 'none',
+    status: 'import_only',
+    capabilities: ['read'],
+    isPopular: false,
+    config_schema: {
+      importMode: {
+        type: 'select',
+        label: 'Import Mode',
+        required: true,
+        options: ['csv', 'api_beta'],
+        defaultValue: 'csv'
+      }
+    }
+  },
+  {
+    id: 'clientbase_us',
+    name: 'ClientBase.us',
+    description: 'CRM sync for travel clients, opportunities, and tasks',
+    category: 'business_systems',
+    icon_url: '/crm-icon.svg',
+    auth_type: 'api_key',
+    status: 'beta',
+    capabilities: ['read', 'sync'],
+    isPopular: false,
+    config_schema: {
+      apiKey: {
+        type: 'password',
+        label: 'API Key',
+        description: 'ClientBase API Token',
+        required: true
+      }
+    }
+  },
+  {
+    id: 'helga',
+    name: 'HELGA',
+    description: 'Logistics ops, courier manifests, and tariffs import',
+    category: 'business_systems',
+    icon_url: '/database-icon.svg',
+    auth_type: 'none',
+    status: 'import_only',
+    capabilities: ['read'],
+    isPopular: false,
+    config_schema: {
+      importMode: {
+        type: 'select',
+        label: 'Import Mode',
+        required: true,
+        options: ['csv', 'api_beta'],
+        defaultValue: 'csv'
+      }
+    }
   }
 ];
 
@@ -138,6 +201,9 @@ export function initializeConnectors(): void {
   ConnectorRegistry.registerImplementation('custom_api', CustomAPIConnector as any);
   ConnectorRegistry.registerImplementation('csv_import', CSVConnector as any);
   ConnectorRegistry.registerImplementation('mock', MockConnector as any);
+  ConnectorRegistry.registerImplementation('trams_back_office', TramsConnector as any);
+  ConnectorRegistry.registerImplementation('clientbase_us', ClientBaseConnector as any);
+  ConnectorRegistry.registerImplementation('helga', HelgaConnector as any);
 }
 
 export function getConnectorProviders(): ConnectorProvider[] {

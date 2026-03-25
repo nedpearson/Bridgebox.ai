@@ -304,4 +304,53 @@ export const AVAILABLE_FEATURES = [
     description: 'Define custom user roles and permissions',
     category: 'enterprise',
   },
+  {
+    key: 'clio',
+    name: 'Clio Integration',
+    description: 'Sync matters, contacts, and calendar with Clio',
+    category: 'integrations',
+  },
+  {
+    key: 'financial_cents',
+    name: 'Financial Cents Integration',
+    description: 'Sync workflows, tasks, and deadlines',
+    category: 'integrations',
+  },
+  {
+    key: 'commander_ne',
+    name: 'Commander NE Integration',
+    description: 'Import inventory, service orders, and customer records',
+    category: 'integrations',
+  },
+  {
+    key: 'ourfamilywizard',
+    name: 'OurFamilyWizard Integration',
+    description: 'Import evidence, messages, and custody calendar',
+    category: 'integrations',
+  },
+  {
+    key: 'soberlink',
+    name: 'Soberlink Integration',
+    description: 'Import sobriety compliance and incident records',
+    category: 'integrations',
+  },
+  {
+    key: 'trams_back_office',
+    name: 'TRAMS Back Office Integration',
+    description: 'Import travel ops and back-office accounting',
+    category: 'integrations',
+  },
+  {
+    key: 'clientbase_us',
+    name: 'ClientBase Integration',
+    description: 'Import CRM contacts, tasks, and travel opportunities',
+    category: 'integrations',
+  },
+  {
+    key: 'helga',
+    name: 'HELGA Integration',
+    description: 'Logistics operations and courier manifest sync',
+    category: 'integrations',
+  },
 ] as const;
+

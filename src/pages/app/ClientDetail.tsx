@@ -7,6 +7,7 @@ import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
 import EmptyState from '../../components/EmptyState';
+import IntegrationBadge from '../../components/connectors/IntegrationBadge';
 import { organizationsService } from '../../lib/db/organizations';
 import { projectsService } from '../../lib/db/projects';
 
@@ -78,7 +79,17 @@ export default function ClientDetail() {
               </div>
               <div>
                 <h2 className="text-xl font-bold text-white mb-2">{client.name}</h2>
-                <StatusBadge status={client.status} variant="success" />
+                <div className="flex items-center gap-2">
+                  <StatusBadge status={client.status} variant="success" />
+                  {client.metadata?.provider_name && (
+                    <IntegrationBadge 
+                      providerName={client.metadata.provider_name}
+                      externalId={client.metadata.external_id}
+                      lastSynced={client.metadata.last_synced_at}
+                      sourceUrl={client.metadata.source_url}
+                    />
+                  )}
+                </div>
               </div>
             </div>
 

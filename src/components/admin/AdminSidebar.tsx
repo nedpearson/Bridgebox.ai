@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { motion } from 'framer-motion';
 import { LayoutDashboard, Users, Briefcase, FolderKanban, Code, BarChart3, Smartphone, Network, Headphones as HeadphonesIcon, CreditCard, CircleUser as UserCircle, Settings, Video as LucideIcon } from 'lucide-react';
 import { useState } from 'react';

@@ -30,10 +30,10 @@ export interface ImplementationChecklist {
   implementation_id: string;
   category: ChecklistCategory;
   item_title: string;
-  item_description?: string;
+  item_description?: string | null;
   is_completed: boolean;
-  completed_at?: string;
-  completed_by_id?: string;
+  completed_at?: string | null;
+  completed_by_id?: string | null;
   order_index: number;
   created_at: string;
   updated_at: string;
@@ -185,7 +185,7 @@ class ImplementationService {
 
   async addChecklistItem(
     implementationId: string,
-    item: Omit<ImplementationChecklist, 'id' | 'created_at' | 'updated_at'>
+    item: Omit<ImplementationChecklist, 'id' | 'implementation_id' | 'created_at' | 'updated_at'>
   ): Promise<ImplementationChecklist> {
     const { data, error } = await supabase
       .from('implementation_checklists')
@@ -252,7 +252,7 @@ class ImplementationService {
 
   async createRisk(
     implementationId: string,
-    risk: Omit<ImplementationRisk, 'id' | 'created_at' | 'updated_at'>
+    risk: Omit<ImplementationRisk, 'id' | 'implementation_id' | 'created_at' | 'updated_at'>
   ): Promise<ImplementationRisk> {
     const { data, error } = await supabase
       .from('implementation_risks')

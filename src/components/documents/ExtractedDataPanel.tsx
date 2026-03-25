@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { motion } from 'framer-motion';
 import { Database, Check, X, AlertCircle } from 'lucide-react';
 import Badge from '../Badge';

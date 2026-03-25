@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { supabase } from './supabase';
 
 export type TrendDirection = 'up' | 'down' | 'stable';

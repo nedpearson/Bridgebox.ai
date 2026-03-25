@@ -138,7 +138,7 @@ export class MetricsAggregator {
         }
       );
 
-      let milestonesQuery = supabase
+      const milestonesQuery = supabase
         .from('project_milestones')
         .select('id, status, due_date')
         .gte('completed_at', startDate.toISOString())

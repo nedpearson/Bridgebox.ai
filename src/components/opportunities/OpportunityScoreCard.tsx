@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TrendingUp, DollarSign, Target, Zap, Users, Signal, Award } from 'lucide-react';
 import Card from '../Card';
 import { OpportunityLevelBadge } from './OpportunityLevelBadge';

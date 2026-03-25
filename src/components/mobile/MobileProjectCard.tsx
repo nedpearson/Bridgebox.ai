@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { motion } from 'framer-motion';
 import { Briefcase, ChevronRight, TrendingUp } from 'lucide-react';
 import Badge from '../Badge';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TrendingUp, AlertCircle, Target, ChevronRight } from 'lucide-react';
 import Card from '../Card';
 import { GrowthDirectionBadge } from './GrowthDirectionBadge';

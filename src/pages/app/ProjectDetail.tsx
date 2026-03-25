@@ -7,6 +7,7 @@ import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
 import EmptyState from '../../components/EmptyState';
+import IntegrationBadge from '../../components/connectors/IntegrationBadge';
 import { projectsService } from '../../lib/db/projects';
 import { useState, useEffect } from 'react';
 
@@ -105,6 +106,14 @@ export default function ProjectDetail() {
                     <option value="on_hold">On Hold</option>
                     <option value="cancelled">Cancelled</option>
                   </select>
+                  {project.metadata?.provider_name && (
+                    <IntegrationBadge 
+                      providerName={project.metadata.provider_name}
+                      externalId={project.metadata.external_id}
+                      lastSynced={project.metadata.last_synced_at}
+                      sourceUrl={project.metadata.source_url}
+                    />
+                  )}
                 </div>
               </div>
             </div>

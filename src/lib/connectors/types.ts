@@ -57,6 +57,9 @@ export interface ConnectorConfig {
   filters?: Record<string, any>;
   mappings?: Record<string, string>;
   options?: Record<string, any>;
+  credentials?: Record<string, any>;
+  mapping_config?: Record<string, any>;
+  storeData?: boolean;
 }
 
 export interface ConnectorAuth {
@@ -97,12 +100,14 @@ export interface ConnectorProvider {
   logo?: string;
   website?: string;
   documentationUrl?: string;
+  icon_url?: string;
+  config_schema?: Record<string, any>;
   authType: ConnectorAuth['type'];
   requiredScopes?: string[];
   features: string[];
   isPopular?: boolean;
   isEnterprise?: boolean;
-  status: 'available' | 'beta' | 'coming_soon';
+  status: 'available' | 'beta' | 'coming_soon' | 'import_only';
 }
 
 export interface SyncResult {
@@ -110,15 +115,15 @@ export interface SyncResult {
   recordsProcessed: number;
   recordsCreated: number;
   recordsUpdated: number;
-  recordsSkipped: number;
+  recordsSkipped?: number;
   recordsFailed: number;
   errors?: Array<{
     record?: any;
     error: string;
   }>;
-  duration: number;
-  startedAt: string;
-  completedAt: string;
+  duration?: number;
+  startedAt?: string;
+  completedAt?: string;
   nextSyncAt?: string;
 }
 

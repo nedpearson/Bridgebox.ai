@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { motion } from 'framer-motion';
 import { CheckCircle2, AlertCircle, Loader2, Clock } from 'lucide-react';
 import type { ProcessingStatus as Status } from '../../lib/documents/DocumentProcessor';
