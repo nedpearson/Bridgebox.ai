@@ -352,5 +352,11 @@ export const AVAILABLE_FEATURES = [
     description: 'Logistics operations and courier manifest sync',
     category: 'integrations',
   },
+  {
+    key: 'chatwoot',
+    name: 'Chatwoot Integration',
+    description: 'Sync conversations, messages, and contacts via API & Webhooks',
+    category: 'integrations',
+  },
 ] as const;
 

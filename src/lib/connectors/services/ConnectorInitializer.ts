@@ -8,6 +8,7 @@ import { MockConnector } from '../providers/MockConnector';
 import { TramsConnector } from '../providers/TramsConnector';
 import { ClientBaseConnector } from '../providers/ClientBaseConnector';
 import { HelgaConnector } from '../providers/HelgaConnector';
+import { ChatwootConnector } from '../providers/ChatwootConnector';
 import type { ConnectorProvider } from '../types';
 
 const PROVIDERS: ConnectorProvider[] = [
@@ -188,6 +189,37 @@ const PROVIDERS: ConnectorProvider[] = [
         defaultValue: 'csv'
       }
     }
+  },
+  {
+    id: 'chatwoot',
+    name: 'Chatwoot',
+    description: 'Conversations, messages, and omnichannel support sync',
+    category: 'communication',
+    icon_url: '/chat-icon.svg',
+    auth_type: 'api_key',
+    status: 'beta',
+    capabilities: ['read', 'sync', 'webhook'],
+    isPopular: true,
+    config_schema: {
+      accountUrl: {
+        type: 'text',
+        label: 'Chatwoot URL',
+        description: 'Ex: https://app.chatwoot.com or your self-hosted URL',
+        required: true
+      },
+      apiToken: {
+        type: 'password',
+        label: 'API Token',
+        description: 'User or Bot Access Token',
+        required: true
+      },
+      accountId: {
+        type: 'number',
+        label: 'Account ID',
+        description: 'Your Chatwoot Account ID (usually 1 for self-hosted)',
+        required: true
+      }
+    }
   }
 ];
 
@@ -204,6 +236,7 @@ export function initializeConnectors(): void {
   ConnectorRegistry.registerImplementation('trams_back_office', TramsConnector as any);
   ConnectorRegistry.registerImplementation('clientbase_us', ClientBaseConnector as any);
   ConnectorRegistry.registerImplementation('helga', HelgaConnector as any);
+  ConnectorRegistry.registerImplementation('chatwoot', ChatwootConnector as any);
 }
 
 export function getConnectorProviders(): ConnectorProvider[] {
