@@ -633,6 +633,7 @@ class AIDecisionEngine {
   async getRecommendationsForContext(context: {
     type: 'lead' | 'project' | 'client';
     organizationId?: string;
+    organizationId?: string;
     id: string;
   }): Promise<AIInsight[]> {
     const allInsights = await this.generateInsights(context.organizationId);

@@ -337,6 +337,7 @@ class IntelligenceOrchestrator {
   async getContextualInsights(context: {
     type: 'lead' | 'project' | 'client' | 'general';
     organizationId?: string;
+    organizationId?: string;
     id?: string;
   }): Promise<AIInsight[]> {
     if (context.type === 'general') {
