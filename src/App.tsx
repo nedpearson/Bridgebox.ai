@@ -90,6 +90,15 @@ import RolesSettings from './pages/app/RolesSettings';
 import CommandCenterDashboard from './pages/internal/CommandCenterDashboard';
 import RecorderUI from './components/internal/RecorderUI';
 import RecordingLibrary from './components/internal/RecordingLibrary';
+import SupportDesk from './pages/internal/modules/SupportDesk';
+import AdminSupportTicketDetail from './pages/internal/modules/SupportTicketDetail';
+import SupportAnalytics from './pages/internal/modules/SupportAnalytics';
+import DevTasksWorkspace from './pages/internal/modules/DevTasksWorkspace';
+import DevTaskDetail from './pages/internal/modules/DevTaskDetail';
+import BugReportsWorkspace from './pages/internal/modules/BugReportsWorkspace';
+import BugReportDetail from './pages/internal/modules/BugReportDetail';
+import QaTestCasesWorkspace from './pages/internal/modules/QaTestCasesWorkspace';
+import QaTestCaseDetail from './pages/internal/modules/QaTestCaseDetail';
 import WebAccess from './components/internal/WebAccess';
 import LogsViewer from './pages/internal/modules/LogsViewer';
 import JobsMonitor from './pages/internal/modules/JobsMonitor';
@@ -188,6 +197,15 @@ function App() {
                       <Route path="/recording-center" element={<CommandCenterDashboard />} />
                       <Route path="/recording-center/capture" element={<RecorderUI />} />
                       <Route path="/recording-center/library" element={<RecordingLibrary />} />
+                      <Route path="/recording-center/support" element={<SupportDesk />} />
+                      <Route path="/recording-center/support/:id" element={<AdminSupportTicketDetail />} />
+                      <Route path="/recording-center/support-analytics" element={<SupportAnalytics />} />
+                      <Route path="/recording-center/dev-tasks" element={<DevTasksWorkspace />} />
+                      <Route path="/recording-center/dev-tasks/:id" element={<DevTaskDetail />} />
+                      <Route path="/recording-center/bug-reports" element={<BugReportsWorkspace />} />
+                      <Route path="/recording-center/bug-reports/:id" element={<BugReportDetail />} />
+                      <Route path="/recording-center/qa-test-cases" element={<QaTestCasesWorkspace />} />
+                      <Route path="/recording-center/qa-test-cases/:id" element={<QaTestCaseDetail />} />
                       <Route path="/recording-center/web" element={<WebAccess />} />
                       <Route path="/recording-center/logs" element={<LogsViewer />} />
                       <Route path="/recording-center/errors" element={<ErrorConsole />} />

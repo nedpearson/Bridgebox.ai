@@ -233,17 +233,18 @@ export function Workflows() {
           <EmptyState
             icon={Activity}
             title="No workflows found"
-            message={
+            description={
               workflows.length === 0
                 ? 'Create your first workflow to automate your business processes'
                 : 'No workflows match the selected filters'
             }
             action={
               workflows.length === 0
-                ? {
-                    label: 'Create Workflow',
-                    onClick: () => (window.location.href = '/app/workflows/new'),
-                  }
+                ? (
+                    <Button onClick={() => (window.location.href = '/app/workflows/new')}>
+                      Create Workflow
+                    </Button>
+                  )
                 : undefined
             }
           />

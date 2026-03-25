@@ -9,6 +9,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
 import { leadsService } from '../../lib/db/leads';
 import type { LeadRecord } from '../../types/database';
+import AddLeadModal from '../../components/app/AddLeadModal';
 
 export default function LeadsList() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,6 +19,7 @@ export default function LeadsList() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>(searchParams.get('status') || 'all');
   const [filterType, setFilterType] = useState<string>(searchParams.get('type') || 'all');
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   useEffect(() => {
     loadLeads();
@@ -170,7 +172,10 @@ export default function LeadsList() {
               <option value="consultation">Consultation</option>
             </select>
 
-            <button className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
+            <button 
+              onClick={() => setIsAddModalOpen(true)}
+              className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors"
+            >
               <Plus className="w-5 h-5" />
               <span>Add Lead</span>
             </button>
@@ -279,6 +284,12 @@ export default function LeadsList() {
           ))}
         </div>
       </div>
+
+      <AddLeadModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={loadLeads}
+      />
     </>
   );
 }

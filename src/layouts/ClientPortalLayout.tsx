@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import ClientPortalNav from '../components/client-portal/ClientPortalNav';
 import BackgroundAtmosphere from '../components/BackgroundAtmosphere';
 import EmptyOrganizationState from '../components/app/EmptyOrganizationState';
+import IssueReporter from '../components/support/IssueReporter';
 import { useAuth } from '../contexts/AuthContext';
 
 interface ClientPortalLayoutProps {
@@ -28,6 +29,7 @@ export default function ClientPortalLayout({ children }: ClientPortalLayoutProps
           {children}
         </div>
       </div>
+      <IssueReporter />
     </div>
   );
 }

@@ -1,0 +1,16 @@
+Initialising login role...
+Connecting to remote database...
+Skipping migration 20260323194425_remote_schema.sql.bak... (file name must match pattern "<timestamp>_name.sql")
+Do you want to push these migrations to the remote database?
+ ΓÇó 20260325193000_dev_task_generation.sql
+
+ [Y/n] y
+Applying migration 20260325193000_dev_task_generation.sql...
+NOTICE (00000): trigger "trg_internal_dev_tasks_updated_at" for relation "public.internal_dev_tasks" does not exist, skipping
+ERROR: function handle_updated_at() does not exist (SQLSTATE 42883)
+At statement: 7                                                    
+CREATE TRIGGER trg_internal_dev_tasks_updated_at                   
+    BEFORE UPDATE ON public.internal_dev_tasks                     
+    FOR EACH ROW                                                   
+    EXECUTE FUNCTION handle_updated_at()                           
+Try rerunning the command with --debug to troubleshoot the error.

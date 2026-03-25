@@ -2,8 +2,11 @@ import { ReactNode } from 'react';
 import AppSidebar from '../components/app/AppSidebar';
 import EmptyOrganizationState from '../components/app/EmptyOrganizationState';
 import FloatingAssistant from '../components/copilot/FloatingAssistant';
+import IssueReporter from '../components/support/IssueReporter';
 import { useAuth } from '../contexts/AuthContext';
 import { MobileNavProvider } from '../contexts/MobileNavContext';
+import LeadModal from '../components/LeadModal';
+import { useLeadModal } from '../hooks/useLeadModal';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -11,6 +14,7 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   const { organizations, currentOrganization } = useAuth();
+  const { isOpen, formType, closeModal } = useLeadModal();
 
   if (organizations.length === 0) {
     return <EmptyOrganizationState />;
@@ -30,6 +34,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
           </div>
         </div>
         <FloatingAssistant />
+        <IssueReporter />
+        <LeadModal isOpen={isOpen} onClose={closeModal} formType={formType} />
       </div>
     </MobileNavProvider>
   );

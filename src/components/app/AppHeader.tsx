@@ -38,7 +38,7 @@ export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
         <div className="flex items-center space-x-3 md:space-x-4">
           {profile?.role === 'super_admin' && (
             <Link 
-              to="/app/internal/recording-center" 
+              to="/app/internal/recording-center/capture" 
               className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 rounded-lg text-sm font-medium transition-colors"
               title="Quick Record"
             >

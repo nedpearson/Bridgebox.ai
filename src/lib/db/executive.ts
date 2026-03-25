@@ -90,11 +90,11 @@ export const executiveService = {
         ticketsResult,
         orgsResult,
       ] = await Promise.all([
-        (organizationId ? (organizationId ? supabase.from('subscriptions').eq('organization_id', organizationId) : supabase.from('subscriptions')).select('mrr').eq('organization_id', organizationId) : (organizationId ? supabase.from('subscriptions').eq('organization_id', organizationId) : supabase.from('subscriptions')).select('mrr')),
+        (organizationId ? supabase.from('subscriptions').select('mrr').eq('organization_id', organizationId) : supabase.from('subscriptions').select('mrr')),
         supabase.from('organizations').select('*', { count: 'exact', head: true }).eq('type', 'client'),
         supabase.from('leads').select('*', { count: 'exact', head: true }).in('status', ['new', 'contacted', 'qualified']),
-        (organizationId ? (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('*', { count: 'exact', head: true }).eq('organization_id', organizationId) : (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('*', { count: 'exact', head: true })).in('status', ['planning', 'in_progress', 'testing']),
-        (organizationId ? (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('*').eq('organization_id', organizationId) : (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('*')),
+        (organizationId ? supabase.from('projects').select('*', { count: 'exact', head: true }).eq('organization_id', organizationId) : supabase.from('projects').select('*', { count: 'exact', head: true })).in('status', ['planning', 'in_progress', 'testing']),
+        (organizationId ? supabase.from('support_tickets').select('*').eq('organization_id', organizationId) : supabase.from('support_tickets').select('*')),
         supabase.from('organizations').select('onboarding_completed').eq('type', 'client'),
       ]);
 
@@ -145,7 +145,7 @@ export const executiveService = {
         leadsResult,
         serviceTypesResult,
       ] = await Promise.all([
-        (organizationId ? (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('status, pricing_amount').eq('organization_id', organizationId) : (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('status, pricing_amount')),
+        (organizationId ? supabase.from('proposals').select('status, pricing_amount').eq('organization_id', organizationId) : supabase.from('proposals').select('status, pricing_amount')),
         supabase.from('leads').select('*'),
         supabase.from('leads').select('service_type_category'),
       ]);
@@ -209,7 +209,7 @@ export const executiveService = {
           .in('status', ['not_started', 'in_progress'])
           .order('due_date', { ascending: true })
           .limit(10),
-        (organizationId ? (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('*').eq('organization_id', organizationId) : (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('*')),
+        (organizationId ? supabase.from('projects').select('*').eq('organization_id', organizationId) : supabase.from('projects').select('*')),
       ]);
 
       const deliveryData = deliveryResult.data || [];
@@ -261,10 +261,10 @@ export const executiveService = {
         projectsResult,
       ] = await Promise.all([
         supabase.from('organizations').select('*').eq('type', 'client'),
-        (organizationId ? (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('*').eq('organization_id', organizationId) : (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('*'))
+        (organizationId ? supabase.from('support_tickets').select('*').eq('organization_id', organizationId) : supabase.from('support_tickets').select('*'))
           .eq('priority', 'urgent')
           .in('status', ['open', 'in_progress']),
-        (organizationId ? (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('organization_id').eq('organization_id', organizationId) : (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('organization_id')),
+        (organizationId ? supabase.from('projects').select('organization_id').eq('organization_id', organizationId) : supabase.from('projects').select('organization_id')),
       ]);
 
       const clients = orgsResult.data || [];
@@ -311,10 +311,10 @@ export const executiveService = {
         projectsResult,
         subscriptionsResult,
       ] = await Promise.all([
-        (organizationId ? (organizationId ? supabase.from('stripe_subscriptions').eq('organization_id', organizationId) : supabase.from('stripe_subscriptions')).select('*').eq('organization_id', organizationId) : (organizationId ? supabase.from('stripe_subscriptions').eq('organization_id', organizationId) : supabase.from('stripe_subscriptions')).select('*')),
-        (organizationId ? (organizationId ? supabase.from('invoices').eq('organization_id', organizationId) : supabase.from('invoices')).select('*').eq('organization_id', organizationId) : (organizationId ? supabase.from('invoices').eq('organization_id', organizationId) : supabase.from('invoices')).select('*')),
-        (organizationId ? (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('contract_value').eq('organization_id', organizationId) : (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('contract_value')),
-        (organizationId ? (organizationId ? supabase.from('subscriptions').eq('organization_id', organizationId) : supabase.from('subscriptions')).select('mrr').eq('organization_id', organizationId) : (organizationId ? supabase.from('subscriptions').eq('organization_id', organizationId) : supabase.from('subscriptions')).select('mrr')),
+        (organizationId ? supabase.from('stripe_subscriptions').select('*').eq('organization_id', organizationId) : supabase.from('stripe_subscriptions').select('*')),
+        (organizationId ? supabase.from('invoices').select('*').eq('organization_id', organizationId) : supabase.from('invoices').select('*')),
+        (organizationId ? supabase.from('projects').select('contract_value').eq('organization_id', organizationId) : supabase.from('projects').select('contract_value')),
+        (organizationId ? supabase.from('subscriptions').select('mrr').eq('organization_id', organizationId) : supabase.from('subscriptions').select('mrr')),
       ]);
 
       const stripeSubscriptions = stripeSubscriptionsResult.data || [];
@@ -372,7 +372,7 @@ export const executiveService = {
           .select('id, title, due_date, project_id, projects(name)')
           .eq('status', 'in_progress')
           .lt('due_date', new Date().toISOString()),
-        (organizationId ? (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('id, title, priority').eq('organization_id', organizationId) : (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('id, title, priority'))
+        (organizationId ? supabase.from('support_tickets').select('id, title, priority').eq('organization_id', organizationId) : supabase.from('support_tickets').select('id, title, priority'))
           .eq('priority', 'urgent')
           .in('status', ['open', 'in_progress']),
         supabase
@@ -380,7 +380,7 @@ export const executiveService = {
           .select('id, name, onboarding_status')
           .eq('type', 'client')
           .eq('onboarding_completed', false),
-        (organizationId ? (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('id, title, sent_at').eq('organization_id', organizationId) : (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('id, title, sent_at'))
+        (organizationId ? supabase.from('proposals').select('id, title, sent_at').eq('organization_id', organizationId) : supabase.from('proposals').select('id, title, sent_at'))
           .eq('status', 'sent')
           .lt('sent_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
       ]);
@@ -465,20 +465,20 @@ export const executiveService = {
           .gte('created_at', sevenDaysAgo.toISOString())
           .order('created_at', { ascending: false })
           .limit(5),
-        (organizationId ? (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('id, title, approved_at').eq('organization_id', organizationId) : (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('id, title, approved_at'))
+        (organizationId ? supabase.from('proposals').select('id, title, approved_at').eq('organization_id', organizationId) : supabase.from('proposals').select('id, title, approved_at'))
           .eq('status', 'approved')
           .gte('approved_at', sevenDaysAgo.toISOString())
           .order('approved_at', { ascending: false })
           .limit(5),
-        (organizationId ? (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('id, name, created_at').eq('organization_id', organizationId) : (organizationId ? supabase.from('projects').eq('organization_id', organizationId) : supabase.from('projects')).select('id, name, created_at'))
+        (organizationId ? supabase.from('projects').select('id, name, created_at').eq('organization_id', organizationId) : supabase.from('projects').select('id, name, created_at'))
           .gte('created_at', sevenDaysAgo.toISOString())
           .order('created_at', { ascending: false })
           .limit(5),
-        (organizationId ? (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('id, title, created_at').eq('organization_id', organizationId) : (organizationId ? supabase.from('support_tickets').eq('organization_id', organizationId) : supabase.from('support_tickets')).select('id, title, created_at'))
+        (organizationId ? supabase.from('support_tickets').select('id, title, created_at').eq('organization_id', organizationId) : supabase.from('support_tickets').select('id, title, created_at'))
           .gte('created_at', sevenDaysAgo.toISOString())
           .order('created_at', { ascending: false })
           .limit(5),
-        (organizationId ? (organizationId ? supabase.from('invoices').eq('organization_id', organizationId) : supabase.from('invoices')).select('id, invoice_number, paid_at').eq('organization_id', organizationId) : (organizationId ? supabase.from('invoices').eq('organization_id', organizationId) : supabase.from('invoices')).select('id, invoice_number, paid_at'))
+        (organizationId ? supabase.from('invoices').select('id, invoice_number, paid_at').eq('organization_id', organizationId) : supabase.from('invoices').select('id, invoice_number, paid_at'))
           .eq('status', 'paid')
           .gte('paid_at', sevenDaysAgo.toISOString())
           .order('paid_at', { ascending: false })

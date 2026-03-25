@@ -1,7 +1,7 @@
 drop extension if exists "pg_net";
 
 
-  create table "public"."activity_events" (
+  create table if not exists "public"."activity_events" (
     "id" uuid not null default gen_random_uuid(),
     "organization_id" uuid not null,
     "user_id" uuid,
@@ -18,7 +18,7 @@ drop extension if exists "pg_net";
 alter table "public"."activity_events" enable row level security;
 
 
-  create table "public"."marketplace_installs" (
+  create table if not exists "public"."marketplace_installs" (
     "id" uuid not null default gen_random_uuid(),
     "organization_id" uuid not null,
     "item_id" uuid not null,
@@ -34,7 +34,7 @@ alter table "public"."activity_events" enable row level security;
 alter table "public"."marketplace_installs" enable row level security;
 
 
-  create table "public"."marketplace_items" (
+  create table if not exists "public"."marketplace_items" (
     "id" uuid not null default gen_random_uuid(),
     "name" text not null,
     "slug" text not null,
@@ -64,7 +64,7 @@ alter table "public"."marketplace_installs" enable row level security;
 alter table "public"."marketplace_items" enable row level security;
 
 
-  create table "public"."marketplace_reviews" (
+  create table if not exists "public"."marketplace_reviews" (
     "id" uuid not null default gen_random_uuid(),
     "item_id" uuid not null,
     "organization_id" uuid not null,
@@ -80,7 +80,7 @@ alter table "public"."marketplace_items" enable row level security;
 alter table "public"."marketplace_reviews" enable row level security;
 
 
-  create table "public"."message_threads" (
+  create table if not exists "public"."message_threads" (
     "id" uuid not null default gen_random_uuid(),
     "organization_id" uuid not null,
     "thread_type" text not null,
@@ -98,7 +98,7 @@ alter table "public"."marketplace_reviews" enable row level security;
 alter table "public"."message_threads" enable row level security;
 
 
-  create table "public"."organization_plugins" (
+  create table if not exists "public"."organization_plugins" (
     "id" uuid not null default gen_random_uuid(),
     "organization_id" uuid not null,
     "plugin_id" uuid not null,
@@ -115,7 +115,7 @@ alter table "public"."message_threads" enable row level security;
 alter table "public"."organization_plugins" enable row level security;
 
 
-  create table "public"."permission_actions" (
+  create table if not exists "public"."permission_actions" (
     "id" uuid not null default gen_random_uuid(),
     "action_name" text not null,
     "action_label" text not null,
@@ -127,7 +127,7 @@ alter table "public"."organization_plugins" enable row level security;
 alter table "public"."permission_actions" enable row level security;
 
 
-  create table "public"."permission_audit_log" (
+  create table if not exists "public"."permission_audit_log" (
     "id" uuid not null default gen_random_uuid(),
     "user_id" uuid,
     "organization_id" uuid,
@@ -144,7 +144,7 @@ alter table "public"."permission_actions" enable row level security;
 alter table "public"."permission_audit_log" enable row level security;
 
 
-  create table "public"."permission_resources" (
+  create table if not exists "public"."permission_resources" (
     "id" uuid not null default gen_random_uuid(),
     "resource_name" text not null,
     "resource_label" text not null,
@@ -157,7 +157,7 @@ alter table "public"."permission_audit_log" enable row level security;
 alter table "public"."permission_resources" enable row level security;
 
 
-  create table "public"."plugin_activity_log" (
+  create table if not exists "public"."plugin_activity_log" (
     "id" uuid not null default gen_random_uuid(),
     "organization_id" uuid not null,
     "plugin_id" uuid not null,
@@ -171,7 +171,7 @@ alter table "public"."permission_resources" enable row level security;
 alter table "public"."plugin_activity_log" enable row level security;
 
 
-  create table "public"."plugins" (
+  create table if not exists "public"."plugins" (
     "id" uuid not null default gen_random_uuid(),
     "name" text not null,
     "slug" text not null,
@@ -192,7 +192,7 @@ alter table "public"."plugin_activity_log" enable row level security;
 alter table "public"."plugins" enable row level security;
 
 
-  create table "public"."role_permissions" (
+  create table if not exists "public"."role_permissions" (
     "id" uuid not null default gen_random_uuid(),
     "role" text not null,
     "organization_id" uuid,
@@ -208,7 +208,7 @@ alter table "public"."plugins" enable row level security;
 alter table "public"."role_permissions" enable row level security;
 
 
-  create table "public"."thread_messages" (
+  create table if not exists "public"."thread_messages" (
     "id" uuid not null default gen_random_uuid(),
     "thread_id" uuid not null,
     "sender_id" uuid,
@@ -225,7 +225,7 @@ alter table "public"."role_permissions" enable row level security;
 alter table "public"."thread_messages" enable row level security;
 
 
-  create table "public"."thread_participants" (
+  create table if not exists "public"."thread_participants" (
     "id" uuid not null default gen_random_uuid(),
     "thread_id" uuid not null,
     "user_id" uuid not null,
@@ -238,7 +238,7 @@ alter table "public"."thread_messages" enable row level security;
 alter table "public"."thread_participants" enable row level security;
 
 
-  create table "public"."user_permissions" (
+  create table if not exists "public"."user_permissions" (
     "id" uuid not null default gen_random_uuid(),
     "user_id" uuid not null,
     "organization_id" uuid not null,
@@ -255,7 +255,7 @@ alter table "public"."thread_participants" enable row level security;
 alter table "public"."user_permissions" enable row level security;
 
 
-  create table "public"."user_presence" (
+  create table if not exists "public"."user_presence" (
     "id" uuid not null default gen_random_uuid(),
     "user_id" uuid not null,
     "organization_id" uuid not null,
@@ -270,161 +270,161 @@ alter table "public"."user_permissions" enable row level security;
 
 alter table "public"."user_presence" enable row level security;
 
-CREATE UNIQUE INDEX activity_events_pkey ON public.activity_events USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS activity_events_pkey ON public.activity_events USING btree (id);
 
-CREATE INDEX idx_activity_events_created_at ON public.activity_events USING btree (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_activity_events_created_at ON public.activity_events USING btree (created_at DESC);
 
-CREATE INDEX idx_activity_events_entity ON public.activity_events USING btree (entity_type, entity_id);
+CREATE INDEX IF NOT EXISTS idx_activity_events_entity ON public.activity_events USING btree (entity_type, entity_id);
 
-CREATE INDEX idx_activity_events_org_id ON public.activity_events USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_activity_events_org_id ON public.activity_events USING btree (organization_id);
 
-CREATE INDEX idx_activity_events_user_id ON public.activity_events USING btree (user_id);
+CREATE INDEX IF NOT EXISTS idx_activity_events_user_id ON public.activity_events USING btree (user_id);
 
-CREATE INDEX idx_marketplace_installs_active ON public.marketplace_installs USING btree (organization_id, is_active);
+CREATE INDEX IF NOT EXISTS idx_marketplace_installs_active ON public.marketplace_installs USING btree (organization_id, is_active);
 
-CREATE INDEX idx_marketplace_installs_item ON public.marketplace_installs USING btree (item_id);
+CREATE INDEX IF NOT EXISTS idx_marketplace_installs_item ON public.marketplace_installs USING btree (item_id);
 
-CREATE INDEX idx_marketplace_installs_org ON public.marketplace_installs USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_marketplace_installs_org ON public.marketplace_installs USING btree (organization_id);
 
-CREATE INDEX idx_marketplace_items_active ON public.marketplace_items USING btree (is_active) WHERE (is_active = true);
+CREATE INDEX IF NOT EXISTS idx_marketplace_items_active ON public.marketplace_items USING btree (is_active) WHERE (is_active = true);
 
-CREATE INDEX idx_marketplace_items_category ON public.marketplace_items USING btree (category);
+CREATE INDEX IF NOT EXISTS idx_marketplace_items_category ON public.marketplace_items USING btree (category);
 
-CREATE INDEX idx_marketplace_items_featured ON public.marketplace_items USING btree (is_featured) WHERE (is_featured = true);
+CREATE INDEX IF NOT EXISTS idx_marketplace_items_featured ON public.marketplace_items USING btree (is_featured) WHERE (is_featured = true);
 
-CREATE INDEX idx_marketplace_items_slug ON public.marketplace_items USING btree (slug);
+CREATE INDEX IF NOT EXISTS idx_marketplace_items_slug ON public.marketplace_items USING btree (slug);
 
-CREATE INDEX idx_marketplace_items_trending ON public.marketplace_items USING btree (is_trending) WHERE (is_trending = true);
+CREATE INDEX IF NOT EXISTS idx_marketplace_items_trending ON public.marketplace_items USING btree (is_trending) WHERE (is_trending = true);
 
-CREATE INDEX idx_marketplace_items_type ON public.marketplace_items USING btree (type);
+CREATE INDEX IF NOT EXISTS idx_marketplace_items_type ON public.marketplace_items USING btree (type);
 
-CREATE INDEX idx_marketplace_reviews_item ON public.marketplace_reviews USING btree (item_id);
+CREATE INDEX IF NOT EXISTS idx_marketplace_reviews_item ON public.marketplace_reviews USING btree (item_id);
 
-CREATE INDEX idx_marketplace_reviews_org ON public.marketplace_reviews USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_marketplace_reviews_org ON public.marketplace_reviews USING btree (organization_id);
 
-CREATE INDEX idx_message_threads_context ON public.message_threads USING btree (context_id);
+CREATE INDEX IF NOT EXISTS idx_message_threads_context ON public.message_threads USING btree (context_id);
 
-CREATE INDEX idx_message_threads_last_message ON public.message_threads USING btree (last_message_at DESC);
+CREATE INDEX IF NOT EXISTS idx_message_threads_last_message ON public.message_threads USING btree (last_message_at DESC);
 
-CREATE INDEX idx_message_threads_org_id ON public.message_threads USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_message_threads_org_id ON public.message_threads USING btree (organization_id);
 
-CREATE INDEX idx_message_threads_type ON public.message_threads USING btree (thread_type);
+CREATE INDEX IF NOT EXISTS idx_message_threads_type ON public.message_threads USING btree (thread_type);
 
-CREATE INDEX idx_org_plugins_enabled ON public.organization_plugins USING btree (organization_id, is_enabled);
+CREATE INDEX IF NOT EXISTS idx_org_plugins_enabled ON public.organization_plugins USING btree (organization_id, is_enabled);
 
-CREATE INDEX idx_org_plugins_org ON public.organization_plugins USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_org_plugins_org ON public.organization_plugins USING btree (organization_id);
 
-CREATE INDEX idx_org_plugins_plugin ON public.organization_plugins USING btree (plugin_id);
+CREATE INDEX IF NOT EXISTS idx_org_plugins_plugin ON public.organization_plugins USING btree (plugin_id);
 
-CREATE INDEX idx_permission_audit_created ON public.permission_audit_log USING btree (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_permission_audit_created ON public.permission_audit_log USING btree (created_at DESC);
 
-CREATE INDEX idx_permission_audit_org ON public.permission_audit_log USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_permission_audit_org ON public.permission_audit_log USING btree (organization_id);
 
-CREATE INDEX idx_permission_audit_resource ON public.permission_audit_log USING btree (resource_name, action_name);
+CREATE INDEX IF NOT EXISTS idx_permission_audit_resource ON public.permission_audit_log USING btree (resource_name, action_name);
 
-CREATE INDEX idx_permission_audit_user ON public.permission_audit_log USING btree (user_id);
+CREATE INDEX IF NOT EXISTS idx_permission_audit_user ON public.permission_audit_log USING btree (user_id);
 
-CREATE INDEX idx_plugin_log_created ON public.plugin_activity_log USING btree (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_plugin_log_created ON public.plugin_activity_log USING btree (created_at DESC);
 
-CREATE INDEX idx_plugin_log_org ON public.plugin_activity_log USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_plugin_log_org ON public.plugin_activity_log USING btree (organization_id);
 
-CREATE INDEX idx_plugin_log_plugin ON public.plugin_activity_log USING btree (plugin_id);
+CREATE INDEX IF NOT EXISTS idx_plugin_log_plugin ON public.plugin_activity_log USING btree (plugin_id);
 
-CREATE INDEX idx_plugins_active ON public.plugins USING btree (is_active) WHERE (is_active = true);
+CREATE INDEX IF NOT EXISTS idx_plugins_active ON public.plugins USING btree (is_active) WHERE (is_active = true);
 
-CREATE INDEX idx_plugins_category ON public.plugins USING btree (category);
+CREATE INDEX IF NOT EXISTS idx_plugins_category ON public.plugins USING btree (category);
 
-CREATE INDEX idx_plugins_slug ON public.plugins USING btree (slug);
+CREATE INDEX IF NOT EXISTS idx_plugins_slug ON public.plugins USING btree (slug);
 
-CREATE INDEX idx_role_permissions_lookup ON public.role_permissions USING btree (role, organization_id, resource_name, action_name);
+CREATE INDEX IF NOT EXISTS idx_role_permissions_lookup ON public.role_permissions USING btree (role, organization_id, resource_name, action_name);
 
-CREATE INDEX idx_role_permissions_org ON public.role_permissions USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_role_permissions_org ON public.role_permissions USING btree (organization_id);
 
-CREATE INDEX idx_role_permissions_resource ON public.role_permissions USING btree (resource_name);
+CREATE INDEX IF NOT EXISTS idx_role_permissions_resource ON public.role_permissions USING btree (resource_name);
 
-CREATE INDEX idx_role_permissions_role ON public.role_permissions USING btree (role);
+CREATE INDEX IF NOT EXISTS idx_role_permissions_role ON public.role_permissions USING btree (role);
 
-CREATE INDEX idx_thread_messages_created_at ON public.thread_messages USING btree (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_thread_messages_created_at ON public.thread_messages USING btree (created_at DESC);
 
-CREATE INDEX idx_thread_messages_flagged ON public.thread_messages USING btree (is_flagged) WHERE (is_flagged = true);
+CREATE INDEX IF NOT EXISTS idx_thread_messages_flagged ON public.thread_messages USING btree (is_flagged) WHERE (is_flagged = true);
 
-CREATE INDEX idx_thread_messages_important ON public.thread_messages USING btree (is_important) WHERE (is_important = true);
+CREATE INDEX IF NOT EXISTS idx_thread_messages_important ON public.thread_messages USING btree (is_important) WHERE (is_important = true);
 
-CREATE INDEX idx_thread_messages_sender_id ON public.thread_messages USING btree (sender_id);
+CREATE INDEX IF NOT EXISTS idx_thread_messages_sender_id ON public.thread_messages USING btree (sender_id);
 
-CREATE INDEX idx_thread_messages_thread_id ON public.thread_messages USING btree (thread_id);
+CREATE INDEX IF NOT EXISTS idx_thread_messages_thread_id ON public.thread_messages USING btree (thread_id);
 
-CREATE INDEX idx_thread_participants_thread_id ON public.thread_participants USING btree (thread_id);
+CREATE INDEX IF NOT EXISTS idx_thread_participants_thread_id ON public.thread_participants USING btree (thread_id);
 
-CREATE INDEX idx_thread_participants_unread ON public.thread_participants USING btree (user_id, last_read_at);
+CREATE INDEX IF NOT EXISTS idx_thread_participants_unread ON public.thread_participants USING btree (user_id, last_read_at);
 
-CREATE INDEX idx_thread_participants_user_id ON public.thread_participants USING btree (user_id);
+CREATE INDEX IF NOT EXISTS idx_thread_participants_user_id ON public.thread_participants USING btree (user_id);
 
-CREATE INDEX idx_user_permissions_expires ON public.user_permissions USING btree (expires_at) WHERE (expires_at IS NOT NULL);
+CREATE INDEX IF NOT EXISTS idx_user_permissions_expires ON public.user_permissions USING btree (expires_at) WHERE (expires_at IS NOT NULL);
 
-CREATE INDEX idx_user_permissions_lookup ON public.user_permissions USING btree (user_id, organization_id, resource_name, action_name);
+CREATE INDEX IF NOT EXISTS idx_user_permissions_lookup ON public.user_permissions USING btree (user_id, organization_id, resource_name, action_name);
 
-CREATE INDEX idx_user_permissions_org ON public.user_permissions USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_user_permissions_org ON public.user_permissions USING btree (organization_id);
 
-CREATE INDEX idx_user_permissions_user ON public.user_permissions USING btree (user_id);
+CREATE INDEX IF NOT EXISTS idx_user_permissions_user ON public.user_permissions USING btree (user_id);
 
-CREATE INDEX idx_user_presence_context ON public.user_presence USING btree (context_type, context_id);
+CREATE INDEX IF NOT EXISTS idx_user_presence_context ON public.user_presence USING btree (context_type, context_id);
 
-CREATE INDEX idx_user_presence_last_seen ON public.user_presence USING btree (last_seen);
+CREATE INDEX IF NOT EXISTS idx_user_presence_last_seen ON public.user_presence USING btree (last_seen);
 
-CREATE INDEX idx_user_presence_org_id ON public.user_presence USING btree (organization_id);
+CREATE INDEX IF NOT EXISTS idx_user_presence_org_id ON public.user_presence USING btree (organization_id);
 
-CREATE INDEX idx_user_presence_user_id ON public.user_presence USING btree (user_id);
+CREATE INDEX IF NOT EXISTS idx_user_presence_user_id ON public.user_presence USING btree (user_id);
 
-CREATE UNIQUE INDEX marketplace_installs_organization_id_item_id_key ON public.marketplace_installs USING btree (organization_id, item_id);
+CREATE UNIQUE INDEX IF NOT EXISTS marketplace_installs_organization_id_item_id_key ON public.marketplace_installs USING btree (organization_id, item_id);
 
-CREATE UNIQUE INDEX marketplace_installs_pkey ON public.marketplace_installs USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS marketplace_installs_pkey ON public.marketplace_installs USING btree (id);
 
-CREATE UNIQUE INDEX marketplace_items_pkey ON public.marketplace_items USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS marketplace_items_pkey ON public.marketplace_items USING btree (id);
 
-CREATE UNIQUE INDEX marketplace_items_slug_key ON public.marketplace_items USING btree (slug);
+CREATE UNIQUE INDEX IF NOT EXISTS marketplace_items_slug_key ON public.marketplace_items USING btree (slug);
 
-CREATE UNIQUE INDEX marketplace_reviews_item_id_organization_id_key ON public.marketplace_reviews USING btree (item_id, organization_id);
+CREATE UNIQUE INDEX IF NOT EXISTS marketplace_reviews_item_id_organization_id_key ON public.marketplace_reviews USING btree (item_id, organization_id);
 
-CREATE UNIQUE INDEX marketplace_reviews_pkey ON public.marketplace_reviews USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS marketplace_reviews_pkey ON public.marketplace_reviews USING btree (id);
 
-CREATE UNIQUE INDEX message_threads_pkey ON public.message_threads USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS message_threads_pkey ON public.message_threads USING btree (id);
 
-CREATE UNIQUE INDEX organization_plugins_organization_id_plugin_id_key ON public.organization_plugins USING btree (organization_id, plugin_id);
+CREATE UNIQUE INDEX IF NOT EXISTS organization_plugins_organization_id_plugin_id_key ON public.organization_plugins USING btree (organization_id, plugin_id);
 
-CREATE UNIQUE INDEX organization_plugins_pkey ON public.organization_plugins USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS organization_plugins_pkey ON public.organization_plugins USING btree (id);
 
-CREATE UNIQUE INDEX permission_actions_action_name_key ON public.permission_actions USING btree (action_name);
+CREATE UNIQUE INDEX IF NOT EXISTS permission_actions_action_name_key ON public.permission_actions USING btree (action_name);
 
-CREATE UNIQUE INDEX permission_actions_pkey ON public.permission_actions USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS permission_actions_pkey ON public.permission_actions USING btree (id);
 
-CREATE UNIQUE INDEX permission_audit_log_pkey ON public.permission_audit_log USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS permission_audit_log_pkey ON public.permission_audit_log USING btree (id);
 
-CREATE UNIQUE INDEX permission_resources_pkey ON public.permission_resources USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS permission_resources_pkey ON public.permission_resources USING btree (id);
 
-CREATE UNIQUE INDEX permission_resources_resource_name_key ON public.permission_resources USING btree (resource_name);
+CREATE UNIQUE INDEX IF NOT EXISTS permission_resources_resource_name_key ON public.permission_resources USING btree (resource_name);
 
-CREATE UNIQUE INDEX plugin_activity_log_pkey ON public.plugin_activity_log USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS plugin_activity_log_pkey ON public.plugin_activity_log USING btree (id);
 
-CREATE UNIQUE INDEX plugins_pkey ON public.plugins USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS plugins_pkey ON public.plugins USING btree (id);
 
-CREATE UNIQUE INDEX plugins_slug_key ON public.plugins USING btree (slug);
+CREATE UNIQUE INDEX IF NOT EXISTS plugins_slug_key ON public.plugins USING btree (slug);
 
-CREATE UNIQUE INDEX role_permissions_pkey ON public.role_permissions USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS role_permissions_pkey ON public.role_permissions USING btree (id);
 
-CREATE UNIQUE INDEX thread_messages_pkey ON public.thread_messages USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS thread_messages_pkey ON public.thread_messages USING btree (id);
 
-CREATE UNIQUE INDEX thread_participants_pkey ON public.thread_participants USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS thread_participants_pkey ON public.thread_participants USING btree (id);
 
-CREATE UNIQUE INDEX thread_participants_thread_id_user_id_key ON public.thread_participants USING btree (thread_id, user_id);
+CREATE UNIQUE INDEX IF NOT EXISTS thread_participants_thread_id_user_id_key ON public.thread_participants USING btree (thread_id, user_id);
 
-CREATE UNIQUE INDEX unique_role_permission ON public.role_permissions USING btree (role, organization_id, resource_name, action_name) NULLS NOT DISTINCT;
+CREATE UNIQUE INDEX IF NOT EXISTS unique_role_permission ON public.role_permissions USING btree (role, organization_id, resource_name, action_name) NULLS NOT DISTINCT;
 
-CREATE UNIQUE INDEX user_permissions_pkey ON public.user_permissions USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS user_permissions_pkey ON public.user_permissions USING btree (id);
 
-CREATE UNIQUE INDEX user_permissions_user_id_organization_id_resource_name_acti_key ON public.user_permissions USING btree (user_id, organization_id, resource_name, action_name);
+CREATE UNIQUE INDEX IF NOT EXISTS user_permissions_user_id_organization_id_resource_name_acti_key ON public.user_permissions USING btree (user_id, organization_id, resource_name, action_name);
 
-CREATE UNIQUE INDEX user_presence_pkey ON public.user_presence USING btree (id);
+CREATE UNIQUE INDEX IF NOT EXISTS user_presence_pkey ON public.user_presence USING btree (id);
 
 alter table "public"."activity_events" add constraint "activity_events_pkey" PRIMARY KEY using index "activity_events_pkey";
 

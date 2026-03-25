@@ -74,13 +74,15 @@ class AIService {
 
       let data: T;
       try {
-        const jsonMatch = response.content.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
+        let clean = response.content.replace(/```(?:json)?\n?/gi, '').replace(/```\n?/g, '').trim();
+        const jsonMatch = clean.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
         if (jsonMatch) {
           data = JSON.parse(jsonMatch[0]);
         } else {
-          data = JSON.parse(response.content);
+          data = JSON.parse(clean);
         }
-      } catch {
+      } catch (err) {
+        console.error('JSON Parse Failure. Raw Payload:', response.content);
         throw new Error('Invalid JSON response from AI');
       }
 

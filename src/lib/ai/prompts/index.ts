@@ -122,7 +122,7 @@ Respond with JSON only:
     return [
       {
         role: 'system',
-        content: systemPrompts.businessAnalyst,
+        content: systemPrompts.businessAnalyst + "\\nCRITICAL: You MUST ONLY return a raw JSON object. Never include conversational text. Even if all metrics are 0, invent reasonable placeholder insights or provide a valid JSON skeleton acknowledging the lack of data.",
       },
       {
         role: 'user',

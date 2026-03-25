@@ -11,7 +11,11 @@ import {
   Globe, 
   Flame, 
   Shield,
-  ArrowLeft
+  ArrowLeft,
+  PieChart,
+  Code2,
+  Bug,
+  TestTube2
 } from 'lucide-react';
 
 export default function RecordingCenterLayout({ children }: { children: React.ReactNode }) {
@@ -21,6 +25,11 @@ export default function RecordingCenterLayout({ children }: { children: React.Re
     { name: 'Overview', path: '/app/internal/recording-center', icon: Building2 },
     { name: 'Start Recording', path: '/app/internal/recording-center/capture', icon: Video },
     { name: 'Recording Library', path: '/app/internal/recording-center/library', icon: Terminal },
+    { name: 'Support Inquiries', path: '/app/internal/recording-center/support', icon: Activity },
+    { name: 'Dev Tasks Inbox', path: '/app/internal/recording-center/dev-tasks', icon: Code2 },
+    { name: 'Bug Reports', path: '/app/internal/recording-center/bug-reports', icon: Bug },
+    { name: 'QA Test Cases', path: '/app/internal/recording-center/qa-test-cases', icon: TestTube2 },
+    { name: 'Support Analytics', path: '/app/internal/recording-center/support-analytics', icon: PieChart },
     { name: 'Web Access', path: '/app/internal/recording-center/web', icon: Globe },
   ];
 
@@ -34,7 +43,7 @@ export default function RecordingCenterLayout({ children }: { children: React.Re
            <p className="text-xs text-slate-500 font-mono mt-1 uppercase">Super Admin Environment</p>
         </div>
         <nav className="flex-1 p-4 space-y-1">
-          {navLinks.map((link) => {
+          {navLinks.map((link: any) => {
              const Icon = link.icon;
              const isActive = location.pathname === link.path;
              return (
