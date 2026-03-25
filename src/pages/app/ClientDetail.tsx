@@ -118,7 +118,7 @@ export default function ClientDetail() {
                 <p className="text-slate-500 text-xs">Health Score</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">${client.mrr.toLocaleString()}</p>
+                <p className="text-2xl font-bold text-white">${(client.mrr || 0).toLocaleString()}</p>
                 <p className="text-slate-500 text-xs">MRR</p>
               </div>
             </div>

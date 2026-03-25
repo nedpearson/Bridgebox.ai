@@ -8,6 +8,7 @@ import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
 import EmptyState from '../../components/EmptyState';
+import ClientModal from '../../components/app/ClientModal';
 import { organizationsService } from '../../lib/db/organizations';
 
 interface ClientWithStats {
@@ -26,6 +27,7 @@ export default function ClientsList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     loadClients();
@@ -97,7 +99,10 @@ export default function ClientsList() {
             />
           </div>
 
-          <button className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors"
+          >
             <Plus className="w-5 h-5" />
             <span>Add Client</span>
           </button>
@@ -174,6 +179,14 @@ export default function ClientsList() {
           </div>
         )}
       </div>
+
+      <ClientModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={() => {
+          loadClients();
+        }}
+      />
     </>
   );
 }
