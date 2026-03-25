@@ -31,6 +31,7 @@ export default function RecordingCenterLayout({ children }: { children: React.Re
     { name: 'QA Test Cases', path: '/app/internal/recording-center/qa-test-cases', icon: TestTube2 },
     { name: 'Support Analytics', path: '/app/internal/recording-center/support-analytics', icon: PieChart },
     { name: 'Web Access', path: '/app/internal/recording-center/web', icon: Globe },
+    { name: 'AI Capability Editor', path: '/app/internal/recording-center/ai-knowledge', icon: Brain },
   ];
 
   return (

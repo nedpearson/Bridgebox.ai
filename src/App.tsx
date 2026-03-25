@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { CopilotProvider } from './contexts/CopilotContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import RoleGuard from './components/auth/RoleGuard';
 import MainLayout from './layouts/MainLayout';
@@ -109,12 +110,14 @@ import ConfigInspector from './pages/internal/modules/ConfigInspector';
 import InternalNotes from './pages/internal/modules/InternalNotes';
 import SystemDiagnostics from './pages/internal/modules/SystemDiagnostics';
 import AuditTrail from './pages/internal/modules/AuditTrail';
+import AiKnowledgeBase from './pages/internal/modules/AiKnowledgeBase';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <Routes>
+        <CopilotProvider>
+          <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/onboarding" element={<ProtectedRoute><OrganizationOnboarding /></ProtectedRoute>} />
@@ -216,6 +219,7 @@ function App() {
                       <Route path="/recording-center/config" element={<ConfigInspector />} />
                       <Route path="/recording-center/diagnostics" element={<SystemDiagnostics />} />
                       <Route path="/recording-center/audit" element={<AuditTrail />} />
+                      <Route path="/recording-center/ai-knowledge" element={<AiKnowledgeBase />} />
                     </Routes>
                   </RecordingCenterLayout>
                 </RoleGuard>
@@ -268,6 +272,7 @@ function App() {
             }
           />
         </Routes>
+        </CopilotProvider>
       </AuthProvider>
     </Router>
   );

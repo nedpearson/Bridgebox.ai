@@ -11,7 +11,10 @@ import TicketStatusBadge from '../../components/support/TicketStatusBadge';
 import TicketPriorityBadge from '../../components/support/TicketPriorityBadge';
 import TicketCategoryBadge from '../../components/support/TicketCategoryBadge';
 import KPICard from '../../components/admin/KPICard';
+import ErrorState from '../../components/ErrorState';
 import { supportService, TicketWithDetails, TicketStatus, TicketPriority } from '../../lib/db/support';
+import { useAuth } from '../../contexts/AuthContext';
+import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
 
 export default function SupportQueue() {
   const navigate = useNavigate();
@@ -23,6 +26,18 @@ export default function SupportQueue() {
   const [statusFilter, setStatusFilter] = useState<string>(searchParams.get('status') || 'all');
   const [priorityFilter, setPriorityFilter] = useState<string>(searchParams.get('priority') || 'all');
   const [stats, setStats] = useState<any>(null);
+
+  usePlatformIntelligence({
+    id: 'page:support_queue',
+    name: 'Unified Support Queue',
+    type: 'page',
+    description: 'The central ticketing queue aggregating inbound user bug reports, feature requests, and support messages allowing real-time triage and internal recording aggregation.',
+    relatedNodes: ['module:support', 'entity:ticket', 'entity:internal_recording'],
+    visibility: { roles: ['super_admin', 'tenant_admin', 'manager', 'agent', 'client_admin'] },
+    actions: [
+      { id: 'filter_tickets', name: 'Filter Tickets', type: 'navigation', description: 'Sort support tickets by urgency, status, and reporting channel.' }
+    ]
+  });
 
   useEffect(() => {
     loadData();

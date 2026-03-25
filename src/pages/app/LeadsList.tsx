@@ -10,6 +10,7 @@ import ErrorState from '../../components/ErrorState';
 import { leadsService } from '../../lib/db/leads';
 import type { LeadRecord } from '../../types/database';
 import AddLeadModal from '../../components/app/AddLeadModal';
+import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
 
 export default function LeadsList() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,6 +21,19 @@ export default function LeadsList() {
   const [filterStatus, setFilterStatus] = useState<string>(searchParams.get('status') || 'all');
   const [filterType, setFilterType] = useState<string>(searchParams.get('type') || 'all');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  usePlatformIntelligence({
+    id: 'page:leads_list',
+    name: 'Leads Directory',
+    type: 'page',
+    description: 'The primary lead ingestion view showing a detailed sortable grid of all prospects, their budget, requested software configurations, and status.',
+    relatedNodes: ['module:crm', 'entity:lead'],
+    visibility: { roles: ['super_admin', 'tenant_admin', 'manager', 'agent'] },
+    actions: [
+      { id: 'add_lead', name: 'Add Lead', type: 'modal', description: 'Triggers the CRM manual entry node for adding a lead directly.' },
+      { id: 'search_leads', name: 'Search Leads', type: 'navigation', description: 'Filters the Leads view in real-time.' }
+    ]
+  });
 
   useEffect(() => {
     loadLeads();

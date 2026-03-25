@@ -31,9 +31,12 @@ import { aiDecisionEngine, type AIInsight } from '../../lib/aiDecisionEngine';
 import { actionReviewer } from '../../lib/agents';
 import type { AgentAction } from '../../lib/agents/types';
 import { useAuth } from '../../contexts/AuthContext';
+import { useCopilotContext } from '../../contexts/CopilotContext';
+import { copilotEngine } from '../../lib/ai/services/copilotEngine';
 
 export default function Copilot() {
   const { user, currentOrganization } = useAuth();
+  const { domContext } = useCopilotContext();
   const [conversations, setConversations] = useState<CopilotConversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<CopilotConversation | null>(null);
   const [messages, setMessages] = useState<CopilotMessage[]>([]);
@@ -137,10 +140,14 @@ export default function Copilot() {
       setMessages([...messages, userMessage]);
       setInputValue('');
 
-      const response = await copilotService.generateResponse(
+      const response = await copilotEngine.generateReasonedResponse(
         inputValue.trim(),
-        convo.id,
-        convo.context_type
+        {
+          role: (user as any).role || 'manager',
+          organizationId: currentOrganization?.id || null,
+          userId: user.id
+        },
+        domContext
       );
 
       const assistantMessage = await copilotService.createMessage(
@@ -415,6 +422,25 @@ export default function Copilot() {
                       <p className="text-sm text-slate-400">
                         Ask me about leads, projects, support tickets, or anything else!
                       </p>
+
+                      {domContext.activeModule && (
+                        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                          <button
+                            onClick={() => setInputValue(`Explain the layout, capabilities, and data meaning of the page I am currently looking at.`)}
+                            className="text-xs px-4 py-2 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-full hover:bg-purple-500/20 transition-colors"
+                          >
+                            Explain this page
+                          </button>
+                          {domContext.activeRecordId && (
+                            <button
+                              onClick={() => setInputValue(`Analyze the record I currently have open and extract its key meaning or next risk steps.`)}
+                              className="text-xs px-4 py-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20 transition-colors"
+                            >
+                              Analyze attached record
+                            </button>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ) : (
