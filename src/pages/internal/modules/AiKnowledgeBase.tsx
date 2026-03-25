@@ -149,11 +149,11 @@ export default function AiKnowledgeBase() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-400">Related Dependencies:</span>
-                      <span className="text-white font-mono">{selectedNode.relatedNodes.length}</span>
+                      <span className="text-white font-mono">{selectedNode.relatedNodes?.length || 0}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-400">Interactive Actions:</span>
-                      <span className="text-white font-mono">{selectedNode.actions.length}</span>
+                      <span className="text-white font-mono">{selectedNode.actions?.length || 0}</span>
                     </div>
                   </div>
                 </div>

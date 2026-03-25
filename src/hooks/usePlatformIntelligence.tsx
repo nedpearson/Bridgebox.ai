@@ -15,6 +15,8 @@ export function usePlatformIntelligence(nodeData: Omit<GraphNode, 'updatedAt' | 
     // Register the node to the graph
     intelligenceGraph.upsertNode({
       ...nodeData,
+      relatedNodes: nodeData.relatedNodes || [],
+      actions: nodeData.actions || [],
       sourceOfTruth: 'dynamic_scan',
       updatedAt: new Date().toISOString()
     });

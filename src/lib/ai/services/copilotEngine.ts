@@ -117,7 +117,7 @@ ${activeModuleDescription}${domActions}
 
 ACTIVE CONTEXT KNOWLEDGE BASE (Deep Dive):
 ${contextNodes.length > 0 
-  ? contextNodes.map((n, i) => `${i + 1}. [${n.type.toUpperCase()}] ${n.name} (ID: ${n.id})\nDescription: ${n.description}\nActions: ${n.actions.map(a => a.name).join(', ')}`).join('\n')
+  ? contextNodes.map((n, i) => `${i + 1}. [${n.type.toUpperCase()}] ${n.name} (ID: ${n.id})\nDescription: ${n.description}\nActions: ${(n.actions || []).map(a => a.name).join(', ')}`).join('\n')
   : 'The user is not actively viewing a deep-mapped module. Utilize general knowledge.'}
 
 PLATFORM MODULE DIRECTORY (Global Overview):
