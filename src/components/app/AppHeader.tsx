@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useMobileNav } from '../../contexts/MobileNavContext';
 import OrganizationSwitcher from './OrganizationSwitcher';
 import NotificationBell from './NotificationBell';
+import CommandPalette from './CommandPalette';
 
 interface AppHeaderProps {
   title: string;
@@ -47,14 +48,8 @@ export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
             </Link>
           )}
           <OrganizationSwitcher />
-          <div className="relative hidden md:block">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="bg-slate-800/50 border border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6] transition-colors w-48 lg:w-64"
-            />
-          </div>
+          
+          <CommandPalette />
 
           <NotificationBell />
 

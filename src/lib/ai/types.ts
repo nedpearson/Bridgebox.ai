@@ -8,8 +8,11 @@ export type AIModel =
   | 'mock';
 
 export interface AIMessage {
-  role: 'system' | 'user' | 'assistant';
-  content: string;
+  role: 'system' | 'user' | 'assistant' | 'tool';
+  content: string | null;
+  name?: string;
+  tool_calls?: any[];
+  tool_call_id?: string;
 }
 
 export interface AIRequest {
@@ -18,11 +21,14 @@ export interface AIRequest {
   temperature?: number;
   maxTokens?: number;
   stream?: boolean;
+  tools?: any[];
+  tool_choice?: 'auto' | 'none' | Record<string, any>;
 }
 
 export interface AIResponse {
-  content: string;
+  content: string | null;
   model: string;
+  tool_calls?: any[];
   usage?: {
     inputTokens: number;
     outputTokens: number;
@@ -42,6 +48,7 @@ export interface AIProviderClient {
   provider: AIProvider;
   isConfigured: () => boolean;
   complete: (request: AIRequest) => Promise<AIResponse>;
+  generateEmbedding?: (text: string) => Promise<number[]>;
   stream?: (request: AIRequest) => AsyncGenerator<string>;
 }
 

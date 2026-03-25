@@ -29,6 +29,9 @@ import {
 } from '../../lib/db/copilot';
 import { aiDecisionEngine, type AIInsight } from '../../lib/aiDecisionEngine';
 import { actionReviewer } from '../../lib/agents';
+import { globalTasksService } from '../../lib/db/globalTasks';
+import { projectsService } from '../../lib/db/projects';
+import { toast } from 'react-hot-toast';
 import type { AgentAction } from '../../lib/agents/types';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCopilotContext } from '../../contexts/CopilotContext';
@@ -49,6 +52,46 @@ export default function Copilot() {
   const [sending, setSending] = useState(false);
   const [showInsights, setShowInsights] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    (window as any).executeCopilotTool = async (name: string, args: any) => {
+      if (!user || !currentOrganization?.id) {
+         toast.error("Missing contextual authorization limits.");
+         return;
+      }
+      try {
+        if (name === 'create_global_task') {
+            await globalTasksService.createTask({
+               tenant_id: currentOrganization.id,
+               title: args.title,
+               description: args.description,
+               priority: args.priority,
+               status: 'todo',
+               assignee_id: user.id
+            });
+            toast.success("Action Executed Successfully: Task Created");
+        } else if (name === 'update_project_target_date') {
+            await projectsService.updateProject(args.project_id, {
+               target_launch_date: args.new_target_date
+            });
+            toast.success("Action Executed Successfully: Project Date Adjusted");
+        }
+
+        // Automatic re-prompt loop for natural conversational continuity
+        setTimeout(() => {
+            const authPrompt = `I have successfully authorized and executed the action: ${name}. Please refresh your context and verify.`;
+            setInputValue(authPrompt);
+        }, 500);
+
+      } catch(e: any) {
+        toast.error(`Execution Fault: ${e.message}`);
+      }
+    };
+
+    return () => {
+      delete (window as any).executeCopilotTool;
+    };
+  }, [user, currentOrganization]);
 
   useEffect(() => {
     if (user) {

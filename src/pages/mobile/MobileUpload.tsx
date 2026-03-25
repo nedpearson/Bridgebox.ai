@@ -7,6 +7,7 @@ import MobileLayout from '../../layouts/MobileLayout';
 import Button from '../../components/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import { documentService } from '../../lib/db/documents';
+import { storageService } from '../../lib/storage';
 
 type UploadMode = 'select' | 'camera' | 'file';
 
@@ -46,11 +47,19 @@ export default function MobileUpload() {
     try {
       setUploading(true);
 
-      await documentService.uploadDocument(
-        currentOrganization.id,
-        selectedFile,
-        'operational'
-      );
+      const path = storageService.buildClientDocumentPath(currentOrganization.id, selectedFile.name);
+      await storageService.uploadFile('client_documents', path, selectedFile);
+
+      await documentService.createDocument({
+        organization_id: currentOrganization.id,
+        file_name: selectedFile.name,
+        file_size: selectedFile.size,
+        file_type: selectedFile.type,
+        storage_path: path,
+        document_type: 'operational',
+        status: 'completed',
+        is_processed: false
+      });
 
       navigate('/app/documents', {
         state: { message: 'Document uploaded successfully' }

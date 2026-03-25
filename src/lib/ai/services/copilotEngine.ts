@@ -1,6 +1,7 @@
 import { intelligenceGraph } from '../graph/IntelligenceGraph';
 import type { GraphNode, NodeType } from '../graph/types';
 import { AIProviderFactory } from '../providers';
+import { supabase } from '../../supabase';
 
 export type UserContext = {
   role: string;
@@ -17,6 +18,41 @@ export type DOMContext = {
   onScreenActions?: string[];
 };
 
+const PLATFORM_TOOLS = [
+  {
+    type: "function",
+    function: {
+      name: "create_global_task",
+      description: "Creates a new task in the platform.",
+      parameters: {
+        type: "object",
+        properties: {
+          title: { type: "string", description: "The task title" },
+          description: { type: "string", description: "Detailed description of the task" },
+          priority: { type: "string", enum: ["low", "medium", "high"], description: "Task priority" }
+        },
+        required: ["title", "priority"]
+      }
+    }
+  },
+  {
+    type: "function",
+    function: {
+        name: "update_project_target_date",
+        description: "Updates the target completion date for a given project.",
+        parameters: {
+             type: "object",
+             properties: {
+                 project_id: { type: "string", description: "The UUID of the project" },
+                 new_target_date: { type: "string", description: "The new target date in YYYY-MM-DD format" },
+                 reason: { type: "string", description: "Reason for the date change." }
+             },
+             required: ["project_id", "new_target_date"]
+        }
+    }
+  }
+];
+
 export class CopilotEngine {
   /**
    * Main entrypoint for the newly architected context-aware LLM reasoning core.
@@ -26,7 +62,7 @@ export class CopilotEngine {
     userPrompt: string,
     systemContext: UserContext,
     domContext: DOMContext
-  ): Promise<{ text: string; provenance: GraphNode[], execution_time_ms: number }> {
+  ): Promise<{ text: string; provenance: GraphNode[], execution_time_ms: number, tool_calls?: any[] }> {
     const startTime = Date.now();
     const provider = AIProviderFactory.getProvider();
     
@@ -54,12 +90,36 @@ export class CopilotEngine {
       }
     }
 
-    // 3. Assemble Grounding Pipeline Prompt
+    // 3. Optional: Semantic Vector Search
+    let semanticContext = '';
+    if (provider.generateEmbedding && systemContext.organizationId) {
+      try {
+        const embedding = await provider.generateEmbedding(userPrompt);
+        const { data: vectorMatches, error } = await supabase.rpc('match_platform_embeddings', {
+          query_embedding: embedding,
+          match_threshold: 0.7,
+          match_count: 5,
+          p_organization_id: systemContext.organizationId
+        });
+
+        if (!error && vectorMatches && vectorMatches.length > 0) {
+          semanticContext = `\n\nSEMANTIC VECTOR MATCHES (Relevant Historical Records):\n` +
+            vectorMatches.map((m: any, i: number) => 
+              `${i + 1}. [${m.entity_type.toUpperCase()}] Content: ${m.content} (Similarity: ${(m.similarity * 100).toFixed(1)}%)`
+            ).join('\n');
+        }
+      } catch (err) {
+        console.warn('Vector proximity search failed silently:', err);
+      }
+    }
+
+    // 4. Assemble Grounding Pipeline Prompt
     const systemInstruction = this.buildContextualSystemPrompt(
       authorizedNodes,
       contextNodes,
       domContext,
-      systemContext.role
+      systemContext.role,
+      semanticContext
     );
 
     const messages = [
@@ -72,12 +132,14 @@ export class CopilotEngine {
         messages,
         temperature: 0.2, // Low temperature for high precision grounding
         maxTokens: 1000,
+        tools: PLATFORM_TOOLS
       });
 
       return {
-        text: response.content.trim(),
+        text: response.content ? response.content.trim() : "Proposed system action:",
         provenance: contextNodes.length > 0 ? contextNodes : authorizedNodes.slice(0, 3), // Return the matching nodes
-        execution_time_ms: Date.now() - startTime
+        execution_time_ms: Date.now() - startTime,
+        tool_calls: response.tool_calls
       };
     } catch (e: any) {
       console.error('Copilot Engine RAG Execution Error', e);
@@ -93,7 +155,8 @@ export class CopilotEngine {
     authorizedNodes: GraphNode[],
     contextNodes: GraphNode[],
     domContext: DOMContext,
-    userRole: string
+    userRole: string,
+    semanticContext: string
   ): string {
     const activeModuleDescription = contextNodes.length > 0 
       ? `\nActive Focus Area: The user is currently looking at: ${contextNodes[0].name}. Description: ${contextNodes[0].description}`
@@ -119,6 +182,7 @@ ACTIVE CONTEXT KNOWLEDGE BASE (Deep Dive):
 ${contextNodes.length > 0 
   ? contextNodes.map((n, i) => `${i + 1}. [${n.type.toUpperCase()}] ${n.name} (ID: ${n.id})\nDescription: ${n.description}\nActions: ${(n.actions || []).map(a => a.name).join(', ')}`).join('\n')
   : 'The user is not actively viewing a deep-mapped module. Utilize general knowledge.'}
+${semanticContext}
 
 PLATFORM MODULE DIRECTORY (Global Overview):
 ${authorizedNodes.map((n) => `- ${n.name} (${n.id})`).join('\n')}

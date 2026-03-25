@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Plus, Play, Pause, Trash2, Copy, CreditCard as Edit, TrendingUp, Zap, CheckCircle, XCircle, Activity } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
@@ -11,6 +11,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import EmptyState from '../../components/EmptyState';
 import ErrorState from '../../components/ErrorState';
 import { workflowService } from '../../lib/db/workflows';
+import { entityLinkService, EntityType } from '../../lib/db/entityLinks';
 import type { Workflow, WorkflowStats, WorkflowCategory } from '../../types/workflow';
 import { useAuth } from '../../contexts/AuthContext';
 import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
@@ -33,6 +34,9 @@ const CATEGORY_LABELS: Record<WorkflowCategory, string> = {
 
 export function Workflows() {
   const { currentOrganization } = useAuth();
+  const [searchParams] = useSearchParams();
+  const contextId = searchParams.get('context');
+  const contextType = searchParams.get('contextType') as EntityType | null;
 
   usePlatformIntelligence({
     id: 'page:workflows_list',
@@ -55,7 +59,7 @@ export function Workflows() {
 
   useEffect(() => {
     loadWorkflows();
-  }, [currentOrganization?.id]);
+  }, [currentOrganization?.id, contextId, contextType]);
 
   const loadWorkflows = async () => {
     if (!currentOrganization?.id) return;
@@ -67,7 +71,14 @@ export function Workflows() {
         workflowService.getWorkflows(currentOrganization.id),
         workflowService.getWorkflowStats(currentOrganization.id),
       ]);
-      setWorkflows(workflowsData);
+      
+      if (contextId && contextType) {
+        const links = await entityLinkService.getLinkedEntities(contextType, contextId, 'workflow');
+        const validWorkflowIds = new Set(links.map(link => link.target_id === contextId ? link.source_id : link.target_id));
+        setWorkflows(workflowsData?.filter(w => validWorkflowIds.has(w.id)) || []);
+      } else {
+        setWorkflows(workflowsData || []);
+      }
       setStats(statsData);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load workflows');

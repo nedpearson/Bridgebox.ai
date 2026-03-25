@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
+  Upload,
   Plus,
   Search,
   FileText,
@@ -10,6 +11,13 @@ import {
   File,
   Trash2,
   Eye,
+  Filter,
+  MoreVertical,
+  FileArchive,
+  Download,
+  ShieldAlert,
+  Sparkles,
+  Folder,
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -20,8 +28,10 @@ import EmptyState from '../../components/EmptyState';
 import DocumentUpload from '../../components/documents/DocumentUpload';
 import BatchProcessor from '../../components/documents/BatchProcessor';
 import { documentService } from '../../lib/db/documents';
+import { entityLinkService, EntityType } from '../../lib/db/entityLinks';
 import type { Document, DocumentType, DocumentStatus } from '../../types/document';
 import { useAuth } from '../../contexts/AuthContext';
+import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
 
 const FILE_TYPE_ICONS: Record<string, any> = {
   'application/pdf': FileText,
@@ -56,15 +66,29 @@ const getFileIcon = (fileType: string) => {
 
 export function Documents() {
   const { currentOrganization } = useAuth();
+  const [searchParams] = useSearchParams();
+  const contextId = searchParams.get('context');
+  const contextType = searchParams.get('contextType') as EntityType | null;
+
   const [documents, setDocuments] = useState<Document[]>([]);
   const [loading, setLoading] = useState(true);
   const [showUpload, setShowUpload] = useState(false);
   const [filterType, setFilterType] = useState<DocumentType | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
+  usePlatformIntelligence({
+    id: 'page:documents_list',
+    name: 'Document Intelligence Core',
+    type: 'page',
+    description: 'Centralized repository of all parsed, uploaded, and indexed artifacts mapped across Bridgebox OS.',
+    relatedNodes: ['module:documents', 'entity:document'],
+    visibility: { roles: ['super_admin', 'tenant_admin', 'manager', 'agent', 'client_admin', 'client_user'] },
+    actions: []
+  });
+
   useEffect(() => {
     loadDocuments();
-  }, [currentOrganization?.id]);
+  }, [currentOrganization?.id, contextId, contextType]);
 
   const loadDocuments = async () => {
     if (!currentOrganization?.id) return;
@@ -72,7 +96,14 @@ export function Documents() {
     try {
       setLoading(true);
       const data = await documentService.getDocuments(currentOrganization.id);
-      setDocuments(data || []);
+      
+      if (contextId && contextType) {
+        const links = await entityLinkService.getLinkedEntities(contextType, contextId, 'document');
+        const validDocIds = new Set(links.map(link => link.target_id === contextId ? link.source_id : link.target_id));
+        setDocuments(data?.filter(d => validDocIds.has(d.id)) || []);
+      } else {
+        setDocuments(data || []);
+      }
     } catch (err) {
       console.error('Failed to load documents:', err);
     } finally {

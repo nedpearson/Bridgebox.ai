@@ -26,6 +26,8 @@ import {
   X,
   Shield,
   Video,
+  CheckCircle2,
+  Mail
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -100,10 +102,12 @@ export default function AppSidebar() {
         { icon: Target, label: 'Opportunities', path: '/app/opportunities', requirePermission: permissions.canAccessAdminPanel },
         { icon: Zap, label: 'Agent Actions', path: '/app/agent-actions', requirePermission: permissions.canAccessAdminPanel },
         { icon: Building2, label: 'Clients', path: '/app/clients', requirePermission: permissions.canManageClients },
+        { icon: CheckCircle2, label: 'Tasks', path: '/app/tasks', requirePermission: permissions.canAccessAdminPanel },
         { icon: Heart, label: 'Client Success', path: '/app/client-success', requirePermission: permissions.canAccessAdminPanel },
         { icon: Zap, label: 'Automations', path: '/app/automations', requirePermission: permissions.canAccessAdminPanel },
         { icon: Zap, label: 'Workflows', path: '/app/workflows', requirePermission: permissions.canAccessAdminPanel },
         { icon: File, label: 'Documents', path: '/app/documents', requirePermission: permissions.canAccessAdminPanel },
+        { icon: Mail, label: 'Communications', path: '/app/communications', requirePermission: permissions.canAccessAdminPanel },
         { icon: BookOpen, label: 'Knowledge Base', path: '/app/knowledge', requirePermission: permissions.canAccessAdminPanel },
         { icon: Network, label: 'Integrations', path: '/app/integrations', requirePermission: permissions.canAccessAdminPanel },
         { icon: CreditCard, label: 'Billing', path: '/app/billing', requirePermission: permissions.canAccessAdminPanel },

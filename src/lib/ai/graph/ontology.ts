@@ -16,6 +16,19 @@ export const bridgeboxOntology: GraphNode[] = [
     updatedAt: timestamp
   },
   
+  // RELATIONAL GRAPH MATRIX
+  {
+    id: 'module:relational_core',
+    name: 'Relational Graph Engine & Command Center',
+    type: 'module',
+    description: 'The connective tissue of the Bridgebox OS. Allows Tasks, Documents, Communications, and Workflows to be dynamically bound to any Client, Project, or generic entity node via the `entity_links` matrix. Powered by the Relational Command Center UI tabs.',
+    relatedNodes: ['module:crm', 'module:delivery', 'module:automations', 'module:support'],
+    visibility: { roles: ['super_admin', 'tenant_admin', 'manager', 'agent', 'client_admin', 'client_user'] },
+    actions: [],
+    sourceOfTruth: 'static',
+    updatedAt: timestamp
+  },
+  
   // CRM / SALES
   {
     id: 'module:crm',

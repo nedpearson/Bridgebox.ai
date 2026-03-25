@@ -79,6 +79,10 @@ import { WorkflowTemplates } from './pages/app/WorkflowTemplates';
 import { WorkflowExecutions } from './pages/app/WorkflowExecutions';
 import { Documents } from './pages/app/Documents';
 import { DocumentDetail } from './pages/app/DocumentDetail';
+import GlobalTasksList from './pages/app/GlobalTasksList';
+import GlobalTaskDetail from './pages/app/GlobalTaskDetail';
+import CommunicationsList from './pages/app/CommunicationsList';
+import CommunicationDetail from './pages/app/CommunicationDetail';
 import MobileHome from './pages/mobile/MobileHome';
 import MobileTasks from './pages/mobile/MobileTasks';
 import MobileTaskDetail from './pages/mobile/MobileTaskDetail';
@@ -162,6 +166,10 @@ function App() {
                       <Route path="/workflows/:id/executions" element={<WorkflowExecutions />} />
                       <Route path="/documents" element={<Documents />} />
                       <Route path="/documents/:id" element={<DocumentDetail />} />
+                      <Route path="/tasks" element={<GlobalTasksList />} />
+                      <Route path="/tasks/:id" element={<GlobalTaskDetail />} />
+                      <Route path="/communications" element={<CommunicationsList />} />
+                      <Route path="/communications/:id" element={<CommunicationDetail />} />
                       <Route path="/knowledge" element={<Knowledge />} />
                       <Route path="/knowledge/:docId" element={<KnowledgeDetail />} />
                       <Route path="/copilot" element={<Copilot />} />

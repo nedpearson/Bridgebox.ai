@@ -13,6 +13,7 @@ import {
   Database,
   Play,
 } from 'lucide-react';
+import TimelineActivity from '../../components/app/TimelineActivity';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
@@ -400,6 +401,8 @@ export function DocumentDetail() {
                 )}
               </>
             )}
+
+            <TimelineActivity entityType="document" entityId={document.id} />
           </div>
         </div>
       </div>

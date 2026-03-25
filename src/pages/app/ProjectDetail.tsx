@@ -8,6 +8,11 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
 import EmptyState from '../../components/EmptyState';
 import IntegrationBadge from '../../components/connectors/IntegrationBadge';
+import RelationalCommandCenter from '../../components/app/RelationalCommandCenter';
+import RelationalMetricsCard from '../../components/app/RelationalMetricsCard';
+import NextBestActionPanel from '../../components/app/NextBestActionPanel';
+import BlockersPanel from '../../components/app/BlockersPanel';
+import TimelineActivity from '../../components/app/TimelineActivity';
 import { projectsService } from '../../lib/db/projects';
 import { useState, useEffect } from 'react';
 
@@ -69,8 +74,9 @@ export default function ProjectDetail() {
     <>
       <AppHeader title={project.name} />
 
-      <div className="p-8 space-y-6">
-        <Link
+      <RelationalCommandCenter entityType="project" entityId={project.id}>
+        <div className="space-y-6">
+          <Link
           to="/app/projects"
           className="inline-flex items-center space-x-2 text-slate-400 hover:text-white transition-colors"
         >
@@ -120,7 +126,11 @@ export default function ProjectDetail() {
 
             <p className="text-slate-300 text-sm mb-6">{project.description}</p>
 
-            <div className="space-y-4">
+            <BlockersPanel entityType="project" entityId={project.id} />
+            <RelationalMetricsCard entityType="project" entityId={project.id} />
+            <NextBestActionPanel entityType="project" entityData={project} />
+
+            <div className="space-y-4 mt-6 border-t border-slate-800 pt-6">
               <div className="flex items-center space-x-3">
                 <Users className="w-4 h-4 text-slate-500" />
                 <div>
@@ -271,38 +281,11 @@ export default function ProjectDetail() {
                 </div>
               )}
             </Card>
-
-            <Card glass className="p-6">
-              <h3 className="text-xl font-bold text-white mb-6">Recent Activity</h3>
-              {recentActivity.length === 0 ? (
-                <EmptyState
-                  icon={Calendar}
-                  title="No Recent Activity"
-                  description="No recorded activity for this project yet."
-                />
-              ) : (
-                <div className="space-y-4">
-                  {recentActivity.map((activity, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-start justify-between py-3 border-b border-slate-800 last:border-0"
-                    >
-                      <div>
-                        <p className="text-white mb-1">{activity.event}</p>
-                        <p className="text-slate-500 text-sm">{activity.user}</p>
-                      </div>
-                      <p className="text-slate-500 text-sm">{activity.date}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
-            </Card>
+            <TimelineActivity entityType="project" entityId={project.id} />
           </div>
         </div>
-      </div>
+        </div>
+      </RelationalCommandCenter>
     </>
   );
 }

@@ -23,6 +23,26 @@ class DocumentService {
     return data || [];
   }
 
+  async getLinkedDocuments(entityType: string, entityId: string): Promise<Document[]> {
+    const { entityLinkService } = await import('./entityLinks');
+    const links = await entityLinkService.getLinkedEntities(entityType as any, entityId, 'document');
+    
+    const docIds = links.map(link => 
+      link.source_type === 'document' ? link.source_id : link.target_id
+    );
+
+    if (docIds.length === 0) return [];
+
+    const { data, error } = await supabase
+      .from('documents')
+      .select('*')
+      .in('id', docIds)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  }
+
   async getDocumentById(documentId: string): Promise<DocumentWithAnalysis | null> {
     const { data: document, error: docError } = await supabase
       .from('documents')

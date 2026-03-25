@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -7,6 +6,11 @@ import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import RelationalCommandCenter from '../../components/app/RelationalCommandCenter';
+import RelationalMetricsCard from '../../components/app/RelationalMetricsCard';
+import NextBestActionPanel from '../../components/app/NextBestActionPanel';
+import BlockersPanel from '../../components/app/BlockersPanel';
+import TimelineActivity from '../../components/app/TimelineActivity';
 import { workflowService } from '../../lib/db/workflows';
 import type { Workflow, WorkflowStep, WorkflowCategory, WorkflowTriggerType, WorkflowStepType } from '../../types/workflow';
 import { useAuth } from '../../contexts/AuthContext';
@@ -111,6 +115,167 @@ export function WorkflowBuilder() {
     );
   }
 
+  const renderEditor = () => (
+    <div className="space-y-6">
+      <Card className="p-6 bg-slate-900/50 border-slate-800">
+        <h2 className="text-lg font-semibold text-white mb-4">Basic Information</h2>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-2">
+              Workflow Name
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g., High-Value Lead Processing"
+              className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-2">
+              Description
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Describe what this workflow does..."
+              rows={3}
+              className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Category
+              </label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value as WorkflowCategory)}
+                className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+              >
+                {CATEGORY_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Trigger
+              </label>
+              <select
+                value={triggerType}
+                onChange={(e) => setTriggerType(e.target.value as WorkflowTriggerType)}
+                className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+              >
+                {TRIGGER_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <Card className="p-6 bg-slate-900/50 border-slate-800">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-white">Workflow Steps</h2>
+          <Button size="sm" disabled>
+            <Plus className="w-4 h-4 mr-2" />
+            Add Step
+          </Button>
+        </div>
+
+        {steps.length === 0 ? (
+          <div className="text-center py-12 text-slate-500">
+            <p className="mb-2">No steps added yet</p>
+            <p className="text-sm">Visual workflow builder coming soon</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {steps.map((step, index) => (
+              <div
+                key={step.id}
+                className="p-4 bg-slate-800/50 border border-slate-700 rounded-lg"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="font-medium text-white mb-1">
+                      {index + 1}. {step.step_name}
+                    </div>
+                    <div className="text-sm text-slate-400">
+                      Type: {step.step_type}
+                    </div>
+                  </div>
+                  <button className="p-2 hover:bg-slate-700 rounded-lg transition-colors">
+                    <Trash2 className="w-4 h-4 text-red-400" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </Card>
+    </div>
+  );
+
+  const renderContent = () => (
+    <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="flex items-center gap-4 mb-6">
+        <button
+          onClick={() => navigate('/app/workflows')}
+          className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5 text-slate-400" />
+        </button>
+        <div className="flex-1" />
+        <Button
+          variant="secondary"
+          onClick={() => navigate('/app/workflows')}
+        >
+          Cancel
+        </Button>
+        <Button onClick={handleSave} disabled={saving}>
+          {saving ? (
+            <>
+              <LoadingSpinner size="sm" />
+              Saving...
+            </>
+          ) : (
+            <>
+              <Save className="w-4 h-4 mr-2" />
+              Save Workflow
+            </>
+          )}
+        </Button>
+      </div>
+
+      {id ? (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">
+            <BlockersPanel entityType="workflow" entityId={id} />
+            <RelationalMetricsCard entityType="workflow" entityId={id} />
+            <NextBestActionPanel entityType="workflow" entityData={{ id, name, category, status: 'active', triggerType }} />
+            {renderEditor()}
+          </div>
+          <div className="space-y-6">
+            <TimelineActivity entityType="workflow" entityId={id} />
+          </div>
+        </div>
+      ) : (
+        renderEditor()
+      )}
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-slate-950">
       <AppHeader
@@ -118,146 +283,13 @@ export function WorkflowBuilder() {
         subtitle="Configure triggers, conditions, and actions"
       />
 
-      <div className="max-w-5xl mx-auto px-6 py-8">
-        <div className="flex items-center gap-4 mb-6">
-          <button
-            onClick={() => navigate('/app/workflows')}
-            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-slate-400" />
-          </button>
-          <div className="flex-1" />
-          <Button
-            variant="secondary"
-            onClick={() => navigate('/app/workflows')}
-          >
-            Cancel
-          </Button>
-          <Button onClick={handleSave} disabled={saving}>
-            {saving ? (
-              <>
-                <LoadingSpinner size="sm" className="mr-2" />
-                Saving...
-              </>
-            ) : (
-              <>
-                <Save className="w-4 h-4 mr-2" />
-                Save Workflow
-              </>
-            )}
-          </Button>
-        </div>
-
-        <div className="space-y-6">
-          <Card className="p-6 bg-slate-900/50 border-slate-800">
-            <h2 className="text-lg font-semibold text-white mb-4">Basic Information</h2>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Workflow Name
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g., High-Value Lead Processing"
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Description
-                </label>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Describe what this workflow does..."
-                  rows={3}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Category
-                  </label>
-                  <select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value as WorkflowCategory)}
-                    className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                  >
-                    {CATEGORY_OPTIONS.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Trigger
-                  </label>
-                  <select
-                    value={triggerType}
-                    onChange={(e) => setTriggerType(e.target.value as WorkflowTriggerType)}
-                    className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                  >
-                    {TRIGGER_OPTIONS.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6 bg-slate-900/50 border-slate-800">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Workflow Steps</h2>
-              <Button size="sm" disabled>
-                <Plus className="w-4 h-4 mr-2" />
-                Add Step
-              </Button>
-            </div>
-
-            {steps.length === 0 ? (
-              <div className="text-center py-12 text-slate-500">
-                <p className="mb-2">No steps added yet</p>
-                <p className="text-sm">Visual workflow builder coming soon</p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {steps.map((step, index) => (
-                  <div
-                    key={step.id}
-                    className="p-4 bg-slate-800/50 border border-slate-700 rounded-lg"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium text-white mb-1">
-                          {index + 1}. {step.step_name}
-                        </div>
-                        <div className="text-sm text-slate-400">
-                          Type: {step.step_type}
-                        </div>
-                      </div>
-                      <button className="p-2 hover:bg-slate-700 rounded-lg transition-colors">
-                        <Trash2 className="w-4 h-4 text-red-400" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </Card>
-        </div>
-      </div>
+      {id ? (
+        <RelationalCommandCenter entityType="workflow" entityId={id}>
+          {renderContent()}
+        </RelationalCommandCenter>
+      ) : (
+        renderContent()
+      )}
     </div>
   );
 }

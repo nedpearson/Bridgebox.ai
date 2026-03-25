@@ -158,6 +158,18 @@ class WorkflowService {
     return data || [];
   }
 
+  async getExecutionsByEntity(entityType: string, entityId: string): Promise<(WorkflowExecution & { workflow?: { name: string, category: string } })[]> {
+    const { data, error } = await supabase
+      .from('workflow_executions')
+      .select('*, workflow:workflows(name, category)')
+      .eq('trigger_entity_type', entityType)
+      .eq('trigger_entity_id', entityId)
+      .order('started_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  }
+
   async getExecutionDetail(executionId: string): Promise<WorkflowExecutionDetail | null> {
     const { data: execution, error: executionError } = await supabase
       .from('workflow_executions')

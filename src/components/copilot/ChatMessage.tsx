@@ -43,6 +43,46 @@ export default function ChatMessage({ message }: ChatMessageProps) {
     });
   };
 
+  const renderToolCalls = () => {
+    if (!message.metadata?.tool_calls || !Array.isArray(message.metadata.tool_calls)) return null;
+
+    return message.metadata.tool_calls.map((tool: any, idx: number) => {
+      if (tool.type !== 'function') return null;
+      
+      let params = tool.function.arguments;
+      try { params = typeof params === 'string' ? JSON.parse(params) : params; } catch (e) {}
+      
+      return (
+        <div key={idx} className="mt-3 p-3 bg-slate-900 border border-purple-500/30 rounded-lg">
+          <div className="flex items-center gap-2 mb-2 text-purple-400">
+            <Zap className="w-4 h-4" />
+            <span className="font-semibold text-sm">Action Proposed: {tool.function.name}</span>
+          </div>
+          <div className="bg-black/50 p-2 rounded text-xs font-mono text-slate-300 overflow-x-auto mb-3">
+            {JSON.stringify(params, null, 2)}
+          </div>
+          <div className="flex gap-2">
+            <button 
+              onClick={() => {
+                if ((window as any).executeCopilotTool) {
+                   (window as any).executeCopilotTool(tool.function.name, params);
+                } else {
+                   alert('Tool executor is currently initializing.');
+                }
+              }}
+              className="flex-1 py-1.5 bg-purple-500 text-white rounded text-xs font-semibold hover:bg-purple-600 transition"
+            >
+              Approve & Execute
+            </button>
+            <button className="flex-1 py-1.5 bg-slate-800 text-slate-300 rounded text-xs font-semibold hover:bg-slate-700 transition">
+              Reject
+            </button>
+          </div>
+        </div>
+      );
+    });
+  };
+
   if (isSystem) {
     return (
       <div className="flex justify-center py-2">
