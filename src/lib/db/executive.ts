@@ -80,7 +80,7 @@ export interface RecentActivity {
 }
 
 export const executiveService = {
-  async getExecutiveKPIs(organizationId?: string, organizationId?: string): Promise<ExecutiveKPIs> {
+  async getExecutiveKPIs(organizationId?: string): Promise<ExecutiveKPIs> {
     try {
       const [
         subscriptionsResult,
@@ -138,7 +138,7 @@ export const executiveService = {
     }
   },
 
-  async getSalesSnapshot(organizationId?: string, organizationId?: string): Promise<SalesSnapshot> {
+  async getSalesSnapshot(organizationId?: string): Promise<SalesSnapshot> {
     try {
       const [
         proposalsResult,
@@ -195,7 +195,7 @@ export const executiveService = {
     }
   },
 
-  async getDeliverySnapshot(organizationId?: string, organizationId?: string): Promise<DeliverySnapshot> {
+  async getDeliverySnapshot(organizationId?: string): Promise<DeliverySnapshot> {
     try {
       const [
         deliveryResult,
@@ -253,7 +253,7 @@ export const executiveService = {
     }
   },
 
-  async getClientHealthSnapshot(organizationId?: string, organizationId?: string): Promise<ClientHealthSnapshot> {
+  async getClientHealthSnapshot(organizationId?: string): Promise<ClientHealthSnapshot> {
     try {
       const [
         orgsResult,
@@ -303,7 +303,7 @@ export const executiveService = {
     }
   },
 
-  async getBillingSnapshot(organizationId?: string, organizationId?: string): Promise<BillingSnapshot> {
+  async getBillingSnapshot(organizationId?: string): Promise<BillingSnapshot> {
     try {
       const [
         stripeSubscriptionsResult,
@@ -357,7 +357,7 @@ export const executiveService = {
     }
   },
 
-  async getOperationalAlerts(organizationId?: string, organizationId?: string): Promise<OperationalAlert[]> {
+  async getOperationalAlerts(organizationId?: string): Promise<OperationalAlert[]> {
     try {
       const alerts: OperationalAlert[] = [];
 
@@ -445,7 +445,7 @@ export const executiveService = {
     }
   },
 
-  async getRecentActivity(organizationId?: string, organizationId?: string): Promise<RecentActivity[]> {
+  async getRecentActivity(organizationId?: string): Promise<RecentActivity[]> {
     try {
       const activities: RecentActivity[] = [];
 
@@ -554,7 +554,7 @@ export const executiveService = {
     }
   },
 
-  async getExecutiveDashboard(organizationId?: string, organizationId?: string) {
+  async getExecutiveDashboard(organizationId?: string) {
     const [
       kpis,
       sales,

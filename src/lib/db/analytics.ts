@@ -63,7 +63,7 @@ export interface ClientHealthAnalytics {
 }
 
 export const analyticsService = {
-  async getSalesAnalytics(organizationId?: string, organizationId?: string): Promise<SalesAnalytics> {
+  async getSalesAnalytics(organizationId?: string): Promise<SalesAnalytics> {
     try {
       const [
         leadsResult,
@@ -152,7 +152,7 @@ export const analyticsService = {
     }
   },
 
-  async getDeliveryAnalytics(organizationId?: string, organizationId?: string): Promise<DeliveryAnalytics> {
+  async getDeliveryAnalytics(organizationId?: string): Promise<DeliveryAnalytics> {
     try {
       const [
         projectsResult,
@@ -244,7 +244,7 @@ export const analyticsService = {
     }
   },
 
-  async getBillingAnalytics(organizationId?: string, organizationId?: string): Promise<BillingAnalytics> {
+  async getBillingAnalytics(organizationId?: string): Promise<BillingAnalytics> {
     try {
       const [
         subscriptionsResult,
@@ -320,7 +320,7 @@ export const analyticsService = {
     }
   },
 
-  async getSupportAnalytics(organizationId?: string, organizationId?: string): Promise<SupportAnalytics> {
+  async getSupportAnalytics(organizationId?: string): Promise<SupportAnalytics> {
     try {
       const [
         ticketsResult,
@@ -405,7 +405,7 @@ export const analyticsService = {
     }
   },
 
-  async getClientHealthAnalytics(organizationId?: string, organizationId?: string): Promise<ClientHealthAnalytics> {
+  async getClientHealthAnalytics(organizationId?: string): Promise<ClientHealthAnalytics> {
     try {
       const [
         organizationsResult,
@@ -478,7 +478,7 @@ export const analyticsService = {
     }
   },
 
-  async getConversionMetrics(organizationId?: string, organizationId?: string) {
+  async getConversionMetrics(organizationId?: string) {
     const [leads, proposals, projects, orgs] = await Promise.all([
       supabase.from('leads').select('id, converted_to_client'),
       (organizationId ? (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('id, status, converted_to_project').eq('organization_id', organizationId) : (organizationId ? supabase.from('proposals').eq('organization_id', organizationId) : supabase.from('proposals')).select('id, status, converted_to_project')),
@@ -497,7 +497,7 @@ export const analyticsService = {
     };
   },
 
-  async getConversionTracking(limit = 50, organizationId?: string, organizationId?: string) {
+  async getConversionTracking(limit = 50, organizationId?: string) {
     const { data, error } = await supabase
       .from('conversion_tracking')
       .select('*')
@@ -508,7 +508,7 @@ export const analyticsService = {
     return data;
   },
 
-  async getAllAnalytics(organizationId?: string, organizationId?: string) {
+  async getAllAnalytics(organizationId?: string) {
     const [sales, delivery, billing, support, clientHealth] = await Promise.all([
       this.getSalesAnalytics(organizationId),
       this.getDeliveryAnalytics(organizationId),
