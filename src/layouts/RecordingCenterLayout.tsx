@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { MobileNavProvider } from '../contexts/MobileNavContext';
 import { 
   Building2, 
   Terminal, 
@@ -37,6 +38,7 @@ export default function RecordingCenterLayout({ children }: { children: React.Re
   ];
 
   return (
+    <MobileNavProvider>
     <div className="flex w-full min-h-screen bg-slate-950">
       
       {/* Sidebar Navigation */}
@@ -87,5 +89,6 @@ export default function RecordingCenterLayout({ children }: { children: React.Re
       </div>
       
     </div>
+    </MobileNavProvider>
   );
 }

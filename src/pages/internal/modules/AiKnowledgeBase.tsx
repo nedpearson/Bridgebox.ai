@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Brain, LayoutGrid, BookOpen, Save, RefreshCw } from 'lucide-react';
 import AppHeader from '../../../components/app/AppHeader';
 import Card from '../../../components/Card';
@@ -6,7 +6,31 @@ import Button from '../../../components/Button';
 import { intelligenceGraph } from '../../../lib/ai/graph/IntelligenceGraph';
 import type { GraphNode } from '../../../lib/ai/graph/types';
 
-export default function AiKnowledgeBase() {
+class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: Error | null}> {
+  constructor(props: {children: React.ReactNode}) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+  render() {
+    if (this.state.hasError) {
+      return ( 
+        <div className="p-8 bg-red-950 min-h-screen text-white rounded-lg border border-red-500 w-full z-[9999] absolute top-0 left-0">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2"><LayoutGrid/> AiKnowledgeBase Crashed!</h2>
+          <p className="font-mono bg-black/50 p-4 rounded text-red-400">{this.state.error?.message}</p>
+          <pre className="mt-4 text-xs font-mono text-slate-300 overflow-auto max-h-[60vh] bg-black/50 p-4 rounded">
+            {this.state.error?.stack}
+          </pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function AiKnowledgeBaseContent() {
   const [nodes, setNodes] = useState<GraphNode[]>([]);
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [descriptionOverride, setDescriptionOverride] = useState('');
@@ -173,5 +197,13 @@ export default function AiKnowledgeBase() {
         </Card>
       </div>
     </>
+  );
+}
+
+export default function AiKnowledgeBase() {
+  return (
+    <ErrorBoundary>
+      <AiKnowledgeBaseContent />
+    </ErrorBoundary>
   );
 }
