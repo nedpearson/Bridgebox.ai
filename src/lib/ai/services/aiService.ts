@@ -192,6 +192,42 @@ class AIService {
     return this.executeAITask<any[]>(messages, false);
   }
 
+  async enrichLeadData(domain: string, websiteContent: string): Promise<AITaskResult<any>> {
+    const messages = [
+      {
+        role: 'system',
+        content: `You are an expert lead enrichment AI. Extract business intelligence based on this website text snippet.
+        Return exactly a JSON object: { "company_overview": "...", "target_market": "..." }`
+      },
+      {
+        role: 'user',
+        content: `Website: ${domain}\nContent Array: ${websiteContent.slice(0, 3000)}`
+      }
+    ];
+    return this.executeAITask<any>(messages, false);
+  }
+
+  async processVoiceCommand(transcript: string): Promise<AITaskResult<any>> {
+    const messages = [
+      {
+        role: 'system',
+        content: `You are an autonomous CRM voice agent. The user is dictating instructions via a microphone.
+        Parse the transcript and extract structured Entities to create.
+        Return exactly a JSON object matching this schema:
+        {
+          "projects": [ { "name": "...", "description": "..." } ],
+          "tasks": [ { "title": "...", "description": "...", "priority": "high" } ]
+        }
+        Only include entities explicitly requested.`
+      },
+      {
+        role: 'user',
+        content: transcript
+      }
+    ];
+    return this.executeAITask<any>(messages, false);
+  }
+
   isAvailable(): boolean {
     return AIProviderFactory.isAIAvailable();
   }

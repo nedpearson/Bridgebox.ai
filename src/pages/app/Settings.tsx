@@ -3,6 +3,7 @@ import { User, Bell, Shield, CreditCard, Users, Settings as SettingsIcon, Palett
 import { useNavigate } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
+import PasskeyRegistration from '../../components/auth/PasskeyRegistration';
 import { useAuth } from '../../contexts/AuthContext';
 import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
 
@@ -182,6 +183,10 @@ export default function Settings() {
             </div>
           </div>
         </Card>
+
+        <div className="max-w-2xl">
+          <PasskeyRegistration />
+        </div>
       </div>
     </>
   );

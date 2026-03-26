@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { CopilotProvider } from './contexts/CopilotContext';
+import { useCustomDomain } from './hooks/useCustomDomain';
+import VoiceCommandFAB from './components/app/VoiceCommandFAB';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import RoleGuard from './components/auth/RoleGuard';
 import MainLayout from './layouts/MainLayout';
@@ -119,8 +121,19 @@ import SystemDiagnostics from './pages/internal/modules/SystemDiagnostics';
 import AuditTrail from './pages/internal/modules/AuditTrail';
 import AiKnowledgeBase from './pages/internal/modules/AiKnowledgeBase';
 import AiValidationSuite from './pages/internal/modules/AiValidationSuite';
+import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
+  const { isCustomDomain, loading: domainLoading } = useCustomDomain();
+
+  if (domainLoading) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
   return (
     <Router>
       <AuthProvider>
@@ -262,10 +275,17 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="*"
-            element={
-              <MainLayout>
+          
+          {/* If accessed via Custom Domain, aggressively fallback unauthorized requests strictly to the Client Portal login wrapper */}
+          {isCustomDomain && (
+            <Route path="*" element={<Login />} />
+          )}
+
+          {!isCustomDomain && (
+            <Route
+              path="*"
+              element={
+                <MainLayout>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/platform" element={<Platform />} />
@@ -287,7 +307,10 @@ function App() {
               </MainLayout>
             }
           />
+          )}
+
         </Routes>
+        {!isCustomDomain && <VoiceCommandFAB />}
         </CopilotProvider>
       </AuthProvider>
     </Router>

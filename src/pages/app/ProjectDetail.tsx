@@ -1,6 +1,7 @@
-import { motion } from 'framer-motion';
-import { ArrowLeft, FolderKanban, Calendar, DollarSign, Users, ExternalLink, Rocket } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, FolderKanban, Calendar, DollarSign, Users, ExternalLink, Rocket, Smartphone, X } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
+import { QRCodeSVG } from 'qrcode.react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
@@ -25,6 +26,7 @@ export default function ProjectDetail() {
   const [recentActivity, setRecentActivity] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showQR, setShowQR] = useState(false);
 
   const handleStatusChange = async (newStatus: string) => {
     if (!project || project.status === newStatus) return;
@@ -178,6 +180,13 @@ export default function ProjectDetail() {
                   <ExternalLink className="w-4 h-4" />
                 </a>
               )}
+              <button
+                onClick={() => setShowQR(true)}
+                className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 rounded-lg text-indigo-400 transition-colors mt-2"
+              >
+                <Smartphone className="w-4 h-4" />
+                <span className="text-sm font-medium">Mobile QR Link</span>
+              </button>
             </div>
           </Card>
 
@@ -294,6 +303,49 @@ export default function ProjectDetail() {
         </div>
         </div>
       </RelationalCommandCenter>
+
+      <AnimatePresence>
+        {showQR && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-sm"
+            >
+              <Card glass className="p-8 border-indigo-500/30 shadow-2xl relative">
+                <button
+                  onClick={() => setShowQR(false)}
+                  className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white bg-slate-800/50 hover:bg-slate-700 rounded-full transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Smartphone className="w-8 h-8 text-indigo-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Mobile Access</h3>
+                  <p className="text-sm text-slate-400">Scan this QR code with any mobile device to instantly open the field agent view for this specific project.</p>
+                </div>
+
+                <div className="bg-white p-4 rounded-xl flex items-center justify-center shadow-inner mx-auto max-w-[240px]">
+                  <QRCodeSVG 
+                    value={`${window.location.origin}/mobile/projects/${project.id}`}
+                    size={200}
+                    level="H"
+                    includeMargin={false}
+                  />
+                </div>
+                
+                <div className="mt-6 text-center">
+                  <p className="text-xs text-slate-500 break-all">{`${window.location.origin}/mobile/projects/${project.id}`}</p>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

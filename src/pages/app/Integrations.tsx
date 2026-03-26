@@ -7,6 +7,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
 import ConnectorCard from '../../components/connectors/ConnectorCard';
 import ProviderCard from '../../components/connectors/ProviderCard';
+import WorkspaceChatIntegrations from '../../components/connectors/WorkspaceChatIntegrations';
 import { connectorService } from '../../lib/connectors';
 import type { Connector, ConnectorProvider } from '../../lib/connectors/types';
 import { useAuth } from '../../contexts/AuthContext';
@@ -149,6 +150,8 @@ export default function Integrations() {
         title="Integrations"
         subtitle="Connect external data sources and business systems"
       />
+
+      <WorkspaceChatIntegrations />
 
       <div className="mb-6 space-y-4">
         <div className="flex items-center gap-4">

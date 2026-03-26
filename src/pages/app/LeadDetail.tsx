@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { ArrowLeft, Users, Mail, Phone, FileText, ArrowRight, Brain, Clock, Target, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Users, Mail, Phone, FileText, ArrowRight, Brain, Clock, Target, AlertCircle, Globe, Loader2 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -13,6 +13,7 @@ import AIContent, { AIButton } from '../../components/ai/AIContent';
 import { useLeadSummary } from '../../hooks/useAI';
 import { useAuth } from '../../contexts/AuthContext';
 import { leadsService } from '../../lib/db/leads';
+import { aiService } from '../../lib/ai/services/aiService';
 import { predictiveAnalytics } from '../../lib/predictiveAnalytics';
 import { intelligenceOrchestrator } from '../../lib/intelligenceOrchestrator';
 import type { LeadRecord } from '../../types/database';
@@ -27,7 +28,49 @@ export default function LeadDetail() {
   const [insights, setInsights] = useState<AIInsight[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [isEnriching, setIsEnriching] = useState(false);
   const aiSummary = useLeadSummary();
+
+  const handleEnrichLead = async () => {
+    if (!lead) return;
+    setIsEnriching(true);
+    try {
+      let domain = '';
+      if (lead.email) {
+        const parts = lead.email.split('@');
+        if (parts.length === 2 && !['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com'].includes(parts[1])) {
+          domain = parts[1];
+        }
+      }
+      if (!domain) {
+        throw new Error('No valid business domain found to enrich.');
+      }
+
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://${domain}`)}`;
+      const response = await fetch(proxyUrl);
+      const data = await response.json();
+      
+      const rawHtml = data.contents;
+      const bodyText = rawHtml ? rawHtml.replace(/<[^>]*>?/gm, ' ') : '';
+
+      const { success, data: enrichedData, error } = await aiService.enrichLeadData(domain, bodyText);
+
+      if (success && enrichedData) {
+        const enrichmentNote = `[AI ENRICHMENT]\\nWebsite: ${domain}\\nOverview: ${enrichedData.company_overview}\\nTarget Market: ${enrichedData.target_market}`;
+        const newNotes = (lead as any).notes ? `${(lead as any).notes}\\n\\n${enrichmentNote}` : enrichmentNote;
+        
+        await leadsService.updateLead(lead.id, { notes: newNotes } as any);
+        setLead({ ...lead, notes: newNotes } as any);
+        alert('Lead enriched successfully!');
+      } else {
+        throw new Error(error?.message || 'Failed to extract enrichment data.');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Failed to enrich lead.');
+    } finally {
+      setIsEnriching(false);
+    }
+  };
 
   const handleStatusChange = async (newStatus: string) => {
     if (!lead || lead.status === newStatus) return;
@@ -248,11 +291,21 @@ export default function LeadDetail() {
                   <Brain className="w-6 h-6 text-blue-400" />
                   <h3 className="text-lg font-bold text-white">AI Analysis</h3>
                 </div>
-                {aiSummary.isAvailable && !aiSummary.data && !aiSummary.loading && (
-                  <AIButton onClick={() => aiSummary.summarize(lead)}>
-                    Generate AI Summary
-                  </AIButton>
-                )}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleEnrichLead}
+                    disabled={isEnriching}
+                    className="flex items-center gap-2 px-3 py-1.5 bg-[#10B981]/10 text-[#10B981] hover:bg-[#10B981]/20 rounded-lg text-sm font-medium transition-colors border border-[#10B981]/20 disabled:opacity-50"
+                  >
+                    {isEnriching ? <Loader2 className="w-4 h-4 animate-spin" /> : <Globe className="w-4 h-4" />}
+                    Auto-Enrich
+                  </button>
+                  {aiSummary.isAvailable && !aiSummary.data && !aiSummary.loading && (
+                    <AIButton onClick={() => aiSummary.summarize(lead)}>
+                      Generate AI Summary
+                    </AIButton>
+                  )}
+                </div>
               </div>
 
               <AIContent
