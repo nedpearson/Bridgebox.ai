@@ -24,7 +24,7 @@ export default function AiKnowledgeBase() {
 
   const handleSelectNode = (node: GraphNode) => {
     setSelectedNode(node);
-    setDescriptionOverride(node.description);
+    setDescriptionOverride(node.description || '');
   };
 
   const handleSaveOverride = () => {
@@ -83,11 +83,11 @@ export default function AiKnowledgeBase() {
                     node.sourceOfTruth === 'dynamic_scan' ? 'bg-amber-500/20 text-amber-400' :
                     'bg-emerald-500/20 text-emerald-400'
                   }`}>
-                    {node.sourceOfTruth.replace('_', ' ')}
+                    {node.sourceOfTruth?.replace('_', ' ') || 'Unknown'}
                   </span>
                   {(node.visibility?.roles || []).slice(0, 2).map(r => (
                     <span key={r} className="text-[10px] bg-slate-500/20 text-slate-300 px-2 py-0.5 rounded-full">
-                      {r.replace('_', ' ')}
+                      {r?.replace('_', ' ') || 'All'}
                     </span>
                   ))}
                   {(node.visibility?.roles?.length || 0) > 2 && (
