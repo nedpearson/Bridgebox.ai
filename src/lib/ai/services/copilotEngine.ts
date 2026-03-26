@@ -168,9 +168,28 @@ export class CopilotEngine {
         tools: PLATFORM_TOOLS
       });
 
+      const responseText = response.content ? response.content.trim() : "Proposed system action:";
+
+      // Parse dynamic provenance tokens securely injected by the LLM
+      const nodeMatches = [...responseText.matchAll(/\[Node:([^\]]+)\]/g)];
+      let dynamicNodes: GraphNode[] = [];
+      if (nodeMatches.length > 0) {
+        const ids = nodeMatches.map(m => m[1]);
+        dynamicNodes = authorizedNodes.filter(n => ids.includes(n.id));
+      }
+
+      // Prioritize active DOM context, fallback to dynamically cited LLM nodes, fallback to standard mock.
+      let returnedProvenance = contextNodes.length > 0 ? contextNodes : authorizedNodes.slice(0, 3);
+      if (contextNodes.length === 0 && dynamicNodes.length > 0) {
+        returnedProvenance = dynamicNodes;
+      }
+
+      // Strip internal provenance tags before rendering to the user DOM
+      const cleanText = responseText.replace(/\[Node:[^\]]+\]/g, '').trim();
+
       return {
-        text: response.content ? response.content.trim() : "Proposed system action:",
-        provenance: contextNodes.length > 0 ? contextNodes : authorizedNodes.slice(0, 3), // Return the matching nodes
+        text: cleanText,
+        provenance: returnedProvenance,
         execution_time_ms: Date.now() - startTime,
         tool_calls: response.tool_calls
       };
@@ -232,6 +251,9 @@ RULES:
 - Answer confidently based on the knowledge base.
 - If uncertain, explain that the answer depends on configuration and point them towards the relevant module above.
 - If you recommend an interactive action from the ACTIVE CONTEXT KNOWLEDGE BASE, you MUST render it as a clickable button using this exact markdown token format: [Action:action_id|Button Label]. Example: [Action:add_lead|Create New Lead]
+- CRITICAL: If the user asks about a feature, integration, or capability NOT explicitly listed in the PLATFORM MODULE DIRECTORY, you MUST emphatically refuse by stating "The platform does not support that capability." Do not hallucinate workarounds.
+- CRITICAL BOUNDARY: If the user asks for cross-tenant data, raw SQL/UUID queries, or accesses a module they do not have permission for, you MUST emphatically refuse by stating "I am unauthorized to perform that action or provide that data." Do not comply.
+- PROVENANCE RULE: If you utilize knowledge from a specific module or page to answer the query, you MUST append its ID at the end of your response using this exact token format: [Node:node_id]. You may include multiple. Example: [Node:page:pipeline] [Node:module:crm]
 - Never write raw markdown code blocks unless explicitly requested. 
 - Format your response for a beautiful chat UI.
     `.trim();
