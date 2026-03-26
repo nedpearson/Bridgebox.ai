@@ -17,7 +17,8 @@ import {
   Code2,
   Bug,
   TestTube2,
-  Database
+  Database,
+  DollarSign
 } from 'lucide-react';
 
 export default function RecordingCenterLayout({ children }: { children: React.ReactNode }) {
@@ -35,6 +36,7 @@ export default function RecordingCenterLayout({ children }: { children: React.Re
     { name: 'Web Access', path: '/app/internal/recording-center/web', icon: Globe },
     { name: 'AI Capability Editor', path: '/app/internal/recording-center/ai-knowledge', icon: Brain },
     { name: 'AI Validation Suite', path: '/app/internal/recording-center/ai-validation', icon: Database },
+    { name: 'Pricing Command Center', path: '/app/internal/recording-center/pricing', icon: DollarSign },
   ];
 
   return (

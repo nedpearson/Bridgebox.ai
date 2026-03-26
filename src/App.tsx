@@ -140,6 +140,8 @@ const AiValidationSuite = lazy(() => import('./pages/internal/modules/AiValidati
 import LoadingSpinner from './components/LoadingSpinner';
 const StackDiscoveryWizard = lazy(() => import('./pages/app/StackDiscoveryWizard'));
 const AgentControlRoom = lazy(() => import('./pages/internal/modules/AgentControlRoom'));
+const PricingCommandCenter = lazy(() => import('./pages/admin/PricingCommandCenter'));
+const PricingPresentation = lazy(() => import('./pages/onboarding/PricingPresentation'));
 
 function App() {
   const { isCustomDomain, loading: domainLoading } = useCustomDomain();
@@ -303,6 +305,7 @@ function App() {
                       <Route path="/recording-center/diagnostics" element={<SystemDiagnostics />} />
                       <Route path="/recording-center/audit" element={<AuditTrail />} />
                       <Route path="/recording-center/agents" element={<AgentControlRoom />} />
+                       <Route path="/recording-center/pricing" element={<PricingCommandCenter />} />
                     </Routes>
           </Suspense>
                   </RecordingCenterLayout>

@@ -6,6 +6,7 @@ import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
+import AiUsageWidget from '../../components/billing/AiUsageWidget';
 import { useAuth } from '../../contexts/AuthContext';
 import { projectsService } from '../../lib/db/projects';
 import { organizationsService } from '../../lib/db/organizations';
@@ -135,6 +136,13 @@ export default function ClientHome() {
             <p className="text-slate-400 text-sm">Total Projects</p>
           </Card>
         </div>
+
+        {/* AI Usage Widget */}
+        {organization?.id && (
+          <div className="mb-8">
+            <AiUsageWidget organizationId={organization.id} />
+          </div>
+        )}
 
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
           <Card glass className="p-6">

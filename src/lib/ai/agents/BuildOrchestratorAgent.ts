@@ -3,6 +3,8 @@ import { globalTasksService } from '../../db/globalTasks';
 import { projectsService } from '../../db/projects';
 import { AIProviderFactory } from '../providers';
 import { AgentRegistry, AgentPayload } from './AgentRegistry';
+import { calculatePricing, savePricingModel, type PricingInputs } from '../../billing/pricingEngine';
+import { logTokenUsage } from '../tokenTracker';
 
 export interface ExtractedBuildTask {
     title: string;
@@ -11,6 +13,27 @@ export interface ExtractedBuildTask {
     antigravity_prompt?: string;
     priority: number;
     is_platform_feature: boolean;
+    cost_impact?: string;
+    efficiency_rating?: 'low' | 'medium' | 'high';
+}
+
+export interface ExtractedPricingInputs {
+    estimatedQueriesPerDay: number;
+    documentProcessingVolume: number;
+    workflowExecutionFrequency: 'low' | 'medium' | 'high' | 'enterprise';
+    aiCopilotUsage: boolean;
+    aiSearchUsage: boolean;
+    aiGenerationUsage: boolean;
+    integrationCount: number;
+    integrationComplexity: 'simple' | 'moderate' | 'deep';
+    integrationSyncFrequency: 'realtime' | 'hourly' | 'daily' | 'weekly';
+    workflowCount: number;
+    automationDepth: 'basic' | 'moderate' | 'advanced' | 'fully_automated';
+    userCount: number;
+    concurrencyLevel: 'low' | 'medium' | 'high';
+    estimatedStorageGb: number;
+    customFeatureCount: number;
+    supportAgentUsage: 'basic' | 'standard' | 'advanced' | 'enterprise';
 }
 
 export const BuildOrchestratorAgent = {
@@ -25,22 +48,45 @@ export const BuildOrchestratorAgent = {
             organizationId
         };
 
-        return AgentRegistry.execute<{tasks: ExtractedBuildTask[]}>('BuildOrchestratorAgent', payload, async () => {
+        return AgentRegistry.execute<{tasks: ExtractedBuildTask[]; pricingModelId?: string}>('BuildOrchestratorAgent', payload, async () => {
             const extractionPrompt = `
-You are the Bridgebox Auto-Build Architect.
+You are the Bridgebox Auto-Build Architect AND Pricing Intelligence Engine.
 Read this context: ${fullContext}
 
-You must extract EXACTLY the structural objects needed to build this company's OS.
-Return ONLY a raw JSON object containing a "tasks" array.
-Each object in the array MUST have these exact keys:
+You must output a raw JSON object with TWO keys: "tasks" and "pricing".
+
+--- TASKS ---
+Extract the structural objects needed to build this company's OS.
+Each task object MUST have:
 - title: string
 - description: string
-- task_category: must be one of: "create_task", "create_workflow", "setup_dashboard", "prepare_integration", "antigravity_build"
-- antigravity_prompt: string (only required if category is antigravity_build)
+- task_category: "create_task" | "create_workflow" | "setup_dashboard" | "prepare_integration" | "antigravity_build"
+- antigravity_prompt: string (only if category is antigravity_build)
 - priority: 1 (High) to 3 (Low)
-- is_platform_feature: boolean (false for tenant-specific, true for global structural deployments)
+- is_platform_feature: boolean
+- cost_impact: "low" | "medium" | "high" (estimated cost impact of implementing this task)
+- efficiency_rating: "low" | "medium" | "high" (how efficient/token-optimized this can be built)
 
-Create at least 1 "create_workflow" project, at least 2 "create_task", and detect any integrations.
+Create at least 1 "create_workflow", at least 2 "create_task", and detect any integrations.
+
+--- PRICING ---
+Based on the business description, estimate AI usage parameters. Return a "pricing" key with:
+- estimatedQueriesPerDay: number (AI queries this company will make per day)
+- documentProcessingVolume: number (documents processed per month)
+- workflowExecutionFrequency: "low" | "medium" | "high" | "enterprise"
+- aiCopilotUsage: boolean
+- aiSearchUsage: boolean
+- aiGenerationUsage: boolean
+- integrationCount: number
+- integrationComplexity: "simple" | "moderate" | "deep"
+- integrationSyncFrequency: "realtime" | "hourly" | "daily" | "weekly"
+- workflowCount: number
+- automationDepth: "basic" | "moderate" | "advanced" | "fully_automated"
+- userCount: number (estimated team size)
+- concurrencyLevel: "low" | "medium" | "high"
+- estimatedStorageGb: number
+- customFeatureCount: number (how many custom-built modules are needed)
+- supportAgentUsage: "basic" | "standard" | "advanced" | "enterprise"
             `.trim();
 
             const provider = AIProviderFactory.getProvider();
@@ -62,6 +108,20 @@ Create at least 1 "create_workflow" project, at least 2 "create_task", and detec
             rawOutput = rawOutput.replace(/```json/g, '').replace(/```/g, '').trim();
             const parsedBlob = JSON.parse(rawOutput);
             const extractedTasks: ExtractedBuildTask[] = Array.isArray(parsedBlob) ? parsedBlob : (parsedBlob.tasks || []);
+            const extractedPricing: ExtractedPricingInputs | null = parsedBlob.pricing || null;
+
+            // Log the token usage from this AI call
+            if (response.usage) {
+                await logTokenUsage({
+                    organizationId,
+                    featureContext: 'onboarding',
+                    agentName: 'BuildOrchestratorAgent',
+                    promptTokens: response.usage.inputTokens,
+                    completionTokens: response.usage.outputTokens,
+                    aiModel: response.model,
+                    aiProvider: 'auto',
+                });
+            }
 
             // Persist into DB Queue natively
             for (const task of extractedTasks) {
@@ -81,7 +141,29 @@ Create at least 1 "create_workflow" project, at least 2 "create_task", and detec
                 if (insertError) throw insertError;
             }
 
-            return { tasks: extractedTasks };
+            // Generate and persist pricing model
+            let pricingModelId: string | undefined;
+            if (extractedPricing) {
+                try {
+                    const fullPricingInputs: PricingInputs = {
+                        organizationId,
+                        sessionId,
+                        ...extractedPricing,
+                    };
+                    const breakdown = calculatePricing(fullPricingInputs);
+                    pricingModelId = await savePricingModel(fullPricingInputs, breakdown);
+
+                    // Persist snapshot into onboarding session
+                    await supabase
+                        .from('onboarding_sessions')
+                        .update({ ai_intelligence: { pricing_model_id: pricingModelId, pricing_inputs: extractedPricing } })
+                        .eq('id', sessionId);
+                } catch (pricingErr) {
+                    console.warn('[BuildOrchestrator] Pricing model generation failed (non-fatal):', pricingErr);
+                }
+            }
+
+            return { tasks: extractedTasks, pricingModelId };
         });
     },
 
