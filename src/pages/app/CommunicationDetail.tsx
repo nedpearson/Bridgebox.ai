@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Mail, Phone, MessageSquare, Clock, User } from 'lucide-react';
 import RelationalCommandCenter from '../../components/app/RelationalCommandCenter';
 import RelationalMetricsCard from '../../components/app/RelationalMetricsCard';
@@ -36,10 +36,10 @@ export default function CommunicationDetail() {
 
       <RelationalCommandCenter entityType="communication" entityId={comm.id}>
         <div className="max-w-4xl mx-auto py-8">
-          <button onClick={() => navigate(-1)} className="flex items-center space-x-2 text-slate-400 hover:text-white mb-6">
+          <Link to="/app/communications" className="flex items-center space-x-2 text-slate-400 hover:text-white mb-6">
             <ArrowLeft className="w-4 h-4" />
-            <span>Back</span>
-          </button>
+            <span>Back to Communications</span>
+          </Link>
 
           <Card glass className="p-8">
             <div className="flex items-center justify-between mb-8">

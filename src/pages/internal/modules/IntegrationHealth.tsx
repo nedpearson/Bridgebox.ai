@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { commandCenterApi, InternalIntegrationEvent } from '../../../lib/commandCenter';
 import { Link2, CheckCircle2, XCircle, AlertTriangle, ShieldAlert, Cpu } from 'lucide-react';
+import IntegrationIngestionLog from '../../../components/connectors/IntegrationIngestionLog';
 
 export default function IntegrationHealth() {
   const [events, setEvents] = useState<InternalIntegrationEvent[]>([]);
@@ -85,6 +86,10 @@ export default function IntegrationHealth() {
             No integration telemetry available.
           </div>
         )}
+      </div>
+
+      <div className="pt-8 mt-8 border-t border-slate-800">
+         <IntegrationIngestionLog />
       </div>
     </div>
   );

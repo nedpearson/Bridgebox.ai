@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useParams } from 'react-router-dom';
-import { Settings, Workflow, CheckSquare, Zap, LayoutTemplate, Cpu, Terminal, Shield, Activity, Search, ShieldCheck, Loader2, CheckCircle2 } from 'lucide-react';
+import { Settings, Workflow, CheckSquare, Zap, LayoutTemplate, Cpu, Terminal, Shield, Activity, Search, ShieldCheck, Loader2, CheckCircle2, Network } from 'lucide-react';
 import { useAuth } from '../../../contexts/AuthContext';
-import { autoBuildOrchestrator } from '../../../lib/ai/services/autoBuildOrchestrator';
+import { BuildOrchestratorAgent } from '../../../lib/ai/agents/BuildOrchestratorAgent';
+import { supabase } from '../../../lib/supabase';
 
 export default function AdminCommandCenterLayout() {
     const { sessionId } = useParams<{ sessionId: string }>();
     const { currentOrganization, user } = useAuth();
     const [executing, setExecuting] = useState(false);
     const [executionComplete, setExecutionComplete] = useState(false);
+    const [sessionData, setSessionData] = useState<any>(null);
+
+    useEffect(() => {
+        if (!sessionId) return;
+        supabase.from('onboarding_sessions').select('*').eq('id', sessionId).single().then(({ data }) => setSessionData(data));
+    }, [sessionId]);
 
     const handleExecuteBuild = async () => {
         if (!sessionId || !currentOrganization || !user || executing) return;
         
         try {
             setExecuting(true);
-            await autoBuildOrchestrator.executeBuildQueue(sessionId, currentOrganization.id, user.id);
+            await BuildOrchestratorAgent.executeBuildQueue(sessionId, currentOrganization.id, user.id);
             setExecutionComplete(true);
         } catch (e) {
             console.error("Execution failed", e);
@@ -29,6 +36,7 @@ export default function AdminCommandCenterLayout() {
         { path: 'workflows', label: 'Workflows', icon: <Workflow className="w-4 h-4" /> },
         { path: 'tasks', label: 'Implementation Tasks', icon: <CheckSquare className="w-4 h-4" /> },
         { path: 'integrations', label: 'Integrations', icon: <Zap className="w-4 h-4" /> },
+        { path: 'webhooks', label: 'Data Normalizer', icon: <Network className="w-4 h-4" /> },
         { path: 'dashboards', label: 'Dashboard Design', icon: <LayoutTemplate className="w-4 h-4" /> },
         { path: 'features', label: 'Feature Ingestion', icon: <Cpu className="w-4 h-4" /> },
         { path: 'prompts', label: 'Antigravity Prompts', icon: <Terminal className="w-4 h-4" /> },
@@ -40,9 +48,12 @@ export default function AdminCommandCenterLayout() {
             {/* Left Rail: Admin Navigation */}
             <div className="w-full lg:w-64 border-b lg:border-b-0 lg:border-r border-slate-800 bg-slate-900 lg:overflow-y-auto shrink-0 flex flex-col pt-4 lg:pt-6">
                 <div className="px-6 mb-6">
-                    <h3 className="text-white font-semibold text-sm flex items-center">
+                    <h3 className="text-white font-semibold text-sm flex items-center mb-1.5">
                         <Settings className="w-4 h-4 mr-2 text-indigo-400" /> Executive Hub
                     </h3>
+                    <p className="text-xs text-indigo-300/80 font-medium truncate" title={sessionData?.session_title || ''}>
+                        {sessionData?.session_title || 'Loading Context...'}
+                    </p>
                 </div>
                 
                 <nav className="flex overflow-x-auto lg:flex-col space-x-2 lg:space-x-0 lg:space-y-1 px-4 lg:px-3 pb-4 lg:pb-0 hide-scrollbar mt-2 lg:mt-0">
@@ -64,7 +75,7 @@ export default function AdminCommandCenterLayout() {
 
             {/* Main Center Area: React Router Outlet */}
             <div className="flex-1 overflow-y-auto p-6 lg:p-8 bg-slate-950">
-                <Outlet />
+                <Outlet context={{ session: sessionData }} />
             </div>
 
             {/* Right Rail: Executions & Build Scope */}

@@ -130,6 +130,7 @@ export const projectsService = {
     status?: string;
     start_date?: string;
     target_launch_date?: string;
+    notes?: string;
   }) {
     const { data, error } = await supabase
       .from('projects')

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, FolderKanban, Calendar, DollarSign, Users, ExternalLink, Rocket, Smartphone, X } from 'lucide-react';
+import { ArrowLeft, FolderKanban, Calendar, DollarSign, Users, ExternalLink, Rocket, Smartphone, X, Edit2, Check } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import AppHeader from '../../components/app/AppHeader';
@@ -27,6 +27,22 @@ export default function ProjectDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showQR, setShowQR] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({ name: '', description: '' });
+
+  const handleSaveDetails = async () => {
+    if (!project) return;
+    try {
+      await projectsService.updateProject(project.id, { 
+        name: editForm.name, 
+        description: editForm.description 
+      });
+      setProject({ ...project, name: editForm.name, description: editForm.description });
+      setIsEditing(false);
+    } catch (err) {
+      console.error('Failed to update project details', err);
+    }
+  };
 
   const handleStatusChange = async (newStatus: string) => {
     if (!project || project.status === newStatus) return;
@@ -61,6 +77,12 @@ export default function ProjectDetail() {
     }
   };
 
+  useEffect(() => {
+    if (project) {
+       setEditForm({ name: project.name || '', description: project.description || '' });
+    }
+  }, [project?.id]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -94,7 +116,26 @@ export default function ProjectDetail() {
                 <FolderKanban className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1">
-                <h2 className="text-xl font-bold text-white mb-2">{project.name}</h2>
+                <div className="flex items-center justify-between mb-2">
+                  {isEditing ? (
+                    <input 
+                      type="text"
+                      className="text-xl font-bold bg-slate-800 border border-slate-700 text-white px-2 py-1 rounded w-full mr-4"
+                      value={editForm.name}
+                      onChange={(e) => setEditForm(prev => ({...prev, name: e.target.value}))}
+                      autoFocus
+                    />
+                  ) : (
+                    <h2 className="text-xl font-bold text-white flex-1">{project.name}</h2>
+                  )}
+                  <button 
+                    onClick={() => isEditing ? handleSaveDetails() : setIsEditing(true)}
+                    className="p-1.5 rounded-md hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                  >
+                    {isEditing ? <Check className="w-4 h-4 text-emerald-400" /> : <Edit2 className="w-4 h-4" />}
+                  </button>
+                </div>
+                
                 <div className="flex flex-wrap gap-2">
                   <StatusBadge status={project.type} variant="info" />
                   <select
@@ -127,7 +168,16 @@ export default function ProjectDetail() {
               </div>
             </div>
 
-            <p className="text-slate-300 text-sm mb-6">{project.description}</p>
+            {isEditing ? (
+                <textarea 
+                   className="w-full bg-slate-800 border border-slate-700 text-white p-3 rounded-lg text-sm mb-6 min-h-[100px]"
+                   value={editForm.description}
+                   onChange={(e) => setEditForm(prev => ({...prev, description: e.target.value}))}
+                   placeholder="Project target goal and description..."
+                />
+            ) : (
+                <p className="text-slate-300 text-sm mb-6">{project.description}</p>
+            )}
 
             <BlockersPanel entityType="project" entityId={project.id} />
             <RelationalMetricsCard entityType="project" entityId={project.id} />
@@ -197,7 +247,17 @@ export default function ProjectDetail() {
               </div>
               <GenerativeDraftingStudio 
                  documentId={project.id} 
+                 initialContent={project.notes || '<p>Start drafting your document...</p>'}
                  contextPayload={`Project Name: ${project.name}\nProject Target Goal: ${project.description}\nProject Status: ${project.status}`}
+                 onSave={async (html) => {
+                    await projectsService.updateProject(project.id, { notes: html });
+                    setProject({ ...project, notes: html });
+                 }}
+                 onApprove={async () => {
+                    if (project.status === 'planning') {
+                       await handleStatusChange('in_progress');
+                    }
+                 }}
               />
             </Card>
 

@@ -1,6 +1,6 @@
 import { supabase } from '../supabase';
 
-export type EntityType = 'organization' | 'project' | 'task' | 'workflow' | 'document' | 'communication';
+export type EntityType = 'organization' | 'project' | 'task' | 'workflow' | 'document' | 'communication' | 'onboarding';
 
 export interface EntityLink {
   id: string;

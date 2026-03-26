@@ -141,7 +141,7 @@ export default function VoiceCommandFAB() {
         onClick={() => {
           isRecording ? stopRecording() : startRecording();
         }}
-        className={`fixed bottom-6 right-6 lg:bottom-12 lg:right-12 z-50 p-4 rounded-full shadow-2xl shadow-indigo-500/30 transition-all hover:scale-105 group border ${
+        className={`fixed bottom-[5.5rem] right-6 z-40 p-4 rounded-full shadow-2xl shadow-indigo-500/30 transition-all hover:scale-105 group border ${
           isRecording 
             ? 'bg-red-500 border-red-400 animate-pulse' 
             : 'bg-gradient-to-r from-indigo-500 to-purple-500 border-indigo-400'
@@ -156,7 +156,7 @@ export default function VoiceCommandFAB() {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            className="fixed bottom-24 right-6 lg:bottom-32 lg:right-12 z-50 w-80 max-w-[calc(100vw-3rem)]"
+            className="fixed bottom-[10.5rem] right-6 z-50 w-80 max-w-[calc(100vw-3rem)]"
           >
             <Card glass className="p-4 shadow-2xl border-indigo-500/30">
               <div className="flex items-center gap-3 mb-3 border-b border-slate-700/50 pb-3">

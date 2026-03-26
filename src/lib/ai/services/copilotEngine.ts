@@ -128,21 +128,30 @@ export class CopilotEngine {
       }
     }
 
-    // 4. Determine Specialized Multi-Agent Route
+    // 4. Determine Specialized Multi-Agent Route Natively via DOM Context
     let dynamicPersona = "You are the Bridgebox Master Copilot. You are a helpful, capable assistant overseeing the general relational OS.";
-    try {
-      const { data, error } = await supabase.functions.invoke('agent-router', {
-          body: { prompt: userPrompt }
-      });
-      if (!error && data?.agent) {
-          if (data.agent === 'finance') {
-             dynamicPersona = "You are the Bridgebox Finance Agent. You specialize in analyzing budgets, MRR, billing, payments, and financial timelines. You are highly analytical and strict.";
-          } else if (data.agent === 'operations') {
-             dynamicPersona = "You are the Bridgebox Operations Agent. You specialize in resolving blockers, escalating overdue tasks, resource allocation, and workflow unblocking. You are highly action-oriented.";
-          }
-      }
-    } catch (routeErr) {
-       console.warn("Routing delegation failed softly, falling back to General Copilot", routeErr);
+    
+    // Natively bind specialized Agent personas entirely based on the React virtual DOM location
+    if (domContext.activeModule) {
+       switch (domContext.activeModule) {
+          case 'billing':
+          case 'proposals':
+             dynamicPersona = "You are the Bridgebox Finance Super Agent. You specialize in analyzing budgets, MRR, billing, payments, proposals, and financial timelines. You are highly analytical and strict. You do NOT hallucinate numbers.";
+             break;
+          case 'delivery':
+          case 'projects':
+          case 'tasks':
+             dynamicPersona = "You are the Bridgebox Operations Super Agent. You specialize in resolving blockers, escalating overdue tasks, resource allocation, and workflow unblocking. You are highly action-oriented.";
+             break;
+          case 'leads':
+          case 'pipeline':
+             dynamicPersona = "You are the Bridgebox Sales Super Agent. You specialize in parsing inbound lead conversions, maximizing pipeline velocity, and drafting perfect unblocking emails.";
+             break;
+          case 'knowledge':
+          case 'documents':
+             dynamicPersona = "You are the Bridgebox Knowledge Super Agent. You specialize in parsing highly dense legal, technical, and operational documentation, returning precise bulleted summaries with citations.";
+             break;
+       }
     }
 
     // 4.5. Fetch Tenant Onboarding Telemetry (Phase 10)

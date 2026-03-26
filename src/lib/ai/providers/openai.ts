@@ -19,34 +19,64 @@ export class OpenAIProvider implements AIProviderClient {
     }
 
     try {
-      const response = await fetch(`${this.baseURL}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
-        body: JSON.stringify({
-          model: request.model || 'gpt-4-turbo',
-          messages: request.messages.map(m => {
-            const msg: any = { role: m.role, content: m.content };
-            if (m.name) msg.name = m.name;
-            if (m.tool_calls) msg.tool_calls = m.tool_calls;
-            if (m.tool_call_id) msg.tool_call_id = m.tool_call_id;
-            return msg;
-          }),
-          temperature: request.temperature ?? 0.7,
-          max_tokens: request.maxTokens || 4096,
-          ...(request.tools ? { tools: request.tools } : {}),
-          ...(request.tool_choice ? { tool_choice: request.tool_choice } : {})
-        }),
-      });
+      let attempt = 0;
+      let response: Response | null = null;
+      let errorData: any = null;
+      const maxRetries = 3;
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+      while (attempt < maxRetries) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s timeout for GPT-4 Drafting
+
+          response = await fetch(`${this.baseURL}/chat/completions`, {
+            method: 'POST',
+            signal: controller.signal,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.apiKey}`,
+            },
+            body: JSON.stringify({
+              model: request.model || 'gpt-4o-mini',
+              messages: request.messages.map(m => {
+                const msg: any = { role: m.role, content: m.content };
+                if (m.name) msg.name = m.name;
+                if (m.tool_calls) msg.tool_calls = m.tool_calls;
+                if (m.tool_call_id) msg.tool_call_id = m.tool_call_id;
+                return msg;
+              }),
+              temperature: request.temperature ?? 0.7,
+              max_tokens: request.maxTokens || 4096,
+              ...(request.tools ? { tools: request.tools } : {}),
+              ...(request.tool_choice ? { tool_choice: request.tool_choice } : {}),
+              ...((request as any).responseFormat ? { response_format: { type: (request as any).responseFormat } } : {})
+            }),
+          });
+          clearTimeout(timeoutId);
+
+          if (response.ok) break;
+
+          errorData = await response.json().catch(() => ({}));
+          // Only retry on rate limits (429) or server errors (5xx)
+          if (response.status !== 429 && response.status < 500) {
+            break;
+          }
+        } catch (e: any) {
+          errorData = { error: { message: e.message, code: 'NETWORK_ERROR' } };
+          if (attempt === maxRetries - 1) break;
+        }
+
+        attempt++;
+        if (attempt < maxRetries) {
+          await new Promise(r => setTimeout(r, Math.min(1000 * Math.pow(2, attempt), 10000)));
+        }
+      }
+
+      if (!response || !response.ok) {
         throw this.createError(
-          errorData.error?.message || `API error: ${response.status}`,
-          errorData.error?.code || 'API_ERROR',
-          response.status === 429 || response.status >= 500
+          errorData?.error?.message || `API error: ${response?.status || 'Unknown'}`,
+          errorData?.error?.code || 'API_ERROR',
+          response?.status === 429 || (response?.status || 500) >= 500
         );
       }
 

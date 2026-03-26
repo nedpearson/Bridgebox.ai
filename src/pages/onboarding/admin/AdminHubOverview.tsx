@@ -8,7 +8,7 @@ export default function AdminHubOverview() {
     return (
         <div className="space-y-8 animate-fade-in max-w-5xl mx-auto">
              <div className="mb-6">
-                 <h2 className="text-2xl font-bold text-white mb-2">Executive Overview</h2>
+                 <h2 className="text-2xl font-bold text-white mb-2">{session?.session_title || 'Executive Overview'}</h2>
                  <p className="text-slate-400">Review the autonomous AI system ingestion for the active client onboarding profile natively.</p>
              </div>
 

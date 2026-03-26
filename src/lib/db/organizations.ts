@@ -132,8 +132,18 @@ export const organizationsService = {
         resourceId: org.id,
         deltaJson: orgData
       });
+
+      // Phase 8: Super Admin Webhook Replacement (Internal Matrix)
+      await supabase.from('internal_dev_tasks').insert([{
+        title: `[Activation] New Bare-Metal Client: ${org.name}`,
+        description: `Organization ID: ${org.id}\nSource: Manual Bypass Generator`,
+        status: 'todo',
+        priority: 'medium',
+        category: 'feature',
+        labels: ['new_client_activation']
+      }]);
     } catch (e) {
-      console.warn('Audit trail failed but mutation succeeded', e);
+      console.warn('Audit trail or notification failed but mutation succeeded', e);
     }
 
     return org;

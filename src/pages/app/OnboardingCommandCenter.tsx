@@ -3,7 +3,7 @@ import { Database, Zap, Cpu, CheckCircle, Clock, Copy, ChevronDown, ChevronUp, C
 import AppHeader from '../../components/app/AppHeader';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
-import { autoBuildOrchestrator } from '../../lib/ai/services/autoBuildOrchestrator';
+import { BuildOrchestratorAgent } from '../../lib/ai/agents/BuildOrchestratorAgent';
 
 export default function OnboardingCommandCenter() {
   const { user, currentOrganization } = useAuth();
@@ -87,7 +87,7 @@ ${Object.entries(featureScopes).map(([feat, scope]) => `   - [${feat}]: Build as
       if (!currentOrganization || !user) return;
       setIsExecuting(prev => ({...prev, [sessionId]: true}));
       try {
-          await autoBuildOrchestrator.executeBuildQueue(sessionId, currentOrganization.id, user.id);
+          await BuildOrchestratorAgent.executeBuildQueue(sessionId, currentOrganization.id, user.id);
           // Refresh tasks to show live completed statuses
           const { data } = await supabase.from('onboarding_build_tasks').select('*').eq('organization_id', currentOrganization.id).order('priority', { ascending: true });
           if(data) setBuildTasks(data);

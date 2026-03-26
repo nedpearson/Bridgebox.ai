@@ -150,7 +150,7 @@ class ClientSuccessService {
       .from('organizations')
       .select('onboarding_completed, onboarding_completed_at')
       .eq('id', organizationId)
-      .single();
+      .maybeSingle();
 
     if (org?.onboarding_completed) return 100;
     return 50;
@@ -359,7 +359,7 @@ class ClientSuccessService {
 
   async getClientSuccessOverview(organizationId: string): Promise<ClientSuccessOverview> {
     const [org, healthScore, accountOwner, projects, tickets, interactions, opportunities, risks] = await Promise.all([
-      supabase.from('organizations').select('name, billing_plan, subscription_status').eq('id', organizationId).single(),
+      supabase.from('organizations').select('name, billing_plan, subscription_status').eq('id', organizationId).maybeSingle(),
       this.getClientHealthScore(organizationId),
       this.getAccountOwner(organizationId),
       supabase.from('projects').select('id, status').eq('organization_id', organizationId).in('status', ['in_progress', 'planning', 'testing']),

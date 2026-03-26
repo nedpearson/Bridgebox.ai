@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Plus, FolderKanban } from 'lucide-react';
+import { Search, Plus, FolderKanban, Sparkles } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -157,12 +157,21 @@ export default function ProjectsList() {
             <option value="completed">Completed</option>
           </select>
 
-          <button 
-            onClick={() => setIsProjectModalOpen(true)}
-            className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
-            <Plus className="w-5 h-5" />
-            <span>New Project</span>
-          </button>
+          <div className="flex items-center space-x-3">
+            <Link 
+              to="/ai-onboarding?type=project"
+              className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white font-medium rounded-lg transition-colors border border-indigo-400/50 shadow-lg shadow-indigo-500/20"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Generate with AI</span>
+            </Link>
+            <button 
+              onClick={() => setIsProjectModalOpen(true)}
+              className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
+              <Plus className="w-5 h-5" />
+              <span>Manual Project</span>
+            </button>
+          </div>
         </div>
 
         {projects.length === 0 ? (

@@ -23,6 +23,7 @@ export interface GlobalTask {
 
 export const globalTasksService = {
   async getTenantTasks(tenantId: string) {
+    if (!tenantId) return [];
     const { data, error } = await supabase
       .from('global_tasks')
       .select('*, assignee:profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
@@ -34,6 +35,7 @@ export const globalTasksService = {
   },
 
   async createTask(task: Partial<GlobalTask>) {
+    if (!task.tenant_id) throw new Error("Task tenant_id is required");
     const { data, error } = await supabase
       .from('global_tasks')
       .insert(task)
@@ -108,6 +110,7 @@ export const globalTasksService = {
   },
 
   async getTaskById(id: string) {
+    if (!id) throw new Error("Task ID is missing");
     const { data, error } = await supabase
       .from('global_tasks')
       .select('*, assignee:profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')

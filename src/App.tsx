@@ -1,3 +1,4 @@
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { CopilotProvider } from './contexts/CopilotContext';
@@ -9,133 +10,136 @@ import MainLayout from './layouts/MainLayout';
 import AppLayout from './layouts/AppLayout';
 import ClientPortalLayout from './layouts/ClientPortalLayout';
 import RecordingCenterLayout from './layouts/RecordingCenterLayout';
-import Home from './pages/Home';
-import Platform from './pages/Platform';
-import Solutions from './pages/Solutions';
-import UseCases from './pages/UseCases';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Pricing from './pages/Pricing';
-import Services from './pages/Services';
-import CustomSoftware from './pages/CustomSoftware';
-import Dashboards from './pages/Dashboards';
-import MobileApps from './pages/MobileApps';
-import CaseStudies from './pages/CaseStudies';
-import CaseStudyDetail from './pages/CaseStudyDetail';
-import Industries from './pages/Industries';
-import FAQ from './pages/FAQ';
-import Start from './pages/Start';
-import Login from './pages/auth/Login';
-import Signup from './pages/auth/Signup';
-import OrganizationOnboarding from './pages/auth/OrganizationOnboarding';
-import AdminPreview from './pages/AdminPreview';
-import AppOverview from './pages/app/AppOverview';
-import Pipeline from './pages/app/Pipeline';
-import LeadsList from './pages/app/LeadsList';
-import LeadDetail from './pages/app/LeadDetail';
-import ProposalsList from './pages/app/ProposalsList';
-import ProposalDetail from './pages/app/ProposalDetail';
-import ClientsList from './pages/app/ClientsList';
-import ClientDetail from './pages/app/ClientDetail';
-import ProjectsList from './pages/app/ProjectsList';
-import ProjectDetail from './pages/app/ProjectDetail';
-import BillingOverview from './pages/app/BillingOverview';
-import Integrations from './pages/app/Integrations';
-import Settings from './pages/app/Settings';
-import ClientHome from './pages/client-portal/ClientHome';
-import ClientProjects from './pages/client-portal/ClientProjects';
-import ClientDeliverables from './pages/client-portal/ClientDeliverables';
-import ClientSupport from './pages/client-portal/ClientSupport';
-import ClientBilling from './pages/client-portal/ClientBilling';
-import ClientSettings from './pages/client-portal/ClientSettings';
-import OnboardingFlow from './pages/onboarding/OnboardingFlow';
-import AcceptInvitation from './pages/auth/AcceptInvitation';
-import Team from './pages/app/Team';
-import ProposalForm from './pages/app/ProposalForm';
-import SupportQueue from './pages/app/SupportQueue';
-import SupportTicketDetail from './pages/app/SupportTicketDetail';
-import ClientSupportDetail from './pages/client-portal/ClientSupportDetail';
-import DeliveryOverview from './pages/app/DeliveryOverview';
-import ProjectDeliveryDetail from './pages/app/ProjectDeliveryDetail';
-import ConversionsDashboard from './pages/app/ConversionsDashboard';
-import ProposalView from './pages/ProposalView';
-import Analytics from './pages/app/Analytics';
-import ExecutiveCommandCenter from './pages/app/ExecutiveCommandCenter';
-import ImplementationCenter from './pages/app/ImplementationCenter';
-import ImplementationDetail from './pages/app/ImplementationDetail';
-import ClientSuccess from './pages/app/ClientSuccess';
-import ClientSuccessDetail from './pages/app/ClientSuccessDetail';
-import Automations from './pages/app/Automations';
-import AutomationForm from './pages/app/AutomationForm';
-import Knowledge from './pages/app/Knowledge';
-import KnowledgeDetail from './pages/app/KnowledgeDetail';
-import Copilot from './pages/app/Copilot';
-import DataActivity from './pages/app/DataActivity';
-import TrendsCenter from './pages/app/TrendsCenter';
-import MarketSignals from './pages/app/MarketSignals';
-import Opportunities from './pages/app/Opportunities';
-import AgentActions from './pages/app/AgentActions';
-import { Workflows } from './pages/app/Workflows';
-import { WorkflowBuilder } from './pages/app/WorkflowBuilder';
-import { WorkflowTemplates } from './pages/app/WorkflowTemplates';
-import { WorkflowExecutions } from './pages/app/WorkflowExecutions';
-import { Documents } from './pages/app/Documents';
-import { DocumentDetail } from './pages/app/DocumentDetail';
-import GlobalTasksList from './pages/app/GlobalTasksList';
-import GlobalTaskDetail from './pages/app/GlobalTaskDetail';
-import CommunicationsList from './pages/app/CommunicationsList';
-import CommunicationDetail from './pages/app/CommunicationDetail';
-import MobileHome from './pages/mobile/MobileHome';
-import MobileTasks from './pages/mobile/MobileTasks';
-import MobileTaskDetail from './pages/mobile/MobileTaskDetail';
-import MobileProjects from './pages/mobile/MobileProjects';
-import MobileProjectDetail from './pages/mobile/MobileProjectDetail';
-import MobileUpload from './pages/mobile/MobileUpload';
-import BrandingSettings from './pages/app/BrandingSettings';
-import FeatureSettings from './pages/app/FeatureSettings';
-import RolesSettings from './pages/app/RolesSettings';
-import MobileAppStudio from './pages/app/MobileAppStudio';
-import AuditLogSettings from './pages/app/AuditLogSettings';
-import ExportHub from './pages/app/ExportHub';
-import AiOnboardingWizard from './pages/onboarding/AiOnboardingWizard';
-import OnboardingCommandCenter from './pages/app/OnboardingCommandCenter';
+const Home = lazy(() => import('./pages/Home'));
+const Platform = lazy(() => import('./pages/Platform'));
+const Solutions = lazy(() => import('./pages/Solutions'));
+const UseCases = lazy(() => import('./pages/UseCases'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Pricing = lazy(() => import('./pages/Pricing'));
+const Services = lazy(() => import('./pages/Services'));
+const CustomSoftware = lazy(() => import('./pages/CustomSoftware'));
+const Dashboards = lazy(() => import('./pages/Dashboards'));
+const MobileApps = lazy(() => import('./pages/MobileApps'));
+const CaseStudies = lazy(() => import('./pages/CaseStudies'));
+const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail'));
+const Industries = lazy(() => import('./pages/Industries'));
+const FAQ = lazy(() => import('./pages/FAQ'));
+const Start = lazy(() => import('./pages/Start'));
+const Login = lazy(() => import('./pages/auth/Login'));
+const Signup = lazy(() => import('./pages/auth/Signup'));
+const OrganizationOnboarding = lazy(() => import('./pages/auth/OrganizationOnboarding'));
+const AdminPreview = lazy(() => import('./pages/AdminPreview'));
+const AppOverview = lazy(() => import('./pages/app/AppOverview'));
+const Pipeline = lazy(() => import('./pages/app/Pipeline'));
+const LeadsList = lazy(() => import('./pages/app/LeadsList'));
+const LeadDetail = lazy(() => import('./pages/app/LeadDetail'));
+const ProposalsList = lazy(() => import('./pages/app/ProposalsList'));
+const ProposalDetail = lazy(() => import('./pages/app/ProposalDetail'));
+const ClientsList = lazy(() => import('./pages/app/ClientsList'));
+const ClientDetail = lazy(() => import('./pages/app/ClientDetail'));
+const ProjectsList = lazy(() => import('./pages/app/ProjectsList'));
+const ProjectDetail = lazy(() => import('./pages/app/ProjectDetail'));
+const BillingOverview = lazy(() => import('./pages/app/BillingOverview'));
+const Integrations = lazy(() => import('./pages/app/Integrations'));
+const Settings = lazy(() => import('./pages/app/Settings'));
+const ClientHome = lazy(() => import('./pages/client-portal/ClientHome'));
+const ClientProjects = lazy(() => import('./pages/client-portal/ClientProjects'));
+const ClientDeliverables = lazy(() => import('./pages/client-portal/ClientDeliverables'));
+const ClientSupport = lazy(() => import('./pages/client-portal/ClientSupport'));
+const ClientBilling = lazy(() => import('./pages/client-portal/ClientBilling'));
+const ClientSettings = lazy(() => import('./pages/client-portal/ClientSettings'));
+const OnboardingFlow = lazy(() => import('./pages/onboarding/OnboardingFlow'));
+const AcceptInvitation = lazy(() => import('./pages/auth/AcceptInvitation'));
+const Team = lazy(() => import('./pages/app/Team'));
+const ProposalForm = lazy(() => import('./pages/app/ProposalForm'));
+const SupportQueue = lazy(() => import('./pages/app/SupportQueue'));
+const SupportTicketDetail = lazy(() => import('./pages/app/SupportTicketDetail'));
+const ClientSupportDetail = lazy(() => import('./pages/client-portal/ClientSupportDetail'));
+const DeliveryOverview = lazy(() => import('./pages/app/DeliveryOverview'));
+const ProjectDeliveryDetail = lazy(() => import('./pages/app/ProjectDeliveryDetail'));
+const ConversionsDashboard = lazy(() => import('./pages/app/ConversionsDashboard'));
+const ProposalView = lazy(() => import('./pages/ProposalView'));
+const Analytics = lazy(() => import('./pages/app/Analytics'));
+const ExecutiveCommandCenter = lazy(() => import('./pages/app/ExecutiveCommandCenter'));
+const ImplementationCenter = lazy(() => import('./pages/app/ImplementationCenter'));
+const ImplementationDetail = lazy(() => import('./pages/app/ImplementationDetail'));
+const ClientSuccess = lazy(() => import('./pages/app/ClientSuccess'));
+const ClientSuccessDetail = lazy(() => import('./pages/app/ClientSuccessDetail'));
+const Automations = lazy(() => import('./pages/app/Automations'));
+const AutomationForm = lazy(() => import('./pages/app/AutomationForm'));
+const Knowledge = lazy(() => import('./pages/app/Knowledge'));
+const KnowledgeDetail = lazy(() => import('./pages/app/KnowledgeDetail'));
+const Copilot = lazy(() => import('./pages/app/Copilot'));
+const DataActivity = lazy(() => import('./pages/app/DataActivity'));
+const TrendsCenter = lazy(() => import('./pages/app/TrendsCenter'));
+const MarketSignals = lazy(() => import('./pages/app/MarketSignals'));
+const Opportunities = lazy(() => import('./pages/app/Opportunities'));
+const AgentActions = lazy(() => import('./pages/app/AgentActions'));
+const Workflows = lazy(() => import('./pages/app/Workflows').then(module => ({ default: module.Workflows })));
+const WorkflowBuilder = lazy(() => import('./pages/app/WorkflowBuilder').then(module => ({ default: module.WorkflowBuilder })));
+const WorkflowTemplates = lazy(() => import('./pages/app/WorkflowTemplates').then(module => ({ default: module.WorkflowTemplates })));
+const WorkflowExecutions = lazy(() => import('./pages/app/WorkflowExecutions').then(module => ({ default: module.WorkflowExecutions })));
+const Documents = lazy(() => import('./pages/app/Documents').then(module => ({ default: module.Documents })));
+const DocumentDetail = lazy(() => import('./pages/app/DocumentDetail').then(module => ({ default: module.DocumentDetail })));
+const GlobalTasksList = lazy(() => import('./pages/app/GlobalTasksList'));
+const GlobalTaskDetail = lazy(() => import('./pages/app/GlobalTaskDetail'));
+const CommunicationsList = lazy(() => import('./pages/app/CommunicationsList'));
+const CommunicationDetail = lazy(() => import('./pages/app/CommunicationDetail'));
+const MobileHome = lazy(() => import('./pages/mobile/MobileHome'));
+const MobileTasks = lazy(() => import('./pages/mobile/MobileTasks'));
+const MobileTaskDetail = lazy(() => import('./pages/mobile/MobileTaskDetail'));
+const MobileProjects = lazy(() => import('./pages/mobile/MobileProjects'));
+const MobileProjectDetail = lazy(() => import('./pages/mobile/MobileProjectDetail'));
+const MobileUpload = lazy(() => import('./pages/mobile/MobileUpload'));
+const BrandingSettings = lazy(() => import('./pages/app/BrandingSettings'));
+const FeatureSettings = lazy(() => import('./pages/app/FeatureSettings'));
+const RolesSettings = lazy(() => import('./pages/app/RolesSettings'));
+const MobileAppStudio = lazy(() => import('./pages/app/MobileAppStudio'));
+const AuditLogSettings = lazy(() => import('./pages/app/AuditLogSettings'));
+const ExportHub = lazy(() => import('./pages/app/ExportHub'));
+const AiOnboardingWizard = lazy(() => import('./pages/onboarding/AiOnboardingWizard'));
+const OnboardingCommandCenter = lazy(() => import('./pages/app/OnboardingCommandCenter'));
 import OnboardingShell from './components/onboarding/layout/OnboardingShell';
-import ClientIntakeWorkspace from './pages/onboarding/ClientIntakeWorkspace';
-import CompetitorAnalysisWorkspace from './pages/onboarding/CompetitorAnalysisWorkspace';
-import WorkflowCaptureWorkspace from './pages/onboarding/WorkflowCaptureWorkspace';
-import BlueprintReviewWorkspace from './pages/onboarding/BlueprintReviewWorkspace';
-import AdminCommandCenterLayout from './pages/onboarding/admin/AdminCommandCenterLayout';
-import AdminHubOverview from './pages/onboarding/admin/AdminHubOverview';
-import TaskPlanBoard from './pages/onboarding/admin/TaskPlanBoard';
-import PromptBuilderPanel from './pages/onboarding/admin/PromptBuilderPanel';
-import DashboardPreferenceBuilder from './pages/onboarding/admin/DashboardPreferenceBuilder';
-import IntegrationMapBuilder from './pages/onboarding/admin/IntegrationMapBuilder';
-import FeatureIngestionCard from './pages/onboarding/admin/FeatureIngestionCard';
-import CommandCenterDashboard from './pages/internal/CommandCenterDashboard';
+const ClientIntakeWorkspace = lazy(() => import('./pages/onboarding/ClientIntakeWorkspace'));
+const CompetitorAnalysisWorkspace = lazy(() => import('./pages/onboarding/CompetitorAnalysisWorkspace'));
+const WorkflowCaptureWorkspace = lazy(() => import('./pages/onboarding/WorkflowCaptureWorkspace'));
+const BlueprintReviewWorkspace = lazy(() => import('./pages/onboarding/BlueprintReviewWorkspace'));
+const AdminCommandCenterLayout = lazy(() => import('./pages/onboarding/admin/AdminCommandCenterLayout'));
+const AdminHubOverview = lazy(() => import('./pages/onboarding/admin/AdminHubOverview'));
+const TaskPlanBoard = lazy(() => import('./pages/onboarding/admin/TaskPlanBoard'));
+const PromptBuilderPanel = lazy(() => import('./pages/onboarding/admin/PromptBuilderPanel'));
+const DashboardPreferenceBuilder = lazy(() => import('./pages/onboarding/admin/DashboardPreferenceBuilder'));
+const IntegrationMapBuilder = lazy(() => import('./pages/onboarding/admin/IntegrationMapBuilder'));
+const IntegrationIngestionLog = lazy(() => import('./pages/onboarding/admin/IntegrationIngestionLog'));
+const FeatureIngestionCard = lazy(() => import('./pages/onboarding/admin/FeatureIngestionCard'));
+const CommandCenterDashboard = lazy(() => import('./pages/internal/CommandCenterDashboard'));
 import RecorderUI from './components/internal/RecorderUI';
 import RecordingLibrary from './components/internal/RecordingLibrary';
-import SupportDesk from './pages/internal/modules/SupportDesk';
-import AdminSupportTicketDetail from './pages/internal/modules/SupportTicketDetail';
-import SupportAnalytics from './pages/internal/modules/SupportAnalytics';
-import DevTasksWorkspace from './pages/internal/modules/DevTasksWorkspace';
-import DevTaskDetail from './pages/internal/modules/DevTaskDetail';
-import BugReportsWorkspace from './pages/internal/modules/BugReportsWorkspace';
-import BugReportDetail from './pages/internal/modules/BugReportDetail';
-import QaTestCasesWorkspace from './pages/internal/modules/QaTestCasesWorkspace';
-import QaTestCaseDetail from './pages/internal/modules/QaTestCaseDetail';
+const SupportDesk = lazy(() => import('./pages/internal/modules/SupportDesk'));
+const AdminSupportTicketDetail = lazy(() => import('./pages/internal/modules/SupportTicketDetail'));
+const SupportAnalytics = lazy(() => import('./pages/internal/modules/SupportAnalytics'));
+const DevTasksWorkspace = lazy(() => import('./pages/internal/modules/DevTasksWorkspace'));
+const DevTaskDetail = lazy(() => import('./pages/internal/modules/DevTaskDetail'));
+const BugReportsWorkspace = lazy(() => import('./pages/internal/modules/BugReportsWorkspace'));
+const BugReportDetail = lazy(() => import('./pages/internal/modules/BugReportDetail'));
+const QaTestCasesWorkspace = lazy(() => import('./pages/internal/modules/QaTestCasesWorkspace'));
+const QaTestCaseDetail = lazy(() => import('./pages/internal/modules/QaTestCaseDetail'));
 import WebAccess from './components/internal/WebAccess';
-import LogsViewer from './pages/internal/modules/LogsViewer';
-import JobsMonitor from './pages/internal/modules/JobsMonitor';
-import AiPipelineMonitor from './pages/internal/modules/AiPipelineMonitor';
-import ErrorConsole from './pages/internal/modules/ErrorConsole';
-import IntegrationHealth from './pages/internal/modules/IntegrationHealth';
-import ConfigInspector from './pages/internal/modules/ConfigInspector';
-import InternalNotes from './pages/internal/modules/InternalNotes';
-import SystemDiagnostics from './pages/internal/modules/SystemDiagnostics';
-import AuditTrail from './pages/internal/modules/AuditTrail';
-import AiKnowledgeBase from './pages/internal/modules/AiKnowledgeBase';
-import AiValidationSuite from './pages/internal/modules/AiValidationSuite';
+const LogsViewer = lazy(() => import('./pages/internal/modules/LogsViewer'));
+const JobsMonitor = lazy(() => import('./pages/internal/modules/JobsMonitor'));
+const AiPipelineMonitor = lazy(() => import('./pages/internal/modules/AiPipelineMonitor'));
+const ErrorConsole = lazy(() => import('./pages/internal/modules/ErrorConsole'));
+const IntegrationHealth = lazy(() => import('./pages/internal/modules/IntegrationHealth'));
+const ConfigInspector = lazy(() => import('./pages/internal/modules/ConfigInspector'));
+const InternalNotes = lazy(() => import('./pages/internal/modules/InternalNotes'));
+const SystemDiagnostics = lazy(() => import('./pages/internal/modules/SystemDiagnostics'));
+const AuditTrail = lazy(() => import('./pages/internal/modules/AuditTrail'));
+const AiKnowledgeBase = lazy(() => import('./pages/internal/modules/AiKnowledgeBase'));
+const AiValidationSuite = lazy(() => import('./pages/internal/modules/AiValidationSuite'));
 import LoadingSpinner from './components/LoadingSpinner';
+const StackDiscoveryWizard = lazy(() => import('./pages/app/StackDiscoveryWizard'));
+const AgentControlRoom = lazy(() => import('./pages/internal/modules/AgentControlRoom'));
 
 function App() {
   const { isCustomDomain, loading: domainLoading } = useCustomDomain();
@@ -152,6 +156,7 @@ function App() {
     <Router>
       <AuthProvider>
         <CopilotProvider>
+          <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-slate-950"><LoadingSpinner /></div>}>
           <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
@@ -181,6 +186,7 @@ function App() {
                  <Route index element={<AdminHubOverview />} />
                  <Route path="tasks" element={<TaskPlanBoard />} />
                  <Route path="integrations" element={<IntegrationMapBuilder />} />
+                 <Route path="webhooks" element={<IntegrationIngestionLog />} />
                  <Route path="dashboards" element={<DashboardPreferenceBuilder />} />
                  <Route path="features" element={<FeatureIngestionCard />} />
                  <Route path="prompts" element={<PromptBuilderPanel />} />
@@ -194,7 +200,8 @@ function App() {
               <ProtectedRoute>
                 <RoleGuard requireInternalStaff>
                   <AppLayout>
-                    <Routes>
+                    <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-slate-950"><LoadingSpinner /></div>}>
+          <Routes>
                       <Route path="/" element={<AppOverview />} />
                       <Route path="/executive" element={<ExecutiveCommandCenter />} />
                       <Route path="/pipeline" element={<Pipeline />} />
@@ -248,6 +255,7 @@ function App() {
                       <Route path="/settings/studio" element={<MobileAppStudio />} />
                       <Route path="/settings/audit" element={<AuditLogSettings />} />
                       <Route path="/settings/export" element={<ExportHub />} />
+                      <Route path="/stack-discovery" element={<StackDiscoveryWizard />} />
                       <Route path="/onboarding-command" element={<OnboardingCommandCenter />} />
                       <Route path="/mobile" element={<MobileHome />} />
                       <Route path="/mobile/tasks" element={<MobileTasks />} />
@@ -256,6 +264,7 @@ function App() {
                       <Route path="/mobile/projects/:id" element={<MobileProjectDetail />} />
                       <Route path="/mobile/upload" element={<MobileUpload />} />
                     </Routes>
+          </Suspense>
                   </AppLayout>
                 </RoleGuard>
               </ProtectedRoute>
@@ -267,7 +276,8 @@ function App() {
               <ProtectedRoute>
                 <RoleGuard allowedRoles={['super_admin']}>
                   <RecordingCenterLayout>
-                    <Routes>
+                    <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-slate-950"><LoadingSpinner /></div>}>
+          <Routes>
                       <Route path="/recording-center" element={<CommandCenterDashboard />} />
                       <Route path="/recording-center/capture" element={<RecorderUI />} />
                       <Route path="/recording-center/library" element={<RecordingLibrary />} />
@@ -292,7 +302,9 @@ function App() {
                       <Route path="/recording-center/config" element={<ConfigInspector />} />
                       <Route path="/recording-center/diagnostics" element={<SystemDiagnostics />} />
                       <Route path="/recording-center/audit" element={<AuditTrail />} />
+                      <Route path="/recording-center/agents" element={<AgentControlRoom />} />
                     </Routes>
+          </Suspense>
                   </RecordingCenterLayout>
                 </RoleGuard>
               </ProtectedRoute>
@@ -304,7 +316,8 @@ function App() {
               <ProtectedRoute>
                 <RoleGuard requireClientUser>
                   <ClientPortalLayout>
-                    <Routes>
+                    <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-slate-950"><LoadingSpinner /></div>}>
+          <Routes>
                       <Route path="/" element={<ClientHome />} />
                       <Route path="/projects" element={<ClientProjects />} />
                       <Route path="/deliverables" element={<ClientDeliverables />} />
@@ -313,6 +326,7 @@ function App() {
                       <Route path="/billing" element={<ClientBilling />} />
                       <Route path="/settings" element={<ClientSettings />} />
                     </Routes>
+          </Suspense>
                   </ClientPortalLayout>
                 </RoleGuard>
               </ProtectedRoute>
@@ -329,7 +343,8 @@ function App() {
               path="*"
               element={
                 <MainLayout>
-                <Routes>
+                <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-slate-950"><LoadingSpinner /></div>}>
+          <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/platform" element={<Platform />} />
                   <Route path="/solutions" element={<Solutions />} />
@@ -347,12 +362,14 @@ function App() {
                   <Route path="/pricing" element={<Pricing />} />
                   <Route path="/contact" element={<Contact />} />
                 </Routes>
+          </Suspense>
               </MainLayout>
             }
           />
           )}
 
         </Routes>
+          </Suspense>
         {!isCustomDomain && <VoiceCommandFAB />}
         </CopilotProvider>
       </AuthProvider>

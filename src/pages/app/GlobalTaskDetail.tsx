@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Clock, User, AlertCircle } from 'lucide-react';
 import AvatarStack from '../../components/app/AvatarStack';
 import RelationalCommandCenter from '../../components/app/RelationalCommandCenter';
@@ -58,10 +58,10 @@ export default function GlobalTaskDetail() {
       <RelationalCommandCenter entityType="task" entityId={task.id}>
         <div className="max-w-4xl mx-auto py-8">
           <div className="flex items-center justify-between mb-6">
-            <button onClick={() => navigate(-1)} className="flex items-center space-x-2 text-slate-400 hover:text-white">
+            <Link to="/app/tasks" className="flex items-center space-x-2 text-slate-400 hover:text-white">
               <ArrowLeft className="w-4 h-4" />
-              <span>Back</span>
-            </button>
+              <span>Back to Tasks</span>
+            </Link>
             <AvatarStack roomName={`task:${id}`} />
           </div>
 

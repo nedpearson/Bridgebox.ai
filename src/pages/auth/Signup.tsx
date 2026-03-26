@@ -20,12 +20,7 @@ export default function Signup() {
   React.useEffect(() => {
     if (success && user && profile && !authLoading) {
       const timer = setTimeout(() => {
-        const context = {
-          role: profile.role,
-          organizationId: currentOrganization?.id,
-          organizationType: currentOrganization?.type,
-        };
-        navigate(permissions.getDefaultRoute(context), { replace: true });
+        navigate('/ai-onboarding', { replace: true });
       }, 2000);
       return () => clearTimeout(timer);
     }
@@ -75,7 +70,7 @@ export default function Signup() {
             <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-start space-x-3">
               <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
               <p className="text-green-400 text-sm">
-                Account created successfully! Redirecting to your dashboard...
+                Account created successfully! Redirecting to setup...
               </p>
             </div>
           )}

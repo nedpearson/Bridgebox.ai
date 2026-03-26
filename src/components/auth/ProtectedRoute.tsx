@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { permissions } from '../../lib/permissions';
 import LoadingSpinner from '../LoadingSpinner';
@@ -20,6 +20,7 @@ export default function ProtectedRoute({
   requireClientAccess = false,
 }: ProtectedRouteProps) {
   const { user, profile, loading, currentOrganization } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return <LoadingSpinner fullScreen />;
@@ -27,6 +28,12 @@ export default function ProtectedRoute({
 
   if (requireAuth && !user) {
     return <Navigate to="/login" replace />;
+  }
+
+  // Phase 8: Global Forced Onboarding Guard
+  // Redirect authenticated, orphaned users accessing /app/* securely into the AI setup wizard.
+  if (requireAuth && user && profile && !currentOrganization && location.pathname.startsWith('/app')) {
+    return <Navigate to="/ai-onboarding" replace />;
   }
 
   // If we are no longer loading but still don't have a profile, the fetch failed or the profile is missing.

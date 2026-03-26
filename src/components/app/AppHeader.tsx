@@ -33,7 +33,7 @@ export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
           </button>
         </div>
       )}
-      <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-30">
+      <div className="border-b border-slate-800 bg-slate-900 sticky top-0 z-40">
         <div className="px-4 md:px-8 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-3 md:space-x-4">
           <button

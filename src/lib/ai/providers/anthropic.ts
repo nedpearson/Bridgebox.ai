@@ -22,31 +22,60 @@ export class AnthropicProvider implements AIProviderClient {
     const userMessages = request.messages.filter(m => m.role !== 'system');
 
     try {
-      const response = await fetch(`${this.baseURL}/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.apiKey!,
-          'anthropic-version': '2023-06-01',
-        },
-        body: JSON.stringify({
-          model: request.model || 'claude-3-5-sonnet-20241022',
-          max_tokens: request.maxTokens || 4096,
-          temperature: request.temperature ?? 0.7,
-          system: systemMessage?.content,
-          messages: userMessages.map(m => ({
-            role: m.role,
-            content: m.content,
-          })),
-        }),
-      });
+      let attempt = 0;
+      let response: Response | null = null;
+      let errorData: any = null;
+      const maxRetries = 3;
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+      while (attempt < maxRetries) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 60000);
+          
+          response = await fetch(`${this.baseURL}/messages`, {
+            method: 'POST',
+            signal: controller.signal,
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': this.apiKey!,
+              'anthropic-version': '2023-06-01',
+            },
+            body: JSON.stringify({
+              model: request.model || 'claude-3-5-sonnet-20241022',
+              max_tokens: request.maxTokens || 4096,
+              temperature: request.temperature ?? 0.7,
+              system: systemMessage?.content,
+              messages: userMessages.map(m => ({
+                role: m.role,
+                content: m.content,
+              })),
+            }),
+          });
+          clearTimeout(timeoutId);
+
+          if (response.ok) break;
+
+          errorData = await response.json().catch(() => ({}));
+          // Only retry on rate limits (429) or server errors (5xx)
+          if (response.status !== 429 && response.status < 500) {
+            break;
+          }
+        } catch (e: any) {
+          errorData = { error: { message: e.message, type: 'NETWORK_ERROR' } };
+          if (attempt === maxRetries - 1) break;
+        }
+
+        attempt++;
+        if (attempt < maxRetries) {
+          await new Promise(r => setTimeout(r, Math.min(1000 * Math.pow(2, attempt), 10000)));
+        }
+      }
+
+      if (!response || !response.ok) {
         throw this.createError(
-          errorData.error?.message || `API error: ${response.status}`,
-          errorData.error?.type || 'API_ERROR',
-          response.status === 429 || response.status >= 500
+          errorData?.error?.message || `API error: ${response?.status || 'Unknown'}`,
+          errorData?.error?.type || 'API_ERROR',
+          response?.status === 429 || (response?.status || 500) >= 500
         );
       }
 

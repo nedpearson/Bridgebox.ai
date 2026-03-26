@@ -129,6 +129,23 @@ export default function AppSidebar() {
     return location.pathname.startsWith(path);
   };
 
+  // Phase 8: Module Pre-Fetching
+  // Instructs Vite/Webpack to fetch the lazy-loaded chunk *in the background* immediately upon hover
+  const preloadModule = (path: string) => {
+    switch(path) {
+      case '/app': import('../../pages/app/AppOverview'); break;
+      case '/app/pipeline': import('../../pages/app/Pipeline'); break;
+      case '/app/leads': import('../../pages/app/LeadsList'); break;
+      case '/app/projects': import('../../pages/app/ProjectsList'); break;
+      case '/app/clients': import('../../pages/app/ClientsList'); break;
+      case '/app/tasks': import('../../pages/app/GlobalTasksList'); break;
+      case '/app/documents': import('../../pages/app/Documents'); break;
+      case '/app/communications': import('../../pages/app/CommunicationsList'); break;
+      case '/app/copilot': import('../../pages/app/Copilot'); break;
+      default: break;
+    }
+  };
+
   return (
     <>
       {/* Mobile Overlay */}
@@ -177,7 +194,11 @@ export default function AppSidebar() {
                   const active = isActive(item.path);
 
                   return (
-                    <motion.div key={item.path} whileHover={{ x: 4 }}>
+                    <motion.div 
+                      key={item.path} 
+                      whileHover={{ x: 4 }}
+                      onMouseEnter={() => preloadModule(item.path)}
+                    >
                       <Link
                         to={item.path}
                         className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${

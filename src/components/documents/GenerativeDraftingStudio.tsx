@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Bold, Italic, Strikethrough, Heading1, Heading2, List, ListOrdered, Sparkles, Save, Loader2 } from 'lucide-react';
+import { Bold, Italic, Strikethrough, Heading1, Heading2, List, ListOrdered, Sparkles, Save, Loader2, Play, CheckCircle } from 'lucide-react';
 import { copilotEngine } from '../../lib/ai/services/copilotEngine';
 import Button from '../Button';
+import { useAuth } from '../../contexts/AuthContext';
+import { BuildOrchestratorAgent } from '../../lib/ai/agents/BuildOrchestratorAgent';
+import { supabase } from '../../lib/supabase';
 
 interface GenerativeDraftingStudioProps {
   initialContent?: string;
   onSave?: (html: string) => Promise<void>;
+  onApprove?: () => Promise<void>;
   documentId: string;
   contextPayload?: string;
 }
 
-export default function GenerativeDraftingStudio({ initialContent = '<p>Start drafting your document...</p>', onSave, documentId, contextPayload }: GenerativeDraftingStudioProps) {
+export default function GenerativeDraftingStudio({ initialContent = '<p>Start drafting your document...</p>', onSave, onApprove, documentId, contextPayload }: GenerativeDraftingStudioProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
   const [showAiToolbar, setShowAiToolbar] = useState(false);
+  const [isImplementing, setIsImplementing] = useState(false);
+  const [implementSuccess, setImplementSuccess] = useState(false);
+  const { currentOrganization, user } = useAuth();
 
   const editor = useEditor({
     extensions: [StarterKit],
@@ -27,6 +34,19 @@ export default function GenerativeDraftingStudio({ initialContent = '<p>Start dr
       },
     },
   });
+
+  const hasAutoDrafted = useRef(false);
+
+  useEffect(() => {
+    if (!editor || !contextPayload) return;
+    
+    // Immediately auto-draft upon opening the project if the editor scope is empty
+    if (!hasAutoDrafted.current && editor.getText().trim() === 'Start drafting your document...') {
+       hasAutoDrafted.current = true;
+       // Execute generation explicitly on mount
+       handleGenerate();
+    }
+  }, [editor, contextPayload]);
 
   const handleSave = async () => {
     if (!editor || !onSave) return;
@@ -46,11 +66,19 @@ export default function GenerativeDraftingStudio({ initialContent = '<p>Start dr
       setIsGenerating(true);
       
       const generationPrompt = aiPrompt.trim() 
-         ? `Draft the following content for an enterprise document. ONLY return the drafted text without pleasantries: ${aiPrompt}`
-         : `You are an expert enterprise systems architect mapping a complex project integration for a B2B SaaS platform. 
-Based entirely on this context: ${contextPayload} 
-Draft a comprehensive and professional Project Integration Charter. 
-Include bold headings for Objective, Systems Involved, Integration Architecture Strategy, and Actionable Next Steps. 
+         ? `You are a real-time AI document editor.
+The user has provided a short steering phrase or instruction: "${aiPrompt.trim()}"
+
+Here is the current HTML document:
+${editor.getHTML()}
+
+Task: Apply this instruction seamlessly to the document. Add, delete, or modify the content to perfectly match the user's direction while preserving the professional tone and formatting of the rest of the document.
+CRITICAL: You MUST return the ENTIRE updated HTML document from start to finish. Do NOT just return a summary of changes, and do NOT truncate the rest of the document.
+Return ONLY the raw updated HTML. No markdown wrappers (\`\`\`html), no pleasantries, and no explanations.`
+         : `Based entirely on this context: ${contextPayload} 
+Draft a comprehensive and professional Project Charter heavily focused on WHAT IS EXPECTED from this deployment. 
+Include bold HTML headings for <h1>Project Objective</h1>, <h2>Expected Scope & Deliverables</h2>, <h2>Integration Architecture Strategy</h2>, <h2>Acceptance Criteria</h2>, and <h2>Next Steps</h2>. 
+Make sure it clearly dictates the exact expectations of the project natively based on the context provided.
 ONLY return the HTML-formatted drafted text without pleasantries or introductory chat, starting directly with the document body.`;
 
       // Simulate generative text payload from AI Copilot
@@ -61,17 +89,62 @@ ONLY return the HTML-formatted drafted text without pleasantries or introductory
       );
       
       let responseText = result.text || '';
-      // Strip markdown code block wrappings if the AI accidentally included them
       responseText = responseText.replace(/```html/g, '').replace(/```/g, '').trim();
       
-      // Inject AI response natively at cursor
-      editor.commands.insertContent(`${responseText}<p></p>`);
+      // We always overwrite the content. If it was a blank project, we write the charter. If it was an edit instruction, we rewrite it natively.
+      editor.commands.setContent(responseText);
+      
       setAiPrompt('');
-      setShowAiToolbar(false);
+      
+      if (onSave) {
+          await onSave(responseText);
+      }
+
+
+
     } catch (e) {
       console.error('AI Generation Failed:', e);
     } finally {
       setIsGenerating(false);
+    }
+  };
+
+  const handleImplementNextSteps = async () => {
+    if (!editor || !currentOrganization || !user) return;
+    try {
+      setIsImplementing(true);
+      setImplementSuccess(false);
+      const textContent = editor.getText();
+      
+      if (onSave) {
+          await onSave(editor.getHTML());
+      }
+
+      // Generate a valid Onboarding Session natively to satisfy relational FKs
+      const { data: sessionData, error: sessionError } = await supabase.from('onboarding_sessions').insert({
+          organization_id: currentOrganization.id,
+          client_id: user.id,
+          session_title: `Generated Charter: ${documentId}`,
+          raw_input: { text: textContent },
+          status: 'approved'
+      }).select('id').single();
+      
+      if (sessionError) throw sessionError;
+
+      await BuildOrchestratorAgent.extractTasksFromSession(sessionData.id, currentOrganization.id, textContent);
+      await BuildOrchestratorAgent.executeBuildQueue(sessionData.id, currentOrganization.id, user.id);
+      
+      if (onApprove) {
+          await onApprove();
+      }
+
+      setImplementSuccess(true);
+      setTimeout(() => setImplementSuccess(false), 5000);
+    } catch (e: any) {
+      console.error('Failed to implement next steps:', e);
+      alert('Implementation Exception: ' + (e.message || 'Unknown database or AI parsing error occurred.'));
+    } finally {
+      setIsImplementing(false);
     }
   };
 
@@ -108,13 +181,16 @@ ONLY return the HTML-formatted drafted text without pleasantries or introductory
         </div>
         
         <div className="flex items-center space-x-3">
-          <button 
-            onClick={() => setShowAiToolbar(!showAiToolbar)}
-            className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${showAiToolbar ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' : 'bg-slate-800/50 text-slate-300 hover:text-white border border-transparent'}`}
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>AI Draft</span>
-          </button>
+          <Button onClick={handleImplementNextSteps} disabled={isImplementing || !editor.getText().trim() || editor.getText() === 'Start drafting your document...'} size="sm" className={`bg-emerald-600 hover:bg-emerald-700 text-white border-none shadow-lg shadow-emerald-500/20 px-4 transition-all ${implementSuccess ? 'bg-emerald-500 hover:bg-emerald-500' : ''}`}>
+            {isImplementing ? (
+               <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Extracting Tasks (~10s)...</>
+            ) : implementSuccess ? (
+               <><CheckCircle className="w-4 h-4 mr-2" /> Actioned!</>
+            ) : (
+               <><Play className="w-4 h-4 mr-2" /> Implement Next Steps</>
+            )}
+          </Button>
+
           <Button onClick={handleSave} disabled={isSaving || !onSave} size="sm">
             {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
             Save Draft
@@ -122,24 +198,21 @@ ONLY return the HTML-formatted drafted text without pleasantries or introductory
         </div>
       </div>
 
-      {/* Embedded AI Copilot Prompt */}
-      {showAiToolbar && (
-        <div className="flex animate-in slide-in-from-top-2 p-3 bg-indigo-950/30 border-b border-indigo-500/20 items-center space-x-3">
-          <Sparkles className="w-5 h-5 text-indigo-400 flex-shrink-0" />
-          <input 
-            autoFocus
-            type="text"
-            value={aiPrompt}
-            onChange={(e) => setAiPrompt(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
-            placeholder={contextPayload ? "Leave blank to auto-draft an Architecture Charter from the Project logic, or type a custom instruction..." : "Instruct the AI what to draft at the cursor..."}
-            className="flex-1 bg-transparent border-none text-sm text-white placeholder-indigo-300/50 focus:outline-none focus:ring-0"
-          />
-          <Button onClick={handleGenerate} disabled={isGenerating || (!aiPrompt.trim() && !contextPayload)} size="sm" variant="primary">
-            {isGenerating ? 'Drafting...' : (!aiPrompt.trim() && contextPayload ? 'Auto-Draft Charter' : 'Generate')}
-          </Button>
-        </div>
-      )}
+      {/* Persistent Embedded AI Editor Toolbar */}
+      <div className="flex p-3 bg-indigo-950/30 border-b border-indigo-500/20 items-center space-x-3">
+        <Sparkles className="w-5 h-5 text-indigo-400 flex-shrink-0" />
+        <input 
+          type="text"
+          value={aiPrompt}
+          onChange={(e) => setAiPrompt(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+          placeholder="Tell the AI to edit this charter (e.g. 'Make it shorter', 'Add an acceptance criteria')..."
+          className="flex-1 bg-transparent border-none text-sm text-white placeholder-indigo-300/50 focus:outline-none focus:ring-0"
+        />
+        <Button onClick={handleGenerate} disabled={isGenerating || (!aiPrompt.trim() && !contextPayload)} size="sm" variant="primary">
+          {isGenerating ? 'Applying Edit...' : 'AI Edit'}
+        </Button>
+      </div>
 
       {/* Editor Canvas Container */}
       <div className="flex-1 overflow-y-auto bg-slate-900 cursor-text" onClick={() => editor.commands.focus()}>

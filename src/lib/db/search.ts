@@ -16,12 +16,14 @@ export const globalSearchService = {
     const results: SearchResult[] = [];
 
     // Parallel search across core tables utilizing correct isolation columns
-    const [clientsRes, projectsRes, tasksRes, docsRes] = await Promise.all([
-      // Organizations don't have a parent tenant; RLS controls membership.
-      supabase.from('organizations').select('id, name, type').ilike('name', searchTerm).limit(5),
+    const [clientsRes, projectsRes, tasksRes, docsRes, onboardingRes] = await Promise.all([
+      // Organizations acts as the root boundary. Clients are organizations with type = 'client'.
+      supabase.from('organizations').select('id, name, type').eq('type', 'client').ilike('name', searchTerm).limit(5),
       supabase.from('projects').select('id, name, status').eq('organization_id', tenantId).ilike('name', searchTerm).limit(5),
       supabase.from('global_tasks').select('id, title, status').eq('tenant_id', tenantId).ilike('title', searchTerm).limit(5),
-      supabase.from('documents').select('id, file_name, document_type').eq('organization_id', tenantId).ilike('file_name', searchTerm).limit(5)
+      supabase.from('documents').select('id, file_name, document_type').eq('organization_id', tenantId).ilike('file_name', searchTerm).limit(5),
+      // AI Onboarding Blueprint index
+      supabase.from('onboarding_sessions').select('id, session_name, status').eq('organization_id', tenantId).ilike('session_name', searchTerm).limit(5)
     ]);
 
     if (clientsRes.data) {
@@ -68,6 +70,18 @@ export const globalSearchService = {
           title: doc.file_name,
           subtitle: `Document • ${doc.document_type || 'File'}`,
           url: `/app/documents/${doc.id}`
+        });
+      });
+    }
+
+    if (onboardingRes.data) {
+      onboardingRes.data.forEach(session => {
+        results.push({
+          id: session.id,
+          type: 'onboarding',
+          title: session.session_name || 'Unnamed Session',
+          subtitle: `AI Onboarding • ${session.status}`,
+          url: `/app/onboarding/${session.id}`
         });
       });
     }
