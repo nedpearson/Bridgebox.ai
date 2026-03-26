@@ -1,0 +1,9 @@
+Initialising login role...
+Connecting to remote database...
+Found local migration files to be inserted before the last migration on remote database.
+
+Rerun the command with --include-all flag to apply these migrations:
+supabase\migrations\20260323194425_remote_schema.sql                 
+supabase\migrations\20260325183800_enable_pgvector_and_embeddings.sql
+supabase\migrations\20260325190000_enable_pgcron_data_quality.sql    
+

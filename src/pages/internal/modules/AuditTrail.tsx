@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { commandCenterApi, InternalAuditEvent } from '../../../lib/commandCenter';
+import { auditService, AuditLog } from '../../../lib/db/audit';
 import { Shield, Search, Filter } from 'lucide-react';
 
 export default function AuditTrail() {
-  const [events, setEvents] = useState<InternalAuditEvent[]>([]);
+  const [events, setEvents] = useState<AuditLog[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function AuditTrail() {
   const loadEvents = async () => {
     try {
       setLoading(true);
-      const data = await commandCenterApi.listAuditEvents(200);
+      const { data } = await auditService.getGlobalLogs(100);
       setEvents(data);
     } catch (err) {
       console.error(err);
@@ -28,9 +28,9 @@ export default function AuditTrail() {
         <div>
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
             <Shield className="w-6 h-6 text-indigo-400" />
-            Internal Audit Trail
+            Global Audit Ledger
           </h2>
-          <p className="text-sm text-slate-400 mt-1">Immutable ledger of Super Admin activities and tool access vectors.</p>
+          <p className="text-sm text-slate-400 mt-1">Immutable ledger of all client events across the multi-tenant landscape.</p>
         </div>
         <button onClick={loadEvents} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg transition-colors">
           Refresh Ledger
@@ -43,10 +43,10 @@ export default function AuditTrail() {
             <thead>
               <tr className="bg-slate-950 border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider">
                 <th className="p-4 font-medium">Timestamp</th>
-                <th className="p-4 font-medium">Event Type</th>
-                <th className="p-4 font-medium">Module Location</th>
-                <th className="p-4 font-medium">Target Context</th>
-                <th className="p-4 font-medium">Admin ID</th>
+                <th className="p-4 font-medium">Organization</th>
+                <th className="p-4 font-medium">Action</th>
+                <th className="p-4 font-medium">Resource</th>
+                <th className="p-4 font-medium">Actor</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
@@ -55,19 +55,17 @@ export default function AuditTrail() {
                   <td className="p-4 text-sm text-slate-400 font-mono whitespace-nowrap">
                      {new Date(ev.created_at).toLocaleString()}
                   </td>
-                  <td className="p-4 text-sm text-white font-medium">
-                    {ev.event_type}
+                  <td className="p-4 text-sm text-indigo-400 font-medium">
+                    {ev.org_name || ev.organization_id.split('-')[0] + '...'}
                   </td>
-                  <td className="p-4 text-sm text-indigo-400 font-mono">
-                    [{ev.module}]
+                  <td className="p-4 text-sm text-white font-mono uppercase">
+                    {ev.action_type}
                   </td>
                    <td className="p-4 text-sm text-slate-300">
-                    {ev.target_type && ev.target_id 
-                      ? `${ev.target_type}:${ev.target_id.split('-')[0]}...` 
-                      : <span className="text-slate-600 italic">No target</span>}
+                    {ev.resource_type} {ev.resource_id ? `(${ev.resource_id.split('-')[0]}...)` : ''}
                   </td>
-                  <td className="p-4 font-mono text-xs text-slate-500">
-                    {ev.actor_user_id.split('-')[0]}...
+                  <td className="p-4 text-sm text-slate-500">
+                    {ev.user_email || ev.user_name || 'System / Auto'}
                   </td>
                 </tr>
               ))}

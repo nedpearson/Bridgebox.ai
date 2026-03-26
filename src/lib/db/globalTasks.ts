@@ -1,5 +1,6 @@
 import { supabase } from '../supabase';
 import { EntityType, entityLinkService } from './entityLinks';
+import { auditService } from './audit';
 
 export type GlobalTaskPriority = 'low' | 'medium' | 'high' | 'urgent';
 export type GlobalTaskStatus = 'todo' | 'in_progress' | 'in_review' | 'blocked' | 'done' | 'cancelled';
@@ -40,6 +41,17 @@ export const globalTasksService = {
       .single();
 
     if (error) throw error;
+
+    if (data.tenant_id) {
+      auditService.logEvent({
+        organizationId: data.tenant_id,
+        actionType: 'create',
+        resourceType: 'global_task',
+        resourceId: data.id,
+        deltaJson: task
+      }).catch(e => console.warn('Audit Trail failed', e));
+    }
+
     return data;
   },
 
@@ -55,6 +67,17 @@ export const globalTasksService = {
       .single();
 
     if (error) throw error;
+
+    if (data.tenant_id) {
+      auditService.logEvent({
+        organizationId: data.tenant_id,
+        actionType: 'update',
+        resourceType: 'global_task',
+        resourceId: data.id,
+        deltaJson: updates
+      }).catch(e => console.warn('Audit Trail failed', e));
+    }
+
     return data;
   },
 
@@ -70,6 +93,17 @@ export const globalTasksService = {
       .single();
 
     if (error) throw error;
+
+    if (data.tenant_id) {
+      auditService.logEvent({
+        organizationId: data.tenant_id,
+        actionType: 'update',
+        resourceType: 'global_task',
+        resourceId: data.id,
+        deltaJson: { status }
+      }).catch(e => console.warn('Audit Trail failed', e));
+    }
+
     return data;
   },
 

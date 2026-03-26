@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useScreenRecorder } from '../../hooks/useScreenRecorder';
 import { internalRecordingsApi } from '../../lib/internalRecordings';
-import { Play, Square, Pause, Save, X, Upload } from 'lucide-react';
+import { Play, Square, Pause, Save, X, Upload, Sparkles } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { copilotEngine } from '../../lib/ai/services/copilotEngine';
 
 export default function RecorderUI() {
   const { user } = useAuth();
@@ -28,6 +29,74 @@ export default function RecorderUI() {
   const [intendedUse, setIntendedUse] = useState('');
   const [uploading, setUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [isInterpreting, setIsInterpreting] = useState(false);
+
+  const handleInterpretVideo = async () => {
+    if (!title.trim()) {
+      alert('Please provide a basic title first so the AI has context to interpret the recording.');
+      return;
+    }
+    try {
+      setIsInterpreting(true);
+      const isDev = recordingMode === 'development';
+
+      const prompt = isDev
+        ? `Act as an expert level Prompt Engineer and Software Architect. The user recorded a screen session titled "${title}" in the category "${category}" intended to instruct an advanced AI coding agent named "Antigravity" to build a feature or entire program.
+           Please write:
+           1. A highly descriptive summary of the recording.
+           2. Internal technical context.
+           3. The absolute BEST text prompt to input into Antigravity to achieve the desired build autonomously. Make it highly detailed and action-oriented.
+           4. Any necessary architectural constraints.
+           5. Feature request clarifications.
+           
+           Format your response strictly using these exact tokens:
+           DESCRIPTION: [summary]
+           NOTES: [context]
+           PROMPT: [The ultimate prompt for Antigravity]
+           ARCHITECTURE: [Architectural constraints]
+           CLARIFICATIONS: [Clarifications]`
+        : `Act as an expert software diagnostician. The user just recorded a screen session titled "${title}" in the category "${category}". 
+           Please write a highly descriptive and professional summary of this recording. Also, provide a list of likely reproduction steps or internal technical notes based strictly on the context of the title and the fact that it is a screen capture payload.
+           Format your response exactly as:
+           DESCRIPTION: [Your description here]
+           NOTES: [Your notes here]`;
+      
+      const result = await copilotEngine.generateReasonedResponse(
+        prompt,
+        { role: 'super_admin', organizationId: null, userId: user?.id || 'system' },
+        { activeModule: 'recording_center' }
+      );
+      
+      const text = result.text || '';
+      
+      const extract = (key: string, nextKeyPatt: string) => {
+        const regex = new RegExp(`${key}:\\s*(.*?)(?=${nextKeyPatt}|$)`, 's');
+        const match = text.match(regex);
+        return match && match[1] ? match[1].trim() : '';
+      };
+
+      const parsedDesc = extract('DESCRIPTION', 'NOTES:|PROMPT:|ARCHITECTURE:|CLARIFICATIONS:');
+      const parsedNotes = extract('NOTES', 'PROMPT:|ARCHITECTURE:|CLARIFICATIONS:');
+      
+      if (parsedDesc) setDescription(parsedDesc);
+      if (parsedNotes) setNotes(parsedNotes);
+
+      if (isDev) {
+        const parsedPrompt = extract('PROMPT', 'ARCHITECTURE:|CLARIFICATIONS:');
+        const parsedArch = extract('ARCHITECTURE', 'CLARIFICATIONS:');
+        const parsedClarifications = extract('CLARIFICATIONS', 'END_OF_RESPONSE');
+
+        if (parsedPrompt) setIntendedUse(parsedPrompt);
+        if (parsedArch) setBuildNotes(parsedArch);
+        if (parsedClarifications) setFeatureNotes(parsedClarifications);
+      }
+      
+    } catch (err: any) {
+      alert('AI interpretation failed: ' + err.message);
+    } finally {
+      setIsInterpreting(false);
+    }
+  };
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -179,6 +248,18 @@ export default function RecorderUI() {
                onClick={() => setRecordingMode('development')}
                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${recordingMode === 'development' ? 'bg-[#3B82F6] text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
             >Record for App Development</button>
+          </div>
+
+          <div className="flex justify-between items-end mb-1">
+             <h3 className="text-lg font-semibold text-white">Recording Details</h3>
+             <button
+               onClick={handleInterpretVideo}
+               disabled={isInterpreting || !title.trim()}
+               className="flex items-center gap-2 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-lg text-sm transition-colors disabled:opacity-50"
+             >
+               <Sparkles className="w-4 h-4" />
+               {isInterpreting ? 'Interpreting Video...' : 'Interpret with AI'}
+             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

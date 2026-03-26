@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, Check, CheckCheck, X } from 'lucide-react';
 import { useNotifications } from '../../hooks/useNotifications';
@@ -10,6 +10,19 @@ export default function NotificationBell() {
   const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications(user?.id);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const bellRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (bellRef.current && !bellRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
 
   const handleNotificationClick = (notification: typeof notifications[0]) => {
     markAsRead(notification.id);
@@ -33,7 +46,7 @@ export default function NotificationBell() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={bellRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="relative p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-white/5"
@@ -53,11 +66,6 @@ export default function NotificationBell() {
       <AnimatePresence>
         {isOpen && (
           <>
-            <div
-              className="fixed inset-0 z-30"
-              onClick={() => setIsOpen(false)}
-            />
-
             <motion.div
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}

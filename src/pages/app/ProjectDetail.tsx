@@ -13,6 +13,7 @@ import RelationalMetricsCard from '../../components/app/RelationalMetricsCard';
 import NextBestActionPanel from '../../components/app/NextBestActionPanel';
 import BlockersPanel from '../../components/app/BlockersPanel';
 import TimelineActivity from '../../components/app/TimelineActivity';
+import GenerativeDraftingStudio from '../../components/documents/GenerativeDraftingStudio';
 import { projectsService } from '../../lib/db/projects';
 import { useState, useEffect } from 'react';
 
@@ -181,6 +182,13 @@ export default function ProjectDetail() {
           </Card>
 
           <div className="lg:col-span-2 space-y-6">
+            <Card glass className="p-0 border-indigo-500/20 shadow-indigo-500/10">
+              <div className="p-6 border-b border-white/5 pb-4">
+                <h3 className="text-xl font-bold text-white">Generative Charter & Drafting</h3>
+              </div>
+              <GenerativeDraftingStudio documentId={project.id} />
+            </Card>
+
             <Card glass className="p-6">
               <h3 className="text-xl font-bold text-white mb-4">Project Progress</h3>
               <div className="mb-6">

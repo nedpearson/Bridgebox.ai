@@ -14,12 +14,12 @@ import {
 import { hasPermission } from '../../lib/permissions';
 
 export default function FeatureSettings() {
-  const { user, currentOrganization, userRole } = useAuth();
+  const { user, currentOrganization, profile } = useAuth();
   const [features, setFeatures] = useState<FeatureFlag[]>([]);
   const [loading, setLoading] = useState(true);
   const [planId] = useState('professional');
 
-  const canEdit = hasPermission(userRole, 'settings', 'update');
+  const canEdit = hasPermission(profile?.role, 'settings', 'update');
 
   useEffect(() => {
     if (currentOrganization) {

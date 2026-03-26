@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { User, Bell, Shield, CreditCard, Users, Settings as SettingsIcon, Palette, Zap } from 'lucide-react';
+import { User, Bell, Shield, CreditCard, Users, Settings as SettingsIcon, Palette, Zap, Smartphone, FileLock, DownloadCloud } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -50,6 +50,20 @@ export default function Settings() {
       link: '/app/settings/roles',
     },
     {
+      icon: FileLock,
+      title: 'Compliance Log',
+      description: 'Immutable tracking of access and mutations',
+      color: 'from-slate-600 to-slate-800',
+      link: '/app/settings/audit',
+    },
+    {
+      icon: DownloadCloud,
+      title: 'Data Export',
+      description: 'Download GDPR/CCPA compliant data archives',
+      color: 'from-teal-500 to-cyan-500',
+      link: '/app/settings/export',
+    },
+    {
       icon: Bell,
       title: 'Notifications',
       description: 'Configure email and push notification settings',
@@ -76,6 +90,13 @@ export default function Settings() {
       description: 'Connect third-party services and APIs',
       color: 'from-yellow-500 to-orange-500',
       link: '/app/integrations',
+    },
+    {
+      icon: Smartphone,
+      title: 'App Studio',
+      description: 'Customize and build your white-label mobile app',
+      color: 'from-violet-500 to-fuchsia-500',
+      link: '/app/settings/studio',
     },
   ];
 

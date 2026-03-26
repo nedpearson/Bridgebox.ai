@@ -9,12 +9,15 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import { useAuth } from '../../contexts/AuthContext';
 import { whiteLabelService, CustomRole } from '../../lib/db/whiteLabel';
 import { hasPermission } from '../../lib/permissions';
+import CreateRoleModal from '../../components/app/CreateRoleModal';
+import EditRoleModal from '../../components/app/EditRoleModal';
 
 export default function RolesSettings() {
   const { user, currentOrganization, profile } = useAuth();
   const [roles, setRoles] = useState<CustomRole[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editingRole, setEditingRole] = useState<CustomRole | null>(null);
 
   const canManage = profile?.role === 'super_admin';
 
@@ -130,6 +133,7 @@ export default function RolesSettings() {
               <CustomRoleCard
                 key={role.id}
                 role={role}
+                onEdit={() => setEditingRole(role)}
                 onDelete={handleDelete}
                 canManage={canManage}
               />
@@ -153,6 +157,22 @@ export default function RolesSettings() {
           </div>
         </div>
       </Card>
+      <CreateRoleModal
+        isOpen={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        onSuccess={() => {
+          setShowCreateModal(false);
+          loadRoles();
+        }}
+      />
+      <EditRoleModal
+        role={editingRole}
+        onClose={() => setEditingRole(null)}
+        onSuccess={() => {
+          setEditingRole(null);
+          loadRoles();
+        }}
+      />
     </div>
   );
 }
@@ -191,11 +211,12 @@ function SystemRoleCard({ name, description, permissions }: SystemRoleCardProps)
 
 interface CustomRoleCardProps {
   role: CustomRole;
+  onEdit: () => void;
   onDelete: (id: string) => void;
   canManage: boolean;
 }
 
-function CustomRoleCard({ role, onDelete, canManage }: CustomRoleCardProps) {
+function CustomRoleCard({ role, onEdit, onDelete, canManage }: CustomRoleCardProps) {
   const permissionCount = Object.keys(role.permissions).length;
 
   return (
@@ -224,7 +245,10 @@ function CustomRoleCard({ role, onDelete, canManage }: CustomRoleCardProps) {
 
         {canManage && (
           <div className="flex gap-2">
-            <button className="p-2 text-slate-400 hover:text-white transition-colors">
+            <button 
+              onClick={onEdit}
+              className="p-2 text-slate-400 hover:text-white transition-colors"
+            >
               <Edit3 className="w-4 h-4" />
             </button>
             <button

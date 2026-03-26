@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Loader2, Box, CheckCircle2, Plus, Zap, Link as LinkIcon } from 'lucide-react';
+import { Search, Loader2, Box, CheckCircle2, Plus, Zap, Link as LinkIcon, FileText } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { globalSearchService, SearchResult } from '../../lib/db/search';
@@ -153,6 +153,7 @@ export default function CommandPalette() {
       case 'organization': return <Box className="w-4 h-4 text-indigo-400" />;
       case 'project': return <Box className="w-4 h-4 text-emerald-400" />;
       case 'task': return <CheckCircle2 className="w-4 h-4 text-amber-400" />;
+      case 'document': return <FileText className="w-4 h-4 text-rose-400" />;
       default: return <Search className="w-4 h-4 text-slate-400" />;
     }
   };

@@ -11,7 +11,7 @@ import { whiteLabelService, OrganizationBranding } from '../../lib/db/whiteLabel
 import { hasPermission } from '../../lib/permissions';
 
 export default function BrandingSettings() {
-  const { user, currentOrganization, userRole } = useAuth();
+  const { user, currentOrganization, profile } = useAuth();
   const [branding, setBranding] = useState<OrganizationBranding | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -28,7 +28,7 @@ export default function BrandingSettings() {
     support_phone: '',
   });
 
-  const canEdit = hasPermission(userRole, 'settings', 'update');
+  const canEdit = hasPermission(profile?.role, 'settings', 'update');
 
   useEffect(() => {
     if (currentOrganization) {

@@ -38,6 +38,10 @@ interface AuthContextType {
   can: (check: (ctx: PermissionContext) => boolean) => boolean;
   isInternalStaff: boolean;
   isClientUser: boolean;
+  isImpersonating: boolean;
+  originalProfile: Profile | null;
+  impersonateUser: (profile: Profile, org: Organization) => void;
+  stopImpersonating: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -50,6 +54,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [currentOrganization, setCurrentOrganization] = useState<Organization | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLoadingOrg, setIsLoadingOrg] = useState(true);
+
+  // Impersonation State
+  const [impersonatedProfile, setImpersonatedProfile] = useState<Profile | null>(null);
+  const [impersonatedOrg, setImpersonatedOrg] = useState<Organization | null>(null);
+  
+  const activeProfile = impersonatedProfile || profile;
+  const activeBaseOrg = impersonatedOrg || currentOrganization;
 
   const handleSetCurrentOrganization = (org: Organization | null) => {
     if (org) {
@@ -159,15 +170,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const permissionContext = useMemo<PermissionContext | null>(() => {
-    if (!profile || !user) return null;
+    if (!activeProfile || !user) return null;
 
     return {
-      role: profile.role,
-      organizationId: currentOrganization?.id,
-      organizationType: currentOrganization?.organization_type || currentOrganization?.type,
-      userId: user.id,
+      role: activeProfile.role,
+      organizationId: activeBaseOrg?.id,
+      organizationType: activeBaseOrg?.organization_type || activeBaseOrg?.type,
+      userId: impersonatedProfile ? impersonatedProfile.id : user.id,
     };
-  }, [profile, user, currentOrganization]);
+  }, [activeProfile, user, activeBaseOrg, impersonatedProfile]);
 
   const can = (check: (ctx: PermissionContext) => boolean): boolean => {
     if (!permissionContext) return false;
@@ -175,39 +186,41 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const isInternalStaff = useMemo(() => {
-    return profile ? permissions.isInternalStaff(profile.role) : false;
-  }, [profile]);
+    return activeProfile ? permissions.isInternalStaff(activeProfile.role) : false;
+  }, [activeProfile]);
 
   const isClientUser = useMemo(() => {
-    return profile ? permissions.isClientUser(profile.role) : false;
-  }, [profile]);
+    return activeProfile ? permissions.isClientUser(activeProfile.role) : false;
+  }, [activeProfile]);
 
   // Safely inject Enterprise plan entitlements for super admin's internal workspaces 
   // while preserving explicit plan layouts for downstream client organizations
   const activeOrganization = useMemo(() => {
-    if (!currentOrganization) return null;
+    if (!activeBaseOrg) return null;
     
     // Check if nedpearson@gmail.com is operating in an internal host organization
     if (
+      !impersonatedProfile &&
       profile?.role === 'super_admin' && 
       profile.email?.toLowerCase() === 'nedpearson@gmail.com' &&
-      currentOrganization.type === 'internal'
+      activeBaseOrg.type === 'internal'
     ) {
       return {
-        ...currentOrganization,
+        ...activeBaseOrg,
         is_enterprise_client: true,
         billing_plan: 'enterprise',
         subscription_status: 'active'
       };
     }
     
-    return currentOrganization;
-  }, [currentOrganization, profile]);
+    return activeBaseOrg;
+  }, [activeBaseOrg, profile, impersonatedProfile]);
 
   const value: AuthContextType = {
     session,
     user,
-    profile,
+    profile: activeProfile,
+    originalProfile: profile,
     organizations,
     currentOrganization: activeOrganization,
     loading,
@@ -220,6 +233,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     can,
     isInternalStaff,
     isClientUser,
+    isImpersonating: !!impersonatedProfile,
+    impersonateUser: (p: Profile, o: Organization) => {
+      setImpersonatedProfile(p);
+      setImpersonatedOrg(o);
+    },
+    stopImpersonating: () => {
+      setImpersonatedProfile(null);
+      setImpersonatedOrg(null);
+    }
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

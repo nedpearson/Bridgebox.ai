@@ -12,13 +12,28 @@ interface AppHeaderProps {
   action?: React.ReactNode;
 }
 
+import { EyeOff } from 'lucide-react';
+
 export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
-  const { profile } = useAuth();
+  const { profile, isImpersonating, stopImpersonating } = useAuth();
   const { toggle } = useMobileNav();
 
   return (
-    <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-30">
-      <div className="px-4 md:px-8 py-4 flex items-center justify-between">
+    <>
+      {isImpersonating && (
+        <div className="bg-red-500 text-white px-4 py-2 flex items-center justify-center gap-3 w-full z-50 animate-pulse relative">
+          <EyeOff className="w-4 h-4" />
+          <span className="text-sm font-semibold tracking-wide">IMPERSONATION MODE ACTIVE</span>
+          <button 
+            onClick={() => { stopImpersonating(); window.location.reload(); }}
+            className="ml-4 px-3 py-1 bg-white/20 hover:bg-white/30 rounded text-xs transition-colors font-medium border border-white/20 backdrop-blur"
+          >
+            Revert to Super Admin
+          </button>
+        </div>
+      )}
+      <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-30">
+        <div className="px-4 md:px-8 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-3 md:space-x-4">
           <button
             onClick={toggle}
@@ -53,7 +68,7 @@ export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
 
           <NotificationBell />
 
-          <div className="flex items-center space-x-2 pl-3 border-l border-slate-800">
+          <Link to="/app/settings" className="flex items-center space-x-2 pl-3 border-l border-slate-800 hover:bg-white/5 p-2 -my-2 rounded-lg cursor-pointer transition-colors">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] flex items-center justify-center">
               {profile?.avatar_url ? (
                 <img src={profile.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
@@ -61,13 +76,14 @@ export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
                 <User className="w-4 h-4 text-white" />
               )}
             </div>
-            <div className="hidden md:block">
-              <p className="text-sm font-medium text-white leading-tight">{profile?.full_name || 'User'}</p>
+            <div className="hidden md:block text-left">
+              <p className="text-sm font-medium text-white leading-tight hover:text-indigo-400 transition-colors">{profile?.full_name || 'User'}</p>
               <p className="text-xs text-slate-400 leading-tight capitalize">{profile?.role?.replace('_', ' ')}</p>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

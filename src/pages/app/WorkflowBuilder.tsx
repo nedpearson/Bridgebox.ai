@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Save, Play, ArrowLeft, Plus, Trash2 } from 'lucide-react';
+import { Save, Play, ArrowLeft, Plus, Trash2, Sparkles, Bot, Loader2 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
@@ -12,6 +12,7 @@ import NextBestActionPanel from '../../components/app/NextBestActionPanel';
 import BlockersPanel from '../../components/app/BlockersPanel';
 import TimelineActivity from '../../components/app/TimelineActivity';
 import { workflowService } from '../../lib/db/workflows';
+import { aiService } from '../../lib/ai/services/aiService';
 import type { Workflow, WorkflowStep, WorkflowCategory, WorkflowTriggerType, WorkflowStepType } from '../../types/workflow';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -43,6 +44,27 @@ export function WorkflowBuilder() {
   const [category, setCategory] = useState<WorkflowCategory>('custom');
   const [triggerType, setTriggerType] = useState<WorkflowTriggerType>('lead_created');
   const [steps, setSteps] = useState<WorkflowStep[]>([]);
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleGenerateWorkflow = async () => {
+    if (!aiPrompt.trim()) return;
+    setIsGenerating(true);
+    try {
+      const response = await aiService.generateWorkflow(aiPrompt);
+      if (response.success && response.data) {
+        setSteps(response.data);
+      } else {
+        throw new Error(response.error?.message || 'Failed to generate workflow');
+      }
+    } catch (err) {
+      console.error('AI Generation Failed:', err);
+      alert('Failed to interpret workflow constraints. Please modify your prompt and retry.');
+    } finally {
+      setIsGenerating(false);
+      setAiPrompt('');
+    }
+  };
 
   useEffect(() => {
     if (id) {
@@ -182,6 +204,35 @@ export function WorkflowBuilder() {
               </select>
             </div>
           </div>
+        </div>
+      </Card>
+
+      <Card className="p-6 bg-slate-900/50 border-slate-800">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+            <Bot className="w-5 h-5 text-indigo-400" />
+            AI Workflow Macros
+          </h2>
+        </div>
+        <div className="flex items-start gap-4">
+          <textarea
+            value={aiPrompt}
+            onChange={(e) => setAiPrompt(e.target.value)}
+            placeholder="Describe your automation... (e.g. 'When a lead is created, wait 2 days and send a welcome email')"
+            className="flex-1 px-4 py-3 bg-slate-800/80 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 resize-none h-[100px]"
+          />
+          <button
+            onClick={handleGenerateWorkflow}
+            disabled={isGenerating || !aiPrompt.trim()}
+            className="flex flex-col items-center justify-center gap-2 px-6 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-400 hover:to-purple-400 rounded-lg text-white font-medium transition-colors disabled:opacity-50 whitespace-nowrap h-[100px]"
+          >
+            {isGenerating ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              <Sparkles className="w-5 h-5" />
+            )}
+            <span>Generate<br/>Graph</span>
+          </button>
         </div>
       </Card>
 

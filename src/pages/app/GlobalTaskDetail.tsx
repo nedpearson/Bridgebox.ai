@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Clock, User, AlertCircle } from 'lucide-react';
+import AvatarStack from '../../components/app/AvatarStack';
 import RelationalCommandCenter from '../../components/app/RelationalCommandCenter';
 import RelationalMetricsCard from '../../components/app/RelationalMetricsCard';
 import NextBestActionPanel from '../../components/app/NextBestActionPanel';
@@ -56,10 +57,13 @@ export default function GlobalTaskDetail() {
 
       <RelationalCommandCenter entityType="task" entityId={task.id}>
         <div className="max-w-4xl mx-auto py-8">
-          <button onClick={() => navigate(-1)} className="flex items-center space-x-2 text-slate-400 hover:text-white mb-6">
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back</span>
-          </button>
+          <div className="flex items-center justify-between mb-6">
+            <button onClick={() => navigate(-1)} className="flex items-center space-x-2 text-slate-400 hover:text-white">
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </button>
+            <AvatarStack roomName={`task:${id}`} />
+          </div>
 
           <Card glass className="p-8">
             <div className="flex items-center justify-between mb-8">

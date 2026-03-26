@@ -9,6 +9,7 @@ import Button from '../../components/Button';
 import StatusBadge from '../../components/admin/StatusBadge';
 import OnboardingBanner from '../../components/app/OnboardingBanner';
 import EnterpriseDashboard from '../../components/enterprise/EnterpriseDashboard';
+import RevenueProjections from '../../components/app/RevenueProjections';
 import { useAuth } from '../../contexts/AuthContext';
 import { onboardingService } from '../../lib/db/onboarding';
 import { analyticsService } from '../../lib/db/analytics';
@@ -129,6 +130,9 @@ export default function AppOverview() {
         </Card>
 
         <EnterpriseDashboard />
+        
+        {/* Predictive Revenue Intelligence */}
+        <RevenueProjections baseMrr={analytics?.billing?.totalRevenue || 150000} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {kpis.map((kpi, index) => (

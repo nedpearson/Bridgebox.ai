@@ -1,4 +1,5 @@
 import { supabase } from '../supabase';
+import { auditService } from './audit';
 
 export interface OrganizationSummary {
   id: string;
@@ -123,6 +124,18 @@ export const organizationsService = {
 
     if (membershipError) throw membershipError;
 
+    try {
+      await auditService.logEvent({
+        organizationId: org.id,
+        actionType: 'create',
+        resourceType: 'organization',
+        resourceId: org.id,
+        deltaJson: orgData
+      });
+    } catch (e) {
+      console.warn('Audit trail failed but mutation succeeded', e);
+    }
+
     return org;
   },
 
@@ -141,6 +154,19 @@ export const organizationsService = {
       .single();
 
     if (error) throw error;
+
+    try {
+      await auditService.logEvent({
+        organizationId: id,
+        actionType: 'update',
+        resourceType: 'organization',
+        resourceId: id,
+        deltaJson: updates
+      });
+    } catch (e) {
+      console.warn('Audit trail failed but mutation succeeded', e);
+    }
+
     return data;
   },
 };

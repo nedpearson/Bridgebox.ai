@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import AvatarStack from '../../components/app/AvatarStack';
 import { motion } from 'framer-motion';
 import {
   ArrowLeft,
@@ -126,13 +127,17 @@ export function DocumentDetail() {
       />
 
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <button
-          onClick={() => navigate('/app/documents')}
-          className="flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Documents
-        </button>
+        <div className="flex items-center justify-between mb-6">
+          <button
+            onClick={() => navigate('/app/documents')}
+            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Documents
+          </button>
+          
+          <AvatarStack roomName={`document:${id}`} />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">

@@ -168,6 +168,30 @@ class AIService {
     return this.executeAITask(messages, false);
   }
 
+  async generateWorkflow(promptText: string): Promise<AITaskResult<any[]>> {
+    const messages = [
+      {
+        role: 'system',
+        content: `You are an expert automation engineer configuring Bridgebox DAG macros.
+        Convert the natural language workflow prompt into a structured JSON array of workflow steps.
+        Output Rules:
+        1. Always return a valid JSON array ONLY. Do not include markdown formatting or explanation text.
+        2. Each object must represent a distinct chronological step in the workflow graph.
+        3. Fields required per step:
+           - id (string, generate a secure random 8-character string)
+           - step_name (string, concise verb-first title)
+           - step_type (enum: 'action', 'condition', 'delay', 'notification')
+           - order_index (number, sequential starting at 0)
+           - config (object with arbitrary key/values relevant to the step, e.g. { "to": "client", "subject": "Welcome", "template": "onboarding" })`
+      },
+      {
+        role: 'user',
+        content: promptText
+      }
+    ];
+    return this.executeAITask<any[]>(messages, false);
+  }
+
   isAvailable(): boolean {
     return AIProviderFactory.isAIAvailable();
   }

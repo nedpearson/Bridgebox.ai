@@ -92,6 +92,9 @@ import MobileUpload from './pages/mobile/MobileUpload';
 import BrandingSettings from './pages/app/BrandingSettings';
 import FeatureSettings from './pages/app/FeatureSettings';
 import RolesSettings from './pages/app/RolesSettings';
+import MobileAppStudio from './pages/app/MobileAppStudio';
+import AuditLogSettings from './pages/app/AuditLogSettings';
+import ExportHub from './pages/app/ExportHub';
 import CommandCenterDashboard from './pages/internal/CommandCenterDashboard';
 import RecorderUI from './components/internal/RecorderUI';
 import RecordingLibrary from './components/internal/RecordingLibrary';
@@ -187,6 +190,9 @@ function App() {
                       <Route path="/settings/branding" element={<BrandingSettings />} />
                       <Route path="/settings/features" element={<FeatureSettings />} />
                       <Route path="/settings/roles" element={<RolesSettings />} />
+                      <Route path="/settings/studio" element={<MobileAppStudio />} />
+                      <Route path="/settings/audit" element={<AuditLogSettings />} />
+                      <Route path="/settings/export" element={<ExportHub />} />
                       <Route path="/mobile" element={<MobileHome />} />
                       <Route path="/mobile/tasks" element={<MobileTasks />} />
                       <Route path="/mobile/tasks/:id" element={<MobileTaskDetail />} />

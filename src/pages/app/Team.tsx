@@ -15,7 +15,7 @@ import { teamService } from '../../lib/db/team';
 import type { TeamMember, InvitationWithDetails } from '../../types/team';
 
 export default function Team() {
-  const { user, currentOrganization, userRole } = useAuth();
+  const { user, currentOrganization, profile, originalProfile, isImpersonating, impersonateUser } = useAuth();
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [invitations, setInvitations] = useState<InvitationWithDetails[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,8 +23,8 @@ export default function Team() {
   const [activeTab, setActiveTab] = useState<'members' | 'invitations'>('members');
   const [actionMenuOpen, setActionMenuOpen] = useState<string | null>(null);
 
-  const isInternalStaff = userRole === 'super_admin' || userRole === 'internal_staff';
-  const canManageTeam = isInternalStaff || userRole === 'client_admin';
+  const isInternalStaff = profile?.role === 'super_admin' || profile?.role === 'internal_staff';
+  const canManageTeam = isInternalStaff || profile?.role === 'client_admin';
 
   useEffect(() => {
     loadData();
@@ -222,14 +222,44 @@ export default function Team() {
                         </td>
                         {canManageTeam && (
                           <td className="py-4 px-6 text-right">
-                            {member.id !== user?.id && (
-                              <button
-                                onClick={() => handleRemoveMember(member.id)}
-                                className="text-red-400 hover:text-red-300 transition-colors"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </button>
-                            )}
+                            <div className="flex items-center justify-end space-x-2">
+                              {originalProfile?.role === 'super_admin' && member.id !== user?.id && !isImpersonating && (
+                                <button
+                                  onClick={() => {
+                                    if (confirm(`Impersonate ${member.full_name || member.email}?`)) {
+                                      impersonateUser(
+                                        {
+                                          id: member.id,
+                                          email: member.email,
+                                          full_name: member.full_name,
+                                          avatar_url: member.avatar_url,
+                                          role: member.role
+                                        },
+                                        {
+                                          id: member.organization_id,
+                                          name: member.organization_name || 'Organization',
+                                          type: 'client'
+                                        }
+                                      );
+                                      window.location.reload();
+                                    }
+                                  }}
+                                  className="text-[#3B82F6] hover:text-[#2563EB] transition-colors p-1"
+                                  title="Impersonate User"
+                                >
+                                  <Shield className="w-4 h-4" />
+                                </button>
+                              )}
+                              {member.id !== user?.id && (
+                                <button
+                                  onClick={() => handleRemoveMember(member.id)}
+                                  className="text-red-400 hover:text-red-300 transition-colors p-1"
+                                  title="Remove Team Member"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              )}
+                            </div>
                           </td>
                         )}
                       </motion.tr>
