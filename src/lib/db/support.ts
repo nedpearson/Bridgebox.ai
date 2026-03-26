@@ -77,8 +77,8 @@ export const supportService = {
       .select(`
         *,
         organization:organizations!support_tickets_organization_id_fkey(id, name),
-        requester:profiles!support_tickets_requester_id_fkey(full_name, email),
-        assigned_user:profiles!support_tickets_assigned_to_fkey(full_name, email)
+        requester:profiles!created_by_id(full_name, email),
+        assigned_user:profiles!assigned_to_id(full_name, email)
       `)
       .order('created_at', { ascending: false });
 
@@ -110,8 +110,8 @@ export const supportService = {
       .select(`
         *,
         organization:organizations!support_tickets_organization_id_fkey(id, name),
-        requester:profiles!support_tickets_requester_id_fkey(full_name, email),
-        assigned_user:profiles!support_tickets_assigned_to_fkey(full_name, email)
+        requester:profiles!created_by_id(full_name, email),
+        assigned_user:profiles!assigned_to_id(full_name, email)
       `)
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false });
@@ -126,8 +126,8 @@ export const supportService = {
       .select(`
         *,
         organization:organizations!support_tickets_organization_id_fkey(id, name),
-        requester:profiles!support_tickets_requester_id_fkey(full_name, email),
-        assigned_user:profiles!support_tickets_assigned_to_fkey(full_name, email)
+        requester:profiles!created_by_id(full_name, email),
+        assigned_user:profiles!assigned_to_id(full_name, email)
       `)
       .eq('id', id)
       .maybeSingle();
