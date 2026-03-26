@@ -1,0 +1,9 @@
+diff --git a/src/pages/app/Copilot.tsx b/src/pages/app/Copilot.tsx
+index 91cbb9d..d3317d0 100644
+--- a/src/pages/app/Copilot.tsx
++++ b/src/pages/app/Copilot.tsx
+@@ -40,3 +40,3 @@ import { useCopilotContext } from '../../contexts/CopilotContext';
+ import { copilotEngine } from '../../lib/ai/services/copilotEngine';
+-import { supabase } from '../../supabase';
++import { supabase } from '../../lib/supabase';
+ 

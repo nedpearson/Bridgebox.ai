@@ -38,7 +38,7 @@ import type { AgentAction } from '../../lib/agents/types';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCopilotContext } from '../../contexts/CopilotContext';
 import { copilotEngine } from '../../lib/ai/services/copilotEngine';
-import { supabase } from '../../supabase';
+import { supabase } from '../../lib/supabase';
 
 export default function Copilot() {
   const { user, currentOrganization } = useAuth();
