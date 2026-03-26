@@ -13,7 +13,9 @@ import {
   Sparkles,
   X,
   Smartphone,
-  LayoutTemplate
+  LayoutTemplate,
+  Target,
+  FileText
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -45,8 +47,10 @@ export default function AppSidebar() {
   // Phase 3 Redesign: Collapsed 28 legacy links into 11 Unified Command Nodes
   const topNav: NavItem[] = [
     { icon: LayoutDashboard, label: 'Home', path: '/app', requirePermission: permissions.canAccessAdminPanel },
-    { icon: FolderKanban, label: 'Work', path: '/app/projects', requirePermission: permissions.canAccessAdminPanel },
+    { icon: Target, label: 'Pipeline & Sales', path: '/app/pipeline', requirePermission: permissions.canManageClients },
+    { icon: FileText, label: 'Proposals', path: '/app/proposals', requirePermission: permissions.canManageClients },
     { icon: Users, label: 'Customers', path: '/app/clients', requirePermission: permissions.canManageClients },
+    { icon: FolderKanban, label: 'Projects', path: '/app/projects', requirePermission: permissions.canAccessAdminPanel },
     { icon: Rocket, label: 'Operations', path: '/app/delivery', requirePermission: permissions.canAccessAdminPanel },
     { icon: LayoutTemplate, label: 'Templates', path: '/app/templates', requirePermission: permissions.canAccessAdminPanel },
     { icon: Zap, label: 'Automations', path: '/app/automations', requirePermission: permissions.canAccessAdminPanel },

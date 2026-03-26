@@ -1,4 +1,4 @@
-remote: error: GH013: Repository rule violations found for refs/heads/feature/ux-sales-funnel-compression.        
+remote: error: GH013: Repository rule violations found for refs/heads/feature/deploy-revenue-optimization.        
 remote: 
 remote: - GITHUB PUSH PROTECTION        
 remote:   ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö        
@@ -22,5 +22,5 @@ remote:
 remote: 
 remote: 
 To https://github.com/nedpearson/Bridgebox.ai
- ! [remote rejected] feature/ux-sales-funnel-compression -> feature/ux-sales-funnel-compression (push declined due to repository rule violations)
+ ! [remote rejected] feature/deploy-revenue-optimization -> feature/deploy-revenue-optimization (push declined due to repository rule violations)
 error: failed to push some refs to 'https://github.com/nedpearson/Bridgebox.ai'
