@@ -70,9 +70,9 @@ function AiKnowledgeBaseContent() {
     <>
       <AppHeader title="Super AI Knowledge Editor" />
       
-      <div className="p-4 max-w-7xl mx-auto flex gap-6 mt-4 h-[calc(100vh-18rem)] min-h-[600px]">
+      <div className="p-4 max-w-7xl mx-auto grid md:grid-cols-2 gap-6 mt-4 items-start">
         {/* Node Explorer */}
-        <Card className="flex-1 overflow-hidden flex flex-col">
+        <Card className="flex flex-col">
           <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-4">
             <div className="flex items-center gap-2">
               <Brain className="w-5 h-5 text-purple-400" />
@@ -83,7 +83,7 @@ function AiKnowledgeBaseContent() {
             </span>
           </div>
 
-          <div className="flex-1 overflow-y-auto space-y-2 pr-2">
+          <div className="space-y-2 pr-2">
             {nodes.map(node => (
               <button
                 key={node.id}
@@ -126,7 +126,8 @@ function AiKnowledgeBaseContent() {
         </Card>
 
         {/* Node Editor */}
-        <Card className="flex-1 flex flex-col">
+        <div className="sticky top-6">
+          <Card className="flex flex-col h-[calc(100vh-4rem)]">
           {!selectedNode ? (
             <div className="flex-1 flex flex-col items-center justify-center text-center opacity-50">
               <LayoutGrid className="w-12 h-12 mb-4 text-slate-400" />
@@ -194,7 +195,8 @@ function AiKnowledgeBaseContent() {
               </div>
             </div>
           )}
-        </Card>
+          </Card>
+        </div>
       </div>
     </>
   );
