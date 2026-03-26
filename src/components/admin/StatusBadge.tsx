@@ -19,14 +19,13 @@ export default function StatusBadge({ status, variant = 'default', compact = fal
     <motion.span
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.2 }}
       className={`inline-flex items-center rounded-full font-medium border backdrop-blur-sm ${variantStyles[variant]} ${
-        compact ? 'px-2.5 py-1 text-xs' : 'px-3 py-1.5 text-sm'
+        compact ? 'px-2 py-0.5 text-[10px] tracking-wide uppercase' : 'px-3 py-1 text-xs tracking-wide uppercase shadow-sm'
       }`}
     >
-      <span className="w-1.5 h-1.5 rounded-full bg-current mr-2" />
-      {status}
+      <span className="w-1.5 h-1.5 rounded-full bg-current mr-2 flex-shrink-0" />
+      {status ? status.replace(/_/g, ' ') : 'UNKNOWN'}
     </motion.span>
   );
 }

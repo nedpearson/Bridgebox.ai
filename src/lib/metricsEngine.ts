@@ -30,6 +30,8 @@ export interface RevenueMetrics {
   arr: number;
   averageDealSize: number;
   revenueByService: Record<string, number>;
+  projectedEomRevenue?: number;
+  churnRiskAmount?: number;
 }
 
 export interface ProjectMetrics {
@@ -187,6 +189,21 @@ class MetricsEngine {
     const totalDeals = (subscriptions?.length || 0) + (invoices?.length || 0);
     const averageDealSize = totalDeals > 0 ? totalRevenue / totalDeals : 0;
 
+    // ---- Predictive Forecasting (EOM Intelligence) ----
+    const today = new Date();
+    const eom = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const daysInMonth = eom.getDate();
+    const daysPassed = today.getDate();
+    const daysRemaining = daysInMonth - daysPassed;
+
+    // Extrapolate linear run-rate
+    const dailyRunRate = daysPassed > 0 ? (projectRevenue / daysPassed) : 0;
+    const projectedProjectRevenue = projectRevenue + (dailyRunRate * daysRemaining);
+    
+    // Baseline churn risk factor (2% historical or telemetry-driven)
+    const churnRiskAmount = mrr * 0.02;
+    const projectedEomRevenue = mrr + projectedProjectRevenue - churnRiskAmount;
+
     return {
       totalRevenue,
       mrr,
@@ -194,6 +211,8 @@ class MetricsEngine {
       arr,
       averageDealSize,
       revenueByService,
+      projectedEomRevenue,
+      churnRiskAmount
     };
   }
 

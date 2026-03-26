@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Shield, LayoutDashboard, Building2, CreditCard, LayoutTemplate, Activity, ArrowLeft, TrendingUp } from 'lucide-react';
 import Card from '../components/Card';
 import Button from '../components/Button';
+import GlobalCommandPalette from '../components/intelligence/GlobalCommandPalette';
 
 // 5 Unified Pillars
 const PILLARS = [
@@ -11,7 +12,8 @@ const PILLARS = [
   { id: 'revenue', name: 'Revenue AI Analytics', icon: TrendingUp, path: '/admin/revenue' },
   { id: 'monetization', name: 'Monetization Hub', icon: CreditCard, path: '/admin/monetization' },
   { id: 'ecosystem', name: 'Ecosystem & Store', icon: LayoutTemplate, path: '/admin/ecosystem' },
-  { id: 'telemetry', name: 'System Telemetry', icon: Activity, path: '/admin/ai-usage' },
+  { id: 'telemetry', name: 'AI Usage', icon: Activity, path: '/admin/ai-usage' },
+  { id: 'health', name: 'System Intelligence', icon: Shield, path: '/admin/health' },
 ];
 
 export default function SuperAdminLayout({ children }: { children: React.ReactNode }) {
@@ -86,7 +88,7 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
           {children}
         </div>
       </main>
-
+      <GlobalCommandPalette />
     </div>
   );
 }

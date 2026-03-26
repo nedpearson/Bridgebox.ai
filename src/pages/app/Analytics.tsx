@@ -22,7 +22,8 @@ import {
   Sparkles,
   Lightbulb,
   LayoutTemplate,
-  Database
+  Database,
+  Shield
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -41,8 +42,9 @@ import type { ServiceTrend, IndustryTrend } from '../../lib/trendDetection';
 import { useEnterpriseMetrics } from '../../hooks/useEnterpriseMetrics';
 import SparklineCard from '../../components/analytics/SparklineCard';
 import UpgradeModal from '../../components/app/UpgradeModal';
+import IndustryBenchmarkCard from '../../components/intelligence/IndustryBenchmarkCard';
 
-type AnalyticsView = 'overview' | 'operations' | 'sales' | 'delivery' | 'billing' | 'support' | 'clients';
+type AnalyticsView = 'overview' | 'operations' | 'sales' | 'delivery' | 'billing' | 'support' | 'clients' | 'benchmarks';
 
 export default function Analytics() {
   const { currentOrganization, profile } = useAuth();
@@ -63,6 +65,7 @@ export default function Analytics() {
     { id: 'billing' as const, label: 'Revenue', icon: DollarSign },
     { id: 'support' as const, label: 'Support', icon: AlertCircle },
     { id: 'clients' as const, label: 'Clients', icon: Building2 },
+    { id: 'benchmarks' as const, label: 'Industry Benchmarks', icon: Flame },
   ];
 
   useEffect(() => {
@@ -218,6 +221,23 @@ export default function Analytics() {
               ))}
             </div>
           </motion.div>
+        )}
+
+        {view === 'benchmarks' && (
+           <motion.div
+             initial={{ opacity: 0, y: 10 }}
+             animate={{ opacity: 1, y: 0 }}
+             className="grid md:grid-cols-2 gap-6"
+           >
+              {/* Primary Data Moat Visualizations */}
+              <IndustryBenchmarkCard />
+              
+              {/* Placeholders for future benchmark cards */}
+              <div className="bg-slate-800/50 border border-slate-700/50 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-slate-500">
+                 <Shield className="w-8 h-8 mb-2 opacity-50" />
+                 More Aggregated Industry Metrics Calculating...
+              </div>
+           </motion.div>
         )}
 
         {view === 'overview' && metrics && aiInsights.isAvailable && (

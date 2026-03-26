@@ -11,6 +11,7 @@ import RelationalMetricsCard from '../../components/app/RelationalMetricsCard';
 import NextBestActionPanel from '../../components/app/NextBestActionPanel';
 import BlockersPanel from '../../components/app/BlockersPanel';
 import TimelineActivity from '../../components/app/TimelineActivity';
+import EcosystemRecommendationsPanel from '../../components/intelligence/EcosystemRecommendationsPanel';
 import { workflowService } from '../../lib/db/workflows';
 import { aiService } from '../../lib/ai/services/aiService';
 import type { Workflow, WorkflowStep, WorkflowCategory, WorkflowTriggerType, WorkflowStepType } from '../../types/workflow';
@@ -289,34 +290,6 @@ export function WorkflowBuilder() {
 
   const renderContent = () => (
     <div className="max-w-7xl mx-auto px-6 py-8">
-      <div className="flex items-center gap-4 mb-6">
-        <button
-          onClick={() => navigate('/app/workflows')}
-          className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5 text-slate-400" />
-        </button>
-        <div className="flex-1" />
-        <Button
-          variant="secondary"
-          onClick={() => navigate('/app/workflows')}
-        >
-          Cancel
-        </Button>
-        <Button onClick={handleSave} disabled={saving}>
-          {saving ? (
-            <>
-              <LoadingSpinner size="sm" />
-              Saving...
-            </>
-          ) : (
-            <>
-              <Save className="w-4 h-4 mr-2" />
-              Save Workflow
-            </>
-          )}
-        </Button>
-      </div>
 
       {id ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -328,6 +301,7 @@ export function WorkflowBuilder() {
           </div>
           <div className="space-y-6">
             <TimelineActivity entityType="workflow" entityId={id} />
+            <EcosystemRecommendationsPanel />
           </div>
         </div>
       ) : (
@@ -340,7 +314,18 @@ export function WorkflowBuilder() {
     <div className="min-h-screen bg-slate-950">
       <AppHeader
         title={id ? 'Edit Workflow' : 'New Workflow'}
-        subtitle="Configure triggers, conditions, and actions"
+        backTo="/app/workflows"
+        backLabel="Workflows"
+        action={
+          <div className="flex items-center space-x-3">
+            <button onClick={() => navigate('/app/workflows')} className="text-sm font-medium text-slate-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-slate-800/50">
+              Discard
+            </button>
+            <Button onClick={handleSave} disabled={saving} size="sm">
+               {saving ? 'Saving...' : 'Save'}
+            </Button>
+          </div>
+        }
       />
 
       {id ? (

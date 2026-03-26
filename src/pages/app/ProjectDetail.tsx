@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
+import Button from '../../components/Button';
 import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
@@ -97,17 +98,34 @@ export default function ProjectDetail() {
 
   return (
     <>
-      <AppHeader title={project.name} />
+      <AppHeader title={project.name} backTo="/app/projects" backLabel="Projects" />
 
       <RelationalCommandCenter entityType="project" entityId={project.id}>
         <div className="space-y-6">
-          <Link
-          to="/app/projects"
-          className="inline-flex items-center space-x-2 text-slate-400 hover:text-white transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Projects</span>
-        </Link>
+
+          <div className="flex flex-col sm:flex-row justify-end items-start sm:items-center gap-4">
+             <div className="flex items-center space-x-3 w-full sm:w-auto">
+                <Button size="sm" onClick={() => setShowQR(true)} variant="outline" className="flex-1 sm:flex-none">
+                  <Smartphone className="w-4 h-4 mr-2" />
+                  Client Portal QR
+                </Button>
+                <div className="h-8 w-px bg-slate-800 mx-2 hidden sm:block"></div>
+                {!isEditing ? (
+                  <Button size="sm" onClick={() => setIsEditing(true)} variant="outline" className="flex-1 sm:flex-none bg-slate-800/50 hover:bg-slate-700">
+                     <Edit2 className="w-4 h-4 mr-2" />
+                     Edit Info
+                  </Button>
+                ) : (
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <Button size="sm" variant="ghost" onClick={() => setIsEditing(false)}>Cancel</Button>
+                    <Button size="sm" onClick={handleSaveDetails} className="bg-emerald-500 hover:bg-emerald-600">
+                       <Check className="w-4 h-4 mr-2" />
+                       Save
+                    </Button>
+                  </div>
+                )}
+             </div>
+          </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
           <Card glass className="p-6">

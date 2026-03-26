@@ -1,4 +1,4 @@
-import { Search, User, Menu, Video } from 'lucide-react';
+import { Search, User, Menu, Video, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useMobileNav } from '../../contexts/MobileNavContext';
@@ -11,11 +11,13 @@ interface AppHeaderProps {
   title: string;
   subtitle?: string;
   action?: React.ReactNode;
+  backTo?: string;
+  backLabel?: string;
 }
 
 import { EyeOff } from 'lucide-react';
 
-export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
+export default function AppHeader({ title, subtitle, action, backTo, backLabel }: AppHeaderProps) {
   const { profile, isImpersonating, stopImpersonating } = useAuth();
   const { toggle } = useMobileNav();
 
@@ -43,11 +45,17 @@ export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
             <Menu className="w-5 h-5" />
           </button>
           <div>
+            {backTo && (
+              <Link to={backTo} className="inline-flex items-center text-xs font-semibold text-slate-400 hover:text-indigo-400 transition-colors uppercase tracking-widest mb-1.5 group">
+                 <ArrowLeft className="w-3.5 h-3.5 mr-1.5 group-hover:-translate-x-0.5 transition-transform" />
+                 {backLabel || 'Back'}
+              </Link>
+            )}
             <div className="flex items-center space-x-4">
-              <h1 className="text-xl md:text-2xl font-bold text-white">{title}</h1>
+              <h1 className="text-lg md:text-xl font-semibold tracking-tight text-white">{title}</h1>
               {action && <div className="hidden sm:block">{action}</div>}
             </div>
-            {subtitle && <p className="text-slate-400 text-sm mt-1">{subtitle}</p>}
+            {subtitle && !backTo && <p className="text-slate-500 text-sm mt-0.5 tracking-wide">{subtitle}</p>}
             {action && <div className="mt-4 sm:hidden">{action}</div>}
           </div>
         </div>

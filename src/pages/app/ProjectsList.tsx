@@ -13,6 +13,7 @@ import { projectsService } from '../../lib/db/projects';
 import ProjectModal from '../../components/app/ProjectModal';
 import UpgradeModal from '../../components/app/UpgradeModal';
 import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
+import { useSmartUI } from '../../hooks/useSmartUI';
 import { useCopilotContext } from '../../contexts/CopilotContext';
 
 export default function ProjectsList() {
@@ -32,6 +33,7 @@ export default function ProjectsList() {
     ]
   });
 
+  const { showAdvancedUi } = useSmartUI();
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   const [projects, setProjects] = useState<any[]>([]);
@@ -165,18 +167,20 @@ export default function ProjectsList() {
             />
           </div>
 
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-3 bg-slate-800/50 border border-slate-700 hover:border-slate-600 text-white rounded-lg transition-colors focus:outline-none focus:border-[#3B82F6]"
-          >
-            <option value="all">All Status</option>
-            <option value="planning">Planning</option>
-            <option value="in_progress">In Progress</option>
-            <option value="testing">Testing</option>
-            <option value="deployed">Deployed</option>
-            <option value="completed">Completed</option>
-          </select>
+          {showAdvancedUi && (
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-4 py-3 bg-slate-800/50 border border-slate-700 hover:border-slate-600 text-white rounded-lg transition-colors focus:outline-none focus:border-[#3B82F6]"
+            >
+              <option value="all">All Status</option>
+              <option value="planning">Planning</option>
+              <option value="in_progress">In Progress</option>
+              <option value="testing">Testing</option>
+              <option value="deployed">Deployed</option>
+              <option value="completed">Completed</option>
+            </select>
+          )}
 
           <div className="flex items-center space-x-3">
             <button 

@@ -25,49 +25,25 @@ export default function KPICard({
   suffix = '',
   animated = true,
 }: KPICardProps) {
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (!animated || typeof value !== 'number') {
-      setDisplayValue(value as number);
-      return;
-    }
-
-    const duration = 1500;
-    const steps = 60;
-    const increment = value / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= value) {
-        setDisplayValue(value);
-        clearInterval(timer);
-      } else {
-        setDisplayValue(Math.floor(current));
-      }
-    }, duration / steps);
-
-    return () => clearInterval(timer);
-  }, [value, animated]);
+  // Removed gimmicky setInterval counter animation per luxury UX guidelines.
+  // Real enterprise dashboards render metrics instantaneously.
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-6 hover:border-[#3B82F6]/30 transition-all duration-300"
+    <div
+      className="bg-slate-900 shadow-lg shadow-black/20 border-t-2 border-t-indigo-500/50 border border-slate-800/80 rounded-xl p-6 hover:border-indigo-500/30 transition-all duration-300 relative overflow-hidden group"
     >
-      <div className="flex items-start justify-between mb-4">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-indigo-500/10 transition-colors pointer-events-none" />
+      <div className="flex items-start justify-between mb-4 relative z-10">
         <div>
-          <p className="text-slate-400 text-sm font-medium mb-1">{title}</p>
-          <div className="text-3xl font-bold text-white">
+          <p className="text-slate-400 text-xs tracking-wider uppercase font-semibold mb-2">{title}</p>
+          <div className="text-3xl font-bold text-white tracking-tight">
             {prefix}
-            {typeof value === 'number' ? displayValue.toLocaleString() : value}
+            {typeof value === 'number' ? value.toLocaleString() : value}
             {suffix}
           </div>
         </div>
-        <div className="w-12 h-12 bg-[#3B82F6]/10 rounded-lg flex items-center justify-center border border-[#3B82F6]/20">
-          <Icon className="w-6 h-6 text-[#3B82F6]" />
+        <div className="w-10 h-10 bg-slate-800/50 rounded-lg flex items-center justify-center border border-slate-700/50 shadow-inner group-hover:scale-105 transition-transform duration-300">
+          <Icon className="w-5 h-5 text-indigo-400" />
         </div>
       </div>
       {trend && (
@@ -79,9 +55,9 @@ export default function KPICard({
           >
             {trend.direction === 'up' ? '↑' : '↓'} {Math.abs(trend.value)}%
           </span>
-          <span className="text-slate-500 text-sm">vs last month</span>
+          <span className="text-slate-500 text-xs ml-2">vs previous period</span>
         </div>
       )}
-    </motion.div>
+    </div>
   );
 }

@@ -65,17 +65,10 @@ export default function ClientDetail() {
 
   return (
     <>
-      <AppHeader title={client.name} />
+      <AppHeader title={client.name} backTo="/app/clients" backLabel="Clients" />
 
       <RelationalCommandCenter entityType="organization" entityId={client.id}>
         <div className="space-y-6">
-          <Link
-          to="/app/clients"
-          className="inline-flex items-center space-x-2 text-slate-400 hover:text-white transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Clients</span>
-        </Link>
 
         <div className="grid lg:grid-cols-3 gap-6">
           <Card glass className="p-6">

@@ -95,13 +95,13 @@ export default function ClientsList() {
               placeholder="Search clients..."
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6] transition-colors"
+              className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg pl-10 pr-4 py-2.5 text-white placeholder-slate-500 shadow-sm focus:outline-none focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-200"
             />
           </div>
 
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors"
+            className="flex items-center space-x-2 px-6 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg transition-all active:scale-[0.98] shadow-sm shadow-indigo-500/10"
           >
             <Plus className="w-5 h-5" />
             <span>Add Client</span>
@@ -124,10 +124,10 @@ export default function ClientsList() {
                 transition={{ delay: index * 0.1 }}
               >
                 <Link to={`/app/clients/${client.id}`}>
-                  <Card glass className="p-6 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer">
+                  <Card glass className="p-6 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start space-x-4 flex-1">
-                        <div className="w-12 h-12 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-inner">
                           <Building2 className="w-6 h-6 text-white" />
                         </div>
                         <div className="flex-1">

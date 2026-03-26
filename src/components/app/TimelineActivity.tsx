@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Activity, Mail, CheckCircle2, FileText, GitMerge, ArrowRight } from 'lucide-react';
+import { Activity, Mail, CheckCircle2, FileText, GitMerge, Clock } from 'lucide-react';
 import { EntityType, entityLinkService } from '../../lib/db/entityLinks';
 import Card from '../Card';
+import { formatRelativeTime } from '../../lib/dateUtils';
 
 import { Link } from 'react-router-dom';
 
@@ -97,9 +98,12 @@ export default function TimelineActivity({ entityType, entityId }: TimelineActiv
                   >
                     {event.title}
                   </Link>
-                  <span className="text-xs text-slate-500">{new Date(event.timestamp).toLocaleDateString()}</span>
+                  <div className="flex items-center space-x-1.5 text-xs text-slate-500 font-mono">
+                    <Clock className="w-3 h-3" />
+                    <span>{formatRelativeTime(event.timestamp)}</span>
+                  </div>
                 </div>
-                <p className="text-xs text-slate-400 mt-1 capitalize">Vector connection forged internally.</p>
+                <p className="text-xs text-slate-400 mt-0.5">Vector connection forged internally.</p>
               </div>
             </div>
           ))}

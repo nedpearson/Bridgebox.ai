@@ -12,6 +12,7 @@ import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
 import { globalTasksService, GlobalTask } from '../../lib/db/globalTasks';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { formatDetailedTime, formatRelativeTime } from '../../lib/dateUtils';
 
 export default function GlobalTaskDetail() {
   const { id } = useParams();
@@ -53,21 +54,22 @@ export default function GlobalTaskDetail() {
 
   return (
     <>
-      <AppHeader title={task.title} subtitle={`Task ID: ${task.id.slice(0, 8)}`} />
+      <AppHeader 
+        title={task.title} 
+        subtitle={`Task ID: ${task.id.slice(0, 8)}`} 
+        backTo="/app/tasks"
+        backLabel="Tasks"
+      />
 
       <RelationalCommandCenter entityType="task" entityId={task.id}>
         <div className="max-w-4xl mx-auto py-8">
-          <div className="flex items-center justify-between mb-6">
-            <Link to="/app/tasks" className="flex items-center space-x-2 text-slate-400 hover:text-white">
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Tasks</span>
-            </Link>
+          <div className="flex items-center justify-end mb-6">
             <AvatarStack roomName={`task:${id}`} />
           </div>
 
           <Card glass className="p-8">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-white">{task.title}</h2>
+            <div className="flex items-center justify-between mb-8 border-b border-slate-800/50 pb-6">
+              <h2 className="text-xl font-bold text-white flex items-center gap-3">Task Details</h2>
               <div className="flex space-x-3">
                  <select
                     value={task.priority}
@@ -129,13 +131,13 @@ export default function GlobalTaskDetail() {
                       <span className="text-white text-sm">{task.creator?.full_name || 'System Generated'}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400 text-sm flex items-center"><Clock className="w-4 h-4 mr-2"/>Created At</span>
-                      <span className="text-white text-sm">{new Date(task.created_at).toLocaleDateString()}</span>
+                      <span className="text-slate-400 text-sm flex items-center"><Clock className="w-4 h-4 mr-2"/>Created</span>
+                      <span className="text-white text-sm">{formatDetailedTime(task.created_at)}</span>
                     </div>
                     {task.due_date && (
                       <div className="flex justify-between items-center pt-2 border-t border-slate-700">
-                         <span className="text-yellow-500 text-sm flex items-center"><Clock className="w-4 h-4 mr-2"/>Due Date</span>
-                         <span className="text-yellow-500 font-medium text-sm">{new Date(task.due_date).toLocaleDateString()}</span>
+                         <span className="text-yellow-500 text-sm flex items-center"><Clock className="w-4 h-4 mr-2"/>Due</span>
+                         <span className="text-yellow-500 font-medium text-sm">{formatRelativeTime(task.due_date)}</span>
                       </div>
                     )}
                   </div>

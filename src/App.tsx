@@ -100,6 +100,8 @@ const FeatureSettings = lazy(() => import('./pages/app/FeatureSettings'));
 const RolesSettings = lazy(() => import('./pages/app/RolesSettings'));
 const PricingSimulator = lazy(() => import('./pages/admin/PricingSimulator'));
 const RevenueDashboard = lazy(() => import('./pages/admin/RevenueDashboard'));
+const SystemHealthDashboard = lazy(() => import('./pages/admin/SystemHealthDashboard'));
+const Marketplace = lazy(() => import('./pages/app/Marketplace'));
 const MobileAppStudio = lazy(() => import('./pages/app/MobileAppStudio'));
 const AuditLogSettings = lazy(() => import('./pages/app/AuditLogSettings'));
 const ExportHub = lazy(() => import('./pages/app/ExportHub'));
@@ -151,6 +153,10 @@ const AgentControlRoom = lazy(() => import('./pages/internal/modules/AgentContro
 const TemplateStudio = lazy(() => import('./pages/internal/modules/TemplateStudio'));
 const PricingCommandCenter = lazy(() => import('./pages/admin/PricingCommandCenter'));
 const PricingPresentation = lazy(() => import('./pages/onboarding/PricingPresentation'));
+
+// Phase 8.1: Autonomous Agents Consolidation
+const ApprovalQueue = lazy(() => import('./pages/app/ApprovalQueue'));
+const AIAssistants = lazy(() => import('./pages/app/AIAssistants'));
 
 // Super Admin Layouts & Components
 import SuperAdminLayout from './layouts/SuperAdminLayout';
@@ -270,6 +276,9 @@ function App() {
                       <Route path="/opportunities" element={<Opportunities />} />
                       <Route path="/agent-actions" element={<AgentActions />} />
                       <Route path="/data-activity" element={<DataActivity />} />
+                      <Route path="/approvals" element={<ApprovalQueue />} />
+                      <Route path="/ai-assistants" element={<AIAssistants />} />
+                      <Route path="/marketplace" element={<Marketplace />} />
                       <Route path="/templates" element={<TemplateCenter />} />
                       <Route path="/templates/ai-wizard" element={<AiTemplateWizard />} />
                       <Route path="/templates/:id" element={<TemplateDetails />} />
@@ -312,6 +321,7 @@ function App() {
                         <Route path="/revenue" element={<RevenueDashboard />} />
                         <Route path="/ecosystem" element={<EcosystemHub />} />
                         <Route path="/ai-usage" element={<AIUsageDashboard />} />
+                        <Route path="/health" element={<SystemHealthDashboard />} />
                       </Routes>
                     </Suspense>
                   </SuperAdminLayout>
