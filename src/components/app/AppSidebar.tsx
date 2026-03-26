@@ -1,33 +1,19 @@
 import { motion } from 'framer-motion';
 import {
   LayoutDashboard,
-  Briefcase,
   FolderKanban,
   Network,
-  CreditCard,
   Settings,
-  Building2,
   Users,
-  FileText,
-  File,
-  Target,
   LogOut,
   Box,
   Rocket,
-  MessageSquare,
   BarChart3,
-  Crown,
   Zap,
-  Heart,
-  BookOpen,
   Sparkles,
-  TrendingUp,
-  Radar,
   X,
-  Shield,
-  Video,
-  CheckCircle2,
-  Mail
+  Smartphone,
+  LayoutTemplate
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -39,11 +25,6 @@ interface NavItem {
   label: string;
   path: string;
   requirePermission?: (ctx: any) => boolean;
-}
-
-interface NavSection {
-  title: string;
-  items: NavItem[];
 }
 
 export default function AppSidebar() {
@@ -61,62 +42,21 @@ export default function AppSidebar() {
     }
   };
 
-  const navSections: NavSection[] = [
-    {
-      title: 'Super Admin',
-      items: [
-        { icon: Video, label: 'Recording Center', path: '/app/internal/recording-center', requirePermission: (ctx) => ctx.role === 'super_admin' },
-      ],
-    },
-    {
-      title: 'Executive',
-      items: [
-        { icon: Crown, label: 'Command Center', path: '/app/executive', requirePermission: permissions.canAccessAdminPanel },
-      ],
-    },
-    {
-      title: 'Sales',
-      items: [
-        { icon: Target, label: 'Pipeline', path: '/app/pipeline', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Users, label: 'Leads', path: '/app/leads', requirePermission: permissions.canManageLeads },
-        { icon: FileText, label: 'Proposals', path: '/app/proposals', requirePermission: permissions.canManageProposals },
-        { icon: Sparkles, label: 'AI Copilot', path: '/app/copilot', requirePermission: permissions.canAccessAdminPanel },
-      ],
-    },
-    {
-      title: 'Delivery',
-      items: [
-        { icon: FolderKanban, label: 'Projects', path: '/app/projects', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Rocket, label: 'Delivery OS', path: '/app/delivery', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Zap, label: 'Implementation', path: '/app/implementation', requirePermission: permissions.canAccessAdminPanel },
-        { icon: MessageSquare, label: 'Support', path: '/app/support', requirePermission: permissions.canAccessAdminPanel },
-      ],
-    },
-    {
-      title: 'Management',
-      items: [
-        { icon: LayoutDashboard, label: 'Overview', path: '/app', requirePermission: permissions.canAccessAdminPanel },
-        { icon: BarChart3, label: 'Analytics', path: '/app/analytics', requirePermission: permissions.canAccessAdminPanel },
-        { icon: TrendingUp, label: 'Trends', path: '/app/trends', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Radar, label: 'Market Signals', path: '/app/market-signals', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Target, label: 'Opportunities', path: '/app/opportunities', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Zap, label: 'Agent Actions', path: '/app/agent-actions', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Building2, label: 'Clients', path: '/app/clients', requirePermission: permissions.canManageClients },
-        { icon: CheckCircle2, label: 'Tasks', path: '/app/tasks', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Heart, label: 'Client Success', path: '/app/client-success', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Zap, label: 'Automations', path: '/app/automations', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Zap, label: 'Workflows', path: '/app/workflows', requirePermission: permissions.canAccessAdminPanel },
-        { icon: File, label: 'Documents', path: '/app/documents', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Mail, label: 'Communications', path: '/app/communications', requirePermission: permissions.canAccessAdminPanel },
-        { icon: BookOpen, label: 'Knowledge Base', path: '/app/knowledge', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Network, label: 'Integrations', path: '/app/integrations', requirePermission: permissions.canAccessAdminPanel },
-        { icon: CreditCard, label: 'Billing', path: '/app/billing', requirePermission: permissions.canAccessAdminPanel },
-        { icon: Users, label: 'Team', path: '/app/team', requirePermission: permissions.canAccessAdminPanel },
-      ],
-    },
+  // Phase 3 Redesign: Collapsed 28 legacy links into 11 Unified Command Nodes
+  const topNav: NavItem[] = [
+    { icon: LayoutDashboard, label: 'Home', path: '/app', requirePermission: permissions.canAccessAdminPanel },
+    { icon: FolderKanban, label: 'Work', path: '/app/projects', requirePermission: permissions.canAccessAdminPanel },
+    { icon: Users, label: 'Customers', path: '/app/clients', requirePermission: permissions.canManageClients },
+    { icon: Rocket, label: 'Operations', path: '/app/delivery', requirePermission: permissions.canAccessAdminPanel },
+    { icon: LayoutTemplate, label: 'Templates', path: '/app/templates', requirePermission: permissions.canAccessAdminPanel },
+    { icon: Zap, label: 'Automations', path: '/app/automations', requirePermission: permissions.canAccessAdminPanel },
+    { icon: Network, label: 'Integrations', path: '/app/integrations', requirePermission: permissions.canAccessAdminPanel },
+    { icon: Sparkles, label: 'AI Center', path: '/app/copilot', requirePermission: permissions.canAccessAdminPanel },
+    { icon: BarChart3, label: 'Reporting', path: '/app/analytics', requirePermission: permissions.canAccessAdminPanel },
+    { icon: Smartphone, label: 'Mobile Fleet', path: '/app/settings/studio', requirePermission: permissions.canAccessAdminPanel },
   ];
 
-  const settingsItem: NavItem = { icon: Settings, label: 'Settings', path: '/app/settings' };
+  const adminNav: NavItem = { icon: Settings, label: 'Admin & Settings', path: '/app/settings' };
 
   const filterItems = (items: NavItem[]) => {
     return items.filter(item => !item.requirePermission || can(item.requirePermission));
@@ -130,18 +70,13 @@ export default function AppSidebar() {
   };
 
   // Phase 8: Module Pre-Fetching
-  // Instructs Vite/Webpack to fetch the lazy-loaded chunk *in the background* immediately upon hover
   const preloadModule = (path: string) => {
     switch(path) {
       case '/app': import('../../pages/app/AppOverview'); break;
-      case '/app/pipeline': import('../../pages/app/Pipeline'); break;
-      case '/app/leads': import('../../pages/app/LeadsList'); break;
       case '/app/projects': import('../../pages/app/ProjectsList'); break;
       case '/app/clients': import('../../pages/app/ClientsList'); break;
-      case '/app/tasks': import('../../pages/app/GlobalTasksList'); break;
-      case '/app/documents': import('../../pages/app/Documents'); break;
-      case '/app/communications': import('../../pages/app/CommunicationsList'); break;
       case '/app/copilot': import('../../pages/app/Copilot'); break;
+      case '/app/templates': import('../../pages/app/TemplateCenter'); break;
       default: break;
     }
   };
@@ -179,57 +114,45 @@ export default function AppSidebar() {
         </div>
 
         <nav className="flex-1 p-4 overflow-y-auto">
-        {navSections.map((section, sectionIndex) => {
-          const visibleItems = filterItems(section.items);
-          if (visibleItems.length === 0) return null;
+          <div className="space-y-1">
+            {filterItems(topNav).map((item) => {
+              const Icon = item.icon;
+              const active = isActive(item.path);
 
-          return (
-            <div key={section.title} className={sectionIndex > 0 ? 'mt-6' : ''}>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 px-4">
-                {section.title}
-              </p>
-              <div className="space-y-1">
-                {visibleItems.map((item) => {
-                  const Icon = item.icon;
-                  const active = isActive(item.path);
+              return (
+                <motion.div 
+                  key={item.path} 
+                  whileHover={{ x: 4 }}
+                  onMouseEnter={() => preloadModule(item.path)}
+                >
+                  <Link
+                    to={item.path}
+                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      active
+                        ? 'bg-[#3B82F6]/10 text-[#3B82F6] border border-[#3B82F6]/30'
+                        : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    }`}
+                  >
+                    <Icon className="w-5 h-5" />
+                    <span className="font-medium tracking-wide">{item.label}</span>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
 
-                  return (
-                    <motion.div 
-                      key={item.path} 
-                      whileHover={{ x: 4 }}
-                      onMouseEnter={() => preloadModule(item.path)}
-                    >
-                      <Link
-                        to={item.path}
-                        className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                          active
-                            ? 'bg-[#3B82F6]/10 text-[#3B82F6] border border-[#3B82F6]/30'
-                            : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-                        }`}
-                      >
-                        <Icon className="w-5 h-5" />
-                        <span className="font-medium">{item.label}</span>
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-
-        <div className="mt-6 pt-6 border-t border-slate-800">
+        <div className="mt-8 pt-6 border-t border-slate-800/50">
           <motion.div whileHover={{ x: 4 }}>
             <Link
-              to={settingsItem.path}
+              to={adminNav.path}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                isActive(settingsItem.path)
+                isActive(adminNav.path)
                   ? 'bg-[#3B82F6]/10 text-[#3B82F6] border border-[#3B82F6]/30'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
               }`}
             >
-              <Settings className="w-5 h-5" />
-              <span className="font-medium">{settingsItem.label}</span>
+              <adminNav.icon className="w-5 h-5" />
+              <span className="font-medium tracking-wide">{adminNav.label}</span>
             </Link>
           </motion.div>
         </div>

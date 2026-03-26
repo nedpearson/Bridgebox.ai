@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS public.bb_onboarding_sessions (
 
 ALTER TABLE public.bb_onboarding_sessions ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Users can view onboarding sessions in their organization" ON public.bb_onboarding_sessions;
 CREATE POLICY "Users can view onboarding sessions in their organization" ON public.bb_onboarding_sessions
     FOR SELECT USING (
         EXISTS (
@@ -26,6 +27,7 @@ CREATE POLICY "Users can view onboarding sessions in their organization" ON publ
         )
     );
 
+DROP POLICY IF EXISTS "Users can update onboarding sessions in their organization" ON public.bb_onboarding_sessions;
 CREATE POLICY "Users can update onboarding sessions in their organization" ON public.bb_onboarding_sessions
     FOR UPDATE USING (
         EXISTS (
@@ -35,6 +37,7 @@ CREATE POLICY "Users can update onboarding sessions in their organization" ON pu
         )
     );
 
+DROP POLICY IF EXISTS "Users can create onboarding sessions in their organization" ON public.bb_onboarding_sessions;
 CREATE POLICY "Users can create onboarding sessions in their organization" ON public.bb_onboarding_sessions
     FOR INSERT WITH CHECK (
         EXISTS (
@@ -44,6 +47,7 @@ CREATE POLICY "Users can create onboarding sessions in their organization" ON pu
         )
     );
 
+DROP POLICY IF EXISTS "Users can delete onboarding sessions in their organization" ON public.bb_onboarding_sessions;
 CREATE POLICY "Users can delete onboarding sessions in their organization" ON public.bb_onboarding_sessions
     FOR DELETE USING (
         EXISTS (
@@ -72,6 +76,7 @@ CREATE TABLE IF NOT EXISTS public.bb_onboarding_build_tasks (
 
 ALTER TABLE public.bb_onboarding_build_tasks ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Users can view onboarding build tasks in their organization" ON public.bb_onboarding_build_tasks;
 CREATE POLICY "Users can view onboarding build tasks in their organization" ON public.bb_onboarding_build_tasks
     FOR SELECT USING (
         EXISTS (
@@ -81,6 +86,7 @@ CREATE POLICY "Users can view onboarding build tasks in their organization" ON p
         )
     );
 
+DROP POLICY IF EXISTS "Users can manage onboarding build tasks in their organization" ON public.bb_onboarding_build_tasks;
 CREATE POLICY "Users can manage onboarding build tasks in their organization" ON public.bb_onboarding_build_tasks
     FOR ALL USING (
         EXISTS (
@@ -92,10 +98,12 @@ CREATE POLICY "Users can manage onboarding build tasks in their organization" ON
 
 
 -- 3. Telemetry Triggers for updated_at
+DROP TRIGGER IF EXISTS set_timestamp_bb_onboarding_sessions ON public.bb_onboarding_sessions;
 CREATE TRIGGER set_timestamp_bb_onboarding_sessions
 BEFORE UPDATE ON public.bb_onboarding_sessions
 FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS set_timestamp_bb_onboarding_build_tasks ON public.bb_onboarding_build_tasks;
 CREATE TRIGGER set_timestamp_bb_onboarding_build_tasks
 BEFORE UPDATE ON public.bb_onboarding_build_tasks
 FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();

@@ -99,6 +99,9 @@ const RolesSettings = lazy(() => import('./pages/app/RolesSettings'));
 const MobileAppStudio = lazy(() => import('./pages/app/MobileAppStudio'));
 const AuditLogSettings = lazy(() => import('./pages/app/AuditLogSettings'));
 const ExportHub = lazy(() => import('./pages/app/ExportHub'));
+const TemplateCenter = lazy(() => import('./pages/app/TemplateCenter'));
+const TemplateDetails = lazy(() => import('./pages/app/TemplateDetails'));
+const AiTemplateWizard = lazy(() => import('./pages/app/AiTemplateWizard'));
 const AiOnboardingWizard = lazy(() => import('./pages/onboarding/AiOnboardingWizard'));
 const OnboardingCommandCenter = lazy(() => import('./pages/app/OnboardingCommandCenter'));
 import OnboardingShell from './components/onboarding/layout/OnboardingShell';
@@ -141,6 +144,7 @@ const AiValidationSuite = lazy(() => import('./pages/internal/modules/AiValidati
 import LoadingSpinner from './components/LoadingSpinner';
 const StackDiscoveryWizard = lazy(() => import('./pages/app/StackDiscoveryWizard'));
 const AgentControlRoom = lazy(() => import('./pages/internal/modules/AgentControlRoom'));
+const TemplateStudio = lazy(() => import('./pages/internal/modules/TemplateStudio'));
 const PricingCommandCenter = lazy(() => import('./pages/admin/PricingCommandCenter'));
 const PricingPresentation = lazy(() => import('./pages/onboarding/PricingPresentation'));
 
@@ -253,6 +257,9 @@ function App() {
                       <Route path="/opportunities" element={<Opportunities />} />
                       <Route path="/agent-actions" element={<AgentActions />} />
                       <Route path="/data-activity" element={<DataActivity />} />
+                      <Route path="/templates" element={<TemplateCenter />} />
+                      <Route path="/templates/ai-wizard" element={<AiTemplateWizard />} />
+                      <Route path="/templates/:id" element={<TemplateDetails />} />
                       <Route path="/settings" element={<Settings />} />
                       <Route path="/settings/branding" element={<BrandingSettings />} />
                       <Route path="/settings/features" element={<FeatureSettings />} />

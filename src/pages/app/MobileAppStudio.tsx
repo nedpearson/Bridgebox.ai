@@ -224,6 +224,34 @@ export default function MobileAppStudio() {
              </div>
           </Card>
 
+          <Card>
+             <div className="flex items-center gap-2 mb-4">
+               <Navigation2 className="w-5 h-5 text-blue-400" />
+               <h3 className="text-lg font-semibold text-white">Device Management & Real-Time Sync</h3>
+             </div>
+             <p className="text-sm text-slate-400 mb-6">Track active staff installations and configure offline ingestion queues.</p>
+             
+             <div className="space-y-4">
+                <div className="bg-slate-900 border border-slate-700/50 rounded-lg p-4 flex items-center justify-between">
+                   <div>
+                      <div className="text-white font-medium flex items-center">
+                         <CheckCircle2 className="w-4 h-4 text-emerald-400 mr-2" /> Active FCM/APNs Device Tokens
+                      </div>
+                      <div className="text-xs text-slate-500 mt-1">Bridgebox natively supports high-scale push delivery.</div>
+                   </div>
+                   <div className="text-xl font-bold text-indigo-400">0</div>
+                </div>
+
+                <div className="bg-slate-900 border border-slate-700/50 rounded-lg p-4 flex items-center justify-between opacity-70">
+                   <div>
+                      <div className="text-white font-medium">Pending Offline Sync Tasks</div>
+                      <div className="text-xs text-slate-500 mt-1">Mutations awaiting reconnection across all devices.</div>
+                   </div>
+                   <div className="text-xl font-bold text-slate-400">0</div>
+                </div>
+             </div>
+          </Card>
+
         </div>
 
         {/* Right Side: Live Device Preview */}

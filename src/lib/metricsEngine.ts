@@ -83,6 +83,13 @@ export interface EngagementMetrics {
   mostUsedFeatures: Array<{ feature: string; count: number }>;
 }
 
+export interface TemplateMetrics {
+  totalInstalls: number;
+  recentInstalls: number;
+  mostPopularTemplates: Array<{ name: string; count: number }>;
+  uniqueActiveTemplates: number;
+}
+
 class MetricsEngine {
   async calculateConversionRate(filters: MetricsFilters = {}): Promise<ConversionMetrics> {
     const { organizationId, dateRange } = filters;
@@ -470,6 +477,49 @@ class MetricsEngine {
     };
   }
 
+  async calculateTemplateMetrics(filters: MetricsFilters = {}): Promise<TemplateMetrics> {
+    const { organizationId, dateRange } = filters;
+    const startDate = dateRange?.startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const endDate = dateRange?.endDate || new Date();
+
+    let installsQuery = supabase
+      .from('bb_template_installs')
+      .select('id, template_id, created_at, bb_templates(name)', { count: 'exact' });
+
+    if (organizationId) {
+       installsQuery = installsQuery.eq('organization_id', organizationId);
+    }
+
+    const { data: installs } = await installsQuery;
+
+    const totalInstalls = installs?.length || 0;
+    const recentInstalls = installs?.filter(i => {
+       const created = new Date(i.created_at);
+       return created >= startDate && created <= endDate;
+    }).length || 0;
+
+    const templateCounts: Record<string, number> = {};
+    const uniqueTemplates = new Set<string>();
+
+    installs?.forEach((i: any) => {
+       const name = i.bb_templates?.name || 'Unknown Template';
+       templateCounts[name] = (templateCounts[name] || 0) + 1;
+       uniqueTemplates.add(i.template_id);
+    });
+
+    const mostPopularTemplates = Object.entries(templateCounts)
+       .map(([name, count]) => ({ name, count }))
+       .sort((a, b) => b.count - a.count)
+       .slice(0, 5);
+
+    return {
+       totalInstalls,
+       recentInstalls,
+       mostPopularTemplates,
+       uniqueActiveTemplates: uniqueTemplates.size
+    };
+  }
+
   async aggregateAllMetrics(filters: MetricsFilters = {}) {
     const [
       conversion,
@@ -479,6 +529,7 @@ class MetricsEngine {
       clients,
       onboarding,
       engagement,
+      templates,
     ] = await Promise.all([
       this.calculateConversionRate(filters),
       this.calculateMRR(filters),
@@ -487,6 +538,7 @@ class MetricsEngine {
       this.calculateClientHealthScore(filters),
       this.calculateOnboardingMetrics(filters),
       this.calculateEngagementMetrics(filters),
+      this.calculateTemplateMetrics(filters),
     ]);
 
     return {
@@ -497,6 +549,7 @@ class MetricsEngine {
       clients,
       onboarding,
       engagement,
+      templates,
       calculatedAt: new Date().toISOString(),
     };
   }

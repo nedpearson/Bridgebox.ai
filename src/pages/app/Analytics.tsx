@@ -21,6 +21,8 @@ import {
   Brain,
   Sparkles,
   Lightbulb,
+  LayoutTemplate,
+  Database
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -36,8 +38,10 @@ import { useAuth } from '../../contexts/AuthContext';
 import { trendDetection } from '../../lib/trendDetection';
 import { intelligenceOrchestrator, type IntelligenceBriefing } from '../../lib/intelligenceOrchestrator';
 import type { ServiceTrend, IndustryTrend } from '../../lib/trendDetection';
+import { useEnterpriseMetrics } from '../../hooks/useEnterpriseMetrics';
+import SparklineCard from '../../components/analytics/SparklineCard';
 
-type AnalyticsView = 'overview' | 'sales' | 'delivery' | 'billing' | 'support' | 'clients';
+type AnalyticsView = 'overview' | 'operations' | 'sales' | 'delivery' | 'billing' | 'support' | 'clients';
 
 export default function Analytics() {
   const { currentOrganization } = useAuth();
@@ -51,6 +55,7 @@ export default function Analytics() {
 
   const views = [
     { id: 'overview' as const, label: 'Overview', icon: BarChart3 },
+    { id: 'operations' as const, label: 'Platform Operations', icon: Sparkles },
     { id: 'sales' as const, label: 'Sales & CRM', icon: TrendingUp },
     { id: 'delivery' as const, label: 'Delivery', icon: Package },
     { id: 'billing' as const, label: 'Revenue', icon: DollarSign },
@@ -397,6 +402,7 @@ export default function Analytics() {
           </>
         )}
 
+        {view === 'operations' && <OperationsView />}
         {view === 'sales' && <SalesView data={metrics.conversion} />}
         {view === 'delivery' && <DeliveryView data={metrics.projects} />}
         {view === 'billing' && <BillingView data={metrics.revenue} />}
@@ -405,6 +411,69 @@ export default function Analytics() {
       </div>
     </>
   );
+}
+
+function OperationsView() {
+   const { data, loading, error } = useEnterpriseMetrics();
+
+   if (loading) return <div className="py-12"><LoadingSpinner /></div>;
+   if (error) return <ErrorState message={error} />;
+   if (!data) return null;
+
+   return (
+      <div className="space-y-6">
+         <div className="flex items-center gap-3 mb-6">
+            <Sparkles className="w-6 h-6 text-indigo-400" />
+            <div>
+               <h2 className="text-xl font-bold text-white">Platform Telemetry</h2>
+               <p className="text-sm text-slate-400">Live operational data for dynamic Enterprise execution engines.</p>
+            </div>
+         </div>
+
+         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <SparklineCard 
+               title="Active Workflows" 
+               value={data.activeWorkflows} 
+               icon={Zap} 
+               data={data.workflowSparkline}
+               color="#3B82F6" 
+            />
+            <SparklineCard 
+               title="AI Blueprint Tokens Generated" 
+               value={data.aiGenerations} 
+               icon={Brain} 
+               data={data.aiSparkline}
+               color="#8B5CF6" 
+            />
+            <SparklineCard 
+               title="Pending Offline Syncs" 
+               value={data.offlineSyncQueueDepth} 
+               icon={Activity} 
+               data={Array.from({length: 6}, () => ({value: Math.random() * 5}))} // Random sparkline for empty queues
+               color="#F59E0B" 
+            />
+         </div>
+
+         <div className="grid lg:grid-cols-2 gap-6 mt-8">
+            <Card glass className="p-6 border-slate-700/50">
+               <div className="flex items-center gap-3 mb-6">
+                  <Database className="w-5 h-5 text-emerald-400" />
+                  <h3 className="text-lg font-bold text-white">Fleet Infrastructure</h3>
+               </div>
+               <div className="space-y-4">
+                  <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                     <span className="text-slate-400">Deployed App Instances</span>
+                     <span className="text-white font-bold">{data.mobileDevices} active</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                     <span className="text-slate-400">External Webhook Synced</span>
+                     <span className="text-emerald-400 font-bold">{data.syncJobs} running</span>
+                  </div>
+               </div>
+            </Card>
+         </div>
+      </div>
+   );
 }
 
 function OverviewView({ metrics }: { metrics: any }) {
@@ -458,6 +527,14 @@ function OverviewView({ metrics }: { metrics: any }) {
       icon: Target,
       color: '#10B981',
       link: '/app/conversions',
+    },
+    {
+      label: 'Template Installs',
+      value: metrics.templates?.totalInstalls?.toString() || '0',
+      change: `${metrics.templates?.recentInstalls || 0} active deployments`,
+      icon: LayoutTemplate,
+      color: '#8B5CF6',
+      link: '/app/templates',
     },
   ];
 

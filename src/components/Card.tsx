@@ -10,11 +10,11 @@ interface CardProps {
 
 export default function Card({ children, className = '', hover = false, glass = false }: CardProps) {
   const baseStyles = glass
-    ? 'bg-white/5 backdrop-blur-lg border border-white/10 shadow-lg'
-    : 'bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 shadow-lg';
+    ? 'bg-slate-900/30 backdrop-blur-xl border border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]'
+    : 'bg-slate-900/80 backdrop-blur-md border border-slate-800/50 shadow-2xl';
 
   const hoverStyles = hover
-    ? 'hover:border-[#3B82F6]/50 hover:shadow-2xl hover:shadow-[#3B82F6]/30 cursor-pointer transition-all duration-300'
+    ? 'hover:border-white/10 hover:bg-slate-900/90 hover:shadow-[#3B82F6]/10 cursor-pointer transition-all duration-500'
     : '';
 
   return (
