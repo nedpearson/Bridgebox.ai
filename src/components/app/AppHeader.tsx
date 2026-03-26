@@ -5,6 +5,7 @@ import { useMobileNav } from '../../contexts/MobileNavContext';
 import OrganizationSwitcher from './OrganizationSwitcher';
 import NotificationBell from './NotificationBell';
 import CommandPalette from './CommandPalette';
+import InstallAppPrompt from './InstallAppPrompt';
 
 interface AppHeaderProps {
   title: string;
@@ -62,6 +63,8 @@ export default function AppHeader({ title, subtitle, action }: AppHeaderProps) {
               Record
             </Link>
           )}
+          
+          <InstallAppPrompt />
           <OrganizationSwitcher />
           
           <CommandPalette />
