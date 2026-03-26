@@ -28,6 +28,7 @@ const FAQ = lazy(() => import('./pages/FAQ'));
 const Start = lazy(() => import('./pages/Start'));
 const Login = lazy(() => import('./pages/auth/Login'));
 const Signup = lazy(() => import('./pages/auth/Signup'));
+const ResetPassword = lazy(() => import('./pages/auth/ResetPassword'));
 const OrganizationOnboarding = lazy(() => import('./pages/auth/OrganizationOnboarding'));
 const AdminPreview = lazy(() => import('./pages/AdminPreview'));
 const AppOverview = lazy(() => import('./pages/app/AppOverview'));
@@ -162,6 +163,8 @@ function App() {
           <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/auth/reset-password" element={<ResetPassword />} />
+          <Route path="/auth/callback" element={<ResetPassword />} />
           <Route path="/onboarding" element={<ProtectedRoute><OrganizationOnboarding /></ProtectedRoute>} />
           <Route path="/setup" element={<ProtectedRoute><OnboardingFlow /></ProtectedRoute>} />
           <Route path="/ai-onboarding" element={<ProtectedRoute><AiOnboardingWizard /></ProtectedRoute>} />
