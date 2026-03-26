@@ -19,6 +19,14 @@ export interface BridgeboxTemplate {
   branding_tokens: Record<string, any>;
   is_overlay: boolean;
   merge_strategy: 'skip_existing' | 'overwrite' | 'merge_fields';
+  monetization?: {
+    is_premium: boolean;
+    base_price_impact: number;
+    ai_multiplier: number;
+    plan_gate: 'starter' | 'growth' | 'pro' | 'enterprise';
+    setup_fee_estimate: number;
+    included_integrations: string[];
+  };
   version: string;
   status: TemplateStatus;
   created_by?: string;

@@ -84,7 +84,7 @@ export default function Header() {
               whileTap={{ scale: 0.98 }}
             >
               <Link
-                to="/start"
+                to="/sales-onboarding"
                 className="px-6 py-2.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#3B82F6]/50 inline-block"
               >
                 Start a Project
@@ -133,7 +133,7 @@ export default function Header() {
                   Sign In
                 </Link>
                 <Link
-                  to="/start"
+                  to="/sales-onboarding"
                   onClick={() => setIsOpen(false)}
                   className="block text-center py-2.5 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-[#2563EB] transition-colors duration-200"
                 >

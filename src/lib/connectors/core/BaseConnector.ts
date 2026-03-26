@@ -1,3 +1,4 @@
+import { Logger } from '../../logger';
 import type {
   Connector,
   ConnectorProvider,
@@ -54,7 +55,7 @@ export abstract class BaseConnector {
     severity: string = 'info',
     data?: any
   ): Promise<void> {
-    console.log(`[${this.provider.displayName}] ${eventType}: ${message}`, data);
+    Logger.info(`[${this.provider.displayName}] ${eventType}: ${message}`, data);
   }
 
   protected createSyncResult(

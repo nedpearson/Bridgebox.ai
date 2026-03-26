@@ -17,6 +17,7 @@ import { projectsService } from '../../lib/db/projects';
 import { useBranding } from '../../hooks/useBranding';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
+import GuidedTour from '../../components/demo/GuidedTour';
 
 export default function AppOverview() {
   const { currentOrganization } = useAuth();
@@ -113,6 +114,11 @@ export default function AppOverview() {
       <AppHeader
         title="Overview"
         subtitle="Welcome back. Here's what's happening with your projects."
+      />
+      
+      <GuidedTour 
+        isDemo={currentOrganization?.name?.startsWith('[DEMO]') || false} 
+        onClose={() => {}} 
       />
 
       <div className="p-8 space-y-8">

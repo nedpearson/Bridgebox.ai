@@ -1,3 +1,4 @@
+import { Logger } from '../logger';
 /**
  * Stripe Webhook Handler Boundaries
  *
@@ -8,6 +9,7 @@
  * Actual implementation should be done in a Supabase Edge Function.
  */
 
+import { supabase } from '../supabase';
 import {
   syncSubscription,
   syncInvoice,
@@ -31,7 +33,7 @@ export async function handleCheckoutCompleted(event: any) {
     const organizationId = metadata.organization_id;
 
     if (!organizationId) {
-      console.error('No organization_id in checkout session metadata');
+      Logger.error('No organization_id in checkout session metadata');
       return { success: false, error: 'Missing organization_id' };
     }
 
@@ -42,10 +44,10 @@ export async function handleCheckoutCompleted(event: any) {
       metadata,
     });
 
-    console.log(`Checkout completed for organization ${organizationId}`);
+    Logger.info(`Checkout completed for organization ${organizationId}`);
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to handle checkout.session.completed:', error);
+    Logger.error('Failed to handle checkout.session.completed:', error);
     return { success: false, error: error.message };
   }
 }
@@ -62,7 +64,7 @@ export async function handleSubscriptionCreated(event: any) {
     const organizationId = metadata.organization_id;
 
     if (!organizationId) {
-      console.error('No organization_id in subscription metadata');
+      Logger.error('No organization_id in subscription metadata');
       return { success: false, error: 'Missing organization_id' };
     }
 
@@ -86,10 +88,10 @@ export async function handleSubscriptionCreated(event: any) {
 
     await syncSubscription(organizationId, subscriptionData);
 
-    console.log(`Subscription created for organization ${organizationId}`);
+    Logger.info(`Subscription created for organization ${organizationId}`);
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to handle customer.subscription.created:', error);
+    Logger.error('Failed to handle customer.subscription.created:', error);
     return { success: false, error: error.message };
   }
 }
@@ -106,7 +108,7 @@ export async function handleSubscriptionUpdated(event: any) {
     const organizationId = metadata.organization_id;
 
     if (!organizationId) {
-      console.error('No organization_id in subscription metadata');
+      Logger.error('No organization_id in subscription metadata');
       return { success: false, error: 'Missing organization_id' };
     }
 
@@ -130,10 +132,10 @@ export async function handleSubscriptionUpdated(event: any) {
 
     await syncSubscription(organizationId, subscriptionData);
 
-    console.log(`Subscription updated for organization ${organizationId}`);
+    Logger.info(`Subscription updated for organization ${organizationId}`);
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to handle customer.subscription.updated:', error);
+    Logger.error('Failed to handle customer.subscription.updated:', error);
     return { success: false, error: error.message };
   }
 }
@@ -150,7 +152,7 @@ export async function handleSubscriptionDeleted(event: any) {
     const organizationId = metadata.organization_id;
 
     if (!organizationId) {
-      console.error('No organization_id in subscription metadata');
+      Logger.error('No organization_id in subscription metadata');
       return { success: false, error: 'Missing organization_id' };
     }
 
@@ -170,10 +172,10 @@ export async function handleSubscriptionDeleted(event: any) {
 
     await syncSubscription(organizationId, subscriptionData);
 
-    console.log(`Subscription deleted for organization ${organizationId}`);
+    Logger.info(`Subscription deleted for organization ${organizationId}`);
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to handle customer.subscription.deleted:', error);
+    Logger.error('Failed to handle customer.subscription.deleted:', error);
     return { success: false, error: error.message };
   }
 }
@@ -190,7 +192,7 @@ export async function handleInvoicePaid(event: any) {
     const organizationId = metadata.organization_id;
 
     if (!organizationId) {
-      console.error('No organization_id in invoice metadata');
+      Logger.error('No organization_id in invoice metadata');
       return { success: false, error: 'Missing organization_id' };
     }
 
@@ -215,10 +217,10 @@ export async function handleInvoicePaid(event: any) {
 
     await syncInvoice(organizationId, invoiceData);
 
-    console.log(`Invoice paid for organization ${organizationId}`);
+    Logger.info(`Invoice paid for organization ${organizationId}`);
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to handle invoice.paid:', error);
+    Logger.error('Failed to handle invoice.paid:', error);
     return { success: false, error: error.message };
   }
 }
@@ -235,7 +237,7 @@ export async function handleInvoicePaymentFailed(event: any) {
     const organizationId = metadata.organization_id;
 
     if (!organizationId) {
-      console.error('No organization_id in invoice metadata');
+      Logger.error('No organization_id in invoice metadata');
       return { success: false, error: 'Missing organization_id' };
     }
 
@@ -260,11 +262,18 @@ export async function handleInvoicePaymentFailed(event: any) {
 
     await syncInvoice(organizationId, invoiceData);
 
-    // TODO: Send notification to organization about payment failure
-    console.log(`Invoice payment failed for organization ${organizationId}`);
+    await supabase.from('bb_notifications').insert({
+      organization_id: organizationId,
+      type: 'billing_alert',
+      title: 'Payment Failed',
+      message: `Your recent invoice payment of $${(invoice.amount_due / 100).toFixed(2)} failed. Please update your payment method.`,
+      action_links: [{ label: 'Update Billing', url: '/portal/billing' }]
+    });
+
+    Logger.error(`Invoice payment failed for organization ${organizationId}. Notification emitted.`);
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to handle invoice.payment_failed:', error);
+    Logger.error('Failed to handle invoice.payment_failed:', error);
     return { success: false, error: error.message };
   }
 }
@@ -276,7 +285,7 @@ export async function handleInvoicePaymentFailed(event: any) {
 export async function handleStripeWebhook(event: any) {
   const eventType = event.type;
 
-  console.log(`Handling Stripe webhook: ${eventType}`);
+  Logger.info(`Handling Stripe webhook: ${eventType}`);
 
   switch (eventType) {
     case 'checkout.session.completed':
@@ -298,7 +307,7 @@ export async function handleStripeWebhook(event: any) {
       return handleInvoicePaymentFailed(event);
 
     default:
-      console.log(`Unhandled webhook event type: ${eventType}`);
+      Logger.info(`Unhandled webhook event type: ${eventType}`);
       return { success: true, message: 'Event type not handled' };
   }
 }

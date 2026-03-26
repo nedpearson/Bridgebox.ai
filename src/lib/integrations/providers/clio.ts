@@ -1,3 +1,4 @@
+import { Logger } from '../../logger';
 // @ts-nocheck
 import { IntegrationProvider, IntegrationConnection, SyncResult, WebhookPayload, ValidationResult } from '../providerInterface';
 
@@ -15,7 +16,7 @@ export class ClioProvider implements IntegrationProvider {
   readonly id = 'clio';
 
   async connect(organizationId: string, authData: any): Promise<IntegrationConnection> {
-    console.log(`Connecting Clio for org ${organizationId}`);
+    Logger.info(`Connecting Clio for org ${organizationId}`);
     return {
       id: 'mock-clio-conn-' + Date.now(),
       organization_id: organizationId,
@@ -29,17 +30,17 @@ export class ClioProvider implements IntegrationProvider {
   }
 
   async disconnect(_connectionId: string): Promise<boolean> {
-    console.log(`Disconnecting Clio connection ${connectionId}`);
+    Logger.info(`Disconnecting Clio connection ${connectionId}`);
     return true;
   }
 
   async refreshToken(_connectionId: string): Promise<string | null> {
-    console.log(`Refreshing Clio token for ${connectionId}`);
+    Logger.info(`Refreshing Clio token for ${connectionId}`);
     return 'new-mock-token';
   }
 
   async initialSync(_connectionId: string): Promise<SyncResult> {
-    console.log(`Starting full historical sync for Clio connection ${connectionId}`);
+    Logger.info(`Starting full historical sync for Clio connection ${connectionId}`);
     // Scaffold robust retry / backoff / dedupe handling internally here
     return {
       success: true,
@@ -49,7 +50,7 @@ export class ClioProvider implements IntegrationProvider {
   }
 
   async deltaSync(_connectionId: string, _cursor: Record<string, any>): Promise<SyncResult> {
-    console.log(`Starting incremental delta sync for Clio connection ${connectionId}`);
+    Logger.info(`Starting incremental delta sync for Clio connection ${connectionId}`);
     return {
       success: true,
       recordsProcessed: 0,
@@ -58,7 +59,7 @@ export class ClioProvider implements IntegrationProvider {
   }
 
   async ingestWebhook(_organizationId: string, _payload: WebhookPayload): Promise<boolean> {
-    console.log(`Received Clio webhook for org ${organizationId}`);
+    Logger.info(`Received Clio webhook for org ${organizationId}`);
     // Required: webhook support only if safe
     return true;
   }

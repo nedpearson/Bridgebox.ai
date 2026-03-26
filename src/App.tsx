@@ -28,9 +28,11 @@ const FAQ = lazy(() => import('./pages/FAQ'));
 const Start = lazy(() => import('./pages/Start'));
 const Login = lazy(() => import('./pages/auth/Login'));
 const Signup = lazy(() => import('./pages/auth/Signup'));
+const SalesOnboarding = lazy(() => import('./pages/onboarding/SalesOnboarding'));
 const ResetPassword = lazy(() => import('./pages/auth/ResetPassword'));
 const OrganizationOnboarding = lazy(() => import('./pages/auth/OrganizationOnboarding'));
 const AdminPreview = lazy(() => import('./pages/AdminPreview'));
+const DemoSandbox = lazy(() => import('./pages/demo/DemoSandbox'));
 const AppOverview = lazy(() => import('./pages/app/AppOverview'));
 const Pipeline = lazy(() => import('./pages/app/Pipeline'));
 const LeadsList = lazy(() => import('./pages/app/LeadsList'));
@@ -147,6 +149,15 @@ const AgentControlRoom = lazy(() => import('./pages/internal/modules/AgentContro
 const TemplateStudio = lazy(() => import('./pages/internal/modules/TemplateStudio'));
 const PricingCommandCenter = lazy(() => import('./pages/admin/PricingCommandCenter'));
 const PricingPresentation = lazy(() => import('./pages/onboarding/PricingPresentation'));
+
+// Super Admin Layouts & Components
+import SuperAdminLayout from './layouts/SuperAdminLayout';
+const SuperAdminOverview = lazy(() => import('./pages/admin/SuperAdminOverview'));
+const TenantManagement = lazy(() => import('./pages/admin/TenantManagement'));
+const TenantDetail = lazy(() => import('./pages/admin/TenantDetail'));
+const MonetizationHub = lazy(() => import('./pages/admin/MonetizationHub'));
+const EcosystemHub = lazy(() => import('./pages/admin/EcosystemHub'));
+const AIUsageDashboard = lazy(() => import('./pages/admin/AIUsageDashboard'));
 
 function App() {
   const { isCustomDomain, loading: domainLoading } = useCustomDomain();
@@ -282,6 +293,30 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/admin/*"
+            element={
+              <ProtectedRoute>
+                <RoleGuard allowedRoles={['super_admin']}>
+                  <SuperAdminLayout>
+                    <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-slate-950"><LoadingSpinner /></div>}>
+                      <Routes>
+                        <Route path="/" element={<Navigate to="overview" replace />} />
+                        <Route path="/overview" element={<SuperAdminOverview />} />
+                        <Route path="/tenants" element={<TenantManagement />} />
+                        <Route path="/tenants/:id" element={<TenantDetail />} />
+                        <Route path="/monetization" element={<MonetizationHub />} />
+                        <Route path="/ecosystem" element={<EcosystemHub />} />
+                        <Route path="/ai-usage" element={<AIUsageDashboard />} />
+                      </Routes>
+                    </Suspense>
+                  </SuperAdminLayout>
+                </RoleGuard>
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/app/internal/*"
             element={
@@ -370,6 +405,7 @@ function App() {
                   <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
                   <Route path="/industries" element={<Industries />} />
                   <Route path="/faq" element={<FAQ />} />
+                  <Route path="/sales-onboarding" element={<SalesOnboarding />} />
                   <Route path="/start" element={<Start />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/pricing" element={<Pricing />} />

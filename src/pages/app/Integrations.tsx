@@ -11,6 +11,7 @@ import WorkspaceChatIntegrations from '../../components/connectors/WorkspaceChat
 import { connectorService } from '../../lib/connectors';
 import type { Connector, ConnectorProvider } from '../../lib/connectors/types';
 import { useAuth } from '../../contexts/AuthContext';
+import UpgradeModal from '../../components/app/UpgradeModal';
 
 type ViewMode = 'connected' | 'available';
 type CategoryFilter = 'all' | 'business_systems' | 'commerce_financial' | 'communication' | 'market_data';
@@ -26,6 +27,10 @@ export default function Integrations() {
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState<string | null>(null);
   const [error, setError] = useState('');
+  
+  // Upsell State
+  const [showUpgradeAuth, setShowUpgradeAuth] = useState(false);
+  const [upgradeFeature, setUpgradeFeature] = useState('');
 
   const categories = [
     { id: 'all' as const, label: 'All', icon: Filter },
@@ -59,6 +64,16 @@ export default function Integrations() {
 
   const handleConnect = async (provider: ConnectorProvider) => {
     if (!currentOrganization?.id) return;
+    
+    // Feature Gate 
+    const isEnterprise = currentOrganization?.is_enterprise_client || false;
+    const plan = currentOrganization?.billing_plan || 'free';
+    
+    if (!isEnterprise && plan !== 'professional' && plan !== 'enterprise' && !currentOrganization.name.startsWith('[DEMO]')) {
+       setUpgradeFeature(provider.displayName + ' Integration');
+       setShowUpgradeAuth(true);
+       return;
+    }
 
     try {
       const connector = await connectorService.createConnector(
@@ -278,6 +293,14 @@ export default function Integrations() {
           )}
         </div>
       )}
+      
+      <UpgradeModal 
+        isOpen={showUpgradeAuth}
+        onClose={() => setShowUpgradeAuth(false)}
+        featureName={upgradeFeature}
+        requiredPlan="Professional"
+        customDescription={`Third-party API bridging for ${upgradeFeature} requires a premium data pipeline. Upgrade to Professional to instantly sync bidirectional data without manual entry.`}
+      />
     </div>
   );
 }

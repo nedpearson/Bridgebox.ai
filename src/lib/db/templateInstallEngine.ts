@@ -1,3 +1,4 @@
+import { Logger } from '../logger';
 import { supabase } from '../supabase';
 import { BridgeboxTemplate, templateService } from './templates';
 
@@ -10,6 +11,8 @@ export interface UnpackResult {
     forms: string[];
   };
 }
+
+const activeMemLocks = new Set<string>();
 
 export const templateInstallEngine = {
   /**
@@ -37,6 +40,13 @@ export const templateInstallEngine = {
    * Built with resilient rollback ID tracking to prevent partial installations.
    */
   async unpack(template: BridgeboxTemplate, organizationId: string): Promise<UnpackResult> {
+    const lockKey = `${organizationId}_${template.id}`;
+    if (activeMemLocks.has(lockKey)) {
+       Logger.warn(`[Install Reject] Template ${template.name} is already unpacking.`);
+       throw new Error(`Active unpacking transaction exists for ${template.name}.`);
+    }
+    activeMemLocks.add(lockKey);
+
     const payload = template.configuration_payload || {};
     const generatedAssetManifest: { table: string, id: string, name: string }[] = [];
     
@@ -44,7 +54,7 @@ export const templateInstallEngine = {
     // This allows overlays to mandate baseline schemas before proceeding
     const dependencies = await this.resolveDependencies(template.id);
     for (const dep of dependencies) {
-       console.log(`Unpacking foundational dependency: ${dep.name}`);
+       Logger.info(`Unpacking foundational dependency: ${dep.name}`);
        await this.unpack(dep, organizationId); // Recursive unpack
     }
     
@@ -63,7 +73,7 @@ export const templateInstallEngine = {
                .maybeSingle();
 
             if (existingEntity) {
-               console.log(`[Schema Merge] Entity ${entity.name} exists. Resolving conflicts leveraging ${template.merge_strategy}...`);
+               Logger.info(`[Schema Merge] Entity ${entity.name} exists. Resolving conflicts leveraging ${template.merge_strategy}...`);
                
                if (template.merge_strategy === 'skip_existing') {
                   continue;
@@ -121,7 +131,7 @@ export const templateInstallEngine = {
                
             if (existing) {
                if (template.merge_strategy === 'skip_existing') {
-                  console.log(`Skipping workflow creation, ${workflow.name} exists.`);
+                  Logger.info(`Skipping workflow creation, ${workflow.name} exists.`);
                   continue;
                } else if (template.merge_strategy === 'overwrite') {
                   // Wipe existing so the insert cleanly takes priority
@@ -168,20 +178,22 @@ export const templateInstallEngine = {
       };
 
     } catch (e: any) {
-      console.error('Template Unpack Failure. Initiating automatic rollback.', e);
+      Logger.error('Template Unpack Failure. Initiating automatic rollback.', e);
       
       // Rollback Sequence: Reverse order cleanup of inserted records
       for (let i = generatedAssetManifest.length - 1; i >= 0; i--) {
          const asset = generatedAssetManifest[i];
          try {
             await supabase.from(asset.table).delete().eq('id', asset.id);
-            console.log(`Rollback: Deleted ${asset.table} ${asset.id}`);
+            Logger.info(`Rollback: Deleted ${asset.table} ${asset.id}`);
          } catch (rollbackError) {
-            console.error(`CRITICAL ROLLBACK FAILURE on ${asset.table} ${asset.id}:`, rollbackError);
+            Logger.error(`CRITICAL ROLLBACK FAILURE on ${asset.table} ${asset.id}:`, rollbackError);
          }
       }
 
       return { success: false, message: e.message };
+    } finally {
+      setTimeout(() => activeMemLocks.delete(lockKey), 10000);
     }
   }
 };

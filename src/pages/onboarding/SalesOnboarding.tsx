@@ -1,0 +1,298 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import { supabase } from '../../lib/supabase';
+import { Logger } from '../../lib/logger';
+import { 
+  ChevronRight, ChevronLeft, Building2, Zap, DollarSign, Lock, 
+  MapPin, CheckCircle2, Server, Smartphone, LayoutTemplate, Bot
+} from 'lucide-react';
+
+const STEPS = [
+  { id: 'identity', title: 'Identity', icon: Building2 },
+  { id: 'powerups', title: 'Power-Ups', icon: Zap },
+  { id: 'pricing', title: 'Pricing', icon: DollarSign },
+  { id: 'account', title: 'Finalize', icon: Lock }
+];
+
+const INDUSTRIES = ['Legal', 'Accounting', 'Retail', 'Logistics', 'Med Spa', 'Consulting'];
+const MODELS = ['B2B Services', 'B2C Services', 'E-Commerce / Hybrid', 'Enterprise / Wholesale'];
+const INTEGRATIONS = ['stripe', 'quickbooks', 'slack', 'gmail'];
+
+export default function SalesOnboarding() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const { user, currentOrganization, signUp } = useAuth();
+  const navigate = useNavigate();
+
+  // Unified State
+  const [config, setConfig] = useState({
+    industry: 'Legal',
+    model: 'B2B Services',
+    integrations: ['stripe'] as string[],
+    aiUsage: 'standard',
+    mobile: false,
+    users: 5,
+    locations: 1,
+    email: '',
+    password: '',
+    fullName: ''
+  });
+
+  const isGhostAccount = user?.email?.includes('@sandbox.bridgebox.ai') || false;
+
+  const calculatePrice = () => {
+    let base = 99; // Base platform fee
+    let perUser = 29 * (config.users - 1);
+    let tech = config.integrations.length * 20;
+    let aiCost = config.aiUsage === 'unlimited' ? 199 : config.aiUsage === 'high' ? 99 : 29;
+    let mobileCost = config.mobile ? 149 : 0;
+    
+    return base + perUser + tech + aiCost + mobileCost;
+  };
+
+  const handleComplete = async () => {
+    try {
+      if (isGhostAccount) {
+        // We convert the ghost profile to a real user securely
+        await supabase.auth.updateUser({ email: config.email, password: config.password });
+        await supabase.from('bb_organizations').update({ 
+           name: `${config.fullName}'s Workspace`,
+           organization_type: 'client',
+        }).eq('id', currentOrganization?.id);
+        
+        Logger.info('[Analytics] Demo Converted to Paid Pipeline', { 
+           industry: config.industry, 
+           planValue: calculatePrice() 
+        });
+      } else {
+        await signUp(config.email, config.password, config.fullName);
+        Logger.info('[Analytics] Direct Standard Conversion', { industry: config.industry });
+      }
+      navigate('/app', { replace: true });
+    } catch (err) {
+      console.error(err);
+      alert('Failed to finalize account. Please try again.');
+    }
+  };
+
+  const toggleIntegration = (id: string) => {
+     setConfig(prev => ({
+        ...prev,
+        integrations: prev.integrations.includes(id) 
+            ? prev.integrations.filter(i => i !== id)
+            : [...prev.integrations, id]
+     }));
+  };
+
+  const renderStep = () => {
+    switch(currentStep) {
+      case 0: // Step 1: Core Identity
+        return (
+          <div className="space-y-8">
+            <h2 className="text-3xl font-bold text-white mb-2">Configure your architecture</h2>
+            <p className="text-slate-400 mb-8">Define your primary operations constraint.</p>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                 <label className="text-sm font-medium text-slate-400 mb-3 block">Primary Sector</label>
+                 <div className="grid grid-cols-2 gap-2">
+                    {INDUSTRIES.slice(0, 4).map(ind => (
+                       <button key={ind} onClick={() => setConfig({...config, industry: ind})}
+                          className={`p-3 text-sm rounded-lg border text-left transition-all ${config.industry === ind ? 'border-[#3B82F6] bg-[#3B82F6]/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
+                          {ind}
+                       </button>
+                    ))}
+                 </div>
+              </div>
+              <div>
+                 <label className="text-sm font-medium text-slate-400 mb-3 block">Delivery Model</label>
+                 <div className="grid grid-cols-1 gap-2">
+                    {MODELS.slice(0, 2).map(mod => (
+                       <button key={mod} onClick={() => setConfig({...config, model: mod})}
+                          className={`p-3 text-sm rounded-lg border text-left transition-all ${config.model === mod ? 'border-[#3B82F6] bg-[#3B82F6]/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
+                          {mod}
+                       </button>
+                    ))}
+                 </div>
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-slate-800">
+               <label className="text-sm font-medium text-slate-400 mb-6 block flex items-center justify-between">
+                  <span>Authorized Users ({config.users})</span>
+                  <span>Locations ({config.locations})</span>
+               </label>
+               <div className="grid grid-cols-2 gap-8">
+                  <input type="range" min="1" max="100" value={config.users} onChange={(e) => setConfig({...config, users: parseInt(e.target.value)})} className="w-full accent-[#3B82F6]" />
+                  <input type="range" min="1" max="25" value={config.locations} onChange={(e) => setConfig({...config, locations: parseInt(e.target.value)})} className="w-full accent-[#10B981]" />
+               </div>
+            </div>
+          </div>
+        );
+      
+      case 1: // Step 2: Power Ups
+        return (
+          <div className="space-y-8">
+            <h2 className="text-3xl font-bold text-white mb-2">Enable Power-Ups</h2>
+            <p className="text-slate-400 mb-8">Select premium data integrations and limits.</p>
+
+            <div className="space-y-6">
+               <div>
+                  <label className="text-sm font-medium text-slate-400 mb-3 block">Generative AI Tier</label>
+                  <div className="grid grid-cols-3 gap-3">
+                     {['standard', 'high', 'unlimited'].map(tier => (
+                        <button key={tier} onClick={() => setConfig({...config, aiUsage: tier})}
+                           className={`p-4 rounded-xl border text-center transition-all ${config.aiUsage === tier ? 'border-purple-500 bg-purple-500/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
+                           <Bot className={`w-6 h-6 mx-auto mb-2 ${config.aiUsage === tier ? 'text-purple-400' : 'text-slate-500'}`} />
+                           <span className="text-sm font-medium capitalize">{tier}</span>
+                        </button>
+                     ))}
+                  </div>
+               </div>
+
+               <div>
+                  <label className="text-sm font-medium text-slate-400 mb-3 block">Active Integrations</label>
+                  <div className="grid grid-cols-4 gap-2">
+                     {INTEGRATIONS.map(i => (
+                        <button key={i} onClick={() => toggleIntegration(i)}
+                           className={`p-3 rounded-lg border text-center transition-all ${config.integrations.includes(i) ? 'border-[#3B82F6] bg-[#3B82F6]/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
+                           <span className="text-xs font-medium capitalize">{i}</span>
+                        </button>
+                     ))}
+                  </div>
+               </div>
+
+               <div className="pt-2">
+                  <button onClick={() => setConfig({...config, mobile: !config.mobile})}
+                     className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all ${config.mobile ? 'border-[#10B981] bg-[#10B981]/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
+                     <div className="flex items-center">
+                        <Smartphone className={`w-5 h-5 mr-3 ${config.mobile ? 'text-[#10B981]' : 'text-slate-500'}`} />
+                        <span className="font-medium">Native iOS & Android Apps</span>
+                     </div>
+                     <div className={`w-10 h-6 rounded-full transition-colors flex items-center px-1 ${config.mobile ? 'bg-[#10B981]' : 'bg-slate-700'}`}>
+                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${config.mobile ? 'translate-x-4' : 'translate-x-0'}`} />
+                     </div>
+                  </button>
+               </div>
+            </div>
+          </div>
+        );
+      
+      case 2: // Step 3: Pricing Preview
+        return (
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold text-white mb-2">Your Dedicated Build</h2>
+            <p className="text-slate-400 mb-6">Designed specifically for {config.users} users in {config.industry}.</p>
+            
+            <div className="p-8 border border-[#3B82F6]/30 bg-[#3B82F6]/5 rounded-2xl relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-[#3B82F6]/20 blur-[50px] pointer-events-none" />
+               <div className="flex justify-between items-end mb-6 border-b border-slate-700 pb-6">
+                  <div>
+                    <h3 className="text-xl font-medium text-slate-300 flex items-center">
+                       <Server className="w-5 h-5 text-[#3B82F6] mr-2" /> Bridgebox Complete
+                    </h3>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-5xl font-black text-white">${calculatePrice()}</span>
+                    <span className="text-slate-400 ml-2">/ month</span>
+                  </div>
+               </div>
+               <div className="grid grid-cols-2 gap-4">
+                  <ul className="space-y-3">
+                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> Automated Architecture</li>
+                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> {config.users} Licensed User Seats</li>
+                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> {config.locations} Branch Location{config.locations > 1 ? 's' : ''}</li>
+                  </ul>
+                  <ul className="space-y-3">
+                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> {config.aiUsage} AI Copilot</li>
+                     {config.mobile && <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> White-label Mobile Apps</li>}
+                     {config.integrations.length > 0 && <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> {config.integrations.length} Premium Hooks</li>}
+                  </ul>
+               </div>
+            </div>
+          </div>
+        );
+      
+      case 3: // Step 4: Finalize Account
+        return (
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold text-white mb-2">{isGhostAccount ? 'Claim Your Workspace' : 'Create Account'}</h2>
+            <p className="text-slate-400 mb-8">{isGhostAccount ? 'Your demo configuration will instantly migrate to your live profile.' : 'Deploying your command center infrastructure.'}</p>
+            
+            <div className="space-y-4">
+               <input type="text" placeholder="Full Legal Name" required value={config.fullName} onChange={e => setConfig({...config, fullName: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-[#3B82F6] focus:outline-none transition-colors" />
+               <input type="email" placeholder="Work Email Address" required value={config.email} onChange={e => setConfig({...config, email: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-[#3B82F6] focus:outline-none transition-colors" />
+               <input type="password" placeholder="Secure Password" required value={config.password} onChange={e => setConfig({...config, password: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-[#3B82F6] focus:outline-none transition-colors" />
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center py-12 px-4 selection:bg-[#3B82F6]/30">
+        {/* Progress Tracker */}
+        <div className="w-full max-w-4xl mb-12 flex justify-center items-center px-4 space-x-4 sm:space-x-12">
+           {STEPS.map((step, idx) => (
+             <React.Fragment key={step.id}>
+                <div className="flex flex-col items-center">
+                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-colors ${idx <= currentStep ? 'bg-[#3B82F6] text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]' : 'bg-slate-800 text-slate-500'}`}>
+                      <step.icon className="w-5 h-5" />
+                   </div>
+                   <span className={`text-xs font-bold uppercase tracking-wider ${idx <= currentStep ? 'text-[#3B82F6]' : 'text-slate-600'}`}>{step.title}</span>
+                </div>
+                {idx < STEPS.length - 1 && (
+                   <div className={`h-0.5 w-12 sm:w-24 mb-6 rounded-full transition-colors ${idx < currentStep ? 'bg-[#3B82F6]' : 'bg-slate-800'}`} />
+                )}
+             </React.Fragment>
+           ))}
+        </div>
+
+        {/* Wizard Pane */}
+        <div className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-12 relative overflow-hidden min-h-[500px] flex flex-col justify-between shadow-2xl">
+           <AnimatePresence mode="wait">
+             <motion.div
+               key={currentStep}
+               initial={{ opacity: 0, x: 20 }}
+               animate={{ opacity: 1, x: 0 }}
+               exit={{ opacity: 0, x: -20 }}
+               transition={{ duration: 0.2 }}
+               className="flex-1"
+             >
+               {renderStep()}
+             </motion.div>
+           </AnimatePresence>
+
+           {/* Navigation Controls */}
+           <div className="flex justify-between items-center pt-8 mt-8 border-t border-slate-800 relative z-10">
+              <button 
+                onClick={() => setCurrentStep(c => Math.max(0, c - 1))}
+                className={`flex items-center px-6 py-3 font-medium text-slate-400 hover:text-white transition-colors ${currentStep === 0 ? 'invisible' : ''}`}
+              >
+                 <ChevronLeft className="w-5 h-5 mr-2" /> Back
+              </button>
+              
+              {currentStep === STEPS.length - 1 ? (
+                 <button 
+                   onClick={handleComplete}
+                   disabled={!config.email || !config.password || !config.fullName}
+                   className="flex items-center px-8 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-bold rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.2)] disabled:opacity-50 transition-all"
+                 >
+                    Deploy Infrastructure <Lock className="w-4 h-4 ml-2" />
+                 </button>
+              ) : (
+                 <button 
+                   onClick={() => setCurrentStep(c => Math.min(STEPS.length - 1, c + 1))}
+                   className="flex items-center px-8 py-3 bg-white text-slate-900 hover:bg-slate-200 font-bold rounded-xl transition-all shadow-lg"
+                 >
+                    Continue <ChevronRight className="w-4 h-4 ml-2" />
+                 </button>
+              )}
+           </div>
+        </div>
+    </div>
+  );
+}

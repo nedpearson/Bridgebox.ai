@@ -1,3 +1,4 @@
+import { Logger } from './logger';
 // @ts-nocheck
 import { automationService, type TriggerType } from './db/automations';
 import { clientSuccessService } from './db/clientSuccess';
@@ -43,7 +44,7 @@ export class SystemIntegration {
         }
       }
     } catch (error) {
-      console.error('Failed to trigger automations:', error);
+      Logger.error('Failed to trigger automations:', error);
     }
   }
 
@@ -74,23 +75,23 @@ export class SystemIntegration {
   ): Promise<void> {
     switch (actionType) {
       case 'create_project':
-        console.log('Would create project with template:', config.project_template);
+        Logger.info('Would create project with template:', config.project_template);
         break;
 
       case 'assign_team_member':
-        console.log('Would assign team member using:', config.assignment_type);
+        Logger.info('Would assign team member using:', config.assignment_type);
         break;
 
       case 'send_notification':
-        console.log('Would send notification:', config.notification_type);
+        Logger.info('Would send notification:', config.notification_type);
         break;
 
       case 'update_status':
-        console.log('Would update status to:', config.new_status);
+        Logger.info('Would update status to:', config.new_status);
         break;
 
       case 'create_task':
-        console.log('Would create task:', config.task_title);
+        Logger.info('Would create task:', config.task_title);
         break;
 
       case 'flag_risk':
@@ -106,7 +107,7 @@ export class SystemIntegration {
         break;
 
       default:
-        console.log('Unknown action type:', actionType);
+        Logger.info('Unknown action type:', actionType);
     }
   }
 
@@ -191,7 +192,7 @@ export class SystemIntegration {
           suggestion.priority
         );
       } catch (error) {
-        console.error('Failed to create AI suggestion:', error);
+        Logger.error('Failed to create AI suggestion:', error);
       }
     }
   }
@@ -225,7 +226,7 @@ export class SystemIntegration {
 
       await clientSuccessService.updateHealthScore(organizationId, score, healthStatus);
     } catch (error) {
-      console.error('Failed to sync client health score:', error);
+      Logger.error('Failed to sync client health score:', error);
     }
   }
 

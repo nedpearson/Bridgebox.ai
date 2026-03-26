@@ -1,3 +1,4 @@
+import { Logger } from './logger';
 // @ts-nocheck
 import { metricsEngine } from './metricsEngine';
 import { predictiveAnalytics } from './predictiveAnalytics';
@@ -365,7 +366,7 @@ class IntelligenceOrchestrator {
     insightId?: string;
     metadata?: Record<string, any>;
   }) {
-    console.log('Intelligence event tracked:', event);
+    Logger.info('Intelligence event tracked:', event);
   }
 
   private async gatherMarketIntelligence(organizationId: string) {
@@ -380,7 +381,7 @@ class IntelligenceOrchestrator {
         emergingTrends,
       };
     } catch (error) {
-      console.error('Error gathering market intelligence:', error);
+      Logger.error('Error gathering market intelligence:', error);
       return this.getEmptyMarketData();
     }
   }
@@ -397,7 +398,7 @@ class IntelligenceOrchestrator {
         totalScore,
       };
     } catch (error) {
-      console.error('Error analyzing opportunities:', error);
+      Logger.error('Error analyzing opportunities:', error);
       return this.getEmptyOpportunityData();
     }
   }
@@ -417,7 +418,7 @@ class IntelligenceOrchestrator {
         categories: stats.by_category,
       };
     } catch (error) {
-      console.error('Error getting action statistics:', error);
+      Logger.error('Error getting action statistics:', error);
       return { total: 0, highPriority: 0, categories: {} };
     }
   }
@@ -463,7 +464,7 @@ class IntelligenceOrchestrator {
       }
       return [];
     } catch (error) {
-      console.error('Error generating action recommendations:', error);
+      Logger.error('Error generating action recommendations:', error);
       return [];
     }
   }

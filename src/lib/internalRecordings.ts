@@ -1,3 +1,4 @@
+import { Logger } from './logger';
 import { supabase } from './supabase';
 
 export interface InternalRecording {
@@ -36,7 +37,7 @@ export const internalRecordingsApi = {
    * This should trigger an Edge Function or background worker securely.
    */
   async triggerAIProcessing(recordingId: string): Promise<void> {
-    console.log(`[AI Hook] Triggering transcription & summary jobs for recording: ${recordingId}`);
+    Logger.info(`[AI Hook] Triggering transcription & summary jobs for recording: ${recordingId}`);
     // Future implementation:
     // await supabase.functions.invoke('process-internal-recording', {
     //   body: { recordingId, tasks: ['transcribe', 'summarize', 'extract_actions'] }

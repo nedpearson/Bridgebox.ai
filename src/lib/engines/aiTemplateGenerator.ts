@@ -1,3 +1,4 @@
+import { Logger } from '../logger';
 import { supabase } from '../supabase';
 
 const OPENAI_SYSTEM_PROMPT = `
@@ -30,11 +31,11 @@ export const aiTemplateGenerator = {
    async generateFromPrompt(prompt: string, organizationId: string, previousContext?: string) {
       const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
       if (!apiKey) {
-         console.warn("OpenAI API Key is missing. Falling back to structured mock generation for development.");
+         Logger.warn("OpenAI API Key is missing. Falling back to structured mock generation for development.");
          return this.fallbackGeneration(prompt);
       }
 
-      console.log(`[AI Generator] Requesting blueprint for: "${prompt.substring(0, 50)}..."`);
+      Logger.info(`[AI Generator] Requesting blueprint for: "${prompt.substring(0, 50)}..."`);
       
       try {
          const messages: any[] = [
@@ -68,10 +69,11 @@ export const aiTemplateGenerator = {
          }
 
          const data = await response.json();
-         const rawContent = data.choices[0].message.content;
+         const rawContent = data.choices[0].message.content || '{}';
+         const cleanJson = rawContent.replace(/```json\s*|```\s*/g, '').trim();
          
          // Parse and validate the rigid JSON payload
-         const generatedPayload = JSON.parse(rawContent);
+         const generatedPayload = JSON.parse(cleanJson);
          
          // Wrap the generated data in the base shell schema required by Bridgebox
          return {
@@ -95,7 +97,7 @@ export const aiTemplateGenerator = {
          };
 
       } catch (err: any) {
-         console.error('Generative pipeline failed:', err);
+         Logger.error('Generative pipeline failed:', err);
          throw new Error(`AI Template Generation failed: ${err.message}`);
       }
    },

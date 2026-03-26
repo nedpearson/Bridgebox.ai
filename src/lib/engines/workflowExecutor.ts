@@ -1,3 +1,4 @@
+import { Logger } from '../logger';
 import { supabase } from '../supabase';
 import { aiTemplateGenerator } from './aiTemplateGenerator';
 
@@ -6,6 +7,7 @@ export interface WorkflowExecutionPayload {
    organization_id: string;
    triggered_by?: string;
    trigger_payload?: Record<string, any>;
+   idempotency_key?: string;
 }
 
 export const workflowExecutor = {
@@ -35,9 +37,25 @@ export const workflowExecutor = {
             .maybeSingle();
             
          if (!authCheck) {
-            console.error(`[SECURITY ALERT] Cross-tenant execution attempt blocked for User ${payload.triggered_by} targeting Org ${payload.organization_id}`);
+            Logger.error(`[SECURITY ALERT] Cross-tenant execution attempt blocked for User ${payload.triggered_by} targeting Org ${payload.organization_id}`);
             throw new Error('Unauthorized execution attempt: User does not belong to the target organizational context.');
          }
+      }
+
+      // 1.8 Temporal Idempotency Lock
+      // Block duplicate equivalent invocations firing under 15 seconds to kill UI double-click races
+      const { data: recentExecution } = await supabase
+         .from('bb_workflow_execution_logs')
+         .select('id')
+         .eq('organization_id', payload.organization_id)
+         .eq('workflow_id', payload.workflow_id)
+         .gte('created_at', new Date(Date.now() - 15000).toISOString())
+         .limit(1)
+         .maybeSingle();
+
+      if (recentExecution) {
+         Logger.warn(`[Idempotency] Aborting duplicate pipeline ${payload.workflow_id} for Org ${payload.organization_id}`);
+         throw new Error('Idempotency lock: This action was just triggered. Please wait.');
       }
 
       // 2. Initialize the Execution Track Object
@@ -61,12 +79,12 @@ export const workflowExecutor = {
       const sequenceData: Record<string, any> = { initial_payload: payload.trigger_payload };
       const steps = workflow.steps || [];
 
-      console.log(`[Antigravity Executor] Initiating Sequence: ${workflow.name} [Ticket: ${executionTicket.id}]`);
+      Logger.info(`[Antigravity Executor] Initiating Sequence: ${workflow.name} [Ticket: ${executionTicket.id}]`);
 
       try {
          for (let i = 0; i < steps.length; i++) {
             const step = steps[i];
-            console.log(`[Executing Step ${i}]: ${step.action_type}`, step);
+            Logger.info(`[Executing Step ${i}]: ${step.action_type}`, step);
 
             // Step Level Processing Loop Configuration
             let success = false;
@@ -93,12 +111,12 @@ export const workflowExecutor = {
                         }
 
                         if (!conditionPassed) {
-                           console.log(`[Workflow Skipped] Step ${i} skipped. Condition ${variable} ${operator} ${value} failed against ${dataValue}.`);
+                           Logger.info(`[Workflow Skipped] Step ${i} skipped. Condition ${variable} ${operator} ${value} failed against ${dataValue}.`);
                            success = true; // Mark success to proceed to next step
                            continue;
                         }
                      } catch (condErr) {
-                        console.warn('Condition parsing failed, defaulting to true.', condErr);
+                        Logger.warn('Condition parsing failed, defaulting to true.', condErr);
                      }
                   }
 
@@ -108,7 +126,7 @@ export const workflowExecutor = {
                      sequenceData[`step_${i}_result`] = `Dispatched email to ${step.payload?.to}`;
                   } else if (step.action_type === 'ai_prompt') {
                      // Chain AI actions natively inside the workflow
-                     console.log(`[Executor] Invoking AI Agent: ${step.payload?.agent} for task: ${step.payload?.prompt}`);
+                     Logger.info(`[Executor] Invoking AI Agent: ${step.payload?.agent} for task: ${step.payload?.prompt}`);
                      const aiResponseContext = await aiTemplateGenerator.generateFromPrompt(
                         step.payload?.prompt || 'Summarize the current execution sequence.',
                         payload.organization_id,
@@ -126,7 +144,7 @@ export const workflowExecutor = {
 
                } catch (stepErr: any) {
                   retries++;
-                  console.warn(`[Step ${i} Failed]. Retry ${retries}/${maxRetries}`);
+                  Logger.warn(`[Step ${i} Failed]. Retry ${retries}/${maxRetries}`);
                   if (retries >= maxRetries) throw stepErr;
                   
                   // Update log state to reflect retry pause
@@ -144,7 +162,7 @@ export const workflowExecutor = {
          }).eq('id', executionTicket.id);
 
       } catch (globalErr: any) {
-         console.error(`[Execution Failure] Workflow aborted early.`, globalErr);
+         Logger.error(`[Execution Failure] Workflow aborted early.`, globalErr);
          
          // 4. Conclude Ticket Failure
          await supabase.from('bb_workflow_execution_logs').update({
