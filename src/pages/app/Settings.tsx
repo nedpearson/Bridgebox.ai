@@ -1,17 +1,28 @@
 import { motion } from 'framer-motion';
 import { User, Bell, Shield, CreditCard, Users, Settings as SettingsIcon, Palette, Zap, Smartphone, FileLock, DownloadCloud } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import PasskeyRegistration from '../../components/auth/PasskeyRegistration';
 import { useAuth } from '../../contexts/AuthContext';
 import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
+import { organizationsService } from '../../lib/db/organizations';
+import { authService } from '../../lib/auth';
 
 export default function Settings() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user } = useAuth();
+  const { user, profile, currentOrganization, setCurrentOrganization } = useAuth();
+  const isAdmin = profile?.role === 'super_admin' || profile?.role === 'client_admin';
+
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phone: '',
+    orgName: ''
+  });
+  const [isSaving, setIsSaving] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
 
   useEffect(() => {
     if (location.hash) {
@@ -21,6 +32,35 @@ export default function Settings() {
       }
     }
   }, [location]);
+
+  useEffect(() => {
+    setFormData({
+      fullName: profile?.full_name || user?.user_metadata?.full_name || '',
+      phone: user?.user_metadata?.phone || '',
+      orgName: currentOrganization?.name || ''
+    });
+  }, [user, profile, currentOrganization]);
+
+  const handleSaveProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSaving(true);
+    setSuccessMsg('');
+    try {
+      if (formData.fullName !== profile?.full_name) {
+        await authService.updateProfile({ full_name: formData.fullName });
+      }
+      if (isAdmin && currentOrganization && formData.orgName !== currentOrganization.name) {
+        const updatedOrg = await organizationsService.updateOrganization(currentOrganization.id, { name: formData.orgName });
+        setCurrentOrganization({ ...currentOrganization, name: updatedOrg.name });
+      }
+      setSuccessMsg('Settings saved successfully!');
+      setTimeout(() => setSuccessMsg(''), 3000);
+    } catch (err) {
+      console.error('Failed to save settings:', err);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   usePlatformIntelligence({
     id: 'page:settings',
@@ -152,14 +192,21 @@ export default function Settings() {
             <div className="max-w-2xl">
               <h2 className="text-2xl font-bold text-white mb-6">Account Information</h2>
 
-            <div className="space-y-6">
+            <form onSubmit={handleSaveProfile} className="space-y-6">
+              {successMsg && (
+                <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+                  <p className="text-green-400 text-sm">{successMsg}</p>
+                </div>
+              )}
+
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   Full Name
                 </label>
                 <input
                   type="text"
-                  defaultValue={user?.user_metadata?.full_name || ''}
+                  value={formData.fullName}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
                 />
               </div>
@@ -171,7 +218,8 @@ export default function Settings() {
                 <input
                   type="email"
                   defaultValue={user?.email || ''}
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+                  disabled
+                  className="w-full bg-slate-800/30 border border-slate-700 rounded-lg px-4 py-3 text-slate-400 cursor-not-allowed"
                 />
               </div>
 
@@ -182,10 +230,25 @@ export default function Settings() {
                 <input
                   type="tel"
                   placeholder="+1 (555) 000-0000"
-                  defaultValue={user?.user_metadata?.phone || ''}
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
                 />
               </div>
+
+              {isAdmin && (
+                <div>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    Organization / Client Name
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.orgName}
+                    onChange={(e) => setFormData({ ...formData, orgName: e.target.value })}
+                    className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+                  />
+                </div>
+              )}
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
@@ -193,18 +256,22 @@ export default function Settings() {
                 </label>
                 <input
                   type="text"
-                  defaultValue="Team Member"
+                  defaultValue={profile?.role ? profile.role.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Team Member'}
                   disabled
                   className="w-full bg-slate-800/30 border border-slate-700 rounded-lg px-4 py-3 text-slate-400 cursor-not-allowed"
                 />
               </div>
 
               <div className="pt-4">
-                <button className="px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
-                  Save Changes
+                <button 
+                  type="submit"
+                  disabled={isSaving}
+                  className="px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] disabled:bg-slate-700 disabled:text-slate-400 text-white font-medium rounded-lg transition-colors"
+                >
+                  {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </Card>
         </div>
