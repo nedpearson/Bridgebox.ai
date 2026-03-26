@@ -45,3 +45,6 @@ BEGIN
   END IF;
 
 END $$;
+
+-- Force the API to immediately recognize the new table names
+NOTIFY pgrst, 'reload schema';
