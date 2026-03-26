@@ -10,6 +10,8 @@ import {
   Archive,
   Brain,
   Zap,
+  Mic,
+  StopCircle
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -36,6 +38,7 @@ import type { AgentAction } from '../../lib/agents/types';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCopilotContext } from '../../contexts/CopilotContext';
 import { copilotEngine } from '../../lib/ai/services/copilotEngine';
+import { supabase } from '../../supabase';
 
 export default function Copilot() {
   const { user, currentOrganization } = useAuth();
@@ -52,6 +55,65 @@ export default function Copilot() {
   const [sending, setSending] = useState(false);
   const [showInsights, setShowInsights] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Voice Recording State
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+
+  const toggleRecording = async () => {
+    if (isRecording) {
+      mediaRecorderRef.current?.stop();
+      setIsRecording(false);
+      return;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onloadend = async () => {
+          const base64Audio = reader.result as string;
+          const toastId = toast.loading("Transcribing Voice Audio intelligently via Edge...");
+          
+          try {
+             const { data, error } = await supabase.functions.invoke('transcribe-audio', {
+                body: { audio_base64: base64Audio }
+             });
+             
+             if (error) throw new Error(error.message);
+             if (data?.text) {
+                toast.success("Transcription accurate!", { id: toastId });
+                setInputValue(prev => (prev + " " + data.text).trim());
+             } else {
+                toast.error("Audio undecipherable natively.", { id: toastId });
+             }
+          } catch (e: any) {
+             toast.error(`Whisper Failed: ${e.message}`, { id: toastId });
+          }
+        };
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (err) {
+      toast.error("Microphone access logically restricted natively.");
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     (window as any).executeCopilotTool = async (name: string, args: any) => {
@@ -75,6 +137,18 @@ export default function Copilot() {
                target_launch_date: args.new_target_date
             });
             toast.success("Action Executed Successfully: Project Date Adjusted");
+        } else if (name === 'draft_autonomous_email') {
+            const toastId = toast.loading("Formulating unblocking email natively via Deno Edge Nodes...");
+            const { data, error } = await supabase.functions.invoke('autonomous-outreach', {
+               body: { task_id: args.task_id, context_data: args }
+            });
+            if (error || !data?.draft) throw new Error(error?.message || "Incomplete Edge payload returned.");
+            toast.success("Draft Generated!", { id: toastId });
+            
+            // Pop native mailto
+            const { subject, body } = data.draft;
+            const link = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = link;
         }
 
         // Automatic re-prompt loop for natural conversational continuity
@@ -522,6 +596,14 @@ export default function Copilot() {
                   disabled={sending}
                   className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
                 />
+                <Button
+                  variant={isRecording ? "primary" : "secondary"}
+                  onClick={toggleRecording}
+                  disabled={sending}
+                  className={isRecording ? "animate-pulse bg-red-500 hover:bg-red-600 outline-red-500 overflow-hidden text-white" : ""}
+                >
+                  {isRecording ? <StopCircle className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                </Button>
                 <Button
                   variant="primary"
                   onClick={sendMessage}

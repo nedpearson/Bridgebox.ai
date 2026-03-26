@@ -50,6 +50,21 @@ const PLATFORM_TOOLS = [
              required: ["project_id", "new_target_date"]
         }
     }
+  },
+  {
+    type: "function",
+    function: {
+        name: "draft_autonomous_email",
+        description: "Generates an intelligent unblocking email draft for an overdue or stalled task natively mapped to an edge extraction node.",
+        parameters: {
+             type: "object",
+             properties: {
+                 task_id: { type: "string", description: "The UUID of the blocked task" },
+                 context_notes: { type: "string", description: "Any specific notes the Copilot wants to include in the email draft inference." }
+             },
+             required: ["task_id"]
+        }
+    }
   }
 ];
 
@@ -113,13 +128,31 @@ export class CopilotEngine {
       }
     }
 
-    // 4. Assemble Grounding Pipeline Prompt
+    // 4. Determine Specialized Multi-Agent Route
+    let dynamicPersona = "You are the Bridgebox Master Copilot. You are a helpful, capable assistant overseeing the general relational OS.";
+    try {
+      const { data, error } = await supabase.functions.invoke('agent-router', {
+          body: { prompt: userPrompt }
+      });
+      if (!error && data?.agent) {
+          if (data.agent === 'finance') {
+             dynamicPersona = "You are the Bridgebox Finance Agent. You specialize in analyzing budgets, MRR, billing, payments, and financial timelines. You are highly analytical and strict.";
+          } else if (data.agent === 'operations') {
+             dynamicPersona = "You are the Bridgebox Operations Agent. You specialize in resolving blockers, escalating overdue tasks, resource allocation, and workflow unblocking. You are highly action-oriented.";
+          }
+      }
+    } catch (routeErr) {
+       console.warn("Routing delegation failed softly, falling back to General Copilot", routeErr);
+    }
+
+    // 5. Assemble Grounding Pipeline Prompt
     const systemInstruction = this.buildContextualSystemPrompt(
       authorizedNodes,
       contextNodes,
       domContext,
       systemContext.role,
-      semanticContext
+      semanticContext,
+      dynamicPersona
     );
 
     const messages = [
@@ -156,7 +189,8 @@ export class CopilotEngine {
     contextNodes: GraphNode[],
     domContext: DOMContext,
     userRole: string,
-    semanticContext: string
+    semanticContext: string,
+    dynamicPersona: string
   ): string {
     const activeModuleDescription = contextNodes.length > 0 
       ? `\nActive Focus Area: The user is currently looking at: ${contextNodes[0].name}. Description: ${contextNodes[0].description}`
@@ -167,7 +201,7 @@ export class CopilotEngine {
       : '';
 
     const payload = `
-You are the Bridgebox Super AI Intelligence Copilot.
+${dynamicPersona}
 You have absolute knowledge of the platform capabilities strictly governed by what is provided in this prompt context. 
 NEVER hallucinate features, menus, buttons, or workflows that do not exist within the context.
 
