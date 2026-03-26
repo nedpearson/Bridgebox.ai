@@ -145,6 +145,32 @@ export class CopilotEngine {
        console.warn("Routing delegation failed softly, falling back to General Copilot", routeErr);
     }
 
+    // 4.5. Fetch Tenant Onboarding Telemetry (Phase 10)
+    let onboardingContext = '';
+    if (systemContext.organizationId) {
+       try {
+           const { data, error } = await supabase
+              .from('onboarding_sessions')
+              .select('raw_input, ai_intelligence, status')
+              .eq('organization_id', systemContext.organizationId)
+              .order('created_at', { ascending: false })
+              .limit(1)
+              .single();
+              
+           if (!error && data) {
+               onboardingContext = `
+CLIENT ONBOARDING TELEMETRY (Structural Workflows):
+Status: ${data.status}
+Raw Intent: ${JSON.stringify(data.raw_input || {})}
+Detected Workflows: ${JSON.stringify(data.ai_intelligence || {})}
+When assisting this user, explicitly reference their custom organizational workflows to provide highly contextual system answers.
+`.trim();
+           }
+       } catch (err) {
+           console.warn("Soft failure resolving onboarding telemetry for Copilot map.", err);
+       }
+    }
+
     // 5. Assemble Grounding Pipeline Prompt
     const systemInstruction = this.buildContextualSystemPrompt(
       authorizedNodes,
@@ -152,7 +178,8 @@ export class CopilotEngine {
       domContext,
       systemContext.role,
       semanticContext,
-      dynamicPersona
+      dynamicPersona,
+      onboardingContext
     );
 
     const messages = [
@@ -209,7 +236,8 @@ export class CopilotEngine {
     domContext: DOMContext,
     userRole: string,
     semanticContext: string,
-    dynamicPersona: string
+    dynamicPersona: string,
+    onboardingContext: string
   ): string {
     const activeModuleDescription = contextNodes.length > 0 
       ? `\nActive Focus Area: The user is currently looking at: ${contextNodes[0].name}. Description: ${contextNodes[0].description}`
@@ -236,6 +264,8 @@ ${contextNodes.length > 0
   ? contextNodes.map((n, i) => `${i + 1}. [${n.type.toUpperCase()}] ${n.name} (ID: ${n.id})\nDescription: ${n.description}\nActions: ${(n.actions || []).map(a => a.name).join(', ')}`).join('\n')
   : 'The user is not actively viewing a deep-mapped module. Utilize general knowledge.'}
 ${semanticContext}
+
+${onboardingContext}
 
 PLATFORM MODULE DIRECTORY (Global Overview):
 ${authorizedNodes.map((n) => `- ${n.name} (${n.id})`).join('\n')}

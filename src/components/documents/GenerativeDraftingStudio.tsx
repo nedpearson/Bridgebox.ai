@@ -9,9 +9,10 @@ interface GenerativeDraftingStudioProps {
   initialContent?: string;
   onSave?: (html: string) => Promise<void>;
   documentId: string;
+  contextPayload?: string;
 }
 
-export default function GenerativeDraftingStudio({ initialContent = '<p>Start drafting your document...</p>', onSave, documentId }: GenerativeDraftingStudioProps) {
+export default function GenerativeDraftingStudio({ initialContent = '<p>Start drafting your document...</p>', onSave, documentId, contextPayload }: GenerativeDraftingStudioProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
@@ -38,19 +39,33 @@ export default function GenerativeDraftingStudio({ initialContent = '<p>Start dr
   };
 
   const handleGenerate = async () => {
-    if (!editor || !aiPrompt.trim()) return;
+    if (!editor) return;
+    if (!aiPrompt.trim() && !contextPayload) return;
+    
     try {
       setIsGenerating(true);
+      
+      const generationPrompt = aiPrompt.trim() 
+         ? `Draft the following content for an enterprise document. ONLY return the drafted text without pleasantries: ${aiPrompt}`
+         : `You are an expert enterprise systems architect mapping a complex project integration for a B2B SaaS platform. 
+Based entirely on this context: ${contextPayload} 
+Draft a comprehensive and professional Project Integration Charter. 
+Include bold headings for Objective, Systems Involved, Integration Architecture Strategy, and Actionable Next Steps. 
+ONLY return the HTML-formatted drafted text without pleasantries or introductory chat, starting directly with the document body.`;
+
       // Simulate generative text payload from AI Copilot
       const result = await copilotEngine.generateReasonedResponse(
-        `Draft the following content for an enterprise document. ONLY return the drafted text without pleasantries: ${aiPrompt}`,
+        generationPrompt,
         { role: 'admin', organizationId: null, userId: 'system' },
         { activeModule: 'drafting_studio' }
       );
       
-      const responseText = result.text || '';
+      let responseText = result.text || '';
+      // Strip markdown code block wrappings if the AI accidentally included them
+      responseText = responseText.replace(/```html/g, '').replace(/```/g, '').trim();
+      
       // Inject AI response natively at cursor
-      editor.commands.insertContent(`<blockquote><strong>AI Draft:</strong><br/>${responseText}</blockquote><p></p>`);
+      editor.commands.insertContent(`${responseText}<p></p>`);
       setAiPrompt('');
       setShowAiToolbar(false);
     } catch (e) {
@@ -117,11 +132,11 @@ export default function GenerativeDraftingStudio({ initialContent = '<p>Start dr
             value={aiPrompt}
             onChange={(e) => setAiPrompt(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
-            placeholder="Instruct the AI Copilot what to draft at the cursor... e.g. 'Write a polite rejection letter'"
+            placeholder={contextPayload ? "Leave blank to auto-draft an Architecture Charter from the Project logic, or type a custom instruction..." : "Instruct the AI what to draft at the cursor..."}
             className="flex-1 bg-transparent border-none text-sm text-white placeholder-indigo-300/50 focus:outline-none focus:ring-0"
           />
-          <Button onClick={handleGenerate} disabled={isGenerating || !aiPrompt.trim()} size="sm" variant="primary">
-            {isGenerating ? 'Drafting...' : 'Generate'}
+          <Button onClick={handleGenerate} disabled={isGenerating || (!aiPrompt.trim() && !contextPayload)} size="sm" variant="primary">
+            {isGenerating ? 'Drafting...' : (!aiPrompt.trim() && contextPayload ? 'Auto-Draft Charter' : 'Generate')}
           </Button>
         </div>
       )}

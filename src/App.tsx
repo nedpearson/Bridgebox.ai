@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { CopilotProvider } from './contexts/CopilotContext';
 import { useCustomDomain } from './hooks/useCustomDomain';
@@ -97,6 +97,20 @@ import RolesSettings from './pages/app/RolesSettings';
 import MobileAppStudio from './pages/app/MobileAppStudio';
 import AuditLogSettings from './pages/app/AuditLogSettings';
 import ExportHub from './pages/app/ExportHub';
+import AiOnboardingWizard from './pages/onboarding/AiOnboardingWizard';
+import OnboardingCommandCenter from './pages/app/OnboardingCommandCenter';
+import OnboardingShell from './components/onboarding/layout/OnboardingShell';
+import ClientIntakeWorkspace from './pages/onboarding/ClientIntakeWorkspace';
+import CompetitorAnalysisWorkspace from './pages/onboarding/CompetitorAnalysisWorkspace';
+import WorkflowCaptureWorkspace from './pages/onboarding/WorkflowCaptureWorkspace';
+import BlueprintReviewWorkspace from './pages/onboarding/BlueprintReviewWorkspace';
+import AdminCommandCenterLayout from './pages/onboarding/admin/AdminCommandCenterLayout';
+import AdminHubOverview from './pages/onboarding/admin/AdminHubOverview';
+import TaskPlanBoard from './pages/onboarding/admin/TaskPlanBoard';
+import PromptBuilderPanel from './pages/onboarding/admin/PromptBuilderPanel';
+import DashboardPreferenceBuilder from './pages/onboarding/admin/DashboardPreferenceBuilder';
+import IntegrationMapBuilder from './pages/onboarding/admin/IntegrationMapBuilder';
+import FeatureIngestionCard from './pages/onboarding/admin/FeatureIngestionCard';
 import CommandCenterDashboard from './pages/internal/CommandCenterDashboard';
 import RecorderUI from './components/internal/RecorderUI';
 import RecordingLibrary from './components/internal/RecordingLibrary';
@@ -143,9 +157,37 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/onboarding" element={<ProtectedRoute><OrganizationOnboarding /></ProtectedRoute>} />
           <Route path="/setup" element={<ProtectedRoute><OnboardingFlow /></ProtectedRoute>} />
+          <Route path="/ai-onboarding" element={<ProtectedRoute><AiOnboardingWizard /></ProtectedRoute>} />
           <Route path="/invitations/accept" element={<AcceptInvitation />} />
           <Route path="/admin-preview" element={<AdminPreview />} />
           <Route path="/proposal/:token" element={<ProposalView />} />
+          
+          <Route
+            path="/app/onboarding/:sessionId"
+            element={
+              <ProtectedRoute>
+                <RoleGuard requireInternalStaff>
+                   <OnboardingShell />
+                </RoleGuard>
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="intake" replace />} />
+            <Route path="intake" element={<ClientIntakeWorkspace />} />
+            <Route path="analysis" element={<CompetitorAnalysisWorkspace />} />
+            <Route path="voice-capture" element={<WorkflowCaptureWorkspace />} />
+            <Route path="review" element={<BlueprintReviewWorkspace />} />
+            <Route path="admin/*" element={<AdminCommandCenterLayout />}>
+                 <Route index element={<AdminHubOverview />} />
+                 <Route path="tasks" element={<TaskPlanBoard />} />
+                 <Route path="integrations" element={<IntegrationMapBuilder />} />
+                 <Route path="dashboards" element={<DashboardPreferenceBuilder />} />
+                 <Route path="features" element={<FeatureIngestionCard />} />
+                 <Route path="prompts" element={<PromptBuilderPanel />} />
+                 <Route path="progress" element={<div className="p-4 bg-slate-900 rounded-xl border border-slate-800 text-white">Progress Tracker Roadmap (Phase 13)</div>} />
+            </Route>
+          </Route>
+
           <Route
             path="/app/*"
             element={
@@ -206,6 +248,7 @@ function App() {
                       <Route path="/settings/studio" element={<MobileAppStudio />} />
                       <Route path="/settings/audit" element={<AuditLogSettings />} />
                       <Route path="/settings/export" element={<ExportHub />} />
+                      <Route path="/onboarding-command" element={<OnboardingCommandCenter />} />
                       <Route path="/mobile" element={<MobileHome />} />
                       <Route path="/mobile/tasks" element={<MobileTasks />} />
                       <Route path="/mobile/tasks/:id" element={<MobileTaskDetail />} />

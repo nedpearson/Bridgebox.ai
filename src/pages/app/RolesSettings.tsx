@@ -69,12 +69,6 @@ export default function RolesSettings() {
           subtitle="Define custom roles and permissions for your organization"
           icon={Shield}
         />
-        {canManage && (
-          <Button onClick={() => setShowCreateModal(true)}>
-            <Plus className="w-4 h-4 mr-2" />
-            Create Role
-          </Button>
-        )}
       </div>
 
       {!canManage && (
@@ -115,8 +109,16 @@ export default function RolesSettings() {
       {/* Custom Roles */}
       <Card>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-white">Custom Roles</h3>
-          <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">{roles.length} roles</span>
+          <div className="flex items-center gap-3">
+            <h3 className="text-lg font-semibold text-white">Custom Roles</h3>
+            <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">{roles.length} roles</span>
+          </div>
+          {canManage && (
+            <Button size="sm" onClick={() => setShowCreateModal(true)}>
+              <Plus className="w-4 h-4 mr-2" />
+              Create Role
+            </Button>
+          )}
         </div>
 
         {roles.length === 0 ? (
@@ -142,21 +144,7 @@ export default function RolesSettings() {
         )}
       </Card>
 
-      {/* Feature Scaffold Info */}
-      <Card className="bg-blue-500/10 border-blue-500/20">
-        <div className="flex items-start gap-3">
-          <Shield className="w-5 h-5 text-blue-400 mt-0.5" />
-          <div>
-            <h4 className="text-sm font-medium text-blue-300 mb-1">
-              Custom Roles (Enterprise Feature)
-            </h4>
-            <p className="text-sm text-blue-200">
-              Custom role creation and management is scaffolded for future implementation.
-              Currently, system roles provide the core permission structure.
-            </p>
-          </div>
-        </div>
-      </Card>
+
       <CreateRoleModal
         isOpen={showCreateModal}
         onClose={() => setShowCreateModal(false)}

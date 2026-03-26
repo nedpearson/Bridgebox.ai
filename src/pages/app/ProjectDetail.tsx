@@ -195,7 +195,10 @@ export default function ProjectDetail() {
               <div className="p-6 border-b border-white/5 pb-4">
                 <h3 className="text-xl font-bold text-white">Generative Charter & Drafting</h3>
               </div>
-              <GenerativeDraftingStudio documentId={project.id} />
+              <GenerativeDraftingStudio 
+                 documentId={project.id} 
+                 contextPayload={`Project Name: ${project.name}\nProject Target Goal: ${project.description}\nProject Status: ${project.status}`}
+              />
             </Card>
 
             <Card glass className="p-6">

@@ -4,12 +4,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import { globalTasksService, GlobalTask } from '../../lib/db/globalTasks';
 import { entityLinkService, EntityType } from '../../lib/db/entityLinks';
 import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
-import { CheckSquare, Calendar, Filter, Plus, List, LayoutGrid, AlertCircle, Play, MoreVertical, Link as LinkIcon, Edit, User, MessageSquare } from 'lucide-react';
+import { CheckSquare, Calendar, Filter, Plus, List, LayoutGrid, AlertCircle, Play, MoreVertical, Link as LinkIcon, Edit, User, MessageSquare, Loader2 } from 'lucide-react';
 
 export default function GlobalTasksList() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { currentOrganization } = useAuth();
+  const { currentOrganization, user } = useAuth();
   
   usePlatformIntelligence({
     id: 'page:tasks_list',
@@ -26,6 +26,59 @@ export default function GlobalTasksList() {
   const tenantId = currentOrganization?.id;
   const [tasks, setTasks] = useState<GlobalTask[]>([]);
   const [loading, setLoading] = useState(true);
+  const [generating, setGenerating] = useState(false);
+
+  const handleCreateTask = async () => {
+    if (!tenantId) return;
+    try {
+        const newTask = await globalTasksService.createTask({
+            tenant_id: tenantId,
+            creator_id: user?.id,
+            assignee_id: user?.id,
+            title: 'New Task',
+            status: 'todo',
+            priority: 'medium'
+        });
+        if (newTask) {
+            navigate(`/app/tasks/${newTask.id}`);
+        }
+    } catch (e) {
+        console.error("Failed to create task", e);
+    }
+  };
+
+  const handleGenerateDefaults = async () => {
+      if (!tenantId) return;
+      setGenerating(true);
+      try {
+          const defaultTasks = [
+              { title: 'Complete Firm Profile Setup', description: 'Ensure all organizational contact details and billing identifiers are mapped correctly in the settings matrix.', priority: 'high', status: 'todo' },
+              { title: 'Configure External Integrations', description: 'Map Stripe and your native File Storage endpoints in the Admin Command Center.', priority: 'medium', status: 'todo' },
+              { title: 'Invite Core Team Members', description: 'Add your primary paralegals and partners to the Bridgebox OS workspace via the Team settings.', priority: 'medium', status: 'todo' },
+              { title: 'Draft First Internal Workflow', description: 'Navigate to the Workflow matrix and construct the initial procedural operations for your team.', priority: 'low', status: 'todo' }
+          ];
+
+          for (const t of defaultTasks) {
+              await globalTasksService.createTask({
+                  tenant_id: tenantId,
+                  creator_id: user?.id,
+                  assignee_id: user?.id,
+                  title: t.title,
+                  description: t.description,
+                  priority: t.priority as any,
+                  status: t.status as any
+              });
+          }
+
+          // Reload
+          const data = await globalTasksService.getTenantTasks(tenantId);
+          setTasks(data || []);
+      } catch (e) {
+          console.error("Failed to generate defaults", e);
+      } finally {
+          setGenerating(false);
+      }
+  };
 
   useEffect(() => {
     async function load() {
@@ -57,6 +110,7 @@ export default function GlobalTasksList() {
           <p className="text-slate-400">Cross-entity execution layer and unified task center.</p>
         </div>
         <button
+          onClick={handleCreateTask}
           className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors"
         >
           <Plus className="w-4 h-4" />
@@ -78,8 +132,30 @@ export default function GlobalTasksList() {
             <tbody>
               {tasks.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="p-8 text-center text-slate-400">
-                    No active tasks found in the network graph.
+                  <td colSpan={4} className="p-12 text-center">
+                      <div className="flex flex-col items-center justify-center">
+                          <CheckSquare className="w-12 h-12 text-slate-700 mb-4" />
+                          <h3 className="text-white font-medium text-lg mb-2">No active tasks found</h3>
+                          <p className="text-slate-400 text-sm max-w-sm mx-auto mb-6">
+                              Your execution layer is totally clear. Create a new task or generate the default onboarding sequence to get started.
+                          </p>
+                          <div className="flex items-center space-x-4">
+                              <button 
+                                  onClick={handleCreateTask}
+                                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition-colors shadow-lg shadow-indigo-500/20"
+                              >
+                                  Create Custom Task
+                              </button>
+                              <button 
+                                  onClick={handleGenerateDefaults}
+                                  disabled={generating}
+                                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium rounded-lg transition-colors border border-slate-700 flex items-center"
+                              >
+                                  {generating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Play className="w-4 h-4 mr-2" />}
+                                  {generating ? 'Generating...' : 'Generate Defaults'}
+                              </button>
+                          </div>
+                      </div>
                   </td>
                 </tr>
               ) : (

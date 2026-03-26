@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { User, Bell, Shield, CreditCard, Users, Settings as SettingsIcon, Palette, Zap, Smartphone, FileLock, DownloadCloud } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import PasskeyRegistration from '../../components/auth/PasskeyRegistration';
@@ -9,7 +10,17 @@ import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
 
 export default function Settings() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [location]);
 
   usePlatformIntelligence({
     id: 'page:settings',
@@ -27,7 +38,7 @@ export default function Settings() {
       title: 'Profile',
       description: 'Manage your account details and preferences',
       color: 'from-[#3B82F6] to-[#10B981]',
-      link: '/app/settings',
+      link: '/app/settings#profile',
     },
     {
       icon: Palette,
@@ -69,7 +80,7 @@ export default function Settings() {
       title: 'Notifications',
       description: 'Configure email and push notification settings',
       color: 'from-purple-500 to-pink-500',
-      link: '/app/settings',
+      link: '/app/settings#notifications',
     },
     {
       icon: CreditCard,
@@ -136,9 +147,10 @@ export default function Settings() {
           })}
         </div>
 
-        <Card glass className="p-8">
-          <div className="max-w-2xl">
-            <h2 className="text-2xl font-bold text-white mb-6">Account Information</h2>
+        <div id="profile">
+          <Card glass className="p-8">
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-bold text-white mb-6">Account Information</h2>
 
             <div className="space-y-6">
               <div>
@@ -165,6 +177,18 @@ export default function Settings() {
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Phone Number <span className="text-xs text-slate-500 font-normal ml-2">(Required for 2FA)</span>
+                </label>
+                <input
+                  type="tel"
+                  placeholder="+1 (555) 000-0000"
+                  defaultValue={user?.user_metadata?.phone || ''}
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Role
                 </label>
                 <input
@@ -183,6 +207,50 @@ export default function Settings() {
             </div>
           </div>
         </Card>
+        </div>
+
+        <div id="notifications">
+        <Card glass className="p-8">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-bold text-white mb-6">Notification Preferences</h2>
+            
+            <div className="space-y-6">
+              <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                <div>
+                  <h4 className="text-white font-medium">Email Notifications</h4>
+                  <p className="text-sm text-slate-400">Receive daily summaries and critical alerts via email.</p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" className="sr-only peer" defaultChecked />
+                  <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#3B82F6]"></div>
+                </label>
+              </div>
+
+              <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                <div>
+                  <h4 className="text-white font-medium">Push Notifications</h4>
+                  <p className="text-sm text-slate-400">Receive real-time push notifications in your browser.</p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" className="sr-only peer" defaultChecked />
+                  <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#3B82F6]"></div>
+                </label>
+              </div>
+
+              <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                <div>
+                  <h4 className="text-white font-medium">Mobile Notifications (SMS)</h4>
+                  <p className="text-sm text-slate-400">Receive critical security code alerts directly to your phone.</p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" className="sr-only peer" />
+                  <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#3B82F6]"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </Card>
+        </div>
 
         <div className="max-w-2xl">
           <PasskeyRegistration />

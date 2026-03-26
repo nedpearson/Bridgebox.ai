@@ -228,6 +228,51 @@ class AIService {
     return this.executeAITask<any>(messages, false);
   }
 
+  async generateOnboardingIntelligence(context: string): Promise<AITaskResult<any>> {
+    const messages = [
+      {
+        role: 'system',
+        content: `You are an elite Business Architect and Solutions Engineer onboarding a new tenant into Bridgebox.
+        Parse the user's raw operational description and extract a highly structured systemic blueprint.
+        Return strictly valid JSON matching this schema:
+        {
+          "detected_business_model": "...",
+          "detected_workflows": [{ "name": "...", "status": "Detected" }],
+          "suggested_features": [{ "name": "...", "status": "Proposed" }],
+          "missing_gaps": [{ "name": "...", "description": "..." }]
+        }
+        Only Output JSON array without markdown formatting.`
+      },
+      {
+        role: 'user',
+        content: context
+      }
+    ];
+    return this.executeAITask<any>(messages, false);
+  }
+
+  async analyzeCompetitorDomain(url: string, currentContext: string): Promise<AITaskResult<any>> {
+    const messages = [
+      {
+        role: 'system',
+        content: `You are an elite competitive intelligence AI. The user has provided a competitor's URL (${url}).
+        Analyze this domain based on your training data regarding market positioning and infer their operational structure.
+        Compare it against the client's current context: ${currentContext.slice(0, 1000)}
+        Return exactly a JSON object:
+        {
+          "inferred_competitor_model": "...",
+          "identified_gaps": ["..."],
+          "recommended_bridgebox_features": ["..."]
+        }`
+      },
+      {
+        role: 'user',
+        content: `Provide competitive analysis for: ${url}`
+      }
+    ];
+    return this.executeAITask<any>(messages, false);
+  }
+
   isAvailable(): boolean {
     return AIProviderFactory.isAIAvailable();
   }
