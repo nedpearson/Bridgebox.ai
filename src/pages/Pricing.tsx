@@ -11,7 +11,7 @@ import { PLANS, formatPlanPrice } from '../lib/plans';
 
 export default function Pricing() {
   const { openModal } = useLeadModal();
-  const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('monthly');
+  const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('yearly');
 
 
   const customSolutions = [

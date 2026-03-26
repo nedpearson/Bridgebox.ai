@@ -1,9 +1,26 @@
-Initialising login role...
-Connecting to remote database...
-Found local migration files to be inserted before the last migration on remote database.
-
-Rerun the command with --include-all flag to apply these migrations:
-supabase\migrations\20260323194425_remote_schema.sql                 
-supabase\migrations\20260325183800_enable_pgvector_and_embeddings.sql
-supabase\migrations\20260325190000_enable_pgcron_data_quality.sql    
-
+remote: error: GH013: Repository rule violations found for refs/heads/feature/ux-sales-funnel-compression.        
+remote: 
+remote: - GITHUB PUSH PROTECTION        
+remote:   ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö        
+remote:     Resolve the following violations before pushing again        
+remote: 
+remote:     - Push cannot contain secrets        
+remote: 
+remote:             
+remote:      (?) Learn how to resolve a blocked push        
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        
+remote:             
+remote:             
+remote:       ΓÇöΓÇö Supabase Secret Key ΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇöΓÇö        
+remote:        locations:        
+remote:          - commit: c10d85006b66b073f7af7ef02623d885d76a0eed        
+remote:            path: local_db_error11.txt:173        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/nedpearson/Bridgebox.ai/security/secret-scanning/unblock-secret/3BUttKHyPWlQzGWT2yjNUfpXl5i        
+remote:             
+remote: 
+remote: 
+To https://github.com/nedpearson/Bridgebox.ai
+ ! [remote rejected] feature/ux-sales-funnel-compression -> feature/ux-sales-funnel-compression (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/nedpearson/Bridgebox.ai'

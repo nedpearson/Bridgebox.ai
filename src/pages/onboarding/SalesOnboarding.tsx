@@ -8,6 +8,7 @@ import {
   ChevronRight, ChevronLeft, Building2, Zap, DollarSign, Lock, 
   MapPin, CheckCircle2, Server, Smartphone, LayoutTemplate, Bot
 } from 'lucide-react';
+import { calculatePricing } from '../../lib/pricingEngine';
 
 const STEPS = [
   { id: 'identity', title: 'Identity', icon: Building2 },
@@ -22,6 +23,7 @@ const INTEGRATIONS = ['stripe', 'quickbooks', 'slack', 'gmail'];
 
 export default function SalesOnboarding() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [billingInterval, setBillingInterval] = useState<'monthly' | 'annual'>('annual');
   const { user, currentOrganization, signUp } = useAuth();
   const navigate = useNavigate();
 
@@ -30,7 +32,7 @@ export default function SalesOnboarding() {
     industry: 'Legal',
     model: 'B2B Services',
     integrations: ['stripe'] as string[],
-    aiUsage: 'standard',
+    aiUsage: 'standard' as 'standard' | 'high' | 'unlimited',
     mobile: false,
     users: 5,
     locations: 1,
@@ -41,15 +43,7 @@ export default function SalesOnboarding() {
 
   const isGhostAccount = user?.email?.includes('@sandbox.bridgebox.ai') || false;
 
-  const calculatePrice = () => {
-    let base = 99; // Base platform fee
-    let perUser = 29 * (config.users - 1);
-    let tech = config.integrations.length * 20;
-    let aiCost = config.aiUsage === 'unlimited' ? 199 : config.aiUsage === 'high' ? 99 : 29;
-    let mobileCost = config.mobile ? 149 : 0;
-    
-    return base + perUser + tech + aiCost + mobileCost;
-  };
+  const currentPricing = calculatePricing({ ...config, model: config.model || 'B2B Services' });
 
   const handleComplete = async () => {
     try {
@@ -63,7 +57,8 @@ export default function SalesOnboarding() {
         
         Logger.info('[Analytics] Demo Converted to Paid Pipeline', { 
            industry: config.industry, 
-           planValue: calculatePrice() 
+           planValue: currentPricing.monthlyMsrp,
+           tier: currentPricing.tier
         });
       } else {
         await signUp(config.email, config.password, config.fullName);
@@ -141,7 +136,7 @@ export default function SalesOnboarding() {
                <div>
                   <label className="text-sm font-medium text-slate-400 mb-3 block">Generative AI Tier</label>
                   <div className="grid grid-cols-3 gap-3">
-                     {['standard', 'high', 'unlimited'].map(tier => (
+                     {(['standard', 'high', 'unlimited'] as const).map(tier => (
                         <button key={tier} onClick={() => setConfig({...config, aiUsage: tier})}
                            className={`p-4 rounded-xl border text-center transition-all ${config.aiUsage === tier ? 'border-purple-500 bg-purple-500/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
                            <Bot className={`w-6 h-6 mx-auto mb-2 ${config.aiUsage === tier ? 'text-purple-400' : 'text-slate-500'}`} />
@@ -187,15 +182,19 @@ export default function SalesOnboarding() {
             
             <div className="p-8 border border-[#3B82F6]/30 bg-[#3B82F6]/5 rounded-2xl relative overflow-hidden">
                <div className="absolute top-0 right-0 w-32 h-32 bg-[#3B82F6]/20 blur-[50px] pointer-events-none" />
-               <div className="flex justify-between items-end mb-6 border-b border-slate-700 pb-6">
+               <div className="flex justify-between items-end mb-6 border-b border-slate-700 pb-6 relative">
                   <div>
-                    <h3 className="text-xl font-medium text-slate-300 flex items-center">
+                    <h3 className="text-xl font-medium text-slate-300 flex items-center mb-4">
                        <Server className="w-5 h-5 text-[#3B82F6] mr-2" /> Bridgebox Complete
                     </h3>
+                    <div className="inline-flex bg-slate-900 border border-slate-700 rounded-lg p-1">
+                      <button onClick={() => setBillingInterval('annual')} className={`px-4 py-1.5 text-sm font-bold rounded-md transition-all ${billingInterval === 'annual' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}>Annual (Save 20%)</button>
+                      <button onClick={() => setBillingInterval('monthly')} className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${billingInterval === 'monthly' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}>Monthly</button>
+                    </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-5xl font-black text-white">${calculatePrice()}</span>
-                    <span className="text-slate-400 ml-2">/ month</span>
+                    <span className="text-5xl font-black text-white">${billingInterval === 'annual' ? currentPricing.annualMsrp : currentPricing.monthlyMsrp}</span>
+                    <span className="text-slate-400 ml-2">/ {billingInterval === 'annual' ? 'year' : 'month'}</span>
                   </div>
                </div>
                <div className="grid grid-cols-2 gap-4">

@@ -7,6 +7,7 @@ import Button from '../Button';
 import { useAuth } from '../../contexts/AuthContext';
 import { BuildOrchestratorAgent } from '../../lib/ai/agents/BuildOrchestratorAgent';
 import { supabase } from '../../lib/supabase';
+import UpgradeModal from '../app/UpgradeModal';
 
 interface GenerativeDraftingStudioProps {
   initialContent?: string;
@@ -23,7 +24,8 @@ export default function GenerativeDraftingStudio({ initialContent = '<p>Start dr
   const [showAiToolbar, setShowAiToolbar] = useState(false);
   const [isImplementing, setIsImplementing] = useState(false);
   const [implementSuccess, setImplementSuccess] = useState(false);
-  const { currentOrganization, user } = useAuth();
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+  const { currentOrganization, user, profile } = useAuth();
 
   const editor = useEditor({
     extensions: [StarterKit],
@@ -111,6 +113,14 @@ ONLY return the HTML-formatted drafted text without pleasantries or introductory
 
   const handleImplementNextSteps = async () => {
     if (!editor || !currentOrganization || !user) return;
+    
+    // Contextual Upsell Trigger: Block AI Orchestration for Starter tier
+    const plan = currentOrganization.billing_plan || 'Starter';
+    if (plan === 'Starter' && profile?.role !== 'super_admin' && profile?.role !== 'internal_staff') {
+       setIsUpgradeModalOpen(true);
+       return;
+    }
+
     try {
       setIsImplementing(true);
       setImplementSuccess(false);
@@ -222,6 +232,16 @@ ONLY return the HTML-formatted drafted text without pleasantries or introductory
       <div className="flex-1 overflow-y-auto bg-slate-900 cursor-text" onClick={() => editor.commands.focus()}>
         <EditorContent editor={editor} />
       </div>
+
+      <UpgradeModal 
+        isOpen={isUpgradeModalOpen}
+        onClose={() => setIsUpgradeModalOpen(false)}
+        featureName="AI Task Orchestration"
+        requiredPlan="Professional"
+        modalType="feature"
+        actionType="sales"
+        customDescription="The AI Build Orchestrator requires deep token limits to read your charter and dynamically provision a Kanban backlog. Upgrade to Professional to unlock this cognitive automation."
+      />
     </div>
   );
 }

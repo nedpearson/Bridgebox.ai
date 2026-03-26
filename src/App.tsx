@@ -98,6 +98,8 @@ const MobileUpload = lazy(() => import('./pages/mobile/MobileUpload'));
 const BrandingSettings = lazy(() => import('./pages/app/BrandingSettings'));
 const FeatureSettings = lazy(() => import('./pages/app/FeatureSettings'));
 const RolesSettings = lazy(() => import('./pages/app/RolesSettings'));
+const PricingSimulator = lazy(() => import('./pages/admin/PricingSimulator'));
+const RevenueDashboard = lazy(() => import('./pages/admin/RevenueDashboard'));
 const MobileAppStudio = lazy(() => import('./pages/app/MobileAppStudio'));
 const AuditLogSettings = lazy(() => import('./pages/app/AuditLogSettings'));
 const ExportHub = lazy(() => import('./pages/app/ExportHub'));
@@ -307,6 +309,7 @@ function App() {
                         <Route path="/tenants" element={<TenantManagement />} />
                         <Route path="/tenants/:id" element={<TenantDetail />} />
                         <Route path="/monetization" element={<MonetizationHub />} />
+                        <Route path="/revenue" element={<RevenueDashboard />} />
                         <Route path="/ecosystem" element={<EcosystemHub />} />
                         <Route path="/ai-usage" element={<AIUsageDashboard />} />
                       </Routes>
@@ -351,6 +354,7 @@ function App() {
                       <Route path="/recording-center/audit" element={<AuditTrail />} />
                       <Route path="/recording-center/agents" element={<AgentControlRoom />} />
                        <Route path="/recording-center/pricing" element={<PricingCommandCenter />} />
+                       <Route path="/recording-center/pricing-simulator" element={<PricingSimulator />} />
                     </Routes>
           </Suspense>
                   </RecordingCenterLayout>

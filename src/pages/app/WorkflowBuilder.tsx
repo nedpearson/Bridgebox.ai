@@ -15,6 +15,7 @@ import { workflowService } from '../../lib/db/workflows';
 import { aiService } from '../../lib/ai/services/aiService';
 import type { Workflow, WorkflowStep, WorkflowCategory, WorkflowTriggerType, WorkflowStepType } from '../../types/workflow';
 import { useAuth } from '../../contexts/AuthContext';
+import UpgradeModal from '../../components/app/UpgradeModal';
 
 const TRIGGER_OPTIONS: { value: WorkflowTriggerType; label: string }[] = [
   { value: 'lead_created', label: 'Lead Created' },
@@ -46,6 +47,8 @@ export function WorkflowBuilder() {
   const [steps, setSteps] = useState<WorkflowStep[]>([]);
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+  const { profile } = useAuth();
 
   const handleGenerateWorkflow = async () => {
     if (!aiPrompt.trim()) return;
@@ -67,10 +70,16 @@ export function WorkflowBuilder() {
   };
 
   useEffect(() => {
+    const isStarter = currentOrganization?.billing_plan === 'Starter';
+    if (isStarter && profile?.role !== 'super_admin' && profile?.role !== 'internal_staff') {
+       setIsUpgradeModalOpen(true);
+       setLoading(false);
+       return;
+    }
     if (id) {
       loadWorkflow();
     }
-  }, [id]);
+  }, [id, currentOrganization, profile]);
 
   const loadWorkflow = async () => {
     if (!id) return;
@@ -341,6 +350,16 @@ export function WorkflowBuilder() {
       ) : (
         renderContent()
       )}
+
+      <UpgradeModal
+        isOpen={isUpgradeModalOpen}
+        onClose={() => window.history.back()}
+        featureName="Workflow Intelligence"
+        requiredPlan="Growth"
+        modalType="feature"
+        actionType="self-serve"
+        customDescription="Building custom automation graphs and AI macro nodes requires moving to the Growth tier. Upgrade to unlock this."
+      />
     </div>
   );
 }

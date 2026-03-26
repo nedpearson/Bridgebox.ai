@@ -8,6 +8,7 @@ import Button from '../../components/Button';
 import EmptyState from '../../components/EmptyState';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import InviteMemberModal from '../../components/team/InviteMemberModal';
+import UpgradeModal from '../../components/app/UpgradeModal';
 import RoleBadge from '../../components/team/RoleBadge';
 import InvitationStatusBadge from '../../components/team/InvitationStatusBadge';
 import { useAuth } from '../../contexts/AuthContext';
@@ -20,6 +21,7 @@ export default function Team() {
   const [invitations, setInvitations] = useState<InvitationWithDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'members' | 'invitations'>('members');
   const [actionMenuOpen, setActionMenuOpen] = useState<string | null>(null);
 
@@ -83,6 +85,16 @@ export default function Team() {
     }
   };
 
+  const handleInviteClick = () => {
+    // Dynamic Upsell Trigger: Max 5 users on Starter
+    const plan = currentOrganization?.billing_plan || 'Starter';
+    if (plan === 'Starter' && members.length >= 5 && !isInternalStaff) {
+      setIsUpgradeModalOpen(true);
+    } else {
+      setIsInviteModalOpen(true);
+    }
+  };
+
   if (loading) {
     return (
       <>
@@ -103,7 +115,7 @@ export default function Team() {
           canManageTeam ? (
             <Button
               variant="primary"
-              onClick={() => setIsInviteModalOpen(true)}
+              onClick={handleInviteClick}
             >
               <UserPlus className="w-5 h-5 mr-2" />
               Invite Member
@@ -381,6 +393,15 @@ export default function Team() {
             ? ['super_admin', 'internal_staff', 'client_admin', 'client_member']
             : ['client_admin', 'client_member']
         }
+      />
+
+      <UpgradeModal 
+        isOpen={isUpgradeModalOpen}
+        onClose={() => setIsUpgradeModalOpen(false)}
+        featureName="Additional Team Seats"
+        requiredPlan="Professional"
+        modalType="limit"
+        actionType="self-serve"
       />
     </>
   );

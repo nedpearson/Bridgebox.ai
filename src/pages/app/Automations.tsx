@@ -23,6 +23,8 @@ import {
   ACTION_CONFIGS,
   type AutomationRule,
 } from '../../lib/db/automations';
+import { useAuth } from '../../contexts/AuthContext';
+import UpgradeModal from '../../components/app/UpgradeModal';
 
 export default function Automations() {
   const [rules, setRules] = useState<AutomationRule[]>([]);
@@ -33,10 +35,18 @@ export default function Automations() {
     recent_failed: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+  const { currentOrganization, profile } = useAuth();
 
   useEffect(() => {
+    const isStarter = currentOrganization?.billing_plan === 'Starter';
+    if (isStarter && profile?.role !== 'super_admin' && profile?.role !== 'internal_staff') {
+       setIsUpgradeModalOpen(true);
+       setLoading(false);
+       return;
+    }
     loadData();
-  }, []);
+  }, [currentOrganization, profile]);
 
   const loadData = async () => {
     try {
@@ -247,6 +257,16 @@ export default function Automations() {
           )}
         </Card>
       </div>
+
+      <UpgradeModal
+        isOpen={isUpgradeModalOpen}
+        onClose={() => window.history.back()}
+        featureName="Multi-Step Automations"
+        requiredPlan="Growth"
+        modalType="feature"
+        actionType="self-serve"
+        customDescription="Automations and high-velocity workflow processing require the Growth tier. Upgrade to unlock the core engine."
+      />
     </>
   );
 }

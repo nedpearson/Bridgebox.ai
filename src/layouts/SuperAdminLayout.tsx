@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Shield, LayoutDashboard, Building2, CreditCard, LayoutTemplate, Activity, ArrowLeft } from 'lucide-react';
+import { Shield, LayoutDashboard, Building2, CreditCard, LayoutTemplate, Activity, ArrowLeft, TrendingUp } from 'lucide-react';
 import Card from '../components/Card';
 import Button from '../components/Button';
 
@@ -8,6 +8,7 @@ import Button from '../components/Button';
 const PILLARS = [
   { id: 'overview', name: 'Command Center', icon: LayoutDashboard, path: '/admin/overview' },
   { id: 'tenants', name: 'Tenant Control', icon: Building2, path: '/admin/tenants' },
+  { id: 'revenue', name: 'Revenue AI Analytics', icon: TrendingUp, path: '/admin/revenue' },
   { id: 'monetization', name: 'Monetization Hub', icon: CreditCard, path: '/admin/monetization' },
   { id: 'ecosystem', name: 'Ecosystem & Store', icon: LayoutTemplate, path: '/admin/ecosystem' },
   { id: 'telemetry', name: 'System Telemetry', icon: Activity, path: '/admin/ai-usage' },

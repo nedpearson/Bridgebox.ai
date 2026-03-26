@@ -7,11 +7,16 @@ interface UpgradeModalProps {
   isOpen: boolean;
   onClose: () => void;
   featureName: string;
-  requiredPlan: 'Starter' | 'Professional' | 'Enterprise';
+  requiredPlan: 'Starter' | 'Growth' | 'Professional' | 'Enterprise';
   customDescription?: string;
+  modalType?: 'feature' | 'limit';
+  actionType?: 'self-serve' | 'sales';
 }
 
-export default function UpgradeModal({ isOpen, onClose, featureName, requiredPlan, customDescription }: UpgradeModalProps) {
+export default function UpgradeModal({ 
+  isOpen, onClose, featureName, requiredPlan, customDescription,
+  modalType = 'feature', actionType = 'self-serve' 
+}: UpgradeModalProps) {
   const navigate = useNavigate();
 
   if (!isOpen) return null;
@@ -41,7 +46,9 @@ export default function UpgradeModal({ isOpen, onClose, featureName, requiredPla
                <div className="w-10 h-10 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center">
                   <Lock className="w-5 h-5 text-amber-500" />
                </div>
-               <h3 className="text-xl font-bold text-white">Upgrade Required</h3>
+               <h3 className="text-xl font-bold text-white">
+                 {modalType === 'limit' ? 'Limit Reached' : 'Upgrade Required'}
+               </h3>
              </div>
              
              <button onClick={onClose} className="text-slate-500 hover:text-white transition-colors relative z-10">
@@ -52,10 +59,12 @@ export default function UpgradeModal({ isOpen, onClose, featureName, requiredPla
           {/* Body */}
           <div className="p-8">
              <h4 className="text-xl font-medium text-white mb-2">
-                 Unlock <span className="text-amber-400 font-bold">{featureName}</span>
+                 {modalType === 'limit' ? 'Expand ' : 'Unlock '}<span className="text-amber-400 font-bold">{featureName}</span>
              </h4>
              <p className="text-slate-400 mb-6 leading-relaxed">
-                 {customDescription || `This feature requires the ${requiredPlan} plan. Upgrade your workspace to instantly access this module and accelerate your business.`}
+                 {customDescription || (modalType === 'limit' 
+                    ? `You have reached the maximum allowance for your current plan. Upgrade to ${requiredPlan} to lift this restriction.`
+                    : `This feature requires the ${requiredPlan} plan. Upgrade your workspace to instantly access this module and accelerate your business.`)}
              </p>
 
              <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-5 mb-8">
@@ -88,15 +97,25 @@ export default function UpgradeModal({ isOpen, onClose, featureName, requiredPla
                 <button onClick={onClose} className="flex-1 px-4 py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl transition-all">
                   Cancel
                 </button>
-                <button 
-                  onClick={() => {
-                     onClose();
-                     navigate('/pricing');
-                  }} 
-                  className="flex-1 px-4 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white font-bold rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(245,158,11,0.3)]"
-                >
-                  View Plans <ArrowRight className="w-4 h-4 ml-2" />
-                </button>
+                {actionType === 'self-serve' ? (
+                  <button 
+                    onClick={() => {
+                       onClose();
+                       navigate('/pricing');
+                    }} 
+                    className="flex-1 px-4 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white font-bold rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+                  >
+                    View Plans <ArrowRight className="w-4 h-4 ml-2" />
+                  </button>
+                ) : (
+                  <a 
+                    href="mailto:sales@bridgebox.ai?subject=Enterprise%20Upgrade%20Request"
+                    onClick={() => onClose()}
+                    className="flex-1 px-4 py-3 bg-gradient-to-r from-[#3B82F6] to-cyan-500 hover:opacity-90 text-white font-bold rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)]"
+                  >
+                    Contact Sales <ArrowRight className="w-4 h-4 ml-2" />
+                  </a>
+                )}
              </div>
           </div>
         </motion.div>

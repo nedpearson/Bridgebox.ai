@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Plus, FolderKanban, Sparkles } from 'lucide-react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
@@ -11,12 +11,14 @@ import EmptyState from '../../components/EmptyState';
 import { useAuth } from '../../contexts/AuthContext';
 import { projectsService } from '../../lib/db/projects';
 import ProjectModal from '../../components/app/ProjectModal';
+import UpgradeModal from '../../components/app/UpgradeModal';
 import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
 import { useCopilotContext } from '../../contexts/CopilotContext';
 
 export default function ProjectsList() {
-  const { currentOrganization } = useAuth();
+  const { currentOrganization, profile } = useAuth();
   const { registerActionHandler, unregisterActionHandler } = useCopilotContext();
+  const navigate = useNavigate();
 
   usePlatformIntelligence({
     id: 'page:projects_list',
@@ -31,6 +33,7 @@ export default function ProjectsList() {
   });
 
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -39,9 +42,9 @@ export default function ProjectsList() {
   const [statusFilter, setStatusFilter] = useState(searchParams.get('status') || 'all');
 
   useEffect(() => {
-    registerActionHandler('add_project', () => setIsProjectModalOpen(true));
+    registerActionHandler('add_project', handleNewProject);
     return () => unregisterActionHandler('add_project');
-  }, [registerActionHandler, unregisterActionHandler]);
+  }, [registerActionHandler, unregisterActionHandler, projects.length, currentOrganization]);
 
   useEffect(() => {
     loadProjects();
@@ -84,6 +87,24 @@ export default function ProjectsList() {
     } else {
       loadProjects();
     }
+  };
+
+  const checkProjectLimit = () => {
+     // Dynamic limit logic: max 5 projects for starter
+     const plan = currentOrganization?.billing_plan || 'Starter';
+     if (plan === 'Starter' && projects.length >= 5 && profile?.role !== 'super_admin' && profile?.role !== 'internal_staff') {
+        setIsUpgradeModalOpen(true);
+        return false;
+     }
+     return true;
+  };
+
+  const handleNewProject = () => {
+     if (checkProjectLimit()) setIsProjectModalOpen(true);
+  };
+
+  const handleAiProject = () => {
+     if (checkProjectLimit()) navigate('/ai-onboarding?type=project');
   };
 
   const getStatusVariant = (status: string) => {
@@ -158,15 +179,15 @@ export default function ProjectsList() {
           </select>
 
           <div className="flex items-center space-x-3">
-            <Link 
-              to="/ai-onboarding?type=project"
+            <button 
+              onClick={handleAiProject}
               className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white font-medium rounded-lg transition-colors border border-indigo-400/50 shadow-lg shadow-indigo-500/20"
             >
               <Sparkles className="w-4 h-4" />
               <span>Generate with AI</span>
-            </Link>
+            </button>
             <button 
-              onClick={() => setIsProjectModalOpen(true)}
+              onClick={handleNewProject}
               className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
               <Plus className="w-5 h-5" />
               <span>Manual Project</span>
@@ -251,6 +272,16 @@ export default function ProjectsList() {
         isOpen={isProjectModalOpen}
         onClose={() => setIsProjectModalOpen(false)}
         onSuccess={loadProjects}
+      />
+
+      <UpgradeModal 
+        isOpen={isUpgradeModalOpen}
+        onClose={() => setIsUpgradeModalOpen(false)}
+        featureName="Unlimited Active Projects"
+        requiredPlan="Growth"
+        modalType="limit"
+        actionType="self-serve"
+        customDescription="The Starter plan is limited to 5 active execution pipelines. Upgrade your workspace to unlock infinite scalability for your growing operations."
       />
     </>
   );

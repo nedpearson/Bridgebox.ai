@@ -40,12 +40,14 @@ import { intelligenceOrchestrator, type IntelligenceBriefing } from '../../lib/i
 import type { ServiceTrend, IndustryTrend } from '../../lib/trendDetection';
 import { useEnterpriseMetrics } from '../../hooks/useEnterpriseMetrics';
 import SparklineCard from '../../components/analytics/SparklineCard';
+import UpgradeModal from '../../components/app/UpgradeModal';
 
 type AnalyticsView = 'overview' | 'operations' | 'sales' | 'delivery' | 'billing' | 'support' | 'clients';
 
 export default function Analytics() {
-  const { currentOrganization } = useAuth();
+  const { currentOrganization, profile } = useAuth();
   const [view, setView] = useState<AnalyticsView>('overview');
+  const isStarter = currentOrganization?.billing_plan === 'Starter' && profile?.role !== 'super_admin' && profile?.role !== 'internal_staff';
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('30d');
   const { loading, metrics, error } = useMetrics(timeFilter);
   const [hotOpportunities, setHotOpportunities] = useState<any>(null);
@@ -106,7 +108,7 @@ export default function Analytics() {
         subtitle="Executive insights into sales, delivery, billing, and operations"
       />
 
-      <div className="p-8 space-y-8">
+      <div className={`p-8 space-y-8 ${isStarter ? 'filter blur-[8px] pointer-events-none opacity-40 h-[80vh] overflow-hidden select-none' : ''}`}>
         {businessHealth && view === 'overview' && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -409,6 +411,16 @@ export default function Analytics() {
         {view === 'support' && <SupportView data={metrics.support} />}
         {view === 'clients' && <ClientsView data={metrics.clients} />}
       </div>
+      
+      <UpgradeModal
+        isOpen={isStarter}
+        onClose={() => window.history.back()}
+        featureName="Revenue Analytics"
+        requiredPlan="Growth"
+        modalType="feature"
+        actionType="self-serve"
+        customDescription="The platform data warehouse and executive telemetry dashboards are restricted to the Growth tier. Upgrade to unlock historical business intelligence."
+      />
     </>
   );
 }
