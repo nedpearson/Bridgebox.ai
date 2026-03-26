@@ -6,6 +6,9 @@ export const config = {
   stripe: {
     publicKey: import.meta.env.VITE_STRIPE_PUBLIC_KEY,
   },
+  autumn: {
+    publishableKey: import.meta.env.VITE_AUTUMN_PUBLISHABLE_KEY,
+  },
   app: {
     name: 'Bridgebox',
     url: import.meta.env.VITE_APP_URL || (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173'),
