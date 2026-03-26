@@ -122,6 +122,42 @@ export default function RelationalTasksBoard({ entityType, entityId }: Relationa
      }
   };
 
+  const quickTasks = [
+    { title: "Kickoff Meeting & Alignment", description: "Schedule and conduct the initial kickoff meeting with project stakeholders.", priority: "high" },
+    { title: "Gather Initial Requirements", description: "Collect and document all technical and business requirements for the implementation.", priority: "medium" },
+    { title: "Set up Integration Keys", description: "Provision API keys, OAuth tokens, and system credentials for the integrations.", priority: "high" },
+    { title: "End-to-End System Testing", description: "Conduct full UAT and end-to-end integration testing across environments.", priority: "high" },
+    { title: "Client Sign-off & Deployment", description: "Acquire final client sign-off and deploy the solution to production.", priority: "medium" }
+  ];
+
+  const handleQuickAdd = async (template: typeof quickTasks[0]) => {
+     if (!currentOrganization?.id) return;
+     try {
+         setIsGenerating(true); 
+         const newTask = await globalTasksService.createTask({
+            tenant_id: currentOrganization.id,
+            title: template.title,
+            description: template.description,
+            status: 'todo',
+            priority: template.priority as 'high'|'medium'|'low'
+         });
+         
+         await entityLinkService.linkEntities({
+            tenant_id: currentOrganization.id,
+            source_type: 'task',
+            source_id: newTask.id,
+            target_type: entityType,
+            target_id: entityId,
+            relationship_type: 'attached_to'
+         });
+     } catch (err) {
+         console.error('Failed quick task addition', err);
+     } finally {
+         setIsGenerating(false);
+         loadTasks();
+     }
+  };
+
   if (loading) {
     return (
       <div className="py-12 flex justify-center">
@@ -144,7 +180,7 @@ export default function RelationalTasksBoard({ entityType, entityId }: Relationa
       </div>
 
       {/* Embedded AI Task Input */}
-      <div className="flex p-3 bg-indigo-950/30 border border-indigo-500/20 rounded-xl items-center space-x-3 mb-6">
+      <div className="flex p-3 bg-indigo-950/30 border border-indigo-500/20 rounded-xl items-center space-x-3 mt-4">
         <Sparkles className="w-5 h-5 text-indigo-400 flex-shrink-0" />
         <input 
           type="text"
@@ -157,6 +193,22 @@ export default function RelationalTasksBoard({ entityType, entityId }: Relationa
         <Button onClick={handleAiGenerate} disabled={isGenerating || !aiPrompt.trim()} size="sm" variant="primary">
           {isGenerating ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Working...</> : 'AI Edit Tasks'}
         </Button>
+      </div>
+
+      {/* Default Quick-Add Tasks */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        <span className="text-xs text-slate-500 uppercase font-semibold flex items-center mr-2">Default Tasks:</span>
+        {quickTasks.map((t, i) => (
+             <button
+               key={i}
+               onClick={() => handleQuickAdd(t)}
+               disabled={isGenerating}
+               className="px-3 py-1 bg-slate-800/50 hover:bg-slate-700 text-slate-300 hover:text-white text-xs rounded-full border border-slate-700 transition-colors flex items-center group disabled:opacity-50 disabled:cursor-not-allowed"
+             >
+               <Plus className="w-3 h-3 mr-1 text-slate-500 group-hover:text-emerald-400 transition-colors" />
+               {t.title}
+             </button>
+        ))}
       </div>
 
       {tasks.length === 0 ? (
