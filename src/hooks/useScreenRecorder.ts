@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 
 export type RecordingStatus = 'idle' | 'recording' | 'paused' | 'stopped';
+export type CaptureOptions = 'screen' | 'camera' | 'audio';
 
 export function useScreenRecorder() {
   const [status, setStatus] = useState<RecordingStatus>('idle');
@@ -29,60 +30,70 @@ export function useScreenRecorder() {
     }
   }, []);
 
-  const startRecording = useCallback(async () => {
+  const startRecording = useCallback(async (captureMode: CaptureOptions = 'screen') => {
     try {
       setError(null);
       setMediaBlob(null);
       chunksRef.current = [];
       setElapsedTime(0);
 
-      // Request screen stream with system audio if available
-      const screenStream = await navigator.mediaDevices.getDisplayMedia({
-        video: true,
-        audio: true,
-      });
-      screenStreamRef.current = screenStream;
-
-      // Request microphone stream gracefully
+      let videoStream: MediaStream | null = null;
       let micStream: MediaStream | null = null;
-      try {
-        micStream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-          video: false,
-        });
+
+      if (captureMode === 'screen') {
+        videoStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+        screenStreamRef.current = videoStream;
+      } else if (captureMode === 'camera') {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        screenStreamRef.current = videoStream; 
+      } else if (captureMode === 'audio') {
+        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
         micStreamRef.current = micStream;
-      } catch (err) {
-        console.warn('Microphone access unavailable. Recording without microphone.');
       }
 
-      // Combine audio tracks (system + mic)
+      if (captureMode === 'screen') {
+        try {
+          micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+          micStreamRef.current = micStream;
+        } catch (err) {
+          console.warn('Microphone access unavailable for screen recording.');
+        }
+      }
+
       const audioContext = new AudioContext();
       audioContextRef.current = audioContext;
       const dest = audioContext.createMediaStreamDestination();
+      const tracks: MediaStreamTrack[] = [];
 
-      if (screenStream.getAudioTracks().length > 0) {
-        const screenSource = audioContext.createMediaStreamSource(screenStream);
-        screenSource.connect(dest);
+      if (videoStream) {
+        tracks.push(...videoStream.getVideoTracks());
+        if (videoStream.getAudioTracks().length > 0) {
+          const screenSource = audioContext.createMediaStreamSource(videoStream);
+          screenSource.connect(dest);
+        }
       }
 
       if (micStream) {
-        const micSource = audioContext.createMediaStreamSource(micStream);
-        micSource.connect(dest);
+        if (captureMode === 'audio') {
+          tracks.push(...micStream.getAudioTracks());
+        } else {
+          const micSource = audioContext.createMediaStreamSource(micStream);
+          micSource.connect(dest);
+        }
       }
 
-      // Create a new stream from the video track and combined audio track
-      const tracks = [
-        ...screenStream.getVideoTracks(),
-        ...dest.stream.getAudioTracks()
-      ];
+      if (captureMode !== 'audio' && dest.stream.getAudioTracks().length > 0) {
+        tracks.push(...dest.stream.getAudioTracks());
+      }
 
       const combinedStream = new MediaStream(tracks);
       streamRef.current = combinedStream;
 
-      // Handle stream end (e.g., user clicks "Stop sharing" on the browser strip)
-      screenStream.getVideoTracks()[0].onended = () => {
-        stopRecording();
-      };
+      if (videoStream && videoStream.getVideoTracks().length > 0) {
+        videoStream.getVideoTracks()[0].onended = () => {
+          stopRecording();
+        };
+      }
 
       let mimeType = 'video/webm';
       if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus')) {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useScreenRecorder } from '../../hooks/useScreenRecorder';
 import { internalRecordingsApi } from '../../lib/internalRecordings';
-import { Play, Square, Pause, Save, X, Upload, Sparkles } from 'lucide-react';
+import { Play, Square, Pause, Save, X, Upload, Sparkles, Video, Mic, Monitor } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { copilotEngine } from '../../lib/ai/services/copilotEngine';
 
@@ -184,13 +184,32 @@ export default function RecorderUI() {
           </div>
           <div className="flex gap-2">
             {status === 'idle' && !mediaBlob && (
-              <button
-                onClick={startRecording}
-                className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
-              >
-                <div className="w-3 h-3 rounded-full bg-white animate-pulse" />
-                Start Recording
-              </button>
+              <div className="flex bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+                <button
+                  onClick={() => startRecording('screen')}
+                  className="flex items-center gap-2 hover:bg-slate-700/80 text-white px-3 py-2 text-sm transition-colors border-r border-slate-700"
+                  title="Record Screen"
+                >
+                  <Monitor className="w-4 h-4 text-indigo-400" />
+                  Screen
+                </button>
+                <button
+                  onClick={() => startRecording('camera')}
+                  className="flex items-center gap-2 hover:bg-slate-700/80 text-white px-3 py-2 text-sm transition-colors border-r border-slate-700"
+                  title="Record Camera"
+                >
+                  <Video className="w-4 h-4 text-emerald-400" />
+                  Camera
+                </button>
+                <button
+                  onClick={() => startRecording('audio')}
+                  className="flex items-center gap-2 hover:bg-slate-700/80 text-white px-3 py-2 text-sm transition-colors"
+                  title="Record Audio"
+                >
+                  <Mic className="w-4 h-4 text-rose-400" />
+                  Audio
+                </button>
+              </div>
             )}
 
             {status === 'recording' && (
