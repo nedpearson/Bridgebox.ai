@@ -343,7 +343,7 @@ class TrendDetectionEngine {
     const { data: previousActivity } = await query_previousActivity;
 
     const { data: totalUsers } = await supabase
-      .from('users')
+      .from('bb_users')
       .select('id', { count: 'exact' });
 
     const totalUserCount = totalUsers?.length || 1;

@@ -76,9 +76,9 @@ export const supportService = {
       .from('bb_support_tickets')
       .select(`
         *,
-        organization:organizations!support_tickets_organization_id_fkey(id, name),
-        requester:profiles!created_by_id(full_name, email),
-        assigned_user:profiles!assigned_to_id(full_name, email)
+        organization:bb_organizations!support_tickets_organization_id_fkey(id, name),
+        requester:bb_profiles!created_by_id(full_name, email),
+        assigned_user:bb_profiles!assigned_to_id(full_name, email)
       `)
       .order('created_at', { ascending: false });
 
@@ -109,9 +109,9 @@ export const supportService = {
       .from('bb_support_tickets')
       .select(`
         *,
-        organization:organizations!support_tickets_organization_id_fkey(id, name),
-        requester:profiles!created_by_id(full_name, email),
-        assigned_user:profiles!assigned_to_id(full_name, email)
+        organization:bb_organizations!support_tickets_organization_id_fkey(id, name),
+        requester:bb_profiles!created_by_id(full_name, email),
+        assigned_user:bb_profiles!assigned_to_id(full_name, email)
       `)
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false });
@@ -125,9 +125,9 @@ export const supportService = {
       .from('bb_support_tickets')
       .select(`
         *,
-        organization:organizations!support_tickets_organization_id_fkey(id, name),
-        requester:profiles!created_by_id(full_name, email),
-        assigned_user:profiles!assigned_to_id(full_name, email)
+        organization:bb_organizations!support_tickets_organization_id_fkey(id, name),
+        requester:bb_profiles!created_by_id(full_name, email),
+        assigned_user:bb_profiles!assigned_to_id(full_name, email)
       `)
       .eq('id', id)
       .maybeSingle();
@@ -206,7 +206,7 @@ export const supportService = {
       .from('bb_ticket_comments')
       .select(`
         *,
-        author:profiles!ticket_comments_author_id_fkey(full_name, email)
+        author:bb_profiles!ticket_comments_author_id_fkey(full_name, email)
       `)
       .eq('ticket_id', ticketId)
       .order('created_at', { ascending: true });

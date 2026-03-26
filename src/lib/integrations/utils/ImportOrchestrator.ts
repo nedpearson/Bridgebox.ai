@@ -44,7 +44,7 @@ export class ImportOrchestrator {
     
     // Check external_data_cache for existing matches
     const { data: existingData } = await supabase
-      .from('external_data_cache')
+      .from('bb_external_data_cache')
       .select('source_id')
       .eq('organization_id', config.organization_id)
       .eq('source_system', config.provider)
@@ -69,7 +69,7 @@ export class ImportOrchestrator {
     if (invalid.length === 0) return;
     
     // Send to integration audit log table (integration_sync_runs)
-    await supabase.from('integration_sync_runs').insert({
+    await supabase.from('bb_integration_sync_runs').insert({
       organization_id: config.organization_id,
       connector_id: config.provider,
       status: 'error',
@@ -96,7 +96,7 @@ export class ImportOrchestrator {
 
     // Scaffold persistence mapping
     for (const record of preparedRecords) {
-      await supabase.from('external_data_cache').upsert({
+      await supabase.from('bb_external_data_cache').upsert({
         organization_id: config.organization_id,
         source_system: config.provider,
         data_type: config.sourceType,

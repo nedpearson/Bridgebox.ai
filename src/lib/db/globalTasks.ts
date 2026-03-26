@@ -25,8 +25,8 @@ export const globalTasksService = {
   async getTenantTasks(tenantId: string) {
     if (!tenantId) return [];
     const { data, error } = await supabase
-      .from('global_tasks')
-      .select('*, assignee:profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
+      .from('bb_global_tasks')
+      .select('*, assignee:bb_profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:bb_profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
       .eq('tenant_id', tenantId)
       .order('created_at', { ascending: false });
 
@@ -37,7 +37,7 @@ export const globalTasksService = {
   async createTask(task: Partial<GlobalTask>) {
     if (!task.tenant_id) throw new Error("Task tenant_id is required");
     const { data, error } = await supabase
-      .from('global_tasks')
+      .from('bb_global_tasks')
       .insert(task)
       .select()
       .single();
@@ -62,7 +62,7 @@ export const globalTasksService = {
        updates.completed_at = new Date().toISOString();
     }
     const { data, error } = await supabase
-      .from('global_tasks')
+      .from('bb_global_tasks')
       .update(updates)
       .eq('id', id)
       .select()
@@ -88,7 +88,7 @@ export const globalTasksService = {
     if (status === 'done') updates.completed_at = new Date().toISOString();
     
     const { data, error } = await supabase
-      .from('global_tasks')
+      .from('bb_global_tasks')
       .update(updates)
       .eq('id', id)
       .select()
@@ -112,8 +112,8 @@ export const globalTasksService = {
   async getTaskById(id: string) {
     if (!id) throw new Error("Task ID is missing");
     const { data, error } = await supabase
-      .from('global_tasks')
-      .select('*, assignee:profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
+      .from('bb_global_tasks')
+      .select('*, assignee:bb_profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:bb_profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
       .eq('id', id)
       .single();
       
@@ -130,8 +130,8 @@ export const globalTasksService = {
     if (taskIds.length === 0) return [];
 
     const { data, error } = await supabase
-      .from('global_tasks')
-      .select('*, assignee:profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
+      .from('bb_global_tasks')
+      .select('*, assignee:bb_profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:bb_profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
       .in('id', taskIds)
       .order('created_at', { ascending: false });
 

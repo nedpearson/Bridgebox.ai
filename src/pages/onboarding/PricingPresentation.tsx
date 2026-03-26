@@ -185,7 +185,7 @@ export default function PricingPresentation({ sessionId, organizationId, onAppro
   const loadPricingModel = async () => {
     try {
       const { data: session } = await supabase
-        .from('onboarding_sessions')
+        .from('bb_onboarding_sessions')
         .select('ai_intelligence')
         .eq('id', sessionId)
         .maybeSingle();

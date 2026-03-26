@@ -17,7 +17,7 @@ export const organizationsService = {
   async getMyOrganizations() {
     const { data, error } = await supabase
       .from('bb_organizations')
-      .select('*, organization_memberships!inner(role)')
+      .select('*, bb_organization_memberships!inner(role)')
       .order('name');
 
     if (error) throw error;
@@ -27,7 +27,7 @@ export const organizationsService = {
   async getAllClientOrganizations() {
     const { data, error } = await supabase
       .from('bb_organizations')
-      .select('*, organization_memberships(count)')
+      .select('*, bb_organization_memberships(count)')
       .eq('type', 'client')
       .order('name');
 
@@ -38,7 +38,7 @@ export const organizationsService = {
   async getOrganizationById(id: string) {
     const { data, error } = await supabase
       .from('bb_organizations')
-      .select('*, organization_memberships(user_id, role, profiles(full_name, email))')
+      .select('*, bb_organization_memberships(user_id, role, bb_profiles(full_name, email))')
       .eq('id', id)
       .maybeSingle();
 
@@ -70,7 +70,7 @@ export const organizationsService = {
   async getOrganizationMembers(organizationId: string) {
     const { data, error } = await supabase
       .from('bb_organization_memberships')
-      .select('*, profiles(id, email, full_name, avatar_url, role)')
+      .select('*, bb_profiles(id, email, full_name, avatar_url, role)')
       .eq('organization_id', organizationId)
       .order('created_at');
 
@@ -134,7 +134,7 @@ export const organizationsService = {
       });
 
       // Phase 8: Super Admin Webhook Replacement (Internal Matrix)
-      await supabase.from('internal_dev_tasks').insert([{
+      await supabase.from('bb_internal_dev_tasks').insert([{
         title: `[Activation] New Bare-Metal Client: ${org.name}`,
         description: `Organization ID: ${org.id}\nSource: Manual Bypass Generator`,
         status: 'todo',

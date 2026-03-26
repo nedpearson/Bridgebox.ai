@@ -29,7 +29,7 @@ export const searchOrchestrator = {
         leadsRes
       ] = await Promise.all([
         supabase.from('bb_projects').select('id, name, description').ilike('name', term).limit(5),
-        supabase.from('global_tasks').select('id, title, description').ilike('title', term).limit(5),
+        supabase.from('bb_global_tasks').select('id, title, description').ilike('title', term).limit(5),
         supabase.from('bb_documents').select('id, title, excerpt').ilike('title', term).limit(5),
         supabase.from('bb_leads').select('id, company_name, contact_name').or(`company_name.ilike.${term},contact_name.ilike.${term}`).limit(5)
       ]);

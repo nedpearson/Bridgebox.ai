@@ -48,7 +48,7 @@ export const internalRecordingsApi = {
 
   async listRecordings(): Promise<InternalRecording[]> {
     const { data, error } = await supabase
-      .from('internal_recordings')
+      .from('bb_internal_recordings')
       .select('*')
       .order('created_at', { ascending: false });
 
@@ -58,7 +58,7 @@ export const internalRecordingsApi = {
 
   async createRecording(metadata: Partial<InternalRecording>): Promise<InternalRecording> {
     const { data, error } = await supabase
-      .from('internal_recordings')
+      .from('bb_internal_recordings')
       .insert([metadata])
       .select()
       .single();
@@ -69,7 +69,7 @@ export const internalRecordingsApi = {
 
   async updateRecording(id: string, updates: Partial<InternalRecording>): Promise<InternalRecording> {
     const { data, error } = await supabase
-      .from('internal_recordings')
+      .from('bb_internal_recordings')
       .update(updates)
       .eq('id', id)
       .select()
@@ -90,7 +90,7 @@ export const internalRecordingsApi = {
 
     // Delete database record
     const { error } = await supabase
-      .from('internal_recordings')
+      .from('bb_internal_recordings')
       .delete()
       .eq('id', id);
 

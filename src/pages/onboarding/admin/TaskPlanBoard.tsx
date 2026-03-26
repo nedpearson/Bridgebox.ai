@@ -21,7 +21,7 @@ export default function TaskPlanBoard() {
         async function loadTasks() {
             if (!sessionId) return;
             const { data } = await supabase
-                .from('onboarding_build_tasks')
+                .from('bb_onboarding_build_tasks')
                 .select('*')
                 .eq('session_id', sessionId)
                 .order('created_at', { ascending: true });

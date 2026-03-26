@@ -73,9 +73,9 @@ export const proposalsService = {
       .from('bb_proposals')
       .select(`
         *,
-        organization:organizations!proposals_organization_id_fkey(id, name),
+        organization:bb_organizations!proposals_organization_id_fkey(id, name),
         lead:leads!proposals_lead_id_fkey(id, company_name, contact_name, contact_email),
-        creator:profiles!proposals_created_by_fkey(full_name, email)
+        creator:bb_profiles!proposals_created_by_fkey(full_name, email)
       `)
       .order('created_at', { ascending: false });
 
@@ -88,9 +88,9 @@ export const proposalsService = {
       .from('bb_proposals')
       .select(`
         *,
-        organization:organizations!proposals_organization_id_fkey(id, name),
+        organization:bb_organizations!proposals_organization_id_fkey(id, name),
         lead:leads!proposals_lead_id_fkey(id, company_name, contact_name, contact_email),
-        creator:profiles!proposals_created_by_fkey(full_name, email)
+        creator:bb_profiles!proposals_created_by_fkey(full_name, email)
       `)
       .eq('id', id)
       .maybeSingle();
@@ -104,9 +104,9 @@ export const proposalsService = {
       .from('bb_proposals')
       .select(`
         *,
-        organization:organizations!proposals_organization_id_fkey(id, name),
+        organization:bb_organizations!proposals_organization_id_fkey(id, name),
         lead:leads!proposals_lead_id_fkey(id, company_name, contact_name, contact_email),
-        creator:profiles!proposals_created_by_fkey(full_name, email)
+        creator:bb_profiles!proposals_created_by_fkey(full_name, email)
       `)
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false });
@@ -221,7 +221,7 @@ export const proposalsService = {
       .from('bb_proposals')
       .select(`
         *,
-        organization:organizations!proposals_organization_id_fkey(id, name)
+        organization:bb_organizations!proposals_organization_id_fkey(id, name)
       `)
       .eq('lead_id', leadId)
       .order('created_at', { ascending: false });
@@ -235,7 +235,7 @@ export const proposalsService = {
       .from('bb_proposals')
       .select(`
         *,
-        organization:organizations!proposals_organization_id_fkey(id, name)
+        organization:bb_organizations!proposals_organization_id_fkey(id, name)
       `)
       .eq('share_token', token)
       .maybeSingle();

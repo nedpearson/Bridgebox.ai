@@ -205,7 +205,7 @@ export const executiveService = {
         supabase.from('bb_project_delivery').select('*'),
         supabase
           .from('bb_milestones')
-          .select('id, title, due_date, status, project_id, projects(name)')
+          .select('id, title, due_date, status, project_id, bb_projects(name)')
           .in('status', ['not_started', 'in_progress'])
           .order('due_date', { ascending: true })
           .limit(10),
@@ -369,7 +369,7 @@ export const executiveService = {
       ] = await Promise.all([
         supabase
           .from('bb_milestones')
-          .select('id, title, due_date, project_id, projects(name)')
+          .select('id, title, due_date, project_id, bb_projects(name)')
           .eq('status', 'in_progress')
           .lt('due_date', new Date().toISOString()),
         (organizationId ? supabase.from('bb_support_tickets').select('id, title, priority').eq('organization_id', organizationId) : supabase.from('bb_support_tickets').select('id, title, priority'))

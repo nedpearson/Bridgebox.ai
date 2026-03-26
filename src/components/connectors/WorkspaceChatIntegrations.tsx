@@ -21,7 +21,7 @@ export default function WorkspaceChatIntegrations() {
     setLoading(true);
     try {
       const { data } = await supabase
-        .from('organization_settings')
+        .from('bb_organization_settings')
         .select('settings')
         .eq('organization_id', currentOrganization.id)
         .single();
@@ -43,7 +43,7 @@ export default function WorkspaceChatIntegrations() {
     
     try {
       const { data: currentSettings } = await supabase
-        .from('organization_settings')
+        .from('bb_organization_settings')
         .select('settings')
         .eq('organization_id', currentOrganization.id)
         .single();
@@ -57,7 +57,7 @@ export default function WorkspaceChatIntegrations() {
       };
 
       await supabase
-        .from('organization_settings')
+        .from('bb_organization_settings')
         .upsert({
           organization_id: currentOrganization.id,
           settings: newSettings

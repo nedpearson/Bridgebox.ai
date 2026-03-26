@@ -208,7 +208,7 @@ class ClientSuccessService {
       .from('bb_client_interactions')
       .select(`
         *,
-        conducted_by_profile:profiles!client_interactions_conducted_by_fkey (
+        conducted_by_profile:bb_profiles!client_interactions_conducted_by_fkey (
           full_name,
           email
         )
@@ -236,7 +236,7 @@ class ClientSuccessService {
       .from('bb_account_owners')
       .select(`
         *,
-        owner_profile:profiles!account_owners_owner_id_fkey (
+        owner_profile:bb_profiles!account_owners_owner_id_fkey (
           full_name,
           email
         )
@@ -319,7 +319,7 @@ class ClientSuccessService {
       .from('bb_risk_flags')
       .select(`
         *,
-        assigned_to_profile:profiles!risk_flags_assigned_to_fkey (
+        assigned_to_profile:bb_profiles!risk_flags_assigned_to_fkey (
           full_name,
           email
         )

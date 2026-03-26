@@ -125,7 +125,7 @@ export default function SupportTicketDetail() {
         assigned_to: (await supabase.auth.getUser()).data.user?.id
       };
       
-      await supabase.from('internal_recordings').insert([escalationPayload]);
+      await supabase.from('bb_internal_recordings').insert([escalationPayload]);
 
       await loadTicket();
     } catch (err: any) {

@@ -65,25 +65,25 @@ export const devQaAiApi = {
   // ==========================================================
   
   async getAllBugReports(): Promise<InternalBugReport[]> {
-    const { data, error } = await supabase.from('internal_bug_reports').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('bb_internal_bug_reports').select('*').order('created_at', { ascending: false });
     if (error) throw error;
     return data || [];
   },
 
   async getAllQaTestCases(): Promise<InternalQaTestCase[]> {
-    const { data, error } = await supabase.from('internal_qa_test_cases').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('bb_internal_qa_test_cases').select('*').order('created_at', { ascending: false });
     if (error) throw error;
     return data || [];
   },
 
   async getBugReport(id: string): Promise<InternalBugReport> {
-    const { data, error } = await supabase.from('internal_bug_reports').select('*').eq('id', id).single();
+    const { data, error } = await supabase.from('bb_internal_bug_reports').select('*').eq('id', id).single();
     if (error) throw error;
     return data;
   },
 
   async getQaTestCase(id: string): Promise<InternalQaTestCase> {
-    const { data, error } = await supabase.from('internal_qa_test_cases').select('*').eq('id', id).single();
+    const { data, error } = await supabase.from('bb_internal_qa_test_cases').select('*').eq('id', id).single();
     if (error) throw error;
     return data;
   },
@@ -93,13 +93,13 @@ export const devQaAiApi = {
   // ==========================================================
   
   async updateBugReport(id: string, updates: Partial<InternalBugReport>): Promise<InternalBugReport> {
-    const { data, error } = await supabase.from('internal_bug_reports').update({ ...updates, updated_at: new Date().toISOString() }).eq('id', id).select().single();
+    const { data, error } = await supabase.from('bb_internal_bug_reports').update({ ...updates, updated_at: new Date().toISOString() }).eq('id', id).select().single();
     if (error) throw error;
     return data;
   },
 
   async updateQaTestCase(id: string, updates: Partial<InternalQaTestCase>): Promise<InternalQaTestCase> {
-    const { data, error } = await supabase.from('internal_qa_test_cases').update({ ...updates, updated_at: new Date().toISOString() }).eq('id', id).select().single();
+    const { data, error } = await supabase.from('bb_internal_qa_test_cases').update({ ...updates, updated_at: new Date().toISOString() }).eq('id', id).select().single();
     if (error) throw error;
     return data;
   },
@@ -146,7 +146,7 @@ export const devQaAiApi = {
 
     // PHASE 5: Deduplication Clustering
     const { data: similarBugs } = await supabase
-        .from('internal_bug_reports')
+        .from('bb_internal_bug_reports')
         .select('id')
         .eq('product_area', payload.product_area)
         .limit(3);
@@ -155,7 +155,7 @@ export const devQaAiApi = {
         payload.similar_bug_refs = similarBugs.map(t => t.id);
     }
 
-    const { data, error } = await supabase.from('internal_bug_reports').insert([payload]).select().single();
+    const { data, error } = await supabase.from('bb_internal_bug_reports').insert([payload]).select().single();
     if (error) throw error;
     return data;
   },
@@ -197,7 +197,7 @@ export const devQaAiApi = {
 
     // PHASE 5: Deduplication Clustering
     const { data: similarQA } = await supabase
-        .from('internal_qa_test_cases')
+        .from('bb_internal_qa_test_cases')
         .select('id')
         .eq('product_area', payload.product_area)
         .limit(3);
@@ -206,7 +206,7 @@ export const devQaAiApi = {
         payload.similar_qa_refs = similarQA.map(t => t.id);
     }
 
-    const { data, error } = await supabase.from('internal_qa_test_cases').insert([payload]).select().single();
+    const { data, error } = await supabase.from('bb_internal_qa_test_cases').insert([payload]).select().single();
     if (error) throw error;
     return data;
   }

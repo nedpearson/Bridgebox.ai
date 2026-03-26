@@ -19,7 +19,7 @@ export interface GlobalCommunication {
 export const globalCommunicationsService = {
   async logCommunication(comm: Partial<GlobalCommunication>) {
     const { data, error } = await supabase
-      .from('global_communications')
+      .from('bb_global_communications')
       .insert(comm)
       .select()
       .single();
@@ -30,8 +30,8 @@ export const globalCommunicationsService = {
 
   async getTenantCommunications(tenantId: string, limit: number = 50) {
     const { data, error } = await supabase
-      .from('global_communications')
-      .select('*, author:profiles!global_communications_author_id_fkey(full_name, avatar_url)')
+      .from('bb_global_communications')
+      .select('*, author:bb_profiles!global_communications_author_id_fkey(full_name, avatar_url)')
       .eq('tenant_id', tenantId)
       .order('timestamp', { ascending: false })
       .limit(limit);
@@ -42,8 +42,8 @@ export const globalCommunicationsService = {
 
   async getCommunicationById(id: string) {
     const { data, error } = await supabase
-      .from('global_communications')
-      .select('*, author:profiles!global_communications_author_id_fkey(full_name, avatar_url)')
+      .from('bb_global_communications')
+      .select('*, author:bb_profiles!global_communications_author_id_fkey(full_name, avatar_url)')
       .eq('id', id)
       .single();
 
@@ -62,8 +62,8 @@ export const globalCommunicationsService = {
     if (commIds.length === 0) return [];
 
     const { data, error } = await supabase
-      .from('global_communications')
-      .select('*, author:profiles!global_communications_author_id_fkey(full_name, avatar_url)')
+      .from('bb_global_communications')
+      .select('*, author:bb_profiles!global_communications_author_id_fkey(full_name, avatar_url)')
       .in('id', commIds)
       .order('timestamp', { ascending: false });
 

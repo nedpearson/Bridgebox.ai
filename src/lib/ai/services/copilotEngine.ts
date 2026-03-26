@@ -159,7 +159,7 @@ export class CopilotEngine {
     if (systemContext.organizationId) {
        try {
            const { data, error } = await supabase
-              .from('onboarding_sessions')
+              .from('bb_onboarding_sessions')
               .select('raw_input, ai_intelligence, status')
               .eq('organization_id', systemContext.organizationId)
               .order('created_at', { ascending: false })

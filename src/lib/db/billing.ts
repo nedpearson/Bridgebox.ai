@@ -16,7 +16,7 @@ export const billingService = {
   async getOrganizationSubscription(organizationId: string) {
     const { data, error } = await supabase
       .from('bb_subscriptions')
-      .select('*, subscription_plans(*)')
+      .select('*, bb_subscription_plans(*)')
       .eq('organization_id', organizationId)
       .eq('status', 'active')
       .maybeSingle();
@@ -28,7 +28,7 @@ export const billingService = {
   async getAllActiveSubscriptions() {
     const { data, error } = await supabase
       .from('bb_subscriptions')
-      .select('*, organizations(name), subscription_plans(name, tier)')
+      .select('*, bb_organizations(name), bb_subscription_plans(name, tier)')
       .eq('status', 'active')
       .order('created_at', { ascending: false });
 
@@ -39,7 +39,7 @@ export const billingService = {
   async getOrganizationInvoices(organizationId: string) {
     const { data, error } = await supabase
       .from('bb_invoices')
-      .select('*, projects(name)')
+      .select('*, bb_projects(name)')
       .eq('organization_id', organizationId)
       .order('issue_date', { ascending: false });
 
@@ -50,7 +50,7 @@ export const billingService = {
   async getInvoiceById(id: string) {
     const { data, error } = await supabase
       .from('bb_invoices')
-      .select('*, organizations(name), projects(name)')
+      .select('*, bb_organizations(name), bb_projects(name)')
       .eq('id', id)
       .maybeSingle();
 
@@ -61,7 +61,7 @@ export const billingService = {
   async getAllInvoices() {
     const { data, error } = await supabase
       .from('bb_invoices')
-      .select('*, organizations(name)')
+      .select('*, bb_organizations(name)')
       .order('issue_date', { ascending: false });
 
     if (error) throw error;

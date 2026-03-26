@@ -76,19 +76,19 @@ export interface InternalAuditEvent {
 export const commandCenterApi = {
   // --- AUDIT TRAIL ---
   async logAuditEvent(event: Omit<InternalAuditEvent, 'id' | 'created_at'>): Promise<void> {
-    const { error } = await supabase.from('internal_audit_events').insert([event]);
+    const { error } = await supabase.from('bb_internal_audit_events').insert([event]);
     if (error) console.error('Failed to log internal audit event:', error);
   },
 
   async listAuditEvents(limit = 100): Promise<InternalAuditEvent[]> {
-    const { data, error } = await supabase.from('internal_audit_events').select('*').order('created_at', { ascending: false }).limit(limit);
+    const { data, error } = await supabase.from('bb_internal_audit_events').select('*').order('created_at', { ascending: false }).limit(limit);
     if (error) throw error;
     return data;
   },
 
   // --- LOGS VIEWER ---
   async listLogs(limit = 100, filters?: { severity?: string, type?: string }): Promise<InternalLog[]> {
-    let query = supabase.from('internal_logs').select('*').order('created_at', { ascending: false }).limit(limit);
+    let query = supabase.from('bb_internal_logs').select('*').order('created_at', { ascending: false }).limit(limit);
     if (filters?.severity) query = query.eq('severity', filters.severity);
     if (filters?.type) query = query.eq('type', filters.type);
     
@@ -99,46 +99,46 @@ export const commandCenterApi = {
 
   // --- JOBS MONITOR ---
   async listJobs(limit = 50): Promise<InternalJob[]> {
-    const { data, error } = await supabase.from('internal_jobs').select('*').order('created_at', { ascending: false }).limit(limit);
+    const { data, error } = await supabase.from('bb_internal_jobs').select('*').order('created_at', { ascending: false }).limit(limit);
     if (error) throw error;
     return data;
   },
 
   // --- AI PIPELINE ---
   async listAiRuns(limit = 50): Promise<InternalAiRun[]> {
-    const { data, error } = await supabase.from('internal_ai_runs').select('*').order('created_at', { ascending: false }).limit(limit);
+    const { data, error } = await supabase.from('bb_internal_ai_runs').select('*').order('created_at', { ascending: false }).limit(limit);
     if (error) throw error;
     return data;
   },
 
   // --- INTEGRATION HEALTH ---
   async listIntegrationEvents(): Promise<InternalIntegrationEvent[]> {
-    const { data, error } = await supabase.from('internal_integration_events').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('bb_internal_integration_events').select('*').order('created_at', { ascending: false });
     if (error) throw error;
     return data;
   },
 
   // --- INTERNAL NOTES ---
   async listNotes(archived = false): Promise<InternalNote[]> {
-    const { data, error } = await supabase.from('internal_notes').select('*').eq('is_archived', archived).order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('bb_internal_notes').select('*').eq('is_archived', archived).order('created_at', { ascending: false });
     if (error) throw error;
     return data;
   },
 
   async createNote(note: Partial<InternalNote>): Promise<InternalNote> {
-    const { data, error } = await supabase.from('internal_notes').insert([note]).select().single();
+    const { data, error } = await supabase.from('bb_internal_notes').insert([note]).select().single();
     if (error) throw error;
     return data;
   },
 
   async updateNote(id: string, updates: Partial<InternalNote>): Promise<InternalNote> {
-    const { data, error } = await supabase.from('internal_notes').update(updates).eq('id', id).select().single();
+    const { data, error } = await supabase.from('bb_internal_notes').update(updates).eq('id', id).select().single();
     if (error) throw error;
     return data;
   },
 
   async deleteNote(id: string): Promise<void> {
-    const { error } = await supabase.from('internal_notes').delete().eq('id', id);
+    const { error } = await supabase.from('bb_internal_notes').delete().eq('id', id);
     if (error) throw error;
   },
 

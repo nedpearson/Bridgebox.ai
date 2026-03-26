@@ -108,7 +108,7 @@ export const supportTicketsApi = {
   async getAllTickets(): Promise<SupportTicket[]> {
     const { data, error } = await supabase
       .from('bb_support_tickets')
-      .select('*, profiles!created_by_id(full_name, email), organizations(name)')
+      .select('*, bb_profiles!created_by_id(full_name, email), bb_organizations(name)')
       .order('created_at', { ascending: false });
 
     if (error) throw error;

@@ -21,7 +21,7 @@ export default function OnboardingShell() {
             try {
                 setLoading(true);
                 const { data, error } = await supabase
-                    .from('onboarding_sessions')
+                    .from('bb_onboarding_sessions')
                     .select('*')
                     .eq('id', sessionId)
                     .eq('organization_id', currentOrganization.id)

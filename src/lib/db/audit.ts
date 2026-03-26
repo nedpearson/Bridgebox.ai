@@ -54,7 +54,7 @@ export const auditService = {
     // Use a basic query, joining the auth schema requires a view or edge function usually,
     // but we will simply fetch the raw logs since auth.users isn't heavily exposed without RPC.
     const { data, error, count } = await supabase
-      .from('audit_logs')
+      .from('bb_audit_logs')
       .select(`
         *,
         users:user_id (
@@ -86,7 +86,7 @@ export const auditService = {
     const to = from + limit - 1;
 
     const { data, error, count } = await supabase
-      .from('audit_logs')
+      .from('bb_audit_logs')
       .select(`
         *,
         users:user_id (

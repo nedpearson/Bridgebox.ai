@@ -14,7 +14,7 @@ export default function AdminCommandCenterLayout() {
 
     useEffect(() => {
         if (!sessionId) return;
-        supabase.from('onboarding_sessions').select('*').eq('id', sessionId).single().then(({ data }) => setSessionData(data));
+        supabase.from('bb_onboarding_sessions').select('*').eq('id', sessionId).single().then(({ data }) => setSessionData(data));
     }, [sessionId]);
 
     const handleExecuteBuild = async () => {

@@ -28,7 +28,7 @@ export const AgentRegistry = {
       const result = await agentLogic();
       
       // Log successful AI inference natively into the CommandCenter log
-      await supabase.from('internal_logs').insert([{
+      await supabase.from('bb_internal_logs').insert([{
         severity: 'info',
         type: `Agent Execution [${agentName}]`,
         module: 'SuperAgentMatrix',
@@ -45,7 +45,7 @@ export const AgentRegistry = {
       console.error(`[AgentRegistry] ${agentName} Fault:`, e);
 
       // Log failure explicitly for the Support/Diagnostic Agent to catch later
-      await supabase.from('internal_logs').insert([{
+      await supabase.from('bb_internal_logs').insert([{
         severity: 'error',
         type: `Agent Fault [${agentName}]`,
         module: 'SuperAgentMatrix',

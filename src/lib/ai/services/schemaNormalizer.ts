@@ -26,7 +26,7 @@ export const schemaNormalizer = {
     if (!payload) throw new Error('Webhook payload cannot be empty.');
     
     const { data, error } = await supabase
-      .from('integration_webhooks')
+      .from('bb_integration_webhooks')
       .insert({
         organization_id: organizationId,
         source: source,
@@ -50,7 +50,7 @@ export const schemaNormalizer = {
    */
   async normalizePayload(webhookId: string, rawPayload: any) {
     if (!webhookId) return;
-    await supabase.from('integration_webhooks').update({ status: 'processing' }).eq('id', webhookId);
+    await supabase.from('bb_integration_webhooks').update({ status: 'processing' }).eq('id', webhookId);
 
     try {
       const provider = AIProviderFactory.getProvider();
@@ -90,7 +90,7 @@ Return ONLY a raw JSON object containing these EXACT keys:
       const mappedPayload = parsed.mapped_data || {};
 
       const { error } = await supabase
-        .from('integration_webhooks')
+        .from('bb_integration_webhooks')
         .update({
           mapped_entity_type: mappedType,
           mapped_entity_payload: mappedPayload,
@@ -101,7 +101,7 @@ Return ONLY a raw JSON object containing these EXACT keys:
       if (error) throw error;
     } catch (e: any) {
       await supabase
-        .from('integration_webhooks')
+        .from('bb_integration_webhooks')
         .update({ status: 'failed', error_log: e.message })
         .eq('id', webhookId);
     }
@@ -132,10 +132,10 @@ Return ONLY a raw JSON object containing these EXACT keys:
       }
 
       // Mark the staging row as approved and deployed
-      await supabase.from('integration_webhooks').update({ status: 'approved' }).eq('id', webhook.id);
+      await supabase.from('bb_integration_webhooks').update({ status: 'approved' }).eq('id', webhook.id);
       return true;
     } catch (e: any) {
-      await supabase.from('integration_webhooks').update({ status: 'failed', error_log: e.message }).eq('id', webhook.id);
+      await supabase.from('bb_integration_webhooks').update({ status: 'failed', error_log: e.message }).eq('id', webhook.id);
       return false;
     }
   },
@@ -143,7 +143,7 @@ Return ONLY a raw JSON object containing these EXACT keys:
   async getPendingWebhooks(organizationId: string) {
     if (!organizationId) return [];
     const { data, error } = await supabase
-      .from('integration_webhooks')
+      .from('bb_integration_webhooks')
       .select('*')
       .eq('organization_id', organizationId)
       .in('status', ['pending', 'processing', 'failed'])

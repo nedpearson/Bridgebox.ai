@@ -73,7 +73,7 @@ export default function PricingCommandCenter() {
     try {
       const { data, error } = await supabase
         .from('bb_pricing_models')
-        .select('*, organizations(name, industry)')
+        .select('*, bb_organizations(name, industry)')
         .order('created_at', { ascending: false });
 
       if (error) throw error;

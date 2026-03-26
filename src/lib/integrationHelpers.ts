@@ -52,7 +52,7 @@ export class IntegrationHelpers {
       const [project, milestones, deliverables, implementation, risks] = await Promise.all([
         supabase
           .from('bb_projects')
-          .select('*, organizations(*)')
+          .select('*, bb_organizations(*)')
           .eq('id', projectId)
           .maybeSingle(),
         supabase
@@ -128,7 +128,7 @@ export class IntegrationHelpers {
       const [ticket, knowledgeArticles, relatedTickets] = await Promise.all([
         supabase
           .from('bb_support_tickets')
-          .select('*, organizations(*)')
+          .select('*, bb_organizations(*)')
           .eq('id', ticketId)
           .maybeSingle(),
         supabase

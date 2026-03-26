@@ -91,13 +91,13 @@ class ImplementationService {
       .from('bb_project_implementations')
       .select(`
         *,
-        project:projects(
+        project:bb_projects(
           id,
           name,
           organization_id,
           type,
           status,
-          organization:organizations(id, name)
+          organization:bb_organizations(id, name)
         )
       `)
       .order('updated_at', { ascending: false });
@@ -111,13 +111,13 @@ class ImplementationService {
       .from('bb_project_implementations')
       .select(`
         *,
-        project:projects(
+        project:bb_projects(
           id,
           name,
           organization_id,
           type,
           status,
-          organization:organizations(id, name)
+          organization:bb_organizations(id, name)
         )
       `)
       .eq('project_id', projectId)

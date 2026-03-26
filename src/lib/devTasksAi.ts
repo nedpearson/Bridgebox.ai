@@ -38,7 +38,7 @@ export const devTasksAiApi = {
   
   async getAllTasks(): Promise<InternalDevTask[]> {
     const { data, error } = await supabase
-      .from('internal_dev_tasks')
+      .from('bb_internal_dev_tasks')
       .select('*')
       .order('created_at', { ascending: false });
 
@@ -48,7 +48,7 @@ export const devTasksAiApi = {
 
   async getTaskById(taskId: string): Promise<InternalDevTask> {
     const { data, error } = await supabase
-      .from('internal_dev_tasks')
+      .from('bb_internal_dev_tasks')
       .select('*')
       .eq('id', taskId)
       .single();
@@ -59,7 +59,7 @@ export const devTasksAiApi = {
 
   async updateTask(taskId: string, updates: Partial<InternalDevTask>): Promise<InternalDevTask> {
     const { data, error } = await supabase
-      .from('internal_dev_tasks')
+      .from('bb_internal_dev_tasks')
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', taskId)
       .select()
@@ -108,7 +108,7 @@ export const devTasksAiApi = {
     // PERFORM DUPLICATE CANDIDATE CLUSTERING (Phase 5 Requirement)
     // Look for recent Dev Tasks sharing the identical product area
     const { data: similarTasks } = await supabase
-        .from('internal_dev_tasks')
+        .from('bb_internal_dev_tasks')
         .select('id')
         .eq('product_area', generatedPayload.product_area)
         .limit(3);
@@ -118,7 +118,7 @@ export const devTasksAiApi = {
     }
 
     const { data, error } = await supabase
-      .from('internal_dev_tasks')
+      .from('bb_internal_dev_tasks')
       .insert([generatedPayload])
       .select()
       .single();
@@ -146,8 +146,8 @@ export const devTasksAiApi = {
     const sanitize = (text: string) => text.replace(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/g, '[REDACTED_TENANT_ID]');
     
     // Fetch related QA and Bug artifacts
-    const { data: relatedQAs } = await supabase.from('internal_qa_test_cases').select('*').eq('linked_internal_dev_task_id', taskId).eq('status', 'approved');
-    const { data: relatedBugs } = await supabase.from('internal_bug_reports').select('*').eq('linked_internal_dev_task_id', taskId).eq('status', 'confirmed');
+    const { data: relatedQAs } = await supabase.from('bb_internal_qa_test_cases').select('*').eq('linked_internal_dev_task_id', taskId).eq('status', 'approved');
+    const { data: relatedBugs } = await supabase.from('bb_internal_bug_reports').select('*').eq('linked_internal_dev_task_id', taskId).eq('status', 'confirmed');
 
     let qaExtension = '';
     if (relatedQAs && relatedQAs.length > 0) {

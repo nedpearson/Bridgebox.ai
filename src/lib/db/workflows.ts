@@ -161,7 +161,7 @@ class WorkflowService {
   async getExecutionsByEntity(entityType: string, entityId: string): Promise<(WorkflowExecution & { workflow?: { name: string, category: string } })[]> {
     const { data, error } = await supabase
       .from('bb_workflow_executions')
-      .select('*, workflow:workflows(name, category)')
+      .select('*, workflow:bb_workflows(name, category)')
       .eq('trigger_entity_type', entityType)
       .eq('trigger_entity_id', entityId)
       .order('started_at', { ascending: false });
@@ -175,7 +175,7 @@ class WorkflowService {
       .from('bb_workflow_executions')
       .select(`
         *,
-        workflow:workflows(*)
+        workflow:bb_workflows(*)
       `)
       .eq('id', executionId)
       .maybeSingle();
@@ -187,7 +187,7 @@ class WorkflowService {
       .from('bb_workflow_step_executions')
       .select(`
         *,
-        step:workflow_steps(*)
+        step:bb_workflow_steps(*)
       `)
       .eq('workflow_execution_id', executionId)
       .order('created_at', { ascending: true });

@@ -92,7 +92,7 @@ export default function AiOnboardingWizard() {
 
          // Write the raw context mapped session baseline directly into the DB.
          const { data: sessionData, error } = await supabase
-            .from('onboarding_sessions')
+            .from('bb_onboarding_sessions')
             .insert({
                 organization_id: currentOrganization.id,
                 client_id: user.id,
@@ -109,7 +109,7 @@ export default function AiOnboardingWizard() {
              await BuildOrchestratorAgent.extractTasksFromSession(sessionData.id, currentOrganization.id, mergedContext);
              
              // Phase 8: Alert Super Admins of Orchestration completion
-             await supabase.from('internal_dev_tasks').insert([{
+             await supabase.from('bb_internal_dev_tasks').insert([{
                title: `[AI Architect] Scaffolding Complete: ${currentOrganization.name}`,
                description: `Blueprint generated from telemetry.\nOrg ID: ${currentOrganization.id}\nSession ID: ${sessionData.id}`,
                status: 'todo',

@@ -126,7 +126,7 @@ Based on the business description, estimate AI usage parameters. Return a "prici
             // Persist into DB Queue natively
             for (const task of extractedTasks) {
                 const { error: insertError } = await supabase
-                    .from('onboarding_build_tasks')
+                    .from('bb_onboarding_build_tasks')
                     .insert({
                         organization_id: organizationId,
                         session_id: sessionId,
@@ -155,7 +155,7 @@ Based on the business description, estimate AI usage parameters. Return a "prici
 
                     // Persist snapshot into onboarding session
                     await supabase
-                        .from('onboarding_sessions')
+                        .from('bb_onboarding_sessions')
                         .update({ ai_intelligence: { pricing_model_id: pricingModelId, pricing_inputs: extractedPricing } })
                         .eq('id', sessionId);
                 } catch (pricingErr) {
@@ -173,7 +173,7 @@ Based on the business description, estimate AI usage parameters. Return a "prici
     async executeBuildQueue(sessionId: string, organizationId: string, userId: string): Promise<void> {
         try {
             const { data: queuedTasks, error } = await supabase
-                .from('onboarding_build_tasks')
+                .from('bb_onboarding_build_tasks')
                 .select('*')
                 .eq('session_id', sessionId)
                 .eq('status', 'pending')
@@ -182,7 +182,7 @@ Based on the business description, estimate AI usage parameters. Return a "prici
             if (error || !queuedTasks) throw error;
 
             for (const task of queuedTasks) {
-                 await supabase.from('onboarding_build_tasks').update({ status: 'in_progress' }).eq('id', task.id);
+                 await supabase.from('bb_onboarding_build_tasks').update({ status: 'in_progress' }).eq('id', task.id);
 
                  try {
                      if (task.task_category === 'create_task') {
@@ -234,10 +234,10 @@ Based on the business description, estimate AI usage parameters. Return a "prici
                              assignee_id: userId
                          });
                      }
-                     await supabase.from('onboarding_build_tasks').update({ status: 'completed' }).eq('id', task.id);
+                     await supabase.from('bb_onboarding_build_tasks').update({ status: 'completed' }).eq('id', task.id);
                  } catch (execError) {
                      console.error(`Execution failed for task: ${task.id}`, execError);
-                     await supabase.from('onboarding_build_tasks').update({ status: 'rejected' }).eq('id', task.id);
+                     await supabase.from('bb_onboarding_build_tasks').update({ status: 'rejected' }).eq('id', task.id);
                  }
             }
         } catch (err) {

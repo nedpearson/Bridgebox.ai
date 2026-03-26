@@ -162,7 +162,7 @@ export class ActionRecommender {
 
     const { data: project } = await supabase
       .from('bb_projects')
-      .select('*, deliverables(*)')
+      .select('*, bb_deliverables(*)')
       .eq('id', projectId)
       .eq('organization_id', organizationId)
       .single();

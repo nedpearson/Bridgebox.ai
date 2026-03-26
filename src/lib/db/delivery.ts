@@ -86,8 +86,8 @@ export const deliveryService = {
       .from('bb_project_delivery')
       .select(`
         *,
-        project:projects!project_delivery_project_id_fkey(id, name, service_type, organization_id, organizations(name)),
-        team_lead:profiles!project_delivery_team_lead_id_fkey(full_name, email)
+        project:bb_projects!project_delivery_project_id_fkey(id, name, service_type, organization_id, bb_organizations(name)),
+        team_lead:bb_profiles!project_delivery_team_lead_id_fkey(full_name, email)
       `)
       .order('health_status', { ascending: false });
 
@@ -114,8 +114,8 @@ export const deliveryService = {
       .from('bb_project_delivery')
       .select(`
         *,
-        project:projects!project_delivery_project_id_fkey(*, organizations(name)),
-        team_lead:profiles!project_delivery_team_lead_id_fkey(full_name, email)
+        project:bb_projects!project_delivery_project_id_fkey(*, bb_organizations(name)),
+        team_lead:bb_profiles!project_delivery_team_lead_id_fkey(full_name, email)
       `)
       .eq('project_id', projectId)
       .maybeSingle();
@@ -152,7 +152,7 @@ export const deliveryService = {
       .from('bb_milestones')
       .select(`
         *,
-        owner:profiles!milestones_owner_id_fkey(full_name, email)
+        owner:bb_profiles!milestones_owner_id_fkey(full_name, email)
       `)
       .eq('project_id', projectId)
       .order('order_index', { ascending: true });
@@ -252,7 +252,7 @@ export const deliveryService = {
       .from('bb_delivery_notes')
       .select(`
         *,
-        author:profiles!delivery_notes_author_id_fkey(full_name, email)
+        author:bb_profiles!delivery_notes_author_id_fkey(full_name, email)
       `)
       .eq('project_id', projectId)
       .order('created_at', { ascending: false });

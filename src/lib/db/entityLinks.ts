@@ -28,7 +28,7 @@ export const entityLinkService = {
     metadata?: Record<string, any>;
   }) {
     const { data, error } = await supabase
-      .from('entity_links')
+      .from('bb_entity_links')
       .insert(params)
       .select()
       .single();
@@ -52,7 +52,7 @@ export const entityLinkService = {
     relationship_type: string;
   }) {
     const { error } = await supabase
-      .from('entity_links')
+      .from('bb_entity_links')
       .delete()
       .match({
         source_type: params.source_type,
@@ -71,7 +71,7 @@ export const entityLinkService = {
    */
   async getLinkedEntities(source_type: EntityType, source_id: string, target_type?: EntityType, relationship_type?: string) {
     let query = supabase
-      .from('entity_links')
+      .from('bb_entity_links')
       .select('*')
       .or(`and(source_type.eq.${source_type},source_id.eq.${source_id}),and(target_type.eq.${source_type},target_id.eq.${source_id})`);
     

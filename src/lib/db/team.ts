@@ -12,13 +12,13 @@ export const teamService = {
         updated_at,
         organization_id,
         user_id,
-        user:profiles!organization_memberships_user_id_fkey (
+        user:bb_profiles!organization_memberships_user_id_fkey (
           id,
           email,
           full_name,
           avatar_url
         ),
-        organization:organizations!organization_memberships_organization_id_fkey (
+        organization:bb_organizations!organization_memberships_organization_id_fkey (
           name
         )
       `)
@@ -50,13 +50,13 @@ export const teamService = {
         updated_at,
         organization_id,
         user_id,
-        user:profiles!organization_memberships_user_id_fkey (
+        user:bb_profiles!organization_memberships_user_id_fkey (
           id,
           email,
           full_name,
           avatar_url
         ),
-        organization:organizations!organization_memberships_organization_id_fkey (
+        organization:bb_organizations!organization_memberships_organization_id_fkey (
           name
         )
       `)
@@ -131,10 +131,10 @@ export const teamService = {
       .from('bb_invitations')
       .select(`
         *,
-        organization:organizations!invitations_organization_id_fkey (
+        organization:bb_organizations!invitations_organization_id_fkey (
           name
         ),
-        inviter:profiles!invitations_invited_by_fkey (
+        inviter:bb_profiles!invitations_invited_by_fkey (
           full_name,
           email
         )
@@ -157,10 +157,10 @@ export const teamService = {
       .from('bb_invitations')
       .select(`
         *,
-        organization:organizations!invitations_organization_id_fkey (
+        organization:bb_organizations!invitations_organization_id_fkey (
           name
         ),
-        inviter:profiles!invitations_invited_by_fkey (
+        inviter:bb_profiles!invitations_invited_by_fkey (
           full_name,
           email
         )
@@ -213,7 +213,7 @@ export const teamService = {
       .from('bb_invitations')
       .select(`
         *,
-        organization:organizations!invitations_organization_id_fkey (
+        organization:bb_organizations!invitations_organization_id_fkey (
           name
         )
       `)
@@ -279,7 +279,7 @@ export const teamService = {
       .from('bb_invitations')
       .select(`
         *,
-        organization:organizations!invitations_organization_id_fkey (
+        organization:bb_organizations!invitations_organization_id_fkey (
           name
         )
       `)

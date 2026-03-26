@@ -51,7 +51,7 @@ export default function IntegrationIngestionLog() {
     try {
       // In a real app we'd expose a reject service method. We'll simulate by updating db locally or hiding it.
       import('../../lib/supabase').then(async ({ supabase }) => {
-         await supabase.from('integration_webhooks').update({ status: 'rejected' }).eq('id', webhook.id);
+         await supabase.from('bb_integration_webhooks').update({ status: 'rejected' }).eq('id', webhook.id);
          setWebhooks(hw => hw.filter(w => w.id !== webhook.id));
       });
     } catch (e) {

@@ -242,7 +242,7 @@ class AIDecisionEngine {
 
   async analyzeClientOpportunities(organizationId?: string): Promise<ClientRecommendation[]> {
     let query_organizations = supabase.from('bb_organizations')
-      .select('*, projects(*), subscriptions(*)');
+      .select('*, bb_projects(*), bb_subscriptions(*)');
     if (organizationId) query_organizations = query_organizations.eq('organization_id', organizationId);
     const { data: organizations } = await query_organizations;
 

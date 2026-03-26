@@ -17,7 +17,7 @@ export default function OnboardingCommandCenter() {
   const updateSessionStatus = async (sessionId: string, newStatus: 'approved' | 'rejected') => {
       try {
           const { error } = await supabase
-              .from('onboarding_sessions')
+              .from('bb_onboarding_sessions')
               .update({ status: newStatus })
               .eq('id', sessionId);
               
@@ -67,8 +67,8 @@ ${Object.entries(featureScopes).map(([feat, scope]) => `   - [${feat}]: Build as
        try {
            setIsLoading(true);
            const [sessionsRes, tasksRes] = await Promise.all([
-               supabase.from('onboarding_sessions').select('*').eq('organization_id', currentOrganization.id).order('created_at', { ascending: false }),
-               supabase.from('onboarding_build_tasks').select('*').eq('organization_id', currentOrganization.id).order('priority', { ascending: true })
+               supabase.from('bb_onboarding_sessions').select('*').eq('organization_id', currentOrganization.id).order('created_at', { ascending: false }),
+               supabase.from('bb_onboarding_build_tasks').select('*').eq('organization_id', currentOrganization.id).order('priority', { ascending: true })
            ]);
               
            if (sessionsRes.error) throw sessionsRes.error;
@@ -89,7 +89,7 @@ ${Object.entries(featureScopes).map(([feat, scope]) => `   - [${feat}]: Build as
       try {
           await BuildOrchestratorAgent.executeBuildQueue(sessionId, currentOrganization.id, user.id);
           // Refresh tasks to show live completed statuses
-          const { data } = await supabase.from('onboarding_build_tasks').select('*').eq('organization_id', currentOrganization.id).order('priority', { ascending: true });
+          const { data } = await supabase.from('bb_onboarding_build_tasks').select('*').eq('organization_id', currentOrganization.id).order('priority', { ascending: true });
           if(data) setBuildTasks(data);
           
           await updateSessionStatus(sessionId, 'approved');

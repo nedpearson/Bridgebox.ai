@@ -121,7 +121,7 @@ ONLY return the HTML-formatted drafted text without pleasantries or introductory
       }
 
       // Generate a valid Onboarding Session natively to satisfy relational FKs
-      const { data: sessionData, error: sessionError } = await supabase.from('onboarding_sessions').insert({
+      const { data: sessionData, error: sessionError } = await supabase.from('bb_onboarding_sessions').insert({
           organization_id: currentOrganization.id,
           client_id: user.id,
           session_title: `Generated Charter: ${documentId}`,

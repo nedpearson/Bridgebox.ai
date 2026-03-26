@@ -17,7 +17,7 @@ export const SupportDiagnosticAgent = {
     return AgentRegistry.execute<{title: string, description: string, complexity: string, files_affected: string[]}>('SupportDiagnosticAgent', payload, async () => {
       // 1. Physically log the fault to telemetry
       const { data: logRow, error: logError } = await supabase
-        .from('internal_logs')
+        .from('bb_internal_logs')
         .insert([{
           severity: 'critical',
           type: 'ReactErrorBoundary Crash',
@@ -67,7 +67,7 @@ Output ONLY a raw JSON strictly adhering to this schema:
       const parsed = JSON.parse(response.content.trim());
 
       // 3. Inject the explicit Fix directly into the DevTask Board for the Dev Team
-      await supabase.from('internal_dev_tasks').insert([{
+      await supabase.from('bb_internal_dev_tasks').insert([{
         title: parsed.title,
         description: parsed.description,
         status: 'todo',

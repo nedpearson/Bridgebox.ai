@@ -42,7 +42,7 @@ export interface RevenueForecast {
 class PredictiveAnalyticsEngine {
   async predictLeadConversion(leadId: string, organizationId?: string): Promise<LeadPrediction> {
     let query_lead = supabase.from('bb_leads')
-      .select('*, organization:organizations(*)')
+      .select('*, organization:bb_organizations(*)')
       .eq('id', leadId);
     if (organizationId) query_lead = query_lead.eq('organization_id', organizationId);
     const { data: lead } = await query_lead.single();
