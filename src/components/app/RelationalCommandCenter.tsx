@@ -20,6 +20,19 @@ type CommandCenterTab = 'overview' | 'tasks' | 'documents' | 'communications' | 
 export default function RelationalCommandCenter({ entityType, entityId, children }: RelationalCommandCenterProps) {
   const [activeTab, setActiveTab] = useState<CommandCenterTab>('overview');
 
+  React.useEffect(() => {
+    const handleTabChange = (e: any) => {
+      const newTab = e.detail;
+      if (['overview', 'tasks', 'documents', 'communications', 'workflows', 'network'].includes(newTab)) {
+        setActiveTab(newTab as CommandCenterTab);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+    
+    window.addEventListener('command-center-tab', handleTabChange);
+    return () => window.removeEventListener('command-center-tab', handleTabChange);
+  }, []);
+
   usePlatformIntelligence({
     id: `context_grid:${entityType}:${entityId}`,
     name: `Relational Command Center - ${entityType}`,

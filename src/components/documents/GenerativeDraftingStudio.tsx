@@ -132,13 +132,17 @@ ONLY return the HTML-formatted drafted text without pleasantries or introductory
       if (sessionError) throw sessionError;
 
       await BuildOrchestratorAgent.extractTasksFromSession(sessionData.id, currentOrganization.id, textContent);
-      await BuildOrchestratorAgent.executeBuildQueue(sessionData.id, currentOrganization.id, user.id);
+      await BuildOrchestratorAgent.executeBuildQueue(sessionData.id, currentOrganization.id, user.id, documentId);
       
       if (onApprove) {
           await onApprove();
       }
 
       setImplementSuccess(true);
+      
+      // Auto-navigate user directly to the linked Tasks screen
+      window.dispatchEvent(new CustomEvent('command-center-tab', { detail: 'tasks' }));
+      
       setTimeout(() => setImplementSuccess(false), 5000);
     } catch (e: any) {
       console.error('Failed to implement next steps:', e);

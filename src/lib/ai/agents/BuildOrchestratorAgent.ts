@@ -170,7 +170,7 @@ Based on the business description, estimate AI usage parameters. Return a "prici
     /**
      * Executes the queued tasks physically creating the target application state independently from LLMs.
      */
-    async executeBuildQueue(sessionId: string, organizationId: string, userId: string): Promise<void> {
+    async executeBuildQueue(sessionId: string, organizationId: string, userId: string, projectId?: string): Promise<void> {
         try {
             const { data: queuedTasks, error } = await supabase
                 .from('bb_onboarding_build_tasks')
@@ -185,8 +185,9 @@ Based on the business description, estimate AI usage parameters. Return a "prici
                  await supabase.from('bb_onboarding_build_tasks').update({ status: 'in_progress' }).eq('id', task.id);
 
                  try {
+                     let createdTask: any = null;
                      if (task.task_category === 'create_task') {
-                         await globalTasksService.createTask({
+                         createdTask = await globalTasksService.createTask({
                              tenant_id: organizationId,
                              title: task.title,
                              description: task.description,
@@ -196,16 +197,26 @@ Based on the business description, estimate AI usage parameters. Return a "prici
                          });
                      } 
                      else if (task.task_category === 'create_workflow') {
-                         await projectsService.createProject({
+                         const targetProject = await projectsService.createProject({
                              organization_id: organizationId,
                              name: task.title,
                              description: task.description,
                              type: 'internal_ops',
                              status: 'planning'
                          });
+                         if (targetProject && projectId) {
+                             await supabase.from('bb_entity_links').insert({
+                                 tenant_id: organizationId,
+                                 source_type: 'project',
+                                 source_id: projectId,
+                                 target_type: 'project',
+                                 target_id: targetProject.id,
+                                 relationship_type: 'blocks'
+                             });
+                         }
                      }
                      else if (task.task_category === 'prepare_integration') {
-                         await globalTasksService.createTask({
+                         createdTask = await globalTasksService.createTask({
                              tenant_id: organizationId,
                              title: `[IT INTEGRATION] ${task.title}`,
                              description: `System detected external integration requirement: ${task.description}`,
@@ -215,7 +226,7 @@ Based on the business description, estimate AI usage parameters. Return a "prici
                          });
                      }
                      else if (task.task_category === 'setup_dashboard') {
-                         await globalTasksService.createTask({
+                         createdTask = await globalTasksService.createTask({
                              tenant_id: organizationId,
                              title: `[DASHBOARD MAPPING] ${task.title}`,
                              description: `Configure Analytics views for this workspace natively: ${task.description}`,
@@ -225,7 +236,7 @@ Based on the business description, estimate AI usage parameters. Return a "prici
                          });
                      }
                      else if (task.task_category === 'antigravity_build') {
-                         await globalTasksService.createTask({
+                         createdTask = await globalTasksService.createTask({
                              tenant_id: organizationId,
                              title: `[ANTIGRAVITY EXECUTION] ${task.title}`,
                              description: `Complex software engineering required natively.\n\nSystem Prompt Target:\n${task.antigravity_prompt || 'No Prompt Provided'}`,
@@ -234,6 +245,18 @@ Based on the business description, estimate AI usage parameters. Return a "prici
                              assignee_id: userId
                          });
                      }
+                     
+                     if (createdTask && projectId) {
+                         await supabase.from('bb_entity_links').insert({
+                             tenant_id: organizationId,
+                             source_type: 'task',
+                             source_id: createdTask.id,
+                             target_type: 'project',
+                             target_id: projectId,
+                             relationship_type: 'attached_to'
+                         });
+                     }
+
                      await supabase.from('bb_onboarding_build_tasks').update({ status: 'completed' }).eq('id', task.id);
                  } catch (execError) {
                      console.error(`Execution failed for task: ${task.id}`, execError);

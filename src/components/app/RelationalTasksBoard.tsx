@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import { globalTasksService, GlobalTask } from '../../lib/db/globalTasks';
 import { entityLinkService, EntityType } from '../../lib/db/entityLinks';
-import { Plus, CheckCircle2, Circle, Clock } from 'lucide-react';
+import { Plus, CheckCircle2, Circle, Clock, Sparkles, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Button from '../Button';
+import { copilotEngine } from '../../lib/ai/services/copilotEngine';
 
 interface RelationalTasksBoardProps {
   entityType: EntityType;
@@ -61,6 +63,65 @@ export default function RelationalTasksBoard({ entityType, entityId }: Relationa
     }
   };
 
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleAiGenerate = async () => {
+     if (!aiPrompt.trim() || !currentOrganization?.id) return;
+     setIsGenerating(true);
+     try {
+         // Create a prompt that specifically tells the AI to return simple tasks
+         const result = await copilotEngine.generateReasonedResponse(
+             `Please break this down into actionable tasks in a strict JSON array format: "${aiPrompt}". Return an array of objects with 'title' (string), 'description' (string) and 'priority' ('high'|'medium'|'low'). Return ONLY JSON.`,
+             { role: 'admin', organizationId: currentOrganization.id, userId: 'system' },
+             { activeModule: 'relational_tasks' }
+         );
+         
+         let text = result.text || '';
+         text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+         
+         let parsedTasks: any[] = [];
+         try {
+             const parsedObj = JSON.parse(text);
+             if (!Array.isArray(parsedObj) && parsedObj.tasks) {
+                 parsedTasks = parsedObj.tasks;
+             } else if (Array.isArray(parsedObj)) {
+                 parsedTasks = parsedObj;
+             } else {
+                 parsedTasks = [{ title: aiPrompt, description: 'AI Generated Task', priority: 'medium' }];
+             }
+         } catch(e) {
+             // Fallback if parsing fails - just make one task
+             parsedTasks = [{ title: aiPrompt, description: 'AI Generated Task', priority: 'medium' }];
+         }
+         
+         for (const t of parsedTasks) {
+             const newTask = await globalTasksService.createTask({
+                tenant_id: currentOrganization.id,
+                title: `[AI] ${t.title || 'Extracted Task'}`,
+                description: t.description || aiPrompt,
+                status: 'todo',
+                priority: t.priority === 'high' ? 'high' : t.priority === 'low' ? 'low' : 'medium'
+             });
+             
+             await entityLinkService.linkEntities({
+                tenant_id: currentOrganization.id,
+                source_type: 'task',
+                source_id: newTask.id,
+                target_type: entityType,
+                target_id: entityId,
+                relationship_type: 'attached_to'
+             });
+         }
+     } catch (err) {
+         console.error('Failed AI task generation', err);
+     } finally {
+         setIsGenerating(false);
+         setAiPrompt('');
+         loadTasks();
+     }
+  };
+
   if (loading) {
     return (
       <div className="py-12 flex justify-center">
@@ -80,6 +141,22 @@ export default function RelationalTasksBoard({ entityType, entityId }: Relationa
           <Plus className="w-4 h-4" />
           <span>Add Fast Task</span>
         </button>
+      </div>
+
+      {/* Embedded AI Task Input */}
+      <div className="flex p-3 bg-indigo-950/30 border border-indigo-500/20 rounded-xl items-center space-x-3 mb-6">
+        <Sparkles className="w-5 h-5 text-indigo-400 flex-shrink-0" />
+        <input 
+          type="text"
+          value={aiPrompt}
+          onChange={(e) => setAiPrompt(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleAiGenerate()}
+          placeholder="Tell the AI to change or add new tasks (e.g. 'Add a task to setup DNS records')..."
+          className="flex-1 bg-transparent border-none text-sm text-white placeholder-indigo-300/50 focus:outline-none focus:ring-0"
+        />
+        <Button onClick={handleAiGenerate} disabled={isGenerating || !aiPrompt.trim()} size="sm" variant="primary">
+          {isGenerating ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Working...</> : 'AI Edit Tasks'}
+        </Button>
       </div>
 
       {tasks.length === 0 ? (
