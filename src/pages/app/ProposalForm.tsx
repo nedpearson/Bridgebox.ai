@@ -142,7 +142,7 @@ export default function ProposalForm() {
                     required
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent"
+                    className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                     placeholder="Healthcare Analytics Dashboard & Integration"
                   />
                 </div>
@@ -219,7 +219,7 @@ export default function ProposalForm() {
                         }}
                         className={`px-4 py-2 rounded-lg border transition-colors ${
                           formData.service_types.includes(service)
-                            ? 'bg-[#3B82F6]/20 border-[#3B82F6] text-[#3B82F6]'
+                            ? 'bg-indigo-500/20 border-indigo-500 text-indigo-500'
                             : 'bg-slate-800/50 border-slate-700 text-slate-300 hover:border-slate-600'
                         }`}
                       >

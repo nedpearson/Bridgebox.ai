@@ -54,7 +54,7 @@ export default function AccordionItem({
           </motion.div>
 
           <div className="flex-1">
-            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#3B82F6] transition-colors duration-300">
+            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-500 transition-colors duration-300">
               {title}
             </h3>
             <p className="text-slate-400">{description}</p>

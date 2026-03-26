@@ -163,7 +163,7 @@ export default function ProjectsList() {
               placeholder="Search projects..."
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6] transition-colors"
+              className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
             />
           </div>
 
@@ -171,7 +171,7 @@ export default function ProjectsList() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-3 bg-slate-800/50 border border-slate-700 hover:border-slate-600 text-white rounded-lg transition-colors focus:outline-none focus:border-[#3B82F6]"
+              className="px-4 py-3 bg-slate-800/50 border border-slate-700 hover:border-slate-600 text-white rounded-lg transition-colors focus:outline-none focus:border-indigo-500"
             >
               <option value="all">All Status</option>
               <option value="planning">Planning</option>
@@ -192,7 +192,7 @@ export default function ProjectsList() {
             </button>
             <button 
               onClick={handleNewProject}
-              className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors">
+              className="flex items-center space-x-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg transition-colors">
               <Plus className="w-5 h-5" />
               <span>Manual Project</span>
             </button>
@@ -215,9 +215,9 @@ export default function ProjectsList() {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link to={`/app/projects/${project.id}`}>
-                  <Card glass className="p-6 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer h-full">
+                  <Card glass className="p-6 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer h-full">
                     <div className="flex items-start space-x-4 mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
                         <FolderKanban className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1">

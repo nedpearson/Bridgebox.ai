@@ -105,7 +105,7 @@ export default function Marketplace() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
                   activeCategory === cat.id
-                    ? 'bg-[#3B82F6] text-white shadow-lg'
+                    ? 'bg-indigo-500 text-white shadow-lg'
                     : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
                 }`}
               >
@@ -122,7 +122,7 @@ export default function Marketplace() {
               placeholder="Search marketplace..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-indigo-500 transition-colors"
             />
           </div>
         </div>
@@ -141,7 +141,7 @@ export default function Marketplace() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
-                className="group relative bg-[#1E293B] border border-slate-700/50 rounded-2xl overflow-hidden hover:border-[#3B82F6] hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-all cursor-pointer flex flex-col h-full"
+                className="group relative bg-[#1E293B] border border-slate-700/50 rounded-2xl overflow-hidden hover:border-indigo-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-all cursor-pointer flex flex-col h-full"
               >
                 <div className="aspect-video bg-gradient-to-br from-slate-800 to-slate-900 border-b border-slate-700/50 p-6 flex flex-col justify-between">
                   {template.is_premium ? (
@@ -150,9 +150,9 @@ export default function Marketplace() {
                     <div className="self-end bg-slate-800 text-slate-300 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider border border-slate-600 relative z-10">Free</div>
                   )}
                   {template.is_agent ? (
-                     <Zap className="w-12 h-12 text-[#3B82F6]/70 group-hover:text-[#3B82F6] transition-colors mx-auto" />
+                     <Zap className="w-12 h-12 text-indigo-500/70 group-hover:text-indigo-500 transition-colors mx-auto" />
                   ) : (
-                     <LayoutTemplate className="w-12 h-12 text-slate-500/50 group-hover:text-[#3B82F6]/50 transition-colors mx-auto" />
+                     <LayoutTemplate className="w-12 h-12 text-slate-500/50 group-hover:text-indigo-500/50 transition-colors mx-auto" />
                   )}
                 </div>
                 
@@ -181,7 +181,7 @@ export default function Marketplace() {
 
                 {/* Hover overlay actions */}
                 <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none group-hover:pointer-events-auto">
-                   <button className={`px-6 py-2 text-white font-medium rounded-lg shadow-lg ${template.is_agent ? 'bg-[#3B82F6] hover:bg-[#2563EB]' : 'bg-slate-700 hover:bg-slate-600'}`}>
+                   <button className={`px-6 py-2 text-white font-medium rounded-lg shadow-lg ${template.is_agent ? 'bg-indigo-500 hover:bg-indigo-600' : 'bg-slate-700 hover:bg-slate-600'}`}>
                       {template.is_agent ? 'Deploy Assistant' : 'View Details'}
                    </button>
                 </div>

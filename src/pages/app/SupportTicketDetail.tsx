@@ -122,7 +122,7 @@ export default function SupportTicketDetail() {
               <select
                 value={ticket.status}
                 onChange={(e) => handleStatusChange(e.target.value as TicketStatus)}
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
+                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <option value="open">Open</option>
                 <option value="in_review">In Review</option>
@@ -238,7 +238,7 @@ export default function SupportTicketDetail() {
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Add a comment..."
                 rows={4}
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] resize-none"
+                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
               />
 
               <div className="flex items-center justify-between">
@@ -247,7 +247,7 @@ export default function SupportTicketDetail() {
                     type="checkbox"
                     checked={isInternal}
                     onChange={(e) => setIsInternal(e.target.checked)}
-                    className="w-4 h-4 bg-slate-800 border-slate-700 rounded focus:ring-2 focus:ring-[#3B82F6]"
+                    className="w-4 h-4 bg-slate-800 border-slate-700 rounded focus:ring-2 focus:ring-indigo-500"
                   />
                   <span>Internal note (not visible to client)</span>
                 </label>

@@ -38,7 +38,7 @@ export default function LogsViewer() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <Terminal className="w-6 h-6 text-[#3B82F6]" />
+            <Terminal className="w-6 h-6 text-indigo-500" />
             System Logs
           </h2>
           <p className="text-sm text-slate-400 mt-1">Real-time system, API, and background worker event logs.</p>
@@ -47,7 +47,7 @@ export default function LogsViewer() {
           <select 
             value={filterSeverity} 
             onChange={e => setFilterSeverity(e.target.value)}
-            className="bg-slate-900 border border-slate-700 text-white text-sm rounded-lg px-3 py-2 outline-none focus:border-[#3B82F6]"
+            className="bg-slate-900 border border-slate-700 text-white text-sm rounded-lg px-3 py-2 outline-none focus:border-indigo-500"
           >
             <option value="all">All Severities</option>
             <option value="info">Info</option>

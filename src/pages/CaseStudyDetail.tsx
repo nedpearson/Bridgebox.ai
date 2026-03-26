@@ -119,8 +119,8 @@ export default function CaseStudyDetail() {
 
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-[#3B82F6]" />
+                  <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center">
+                    <TrendingUp className="w-6 h-6 text-indigo-500" />
                   </div>
                   <h2 className="text-3xl font-bold text-white">The Solution</h2>
                 </div>
@@ -224,7 +224,7 @@ export default function CaseStudyDetail() {
                   {caseStudy.testimonial.quote}
                 </blockquote>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#10B981] to-[#3B82F6] flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#10B981] to-indigo-500 flex items-center justify-center text-white font-bold text-lg">
                     {caseStudy.testimonial.author.charAt(0)}
                   </div>
                   <div>

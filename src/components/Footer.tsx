@@ -40,7 +40,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-black border-t border-white/5 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-[#3B82F6]/5 via-transparent to-transparent opacity-30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-indigo-500/5 via-transparent to-transparent opacity-30" />
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 relative z-10">
         <motion.div
           variants={staggerContainer}
@@ -55,7 +55,7 @@ export default function Footer() {
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6, ease: 'easeInOut' }}
               >
-                <Box className="w-8 h-8 text-[#3B82F6] group-hover:text-[#10B981] transition-colors duration-300" />
+                <Box className="w-8 h-8 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
               </motion.div>
               <span className="text-xl font-bold text-white">Bridgebox</span>
             </Link>
@@ -73,7 +73,7 @@ export default function Footer() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + index * 0.1 }}
                   whileHover={{ y: -4, scale: 1.1 }}
-                  className="text-slate-400 hover:text-[#3B82F6] transition-colors duration-300"
+                  className="text-slate-400 hover:text-indigo-500 transition-colors duration-300"
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>

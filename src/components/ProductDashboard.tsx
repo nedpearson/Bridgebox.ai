@@ -84,7 +84,7 @@ export default function ProductDashboard() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.02 }}
-              className="bg-slate-800/50 backdrop-blur-sm border border-white/10 rounded-xl p-5 hover:border-[#3B82F6]/50 transition-all duration-300"
+              className="bg-slate-800/50 backdrop-blur-sm border border-white/10 rounded-xl p-5 hover:border-indigo-500/50 transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-3">
                 <span className="text-xs text-slate-400 uppercase tracking-wider">{kpi.label}</span>
@@ -119,7 +119,7 @@ export default function ProductDashboard() {
           >
             <div className="flex items-center justify-between mb-5">
               <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-                <Zap className="w-5 h-5 text-[#3B82F6]" />
+                <Zap className="w-5 h-5 text-indigo-500" />
                 Active Workflows
               </h4>
               <span className="text-xs text-slate-400">{workflows.length} running</span>
@@ -250,7 +250,7 @@ export default function ProductDashboard() {
                     {insight.type === 'success' && <CheckCircle2 className="w-4 h-4" style={{ color: impactColor(insight.impact) }} />}
                   </div>
                   <div className="flex-1">
-                    <div className="text-sm font-semibold text-white mb-1 group-hover:text-[#3B82F6] transition-colors">
+                    <div className="text-sm font-semibold text-white mb-1 group-hover:text-indigo-500 transition-colors">
                       {insight.title}
                     </div>
                     <div className="text-xs text-slate-400 leading-relaxed">
@@ -277,7 +277,7 @@ export default function ProductDashboard() {
               <span className="text-sm text-slate-400">System Health: Optimal</span>
             </div>
             <div className="flex items-center gap-2">
-              <Network className="w-4 h-4 text-[#3B82F6]" />
+              <Network className="w-4 h-4 text-indigo-500" />
               <span className="text-sm text-slate-400">4 integrations active</span>
             </div>
             <div className="flex items-center gap-2">
@@ -288,7 +288,7 @@ export default function ProductDashboard() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-4 py-2 bg-[#3B82F6]/10 hover:bg-[#3B82F6]/20 border border-[#3B82F6]/20 rounded-lg text-sm font-medium text-[#3B82F6] transition-all"
+            className="px-4 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 rounded-lg text-sm font-medium text-indigo-500 transition-all"
           >
             View Full Dashboard
           </motion.button>

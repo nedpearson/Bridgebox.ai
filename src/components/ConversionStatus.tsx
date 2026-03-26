@@ -70,7 +70,7 @@ export default function ConversionStatus({
           {projectId && (
             <Link
               to={`/app/projects/${projectId}`}
-              className="flex items-center space-x-1.5 px-2.5 py-1 bg-[#3B82F6]/10 hover:bg-[#3B82F6]/20 border border-[#3B82F6]/30 rounded-md text-[#3B82F6] hover:text-[#3B82F6] transition-colors"
+              className="flex items-center space-x-1.5 px-2.5 py-1 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 rounded-md text-indigo-500 hover:text-indigo-500 transition-colors"
             >
               <FolderKanban className="w-3.5 h-3.5" />
               <span className="font-medium">{projectName || 'Active Project'}</span>

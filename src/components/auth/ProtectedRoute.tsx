@@ -46,7 +46,7 @@ export default function ProtectedRoute({
           <p className="text-slate-400 mb-6">Your user profile could not be loaded. This may happen if your account creation was interrupted.</p>
           <button 
             onClick={() => window.location.href = '/login'} 
-            className="bg-[#3B82F6] hover:bg-[#2563EB] text-white px-6 py-2 rounded-lg transition-colors"
+            className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-lg transition-colors"
           >
             Return to Login
           </button>

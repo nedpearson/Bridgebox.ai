@@ -60,7 +60,7 @@ export default function AvatarStack({ roomName, maxDisplay = 4 }: AvatarStackPro
       {activeUsers.length > 1 && !isHuddleActive && (
         <button
           onClick={() => setIsHuddleActive(true)}
-          className="ml-4 flex items-center space-x-1.5 px-3 py-1.5 bg-gradient-to-r from-[#3B82F6]/20 to-[#10B981]/20 hover:from-[#3B82F6]/30 hover:to-[#10B981]/30 border border-[#3B82F6]/30 rounded-lg text-emerald-400 text-xs font-medium transition-all hover:scale-105 shadow-lg shadow-emerald-500/10"
+          className="ml-4 flex items-center space-x-1.5 px-3 py-1.5 bg-gradient-to-r from-indigo-500/20 to-[#10B981]/20 hover:from-indigo-500/30 hover:to-[#10B981]/30 border border-indigo-500/30 rounded-lg text-emerald-400 text-xs font-medium transition-all hover:scale-105 shadow-lg shadow-emerald-500/10"
         >
           <PhoneCall className="w-3.5 h-3.5" />
           <span>Start Huddle</span>

@@ -8,7 +8,7 @@ interface PricingModelBadgeProps {
 const MODEL_CONFIG: Record<PricingModel, { label: string; className: string }> = {
   fixed_project: {
     label: 'Fixed Project',
-    className: 'bg-[#3B82F6]/10 text-[#3B82F6] border-[#3B82F6]/30',
+    className: 'bg-indigo-500/10 text-indigo-500 border-indigo-500/30',
   },
   milestone_based: {
     label: 'Milestone-Based',

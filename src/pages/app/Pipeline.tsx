@@ -113,9 +113,9 @@ export default function Pipeline() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-400 text-sm mb-2">Active Opportunities</p>
-                <p className="text-3xl font-bold text-[#3B82F6]">{totalLeads}</p>
+                <p className="text-3xl font-bold text-indigo-500">{totalLeads}</p>
               </div>
-              <TrendingUp className="w-12 h-12 text-[#3B82F6] opacity-20" />
+              <TrendingUp className="w-12 h-12 text-indigo-500 opacity-20" />
             </div>
           </Card>
 
@@ -167,7 +167,7 @@ export default function Pipeline() {
                         transition={{ delay: stageIndex * 0.1 + leadIndex * 0.05 }}
                       >
                         <Link to={`/app/leads/${lead.id}`}>
-                          <div className="bg-slate-800/50 border border-slate-700/50 hover:border-[#3B82F6]/50 rounded-lg p-4 transition-all duration-300 cursor-pointer">
+                          <div className="bg-slate-800/50 border border-slate-700/50 hover:border-indigo-500/50 rounded-lg p-4 transition-all duration-300 cursor-pointer">
                             <h4 className="text-white font-semibold mb-1 line-clamp-1">
                               {lead.company_name || lead.contact_name}
                             </h4>

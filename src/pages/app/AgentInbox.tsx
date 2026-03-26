@@ -171,7 +171,7 @@ export default function AgentInbox() {
                            <div className="flex items-start gap-4 mb-3">
                              <div className="flex-1">
                                 <h3 className="text-lg font-semibold text-white mb-1">
-                                   Proposes: <span className="text-[#3B82F6]">{action.proposed_action}</span>
+                                   Proposes: <span className="text-indigo-500">{action.proposed_action}</span>
                                 </h3>
                                 <p className="text-sm text-slate-300">
                                    "{action.explanation}"

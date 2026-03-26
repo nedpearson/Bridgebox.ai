@@ -34,7 +34,7 @@ export default function CurrentSystemsStep() {
     <div className="max-w-3xl mx-auto">
       <Card glass className="p-10">
         <div className="flex items-center space-x-4 mb-8">
-          <div className="w-14 h-14 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-xl flex items-center justify-center">
+          <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-xl flex items-center justify-center">
             <Network className="w-7 h-7 text-white" />
           </div>
           <div>
@@ -54,7 +54,7 @@ export default function CurrentSystemsStep() {
                 id="crm"
                 value={systems.crm || ''}
                 onChange={(e) => setSystems({ ...systems, crm: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 placeholder="e.g., Salesforce, HubSpot"
               />
             </div>
@@ -68,7 +68,7 @@ export default function CurrentSystemsStep() {
                 id="erp"
                 value={systems.erp || ''}
                 onChange={(e) => setSystems({ ...systems, erp: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 placeholder="e.g., NetSuite, SAP"
               />
             </div>
@@ -84,7 +84,7 @@ export default function CurrentSystemsStep() {
                 id="accounting"
                 value={systems.accounting || ''}
                 onChange={(e) => setSystems({ ...systems, accounting: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 placeholder="e.g., QuickBooks, Xero"
               />
             </div>
@@ -98,7 +98,7 @@ export default function CurrentSystemsStep() {
                 id="document_management"
                 value={systems.document_management || ''}
                 onChange={(e) => setSystems({ ...systems, document_management: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 placeholder="e.g., SharePoint, Google Drive"
               />
             </div>
@@ -110,7 +110,7 @@ export default function CurrentSystemsStep() {
                 type="checkbox"
                 checked={systems.spreadsheets || false}
                 onChange={(e) => setSystems({ ...systems, spreadsheets: e.target.checked })}
-                className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6] focus:ring-offset-0"
+                className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-0"
               />
               <span className="text-slate-300 group-hover:text-white transition-colors">
                 Heavy reliance on spreadsheets
@@ -122,7 +122,7 @@ export default function CurrentSystemsStep() {
                 type="checkbox"
                 checked={systems.internal_dashboards || false}
                 onChange={(e) => setSystems({ ...systems, internal_dashboards: e.target.checked })}
-                className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6] focus:ring-offset-0"
+                className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-0"
               />
               <span className="text-slate-300 group-hover:text-white transition-colors">
                 Existing internal dashboards or reporting tools
@@ -146,7 +146,7 @@ export default function CurrentSystemsStep() {
                     : [],
                 })
               }
-              className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all resize-none"
+              className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
               placeholder="Separate multiple systems with commas"
             />
           </div>

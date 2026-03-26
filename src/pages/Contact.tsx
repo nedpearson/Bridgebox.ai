@@ -112,8 +112,8 @@ export default function Contact() {
                       transition={{ delay: 0.4 + index * 0.1 }}
                       className="flex items-center space-x-4"
                     >
-                      <div className="w-12 h-12 bg-[#3B82F6]/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-[#3B82F6]/20">
-                        <benefit.icon className="w-6 h-6 text-[#3B82F6]" />
+                      <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-indigo-500/20">
+                        <benefit.icon className="w-6 h-6 text-indigo-500" />
                       </div>
                       <span className="text-lg text-slate-300">{benefit.text}</span>
                     </motion.div>
@@ -140,7 +140,7 @@ export default function Contact() {
                         {info.link ? (
                           <a
                             href={info.link}
-                            className="text-white hover:text-[#3B82F6] transition-colors font-medium text-lg"
+                            className="text-white hover:text-indigo-500 transition-colors font-medium text-lg"
                           >
                             {info.value}
                           </a>

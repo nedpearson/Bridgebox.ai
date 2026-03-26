@@ -116,7 +116,7 @@ export default function ImplementationCenter() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search implementations..."
-              className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3B82F6]/50 focus:border-[#3B82F6]"
+              className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500"
             />
           </div>
         </div>
@@ -145,8 +145,8 @@ export default function ImplementationCenter() {
                       <div className="flex-1 space-y-3">
                         <div>
                           <div className="flex items-center space-x-3 mb-2">
-                            <Rocket className="w-5 h-5 text-[#3B82F6]" />
-                            <h3 className="text-lg font-bold text-white group-hover:text-[#3B82F6] transition-colors">
+                            <Rocket className="w-5 h-5 text-indigo-500" />
+                            <h3 className="text-lg font-bold text-white group-hover:text-indigo-500 transition-colors">
                               {impl.project?.name}
                             </h3>
                           </div>
@@ -171,7 +171,7 @@ export default function ImplementationCenter() {
                               initial={{ width: 0 }}
                               animate={{ width: `${getPhaseProgress(impl.deployment_phase)}%` }}
                               transition={{ duration: 1, ease: 'easeOut' }}
-                              className="h-full bg-gradient-to-r from-[#3B82F6] to-[#10B981]"
+                              className="h-full bg-gradient-to-r from-indigo-500 to-[#10B981]"
                             />
                           </div>
                         </div>
@@ -225,7 +225,7 @@ export default function ImplementationCenter() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="flex items-center space-x-1 text-xs text-[#3B82F6] hover:text-[#2563EB] transition-colors"
+                                className="flex items-center space-x-1 text-xs text-indigo-500 hover:text-indigo-600 transition-colors"
                               >
                                 <span>Staging</span>
                                 <ExternalLink className="w-3 h-3" />

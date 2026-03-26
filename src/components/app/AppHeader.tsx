@@ -61,18 +61,6 @@ export default function AppHeader({ title, subtitle, action, backTo, backLabel }
         </div>
 
         <div className="flex items-center space-x-3 md:space-x-4">
-          {profile?.role === 'super_admin' && (
-            <Link 
-              to="/app/internal/recording-center/capture" 
-              className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 rounded-lg text-sm font-medium transition-colors"
-              title="Quick Record"
-            >
-              <Video className="w-4 h-4" />
-              Record
-            </Link>
-          )}
-          
-          <InstallAppPrompt />
           <OrganizationSwitcher />
           
           <CommandPalette />
@@ -80,7 +68,7 @@ export default function AppHeader({ title, subtitle, action, backTo, backLabel }
           <NotificationBell />
 
           <Link to="/app/settings" className="flex items-center space-x-2 pl-3 border-l border-slate-800 hover:bg-white/5 p-2 -my-2 rounded-lg cursor-pointer transition-colors">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-[#10B981] flex items-center justify-center">
               {profile?.avatar_url ? (
                 <img src={profile.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
               ) : (

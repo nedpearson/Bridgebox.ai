@@ -21,7 +21,7 @@ export default function EmptyOrganizationState() {
         </p>
         <button
           onClick={() => navigate('/onboarding')}
-          className="bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium px-6 py-3 rounded-lg transition-colors"
+          className="bg-indigo-500 hover:bg-indigo-600 text-white font-medium px-6 py-3 rounded-lg transition-colors"
         >
           Create Organization
         </button>

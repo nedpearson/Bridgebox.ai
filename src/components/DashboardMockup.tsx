@@ -16,10 +16,10 @@ export default function DashboardMockup() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="relative bg-gradient-to-br from-[#0F172A] to-[#1E293B] rounded-2xl border border-white/10 shadow-2xl shadow-[#3B82F6]/20 overflow-hidden"
+        className="relative bg-gradient-to-br from-[#0F172A] to-[#1E293B] rounded-2xl border border-white/10 shadow-2xl shadow-indigo-500/20 overflow-hidden"
       >
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/5 to-[#10B981]/5"
+          className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-[#10B981]/5"
           animate={{
             opacity: [0.3, 0.5, 0.3],
           }}
@@ -72,7 +72,7 @@ export default function DashboardMockup() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -2, transition: { duration: 0.2 } }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-[#3B82F6]/30 transition-colors duration-300 cursor-pointer group"
+              className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-indigo-500/30 transition-colors duration-300 cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-slate-400">Data Synced</span>
@@ -80,7 +80,7 @@ export default function DashboardMockup() {
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                 >
-                  <Zap className="w-4 h-4 text-[#3B82F6] group-hover:scale-110 transition-transform" />
+                  <Zap className="w-4 h-4 text-indigo-500 group-hover:scale-110 transition-transform" />
                 </motion.div>
               </div>
               <motion.div
@@ -91,7 +91,7 @@ export default function DashboardMockup() {
               >
                 1.2M
               </motion.div>
-              <div className="flex items-center gap-1 text-xs text-[#3B82F6]">
+              <div className="flex items-center gap-1 text-xs text-indigo-500">
                 <span>Real-time updates</span>
               </div>
             </motion.div>
@@ -119,11 +119,11 @@ export default function DashboardMockup() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="bg-gradient-to-r from-[#3B82F6]/10 to-[#10B981]/10 backdrop-blur-sm rounded-xl p-4 border border-[#3B82F6]/20"
+            className="bg-gradient-to-r from-indigo-500/10 to-[#10B981]/10 backdrop-blur-sm rounded-xl p-4 border border-indigo-500/20"
           >
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-[#3B82F6]/20 rounded-lg">
-                <Zap className="w-5 h-5 text-[#3B82F6]" />
+              <div className="p-2 bg-indigo-500/20 rounded-lg">
+                <Zap className="w-5 h-5 text-indigo-500" />
               </div>
               <div className="flex-1">
                 <div className="text-sm font-medium text-white mb-1">AI Insight</div>
@@ -154,7 +154,7 @@ export default function DashboardMockup() {
               transition={{ delay: 0.85 }}
               className="flex items-center gap-2 bg-white/5 rounded-lg p-3 border border-white/5"
             >
-              <Clock className="w-4 h-4 text-[#3B82F6]" />
+              <Clock className="w-4 h-4 text-indigo-500" />
               <div>
                 <div className="text-xs text-slate-400">Uptime</div>
                 <div className="text-sm font-semibold text-white">99.9%</div>
@@ -178,7 +178,7 @@ export default function DashboardMockup() {
       </motion.div>
 
       <motion.div
-        className="absolute -inset-4 bg-gradient-to-r from-[#3B82F6]/20 to-[#10B981]/20 rounded-3xl blur-3xl -z-10"
+        className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-[#10B981]/20 rounded-3xl blur-3xl -z-10"
         animate={{
           opacity: [0.4, 0.6, 0.4],
           scale: [1, 1.05, 1],

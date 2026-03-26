@@ -83,7 +83,7 @@ export default function Pricing() {
                   onClick={() => setBillingInterval('monthly')}
                   className={`px-6 py-2 rounded-md transition-all ${
                     billingInterval === 'monthly'
-                      ? 'bg-[#3B82F6] text-white'
+                      ? 'bg-indigo-500 text-white'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -93,7 +93,7 @@ export default function Pricing() {
                   onClick={() => setBillingInterval('yearly')}
                   className={`px-6 py-2 rounded-md transition-all ${
                     billingInterval === 'yearly'
-                      ? 'bg-[#3B82F6] text-white'
+                      ? 'bg-indigo-500 text-white'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -127,12 +127,12 @@ export default function Pricing() {
                       glass
                       className={`h-full relative ${
                         plan.highlighted
-                          ? 'border-2 border-[#3B82F6] shadow-2xl shadow-[#3B82F6]/20'
+                          ? 'border-2 border-indigo-500 shadow-2xl shadow-indigo-500/20'
                           : ''
                       }`}
                     >
                       {plan.highlighted && (
-                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#3B82F6] to-[#10B981] text-white text-sm font-semibold px-4 py-1 rounded-full">
+                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-indigo-500 to-[#10B981] text-white text-sm font-semibold px-4 py-1 rounded-full">
                           Most Popular
                         </div>
                       )}
@@ -140,9 +140,9 @@ export default function Pricing() {
                         <motion.div
                           whileHover={{ scale: 1.1, rotate: 5 }}
                           transition={{ duration: 0.3 }}
-                          className="w-12 h-12 bg-[#3B82F6]/10 rounded-xl flex items-center justify-center mb-4 border border-[#3B82F6]/20"
+                          className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center mb-4 border border-indigo-500/20"
                         >
-                          <PlanIcon className="w-6 h-6 text-[#3B82F6]" />
+                          <PlanIcon className="w-6 h-6 text-indigo-500" />
                         </motion.div>
                         <h3 className="text-3xl font-bold text-white mb-2">{plan.name}</h3>
                         <p className="text-slate-400">{plan.description}</p>
@@ -199,7 +199,7 @@ export default function Pricing() {
               </p>
               <div className="inline-flex flex-wrap items-center justify-center gap-4 text-slate-400">
                 <div className="flex items-center space-x-2">
-                  <Code className="w-5 h-5 text-[#3B82F6]" />
+                  <Code className="w-5 h-5 text-indigo-500" />
                   <span>Custom Software</span>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -232,8 +232,8 @@ export default function Pricing() {
                 >
                   <Card hover glass className="h-full">
                     <div className="flex items-start space-x-6">
-                      <div className="w-16 h-16 bg-gradient-to-br from-[#3B82F6]/20 to-[#10B981]/20 rounded-2xl flex items-center justify-center flex-shrink-0 border border-[#3B82F6]/30">
-                        <solution.icon className="w-8 h-8 text-[#3B82F6]" />
+                      <div className="w-16 h-16 bg-gradient-to-br from-indigo-500/20 to-[#10B981]/20 rounded-2xl flex items-center justify-center flex-shrink-0 border border-indigo-500/30">
+                        <solution.icon className="w-8 h-8 text-indigo-500" />
                       </div>
                       <div className="flex-1">
                         <h3 className="text-2xl font-bold text-white mb-3">{solution.title}</h3>
@@ -309,7 +309,7 @@ export default function Pricing() {
                   {PLANS.filter(p => p.tier !== 'custom').map(plan => (
                     <th key={plan.id} className="text-center py-4 px-6">
                       <div className="text-white font-bold">{plan.name}</div>
-                      <div className="text-[#3B82F6] text-sm mt-1">{formatPlanPrice(plan, 'monthly')}/mo</div>
+                      <div className="text-indigo-500 text-sm mt-1">{formatPlanPrice(plan, 'monthly')}/mo</div>
                     </th>
                   ))}
                 </tr>

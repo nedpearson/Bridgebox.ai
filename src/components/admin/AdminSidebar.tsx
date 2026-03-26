@@ -49,7 +49,7 @@ export default function AdminSidebar({ activeSection, onSectionChange }: AdminSi
               whileHover={{ x: 4 }}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                 isActive
-                  ? 'bg-[#3B82F6]/10 text-[#3B82F6] border border-[#3B82F6]/30'
+                  ? 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/30'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
               }`}
             >
@@ -62,7 +62,7 @@ export default function AdminSidebar({ activeSection, onSectionChange }: AdminSi
 
       <div className="p-4 border-t border-slate-800">
         <div className="flex items-center space-x-3 px-4 py-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-full flex items-center justify-center">
             <span className="text-white text-sm font-bold">A</span>
           </div>
           <div>

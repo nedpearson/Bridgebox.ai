@@ -56,7 +56,7 @@ export default function RelationalMetricsCard({ entityType, entityId }: Relation
 
   const metrics = [
     { label: 'Tasks', count: getCount('task'), icon: CheckCircle2, route: 'tasks', color: 'text-amber-400', bg: 'bg-amber-400/10', border: 'border-amber-500/20' },
-    { label: 'Files', count: getCount('document'), icon: FileText, route: 'documents', color: 'text-[#3B82F6]', bg: 'bg-[#3B82F6]/10', border: 'border-[#3B82F6]/20' },
+    { label: 'Files', count: getCount('document'), icon: FileText, route: 'documents', color: 'text-indigo-500', bg: 'bg-indigo-500/10', border: 'border-indigo-500/20' },
     { label: 'Logs', count: getCount('communication'), icon: MessageSquare, route: 'communications', color: 'text-emerald-400', bg: 'bg-emerald-400/10', border: 'border-emerald-500/20' },
     { label: 'Flows', count: getCount('workflow'), icon: GitMerge, route: 'workflows', color: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-500/20' }
   ];

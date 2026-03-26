@@ -68,7 +68,7 @@ export default function UpgradeModal({
              </p>
 
              <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-5 mb-8">
-                <p className="text-sm font-semibold text-white mb-3 flex items-center"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-2"/> The {requiredPlan} Plan includes:</p>
+                <p className="text-sm font-semibold text-white mb-3 flex items-center"><CheckCircle2 className="w-4 h-4 text-indigo-500 mr-2"/> The {requiredPlan} Plan includes:</p>
                 <ul className="space-y-2 text-sm text-slate-300">
                    {requiredPlan === 'Professional' && (
                      <>
@@ -111,7 +111,7 @@ export default function UpgradeModal({
                   <a 
                     href="mailto:sales@bridgebox.ai?subject=Enterprise%20Upgrade%20Request"
                     onClick={() => onClose()}
-                    className="flex-1 px-4 py-3 bg-gradient-to-r from-[#3B82F6] to-cyan-500 hover:opacity-90 text-white font-bold rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)]"
+                    className="flex-1 px-4 py-3 bg-gradient-to-r from-indigo-500 to-cyan-500 hover:opacity-90 text-white font-bold rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)]"
                   >
                     Contact Sales <ArrowRight className="w-4 h-4 ml-2" />
                   </a>

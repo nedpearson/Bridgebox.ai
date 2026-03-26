@@ -82,7 +82,7 @@ export default function ClientDeliverables() {
       case 'approved':
         return <CheckCircle2 className="w-5 h-5 text-[#10B981]" />;
       case 'delivered':
-        return <CheckCircle2 className="w-5 h-5 text-[#3B82F6]" />;
+        return <CheckCircle2 className="w-5 h-5 text-indigo-500" />;
       case 'review':
         return <Eye className="w-5 h-5 text-yellow-500" />;
       case 'in_progress':
@@ -128,7 +128,7 @@ export default function ClientDeliverables() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
             >
-              <Card glass className="p-6 hover:border-[#3B82F6]/30 transition-all duration-300">
+              <Card glass className="p-6 hover:border-indigo-500/30 transition-all duration-300">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4 flex-1">
                     <div className="mt-1">{getStatusIcon(deliverable.status)}</div>
@@ -163,7 +163,7 @@ export default function ClientDeliverables() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 download={deliverable.file_name || 'download'}
-                                className="flex items-center space-x-2 px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-medium rounded-lg transition-colors"
+                                className="flex items-center space-x-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-lg transition-colors"
                               >
                                 {deliverable.file_references && deliverable.file_references.length > 0 ? (
                                   <>

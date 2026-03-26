@@ -132,7 +132,7 @@ export default function Solutions() {
                     />
                   </motion.div>
 
-                  <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-[#3B82F6] transition-colors duration-300">
+                  <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-indigo-500 transition-colors duration-300">
                     {solution.title}
                   </h3>
 
@@ -167,7 +167,7 @@ export default function Solutions() {
 
                   <Link to={`/contact?solution=${encodeURIComponent(solution.title)}`}>
                     <motion.div
-                      className="mt-6 flex items-center text-sm font-medium group-hover:text-[#3B82F6] transition-colors duration-300"
+                      className="mt-6 flex items-center text-sm font-medium group-hover:text-indigo-500 transition-colors duration-300"
                       style={{ color: solution.color }}
                       whileHover={{ x: 5 }}
                     >

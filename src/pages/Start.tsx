@@ -198,7 +198,7 @@ export default function Start() {
             className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
           >
             Start Your Project with{' '}
-            <span className="bg-gradient-to-r from-[#3B82F6] to-[#10B981] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-500 to-[#10B981] bg-clip-text text-transparent">
               Bridgebox
             </span>
           </motion.h1>
@@ -245,10 +245,10 @@ export default function Start() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card glass className="h-full text-center hover:border-[#3B82F6]/50 transition-all duration-300">
+              <Card glass className="h-full text-center hover:border-indigo-500/50 transition-all duration-300">
                 <div className="flex flex-col items-center">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#3B82F6]/20 to-[#10B981]/20 flex items-center justify-center mb-4">
-                    <capability.icon className="w-7 h-7 text-[#3B82F6]" />
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500/20 to-[#10B981]/20 flex items-center justify-center mb-4">
+                    <capability.icon className="w-7 h-7 text-indigo-500" />
                   </div>
                   <h3 className="text-lg font-bold text-white mb-2">{capability.title}</h3>
                   <p className="text-sm text-slate-400">{capability.description}</p>
@@ -279,11 +279,11 @@ export default function Start() {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#3B82F6] to-[#10B981]" />
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-[#10B981]" />
                 <div className="flex items-start gap-6 pl-6">
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#3B82F6]/20 to-[#10B981]/20 flex items-center justify-center">
-                      <step.icon className="w-8 h-8 text-[#3B82F6]" />
+                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500/20 to-[#10B981]/20 flex items-center justify-center">
+                      <step.icon className="w-8 h-8 text-indigo-500" />
                     </div>
                   </div>
                   <div className="flex-1">
@@ -356,11 +356,11 @@ export default function Start() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="h-full hover:border-[#3B82F6]/50 transition-all duration-300">
+              <Card className="h-full hover:border-indigo-500/50 transition-all duration-300">
                 <div className="flex flex-col h-full">
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-[#3B82F6]/20 to-[#10B981]/20 flex items-center justify-center">
-                      <project.icon className="w-7 h-7 text-[#3B82F6]" />
+                    <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500/20 to-[#10B981]/20 flex items-center justify-center">
+                      <project.icon className="w-7 h-7 text-indigo-500" />
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
@@ -405,7 +405,7 @@ export default function Start() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <Card className="bg-gradient-to-br from-[#3B82F6]/10 via-[#10B981]/10 to-[#3B82F6]/10 border-[#3B82F6]/30">
+          <Card className="bg-gradient-to-br from-indigo-500/10 via-[#10B981]/10 to-indigo-500/10 border-indigo-500/30">
             <div className="max-w-3xl mx-auto text-center">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-[#10B981]/20 mb-6">
                 <Calendar className="w-8 h-8 text-[#10B981]" />

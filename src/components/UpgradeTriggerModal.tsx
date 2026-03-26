@@ -23,8 +23,8 @@ const contextData = {
   },
   user_limit: {
     icon: Lock,
-    color: 'text-[#3B82F6]',
-    bg: 'bg-[#3B82F6]/10 border-[#3B82F6]/30',
+    color: 'text-indigo-500',
+    bg: 'bg-indigo-500/10 border-indigo-500/30',
     title: 'Seat Limit Reached',
     desc: 'You have provisioned the maximum number of user accounts allowable on this subscription tier.'
   },
@@ -77,7 +77,7 @@ export default function UpgradeTriggerModal({
          >
             <Card glass className="bg-slate-900 border border-white/10 p-1 relative overflow-hidden">
                {/* Abstract background flare */}
-               <div className="absolute -top-32 -right-32 w-64 h-64 bg-[#3B82F6]/20 blur-[100px] rounded-full pointer-events-none" />
+               <div className="absolute -top-32 -right-32 w-64 h-64 bg-indigo-500/20 blur-[100px] rounded-full pointer-events-none" />
                <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-indigo-500/20 blur-[100px] rounded-full pointer-events-none" />
 
                <div className="p-6 md:p-8 relative z-10">
@@ -104,7 +104,7 @@ export default function UpgradeTriggerModal({
                         </div>
                         <ArrowRight className="w-5 h-5 text-slate-600" />
                         <div className="text-right">
-                           <div className="text-xs text-[#3B82F6] uppercase tracking-widest font-bold mb-1">Target Class</div>
+                           <div className="text-xs text-indigo-500 uppercase tracking-widest font-bold mb-1">Target Class</div>
                            <div className="font-bold text-white">{targetPlan}</div>
                         </div>
                      </div>
@@ -122,7 +122,7 @@ export default function UpgradeTriggerModal({
                      <Button variant="outline" className="w-full justify-center" onClick={onClose}>
                         Maintain Limits
                      </Button>
-                     <Button className="w-full justify-center bg-[#3B82F6] hover:bg-[#2563EB] border-transparent text-white shadow-[0_0_20px_rgba(59,130,246,0.2)]">
+                     <Button className="w-full justify-center bg-indigo-500 hover:bg-indigo-600 border-transparent text-white shadow-[0_0_20px_rgba(59,130,246,0.2)]">
                         <Zap className="w-4 h-4 mr-2" />
                         Execute Upgrade
                      </Button>

@@ -29,7 +29,7 @@ export default function HeroSection() {
             </motion.p>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="flex flex-col sm:flex-row gap-4">
-               <Button size="lg" to="/sales-onboarding" className="shadow-[0_0_30px_rgba(99,102,241,0.5)] bg-[#3B82F6] hover:bg-[#2563EB] border border-[#3B82F6]">
+               <Button size="lg" to="/sales-onboarding" className="shadow-[0_0_30px_rgba(99,102,241,0.5)] bg-indigo-500 hover:bg-indigo-600 border border-indigo-500">
                   Acquire My Dashboard <ArrowRight className="ml-2 w-5 h-5" />
                </Button>
                <Button size="lg" variant="outline" to="/demo/general">

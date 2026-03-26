@@ -123,7 +123,7 @@ export default function EcosystemHub() {
           <Card className="bg-slate-900 border-slate-800 shadow-xl overflow-hidden">
             <div className="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
                <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                 <Activity className="w-5 h-5 text-[#3B82F6]" />
+                 <Activity className="w-5 h-5 text-indigo-500" />
                  Trending Templates
                </h3>
                <span className="text-xs text-slate-400 border border-slate-700 px-2 py-1 rounded">Top 5</span>
@@ -188,7 +188,7 @@ export default function EcosystemHub() {
         {!loading && (
           <div className="mt-8 border-t border-slate-800 pt-8">
             <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-              <Bot className="w-6 h-6 mr-3 text-[#3B82F6]" />
+              <Bot className="w-6 h-6 mr-3 text-indigo-500" />
               Global Autonomy & AI Fleet Status
             </h2>
             

@@ -157,7 +157,7 @@ export default function LeadsList() {
               placeholder="Search leads..."
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6] transition-colors"
+              className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
             />
           </div>
 
@@ -165,7 +165,7 @@ export default function LeadsList() {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+              className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
             >
               <option value="all">All Status</option>
               <option value="new">New</option>
@@ -180,7 +180,7 @@ export default function LeadsList() {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+              className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
             >
               <option value="all">All Types</option>
               <option value="platform_subscription">Platform Subscription</option>
@@ -195,7 +195,7 @@ export default function LeadsList() {
 
             <button 
               onClick={() => setIsAddModalOpen(true)}
-              className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors"
+              className="flex items-center space-x-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg transition-colors"
             >
               <Plus className="w-5 h-5" />
               <span>Add Lead</span>
@@ -212,10 +212,10 @@ export default function LeadsList() {
               transition={{ delay: index * 0.05 }}
             >
               <Link to={`/app/leads/${lead.id}`}>
-                <Card glass className="p-6 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer">
+                <Card glass className="p-6 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4 flex-1">
-                      <div className="w-12 h-12 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
                         <Users className="w-6 h-6 text-white" />
                       </div>
 

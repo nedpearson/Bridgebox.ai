@@ -161,7 +161,7 @@ export default function SupportQueue() {
                 placeholder="Search tickets..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               />
             </div>
 
@@ -170,7 +170,7 @@ export default function SupportQueue() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               >
                 <option value="all">All Statuses</option>
                 <option value="open">Open</option>
@@ -184,7 +184,7 @@ export default function SupportQueue() {
               <select
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
-                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               >
                 <option value="all">All Priorities</option>
                 <option value="urgent">Urgent</option>
@@ -218,12 +218,12 @@ export default function SupportQueue() {
                 transition={{ duration: 0.3 }}
               >
                 <Link to={`/app/support/${ticket.id}`}>
-                  <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-all duration-300 cursor-pointer group">
+                  <Card glass className="p-6 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-3">
                           <div>
-                            <h3 className="text-lg font-semibold text-white group-hover:text-[#3B82F6] transition-colors mb-2">
+                            <h3 className="text-lg font-semibold text-white group-hover:text-indigo-500 transition-colors mb-2">
                               {ticket.title}
                             </h3>
                             <p className="text-slate-400 text-sm line-clamp-2 mb-3">

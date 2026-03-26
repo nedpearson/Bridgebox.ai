@@ -104,7 +104,7 @@ export default function Platform() {
             animate={{ opacity: 1, y: 0 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-full text-[#3B82F6] text-sm font-medium backdrop-blur-sm">
+            <span className="px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-500 text-sm font-medium backdrop-blur-sm">
               Enterprise-Grade Platform
             </span>
           </motion.div>
@@ -264,16 +264,16 @@ export default function Platform() {
             >
               <Card hover glass className="h-full text-center group">
                 <motion.div
-                  className="w-14 h-14 bg-[#3B82F6]/10 rounded-xl flex items-center justify-center mx-auto mb-6 relative"
+                  className="w-14 h-14 bg-indigo-500/10 rounded-xl flex items-center justify-center mx-auto mb-6 relative"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <capability.icon className="w-7 h-7 text-[#3B82F6] group-hover:text-[#10B981] transition-colors duration-300" />
+                  <capability.icon className="w-7 h-7 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
                   <motion.div
-                    className="absolute inset-0 bg-[#3B82F6]/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 bg-indigo-500/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   />
                 </motion.div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#3B82F6] transition-colors duration-300">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-500 transition-colors duration-300">
                   {capability.title}
                 </h3>
                 <p className="text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">

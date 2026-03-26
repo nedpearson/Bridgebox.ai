@@ -111,7 +111,7 @@ export default function DeliveryOverview() {
               <select
                 value={phaseFilter}
                 onChange={(e) => setPhaseFilter(e.target.value)}
-                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               >
                 <option value="all">All Phases</option>
                 <option value="discovery">Discovery</option>
@@ -127,7 +127,7 @@ export default function DeliveryOverview() {
               <select
                 value={healthFilter}
                 onChange={(e) => setHealthFilter(e.target.value)}
-                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               >
                 <option value="all">All Health</option>
                 <option value="green">Healthy</option>
@@ -160,12 +160,12 @@ export default function DeliveryOverview() {
                 transition={{ duration: 0.3 }}
               >
                 <Link to={`/app/delivery/${delivery.project_id}`}>
-                  <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-all duration-300 cursor-pointer group">
+                  <Card glass className="p-6 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-start justify-between gap-6">
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-3">
                           <div>
-                            <h3 className="text-xl font-bold text-white group-hover:text-[#3B82F6] transition-colors mb-2">
+                            <h3 className="text-xl font-bold text-white group-hover:text-indigo-500 transition-colors mb-2">
                               {delivery.project?.name || 'Unnamed Project'}
                             </h3>
                             {delivery.project?.organizations && (
@@ -195,7 +195,7 @@ export default function DeliveryOverview() {
                             <div className="flex items-center space-x-2">
                               <div className="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
                                 <div
-                                  className="h-full bg-[#3B82F6] transition-all duration-500"
+                                  className="h-full bg-indigo-500 transition-all duration-500"
                                   style={{ width: `${delivery.completion_percentage}%` }}
                                 />
                               </div>

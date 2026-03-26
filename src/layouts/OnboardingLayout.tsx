@@ -30,13 +30,13 @@ export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
             <h2 className="text-sm font-medium text-slate-400">
               Step {currentStep + 1} of {totalSteps}
             </h2>
-            <div className="text-sm font-medium text-[#3B82F6]">{Math.round(progress)}% Complete</div>
+            <div className="text-sm font-medium text-indigo-500">{Math.round(progress)}% Complete</div>
           </div>
 
           <div className="relative">
             <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-[#3B82F6] to-[#10B981]"
+                className="h-full bg-gradient-to-r from-indigo-500 to-[#10B981]"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -58,7 +58,7 @@ export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
                         isCompleted
                           ? 'bg-[#10B981] border-[#10B981]'
                           : isCurrent
-                          ? 'bg-[#3B82F6] border-[#3B82F6]'
+                          ? 'bg-indigo-500 border-indigo-500'
                           : 'bg-slate-800 border-slate-700'
                       }`}
                     >

@@ -17,7 +17,7 @@ export default function Services() {
       description: 'Enterprise applications built around your exact workflows. No compromises, no generic templates.',
       features: ['Bespoke architecture', 'Legacy system integration', 'Scalable infrastructure', 'Full ownership'],
       link: '/custom-software',
-      gradient: 'from-[#3B82F6] to-[#1D4ED8]',
+      gradient: 'from-indigo-500 to-[#1D4ED8]',
     },
     {
       icon: Cpu,
@@ -81,9 +81,9 @@ export default function Services() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-2 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-full mb-6"
+            className="inline-block px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6"
           >
-            <span className="text-[#3B82F6] font-medium text-sm">Enterprise Solutions</span>
+            <span className="text-indigo-500 font-medium text-sm">Enterprise Solutions</span>
           </motion.div>
 
           <motion.h1
@@ -119,7 +119,7 @@ export default function Services() {
               custom={index}
             >
               <Link to={service.link}>
-                <Card className="h-full group cursor-pointer hover:border-[#3B82F6]/50">
+                <Card className="h-full group cursor-pointer hover:border-indigo-500/50">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
@@ -129,7 +129,7 @@ export default function Services() {
                     <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} rounded-xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity`} />
                   </motion.div>
 
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-[#3B82F6] transition-colors">
+                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-500 transition-colors">
                     {service.title}
                   </h3>
 
@@ -146,7 +146,7 @@ export default function Services() {
                     ))}
                   </ul>
 
-                  <div className="flex items-center gap-2 text-[#3B82F6] font-medium group-hover:gap-4 transition-all">
+                  <div className="flex items-center gap-2 text-indigo-500 font-medium group-hover:gap-4 transition-all">
                     Learn More
                     <ArrowRight className="w-4 h-4" />
                   </div>
@@ -192,7 +192,7 @@ export default function Services() {
               custom={index}
               className="relative"
             >
-              <div className="text-6xl font-bold bg-gradient-to-r from-[#3B82F6] to-[#10B981] bg-clip-text text-transparent mb-4">
+              <div className="text-6xl font-bold bg-gradient-to-r from-indigo-500 to-[#10B981] bg-clip-text text-transparent mb-4">
                 {String(index + 1).padStart(2, '0')}
               </div>
               <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
@@ -204,7 +204,7 @@ export default function Services() {
                   whileInView={{ scaleX: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.5 + index * 0.2 }}
-                  className="hidden lg:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-[#3B82F6] to-transparent origin-left"
+                  className="hidden lg:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-indigo-500 to-transparent origin-left"
                 />
               )}
             </motion.div>
@@ -250,7 +250,7 @@ export default function Services() {
             >
               <Card className="p-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <Zap className="w-8 h-8 text-[#3B82F6]" />
+                  <Zap className="w-8 h-8 text-indigo-500" />
                   <h3 className="text-2xl font-bold text-white">Ready to Build?</h3>
                 </div>
                 <p className="text-slate-400 mb-8 leading-relaxed">

@@ -102,7 +102,7 @@ export default function SystemFlow() {
                     ease: 'easeInOut',
                   }}
                 >
-                  <ArrowRight className="w-8 h-8 text-[#3B82F6]" />
+                  <ArrowRight className="w-8 h-8 text-indigo-500" />
                 </motion.div>
               </motion.div>
             )}
@@ -111,7 +111,7 @@ export default function SystemFlow() {
       </div>
 
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-[#3B82F6]/5 via-[#10B981]/5 to-[#8B5CF6]/5 blur-3xl -z-20"
+        className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-[#10B981]/5 to-[#8B5CF6]/5 blur-3xl -z-20"
         animate={{
           opacity: [0.3, 0.5, 0.3],
         }}

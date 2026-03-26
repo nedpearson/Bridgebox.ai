@@ -89,15 +89,15 @@ export default function DemoSandbox() {
       <motion.div 
          initial={{ opacity: 0, scale: 0.95 }}
          animate={{ opacity: 1, scale: 1 }}
-         className="w-full max-w-md bg-slate-900 border border-[#3B82F6]/30 rounded-2xl p-8 text-center shadow-[0_0_40px_rgba(59,130,246,0.1)] relative overflow-hidden"
+         className="w-full max-w-md bg-slate-900 border border-indigo-500/30 rounded-2xl p-8 text-center shadow-[0_0_40px_rgba(59,130,246,0.1)] relative overflow-hidden"
       >
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3B82F6] to-cyan-400" />
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-cyan-400" />
         
-        <div className="w-20 h-20 bg-[#3B82F6]/10 border-2 border-[#3B82F6]/30 rounded-xl flex items-center justify-center mx-auto mb-6">
+        <div className="w-20 h-20 bg-indigo-500/10 border-2 border-indigo-500/30 rounded-xl flex items-center justify-center mx-auto mb-6">
            {error ? (
               <Component className="w-10 h-10 text-rose-500" />
            ) : (
-              <Loader2 className="w-10 h-10 text-[#3B82F6] animate-spin" />
+              <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
            )}
         </div>
 

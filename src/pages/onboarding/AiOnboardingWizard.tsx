@@ -1,12 +1,38 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Mic, Building2, StopCircle, CheckCircle2, ArrowLeft } from 'lucide-react';
+import { Sparkles, Mic, Building2, StopCircle, CheckCircle2, ArrowLeft, Plus, Trash2, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { BuildOrchestratorAgent } from '../../lib/ai/agents/BuildOrchestratorAgent';
 import { organizationsService } from '../../lib/db/organizations';
 import AiIntelligencePane from '../../components/onboarding/AiIntelligencePane';
+import AiInputAssist from '../../components/onboarding/AiInputAssist';
+
+export const INDUSTRIES = [
+  "Agriculture & Forestry",
+  "Automotive & Transportation",
+  "Business & Consulting Services",
+  "Construction & Contracting",
+  "E-Commerce & Online Retail",
+  "Education & E-Learning",
+  "Energy & Utilities",
+  "Event Planning & Hospitality",
+  "Financial Services & Accounting",
+  "Government & Public Sector",
+  "Healthcare, Medical, & Wellness",
+  "Legal Services",
+  "Logistics, Supply Chain, & Travel",
+  "Manufacturing & Production",
+  "Marketing, Advertising, & PR",
+  "Media & Entertainment",
+  "Non-Profit & Philanthropy",
+  "Real Estate & Property Management",
+  "Retail & Consumer Goods",
+  "Software & Technology (SaaS)",
+  "Telecommunications",
+  "Wholesale & Distribution"
+];
 
 export default function AiOnboardingWizard() {
   const navigate = useNavigate();
@@ -16,71 +42,23 @@ export default function AiOnboardingWizard() {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [businessInput, setBusinessInput] = useState('');
-  const [clientUrl, setClientUrl] = useState('');
+  const [properties, setProperties] = useState([{ name: '', url: '', category: '', location: '' }]);
   const [competitorUrl, setCompetitorUrl] = useState('');
+  const [industry, setIndustry] = useState('');
   const [requireMobileApp, setRequireMobileApp] = useState(false);
   const [projectName, setProjectName] = useState('');
-  const [isRecording, setIsRecording] = useState(false);
   const [isManualModalOpen, setIsManualModalOpen] = useState(false);
   const [manualOrgName, setManualOrgName] = useState('');
   const [isManualLoading, setIsManualLoading] = useState(false);
-  const recognitionRef = useRef<any>(null);
-
-  useEffect(() => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = true;
-      recognitionRef.current.interimResults = true;
-
-      recognitionRef.current.onresult = (event: any) => {
-        let interimTranscript = '';
-        let finalTranscript = '';
-
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
-          } else {
-            interimTranscript += event.results[i][0].transcript;
-          }
-        }
-
-        if (finalTranscript) {
-          setBusinessInput((prev) => prev + ' ' + finalTranscript.trim());
-        }
-      };
-
-      recognitionRef.current.onerror = (event: any) => {
-        console.error('Speech recognition error', event.error);
-        setIsRecording(false);
-      };
-
-      recognitionRef.current.onend = () => {
-        setIsRecording(false);
-      };
-    }
-    return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-    };
-  }, []);
-
-  const toggleRecording = () => {
-    if (isRecording) {
-      recognitionRef.current?.stop();
-      setIsRecording(false);
-    } else {
-      recognitionRef.current?.start();
-      setIsRecording(true);
-    }
-  };
+  const [showIndustryDropdown, setShowIndustryDropdown] = useState(false);
   
   const mergedContext = `
     ${isProjectMode ? `Project Name: ${projectName}` : ''}
+    Industry: ${industry || 'Not Specified'}
     Business Description: ${businessInput}
-    Client Website: ${clientUrl}
-    Competitor Website: ${competitorUrl}
+    Web Properties & Locations:
+    ${properties.filter(p => p.name || p.url).map(p => `- Property: ${p.name || 'Unnamed'}, URL: ${p.url || 'None'}, Category: ${p.category || 'N/A'}, Location: ${p.location || 'N/A'}`).join('\n')}
+    Competitors: ${competitorUrl}
     Requires Mobile App: ${requireMobileApp ? 'Yes' : 'No'}
   `.trim();
 
@@ -104,6 +82,15 @@ export default function AiOnboardingWizard() {
             .single();
             
          if (error) throw error;
+         
+         // Phase 12: Ensure this feature is mapped correctly throughout the program natively:
+         await organizationsService.updateOrganization(currentOrganization.id, {
+             industry: industry || undefined,
+             metadata: {
+                 ...((currentOrganization as any).metadata || {}),
+                 properties: properties.filter(p => p.name.trim() || p.url.trim() || p.location.trim())
+             }
+         });
          
          if (sessionData) {
              await BuildOrchestratorAgent.extractTasksFromSession(sessionData.id, currentOrganization.id, mergedContext);
@@ -182,7 +169,7 @@ export default function AiOnboardingWizard() {
 
         <div className="mt-8">
           <div className="flex items-center space-x-3 mb-10 cursor-pointer" onClick={() => navigate('/app')}>
-            <Building2 className="w-8 h-8 text-[#3B82F6]" />
+            <Building2 className="w-8 h-8 text-indigo-500" />
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
               Bridgebox.ai
             </span>
@@ -207,10 +194,10 @@ export default function AiOnboardingWizard() {
                 <motion.div 
                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                   className="mb-6 flex items-start space-x-3 bg-[#3B82F6]/10 border border-[#3B82F6]/20 p-4 rounded-xl"
+                   className="mb-6 flex items-start space-x-3 bg-indigo-500/10 border border-indigo-500/20 p-4 rounded-xl"
                 >
-                   <div className="w-8 h-8 rounded-full bg-[#3B82F6]/20 flex items-center justify-center shrink-0">
-                      <Sparkles className="w-4 h-4 text-[#3B82F6]" />
+                   <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center shrink-0">
+                      <Sparkles className="w-4 h-4 text-indigo-500" />
                    </div>
                    <div>
                       <p className="text-slate-300 text-sm">
@@ -227,63 +214,138 @@ export default function AiOnboardingWizard() {
 
            <div className="space-y-6">
             {isProjectMode && (
-               <div>
+               <div className="mb-6">
                   <label className="block text-sm font-medium text-slate-300 mb-2">
                     Project Name
                   </label>
-                  <input
-                    type="text"
+                  <AiInputAssist
                     value={projectName}
-                    onChange={(e) => setProjectName(e.target.value)}
+                    onChange={setProjectName}
                     placeholder="e.g. Acme Co. Migration"
-                    className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+                    className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
                   />
                </div>
             )}
 
-            <div>
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Industry
+              </label>
+              <div className="relative">
+                <AiInputAssist
+                  value={industry}
+                  onChange={setIndustry}
+                  onFocus={() => setShowIndustryDropdown(true)}
+                  onBlur={() => setShowIndustryDropdown(false)}
+                  placeholder="e.g. Legal, Retail, Real Estate"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                />
+                <ChevronDown className="absolute right-12 top-4 w-4 h-4 text-slate-400 pointer-events-none" />
+                {showIndustryDropdown && (
+                   <div className="absolute z-50 left-0 right-10 mt-1 bg-slate-800 border border-slate-700 rounded-md shadow-xl max-h-48 overflow-y-auto custom-scrollbar ring-1 ring-black ring-opacity-5">
+                      {INDUSTRIES.filter(i => i.toLowerCase().includes(industry.toLowerCase())).map(ind => (
+                         <button
+                           key={ind}
+                           type="button"
+                           onMouseDown={(e) => {
+                             e.preventDefault();
+                             setIndustry(ind);
+                             setShowIndustryDropdown(false);
+                           }}
+                           className="w-full text-left px-4 py-2.5 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors"
+                         >
+                           {ind}
+                         </button>
+                      ))}
+                      {industry && !INDUSTRIES.some(i => i.toLowerCase() === industry.toLowerCase()) && (
+                         <div className="px-4 py-2 text-sm text-indigo-400 italic bg-slate-800/50">
+                            Custom Industry: "{industry}"
+                         </div>
+                      )}
+                   </div>
+                )}
+              </div>
+            </div>
+
+            <div className="mb-8">
               <label className="block text-sm font-medium text-slate-300 mb-2">
                 {isProjectMode ? "Describe the project constraints, goals, and necessary sub-tasks." : "Describe what your business does, your daily workflows, and what problems you have."}
               </label>
-              <textarea
-                rows={5}
+              <AiInputAssist
+                multiline
                 value={businessInput}
-                onChange={(e) => setBusinessInput(e.target.value)}
+                onChange={setBusinessInput}
                 placeholder={isProjectMode ? "We need to deploy a new Real Estate CRM integration over the next 4 weeks. Key tasks include..." : "We run a boutique real estate agency. Our biggest pain point is tracking lead conversions and making sure documents aren't lost..."}
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors resize-none mb-4"
+                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors resize-none"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-               <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Your Website URL
+            <div>
+               <div className="flex items-center justify-between mb-2">
+                  <label className="block text-sm font-medium text-slate-300">
+                    Brands & Web Properties
                   </label>
-                  <input
-                    type="url"
-                    value={clientUrl}
-                    onChange={(e) => setClientUrl(e.target.value)}
-                    placeholder="https://yourdomain.com"
-                    className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
-                  />
+                  <button type="button" onClick={(e) => { e.preventDefault(); setProperties(prev => [...prev, { name: '', url: '', category: '', location: '' }]) }} className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center">
+                     <Plus className="w-3 h-3 mr-1" /> Add Property
+                  </button>
                </div>
-               <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Primary Competitor URL
-                  </label>
-                  <input
-                    type="url"
-                    value={competitorUrl}
-                    onChange={(e) => setCompetitorUrl(e.target.value)}
-                    placeholder="https://competitor.com"
-                    className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
-                  />
+               
+               <datalist id="wizard-existing-names">
+                 {Array.from(new Set(properties.filter(p => p.name.trim()).map(p => p.name))).map(name => (
+                   <option key={name} value={name} />
+                 ))}
+               </datalist>
+               <datalist id="wizard-existing-locations">
+                 {Array.from(new Set(properties.filter(p => p.location.trim()).map(p => p.location))).map(loc => (
+                   <option key={loc} value={loc} />
+                 ))}
+               </datalist>
+               <datalist id="wizard-existing-categories">
+                 {Array.from(new Set(properties.filter(p => p.category?.trim()).map(p => p.category))).map(cat => (
+                   <option key={cat} value={cat} />
+                 ))}
+               </datalist>
+
+               <div className="space-y-3 mb-4">
+                  {properties.map((prop, idx) => (
+                    <div key={idx} className="flex flex-col space-y-2 p-3 bg-slate-800/30 border border-slate-700/50 rounded-lg relative">
+                       {properties.length > 1 && (
+                         <button type="button" onClick={() => { const newProps = properties.filter((_, i) => i !== idx); setProperties(newProps) }} className="absolute top-2 right-2 p-1 text-slate-500 hover:text-red-400 transition-colors">
+                            <Trash2 className="w-4 h-4" />
+                         </button>
+                       )}
+                       <div className="grid grid-cols-2 gap-3 pr-6">
+                         <div className="col-span-1">
+                           <AiInputAssist list="wizard-existing-names" placeholder="Brand/Company Name" value={prop.name} onChange={(val) => { const newProps = [...properties]; newProps[idx].name = val; setProperties(newProps) }} className="bg-slate-900 border border-slate-700 text-sm text-white px-3 py-2 rounded focus:border-indigo-500" />
+                         </div>
+                         <div className="col-span-1">
+                           <AiInputAssist type="url" placeholder="Website URL" value={prop.url} onChange={(val) => { const newProps = [...properties]; newProps[idx].url = val; setProperties(newProps) }} className="bg-slate-900 border border-slate-700 text-sm text-white px-3 py-2 rounded focus:border-indigo-500" />
+                         </div>
+                         <div className="col-span-1">
+                           <AiInputAssist list="wizard-existing-categories" placeholder="Category (e.g. Retail)" value={prop.category} onChange={(val) => { const newProps = [...properties]; newProps[idx].category = val; setProperties(newProps) }} className="bg-slate-900 border border-slate-700 text-sm text-white px-3 py-2 rounded focus:border-indigo-500" />
+                         </div>
+                         <div className="col-span-1">
+                           <AiInputAssist list="wizard-existing-locations" placeholder="Location (e.g. NYC)" value={prop.location} onChange={(val) => { const newProps = [...properties]; newProps[idx].location = val; setProperties(newProps) }} className="bg-slate-900 border border-slate-700 text-sm text-white px-3 py-2 rounded focus:border-indigo-500" />
+                         </div>
+                       </div>
+                    </div>
+                  ))}
                </div>
+               
+               <label className="block text-sm font-medium text-slate-300 mb-2 mt-4">
+                 Competitor Websites (comma-separated)
+               </label>
+               <AiInputAssist
+                 value={competitorUrl}
+                 onChange={setCompetitorUrl}
+                 placeholder="e.g. competitor.com, rival.io"
+                 className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+               />
             </div>
             
             {isProjectMode && (
               <div className="mt-3 flex items-center space-x-3 bg-slate-800/30 border border-slate-700/50 p-4 rounded-lg cursor-pointer hover:bg-slate-800/50 transition-colors" onClick={() => setRequireMobileApp(!requireMobileApp)}>
-                 <div className={`w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${requireMobileApp ? 'bg-[#3B82F6] border-[#3B82F6]' : 'border-slate-600 bg-slate-900'}`}>
+                 <div className={`w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${requireMobileApp ? 'bg-indigo-500 border-indigo-500' : 'border-slate-600 bg-slate-900'}`}>
                     {requireMobileApp && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
                  </div>
                  <div className="select-none">
@@ -296,26 +358,6 @@ export default function AiOnboardingWizard() {
             )}
             
             <div className="flex items-center justify-between pt-2">
-              <button 
-                onClick={toggleRecording}
-                className={`flex items-center px-4 py-2 rounded-lg text-white transition-colors border ${
-                  isRecording 
-                    ? 'bg-red-500/20 border-red-500/50 hover:bg-red-500/30' 
-                    : 'bg-slate-800 border-slate-700 hover:bg-slate-700'
-                }`}
-              >
-                {isRecording ? (
-                  <>
-                    <StopCircle className="w-5 h-5 mr-2 text-red-400 animate-pulse" />
-                    Stop Recording
-                  </>
-                ) : (
-                  <>
-                    <Mic className="w-5 h-5 mr-2 text-[#3B82F6]" />
-                    Voice Dictation (Talk it out)
-                  </>
-                )}
-              </button>
             </div>
           </div>
         </div>
@@ -336,7 +378,7 @@ export default function AiOnboardingWizard() {
             onClick={parseAndSaveIntelligence}
             disabled={isSubmitting || businessInput.length < 10}
             className={`flex items-center px-6 py-3 font-medium rounded-lg transition-colors ${
-              (isSubmitting || businessInput.length < 10) ? 'bg-slate-700 text-slate-400 cursor-not-allowed' : 'bg-[#3B82F6] hover:bg-[#2563EB] text-white'
+              (isSubmitting || businessInput.length < 10) ? 'bg-slate-700 text-slate-400 cursor-not-allowed' : 'bg-indigo-500 hover:bg-indigo-600 text-white'
             }`}
           >
             {isSubmitting ? 'Architecting...' : 'Submit Intelligence Target'}
@@ -370,7 +412,7 @@ export default function AiOnboardingWizard() {
                   value={manualOrgName}
                   onChange={(e) => setManualOrgName(e.target.value)}
                   placeholder="Acme Corp"
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6]"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
               <div className="flex justify-end space-x-3 pt-4 border-t border-slate-800">
@@ -385,7 +427,7 @@ export default function AiOnboardingWizard() {
                 <button
                   type="submit"
                   disabled={isManualLoading || !manualOrgName.trim()}
-                  className="px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] disabled:bg-slate-700 text-white font-medium rounded-lg transition-colors flex items-center"
+                  className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 disabled:bg-slate-700 text-white font-medium rounded-lg transition-colors flex items-center"
                 >
                   {isManualLoading ? (
                     <>

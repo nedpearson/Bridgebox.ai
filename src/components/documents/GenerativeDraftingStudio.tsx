@@ -165,67 +165,71 @@ ONLY return the HTML-formatted drafted text without pleasantries or introductory
   if (!editor) return <div className="p-8 flex justify-center"><Loader2 className="animate-spin w-8 h-8 text-indigo-500"/></div>;
 
   return (
-    <div className="flex flex-col h-full bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-      {/* Editor Main Toolbar */}
-      <div className="flex items-center justify-between p-3 border-b border-slate-800 bg-slate-950/50">
-        <div className="flex items-center space-x-1">
-          <button onClick={() => editor.chain().focus().toggleBold().run()} className={`p-2 rounded hover:bg-slate-800 transition-colors ${editor.isActive('bold') ? 'bg-slate-800 text-white' : 'text-slate-400'}`}>
-            <Bold className="w-4 h-4" />
-          </button>
-          <button onClick={() => editor.chain().focus().toggleItalic().run()} className={`p-2 rounded hover:bg-slate-800 transition-colors ${editor.isActive('italic') ? 'bg-slate-800 text-white' : 'text-slate-400'}`}>
-            <Italic className="w-4 h-4" />
-          </button>
-          <button onClick={() => editor.chain().focus().toggleStrike().run()} className={`p-2 rounded hover:bg-slate-800 transition-colors ${editor.isActive('strike') ? 'bg-slate-800 text-white' : 'text-slate-400'}`}>
-            <Strikethrough className="w-4 h-4" />
-          </button>
-          <div className="w-px h-5 bg-slate-700 mx-2" />
-          <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} className={`p-2 rounded hover:bg-slate-800 transition-colors ${editor.isActive('heading', { level: 1 }) ? 'bg-slate-800 text-white' : 'text-slate-400'}`}>
-            <Heading1 className="w-4 h-4" />
-          </button>
-          <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} className={`p-2 rounded hover:bg-slate-800 transition-colors ${editor.isActive('heading', { level: 2 }) ? 'bg-slate-800 text-white' : 'text-slate-400'}`}>
-            <Heading2 className="w-4 h-4" />
-          </button>
-          <div className="w-px h-5 bg-slate-700 mx-2" />
-          <button onClick={() => editor.chain().focus().toggleBulletList().run()} className={`p-2 rounded hover:bg-slate-800 transition-colors ${editor.isActive('bulletList') ? 'bg-slate-800 text-white' : 'text-slate-400'}`}>
-            <List className="w-4 h-4" />
-          </button>
-          <button onClick={() => editor.chain().focus().toggleOrderedList().run()} className={`p-2 rounded hover:bg-slate-800 transition-colors ${editor.isActive('orderedList') ? 'bg-slate-800 text-white' : 'text-slate-400'}`}>
-            <ListOrdered className="w-4 h-4" />
-          </button>
-        </div>
+    <div className="flex flex-col h-full bg-slate-900/50 border border-slate-800/50 rounded-2xl overflow-hidden backdrop-blur-sm shadow-2xl relative">
+      
+      {/* Unified AI & Command Toolbar */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-4 border-b border-slate-800/50 bg-slate-950/30 gap-4 z-10">
         
-        <div className="flex items-center space-x-3">
-          <Button onClick={handleImplementNextSteps} disabled={isImplementing || !editor.getText().trim() || editor.getText() === 'Start drafting your document...'} size="sm" className={`bg-emerald-600 hover:bg-emerald-700 text-white border-none shadow-lg shadow-emerald-500/20 px-4 transition-all ${implementSuccess ? 'bg-emerald-500 hover:bg-emerald-500' : ''}`}>
-            {isImplementing ? (
-               <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Extracting Tasks (~10s)...</>
-            ) : implementSuccess ? (
-               <><CheckCircle className="w-4 h-4 mr-2" /> Actioned!</>
-            ) : (
-               <><Play className="w-4 h-4 mr-2" /> Implement Next Steps</>
-            )}
+        {/* Left: AI Prompt Integration */}
+        <div className="flex-1 flex p-2 bg-slate-900 border border-slate-700/50 rounded-xl items-center space-x-3 shadow-inner focus-within:border-indigo-500/50 focus-within:ring-2 focus-within:ring-indigo-500/20 transition-all group">
+          <Sparkles className="w-5 h-5 text-indigo-400 flex-shrink-0 ml-2 group-focus-within:animate-pulse" />
+          <input 
+            type="text"
+            value={aiPrompt}
+            onChange={(e) => setAiPrompt(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+            placeholder="Tell the AI to edit this charter..."
+            className="flex-1 bg-transparent border-none text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-0"
+          />
+          <Button onClick={handleGenerate} disabled={isGenerating || (!aiPrompt.trim() && !contextPayload)} size="sm" variant="outline" className="h-8 py-0 border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/10 hover:text-indigo-300">
+            {isGenerating ? 'Editing...' : 'AI Edit'}
+          </Button>
+        </div>
+
+        {/* Right: Structural Actions */}
+        <div className="flex items-center space-x-3 justify-end">
+          <Button onClick={handleSave} disabled={isSaving || !onSave} size="sm" variant="ghost" className="text-slate-400 hover:text-white">
+            {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+            {isSaving ? '' : 'Save'}
           </Button>
 
-          <Button onClick={handleSave} disabled={isSaving || !onSave} size="sm">
-            {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
-            Save Draft
+          <Button onClick={handleImplementNextSteps} disabled={isImplementing || !editor.getText().trim() || editor.getText() === 'Start drafting your document...'} size="sm" className={`bg-indigo-500 hover:bg-indigo-600 text-white border-none shadow-md shadow-indigo-500/20 px-4 transition-all ${implementSuccess ? 'bg-emerald-500 hover:bg-emerald-500 shadow-emerald-500/20' : ''}`}>
+             {isImplementing ? (
+                <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Extracting Tasks...</>
+             ) : implementSuccess ? (
+                <><CheckCircle className="w-4 h-4 mr-2" /> Actioned!</>
+             ) : (
+                <><Play className="w-4 h-4 mr-2" /> Implement Next Steps</>
+             )}
           </Button>
         </div>
       </div>
 
-      {/* Persistent Embedded AI Editor Toolbar */}
-      <div className="flex p-3 bg-indigo-950/30 border-b border-indigo-500/20 items-center space-x-3">
-        <Sparkles className="w-5 h-5 text-indigo-400 flex-shrink-0" />
-        <input 
-          type="text"
-          value={aiPrompt}
-          onChange={(e) => setAiPrompt(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
-          placeholder="Tell the AI to edit this charter (e.g. 'Make it shorter', 'Add an acceptance criteria')..."
-          className="flex-1 bg-transparent border-none text-sm text-white placeholder-indigo-300/50 focus:outline-none focus:ring-0"
-        />
-        <Button onClick={handleGenerate} disabled={isGenerating || (!aiPrompt.trim() && !contextPayload)} size="sm" variant="primary">
-          {isGenerating ? 'Applying Edit...' : 'AI Edit'}
-        </Button>
+      {/* Subtle Formatting Bar */}
+      <div className="flex items-center px-4 py-2 border-b border-slate-800/30 bg-slate-900/20 overflow-x-auto no-scrollbar gap-1 opacity-60 hover:opacity-100 transition-opacity focus-within:opacity-100">
+          <button onClick={() => editor.chain().focus().toggleBold().run()} className={`p-1.5 rounded-lg hover:bg-slate-800/50 transition-colors ${editor.isActive('bold') ? 'bg-indigo-500/10 text-indigo-400' : 'text-slate-400'}`}>
+            <Bold className="w-4 h-4" />
+          </button>
+          <button onClick={() => editor.chain().focus().toggleItalic().run()} className={`p-1.5 rounded-lg hover:bg-slate-800/50 transition-colors ${editor.isActive('italic') ? 'bg-indigo-500/10 text-indigo-400' : 'text-slate-400'}`}>
+            <Italic className="w-4 h-4" />
+          </button>
+          <button onClick={() => editor.chain().focus().toggleStrike().run()} className={`p-1.5 rounded-lg hover:bg-slate-800/50 transition-colors ${editor.isActive('strike') ? 'bg-indigo-500/10 text-indigo-400' : 'text-slate-400'}`}>
+            <Strikethrough className="w-4 h-4" />
+          </button>
+          <div className="w-px h-4 bg-slate-800 mx-2" />
+          <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} className={`p-1.5 rounded-lg hover:bg-slate-800/50 transition-colors ${editor.isActive('heading', { level: 1 }) ? 'bg-indigo-500/10 text-indigo-400' : 'text-slate-400'}`}>
+            <Heading1 className="w-4 h-4" />
+          </button>
+          <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} className={`p-1.5 rounded-lg hover:bg-slate-800/50 transition-colors ${editor.isActive('heading', { level: 2 }) ? 'bg-indigo-500/10 text-indigo-400' : 'text-slate-400'}`}>
+            <Heading2 className="w-4 h-4" />
+          </button>
+          <div className="w-px h-4 bg-slate-800 mx-2" />
+          <button onClick={() => editor.chain().focus().toggleBulletList().run()} className={`p-1.5 rounded-lg hover:bg-slate-800/50 transition-colors ${editor.isActive('bulletList') ? 'bg-indigo-500/10 text-indigo-400' : 'text-slate-400'}`}>
+            <List className="w-4 h-4" />
+          </button>
+          <button onClick={() => editor.chain().focus().toggleOrderedList().run()} className={`p-1.5 rounded-lg hover:bg-slate-800/50 transition-colors ${editor.isActive('orderedList') ? 'bg-indigo-500/10 text-indigo-400' : 'text-slate-400'}`}>
+            <ListOrdered className="w-4 h-4" />
+          </button>
       </div>
 
       {/* Editor Canvas Container */}

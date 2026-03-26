@@ -165,7 +165,7 @@ export default function ImplementationDetail() {
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
             <div>
               <div className="flex items-center space-x-3 mb-2">
-                <Rocket className="w-6 h-6 text-[#3B82F6]" />
+                <Rocket className="w-6 h-6 text-indigo-500" />
                 <h1 className="text-2xl md:text-3xl font-bold text-white">
                   {implementation.project?.name}
                 </h1>
@@ -190,7 +190,7 @@ export default function ImplementationDetail() {
                 initial={{ width: 0 }}
                 animate={{ width: `${overallProgress}%` }}
                 transition={{ duration: 1, ease: 'easeOut' }}
-                className="h-full bg-gradient-to-r from-[#3B82F6] to-[#10B981]"
+                className="h-full bg-gradient-to-r from-indigo-500 to-[#10B981]"
               />
             </div>
           </div>
@@ -201,7 +201,7 @@ export default function ImplementationDetail() {
         <div className="grid lg:grid-cols-3 gap-6">
           <Card glass className="p-6">
             <div className="flex items-center space-x-3 mb-4">
-              <Server className="w-5 h-5 text-[#3B82F6]" />
+              <Server className="w-5 h-5 text-indigo-500" />
               <h3 className="text-lg font-bold text-white">Staging Environment</h3>
             </div>
             {implementation.environments.find((e) => e.environment_type === 'staging') ? (
@@ -214,7 +214,7 @@ export default function ImplementationDetail() {
                     href={implementation.staging_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-sm text-[#3B82F6] hover:text-[#2563EB] transition-colors"
+                    className="flex items-center space-x-2 text-sm text-indigo-500 hover:text-indigo-600 transition-colors"
                   >
                     <span>{implementation.staging_url}</span>
                     <ExternalLink className="w-4 h-4" />
@@ -321,7 +321,7 @@ export default function ImplementationDetail() {
               <Card key={category} glass className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
-                    <Icon className="w-5 h-5 text-[#3B82F6]" />
+                    <Icon className="w-5 h-5 text-indigo-500" />
                     <h3 className="text-lg font-bold text-white">{CATEGORY_LABELS[category]}</h3>
                   </div>
                   <span className="text-sm text-slate-400">{Math.round(progress)}% complete</span>
@@ -332,7 +332,7 @@ export default function ImplementationDetail() {
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.5 }}
-                    className="h-full bg-[#3B82F6]"
+                    className="h-full bg-indigo-500"
                   />
                 </div>
 

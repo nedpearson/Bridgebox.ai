@@ -87,9 +87,9 @@ export default function CustomSoftware() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-2 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-full mb-6"
+            className="inline-block px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6"
           >
-            <span className="text-[#3B82F6] font-medium text-sm">Custom Development</span>
+            <span className="text-indigo-500 font-medium text-sm">Custom Development</span>
           </motion.div>
 
           <motion.h1
@@ -159,15 +159,15 @@ export default function CustomSoftware() {
               variants={staggerItem}
               custom={index}
             >
-              <Card className="h-full text-center group hover:border-[#3B82F6]/50">
+              <Card className="h-full text-center group hover:border-indigo-500/50">
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ duration: 0.3 }}
-                  className="w-16 h-16 bg-gradient-to-br from-[#3B82F6]/20 to-[#10B981]/20 rounded-xl flex items-center justify-center mx-auto mb-6 relative"
+                  className="w-16 h-16 bg-gradient-to-br from-indigo-500/20 to-[#10B981]/20 rounded-xl flex items-center justify-center mx-auto mb-6 relative"
                 >
-                  <capability.icon className="w-8 h-8 text-[#3B82F6]" />
+                  <capability.icon className="w-8 h-8 text-indigo-500" />
                 </motion.div>
-                <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#3B82F6] transition-colors">
+                <h3 className="text-lg font-bold text-white mb-3 group-hover:text-indigo-500 transition-colors">
                   {capability.title}
                 </h3>
                 <p className="text-sm text-slate-400 leading-relaxed">
@@ -256,8 +256,8 @@ export default function CustomSoftware() {
                 variants={staggerItem}
                 custom={index}
               >
-                <Card className="h-full group hover:border-[#3B82F6]/50">
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#3B82F6] transition-colors">
+                <Card className="h-full group hover:border-indigo-500/50">
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-500 transition-colors">
                     {useCase.title}
                   </h3>
                   <p className="text-slate-400 mb-4 leading-relaxed">
@@ -319,7 +319,7 @@ export default function CustomSoftware() {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-start gap-4"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-white font-bold text-sm">{index + 1}</span>
                     </div>
                     <span className="text-slate-300 text-lg pt-1">{step}</span>

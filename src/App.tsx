@@ -10,6 +10,7 @@ import MainLayout from './layouts/MainLayout';
 import AppLayout from './layouts/AppLayout';
 import ClientPortalLayout from './layouts/ClientPortalLayout';
 import RecordingCenterLayout from './layouts/RecordingCenterLayout';
+import DocumentCenter from './pages/app/DocumentCenter';
 const Home = lazy(() => import('./pages/Home'));
 const Platform = lazy(() => import('./pages/Platform'));
 const Solutions = lazy(() => import('./pages/Solutions'));
@@ -240,6 +241,11 @@ function App() {
                       <Route path="/proposals/:id" element={<ProposalDetail />} />
                       <Route path="/clients" element={<ClientsList />} />
                       <Route path="/clients/:id" element={<ClientDetail />} />
+              
+              {/* Document Center */}
+              <Route path="documents" element={<DocumentCenter />} />
+
+              {/* Projects */}
                       <Route path="/projects" element={<ProjectsList />} />
                       <Route path="/projects/:id" element={<ProjectDetail />} />
                       <Route path="/billing" element={<BillingOverview />} />

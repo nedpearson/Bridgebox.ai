@@ -63,7 +63,7 @@ export default function AdminPreview() {
 
   const leadPipeline = [
     { stage: 'New Inquiry', count: 8, color: 'bg-slate-500' },
-    { stage: 'Qualified', count: 5, color: 'bg-[#3B82F6]' },
+    { stage: 'Qualified', count: 5, color: 'bg-indigo-500' },
     { stage: 'Proposal Sent', count: 6, color: 'bg-yellow-500' },
     { stage: 'In Build', count: 3, color: 'bg-orange-500' },
     { stage: 'Closed Won', count: 1, color: 'bg-[#10B981]' },
@@ -156,7 +156,7 @@ export default function AdminPreview() {
             <Card glass className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-white">Lead Pipeline</h2>
-                <button className="text-[#3B82F6] text-sm font-medium hover:text-[#3B82F6]/80 transition-colors">
+                <button className="text-indigo-500 text-sm font-medium hover:text-indigo-500/80 transition-colors">
                   View All
                 </button>
               </div>
@@ -216,7 +216,7 @@ export default function AdminPreview() {
           <Card glass className="p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-white">Active Projects</h2>
-              <button className="text-[#3B82F6] text-sm font-medium hover:text-[#3B82F6]/80 transition-colors">
+              <button className="text-indigo-500 text-sm font-medium hover:text-indigo-500/80 transition-colors">
                 View All
               </button>
             </div>
@@ -227,7 +227,7 @@ export default function AdminPreview() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-[#3B82F6]/30 transition-all duration-300"
+                  className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
@@ -249,7 +249,7 @@ export default function AdminPreview() {
                         initial={{ width: 0 }}
                         animate={{ width: `${project.progress}%` }}
                         transition={{ duration: 1, delay: index * 0.1 }}
-                        className="bg-gradient-to-r from-[#3B82F6] to-[#10B981] h-2 rounded-full"
+                        className="bg-gradient-to-r from-indigo-500 to-[#10B981] h-2 rounded-full"
                       />
                     </div>
                   </div>
@@ -275,8 +275,8 @@ export default function AdminPreview() {
                       transition={{ delay: index * 0.1 }}
                       className="flex items-start space-x-4"
                     >
-                      <div className="w-10 h-10 bg-[#3B82F6]/10 rounded-lg flex items-center justify-center border border-[#3B82F6]/20 flex-shrink-0">
-                        <Icon className="w-5 h-5 text-[#3B82F6]" />
+                      <div className="w-10 h-10 bg-indigo-500/10 rounded-lg flex items-center justify-center border border-indigo-500/20 flex-shrink-0">
+                        <Icon className="w-5 h-5 text-indigo-500" />
                       </div>
                       <div className="flex-1">
                         <p className="text-white font-medium">{activity.event}</p>

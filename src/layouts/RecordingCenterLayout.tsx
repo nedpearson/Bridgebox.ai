@@ -61,7 +61,7 @@ export default function RecordingCenterLayout({ children }: { children: React.Re
                  to={link.path}
                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                    isActive 
-                   ? (link.danger ? 'bg-red-500/20 text-red-400' : 'bg-[#3B82F6]/20 text-[#3B82F6]')
+                   ? (link.danger ? 'bg-red-500/20 text-red-400' : 'bg-indigo-500/20 text-indigo-500')
                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
                  }`}
                >

@@ -62,7 +62,7 @@ export default function RelationalNetworkBoard({ entityType, entityId }: Relatio
           </div>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center space-x-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-colors"
+            className="flex items-center space-x-2 bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-colors"
           >
             <Plus className="w-4 h-4" />
             <span>Link Entity</span>

@@ -18,7 +18,7 @@ export default function Section({ children, className = '', background = 'dark' 
     <section className={`py-20 ${backgrounds[background]} ${className} relative overflow-hidden`}>
       {background === 'dark' && (
         <>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3B82F6]/5 via-transparent to-transparent opacity-50" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-500/5 via-transparent to-transparent opacity-50" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-[#10B981]/5 via-transparent to-transparent opacity-30" />
         </>
       )}
@@ -27,7 +27,7 @@ export default function Section({ children, className = '', background = 'dark' 
       )}
       {background === 'gradient' && (
         <motion.div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#3B82F6]/20 to-[#10B981]/20 rounded-full blur-3xl"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/20 to-[#10B981]/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.2, 0.3, 0.2],

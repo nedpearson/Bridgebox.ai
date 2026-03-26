@@ -28,7 +28,7 @@ export default function MonetizationHub() {
            <p className="text-sm text-slate-400">Control billing subscriptions, establish platform plan limits, and override boolean feature entitlements.</p>
         </div>
         <div className="flex gap-2">
-           {activeTab === 'Billing' && <Button className="bg-[#3B82F6] hover:bg-[#2563EB]"><Calculator className="w-4 h-4 mr-2"/> Pricing Simulator</Button>}
+           {activeTab === 'Billing' && <Button className="bg-indigo-500 hover:bg-indigo-600"><Calculator className="w-4 h-4 mr-2"/> Pricing Simulator</Button>}
            {activeTab === 'Plans' && <Button className="bg-[#10B981] hover:bg-[#059669] text-white border-transparent"><Settings className="w-4 h-4 mr-2"/> Commit Plan Changes</Button>}
            {activeTab === 'Entitlements' && <Button className="bg-indigo-600 hover:bg-indigo-500 text-white border-transparent"><Fingerprint className="w-4 h-4 mr-2"/> Audit Sync</Button>}
         </div>
@@ -43,7 +43,7 @@ export default function MonetizationHub() {
            >
              {tab === 'Billing' ? 'Revenue & Invoices' : tab === 'Plans' ? 'Subscription Tiers' : 'Feature Overrides'}
              {activeTab === tab && (
-                <motion.div layoutId="monetization-tab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#3B82F6]" />
+                <motion.div layoutId="monetization-tab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-500" />
              )}
            </button>
         ))}
@@ -124,11 +124,11 @@ function PlansView() {
                <div key={plan.id} onClick={() => setActivePlan(plan.id)} className="w-full">
                  <Card 
                    className={`p-6 cursor-pointer transition-all duration-200 border-2 ${
-                     activePlan === plan.id ? 'bg-[#3B82F6]/10 border-[#3B82F6] shadow-[0_0_30px_rgba(59,130,246,0.15)]' : 'bg-slate-900/50 border-white/5 hover:border-white/20'
+                     activePlan === plan.id ? 'bg-indigo-500/10 border-indigo-500 shadow-[0_0_30px_rgba(59,130,246,0.15)]' : 'bg-slate-900/50 border-white/5 hover:border-white/20'
                    }`}
                  >
                     <div className="flex justify-between items-start mb-4">
-                       <h3 className={`font-bold tracking-tight ${activePlan === plan.id ? 'text-[#3B82F6]' : 'text-white'}`}>{plan.name}</h3>
+                       <h3 className={`font-bold tracking-tight ${activePlan === plan.id ? 'text-indigo-500' : 'text-white'}`}>{plan.name}</h3>
                     </div>
                     <div className="text-2xl font-black text-white">${plan.price} <span className="text-xs font-medium text-slate-500 uppercase tracking-widest">/mo</span></div>
                  </Card>
@@ -141,15 +141,15 @@ function PlansView() {
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
                    <label className="text-sm font-medium text-slate-400 flex items-center"><Users className="w-4 h-4 mr-2 text-indigo-400" /> User Seats</label>
-                   <input type="text" defaultValue="Unlimited" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6]/50" />
+                   <input type="text" defaultValue="Unlimited" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500/50" />
                 </div>
                 <div className="space-y-2">
                    <label className="text-sm font-medium text-slate-400 flex items-center"><Database className="w-4 h-4 mr-2 text-amber-400" /> Workspaces</label>
-                   <input type="text" defaultValue="Unlimited" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6]/50" />
+                   <input type="text" defaultValue="Unlimited" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500/50" />
                 </div>
                 <div className="space-y-2">
                    <label className="text-sm font-medium text-slate-400 flex items-center"><Sparkles className="w-4 h-4 mr-2 text-emerald-400" /> Custom AI Token Payload</label>
-                   <input type="text" defaultValue="2,500,000" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6]/50" />
+                   <input type="text" defaultValue="2,500,000" className="w-full bg-slate-950 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500/50" />
                 </div>
              </div>
          </Card>
@@ -162,7 +162,7 @@ function EntitlementsView() {
       <Card className="p-0 bg-slate-900/30 border border-white/5 overflow-hidden">
           <div className="p-4 border-b border-white/5 bg-slate-900/80 flex items-center justify-between">
              <h3 className="text-sm font-bold text-white tracking-wide">Target Tenant Explict Feature Overrides</h3>
-             <input type="text" placeholder="Workspace ID..." className="bg-slate-950 border border-white/10 rounded-lg px-4 py-1.5 text-sm text-white focus:outline-none focus:border-[#3B82F6]/50" />
+             <input type="text" placeholder="Workspace ID..." className="bg-slate-950 border border-white/10 rounded-lg px-4 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500/50" />
           </div>
           
           <div className="divide-y divide-white/5">
@@ -172,7 +172,7 @@ function EntitlementsView() {
                      <label className="flex items-center cursor-pointer mt-1">
                        <div className="relative">
                          <input type="checkbox" className="sr-only" defaultChecked={feat.status === 'active'} />
-                         <div className={`block w-10 h-6 rounded-full transition-colors ${feat.status === 'active' ? 'bg-[#3B82F6]' : 'bg-slate-700'}`}></div>
+                         <div className={`block w-10 h-6 rounded-full transition-colors ${feat.status === 'active' ? 'bg-indigo-500' : 'bg-slate-700'}`}></div>
                          <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${feat.status === 'active' ? 'transform translate-x-4' : ''}`}></div>
                        </div>
                      </label>

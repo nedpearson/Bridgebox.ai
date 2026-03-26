@@ -265,7 +265,7 @@ export default function RecorderUI() {
             >Standard Recording</button>
             <button
                onClick={() => setRecordingMode('development')}
-               className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${recordingMode === 'development' ? 'bg-[#3B82F6] text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
+               className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${recordingMode === 'development' ? 'bg-indigo-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
             >Record for App Development</button>
           </div>
 
@@ -288,7 +288,7 @@ export default function RecorderUI() {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6]"
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
                 placeholder="e.g., Bug: Dashboard Crashing"
               />
             </div>
@@ -297,7 +297,7 @@ export default function RecorderUI() {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6]"
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
               >
                 <option value="bug">Bug Report</option>
                 <option value="walkthrough">Walkthrough</option>
@@ -316,7 +316,7 @@ export default function RecorderUI() {
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6]"
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
                 placeholder="Short summary of this recording"
               />
             </div>
@@ -326,42 +326,42 @@ export default function RecorderUI() {
                 type="text"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6]"
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
                 placeholder="Detailed reproduction steps or thoughts"
               />
             </div>
           </div>
 
           {recordingMode === 'development' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 border border-[#3B82F6]/30 bg-[#3B82F6]/5 rounded-lg border-dashed">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 border border-indigo-500/30 bg-indigo-500/5 rounded-lg border-dashed">
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-[#3B82F6] mb-1">Intended Outcome / Goal</label>
+                <label className="block text-sm font-medium text-indigo-500 mb-1">Intended Outcome / Goal</label>
                 <input 
                   type="text" 
                   value={intendedUse} 
                   onChange={e => setIntendedUse(e.target.value)} 
                   placeholder="e.g. Provide the AI with workflow steps so it can automate this." 
-                  className="w-full bg-slate-950/80 border border-[#3B82F6]/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6]" 
+                  className="w-full bg-slate-950/80 border border-indigo-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500" 
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#3B82F6] mb-1">Architecture / Build Notes</label>
+                <label className="block text-sm font-medium text-indigo-500 mb-1">Architecture / Build Notes</label>
                 <textarea 
                   value={buildNotes} 
                   onChange={e => setBuildNotes(e.target.value)} 
                   rows={3} 
                   placeholder="Technical details, file paths, or architectural constraints..." 
-                  className="w-full bg-slate-950/80 border border-[#3B82F6]/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6] resize-none" 
+                  className="w-full bg-slate-950/80 border border-indigo-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 resize-none" 
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#3B82F6] mb-1">Feature Request Clarifications</label>
+                <label className="block text-sm font-medium text-indigo-500 mb-1">Feature Request Clarifications</label>
                 <textarea 
                   value={featureNotes} 
                   onChange={e => setFeatureNotes(e.target.value)} 
                   rows={3} 
                   placeholder="What specifically needs to happen instead of current behavior?" 
-                  className="w-full bg-slate-950/80 border border-[#3B82F6]/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#3B82F6] resize-none" 
+                  className="w-full bg-slate-950/80 border border-indigo-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 resize-none" 
                 />
               </div>
             </div>
@@ -371,7 +371,7 @@ export default function RecorderUI() {
             <button
               onClick={handleUpload}
               disabled={uploading || !title.trim()}
-              className="flex-1 flex items-center justify-center gap-2 bg-[#3B82F6] hover:bg-[#2563EB] disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors"
             >
               <Upload className="w-5 h-5" />
               {uploading ? 'Uploading...' : 'Save Recording'}

@@ -111,7 +111,7 @@ export default function Review() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: 'spring', duration: 0.6 }}
-            className="w-16 h-16 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-2xl flex items-center justify-center mx-auto mb-6"
+            className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-2xl flex items-center justify-center mx-auto mb-6"
           >
             <Sparkles className="w-8 h-8 text-white" />
           </motion.div>
@@ -132,7 +132,7 @@ export default function Review() {
                 <h3 className="text-xl font-bold text-white">{section.title}</h3>
                 <button
                   onClick={() => setCurrentStep(section.step)}
-                  className="flex items-center space-x-2 text-[#3B82F6] hover:text-[#2563EB] transition-colors"
+                  className="flex items-center space-x-2 text-indigo-500 hover:text-indigo-600 transition-colors"
                 >
                   <Edit2 className="w-4 h-4" />
                   <span className="text-sm font-medium">Edit</span>
@@ -155,7 +155,7 @@ export default function Review() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-8 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-xl p-6"
+          className="mt-8 bg-indigo-500/10 border border-indigo-500/20 rounded-xl p-6"
         >
           <div className="flex items-start space-x-3">
             <CheckCircle2 className="w-6 h-6 text-[#10B981] flex-shrink-0 mt-0.5" />

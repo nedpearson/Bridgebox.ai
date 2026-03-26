@@ -86,7 +86,7 @@ export default function FileUpload({
             transition-all duration-300
             ${disabled || uploading
               ? 'border-slate-700 bg-slate-800/30 cursor-not-allowed'
-              : 'border-slate-600 bg-slate-800/50 hover:bg-slate-800 hover:border-[#3B82F6]'
+              : 'border-slate-600 bg-slate-800/50 hover:bg-slate-800 hover:border-indigo-500'
             }
           `}
         >
@@ -119,7 +119,7 @@ export default function FileUpload({
                     </div>
                     <div className="w-full bg-slate-700 rounded-full h-1.5">
                       <div
-                        className="bg-[#3B82F6] h-1.5 rounded-full transition-all duration-300"
+                        className="bg-indigo-500 h-1.5 rounded-full transition-all duration-300"
                         style={{ width: `${progress}%` }}
                       />
                     </div>
@@ -183,7 +183,7 @@ export function FileList({ files, onDelete }: { files: any[]; onDelete?: (path: 
                 href={file.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#3B82F6] hover:text-[#2563EB] text-sm font-medium transition-colors"
+                className="text-indigo-500 hover:text-indigo-600 text-sm font-medium transition-colors"
               >
                 View
               </a>

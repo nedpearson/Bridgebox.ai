@@ -42,11 +42,11 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative">
-              <Box className="w-8 h-8 text-[#3B82F6] group-hover:text-[#10B981] transition-colors duration-300" />
-              <div className="absolute inset-0 bg-[#3B82F6]/20 blur-xl group-hover:bg-[#10B981]/20 transition-colors duration-300" />
+              <Box className="w-8 h-8 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
+              <div className="absolute inset-0 bg-indigo-500/20 blur-xl group-hover:bg-[#10B981]/20 transition-colors duration-300" />
             </div>
             <span className="text-2xl font-bold text-white">Bridgebox</span>
-            <span className="text-sm font-medium text-[#3B82F6] bg-[#3B82F6]/10 px-2 py-1 rounded">AI</span>
+            <span className="text-sm font-medium text-indigo-500 bg-indigo-500/10 px-2 py-1 rounded">AI</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -62,11 +62,11 @@ export default function Header() {
                 {isActive(link.path) ? (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute -bottom-[1.65rem] left-0 right-0 h-0.5 bg-gradient-to-r from-[#3B82F6] to-[#10B981]"
+                    className="absolute -bottom-[1.65rem] left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 to-[#10B981]"
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   />
                 ) : (
-                  <span className="absolute -bottom-[1.65rem] left-0 right-0 h-0.5 bg-gradient-to-r from-[#3B82F6] to-[#10B981] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute -bottom-[1.65rem] left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 to-[#10B981] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 )}
               </Link>
             ))}
@@ -85,7 +85,7 @@ export default function Header() {
             >
               <Link
                 to="/sales-onboarding"
-                className="px-6 py-2.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#3B82F6]/50 inline-block"
+                className="px-6 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/50 inline-block"
               >
                 Start a Project
               </Link>
@@ -118,7 +118,7 @@ export default function Header() {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={`block text-base font-medium transition-colors duration-200 ${
-                    isActive(link.path) ? 'text-[#3B82F6]' : 'text-slate-300 hover:text-white'
+                    isActive(link.path) ? 'text-indigo-500' : 'text-slate-300 hover:text-white'
                   }`}
                 >
                   {link.name}
@@ -135,7 +135,7 @@ export default function Header() {
                 <Link
                   to="/sales-onboarding"
                   onClick={() => setIsOpen(false)}
-                  className="block text-center py-2.5 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-[#2563EB] transition-colors duration-200"
+                  className="block text-center py-2.5 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-600 transition-colors duration-200"
                 >
                   Start a Project
                 </Link>

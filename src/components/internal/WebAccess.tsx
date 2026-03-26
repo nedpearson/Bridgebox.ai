@@ -36,11 +36,11 @@ export default function WebAccess() {
             value={inputUrl}
             onChange={(e) => setInputUrl(e.target.value)}
             placeholder="Enter URL to navigate..."
-            className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-11 pr-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6] transition-colors"
+            className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-11 pr-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
           />
           <button
             type="submit"
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#3B82F6] hover:bg-[#2563EB] text-white px-4 py-1.5 rounded-md text-sm font-medium transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-1.5 rounded-md text-sm font-medium transition-colors"
           >
             Go
           </button>
@@ -50,7 +50,7 @@ export default function WebAccess() {
       <div className="flex-1 relative bg-black">
         {loading && (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-sm">
-            <Loader2 className="w-8 h-8 text-[#3B82F6] animate-spin mb-4" />
+            <Loader2 className="w-8 h-8 text-indigo-500 animate-spin mb-4" />
             <p className="text-slate-400 font-medium">Resolving secure tunnel...</p>
           </div>
         )}

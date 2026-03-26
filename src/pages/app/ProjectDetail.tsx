@@ -130,7 +130,7 @@ export default function ProjectDetail() {
         <div className="grid lg:grid-cols-3 gap-6">
           <Card glass className="p-6">
             <div className="flex items-start space-x-4 mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-lg flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-lg flex items-center justify-center">
                 <FolderKanban className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1">
@@ -159,11 +159,12 @@ export default function ProjectDetail() {
                   <select
                     value={project.status}
                     onChange={(e) => handleStatusChange(e.target.value)}
-                    className={`border-none rounded-full px-3 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#3B82F6] cursor-pointer ${
+                    className={`border-none rounded-full px-3 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer ${
                       project.status === 'completed' || project.status === 'deployed' ? 'text-[#10B981] bg-[#10B981]/10' :
                       project.status === 'cancelled' ? 'text-red-500 bg-red-500/10' :
+                      project.status === 'archived' ? 'text-slate-400 bg-slate-800' :
                       project.status === 'in_progress' ? 'text-yellow-500 bg-yellow-500/10' :
-                      'text-[#3B82F6] bg-[#3B82F6]/10'
+                      'text-indigo-500 bg-indigo-500/10'
                     }`}
                   >
                     <option value="planning">Planning</option>
@@ -172,6 +173,7 @@ export default function ProjectDetail() {
                     <option value="deployed">Deployed</option>
                     <option value="completed">Completed</option>
                     <option value="on_hold">On Hold</option>
+                    <option value="archived">Archived</option>
                     <option value="cancelled">Cancelled</option>
                   </select>
                   {project.metadata?.provider_name && (
@@ -232,7 +234,7 @@ export default function ProjectDetail() {
             <div className="mt-6 space-y-2">
               <Link
                 to={`/app/delivery/${id}`}
-                className="flex items-center justify-center space-x-2 px-4 py-2 bg-[#3B82F6]/10 hover:bg-[#3B82F6]/20 border border-[#3B82F6]/30 rounded-lg text-[#3B82F6] transition-colors"
+                className="flex items-center justify-center space-x-2 px-4 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 rounded-lg text-indigo-500 transition-colors"
               >
                 <Rocket className="w-4 h-4" />
                 <span className="text-sm font-medium">Delivery Management</span>
@@ -291,7 +293,7 @@ export default function ProjectDetail() {
                     initial={{ width: 0 }}
                     animate={{ width: `${project.progress_percentage || 0}%` }}
                     transition={{ duration: 1.5 }}
-                    className="bg-gradient-to-r from-[#3B82F6] to-[#10B981] h-3 rounded-full"
+                    className="bg-gradient-to-r from-indigo-500 to-[#10B981] h-3 rounded-full"
                   />
                 </div>
               </div>
@@ -367,7 +369,7 @@ export default function ProjectDetail() {
                       transition={{ delay: index * 0.1 }}
                       className="flex items-center space-x-3 p-3 bg-slate-800/30 rounded-lg border border-slate-700/50"
                     >
-                      <div className="w-10 h-10 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
+                      <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
                         {member.profiles?.full_name ? member.profiles.full_name[0] : 'U'}
                       </div>
                       <div className="min-w-0">

@@ -99,9 +99,9 @@ export default function ClientHome() {
 
         <div className="grid lg:grid-cols-4 gap-6 mb-8">
           <Link to="/portal/projects">
-            <Card glass className="p-6 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer">
+            <Card glass className="p-6 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer">
               <div className="flex items-center justify-between mb-2">
-                <FolderKanban className="w-8 h-8 text-[#3B82F6]" />
+                <FolderKanban className="w-8 h-8 text-indigo-500" />
                 <span className="text-3xl font-bold text-white">{activeProjects.length}</span>
               </div>
               <p className="text-slate-400 text-sm">Active Projects</p>
@@ -130,7 +130,7 @@ export default function ClientHome() {
 
           <Card glass className="p-6">
             <div className="flex items-center justify-between mb-2">
-              <FolderKanban className="w-8 h-8 text-[#3B82F6]" />
+              <FolderKanban className="w-8 h-8 text-indigo-500" />
               <span className="text-3xl font-bold text-white">{stats.totalProjects}</span>
             </div>
             <p className="text-slate-400 text-sm">Total Projects</p>
@@ -150,7 +150,7 @@ export default function ClientHome() {
               <h2 className="text-xl font-bold text-white">Active Projects</h2>
               <Link
                 to="/portal/projects"
-                className="text-[#3B82F6] text-sm font-medium hover:text-[#3B82F6]/80 transition-colors"
+                className="text-indigo-500 text-sm font-medium hover:text-indigo-500/80 transition-colors"
               >
                 View All
               </Link>
@@ -164,7 +164,7 @@ export default function ClientHome() {
                   transition={{ delay: index * 0.1 }}
                 >
                   <Link to="/portal/projects">
-                    <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer">
+                    <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
                           <h3 className="text-white font-semibold mb-1">{project.name}</h3>
@@ -184,7 +184,7 @@ export default function ClientHome() {
                         </div>
                         <div className="w-full bg-slate-700 rounded-full h-2">
                           <div
-                            className="bg-gradient-to-r from-[#3B82F6] to-[#10B981] h-2 rounded-full transition-all duration-500"
+                            className="bg-gradient-to-r from-indigo-500 to-[#10B981] h-2 rounded-full transition-all duration-500"
                             style={{ width: `${project.progress_percentage}%` }}
                           />
                         </div>
@@ -207,7 +207,7 @@ export default function ClientHome() {
               <h2 className="text-xl font-bold text-white">Recent Deliverables</h2>
               <Link
                 to="/portal/deliverables"
-                className="text-[#3B82F6] text-sm font-medium hover:text-[#3B82F6]/80 transition-colors"
+                className="text-indigo-500 text-sm font-medium hover:text-indigo-500/80 transition-colors"
               >
                 View All
               </Link>
@@ -231,7 +231,7 @@ export default function ClientHome() {
                         ) : deliverable.status === 'review' ? (
                           <Clock className="w-4 h-4 text-yellow-500" />
                         ) : (
-                          <Package className="w-4 h-4 text-[#3B82F6]" />
+                          <Package className="w-4 h-4 text-indigo-500" />
                         )}
                         <h3 className="text-white font-medium">{deliverable.name}</h3>
                       </div>
@@ -250,7 +250,7 @@ export default function ClientHome() {
                       </div>
                       <p className="text-slate-500 text-xs mt-2">{deliverable.deliveredDate}</p>
                     </div>
-                    <button className="text-[#3B82F6] hover:text-[#3B82F6]/80 transition-colors">
+                    <button className="text-indigo-500 hover:text-indigo-500/80 transition-colors">
                       <ExternalLink className="w-4 h-4" />
                     </button>
                   </div>
@@ -266,7 +266,7 @@ export default function ClientHome() {
               <h2 className="text-xl font-bold text-white">Support</h2>
               <Link
                 to="/portal/support"
-                className="text-[#3B82F6] text-sm font-medium hover:text-[#3B82F6]/80 transition-colors"
+                className="text-indigo-500 text-sm font-medium hover:text-indigo-500/80 transition-colors"
               >
                 View All
               </Link>
@@ -280,10 +280,10 @@ export default function ClientHome() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-[#3B82F6]/30 transition-all duration-300 cursor-pointer"
+                    className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer"
                   >
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-white font-medium flex-1 group-hover:text-[#3B82F6] transition-colors">{ticket.title}</h3>
+                      <h3 className="text-white font-medium flex-1 group-hover:text-indigo-500 transition-colors">{ticket.title}</h3>
                       <StatusBadge
                         status={ticket.status || 'open'}
                         variant={ticket.status === 'in_progress' ? 'warning' : 'info'}
@@ -303,7 +303,7 @@ export default function ClientHome() {
             <h2 className="text-xl font-bold text-white mb-6">Your Team</h2>
             <div className="space-y-4">
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-white font-bold">TM</span>
                 </div>
                 <div className="flex-1">

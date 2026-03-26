@@ -28,7 +28,7 @@ export default function GridPattern() {
         <rect width="100%" height="100%" fill="url(#gridFade)" />
       </svg>
       <motion.div
-        className="absolute inset-0 bg-gradient-to-b from-transparent via-[#3B82F6]/5 to-transparent"
+        className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500/5 to-transparent"
         animate={{
           opacity: [0.3, 0.6, 0.3],
         }}

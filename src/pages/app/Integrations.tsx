@@ -175,7 +175,7 @@ export default function Integrations() {
               onClick={() => setView('connected')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 view === 'connected'
-                  ? 'bg-[#3B82F6] text-white'
+                  ? 'bg-indigo-500 text-white'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -185,7 +185,7 @@ export default function Integrations() {
               onClick={() => setView('available')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 view === 'available'
-                  ? 'bg-[#3B82F6] text-white'
+                  ? 'bg-indigo-500 text-white'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -200,7 +200,7 @@ export default function Integrations() {
               placeholder="Search integrations..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#3B82F6]"
+              className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500"
             />
           </div>
         </div>
@@ -212,7 +212,7 @@ export default function Integrations() {
               onClick={() => setCategory(id)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                 category === id
-                  ? 'bg-[#3B82F6] text-white'
+                  ? 'bg-indigo-500 text-white'
                   : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
@@ -237,7 +237,7 @@ export default function Integrations() {
                 </p>
                 <button
                   onClick={() => setView('available')}
-                  className="px-6 py-3 bg-[#3B82F6] text-white rounded-lg font-medium hover:bg-[#2563EB] transition-colors"
+                  className="px-6 py-3 bg-indigo-500 text-white rounded-lg font-medium hover:bg-indigo-600 transition-colors"
                 >
                   Browse Available Integrations
                 </button>

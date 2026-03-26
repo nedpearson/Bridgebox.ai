@@ -78,15 +78,15 @@ export default function GuidedTour({ onClose, isDemo }: { onClose: () => void, i
                   initial={{ opacity: 0, y: 50, scale: 0.9 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                  className="w-full max-w-md bg-slate-900 border border-[#3B82F6]/30 rounded-2xl shadow-[0_0_50px_rgba(59,130,246,0.15)] pointer-events-auto relative overflow-hidden"
+                  className="w-full max-w-md bg-slate-900 border border-indigo-500/30 rounded-2xl shadow-[0_0_50px_rgba(59,130,246,0.15)] pointer-events-auto relative overflow-hidden"
                >
                   {/* Decorative glow */}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3B82F6] to-cyan-400" />
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-cyan-400" />
                   
                   <div className="p-6">
                      <div className="flex justify-between items-start mb-4">
-                        <div className="w-12 h-12 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-xl flex items-center justify-center">
-                           <step.icon className="w-6 h-6 text-[#3B82F6]" />
+                        <div className="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center justify-center">
+                           <step.icon className="w-6 h-6 text-indigo-500" />
                         </div>
                         <button onClick={() => setIsVisible(false)} className="text-slate-500 hover:text-white transition-colors">
                            <X className="w-5 h-5" />
@@ -102,7 +102,7 @@ export default function GuidedTour({ onClose, isDemo }: { onClose: () => void, i
                         {/* Pagination Dots */}
                         <div className="flex space-x-1.5">
                            {TOUR_STEPS.map((_, i) => (
-                              <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentStep ? 'w-6 bg-[#3B82F6]' : 'w-1.5 bg-slate-800'}`} />
+                              <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentStep ? 'w-6 bg-indigo-500' : 'w-1.5 bg-slate-800'}`} />
                            ))}
                         </div>
 
@@ -127,7 +127,7 @@ export default function GuidedTour({ onClose, isDemo }: { onClose: () => void, i
                            )}
                            <button 
                               onClick={handleNext}
-                              className="px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg flex items-center shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all"
+                              className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg flex items-center shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all"
                            >
                               {isLast ? (
                                  <>Start Customizing <PlayCircle className="w-4 h-4 ml-2" /></>

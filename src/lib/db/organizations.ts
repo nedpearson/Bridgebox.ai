@@ -96,6 +96,7 @@ export const organizationsService = {
     website?: string;
     industry?: string;
     size?: string;
+    metadata?: any;
   }) {
     const { data: user } = await supabase.auth.getUser();
     if (!user.user) throw new Error('Not authenticated');
@@ -155,6 +156,9 @@ export const organizationsService = {
     industry?: string;
     size?: string;
     logo_url?: string;
+    email?: string;
+    phone?: string;
+    metadata?: any;
   }) {
     const { data, error } = await supabase
       .from('bb_organizations')

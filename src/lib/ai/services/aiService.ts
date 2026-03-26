@@ -35,7 +35,7 @@ class AIService {
     this.cache.set(key, { data, timestamp: Date.now() });
   }
 
-  private async executeAITask<T>(
+  public async executeAITask<T>(
     messages: any[],
     useCache: boolean = true,
     cacheKey?: string

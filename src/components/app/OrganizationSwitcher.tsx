@@ -61,7 +61,7 @@ export default function OrganizationSwitcher() {
                     }}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors ${
                       org.id === currentOrganization.id
-                        ? 'bg-[#3B82F6]/10 text-[#3B82F6]'
+                        ? 'bg-indigo-500/10 text-indigo-500'
                         : 'text-slate-300 hover:bg-slate-700/50'
                     }`}
                   >

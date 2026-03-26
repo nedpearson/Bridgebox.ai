@@ -214,7 +214,7 @@ export default function LeadDetail() {
 
           <Card glass className="p-6">
             <div className="flex items-start space-x-4 mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-lg flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-lg flex items-center justify-center">
                 <Users className="w-8 h-8 text-white" />
               </div>
               <div>
@@ -222,11 +222,11 @@ export default function LeadDetail() {
                 <select
                   value={lead.status}
                   onChange={(e) => handleStatusChange(e.target.value)}
-                  className={`border-none rounded-full px-3 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#3B82F6] cursor-pointer ${
+                  className={`border-none rounded-full px-3 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer ${
                     (lead.status as string) === 'converted' ? 'text-[#10B981] bg-[#10B981]/10' :
                     (lead.status as string) === 'lost' ? 'text-red-500 bg-red-500/10' :
                     (lead.status as string) === 'proposal_sent' || (lead.status as string) === 'negotiation' ? 'text-yellow-500 bg-yellow-500/10' :
-                    'text-[#3B82F6] bg-[#3B82F6]/10'
+                    'text-indigo-500 bg-indigo-500/10'
                   }`}
                 >
                   <option value="new">New</option>
@@ -439,7 +439,7 @@ export default function LeadDetail() {
               <div className="flex flex-wrap gap-3">
                 <Link
                   to={`/app/proposals/new?lead_id=${lead.id}`}
-                  className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-medium rounded-lg transition-colors"
+                  className="flex items-center space-x-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg transition-colors"
                 >
                   <FileText className="w-5 h-5" />
                   <span>Create Proposal</span>

@@ -238,7 +238,7 @@ export default function BillingOverview() {
                     <h3 className="text-3xl font-bold text-white">
                       {subscription.subscription_plans?.name || 'Unknown Plan'}
                     </h3>
-                    <p className="text-2xl text-[#3B82F6] font-semibold">
+                    <p className="text-2xl text-indigo-500 font-semibold">
                       {stripeHelpers.formatAmount(subscription.mrr)}/
                       {stripeHelpers.formatInterval(subscription.billing_cycle)}
                     </p>
@@ -272,7 +272,7 @@ export default function BillingOverview() {
                 </div>
 
                 <div className="flex gap-3">
-                  <button className="flex items-center space-x-2 px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white rounded-lg transition-colors">
+                  <button className="flex items-center space-x-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors">
                     <ExternalLink className="w-4 h-4" />
                     <span>Manage Subscription</span>
                   </button>
@@ -353,7 +353,7 @@ export default function BillingOverview() {
                     <div key={plan.id} className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 text-left">
                       <div className="flex items-center justify-between mb-2">
                         <p className="text-white font-semibold">{plan.name}</p>
-                        <p className="text-[#3B82F6] font-bold">{formatPlanPrice(plan, 'monthly')}/mo</p>
+                        <p className="text-indigo-500 font-bold">{formatPlanPrice(plan, 'monthly')}/mo</p>
                       </div>
                       <p className="text-slate-400 text-sm">{plan.description}</p>
                     </div>
@@ -426,12 +426,12 @@ export default function BillingOverview() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-[#3B82F6]/30 transition-all duration-300"
+                  className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4 flex-1">
                       <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center">
-                        <FileText className="w-6 h-6 text-[#3B82F6]" />
+                        <FileText className="w-6 h-6 text-indigo-500" />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-1">
@@ -481,7 +481,7 @@ export default function BillingOverview() {
                             href={invoice.hosted_invoice_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 text-slate-400 hover:text-[#3B82F6] transition-colors"
+                            className="p-2 text-slate-400 hover:text-indigo-500 transition-colors"
                             title="View invoice"
                           >
                             <ExternalLink className="w-5 h-5" />
@@ -492,7 +492,7 @@ export default function BillingOverview() {
                             href={invoice.invoice_pdf}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 text-slate-400 hover:text-[#3B82F6] transition-colors"
+                            className="p-2 text-slate-400 hover:text-indigo-500 transition-colors"
                             title="Download PDF"
                           >
                             <FileText className="w-5 h-5" />

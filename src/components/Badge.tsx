@@ -15,7 +15,7 @@ export default function Badge({
   className = ''
 }: BadgeProps) {
   const variants = {
-    primary: 'bg-[#3B82F6]/10 border-[#3B82F6]/20 text-[#3B82F6] backdrop-blur-sm',
+    primary: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-500 backdrop-blur-sm',
     secondary: 'bg-white/5 border-white/10 text-slate-300 backdrop-blur-sm',
     success: 'bg-[#10B981]/10 border-[#10B981]/20 text-[#10B981] backdrop-blur-sm',
     outline: 'bg-transparent border-white/20 text-white backdrop-blur-sm',

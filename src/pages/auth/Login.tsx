@@ -108,7 +108,7 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="you@example.com"
                 />
               </div>
@@ -123,7 +123,7 @@ export default function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="Enter your password"
                 />
               </div>
@@ -134,12 +134,12 @@ export default function Login() {
                 <input 
                   type="checkbox" 
                   defaultChecked
-                  className="w-4 h-4 rounded border-slate-700 bg-slate-800/50 text-[#3B82F6] focus:ring-[#3B82F6] focus:ring-offset-slate-900 transition-colors cursor-pointer" 
+                  className="w-4 h-4 rounded border-slate-700 bg-slate-800/50 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-slate-900 transition-colors cursor-pointer" 
                 />
                 <span className="ml-2 text-sm text-slate-400 select-none">Remember me</span>
               </label>
               
-              <Link to="/forgot-password" className="text-sm text-[#3B82F6] hover:text-[#2563EB] font-medium transition-colors">
+              <Link to="/forgot-password" className="text-sm text-indigo-500 hover:text-indigo-600 font-medium transition-colors">
                 Forgot password?
               </Link>
             </div>
@@ -147,7 +147,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#3B82F6] hover:bg-[#2563EB] disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors"
+              className="w-full bg-indigo-500 hover:bg-indigo-600 disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
@@ -172,7 +172,7 @@ export default function Login() {
           <div className="mt-6 text-center">
             <p className="text-slate-400 text-sm">
               Don't have an account?{' '}
-              <Link to="/signup" className="text-[#3B82F6] hover:text-[#2563EB] font-medium">
+              <Link to="/signup" className="text-indigo-500 hover:text-indigo-600 font-medium">
                 Sign up
               </Link>
             </p>

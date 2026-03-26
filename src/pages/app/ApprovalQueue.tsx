@@ -196,9 +196,9 @@ export default function ApprovalQueue() {
                           </div>
 
                           <div className="mb-6 flex gap-4 items-start">
-                             <ArrowRight className="w-5 h-5 flex-shrink-0 mt-2 text-[#3B82F6]" />
+                             <ArrowRight className="w-5 h-5 flex-shrink-0 mt-2 text-indigo-500" />
                              <div className="flex-1">
-                                <h5 className="text-xs font-bold uppercase tracking-widest text-[#3B82F6] mb-2">Proposed Execution (The What)</h5>
+                                <h5 className="text-xs font-bold uppercase tracking-widest text-indigo-500 mb-2">Proposed Execution (The What)</h5>
                                 
                                 {/* Human Readable Payload Mapping */}
                                 {renderHumanPayload(action.proposed_action, action.payload)}

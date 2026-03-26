@@ -359,7 +359,7 @@ export default function Analytics() {
                 onClick={() => setView(id)}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all whitespace-nowrap ${
                   view === id
-                    ? 'bg-[#3B82F6] text-white'
+                    ? 'bg-indigo-500 text-white'
                     : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-800'
                 }`}
               >
@@ -604,7 +604,7 @@ function OverviewView({ metrics }: { metrics: any }) {
       <div className="grid lg:grid-cols-2 gap-6">
         <Card glass className="p-6">
           <div className="flex items-center space-x-3 mb-6">
-            <Activity className="w-5 h-5 text-[#3B82F6]" />
+            <Activity className="w-5 h-5 text-indigo-500" />
             <h3 className="text-lg font-bold text-white">Pipeline Health</h3>
           </div>
           <div className="grid grid-cols-2 gap-6">
@@ -637,7 +637,7 @@ function OverviewView({ metrics }: { metrics: any }) {
             </div>
             <div>
               <p className="text-slate-400 text-sm mb-2">Avg. Project Length</p>
-              <p className="text-3xl font-bold text-[#3B82F6]">
+              <p className="text-3xl font-bold text-indigo-500">
                 {projects.avgProjectDuration.toFixed(0)}d
               </p>
             </div>
@@ -653,9 +653,9 @@ function SalesView({ data }: { data: any }) {
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-6">
         <Link to="/app/leads" className="block transition-transform hover:-translate-y-1">
-          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+          <Card glass className="p-6 hover:border-indigo-500/50 transition-colors h-full">
             <div className="flex items-center space-x-3 mb-2">
-              <Users className="w-5 h-5 text-[#3B82F6]" />
+              <Users className="w-5 h-5 text-indigo-500" />
               <p className="text-slate-400 text-sm">Total Leads</p>
             </div>
             <p className="text-3xl font-bold text-white">{data.totalLeads}</p>
@@ -706,7 +706,7 @@ function SalesView({ data }: { data: any }) {
               </div>
               <div className="w-full bg-slate-800/50 rounded-full h-2">
                 <div
-                  className="h-full bg-[#3B82F6] rounded-full"
+                  className="h-full bg-indigo-500 rounded-full"
                   style={{ width: '100%' }}
                 />
               </div>
@@ -769,9 +769,9 @@ function DeliveryView({ data }: { data: any }) {
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-6">
         <Link to="/app/projects?status=in_progress" className="block transition-transform hover:-translate-y-1">
-          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+          <Card glass className="p-6 hover:border-indigo-500/50 transition-colors h-full">
             <div className="flex items-center space-x-3 mb-2">
-              <Package className="w-5 h-5 text-[#3B82F6]" />
+              <Package className="w-5 h-5 text-indigo-500" />
               <p className="text-slate-400 text-sm">Active Projects</p>
             </div>
             <p className="text-3xl font-bold text-white">{data.activeProjects}</p>
@@ -868,7 +868,7 @@ function DeliveryView({ data }: { data: any }) {
           </div>
           <div className="w-full bg-slate-800/50 rounded-full h-3">
             <div
-              className="h-full bg-gradient-to-r from-[#3B82F6] to-[#10B981] rounded-full"
+              className="h-full bg-gradient-to-r from-indigo-500 to-[#10B981] rounded-full"
               style={{ width: `${data.milestoneCompletionRate}%` }}
             />
           </div>
@@ -893,9 +893,9 @@ function BillingView({ data }: { data: any }) {
         </Link>
 
         <Link to="/app/billing?tab=subscriptions" className="block transition-transform hover:-translate-y-1">
-          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+          <Card glass className="p-6 hover:border-indigo-500/50 transition-colors h-full">
             <div className="flex items-center space-x-3 mb-2">
-              <TrendingUp className="w-5 h-5 text-[#3B82F6]" />
+              <TrendingUp className="w-5 h-5 text-indigo-500" />
               <p className="text-slate-400 text-sm">Active Subscriptions</p>
             </div>
             <p className="text-3xl font-bold text-white">{data.activeSubscriptions}</p>
@@ -975,7 +975,7 @@ function BillingView({ data }: { data: any }) {
             </div>
             <div>
               <p className="text-slate-400 text-sm mb-2">Avg. Project Value</p>
-              <p className="text-3xl font-bold text-[#3B82F6]">
+              <p className="text-3xl font-bold text-indigo-500">
                 ${data.averageProjectValue.toLocaleString()}
               </p>
             </div>
@@ -1023,9 +1023,9 @@ function SupportView({ data }: { data: any }) {
         </Link>
 
         <Link to="/app/support" className="block transition-transform hover:-translate-y-1">
-          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+          <Card glass className="p-6 hover:border-indigo-500/50 transition-colors h-full">
             <div className="flex items-center space-x-3 mb-2">
-              <Activity className="w-5 h-5 text-[#3B82F6]" />
+              <Activity className="w-5 h-5 text-indigo-500" />
               <p className="text-slate-400 text-sm">This Week</p>
             </div>
             <p className="text-3xl font-bold text-white">{data.ticketsThisWeek}</p>
@@ -1095,9 +1095,9 @@ function ClientsView({ data }: { data: any }) {
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-6">
         <Link to="/app/clients" className="block transition-transform hover:-translate-y-1">
-          <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+          <Card glass className="p-6 hover:border-indigo-500/50 transition-colors h-full">
             <div className="flex items-center space-x-3 mb-2">
-              <Building2 className="w-5 h-5 text-[#3B82F6]" />
+              <Building2 className="w-5 h-5 text-indigo-500" />
               <p className="text-slate-400 text-sm">Total Clients</p>
             </div>
             <p className="text-3xl font-bold text-white">{data.totalClients}</p>
@@ -1187,7 +1187,7 @@ function ClientsView({ data }: { data: any }) {
               </div>
               <div className="w-full bg-slate-800/50 rounded-full h-2">
                 <div
-                  className="h-full bg-[#3B82F6] rounded-full"
+                  className="h-full bg-indigo-500 rounded-full"
                   style={{
                     width: `${(data.onboardingInProgress / data.totalClients) * 100}%`,
                   }}
@@ -1211,8 +1211,8 @@ function ClientsView({ data }: { data: any }) {
             </div>
             <div className="flex items-center justify-between p-4 bg-slate-800/30 rounded-lg border border-slate-700/50">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-[#3B82F6]/10 rounded-lg flex items-center justify-center">
-                  <Users className="w-5 h-5 text-[#3B82F6]" />
+                <div className="w-10 h-10 bg-indigo-500/10 rounded-lg flex items-center justify-center">
+                  <Users className="w-5 h-5 text-indigo-500" />
                 </div>
                 <span className="text-slate-300">Active</span>
               </div>

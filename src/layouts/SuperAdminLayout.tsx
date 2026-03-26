@@ -21,7 +21,7 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-slate-950 flex font-sans selection:bg-[#3B82F6]/30">
+    <div className="min-h-screen bg-slate-950 flex font-sans selection:bg-indigo-500/30">
       
       {/* Refactored High-Clarity Sidebar */}
       <motion.aside 
@@ -31,12 +31,12 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
       >
         <div className="p-6 border-b border-white/10 flex items-center justify-between">
            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6] to-indigo-600 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.5)]">
                  <Shield className="w-5 h-5 text-white" />
               </div>
               <div>
                 <h2 className="font-bold text-white tracking-tight leading-tight">Bridgebox</h2>
-                <div className="text-[10px] uppercase tracking-widest text-[#3B82F6] font-black">Super Admin</div>
+                <div className="text-[10px] uppercase tracking-widest text-indigo-500 font-black">Super Admin</div>
               </div>
            </div>
         </div>
@@ -62,10 +62,10 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
                           {isActive && (
                             <motion.div 
                               layoutId="active-admin-nav"
-                              className="absolute inset-0 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-lg"
+                              className="absolute inset-0 bg-indigo-500/10 border border-indigo-500/20 rounded-lg"
                             />
                           )}
-                          <Icon className={`w-5 h-5 z-10 transition-colors ${isActive ? 'text-[#3B82F6]' : 'text-slate-500 group-hover:text-slate-300'}`} />
+                          <Icon className={`w-5 h-5 z-10 transition-colors ${isActive ? 'text-indigo-500' : 'text-slate-500 group-hover:text-slate-300'}`} />
                           <span className="z-10">{item.name}</span>
                        </button>
                     )

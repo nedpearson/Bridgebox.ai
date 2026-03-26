@@ -129,7 +129,7 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <div className="p-3 bg-slate-900 rounded-lg">
-                      <FileIcon className="w-8 h-8 text-[#3B82F6]" />
+                      <FileIcon className="w-8 h-8 text-indigo-500" />
                     </div>
                     <div>
                       <p className="text-white font-medium truncate max-w-[200px] sm:max-w-[250px]">

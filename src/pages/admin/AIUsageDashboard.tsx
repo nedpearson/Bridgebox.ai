@@ -30,8 +30,8 @@ export default function AIUsageDashboard() {
             <div className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2 flex items-center"><Activity className="w-4 h-4 mr-2" /> Global Token Burn L30D</div>
             <div className="text-3xl font-black text-white">42.5M <span className="text-sm font-medium text-slate-500 uppercase tracking-widest ml-2">Tokens</span></div>
          </Card>
-         <Card className="p-6 bg-slate-900/60 border border-[#3B82F6]/20">
-            <div className="text-xs font-bold text-[#3B82F6] uppercase tracking-widest mb-2 flex items-center"><Sparkles className="w-4 h-4 mr-2" /> Projected Provider Cost</div>
+         <Card className="p-6 bg-slate-900/60 border border-indigo-500/20">
+            <div className="text-xs font-bold text-indigo-500 uppercase tracking-widest mb-2 flex items-center"><Sparkles className="w-4 h-4 mr-2" /> Projected Provider Cost</div>
             <div className="text-3xl font-black text-white">$4,820 <span className="text-sm font-medium text-slate-500 uppercase tracking-widest ml-2">USD</span></div>
          </Card>
          <Card className="p-6 bg-rose-500/5 border border-rose-500/20">

@@ -63,7 +63,7 @@ export default function ClientProjects() {
       case 'completed':
         return <CheckCircle2 className="w-5 h-5 text-[#10B981]" />;
       case 'in_progress':
-        return <div className="w-5 h-5 rounded-full bg-[#3B82F6] animate-pulse" />;
+        return <div className="w-5 h-5 rounded-full bg-indigo-500 animate-pulse" />;
       default:
         return <div className="w-5 h-5 rounded-full border-2 border-slate-600" />;
     }
@@ -81,19 +81,19 @@ export default function ClientProjects() {
           <div className="flex bg-slate-800/50 p-1 rounded-lg border border-slate-700">
             <button
               onClick={() => setSearchParams({ status: 'all' })}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'all' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'all' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}
             >
               All Projects
             </button>
             <button
               onClick={() => setSearchParams({ status: 'in_progress' })}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'in_progress' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'in_progress' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}
             >
               Active
             </button>
             <button
               onClick={() => setSearchParams({ status: 'completed' })}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'completed' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'completed' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}
             >
               Completed
             </button>
@@ -115,7 +115,7 @@ export default function ClientProjects() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-all duration-300">
+              <Card glass className="p-6 hover:border-indigo-500/50 transition-all duration-300">
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
@@ -147,7 +147,7 @@ export default function ClientProjects() {
 
                 <div className="w-full bg-slate-700 rounded-full h-3 mb-6">
                   <div
-                    className="bg-gradient-to-r from-[#3B82F6] to-[#10B981] h-3 rounded-full transition-all duration-500"
+                    className="bg-gradient-to-r from-indigo-500 to-[#10B981] h-3 rounded-full transition-all duration-500"
                     style={{ width: `${project.progress_percentage}%` }}
                   />
                 </div>

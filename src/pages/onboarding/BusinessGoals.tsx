@@ -50,7 +50,7 @@ export default function BusinessGoals() {
     <div className="max-w-3xl mx-auto">
       <Card glass className="p-10">
         <div className="flex items-center space-x-4 mb-8">
-          <div className="w-14 h-14 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-xl flex items-center justify-center">
+          <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-xl flex items-center justify-center">
             <Target className="w-7 h-7 text-white" />
           </div>
           <div>
@@ -72,14 +72,14 @@ export default function BusinessGoals() {
                 onClick={() => toggleGoal(goal)}
                 className={`w-full p-4 rounded-lg border-2 transition-all text-left flex items-center justify-between ${
                   isSelected
-                    ? 'border-[#3B82F6] bg-[#3B82F6]/10'
+                    ? 'border-indigo-500 bg-indigo-500/10'
                     : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
                 }`}
               >
                 <span className="text-white font-medium">{goal}</span>
                 <div
                   className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-                    isSelected ? 'border-[#3B82F6] bg-[#3B82F6]' : 'border-slate-600 bg-slate-800'
+                    isSelected ? 'border-indigo-500 bg-indigo-500' : 'border-slate-600 bg-slate-800'
                   }`}
                 >
                   {isSelected && <Check className="w-4 h-4 text-white" />}
@@ -100,7 +100,7 @@ export default function BusinessGoals() {
               value={customGoal}
               onChange={(e) => setCustomGoal(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && addCustomGoal()}
-              className="flex-1 px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+              className="flex-1 px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               placeholder="Type your custom goal"
             />
             <Button variant="outline" onClick={addCustomGoal} disabled={!customGoal.trim()}>
@@ -113,14 +113,14 @@ export default function BusinessGoals() {
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-lg p-4 mt-6"
+            className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-4 mt-6"
           >
-            <p className="text-sm text-[#3B82F6] font-medium mb-3">Selected Goals:</p>
+            <p className="text-sm text-indigo-500 font-medium mb-3">Selected Goals:</p>
             <div className="flex flex-wrap gap-2">
               {selectedGoals.map((goal) => (
                 <span
                   key={goal}
-                  className="px-3 py-1 bg-[#3B82F6]/20 border border-[#3B82F6]/30 rounded-full text-sm text-white flex items-center gap-2"
+                  className="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-sm text-white flex items-center gap-2"
                 >
                   {goal}
                   <button

@@ -107,7 +107,7 @@ export default function ProposalsList() {
                 placeholder="Search proposals..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               />
             </div>
 
@@ -116,7 +116,7 @@ export default function ProposalsList() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+                className="bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               >
                 <option value="all">All Statuses</option>
                 <option value="draft">Draft</option>
@@ -155,13 +155,13 @@ export default function ProposalsList() {
                 <Link to={`/app/proposals/${proposal.id}`}>
                   <Card
                     glass
-                    className="p-6 hover:border-[#3B82F6]/50 transition-all duration-300 cursor-pointer group"
+                    className="p-6 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer group"
                   >
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                       <div className="flex-1 space-y-3">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h3 className="text-xl font-semibold text-white group-hover:text-[#3B82F6] transition-colors mb-2">
+                            <h3 className="text-xl font-semibold text-white group-hover:text-indigo-500 transition-colors mb-2">
                               {proposal.title}
                             </h3>
                             <div className="flex flex-wrap items-center gap-3 text-sm text-slate-400">

@@ -154,7 +154,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                         value={formData.organization_id}
                         onChange={(e) => setFormData({ ...formData, organization_id: e.target.value })}
                         disabled={loadingOrgs}
-                        className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6] transition-all"
+                        className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                       >
                         <option value="">Select a client...</option>
                         {organizations.map(org => (
@@ -173,7 +173,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] transition-all"
+                      className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                       placeholder="e.g. Q3 Analytics Dashboard"
                     />
                   </div>
@@ -185,7 +185,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                     <select
                       value={formData.type}
                       onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6] transition-all"
+                      className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                     >
                       <option value="web_app">Web Application</option>
                       <option value="mobile_app">Mobile Application</option>
@@ -204,7 +204,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                       rows={3}
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] transition-all resize-none"
+                      className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
                       placeholder="High-level project goals and requirements..."
                     />
                   </div>
@@ -218,7 +218,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                         type="date"
                         value={formData.start_date}
                         onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                        className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
+                        className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       />
                     </div>
                     <div>
@@ -229,7 +229,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                         type="date"
                         value={formData.target_launch_date}
                         onChange={(e) => setFormData({ ...formData, target_launch_date: e.target.value })}
-                        className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
+                        className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       />
                     </div>
                   </div>

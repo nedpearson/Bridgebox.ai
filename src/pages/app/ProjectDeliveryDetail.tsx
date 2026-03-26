@@ -122,7 +122,7 @@ export default function ProjectDeliveryDetail() {
             <select
               value={delivery.delivery_phase}
               onChange={(e) => handlePhaseChange(e.target.value as DeliveryPhase)}
-              className="mt-3 w-full bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
+              className="mt-3 w-full bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="discovery">Discovery</option>
               <option value="planning">Planning</option>
@@ -141,7 +141,7 @@ export default function ProjectDeliveryDetail() {
             <select
               value={delivery.health_status}
               onChange={(e) => handleHealthChange(e.target.value as HealthStatus)}
-              className="mt-3 w-full bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
+              className="mt-3 w-full bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="green">Healthy</option>
               <option value="yellow">At Risk</option>
@@ -159,7 +159,7 @@ export default function ProjectDeliveryDetail() {
             <div className="flex items-center space-x-3">
               <div className="flex-1 h-3 bg-slate-800 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-[#3B82F6] transition-all duration-500"
+                  className="h-full bg-indigo-500 transition-all duration-500"
                   style={{ width: `${delivery.completion_percentage}%` }}
                 />
               </div>

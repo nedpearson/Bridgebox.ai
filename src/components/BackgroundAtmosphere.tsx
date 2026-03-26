@@ -4,7 +4,7 @@ export default function BackgroundAtmosphere() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
       <motion.div
-        className="absolute top-1/4 -left-1/4 w-96 h-96 bg-[#3B82F6]/10 rounded-full blur-3xl"
+        className="absolute top-1/4 -left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
         animate={{
           x: [0, 50, 0],
           y: [0, 30, 0],
@@ -35,7 +35,7 @@ export default function BackgroundAtmosphere() {
       />
 
       <motion.div
-        className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-[#3B82F6]/8 rounded-full blur-3xl"
+        className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-indigo-500/8 rounded-full blur-3xl"
         animate={{
           x: [0, -30, 0],
           y: [0, 40, 0],

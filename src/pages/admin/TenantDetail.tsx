@@ -32,8 +32,8 @@ export default function TenantDetail() {
              <ArrowLeft className="w-5 h-5 text-slate-400" />
           </button>
           <div className="flex items-center space-x-4">
-             <div className="w-14 h-14 bg-gradient-to-br from-[#3B82F6]/20 to-indigo-600/20 border border-[#3B82F6]/30 rounded-2xl flex items-center justify-center flex-shrink-0">
-                <Building2 className="w-7 h-7 text-[#3B82F6]" />
+             <div className="w-14 h-14 bg-gradient-to-br from-indigo-500/20 to-indigo-600/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <Building2 className="w-7 h-7 text-indigo-500" />
              </div>
              <div>
                 <h1 className="text-3xl font-bold text-white tracking-tight flex items-center space-x-3">
@@ -47,7 +47,7 @@ export default function TenantDetail() {
                   <span>•</span>
                   <span>Legal Sector</span>
                   <span>•</span>
-                  <span className="text-[#3B82F6] flex items-center cursor-pointer hover:underline">
+                  <span className="text-indigo-500 flex items-center cursor-pointer hover:underline">
                     admin@horizonlaw.com <ExternalLink className="w-3 h-3 ml-1" />
                   </span>
                 </p>
@@ -78,12 +78,12 @@ export default function TenantDetail() {
                    activeTab === tab.id ? 'text-white' : 'text-slate-500 hover:text-slate-300'
                  }`}
                >
-                 <Icon className={`w-4 h-4 mr-2 ${activeTab === tab.id ? 'text-[#3B82F6]' : 'text-slate-600'}`} />
+                 <Icon className={`w-4 h-4 mr-2 ${activeTab === tab.id ? 'text-indigo-500' : 'text-slate-600'}`} />
                  {tab.name}
                  {activeTab === tab.id && (
                    <motion.div
                      layoutId="active-tenant-tab-refactored"
-                     className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#3B82F6] rounded-t-full shadow-[0_-2px_10px_rgba(59,130,246,0.5)]"
+                     className="absolute bottom-0 left-0 right-0 h-[3px] bg-indigo-500 rounded-t-full shadow-[0_-2px_10px_rgba(59,130,246,0.5)]"
                    />
                  )}
                </button>
@@ -128,7 +128,7 @@ function TenantOverviewTab() {
       <div className="lg:col-span-2 space-y-6">
          <Card glass className="bg-slate-900/60 border border-white/5 p-6">
            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-bold text-white flex items-center"><Activity className="w-5 h-5 mr-2 text-[#3B82F6]"/> Execution Telemetry</h3>
+              <h3 className="text-lg font-bold text-white flex items-center"><Activity className="w-5 h-5 mr-2 text-indigo-500"/> Execution Telemetry</h3>
               <span className="text-xs font-bold text-amber-400 bg-amber-500/10 px-2 py-1 flex items-center rounded border border-amber-500/20">
                  <ShieldAlert className="w-3.5 h-3.5 mr-1" /> High Payload
               </span>
@@ -157,15 +157,15 @@ function TenantOverviewTab() {
       </div>
 
       <div className="lg:col-span-1 space-y-6">
-         <Card glass className="bg-gradient-to-br from-[#3B82F6]/10 to-transparent border border-[#3B82F6]/20 p-6 flex flex-col h-full">
+         <Card glass className="bg-gradient-to-br from-indigo-500/10 to-transparent border border-indigo-500/20 p-6 flex flex-col h-full">
             <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-widest">Financial State</h3>
             <div className="flex items-end space-x-2 mb-1">
               <span className="text-5xl font-black text-white tracking-tighter">$1,850</span>
               <span className="text-slate-400 text-sm mb-2 font-bold uppercase">/ mo</span>
             </div>
-            <p className="text-sm text-[#3B82F6] font-bold mb-6">Enterprise OS Plan</p>
+            <p className="text-sm text-indigo-500 font-bold mb-6">Enterprise OS Plan</p>
             
-            <div className="space-y-3 border-t border-[#3B82F6]/20 pt-6 mt-auto">
+            <div className="space-y-3 border-t border-indigo-500/20 pt-6 mt-auto">
                <div className="flex justify-between text-sm">
                  <span className="text-slate-400">Base OS License</span>
                  <span className="text-white font-bold">$250</span>

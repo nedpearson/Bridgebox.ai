@@ -109,7 +109,7 @@ ${Object.entries(featureScopes).map(([feat, scope]) => `   - [${feat}]: Build as
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-6 bg-slate-900 rounded-xl border border-slate-800">
              <div className="flex items-center mb-4">
-                <Database className="w-5 h-5 text-[#3B82F6] mr-2" />
+                <Database className="w-5 h-5 text-indigo-500 mr-2" />
                 <h3 className="text-white font-medium">Pending System Builds</h3>
              </div>
              <p className="text-3xl font-bold text-white">4</p>
@@ -178,7 +178,7 @@ ${Object.entries(featureScopes).map(([feat, scope]) => `   - [${feat}]: Build as
                                {/* Phase 7: Feature Ingestion Decision Engine */}
                                <div className="bg-slate-900/50 rounded-lg p-5 border border-slate-800">
                                   <h4 className="text-white font-medium mb-4 flex items-center">
-                                     <Cpu className="w-4 h-4 mr-2 text-[#3B82F6]" /> Feature Scope Decision Engine
+                                     <Cpu className="w-4 h-4 mr-2 text-indigo-500" /> Feature Scope Decision Engine
                                   </h4>
                                   <p className="text-sm text-slate-400 mb-4">Classify detected features to inject proper architectural constraints into the Antigravity compiler.</p>
                                   

@@ -40,7 +40,7 @@ export default function Timeline() {
     <div className="max-w-3xl mx-auto">
       <Card glass className="p-10">
         <div className="flex items-center space-x-4 mb-8">
-          <div className="w-14 h-14 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-xl flex items-center justify-center">
+          <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-xl flex items-center justify-center">
             <Clock className="w-7 h-7 text-white" />
           </div>
           <div>
@@ -63,7 +63,7 @@ export default function Timeline() {
                   transition={{ delay: index * 0.05 }}
                   className={`flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all ${
                     formData.timeline === option.value
-                      ? 'border-[#3B82F6] bg-[#3B82F6]/10'
+                      ? 'border-indigo-500 bg-indigo-500/10'
                       : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
                   }`}
                 >
@@ -73,7 +73,7 @@ export default function Timeline() {
                     value={option.value}
                     checked={formData.timeline === option.value}
                     onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                    className="w-5 h-5 text-[#3B82F6] border-slate-600 focus:ring-[#3B82F6] focus:ring-offset-0"
+                    className="w-5 h-5 text-indigo-500 border-slate-600 focus:ring-indigo-500 focus:ring-offset-0"
                   />
                   <span className="ml-3 text-white font-medium">{option.label}</span>
                 </motion.label>
@@ -93,7 +93,7 @@ export default function Timeline() {
               rows={5}
               value={formData.additional_notes}
               onChange={(e) => setFormData({ ...formData, additional_notes: e.target.value })}
-              className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all resize-none"
+              className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
               placeholder="Tell us anything else we should know about your project..."
             />
           </div>

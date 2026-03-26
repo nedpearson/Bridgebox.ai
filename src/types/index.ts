@@ -12,6 +12,54 @@ export type TicketPriority = 'low' | 'medium' | 'high' | 'urgent';
 
 export type InvoiceStatus = 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled';
 
+export type ContactMethodLabel = 'work' | 'personal' | 'billing' | 'mobile' | 'office' | 'home' | 'other';
+export type AddressLabel = 'home' | 'office' | 'shipping' | 'billing' | 'other';
+
+export interface ContactMethod {
+  id: string;
+  value: string;
+  label: ContactMethodLabel;
+  is_primary: boolean;
+}
+
+export interface CRMContact {
+  id: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  emails: ContactMethod[];
+  phones: ContactMethod[];
+  notes: string;
+  is_primary: boolean;
+}
+
+export interface CRMAddress {
+  id: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+  label: AddressLabel;
+  is_primary: boolean;
+}
+
+export interface OrganizationMetadata {
+  client_type?: 'individual' | 'business';
+  contacts?: CRMContact[];
+  addresses?: CRMAddress[];
+  custom_fields?: Record<string, string | number | boolean>;
+  relationships?: {
+    parent_company_id?: string;
+  };
+  email?: string;
+  phone?: string;
+  aliases?: string[];
+  competitors?: string[];
+  properties?: { name: string; url: string; category: string; location: string }[];
+  [key: string]: any;
+}
+
 export interface Organization {
   id: string;
   name: string;
@@ -20,6 +68,7 @@ export interface Organization {
   website?: string;
   industry?: string;
   size?: string;
+  metadata?: OrganizationMetadata;
   created_at: string;
   updated_at: string;
 }

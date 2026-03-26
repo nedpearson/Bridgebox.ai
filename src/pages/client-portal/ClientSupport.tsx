@@ -97,19 +97,19 @@ export default function ClientSupport() {
           <div className="flex bg-slate-800/50 p-1 rounded-lg border border-slate-700">
             <button
               onClick={() => setSearchParams({ status: 'all' })}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'all' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'all' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}
             >
               All
             </button>
             <button
               onClick={() => setSearchParams({ status: 'open' })}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'open' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'open' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}
             >
               Open
             </button>
             <button
               onClick={() => setSearchParams({ status: 'closed' })}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'closed' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${statusFilter === 'closed' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}
             >
               Closed
             </button>
@@ -132,7 +132,7 @@ export default function ClientSupport() {
                 type="text"
                 value={newTicket.title}
                 onChange={(e) => setNewTicket({ ...newTicket, title: e.target.value })}
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
+                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 placeholder="Brief description of the issue"
               />
             </div>
@@ -143,7 +143,7 @@ export default function ClientSupport() {
                 value={newTicket.description}
                 onChange={(e) => setNewTicket({ ...newTicket, description: e.target.value })}
                 rows={4}
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] resize-none"
+                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
                 placeholder="Provide details about your request..."
               />
             </div>
@@ -154,7 +154,7 @@ export default function ClientSupport() {
                 <select
                   value={newTicket.priority}
                   onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value as any })}
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -168,7 +168,7 @@ export default function ClientSupport() {
                 <select
                   value={newTicket.category}
                   onChange={(e) => setNewTicket({ ...newTicket, category: e.target.value as any })}
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <option value="general_support">General Support</option>
                   <option value="bug">Bug Report</option>
@@ -216,10 +216,10 @@ export default function ClientSupport() {
               transition={{ duration: 0.3 }}
             >
               <Link to={`/client-portal/support/${ticket.id}`}>
-                <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-all duration-300 cursor-pointer group">
+                <Card glass className="p-6 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer group">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-white group-hover:text-[#3B82F6] transition-colors mb-2">
+                      <h3 className="text-lg font-semibold text-white group-hover:text-indigo-500 transition-colors mb-2">
                         {ticket.title}
                       </h3>
                       <p className="text-slate-400 text-sm line-clamp-2 mb-3">{ticket.description}</p>

@@ -98,7 +98,7 @@ export default function TemplateDetailView({
       >
         <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-slate-900/95 backdrop-blur border-b border-slate-800">
           <div className="flex items-center space-x-3">
-            <PackagePlus className="w-6 h-6 text-[#3B82F6]" />
+            <PackagePlus className="w-6 h-6 text-indigo-500" />
             <h2 className="text-xl font-bold text-white tracking-tight">Ecosystem Install</h2>
           </div>
           <button onClick={onClose} className="p-2 text-slate-400 hover:text-white rounded-lg transition-colors">
@@ -111,7 +111,7 @@ export default function TemplateDetailView({
           {/* Main Info */}
           <div className="flex-1 space-y-6">
             <div>
-               <div className="text-xs font-bold text-[#3B82F6] uppercase tracking-widest mb-2">
+               <div className="text-xs font-bold text-indigo-500 uppercase tracking-widest mb-2">
                  {template.category.replace('_', ' ')} • v{template.version}
                </div>
                <h1 className="text-4xl font-black text-white mb-4">
@@ -171,8 +171,8 @@ export default function TemplateDetailView({
                  disabled={isInstalling || isCheckingOut || installSuccess}
                  className={`w-full py-4 px-6 rounded-xl font-bold flex justify-center items-center gap-2 transition-all ${
                    installSuccess ? 'bg-emerald-500 text-white cursor-default' :
-                   (isInstalling || isCheckingOut) ? 'bg-[#3B82F6]/50 text-white cursor-wait' :
-                   'bg-[#3B82F6] hover:bg-[#2563EB] text-white'
+                   (isInstalling || isCheckingOut) ? 'bg-indigo-500/50 text-white cursor-wait' :
+                   'bg-indigo-500 hover:bg-indigo-600 text-white'
                  }`}
                >
                  {installSuccess ? (

@@ -29,10 +29,10 @@ export default function Button({
   type,
   disabled = false,
 }: ButtonPropsExtended) {
-  const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 relative overflow-hidden group active:scale-[0.98] outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]/50';
+  const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 relative overflow-hidden group active:scale-[0.98] outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50';
 
   const variants = {
-    primary: 'bg-[#3B82F6] hover:bg-[#2563EB] text-white shadow-sm disabled:bg-slate-800 disabled:text-slate-500 disabled:shadow-none disabled:cursor-not-allowed',
+    primary: 'bg-indigo-500 hover:bg-indigo-600 text-white shadow-sm disabled:bg-slate-800 disabled:text-slate-500 disabled:shadow-none disabled:cursor-not-allowed',
     secondary: 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 hover:border-slate-600 shadow-sm disabled:bg-slate-800/50 disabled:text-slate-500 disabled:shadow-none disabled:cursor-not-allowed',
     outline: 'border border-slate-700 bg-transparent text-slate-300 hover:bg-slate-800 hover:text-white disabled:border-slate-800 disabled:text-slate-600 disabled:cursor-not-allowed',
     ghost: 'bg-transparent hover:bg-slate-800/50 text-slate-400 hover:text-white disabled:bg-transparent disabled:text-slate-600 disabled:cursor-not-allowed',

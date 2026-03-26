@@ -324,7 +324,7 @@ export default function ProposalDetail() {
           <Card glass className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Timeline</h3>
-              <Calendar className="w-5 h-5 text-[#3B82F6]" />
+              <Calendar className="w-5 h-5 text-indigo-500" />
             </div>
             <div className="text-2xl font-bold text-white">
               {proposal.timeline_estimate || 'TBD'}
@@ -360,7 +360,7 @@ export default function ProposalDetail() {
                   <p className="text-sm text-slate-400">Linked Lead</p>
                   <Link
                     to={`/app/leads/${proposal.lead.id}`}
-                    className="text-[#3B82F6] hover:text-[#2563EB] font-medium"
+                    className="text-indigo-500 hover:text-indigo-600 font-medium"
                   >
                     {proposal.lead.company_name}
                   </Link>
@@ -394,7 +394,7 @@ export default function ProposalDetail() {
               {proposal.service_types.map((service, idx) => (
                 <span
                   key={idx}
-                  className="px-4 py-2 bg-[#3B82F6]/10 text-[#3B82F6] border border-[#3B82F6]/30 rounded-lg font-medium"
+                  className="px-4 py-2 bg-indigo-500/10 text-indigo-500 border border-indigo-500/30 rounded-lg font-medium"
                 >
                   {service}
                 </span>

@@ -111,13 +111,13 @@ export default function AgentDetailView({ agentId, onClose }: { agentId: string,
              
              {/* Left Panel: Details */}
              <div className="p-10 border-b md:border-b-0 md:border-r border-slate-800 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#3B82F6]/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
                 
-                <div className="w-16 h-16 bg-[#3B82F6]/10 border border-[#3B82F6]/30 rounded-2xl flex items-center justify-center mb-6 relative z-10 shadow-lg">
-                   <Bot className="w-8 h-8 text-[#3B82F6]" />
+                <div className="w-16 h-16 bg-indigo-500/10 border border-indigo-500/30 rounded-2xl flex items-center justify-center mb-6 relative z-10 shadow-lg">
+                   <Bot className="w-8 h-8 text-indigo-500" />
                 </div>
                 
-                <div className="text-xs font-bold text-[#3B82F6] uppercase tracking-widest mb-2 relative z-10">
+                <div className="text-xs font-bold text-indigo-500 uppercase tracking-widest mb-2 relative z-10">
                    Premium AI Assistant
                 </div>
                 <h1 className="text-3xl font-black text-white mb-4 relative z-10 leading-tight">
@@ -184,7 +184,7 @@ export default function AgentDetailView({ agentId, onClose }: { agentId: string,
                       <button 
                         onClick={handleHireAgent}
                         disabled={installing}
-                        className="w-full py-4 bg-[#3B82F6] hover:bg-[#2563EB] text-white rounded-xl shadow-[0_0_30px_rgba(59,130,246,0.2)] font-black text-lg flex items-center justify-center group transition-colors"
+                        className="w-full py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl shadow-[0_0_30px_rgba(59,130,246,0.2)] font-black text-lg flex items-center justify-center group transition-colors"
                       >
                          {installing ? (
                             <span className="animate-pulse">Deploying to Workspace...</span>

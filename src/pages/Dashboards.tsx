@@ -197,7 +197,7 @@ export default function Dashboards() {
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ duration: 0.3 }}
-                  className="w-16 h-16 bg-gradient-to-br from-[#10B981]/20 to-[#3B82F6]/20 rounded-xl flex items-center justify-center mx-auto mb-6"
+                  className="w-16 h-16 bg-gradient-to-br from-[#10B981]/20 to-indigo-500/20 rounded-xl flex items-center justify-center mx-auto mb-6"
                 >
                   <feature.icon className="w-8 h-8 text-[#10B981]" />
                 </motion.div>
@@ -317,7 +317,7 @@ export default function Dashboards() {
               custom={index}
               className="text-center"
             >
-              <div className="text-5xl font-bold bg-gradient-to-r from-[#10B981] to-[#3B82F6] bg-clip-text text-transparent mb-4">
+              <div className="text-5xl font-bold bg-gradient-to-r from-[#10B981] to-indigo-500 bg-clip-text text-transparent mb-4">
                 {String(index + 1).padStart(2, '0')}
               </div>
               <h3 className="text-xl font-bold text-white mb-3">{benefit.title}</h3>

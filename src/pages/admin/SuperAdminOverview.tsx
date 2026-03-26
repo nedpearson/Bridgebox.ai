@@ -30,7 +30,7 @@ export default function SuperAdminOverview() {
         </div>
         <div className="text-right">
            <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Total System MRR</div>
-           <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#3B82F6]">$142,500</div>
+           <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-indigo-500">$142,500</div>
            <div className="text-xs text-emerald-400 font-semibold mt-1">+12.4% MoM Expansion</div>
         </div>
       </div>
@@ -38,8 +38,8 @@ export default function SuperAdminOverview() {
       {/* Primary KPI Grid (Combining old Analytics & Overview) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
         <Card glass className="p-5 flex flex-col bg-slate-900 border-white/5 relative overflow-hidden group">
-           <div className="absolute -right-4 -top-4 w-24 h-24 bg-[#3B82F6]/5 blur-2xl rounded-full group-hover:bg-[#3B82F6]/10 transition-colors" />
-           <div className="text-slate-400 font-medium text-sm mb-4 flex items-center"><Users className="w-4 h-4 mr-2 text-[#3B82F6]"/> Active Tenants</div>
+           <div className="absolute -right-4 -top-4 w-24 h-24 bg-indigo-500/5 blur-2xl rounded-full group-hover:bg-indigo-500/10 transition-colors" />
+           <div className="text-slate-400 font-medium text-sm mb-4 flex items-center"><Users className="w-4 h-4 mr-2 text-indigo-500"/> Active Tenants</div>
            <div className="text-4xl font-black text-white mt-auto tracking-tight">142</div>
            <div className="text-xs font-semibold text-emerald-400 mt-2 flex items-center"><TrendingUp className="w-3 h-3 mr-1" /> +3 this week</div>
         </Card>
@@ -58,7 +58,7 @@ export default function SuperAdminOverview() {
            <div className="text-xs font-semibold text-rose-400 mt-2 flex items-center">~$4,820 Provider Cost</div>
         </Card>
 
-        <Card glass className="p-5 flex flex-col bg-slate-900 border-white/5 relative overflow-hidden group hover:border-[#3B82F6]/30 transition-colors cursor-pointer">
+        <Card glass className="p-5 flex flex-col bg-slate-900 border-white/5 relative overflow-hidden group hover:border-indigo-500/30 transition-colors cursor-pointer">
            <div className="text-slate-400 font-medium text-sm mb-4 flex items-center"><Server className="w-4 h-4 mr-2 text-amber-500"/> Infrastructure</div>
            <div className="mt-auto space-y-3">
               <div>

@@ -28,7 +28,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-         <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 selection:bg-[#3B82F6]/30">
+         <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 selection:bg-indigo-500/30">
             <div className="w-full max-w-lg bg-slate-900/80 backdrop-blur-xl border border-rose-500/20 rounded-3xl p-8 relative overflow-hidden isolate">
                
                <div className="absolute -top-32 -right-32 w-64 h-64 bg-rose-500/10 blur-[100px] rounded-full pointer-events-none" />
@@ -62,7 +62,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
                  </button>
                  <button 
                     onClick={() => window.location.reload()} 
-                    className="w-full flex items-center justify-center px-4 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-bold rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all"
+                    className="w-full flex items-center justify-center px-4 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all"
                  >
                     <RefreshCcw className="w-4 h-4 mr-2" /> Force Reload
                  </button>

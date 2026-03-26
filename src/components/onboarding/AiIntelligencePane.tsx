@@ -39,8 +39,8 @@ export default function AiIntelligencePane({ rawContext }: AiIntelligencePanePro
   return (
     <div className="h-full flex flex-col">
       <div className="flex items-center space-x-3 mb-8">
-        <div className="p-2 bg-[#3B82F6]/20 rounded-lg">
-          <Cpu className="w-6 h-6 text-[#3B82F6]" />
+        <div className="p-2 bg-indigo-500/20 rounded-lg">
+          <Cpu className="w-6 h-6 text-indigo-500" />
         </div>
         <h2 className="text-2xl font-bold text-white">Live Engine Translation</h2>
       </div>
@@ -70,7 +70,7 @@ export default function AiIntelligencePane({ rawContext }: AiIntelligencePanePro
           >
              {/* Dynamic Structured Outputs */}
              {isProcessing && !intelligence && (
-                 <div className="flex items-center justify-center p-6 bg-[#3B82F6]/10 text-[#3B82F6] rounded-xl border border-[#3B82F6]/20">
+                 <div className="flex items-center justify-center p-6 bg-indigo-500/10 text-indigo-500 rounded-xl border border-indigo-500/20">
                      <Search className="w-5 h-5 mr-3 animate-spin duration-3000" />
                      Extracting global vectors...
                  </div>
@@ -95,7 +95,7 @@ export default function AiIntelligencePane({ rawContext }: AiIntelligencePanePro
                                 <PlusCircle className="w-5 h-5 text-slate-400 mr-3" />
                                 <span className="text-slate-300">{feat.name}</span>
                             </div>
-                            <span className="px-2 py-1 bg-[#3B82F6]/10 text-[#3B82F6] text-xs rounded-full">{feat.status || 'Proposed'}</span>
+                            <span className="px-2 py-1 bg-indigo-500/10 text-indigo-500 text-xs rounded-full">{feat.status || 'Proposed'}</span>
                         </div>
                     ))}
                  </div>

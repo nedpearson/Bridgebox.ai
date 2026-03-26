@@ -85,7 +85,7 @@ export default function Signup() {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="John Doe"
                 />
               </div>
@@ -100,7 +100,7 @@ export default function Signup() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="you@example.com"
                 />
               </div>
@@ -116,7 +116,7 @@ export default function Signup() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-[#3B82F6] transition-colors"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="Minimum 6 characters"
                 />
               </div>
@@ -125,7 +125,7 @@ export default function Signup() {
             <button
               type="submit"
               disabled={loading || success}
-              className="w-full bg-[#3B82F6] hover:bg-[#2563EB] disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors"
+              className="w-full bg-indigo-500 hover:bg-indigo-600 disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors"
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
@@ -134,7 +134,7 @@ export default function Signup() {
           <div className="mt-6 text-center">
             <p className="text-slate-400 text-sm">
               Already have an account?{' '}
-              <Link to="/login" className="text-[#3B82F6] hover:text-[#2563EB] font-medium">
+              <Link to="/login" className="text-indigo-500 hover:text-indigo-600 font-medium">
                 Sign in
               </Link>
             </p>

@@ -221,9 +221,9 @@ export default function ProposalView() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-[#3B82F6]/10 border border-[#3B82F6]/30 rounded-full mb-6">
-            <FileText className="w-4 h-4 text-[#3B82F6]" />
-            <span className="text-sm font-medium text-[#3B82F6]">Proposal</span>
+          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/30 rounded-full mb-6">
+            <FileText className="w-4 h-4 text-indigo-500" />
+            <span className="text-sm font-medium text-indigo-500">Proposal</span>
           </div>
           <h1 className="text-4xl font-bold text-white mb-4">{proposal.title}</h1>
           <p className="text-lg text-slate-400">Prepared for {proposal.client_name}</p>
@@ -315,7 +315,7 @@ export default function ProposalView() {
           >
             <Card glass className="p-8 mb-8">
               <div className="flex items-center space-x-3 mb-6">
-                <Package className="w-6 h-6 text-[#3B82F6]" />
+                <Package className="w-6 h-6 text-indigo-500" />
                 <h2 className="text-2xl font-bold text-white">Deliverables</h2>
               </div>
               <div className="space-y-4">
@@ -344,7 +344,7 @@ export default function ProposalView() {
         >
           <Card glass className="p-8">
             <div className="flex items-center space-x-3 mb-4">
-              <Clock className="w-6 h-6 text-[#3B82F6]" />
+              <Clock className="w-6 h-6 text-indigo-500" />
               <h3 className="text-xl font-bold text-white">Timeline</h3>
             </div>
             <p className="text-2xl font-bold text-white">{proposal.timeline_estimate}</p>
@@ -429,7 +429,7 @@ export default function ProposalView() {
               <div className="mt-6 pt-6 border-t border-slate-700 text-center">
                 <a
                   href={`mailto:${proposal.client_email}?subject=Question about ${proposal.title}`}
-                  className="inline-flex items-center space-x-2 text-[#3B82F6] hover:text-[#10B981] transition-colors"
+                  className="inline-flex items-center space-x-2 text-indigo-500 hover:text-[#10B981] transition-colors"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Have questions? Contact us</span>
@@ -464,7 +464,7 @@ export default function ProposalView() {
                         type="text"
                         value={approverName}
                         onChange={(e) => setApproverName(e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-[#3B82F6]"
+                        className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-indigo-500"
                         placeholder="John Smith"
                         required
                       />
@@ -478,7 +478,7 @@ export default function ProposalView() {
                         type="email"
                         value={approverEmail}
                         onChange={(e) => setApproverEmail(e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-[#3B82F6]"
+                        className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-indigo-500"
                         placeholder="john@company.com"
                         required
                       />
@@ -492,7 +492,7 @@ export default function ProposalView() {
                         type="text"
                         value={approverTitle}
                         onChange={(e) => setApproverTitle(e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-[#3B82F6]"
+                        className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-indigo-500"
                         placeholder="CEO"
                       />
                     </div>
@@ -503,7 +503,7 @@ export default function ProposalView() {
                           type="checkbox"
                           checked={agreedToTerms}
                           onChange={(e) => setAgreedToTerms(e.target.checked)}
-                          className="mt-1 w-4 h-4 rounded border-slate-700 bg-slate-800 text-[#3B82F6] focus:ring-[#3B82F6]"
+                          className="mt-1 w-4 h-4 rounded border-slate-700 bg-slate-800 text-indigo-500 focus:ring-indigo-500"
                         />
                         <span className="text-sm text-slate-300">
                           I have reviewed this proposal and approve moving forward with the scope,
@@ -548,7 +548,7 @@ export default function ProposalView() {
               >
                 <Card glass className="p-8">
                   <div className="flex items-center space-x-3 mb-6">
-                    <Mail className="w-6 h-6 text-[#3B82F6]" />
+                    <Mail className="w-6 h-6 text-indigo-500" />
                     <h3 className="text-2xl font-bold text-white">Request Changes</h3>
                   </div>
 
@@ -563,7 +563,7 @@ export default function ProposalView() {
                     <textarea
                       value={declineReason}
                       onChange={(e) => setDeclineReason(e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-[#3B82F6] h-32 resize-none"
+                      className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-indigo-500 h-32 resize-none"
                       placeholder="Tell us what you'd like to discuss..."
                     />
                   </div>

@@ -12,7 +12,7 @@ export default function StatusBadge({ status, variant = 'default', compact = fal
     success: 'bg-[#10B981]/10 text-[#10B981] border-[#10B981]/30',
     warning: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30',
     danger: 'bg-red-500/10 text-red-400 border-red-500/30',
-    info: 'bg-[#3B82F6]/10 text-[#3B82F6] border-[#3B82F6]/30',
+    info: 'bg-indigo-500/10 text-indigo-500 border-indigo-500/30',
   };
 
   return (

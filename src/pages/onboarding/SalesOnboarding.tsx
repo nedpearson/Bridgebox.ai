@@ -94,7 +94,7 @@ export default function SalesOnboarding() {
                  <div className="grid grid-cols-2 gap-2">
                     {INDUSTRIES.slice(0, 4).map(ind => (
                        <button key={ind} onClick={() => setConfig({...config, industry: ind})}
-                          className={`p-3 text-sm rounded-lg border text-left transition-all ${config.industry === ind ? 'border-[#3B82F6] bg-[#3B82F6]/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
+                          className={`p-3 text-sm rounded-lg border text-left transition-all ${config.industry === ind ? 'border-indigo-500 bg-indigo-500/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
                           {ind}
                        </button>
                     ))}
@@ -105,7 +105,7 @@ export default function SalesOnboarding() {
                  <div className="grid grid-cols-1 gap-2">
                     {MODELS.slice(0, 2).map(mod => (
                        <button key={mod} onClick={() => setConfig({...config, model: mod})}
-                          className={`p-3 text-sm rounded-lg border text-left transition-all ${config.model === mod ? 'border-[#3B82F6] bg-[#3B82F6]/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
+                          className={`p-3 text-sm rounded-lg border text-left transition-all ${config.model === mod ? 'border-indigo-500 bg-indigo-500/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
                           {mod}
                        </button>
                     ))}
@@ -119,7 +119,7 @@ export default function SalesOnboarding() {
                   <span>Locations ({config.locations})</span>
                </label>
                <div className="grid grid-cols-2 gap-8">
-                  <input type="range" min="1" max="100" value={config.users} onChange={(e) => setConfig({...config, users: parseInt(e.target.value)})} className="w-full accent-[#3B82F6]" />
+                  <input type="range" min="1" max="100" value={config.users} onChange={(e) => setConfig({...config, users: parseInt(e.target.value)})} className="w-full accent-indigo-500" />
                   <input type="range" min="1" max="25" value={config.locations} onChange={(e) => setConfig({...config, locations: parseInt(e.target.value)})} className="w-full accent-[#10B981]" />
                </div>
             </div>
@@ -151,7 +151,7 @@ export default function SalesOnboarding() {
                   <div className="grid grid-cols-4 gap-2">
                      {INTEGRATIONS.map(i => (
                         <button key={i} onClick={() => toggleIntegration(i)}
-                           className={`p-3 rounded-lg border text-center transition-all ${config.integrations.includes(i) ? 'border-[#3B82F6] bg-[#3B82F6]/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
+                           className={`p-3 rounded-lg border text-center transition-all ${config.integrations.includes(i) ? 'border-indigo-500 bg-indigo-500/10 text-white' : 'border-slate-800 bg-slate-800/50 text-slate-400 hover:border-slate-700'}`}>
                            <span className="text-xs font-medium capitalize">{i}</span>
                         </button>
                      ))}
@@ -180,16 +180,16 @@ export default function SalesOnboarding() {
             <h2 className="text-3xl font-bold text-white mb-2">Your Dedicated Build</h2>
             <p className="text-slate-400 mb-6">Designed specifically for {config.users} users in {config.industry}.</p>
             
-            <div className="p-8 border border-[#3B82F6]/30 bg-[#3B82F6]/5 rounded-2xl relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-32 h-32 bg-[#3B82F6]/20 blur-[50px] pointer-events-none" />
+            <div className="p-8 border border-indigo-500/30 bg-indigo-500/5 rounded-2xl relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 blur-[50px] pointer-events-none" />
                <div className="flex justify-between items-end mb-6 border-b border-slate-700 pb-6 relative">
                   <div>
                     <h3 className="text-xl font-medium text-slate-300 flex items-center mb-4">
-                       <Server className="w-5 h-5 text-[#3B82F6] mr-2" /> Bridgebox Complete
+                       <Server className="w-5 h-5 text-indigo-500 mr-2" /> Bridgebox Complete
                     </h3>
                     <div className="inline-flex bg-slate-900 border border-slate-700 rounded-lg p-1">
-                      <button onClick={() => setBillingInterval('annual')} className={`px-4 py-1.5 text-sm font-bold rounded-md transition-all ${billingInterval === 'annual' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}>Annual (Save 20%)</button>
-                      <button onClick={() => setBillingInterval('monthly')} className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${billingInterval === 'monthly' ? 'bg-[#3B82F6] text-white' : 'text-slate-400 hover:text-white'}`}>Monthly</button>
+                      <button onClick={() => setBillingInterval('annual')} className={`px-4 py-1.5 text-sm font-bold rounded-md transition-all ${billingInterval === 'annual' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}>Annual (Save 20%)</button>
+                      <button onClick={() => setBillingInterval('monthly')} className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${billingInterval === 'monthly' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}>Monthly</button>
                     </div>
                   </div>
                   <div className="text-right">
@@ -199,14 +199,14 @@ export default function SalesOnboarding() {
                </div>
                <div className="grid grid-cols-2 gap-4">
                   <ul className="space-y-3">
-                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> Automated Architecture</li>
-                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> {config.users} Licensed User Seats</li>
-                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> {config.locations} Branch Location{config.locations > 1 ? 's' : ''}</li>
+                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-indigo-500 mr-3"/> Automated Architecture</li>
+                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-indigo-500 mr-3"/> {config.users} Licensed User Seats</li>
+                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-indigo-500 mr-3"/> {config.locations} Branch Location{config.locations > 1 ? 's' : ''}</li>
                   </ul>
                   <ul className="space-y-3">
-                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> {config.aiUsage} AI Copilot</li>
-                     {config.mobile && <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> White-label Mobile Apps</li>}
-                     {config.integrations.length > 0 && <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-[#3B82F6] mr-3"/> {config.integrations.length} Premium Hooks</li>}
+                     <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-indigo-500 mr-3"/> {config.aiUsage} AI Copilot</li>
+                     {config.mobile && <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-indigo-500 mr-3"/> White-label Mobile Apps</li>}
+                     {config.integrations.length > 0 && <li className="flex items-center text-slate-300 text-sm"><CheckCircle2 className="w-4 h-4 text-indigo-500 mr-3"/> {config.integrations.length} Premium Hooks</li>}
                   </ul>
                </div>
             </div>
@@ -220,9 +220,9 @@ export default function SalesOnboarding() {
             <p className="text-slate-400 mb-8">{isGhostAccount ? 'Your demo configuration will instantly migrate to your live profile.' : 'Deploying your command center infrastructure.'}</p>
             
             <div className="space-y-4">
-               <input type="text" placeholder="Full Legal Name" required value={config.fullName} onChange={e => setConfig({...config, fullName: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-[#3B82F6] focus:outline-none transition-colors" />
-               <input type="email" placeholder="Work Email Address" required value={config.email} onChange={e => setConfig({...config, email: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-[#3B82F6] focus:outline-none transition-colors" />
-               <input type="password" placeholder="Secure Password" required value={config.password} onChange={e => setConfig({...config, password: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-[#3B82F6] focus:outline-none transition-colors" />
+               <input type="text" placeholder="Full Legal Name" required value={config.fullName} onChange={e => setConfig({...config, fullName: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-indigo-500 focus:outline-none transition-colors" />
+               <input type="email" placeholder="Work Email Address" required value={config.email} onChange={e => setConfig({...config, email: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-indigo-500 focus:outline-none transition-colors" />
+               <input type="password" placeholder="Secure Password" required value={config.password} onChange={e => setConfig({...config, password: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-indigo-500 focus:outline-none transition-colors" />
             </div>
           </div>
         );
@@ -232,19 +232,19 @@ export default function SalesOnboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center py-12 px-4 selection:bg-[#3B82F6]/30">
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center py-12 px-4 selection:bg-indigo-500/30">
         {/* Progress Tracker */}
         <div className="w-full max-w-4xl mb-12 flex justify-center items-center px-4 space-x-4 sm:space-x-12">
            {STEPS.map((step, idx) => (
              <React.Fragment key={step.id}>
                 <div className="flex flex-col items-center">
-                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-colors ${idx <= currentStep ? 'bg-[#3B82F6] text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]' : 'bg-slate-800 text-slate-500'}`}>
+                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-colors ${idx <= currentStep ? 'bg-indigo-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]' : 'bg-slate-800 text-slate-500'}`}>
                       <step.icon className="w-5 h-5" />
                    </div>
-                   <span className={`text-xs font-bold uppercase tracking-wider ${idx <= currentStep ? 'text-[#3B82F6]' : 'text-slate-600'}`}>{step.title}</span>
+                   <span className={`text-xs font-bold uppercase tracking-wider ${idx <= currentStep ? 'text-indigo-500' : 'text-slate-600'}`}>{step.title}</span>
                 </div>
                 {idx < STEPS.length - 1 && (
-                   <div className={`h-0.5 w-12 sm:w-24 mb-6 rounded-full transition-colors ${idx < currentStep ? 'bg-[#3B82F6]' : 'bg-slate-800'}`} />
+                   <div className={`h-0.5 w-12 sm:w-24 mb-6 rounded-full transition-colors ${idx < currentStep ? 'bg-indigo-500' : 'bg-slate-800'}`} />
                 )}
              </React.Fragment>
            ))}
@@ -278,7 +278,7 @@ export default function SalesOnboarding() {
                  <button 
                    onClick={handleComplete}
                    disabled={!config.email || !config.password || !config.fullName}
-                   className="flex items-center px-8 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-bold rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.2)] disabled:opacity-50 transition-all"
+                   className="flex items-center px-8 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.2)] disabled:opacity-50 transition-all"
                  >
                     Deploy Infrastructure <Lock className="w-4 h-4 ml-2" />
                  </button>

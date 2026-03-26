@@ -42,7 +42,7 @@ export default function ServicesNeeded() {
     <div className="max-w-3xl mx-auto">
       <Card glass className="p-10">
         <div className="flex items-center space-x-4 mb-8">
-          <div className="w-14 h-14 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-xl flex items-center justify-center">
+          <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-xl flex items-center justify-center">
             <Briefcase className="w-7 h-7 text-white" />
           </div>
           <div>
@@ -64,7 +64,7 @@ export default function ServicesNeeded() {
                 onClick={() => toggleService(service.value)}
                 className={`relative p-6 rounded-xl border-2 transition-all text-left ${
                   isSelected
-                    ? 'border-[#3B82F6] bg-[#3B82F6]/10'
+                    ? 'border-indigo-500 bg-indigo-500/10'
                     : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
                 }`}
               >
@@ -75,7 +75,7 @@ export default function ServicesNeeded() {
                   <div
                     className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
                       isSelected
-                        ? 'border-[#3B82F6] bg-[#3B82F6]'
+                        ? 'border-indigo-500 bg-indigo-500'
                         : 'border-slate-600 bg-slate-800'
                     }`}
                   >
@@ -91,9 +91,9 @@ export default function ServicesNeeded() {
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-lg p-4 mb-6"
+            className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-4 mb-6"
           >
-            <p className="text-sm text-[#3B82F6] font-medium">
+            <p className="text-sm text-indigo-500 font-medium">
               {selectedServices.length} service{selectedServices.length > 1 ? 's' : ''} selected
             </p>
           </motion.div>

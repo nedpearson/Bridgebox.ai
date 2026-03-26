@@ -43,7 +43,7 @@ export default function ClientPortalNav() {
     <div className="w-64 bg-slate-900/50 backdrop-blur-sm border-r border-slate-800 h-screen fixed left-0 top-0 flex flex-col">
       <div className="p-6 border-b border-slate-800">
         <Link to="/" className="flex items-center space-x-3 group">
-          <Box className="w-7 h-7 text-[#3B82F6] group-hover:text-[#10B981] transition-colors duration-300" />
+          <Box className="w-7 h-7 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
           <div>
             <h2 className="text-xl font-bold text-white">Bridgebox</h2>
             <p className="text-xs text-slate-400">Client Portal</p>
@@ -62,7 +62,7 @@ export default function ClientPortalNav() {
                 to={item.path}
                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                   active
-                    ? 'bg-[#3B82F6]/10 text-[#3B82F6] border border-[#3B82F6]/30'
+                    ? 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/30'
                     : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
                 }`}
               >
@@ -77,7 +77,7 @@ export default function ClientPortalNav() {
       <div className="p-4 border-t border-slate-800 space-y-2">
         <div className="px-4 py-3 rounded-lg bg-slate-800/30">
           <div className="flex items-center space-x-3 mb-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-full flex items-center justify-center flex-shrink-0">
               <span className="text-white text-sm font-bold">
                 {profile?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
               </span>

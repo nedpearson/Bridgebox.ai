@@ -139,7 +139,7 @@ export default function Team() {
             {activeTab === 'members' && (
               <motion.div
                 layoutId="activeTab"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#3B82F6]"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-500"
               />
             )}
           </button>
@@ -156,7 +156,7 @@ export default function Team() {
             {activeTab === 'invitations' && (
               <motion.div
                 layoutId="activeTab"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#3B82F6]"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-500"
               />
             )}
           </button>
@@ -208,7 +208,7 @@ export default function Team() {
                       >
                         <td className="py-4 px-6">
                           <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] flex items-center justify-center text-white font-semibold">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-[#10B981] flex items-center justify-center text-white font-semibold">
                               {member.full_name?.charAt(0) || member.email.charAt(0).toUpperCase()}
                             </div>
                             <div>
@@ -256,7 +256,7 @@ export default function Team() {
                                       window.location.reload();
                                     }
                                   }}
-                                  className="text-[#3B82F6] hover:text-[#2563EB] transition-colors p-1"
+                                  className="text-indigo-500 hover:text-indigo-600 transition-colors p-1"
                                   title="Impersonate User"
                                 >
                                   <Shield className="w-4 h-4" />
@@ -356,7 +356,7 @@ export default function Team() {
                                 <>
                                   <button
                                     onClick={() => handleResendInvitation(invitation.id)}
-                                    className="text-[#3B82F6] hover:text-[#2563EB] transition-colors"
+                                    className="text-indigo-500 hover:text-indigo-600 transition-colors"
                                     title="Resend invitation"
                                   >
                                     <RefreshCw className="w-4 h-4" />

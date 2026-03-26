@@ -170,7 +170,7 @@ export default function PricingCommandCenter() {
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white flex items-center">
-              <DollarSign className="w-6 h-6 mr-2 text-[#3B82F6]" />
+              <DollarSign className="w-6 h-6 mr-2 text-indigo-500" />
               Pricing Command Center
             </h1>
             <p className="text-slate-400 text-sm mt-1">Review, override, and approve AI-generated client pricing models</p>
@@ -221,7 +221,7 @@ export default function PricingCommandCenter() {
               onClick={() => setFilterStatus(status)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors capitalize ${
                 filterStatus === status
-                  ? 'bg-[#3B82F6] text-white'
+                  ? 'bg-indigo-500 text-white'
                   : 'bg-slate-800 text-slate-400 hover:text-white border border-slate-700'
               }`}
             >
@@ -354,7 +354,7 @@ export default function PricingCommandCenter() {
                           <button
                             onClick={() => saveOverride(model.id)}
                             disabled={savingId === model.id}
-                            className="flex items-center px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-medium rounded-lg transition-colors"
+                            className="flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-lg transition-colors"
                           >
                             {savingId === model.id
                               ? <><div className="w-3 h-3 border border-white/30 border-t-white rounded-full animate-spin mr-2" />Saving...</>

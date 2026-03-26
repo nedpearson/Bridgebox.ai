@@ -91,10 +91,10 @@ export default function ConversionsDashboard() {
         {/* Metrics Overview */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Link to="/app/leads" className="block transition-transform hover:-translate-y-1">
-            <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+            <Card glass className="p-6 hover:border-indigo-500/50 transition-colors h-full">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-medium text-slate-400">Lead Conversion</h3>
-                <Users className="w-5 h-5 text-[#3B82F6]" />
+                <Users className="w-5 h-5 text-indigo-500" />
               </div>
               <div className="flex items-baseline space-x-2">
                 <p className="text-3xl font-bold text-white">
@@ -125,10 +125,10 @@ export default function ConversionsDashboard() {
           </Link>
 
           <Link to="/app/projects" className="block transition-transform hover:-translate-y-1">
-            <Card glass className="p-6 hover:border-[#3B82F6]/50 transition-colors h-full">
+            <Card glass className="p-6 hover:border-indigo-500/50 transition-colors h-full">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-medium text-slate-400">Projects Created</h3>
-                <FolderKanban className="w-5 h-5 text-[#3B82F6]" />
+                <FolderKanban className="w-5 h-5 text-indigo-500" />
               </div>
               <div className="flex items-baseline space-x-2">
                 <p className="text-3xl font-bold text-white">{metrics?.totalProjects || 0}</p>
@@ -176,7 +176,7 @@ export default function ConversionsDashboard() {
                       <div className="flex items-center space-x-3 mb-2">
                         <Link
                           to={`/app/leads/${record.lead_id}`}
-                          className="text-white font-semibold hover:text-[#3B82F6] transition-colors"
+                          className="text-white font-semibold hover:text-indigo-500 transition-colors"
                         >
                           {record.lead_name}
                         </Link>
@@ -202,7 +202,7 @@ export default function ConversionsDashboard() {
                         {record.project_id && (
                           <Link
                             to={`/app/projects/${record.project_id}`}
-                            className="flex items-center space-x-1.5 text-[#3B82F6] hover:text-[#10B981] transition-colors"
+                            className="flex items-center space-x-1.5 text-indigo-500 hover:text-[#10B981] transition-colors"
                           >
                             <FolderKanban className="w-3.5 h-3.5" />
                             <span>{record.project_name || 'Project'}</span>

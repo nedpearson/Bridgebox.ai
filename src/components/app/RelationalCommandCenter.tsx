@@ -71,7 +71,7 @@ export default function RelationalCommandCenter({ entityType, entityId, children
                 onClick={() => setActiveTab(tab.id as CommandCenterTab)}
                 className={`flex items-center space-x-2 px-4 py-3 border-b-2 transition-all duration-200 whitespace-nowrap ${
                   isActive 
-                    ? 'border-[#3B82F6] text-[#3B82F6] bg-[#3B82F6]/5' 
+                    ? 'border-indigo-500 text-indigo-500 bg-indigo-500/5' 
                     : 'border-transparent text-slate-400 hover:text-white hover:bg-white/5'
                 }`}
               >

@@ -105,7 +105,7 @@ export default function LeadForm({ formType, onSuccess }: LeadFormProps) {
             required
             value={formData.lead_type}
             onChange={(e) => setFormData({ ...formData, lead_type: e.target.value as LeadSubmission['lead_type'] })}
-            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
           >
             <option value="platform_subscription">Platform Subscription</option>
             <option value="custom_software">Custom Software Development</option>
@@ -128,7 +128,7 @@ export default function LeadForm({ formType, onSuccess }: LeadFormProps) {
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             placeholder="John Smith"
           />
         </div>
@@ -143,7 +143,7 @@ export default function LeadForm({ formType, onSuccess }: LeadFormProps) {
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             placeholder="john@company.com"
           />
         </div>
@@ -157,7 +157,7 @@ export default function LeadForm({ formType, onSuccess }: LeadFormProps) {
             id="company"
             value={formData.company}
             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             placeholder="Acme Inc."
           />
         </div>
@@ -171,7 +171,7 @@ export default function LeadForm({ formType, onSuccess }: LeadFormProps) {
             id="phone"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             placeholder="+1 (555) 123-4567"
           />
         </div>
@@ -186,7 +186,7 @@ export default function LeadForm({ formType, onSuccess }: LeadFormProps) {
             rows={4}
             value={formData.project_description}
             onChange={(e) => setFormData({ ...formData, project_description: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all resize-none"
+            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
             placeholder="Describe your project requirements..."
           />
         </div>
@@ -199,7 +199,7 @@ export default function LeadForm({ formType, onSuccess }: LeadFormProps) {
             id="budget_range"
             value={formData.budget_range}
             onChange={(e) => setFormData({ ...formData, budget_range: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
           >
             <option value="">Select a range</option>
             <option value="under_25k">Under $25,000</option>

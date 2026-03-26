@@ -163,7 +163,7 @@ export default function About() {
                     <principle.icon className="w-10 h-10" style={{ color: principle.color }} />
                   </motion.div>
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-[#3B82F6] transition-colors">
+                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-500 transition-colors">
                       {principle.title}
                     </h3>
                     <p className="text-lg text-slate-300 leading-relaxed">
@@ -209,10 +209,10 @@ export default function About() {
               className="relative pl-12 pb-16 last:pb-0"
             >
               {index < timeline.length - 1 && (
-                <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-gradient-to-b from-[#3B82F6] via-[#10B981] to-transparent" />
+                <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 via-[#10B981] to-transparent" />
               )}
               <motion.div
-                className="absolute left-0 top-0 w-8 h-8 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-full border-4 border-[#0B0F1A] shadow-lg shadow-[#3B82F6]/50"
+                className="absolute left-0 top-0 w-8 h-8 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-full border-4 border-[#0B0F1A] shadow-lg shadow-indigo-500/50"
                 whileHover={{ scale: 1.2, rotate: 180 }}
                 transition={{ duration: 0.3 }}
               />
@@ -221,7 +221,7 @@ export default function About() {
                   <div className="text-3xl font-bold text-white mb-2">{milestone.title}</div>
                   <div className="text-lg text-slate-300">{milestone.description}</div>
                 </div>
-                <div className="text-2xl font-bold text-[#3B82F6] md:text-right">{milestone.year}</div>
+                <div className="text-2xl font-bold text-indigo-500 md:text-right">{milestone.year}</div>
               </div>
             </motion.div>
           ))}
@@ -264,13 +264,13 @@ export default function About() {
             >
               <Card hover glass className="h-full group">
                 <motion.div
-                  className="w-16 h-16 bg-[#3B82F6]/10 rounded-2xl flex items-center justify-center mb-6 border border-[#3B82F6]/20"
+                  className="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 border border-indigo-500/20"
                   whileHover={{ scale: 1.05, rotate: -5 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <vision.icon className="w-8 h-8 text-[#3B82F6]" />
+                  <vision.icon className="w-8 h-8 text-indigo-500" />
                 </motion.div>
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-[#3B82F6] transition-colors">
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-500 transition-colors">
                   {vision.title}
                 </h3>
                 <p className="text-slate-300 leading-relaxed text-lg">

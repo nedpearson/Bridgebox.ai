@@ -67,7 +67,7 @@ export default function TimelineActivity({ entityType, entityId }: TimelineActiv
   const getIcon = (type: EntityType) => {
     switch(type) {
         case 'task': return <CheckCircle2 className="w-4 h-4 text-amber-500" />;
-        case 'document': return <FileText className="w-4 h-4 text-[#3B82F6]" />;
+        case 'document': return <FileText className="w-4 h-4 text-indigo-500" />;
         case 'communication': return <Mail className="w-4 h-4 text-emerald-500" />;
         case 'workflow': return <GitMerge className="w-4 h-4 text-purple-500" />;
         default: return <Activity className="w-4 h-4 text-slate-500" />;

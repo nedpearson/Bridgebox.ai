@@ -29,7 +29,7 @@ export default function Industries() {
             animate={{ opacity: 1, y: 0 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-full text-[#3B82F6] text-sm font-medium backdrop-blur-sm">
+            <span className="px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-500 text-sm font-medium backdrop-blur-sm">
               Industry Expertise
             </span>
           </motion.div>
@@ -132,8 +132,8 @@ export default function Industries() {
             viewport={{ once: true }}
           >
             <Card glass className="text-center h-full">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[#3B82F6]/10 mb-4">
-                <Factory className="w-7 h-7 text-[#3B82F6]" />
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-indigo-500/10 mb-4">
+                <Factory className="w-7 h-7 text-indigo-500" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-3">Industry Expertise</h3>
               <p className="text-slate-400 leading-relaxed">
@@ -183,7 +183,7 @@ export default function Industries() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Card className="bg-gradient-to-br from-[#3B82F6]/10 to-[#10B981]/10 border-[#3B82F6]/20">
+          <Card className="bg-gradient-to-br from-indigo-500/10 to-[#10B981]/10 border-indigo-500/20">
             <div className="max-w-3xl mx-auto">
               <Badge variant="primary" className="mb-4">
                 Cross-Industry Capabilities

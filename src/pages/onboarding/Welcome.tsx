@@ -21,7 +21,7 @@ export default function Welcome() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', duration: 0.6 }}
-          className="w-20 h-20 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-2xl flex items-center justify-center mx-auto mb-8"
+          className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-2xl flex items-center justify-center mx-auto mb-8"
         >
           <Sparkles className="w-10 h-10 text-white" />
         </motion.div>

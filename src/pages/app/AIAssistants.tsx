@@ -179,8 +179,8 @@ export default function AIAssistants() {
                 </div>
              </Card>
 
-             <Card className="p-6 bg-[#3B82F6]/5 border-[#3B82F6]/20 flex flex-col items-start justify-center">
-                <div className="text-[#3B82F6] text-sm font-bold mb-1 flex items-center">
+             <Card className="p-6 bg-indigo-500/5 border-indigo-500/20 flex flex-col items-start justify-center">
+                <div className="text-indigo-500 text-sm font-bold mb-1 flex items-center">
                    Trust Architecture Active
                 </div>
                 <p className="text-slate-400 text-xs leading-relaxed">
@@ -199,7 +199,7 @@ export default function AIAssistants() {
              <p className="text-slate-400 max-w-md mb-8">
                Your organization has no digital workers installed. Visit the Ecosystem Marketplace to provision templates specialized for your industry.
              </p>
-             <button className="px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-bold rounded-xl transition-colors">
+             <button className="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl transition-colors">
                Explore Industry Assistants
              </button>
            </Card>
@@ -229,8 +229,8 @@ export default function AIAssistants() {
                      <div className="p-6">
                         <div className="flex justify-between items-start mb-4">
                            <div className="flex items-center gap-4">
-                              <div className={`p-4 rounded-2xl border ${ta.status === 'active' ? 'bg-[#3B82F6]/10 border-[#3B82F6]/30' : 'bg-slate-800 border-slate-700'}`}>
-                                 <Bot className={`w-8 h-8 ${ta.status === 'active' ? 'text-[#3B82F6]' : 'text-slate-500'}`} />
+                              <div className={`p-4 rounded-2xl border ${ta.status === 'active' ? 'bg-indigo-500/10 border-indigo-500/30' : 'bg-slate-800 border-slate-700'}`}>
+                                 <Bot className={`w-8 h-8 ${ta.status === 'active' ? 'text-indigo-500' : 'text-slate-500'}`} />
                               </div>
                               <div>
                                  <h3 className="text-xl font-bold text-white mb-1">{agent.name}</h3>

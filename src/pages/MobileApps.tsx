@@ -195,7 +195,7 @@ export default function MobileApps() {
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ duration: 0.3 }}
-                  className="w-16 h-16 bg-gradient-to-br from-[#F59E0B]/20 to-[#3B82F6]/20 rounded-xl flex items-center justify-center mx-auto mb-6"
+                  className="w-16 h-16 bg-gradient-to-br from-[#F59E0B]/20 to-indigo-500/20 rounded-xl flex items-center justify-center mx-auto mb-6"
                 >
                   <feature.icon className="w-8 h-8 text-[#F59E0B]" />
                 </motion.div>
@@ -324,7 +324,7 @@ export default function MobileApps() {
                     custom={index}
                   >
                     <Card className="h-full text-center group hover:border-[#F59E0B]/50">
-                      <div className="text-4xl font-bold bg-gradient-to-r from-[#F59E0B] to-[#3B82F6] bg-clip-text text-transparent mb-3">
+                      <div className="text-4xl font-bold bg-gradient-to-r from-[#F59E0B] to-indigo-500 bg-clip-text text-transparent mb-3">
                         {String(index + 1).padStart(2, '0')}
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#F59E0B] transition-colors">
@@ -377,7 +377,7 @@ export default function MobileApps() {
                 <div className="text-center">
                   <motion.div
                     whileHover={{ scale: 1.1 }}
-                    className="w-16 h-16 bg-gradient-to-br from-[#F59E0B] to-[#3B82F6] rounded-xl flex items-center justify-center mx-auto mb-4"
+                    className="w-16 h-16 bg-gradient-to-br from-[#F59E0B] to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-4"
                   >
                     <span className="text-white font-bold text-lg">{index + 1}</span>
                   </motion.div>

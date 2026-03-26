@@ -140,7 +140,7 @@ export default function UseCases() {
                     />
                   </motion.div>
 
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-[#3B82F6] transition-colors duration-300">
+                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-500 transition-colors duration-300">
                     {useCase.title}
                   </h3>
 
@@ -178,7 +178,7 @@ export default function UseCases() {
                   </div>
 
                   <motion.div
-                    className="flex items-center text-sm font-medium group-hover:text-[#3B82F6] transition-colors duration-300"
+                    className="flex items-center text-sm font-medium group-hover:text-indigo-500 transition-colors duration-300"
                     style={{ color: useCase.color }}
                     whileHover={{ x: 5 }}
                   >

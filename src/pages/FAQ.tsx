@@ -26,7 +26,7 @@ export default function FAQ() {
             animate={{ opacity: 1, y: 0 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-full text-[#3B82F6] text-sm font-medium backdrop-blur-sm">
+            <span className="px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-500 text-sm font-medium backdrop-blur-sm">
               Support
             </span>
           </motion.div>
@@ -69,14 +69,14 @@ export default function FAQ() {
               >
                 <Card
                   className={`cursor-pointer transition-all duration-300 ${
-                    openId === item.id ? 'border-[#3B82F6]/50' : 'hover:border-[#3B82F6]/30'
+                    openId === item.id ? 'border-indigo-500/50' : 'hover:border-indigo-500/30'
                   }`}
                   onClick={() => toggleItem(item.id)}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-start gap-4 flex-1">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#3B82F6]/10 flex items-center justify-center">
-                        <HelpCircle className="w-5 h-5 text-[#3B82F6]" />
+                      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+                        <HelpCircle className="w-5 h-5 text-indigo-500" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-lg font-semibold text-white mb-2">{item.question}</h3>
@@ -116,10 +116,10 @@ export default function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <Card className="bg-gradient-to-br from-[#3B82F6]/10 to-[#10B981]/10 border-[#3B82F6]/20">
+          <Card className="bg-gradient-to-br from-indigo-500/10 to-[#10B981]/10 border-indigo-500/20">
             <div className="max-w-3xl mx-auto text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-[#3B82F6]/10 mb-6">
-                <MessageCircle className="w-8 h-8 text-[#3B82F6]" />
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-indigo-500/10 mb-6">
+                <MessageCircle className="w-8 h-8 text-indigo-500" />
               </div>
               <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Still Have Questions?

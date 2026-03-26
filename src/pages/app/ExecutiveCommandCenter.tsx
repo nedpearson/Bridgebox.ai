@@ -327,12 +327,12 @@ export default function ExecutiveCommandCenter() {
           <Card glass className="p-6 lg:col-span-1">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
-                <TrendingUp className="w-5 h-5 text-[#3B82F6]" />
+                <TrendingUp className="w-5 h-5 text-indigo-500" />
                 <h3 className="text-lg font-bold text-white">Sales Snapshot</h3>
               </div>
               <Link
                 to="/app/pipeline"
-                className="text-sm text-[#3B82F6] hover:text-[#2563EB] transition-colors"
+                className="text-sm text-indigo-500 hover:text-indigo-600 transition-colors"
               >
                 View Details →
               </Link>
@@ -565,7 +565,7 @@ export default function ExecutiveCommandCenter() {
                                 ? 'bg-[#EF4444]'
                                 : alert.severity === 'high'
                                 ? 'bg-[#F59E0B]'
-                                : 'bg-[#3B82F6]'
+                                : 'bg-indigo-500'
                             }`}
                           />
                           <p className="text-sm font-medium text-white">{alert.title}</p>
@@ -609,12 +609,12 @@ export default function ExecutiveCommandCenter() {
           <div>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
-                <Target className="w-5 h-5 text-[#3B82F6]" />
+                <Target className="w-5 h-5 text-indigo-500" />
                 <h3 className="text-lg font-bold text-white">Top Growth Opportunities</h3>
               </div>
               <Link
                 to="/app/opportunities"
-                className="text-sm text-[#3B82F6] hover:text-[#2563EB] transition-colors"
+                className="text-sm text-indigo-500 hover:text-indigo-600 transition-colors"
               >
                 View All Opportunities →
               </Link>
@@ -630,7 +630,7 @@ export default function ExecutiveCommandCenter() {
         {/* Recent Activity */}
         <Card glass className="p-6">
           <div className="flex items-center space-x-3 mb-6">
-            <Activity className="w-5 h-5 text-[#3B82F6]" />
+            <Activity className="w-5 h-5 text-indigo-500" />
             <h3 className="text-lg font-bold text-white">Recent Activity</h3>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -641,7 +641,7 @@ export default function ExecutiveCommandCenter() {
                 className="p-4 bg-slate-800/30 rounded-lg border border-slate-700/50 hover:border-slate-600 transition-all group"
               >
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-[#3B82F6]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 bg-indigo-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
                     <ActivityIcon icon={item.icon} />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -739,7 +739,7 @@ function ActivityIcon({ icon }: { icon: string }) {
   };
 
   const IconComponent = iconMap[icon] || Activity;
-  return <IconComponent className="w-4 h-4 text-[#3B82F6]" />;
+  return <IconComponent className="w-4 h-4 text-indigo-500" />;
 }
 
 function formatRelativeTime(timestamp: string): string {

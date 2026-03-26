@@ -99,7 +99,7 @@ export default function ClientBilling() {
                       {stripeHelpers.formatAmount(subscription.mrr)}
                     </p>
                   </div>
-                  <CreditCard className="w-12 h-12 text-[#3B82F6] opacity-20" />
+                  <CreditCard className="w-12 h-12 text-indigo-500 opacity-20" />
                 </div>
                 <StatusBadge status={subscription.status} variant={getStatusVariant(subscription.status)} />
               </Card>
@@ -137,7 +137,7 @@ export default function ClientBilling() {
                     <h3 className="text-3xl font-bold text-white mb-2">
                       {subscription.subscription_plans?.name || 'Unknown Plan'}
                     </h3>
-                    <p className="text-2xl text-[#3B82F6] font-semibold mb-4">
+                    <p className="text-2xl text-indigo-500 font-semibold mb-4">
                       {stripeHelpers.formatAmount(subscription.mrr)}/
                       {stripeHelpers.formatInterval(subscription.billing_cycle)}
                     </p>
@@ -206,7 +206,7 @@ export default function ClientBilling() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-[#3B82F6]/30 transition-all duration-300"
+                  className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4 flex-1">

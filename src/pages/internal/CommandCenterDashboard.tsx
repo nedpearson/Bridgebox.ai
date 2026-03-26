@@ -41,7 +41,7 @@ export default function CommandCenterDashboard() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Building2 className="w-8 h-8 text-[#3B82F6]" />
+          <Building2 className="w-8 h-8 text-indigo-500" />
           Command Center Overview
         </h2>
         <p className="text-slate-400 mt-2">Super Admin operational flight deck. All telemetry and debugging surfaces are isolated from tenant spaces.</p>

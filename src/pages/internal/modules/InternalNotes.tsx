@@ -93,26 +93,26 @@ export default function InternalNotes() {
         </div>
         <button 
           onClick={() => setIsCreating(!isCreating)}
-          className="px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm rounded-lg transition-colors flex items-center gap-2"
+          className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm rounded-lg transition-colors flex items-center gap-2"
         >
           <Plus className="w-4 h-4" /> New Entry
         </button>
       </div>
 
       {isCreating && (
-        <div className="p-6 bg-slate-900 border border-[#3B82F6]/30 rounded-xl space-y-4">
+        <div className="p-6 bg-slate-900 border border-indigo-500/30 rounded-xl space-y-4">
           <input
             type="text"
             placeholder="Journal Title"
             value={title}
             onChange={e => setTitle(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-white font-medium focus:border-[#3B82F6] outline-none"
+            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-white font-medium focus:border-indigo-500 outline-none"
           />
           <div className="flex gap-4">
              <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-slate-300 text-sm focus:border-[#3B82F6] outline-none"
+                className="bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-slate-300 text-sm focus:border-indigo-500 outline-none"
               >
                 <option value="build">Build Note</option>
                 <option value="architecture">Architecture Decision</option>
@@ -125,7 +125,7 @@ export default function InternalNotes() {
             value={content}
             onChange={e => setContent(e.target.value)}
             rows={5}
-            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-slate-300 text-sm focus:border-[#3B82F6] outline-none resize-none"
+            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-slate-300 text-sm focus:border-indigo-500 outline-none resize-none"
           />
           <div className="flex justify-end gap-3">
              <button 
@@ -137,7 +137,7 @@ export default function InternalNotes() {
             <button 
               onClick={handleCreate}
               disabled={loading || !title || !content}
-              className="px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] disabled:opacity-50 text-white font-medium text-sm rounded-lg transition-colors"
+              className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 text-white font-medium text-sm rounded-lg transition-colors"
             >
               Save Entry
             </button>
