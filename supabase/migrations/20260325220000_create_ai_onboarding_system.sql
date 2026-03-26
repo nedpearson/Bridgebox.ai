@@ -92,8 +92,8 @@ CREATE POLICY "Users can manage onboarding build tasks in their organization" ON
 -- 3. Telemetry Triggers for updated_at
 CREATE TRIGGER set_timestamp_onboarding_sessions
 BEFORE UPDATE ON public.onboarding_sessions
-FOR EACH ROW EXECUTE FUNCTION trigger_set_timestamp();
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TRIGGER set_timestamp_onboarding_build_tasks
 BEFORE UPDATE ON public.onboarding_build_tasks
-FOR EACH ROW EXECUTE FUNCTION trigger_set_timestamp();
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();

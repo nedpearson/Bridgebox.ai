@@ -11,19 +11,21 @@ BEGIN
      EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'pg_net') THEN
      
     -- Deschedule existing if any to prevent duplicates during replays
-    PERFORM cron.unschedule('invoke_tenant_data_quality_agent');
+    IF EXISTS (SELECT 1 FROM cron.job WHERE jobname = 'invoke_tenant_data_quality_agent') THEN
+        PERFORM cron.unschedule('invoke_tenant_data_quality_agent');
+    END IF;
     
     -- Schedule the nocturnal sweep mapping the configured edge url natively
     PERFORM cron.schedule(
       'invoke_tenant_data_quality_agent',
       '0 2 * * *',
-      $$
+      $cron$
         SELECT net.http_post(
             url:='https://your-project-ref.supabase.co/functions/v1/tenant-data-quality-agent',
             headers:='{"Content-Type": "application/json", "Authorization": "Bearer YOUR_SERVICE_ROLE_KEY"}'::jsonb,
             body:='{}'::jsonb
         );
-      $$
+      $cron$
     );
      
   END IF;

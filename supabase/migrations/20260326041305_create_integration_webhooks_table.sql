@@ -25,19 +25,19 @@ ALTER TABLE public.integration_webhooks ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view webhooks in their organization"
     ON public.integration_webhooks FOR SELECT
     USING (organization_id IN (
-        SELECT organization_id FROM user_organizations WHERE user_id = auth.uid()
+        SELECT organization_id FROM organization_memberships WHERE user_id = auth.uid()
     ));
 
 CREATE POLICY "Users can insert webhooks in their organization"
     ON public.integration_webhooks FOR INSERT
     WITH CHECK (organization_id IN (
-        SELECT organization_id FROM user_organizations WHERE user_id = auth.uid()
+        SELECT organization_id FROM organization_memberships WHERE user_id = auth.uid()
     ));
 
 CREATE POLICY "Users can update webhooks in their organization"
     ON public.integration_webhooks FOR UPDATE
     USING (organization_id IN (
-        SELECT organization_id FROM user_organizations WHERE user_id = auth.uid()
+        SELECT organization_id FROM organization_memberships WHERE user_id = auth.uid()
     ));
 
 -- Add trigger for updated_at

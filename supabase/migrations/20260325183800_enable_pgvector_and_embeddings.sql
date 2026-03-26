@@ -33,22 +33,22 @@ ALTER TABLE public.platform_embeddings ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view embeddings in their organization"
     ON public.platform_embeddings FOR SELECT
     TO authenticated
-    USING (organization_id = (SELECT organization_id FROM public.users WHERE id = auth.uid()));
+    USING (organization_id IN (SELECT organization_id FROM public.organization_memberships WHERE user_id = auth.uid()));
 
 CREATE POLICY "Users can insert embeddings in their organization"
     ON public.platform_embeddings FOR INSERT
     TO authenticated
-    WITH CHECK (organization_id = (SELECT organization_id FROM public.users WHERE id = auth.uid()));
+    WITH CHECK (organization_id IN (SELECT organization_id FROM public.organization_memberships WHERE user_id = auth.uid()));
 
 CREATE POLICY "Users can update embeddings in their organization"
     ON public.platform_embeddings FOR UPDATE
     TO authenticated
-    USING (organization_id = (SELECT organization_id FROM public.users WHERE id = auth.uid()));
+    USING (organization_id IN (SELECT organization_id FROM public.organization_memberships WHERE user_id = auth.uid()));
 
 CREATE POLICY "Users can delete embeddings in their organization"
     ON public.platform_embeddings FOR DELETE
     TO authenticated
-    USING (organization_id = (SELECT organization_id FROM public.users WHERE id = auth.uid()));
+    USING (organization_id IN (SELECT organization_id FROM public.organization_memberships WHERE user_id = auth.uid()));
 
 -- Create the similarity search RPC function for cross-module semantic searches
 CREATE OR REPLACE FUNCTION match_platform_embeddings (

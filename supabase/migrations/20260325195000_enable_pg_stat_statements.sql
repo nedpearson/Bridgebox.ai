@@ -33,7 +33,9 @@ BEGIN
   IF EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'pg_cron') AND 
      EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'pg_net') THEN
      
-    PERFORM cron.unschedule('invoke_self_healing_agent');
+    IF EXISTS (SELECT 1 FROM cron.job WHERE jobname = 'invoke_self_healing_agent') THEN
+        PERFORM cron.unschedule('invoke_self_healing_agent');
+    END IF;
     
     PERFORM cron.schedule(
       'invoke_self_healing_agent',

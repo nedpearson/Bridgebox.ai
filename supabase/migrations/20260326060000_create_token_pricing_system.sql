@@ -251,8 +251,8 @@ CREATE INDEX IF NOT EXISTS idx_platform_cost_events_type ON public.platform_cost
 -- ============================================
 CREATE TRIGGER set_timestamp_pricing_models
 BEFORE UPDATE ON public.pricing_models
-FOR EACH ROW EXECUTE FUNCTION trigger_set_timestamp();
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TRIGGER set_timestamp_pricing_templates
 BEFORE UPDATE ON public.pricing_templates
-FOR EACH ROW EXECUTE FUNCTION trigger_set_timestamp();
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
