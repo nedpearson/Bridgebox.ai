@@ -70,7 +70,7 @@ function AiKnowledgeBaseContent() {
     <>
       <AppHeader title="Super AI Knowledge Editor" />
       
-      <div className="p-8 max-w-7xl mx-auto flex gap-6 mt-8 h-[calc(100vh-10rem)]">
+      <div className="p-4 max-w-7xl mx-auto flex gap-6 mt-4 h-[calc(100vh-18rem)] min-h-[600px]">
         {/* Node Explorer */}
         <Card className="flex-1 overflow-hidden flex flex-col">
           <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-4">
