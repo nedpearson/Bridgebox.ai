@@ -144,7 +144,7 @@ export const enterpriseIntegration = {
 
   async linkDocumentToProject(documentId: string, projectId: string): Promise<void> {
     const { error } = await supabase
-      .from('project_documents')
+      .from('bb_project_documents')
       .upsert({
         project_id: projectId,
         document_id: documentId,
@@ -166,7 +166,7 @@ export const enterpriseIntegration = {
 
   async createLeadFromEntity(context: EnterpriseContext, entity: any): Promise<void> {
     const { error } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .insert({
         organization_id: context.organizationId,
         name: entity.name,
@@ -192,7 +192,7 @@ export const enterpriseIntegration = {
     }
   ): Promise<void> {
     const { data: members } = await supabase
-      .from('organization_memberships')
+      .from('bb_organization_memberships')
       .select('user_id')
       .eq('organization_id', context.organizationId)
       .in('role', ['super_admin', 'internal_staff']);
@@ -209,7 +209,7 @@ export const enterpriseIntegration = {
       is_read: false,
     }));
 
-    await supabase.from('notifications').insert(notifications);
+    await supabase.from('bb_notifications').insert(notifications);
   },
 
   async getBrandingForOrganization(organizationId: string) {
@@ -252,7 +252,7 @@ export const enterpriseIntegration = {
     }
   ): Promise<void> {
     const { error } = await supabase
-      .from('metrics_events')
+      .from('bb_metrics_events')
       .insert({
         organization_id: organizationId,
         metric_name: metric.name,

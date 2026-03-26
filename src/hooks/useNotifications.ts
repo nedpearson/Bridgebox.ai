@@ -53,7 +53,7 @@ export function useNotifications(userId?: string) {
     try {
       setLoading(true);
       const { data, error } = await supabase
-        .from('notifications')
+        .from('bb_notifications')
         .select('*')
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
@@ -73,7 +73,7 @@ export function useNotifications(userId?: string) {
   const markAsRead = async (notificationId: string) => {
     try {
       const { error } = await supabase
-        .from('notifications')
+        .from('bb_notifications')
         .update({ read: true })
         .eq('id', notificationId);
 
@@ -93,7 +93,7 @@ export function useNotifications(userId?: string) {
 
     try {
       const { error } = await supabase
-        .from('notifications')
+        .from('bb_notifications')
         .update({ read: true })
         .eq('user_id', userId)
         .eq('read', false);
@@ -116,7 +116,7 @@ export function useNotifications(userId?: string) {
     if (!userId) return;
 
     try {
-      const { error } = await supabase.from('notifications').insert({
+      const { error } = await supabase.from('bb_notifications').insert({
         user_id: userId,
         type,
         title,

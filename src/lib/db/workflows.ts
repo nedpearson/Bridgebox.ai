@@ -16,7 +16,7 @@ import type {
 class WorkflowService {
   async getWorkflows(organizationId: string): Promise<Workflow[]> {
     const { data, error } = await supabase
-      .from('workflows')
+      .from('bb_workflows')
       .select('*')
       .eq('organization_id', organizationId)
       .eq('is_template', false)
@@ -28,7 +28,7 @@ class WorkflowService {
 
   async getWorkflowById(workflowId: string): Promise<Workflow | null> {
     const { data, error } = await supabase
-      .from('workflows')
+      .from('bb_workflows')
       .select('*')
       .eq('id', workflowId)
       .maybeSingle();
@@ -39,7 +39,7 @@ class WorkflowService {
 
   async getWorkflowWithSteps(workflowId: string): Promise<WorkflowWithSteps | null> {
     const { data: workflow, error: workflowError } = await supabase
-      .from('workflows')
+      .from('bb_workflows')
       .select('*')
       .eq('id', workflowId)
       .maybeSingle();
@@ -48,7 +48,7 @@ class WorkflowService {
     if (!workflow) return null;
 
     const { data: steps, error: stepsError } = await supabase
-      .from('workflow_steps')
+      .from('bb_workflow_steps')
       .select('*')
       .eq('workflow_id', workflowId)
       .order('order_index', { ascending: true });
@@ -63,7 +63,7 @@ class WorkflowService {
 
   async createWorkflow(workflow: Partial<Workflow>): Promise<Workflow> {
     const { data, error } = await supabase
-      .from('workflows')
+      .from('bb_workflows')
       .insert({
         ...workflow,
         created_by: (await supabase.auth.getUser()).data.user?.id,
@@ -77,7 +77,7 @@ class WorkflowService {
 
   async updateWorkflow(workflowId: string, updates: Partial<Workflow>): Promise<Workflow> {
     const { data, error } = await supabase
-      .from('workflows')
+      .from('bb_workflows')
       .update({
         ...updates,
         last_modified_by: (await supabase.auth.getUser()).data.user?.id,
@@ -92,7 +92,7 @@ class WorkflowService {
 
   async deleteWorkflow(workflowId: string): Promise<void> {
     const { error } = await supabase
-      .from('workflows')
+      .from('bb_workflows')
       .delete()
       .eq('id', workflowId);
 
@@ -101,7 +101,7 @@ class WorkflowService {
 
   async toggleWorkflowStatus(workflowId: string, isActive: boolean): Promise<Workflow> {
     const { data, error } = await supabase
-      .from('workflows')
+      .from('bb_workflows')
       .update({ is_active: isActive })
       .eq('id', workflowId)
       .select()
@@ -113,7 +113,7 @@ class WorkflowService {
 
   async createWorkflowStep(step: Partial<WorkflowStep>): Promise<WorkflowStep> {
     const { data, error } = await supabase
-      .from('workflow_steps')
+      .from('bb_workflow_steps')
       .insert(step)
       .select()
       .single();
@@ -124,7 +124,7 @@ class WorkflowService {
 
   async updateWorkflowStep(stepId: string, updates: Partial<WorkflowStep>): Promise<WorkflowStep> {
     const { data, error } = await supabase
-      .from('workflow_steps')
+      .from('bb_workflow_steps')
       .update(updates)
       .eq('id', stepId)
       .select()
@@ -136,7 +136,7 @@ class WorkflowService {
 
   async deleteWorkflowStep(stepId: string): Promise<void> {
     const { error } = await supabase
-      .from('workflow_steps')
+      .from('bb_workflow_steps')
       .delete()
       .eq('id', stepId);
 
@@ -148,7 +148,7 @@ class WorkflowService {
     limit = 50
   ): Promise<WorkflowExecution[]> {
     const { data, error } = await supabase
-      .from('workflow_executions')
+      .from('bb_workflow_executions')
       .select('*')
       .eq('workflow_id', workflowId)
       .order('started_at', { ascending: false })
@@ -160,7 +160,7 @@ class WorkflowService {
 
   async getExecutionsByEntity(entityType: string, entityId: string): Promise<(WorkflowExecution & { workflow?: { name: string, category: string } })[]> {
     const { data, error } = await supabase
-      .from('workflow_executions')
+      .from('bb_workflow_executions')
       .select('*, workflow:workflows(name, category)')
       .eq('trigger_entity_type', entityType)
       .eq('trigger_entity_id', entityId)
@@ -172,7 +172,7 @@ class WorkflowService {
 
   async getExecutionDetail(executionId: string): Promise<WorkflowExecutionDetail | null> {
     const { data: execution, error: executionError } = await supabase
-      .from('workflow_executions')
+      .from('bb_workflow_executions')
       .select(`
         *,
         workflow:workflows(*)
@@ -184,7 +184,7 @@ class WorkflowService {
     if (!execution) return null;
 
     const { data: stepExecutions, error: stepsError } = await supabase
-      .from('workflow_step_executions')
+      .from('bb_workflow_step_executions')
       .select(`
         *,
         step:workflow_steps(*)
@@ -211,7 +211,7 @@ class WorkflowService {
     }
   ): Promise<WorkflowExecution> {
     const { data, error } = await supabase
-      .from('workflow_executions')
+      .from('bb_workflow_executions')
       .insert({
         workflow_id: workflowId,
         organization_id: organizationId,
@@ -241,7 +241,7 @@ class WorkflowService {
     }
 
     const { error } = await supabase
-      .from('workflow_executions')
+      .from('bb_workflow_executions')
       .update(updates)
       .eq('id', executionId);
 
@@ -253,7 +253,7 @@ class WorkflowService {
     stepId: string
   ): Promise<WorkflowStepExecution> {
     const { data, error } = await supabase
-      .from('workflow_step_executions')
+      .from('bb_workflow_step_executions')
       .insert({
         workflow_execution_id: executionId,
         step_id: stepId,
@@ -271,7 +271,7 @@ class WorkflowService {
     updates: Partial<WorkflowStepExecution>
   ): Promise<void> {
     const { error } = await supabase
-      .from('workflow_step_executions')
+      .from('bb_workflow_step_executions')
       .update(updates)
       .eq('id', stepExecutionId);
 
@@ -280,7 +280,7 @@ class WorkflowService {
 
   async getWorkflowStats(organizationId: string): Promise<WorkflowStats> {
     const { data: workflows, error: workflowsError } = await supabase
-      .from('workflows')
+      .from('bb_workflows')
       .select('category, is_active')
       .eq('organization_id', organizationId)
       .eq('is_template', false);
@@ -289,7 +289,7 @@ class WorkflowService {
 
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
     const { data: executions, error: executionsError } = await supabase
-      .from('workflow_executions')
+      .from('bb_workflow_executions')
       .select('status, started_at')
       .eq('organization_id', organizationId)
       .gte('started_at', oneDayAgo);
@@ -321,7 +321,7 @@ class WorkflowService {
     triggerType: WorkflowTriggerType
   ): Promise<WorkflowWithSteps[]> {
     const { data: workflows, error: workflowsError } = await supabase
-      .from('workflows')
+      .from('bb_workflows')
       .select('*')
       .eq('organization_id', organizationId)
       .eq('trigger_type', triggerType)
@@ -333,7 +333,7 @@ class WorkflowService {
     const workflowsWithSteps = await Promise.all(
       workflows.map(async (workflow) => {
         const { data: steps, error: stepsError } = await supabase
-          .from('workflow_steps')
+          .from('bb_workflow_steps')
           .select('*')
           .eq('workflow_id', workflow.id)
           .order('order_index', { ascending: true });
@@ -352,7 +352,7 @@ class WorkflowService {
 
   async getTemplates(category?: WorkflowCategory): Promise<WorkflowTemplate[]> {
     let query = supabase
-      .from('workflow_templates')
+      .from('bb_workflow_templates')
       .select('*')
       .order('times_used', { ascending: false });
 
@@ -372,7 +372,7 @@ class WorkflowService {
     name: string
   ): Promise<WorkflowWithSteps> {
     const { data: template, error: templateError } = await supabase
-      .from('workflow_templates')
+      .from('bb_workflow_templates')
       .select('*')
       .eq('id', templateId)
       .maybeSingle();
@@ -410,7 +410,7 @@ class WorkflowService {
     );
 
     await supabase
-      .from('workflow_templates')
+      .from('bb_workflow_templates')
       .update({ times_used: template.times_used + 1 })
       .eq('id', templateId);
 

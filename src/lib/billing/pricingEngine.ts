@@ -304,7 +304,7 @@ export async function savePricingModel(
   breakdown: PricingBreakdown
 ): Promise<string> {
   const { data, error } = await supabase
-    .from('pricing_models')
+    .from('bb_pricing_models')
     .insert({
       organization_id: inputs.organizationId,
       session_id: inputs.sessionId || null,
@@ -345,7 +345,7 @@ export async function savePricingModel(
  */
 export async function getActivePricingModel(organizationId: string) {
   const { data, error } = await supabase
-    .from('pricing_models')
+    .from('bb_pricing_models')
     .select('*')
     .eq('organization_id', organizationId)
     .in('status', ['approved', 'active'])

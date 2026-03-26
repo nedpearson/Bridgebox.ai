@@ -67,7 +67,7 @@ export async function calibratePricingModel(
 ): Promise<CalibrationResult> {
   // Load existing pricing model
   const { data: model, error: modelError } = await supabase
-    .from('pricing_models')
+    .from('bb_pricing_models')
     .select('*')
     .eq('id', pricingModelId)
     .single();
@@ -191,7 +191,7 @@ export async function calibratePricingModel(
 
   // ── Persist calibration record to pricing_models ────────────────────────
   try {
-    await supabase.from('pricing_models').update({
+    await supabase.from('bb_pricing_models').update({
       calibrated_at: record.calibratedAt,
       calibrated_monthly_total: record.calibratedMonthlyTotal,
       token_drift_ratio: record.tokenDriftRatio,
@@ -250,7 +250,7 @@ export async function calibrateAllActiveModels(): Promise<{
   results: Array<{ pricingModelId: string; action: string; message: string }>;
 }> {
   const { data: models } = await supabase
-    .from('pricing_models')
+    .from('bb_pricing_models')
     .select('id, organization_id')
     .in('status', ['active', 'approved']);
 

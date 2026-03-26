@@ -351,7 +351,7 @@ export const ACTION_CONFIGS: ActionConfig[] = [
 class AutomationService {
   async getAllRules(): Promise<AutomationRule[]> {
     const { data, error } = await supabase
-      .from('automation_rules')
+      .from('bb_automation_rules')
       .select('*')
       .order('created_at', { ascending: false });
 
@@ -361,7 +361,7 @@ class AutomationService {
 
   async getRuleById(id: string): Promise<AutomationRule | null> {
     const { data, error } = await supabase
-      .from('automation_rules')
+      .from('bb_automation_rules')
       .select('*')
       .eq('id', id)
       .maybeSingle();
@@ -372,7 +372,7 @@ class AutomationService {
 
   async createRule(rule: Omit<AutomationRule, 'id' | 'created_at' | 'updated_at'>): Promise<AutomationRule> {
     const { data, error } = await supabase
-      .from('automation_rules')
+      .from('bb_automation_rules')
       .insert(rule)
       .select()
       .single();
@@ -383,7 +383,7 @@ class AutomationService {
 
   async updateRule(id: string, updates: Partial<AutomationRule>): Promise<AutomationRule> {
     const { data, error } = await supabase
-      .from('automation_rules')
+      .from('bb_automation_rules')
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -395,7 +395,7 @@ class AutomationService {
 
   async toggleRule(id: string, isActive: boolean): Promise<void> {
     const { error } = await supabase
-      .from('automation_rules')
+      .from('bb_automation_rules')
       .update({ is_active: isActive, updated_at: new Date().toISOString() })
       .eq('id', id);
 
@@ -404,7 +404,7 @@ class AutomationService {
 
   async deleteRule(id: string): Promise<void> {
     const { error } = await supabase
-      .from('automation_rules')
+      .from('bb_automation_rules')
       .delete()
       .eq('id', id);
 
@@ -413,7 +413,7 @@ class AutomationService {
 
   async getExecutions(ruleId?: string, limit = 50): Promise<AutomationExecution[]> {
     let query = supabase
-      .from('automation_executions')
+      .from('bb_automation_executions')
       .select('*')
       .order('executed_at', { ascending: false })
       .limit(limit);
@@ -430,7 +430,7 @@ class AutomationService {
 
   async logExecution(execution: Omit<AutomationExecution, 'id' | 'created_at'>): Promise<AutomationExecution> {
     const { data, error } = await supabase
-      .from('automation_executions')
+      .from('bb_automation_executions')
       .insert(execution)
       .select()
       .single();
@@ -441,7 +441,7 @@ class AutomationService {
 
   async getActiveRulesByTrigger(triggerType: TriggerType): Promise<AutomationRule[]> {
     const { data, error } = await supabase
-      .from('automation_rules')
+      .from('bb_automation_rules')
       .select('*')
       .eq('trigger_type', triggerType)
       .eq('is_active', true);
@@ -460,9 +460,9 @@ class AutomationService {
 
   async getStats() {
     const [totalRules, activeRules, executions] = await Promise.all([
-      supabase.from('automation_rules').select('id', { count: 'exact', head: true }),
-      supabase.from('automation_rules').select('id', { count: 'exact', head: true }).eq('is_active', true),
-      supabase.from('automation_executions').select('id, status', { count: 'exact', head: false }).limit(100),
+      supabase.from('bb_automation_rules').select('id', { count: 'exact', head: true }),
+      supabase.from('bb_automation_rules').select('id', { count: 'exact', head: true }).eq('is_active', true),
+      supabase.from('bb_automation_executions').select('id, status', { count: 'exact', head: false }).limit(100),
     ]);
 
     const recentExecutions = executions.data || [];

@@ -7,7 +7,7 @@ export const onboardingService = {
 
     if (id) {
       const { data: updated, error } = await supabase
-        .from('onboarding_responses')
+        .from('bb_onboarding_responses')
         .update({
           ...onboardingData,
           updated_at: new Date().toISOString(),
@@ -21,7 +21,7 @@ export const onboardingService = {
     }
 
     const { data: created, error } = await supabase
-      .from('onboarding_responses')
+      .from('bb_onboarding_responses')
       .insert([onboardingData])
       .select()
       .maybeSingle();
@@ -32,7 +32,7 @@ export const onboardingService = {
 
   async getOnboardingByOrganization(organizationId: string) {
     const { data, error } = await supabase
-      .from('onboarding_responses')
+      .from('bb_onboarding_responses')
       .select('*')
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false })
@@ -45,7 +45,7 @@ export const onboardingService = {
 
   async completeOnboarding(id: string) {
     const { data, error } = await supabase
-      .from('onboarding_responses')
+      .from('bb_onboarding_responses')
       .update({
         status: 'completed',
         completed_at: new Date().toISOString(),
@@ -59,7 +59,7 @@ export const onboardingService = {
 
     if (data) {
       await supabase
-        .from('organizations')
+        .from('bb_organizations')
         .update({
           onboarding_status: 'completed',
           onboarding_completed_at: new Date().toISOString(),
@@ -72,7 +72,7 @@ export const onboardingService = {
 
   async getAllOnboardingResponses() {
     const { data, error } = await supabase
-      .from('onboarding_responses')
+      .from('bb_onboarding_responses')
       .select('*')
       .order('created_at', { ascending: false });
 
@@ -82,7 +82,7 @@ export const onboardingService = {
 
   async getOnboardingById(id: string) {
     const { data, error } = await supabase
-      .from('onboarding_responses')
+      .from('bb_onboarding_responses')
       .select('*')
       .eq('id', id)
       .maybeSingle();

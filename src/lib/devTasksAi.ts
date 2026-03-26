@@ -126,7 +126,7 @@ export const devTasksAiApi = {
     if (error) throw error;
     
     // Link back to Support Ticket status loop mapping escalation
-    await supabase.from('support_tickets').update({
+    await supabase.from('bb_support_tickets').update({
         status: 'escalated_to_build',
         updated_at: new Date().toISOString()
     }).eq('id', ticket.id);

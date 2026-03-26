@@ -10,7 +10,7 @@ import type {
 export const connectorsService = {
   async getProviders(): Promise<ConnectorProvider[]> {
     const { data, error } = await supabase
-      .from('connector_providers')
+      .from('bb_connector_providers')
       .select('*')
       .order('is_popular', { ascending: false })
       .order('display_name');
@@ -22,7 +22,7 @@ export const connectorsService = {
 
   async getProviderById(id: string): Promise<ConnectorProvider | null> {
     const { data, error } = await supabase
-      .from('connector_providers')
+      .from('bb_connector_providers')
       .select('*')
       .eq('id', id)
       .maybeSingle();
@@ -33,7 +33,7 @@ export const connectorsService = {
 
   async getProvidersByCategory(category: string): Promise<ConnectorProvider[]> {
     const { data, error } = await supabase
-      .from('connector_providers')
+      .from('bb_connector_providers')
       .select('*')
       .eq('category', category)
       .order('is_popular', { ascending: false });
@@ -44,7 +44,7 @@ export const connectorsService = {
 
   async getConnectorsByOrganization(organizationId: string): Promise<Connector[]> {
     const { data, error } = await supabase
-      .from('connectors')
+      .from('bb_connectors')
       .select('*')
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false });
@@ -55,7 +55,7 @@ export const connectorsService = {
 
   async getConnectorById(id: string): Promise<Connector | null> {
     const { data, error } = await supabase
-      .from('connectors')
+      .from('bb_connectors')
       .select('*')
       .eq('id', id)
       .maybeSingle();
@@ -66,7 +66,7 @@ export const connectorsService = {
 
   async createConnector(connector: Partial<Connector>): Promise<Connector> {
     const { data, error } = await supabase
-      .from('connectors')
+      .from('bb_connectors')
       .insert([
         {
           organization_id: connector.organizationId,
@@ -114,7 +114,7 @@ export const connectorsService = {
     }
 
     const { data, error } = await supabase
-      .from('connectors')
+      .from('bb_connectors')
       .update(updateData)
       .eq('id', id)
       .select()
@@ -125,7 +125,7 @@ export const connectorsService = {
   },
 
   async deleteConnector(id: string): Promise<void> {
-    const { error } = await supabase.from('connectors').delete().eq('id', id);
+    const { error } = await supabase.from('bb_connectors').delete().eq('id', id);
     if (error) throw error;
   },
 
@@ -134,7 +134,7 @@ export const connectorsService = {
     organizationId: string,
     result: SyncResult
   ): Promise<void> {
-    const { error } = await supabase.from('connector_sync_logs').insert([
+    const { error } = await supabase.from('bb_connector_sync_logs').insert([
       {
         connector_id: connectorId,
         organization_id: organizationId,
@@ -160,7 +160,7 @@ export const connectorsService = {
     organizationId: string,
     event: Partial<ConnectorEvent>
   ): Promise<void> {
-    const { error } = await supabase.from('connector_events').insert([
+    const { error } = await supabase.from('bb_connector_events').insert([
       {
         connector_id: connectorId,
         organization_id: organizationId,
@@ -176,7 +176,7 @@ export const connectorsService = {
 
   async getConnectorStats(organizationId: string): Promise<ConnectorStats> {
     const { data: connectors, error } = await supabase
-      .from('connectors')
+      .from('bb_connectors')
       .select('status, sync_count, last_sync_at')
       .eq('organization_id', organizationId);
 

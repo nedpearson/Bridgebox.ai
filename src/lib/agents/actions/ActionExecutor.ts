@@ -34,7 +34,7 @@ class FlagHighValueLeadHandler implements ActionHandler {
 
     try {
       const { error } = await supabase
-        .from('leads')
+        .from('bb_leads')
         .update({
           priority: 'high',
           tags: supabase.raw('array_append(tags, ?)', ['high-value']),
@@ -84,14 +84,14 @@ class FlagDeliveryRiskHandler implements ActionHandler {
 
     try {
       const { data: healthRecord, error: healthError } = await supabase
-        .from('client_health_scores')
+        .from('bb_client_health_scores')
         .select('id')
         .eq('project_id', project_id)
         .single();
 
       if (healthRecord) {
         await supabase
-          .from('client_risks')
+          .from('bb_client_risks')
           .insert({
             health_score_id: healthRecord.id,
             risk_type: risk_type || 'delivery_delay',
@@ -143,7 +143,7 @@ class EscalateUrgentIssueHandler implements ActionHandler {
 
     try {
       const { error } = await supabase
-        .from('support_tickets')
+        .from('bb_support_tickets')
         .update({
           priority: 'urgent',
           escalated: true,

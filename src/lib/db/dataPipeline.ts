@@ -79,7 +79,7 @@ class DataPipelineService {
   ): Promise<SystemEvent | null> {
     try {
       const { data: event, error } = await supabase
-        .from('system_events')
+        .from('bb_system_events')
         .insert({
           event_type: eventType,
           event_category: eventCategory,
@@ -114,7 +114,7 @@ class DataPipelineService {
   ): Promise<ActivityLog | null> {
     try {
       const { data: log, error } = await supabase
-        .from('activity_logs')
+        .from('bb_activity_logs')
         .insert({
           user_id: userId,
           organization_id: data.organizationId || null,
@@ -146,7 +146,7 @@ class DataPipelineService {
   }): Promise<SystemEvent[]> {
     try {
       let query = supabase
-        .from('system_events')
+        .from('bb_system_events')
         .select('*')
         .order('timestamp', { ascending: false });
 
@@ -201,7 +201,7 @@ class DataPipelineService {
   }): Promise<ActivityLog[]> {
     try {
       let query = supabase
-        .from('activity_logs')
+        .from('bb_activity_logs')
         .select('*')
         .order('timestamp', { ascending: false });
 
@@ -260,7 +260,7 @@ class DataPipelineService {
   ): Promise<AggregatedMetric | null> {
     try {
       const { data: metric, error } = await supabase
-        .from('aggregated_metrics')
+        .from('bb_aggregated_metrics')
         .upsert({
           metric_type: metricType,
           metric_category: metricCategory,
@@ -296,7 +296,7 @@ class DataPipelineService {
   }): Promise<AggregatedMetric[]> {
     try {
       let query = supabase
-        .from('aggregated_metrics')
+        .from('bb_aggregated_metrics')
         .select('*')
         .order('period_start', { ascending: false });
 
@@ -358,7 +358,7 @@ class DataPipelineService {
   ): Promise<DataSignal | null> {
     try {
       const { data: signal, error } = await supabase
-        .from('data_signals')
+        .from('bb_data_signals')
         .insert({
           signal_type: signalType,
           signal_category: signalCategory,
@@ -390,7 +390,7 @@ class DataPipelineService {
   }): Promise<DataSignal[]> {
     try {
       let query = supabase
-        .from('data_signals')
+        .from('bb_data_signals')
         .select('*')
         .order('detected_at', { ascending: false });
 
@@ -433,7 +433,7 @@ class DataPipelineService {
   async updateSignalStatus(signalId: string, status: SignalStatus): Promise<void> {
     try {
       const { error } = await supabase
-        .from('data_signals')
+        .from('bb_data_signals')
         .update({ status })
         .eq('id', signalId);
 

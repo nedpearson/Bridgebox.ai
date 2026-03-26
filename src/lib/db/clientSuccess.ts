@@ -104,7 +104,7 @@ export interface ClientSuccessOverview {
 class ClientSuccessService {
   async getClientHealthScore(organizationId: string): Promise<ClientHealthScore | null> {
     const { data, error } = await supabase
-      .from('client_health_scores')
+      .from('bb_client_health_scores')
       .select('*')
       .eq('organization_id', organizationId)
       .order('calculated_at', { ascending: false })
@@ -128,7 +128,7 @@ class ClientSuccessService {
     );
 
     const { data, error } = await supabase
-      .from('client_health_scores')
+      .from('bb_client_health_scores')
       .insert({
         organization_id: organizationId,
         overall_score,
@@ -147,7 +147,7 @@ class ClientSuccessService {
 
   private async calculateOnboardingScore(organizationId: string): Promise<number> {
     const { data: org } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('onboarding_completed, onboarding_completed_at')
       .eq('id', organizationId)
       .maybeSingle();
@@ -158,7 +158,7 @@ class ClientSuccessService {
 
   private async calculateProjectScore(organizationId: string): Promise<number> {
     const { data: projects } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .select('status, progress_percentage')
       .eq('organization_id', organizationId);
 
@@ -174,7 +174,7 @@ class ClientSuccessService {
 
   private async calculateSupportScore(organizationId: string): Promise<number> {
     const { data: tickets } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .select('priority, status')
       .eq('organization_id', organizationId)
       .in('status', ['open', 'in_progress']);
@@ -191,7 +191,7 @@ class ClientSuccessService {
 
   private async calculateEngagementScore(organizationId: string): Promise<number> {
     const { data: interactions } = await supabase
-      .from('client_interactions')
+      .from('bb_client_interactions')
       .select('interaction_date')
       .eq('organization_id', organizationId)
       .gte('interaction_date', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
@@ -205,7 +205,7 @@ class ClientSuccessService {
 
   async getClientInteractions(organizationId: string): Promise<ClientInteraction[]> {
     const { data, error } = await supabase
-      .from('client_interactions')
+      .from('bb_client_interactions')
       .select(`
         *,
         conducted_by_profile:profiles!client_interactions_conducted_by_fkey (
@@ -222,7 +222,7 @@ class ClientSuccessService {
 
   async createInteraction(interaction: Omit<ClientInteraction, 'id' | 'created_at' | 'updated_at'>): Promise<ClientInteraction> {
     const { data, error } = await supabase
-      .from('client_interactions')
+      .from('bb_client_interactions')
       .insert(interaction)
       .select()
       .single();
@@ -233,7 +233,7 @@ class ClientSuccessService {
 
   async getAccountOwner(organizationId: string): Promise<AccountOwner | null> {
     const { data, error } = await supabase
-      .from('account_owners')
+      .from('bb_account_owners')
       .select(`
         *,
         owner_profile:profiles!account_owners_owner_id_fkey (
@@ -250,14 +250,14 @@ class ClientSuccessService {
 
   async assignAccountOwner(organizationId: string, ownerId: string): Promise<AccountOwner> {
     const { data: existing } = await supabase
-      .from('account_owners')
+      .from('bb_account_owners')
       .select('id')
       .eq('organization_id', organizationId)
       .maybeSingle();
 
     if (existing) {
       const { data, error } = await supabase
-        .from('account_owners')
+        .from('bb_account_owners')
         .update({ owner_id: ownerId, assigned_at: new Date().toISOString() })
         .eq('organization_id', organizationId)
         .select()
@@ -268,7 +268,7 @@ class ClientSuccessService {
     }
 
     const { data, error } = await supabase
-      .from('account_owners')
+      .from('bb_account_owners')
       .insert({ organization_id: organizationId, owner_id: ownerId })
       .select()
       .single();
@@ -279,7 +279,7 @@ class ClientSuccessService {
 
   async getSuccessOpportunities(organizationId: string): Promise<SuccessOpportunity[]> {
     const { data, error } = await supabase
-      .from('success_opportunities')
+      .from('bb_success_opportunities')
       .select('*')
       .eq('organization_id', organizationId)
       .order('priority', { ascending: false })
@@ -291,7 +291,7 @@ class ClientSuccessService {
 
   async createOpportunity(opportunity: Omit<SuccessOpportunity, 'id' | 'created_at' | 'updated_at'>): Promise<SuccessOpportunity> {
     const { data, error } = await supabase
-      .from('success_opportunities')
+      .from('bb_success_opportunities')
       .insert(opportunity)
       .select()
       .single();
@@ -307,7 +307,7 @@ class ClientSuccessService {
     }
 
     const { error } = await supabase
-      .from('success_opportunities')
+      .from('bb_success_opportunities')
       .update(updates)
       .eq('id', opportunityId);
 
@@ -316,7 +316,7 @@ class ClientSuccessService {
 
   async getRiskFlags(organizationId: string): Promise<RiskFlag[]> {
     const { data, error } = await supabase
-      .from('risk_flags')
+      .from('bb_risk_flags')
       .select(`
         *,
         assigned_to_profile:profiles!risk_flags_assigned_to_fkey (
@@ -334,7 +334,7 @@ class ClientSuccessService {
 
   async createRiskFlag(risk: Omit<RiskFlag, 'id' | 'created_at' | 'updated_at'>): Promise<RiskFlag> {
     const { data, error } = await supabase
-      .from('risk_flags')
+      .from('bb_risk_flags')
       .insert(risk)
       .select()
       .single();
@@ -350,7 +350,7 @@ class ClientSuccessService {
     }
 
     const { error } = await supabase
-      .from('risk_flags')
+      .from('bb_risk_flags')
       .update(updates)
       .eq('id', riskId);
 
@@ -359,14 +359,14 @@ class ClientSuccessService {
 
   async getClientSuccessOverview(organizationId: string): Promise<ClientSuccessOverview> {
     const [org, healthScore, accountOwner, projects, tickets, interactions, opportunities, risks] = await Promise.all([
-      supabase.from('organizations').select('name, billing_plan, subscription_status').eq('id', organizationId).maybeSingle(),
+      supabase.from('bb_organizations').select('name, billing_plan, subscription_status').eq('id', organizationId).maybeSingle(),
       this.getClientHealthScore(organizationId),
       this.getAccountOwner(organizationId),
-      supabase.from('projects').select('id, status').eq('organization_id', organizationId).in('status', ['in_progress', 'planning', 'testing']),
-      supabase.from('support_tickets').select('id').eq('organization_id', organizationId).in('status', ['open', 'in_progress']),
-      supabase.from('client_interactions').select('*').eq('organization_id', organizationId).order('interaction_date', { ascending: false }).limit(1),
-      supabase.from('success_opportunities').select('id').eq('organization_id', organizationId).not('status', 'in', '(won,lost)'),
-      supabase.from('risk_flags').select('id').eq('organization_id', organizationId).not('status', 'eq', 'resolved'),
+      supabase.from('bb_projects').select('id, status').eq('organization_id', organizationId).in('status', ['in_progress', 'planning', 'testing']),
+      supabase.from('bb_support_tickets').select('id').eq('organization_id', organizationId).in('status', ['open', 'in_progress']),
+      supabase.from('bb_client_interactions').select('*').eq('organization_id', organizationId).order('interaction_date', { ascending: false }).limit(1),
+      supabase.from('bb_success_opportunities').select('id').eq('organization_id', organizationId).not('status', 'in', '(won,lost)'),
+      supabase.from('bb_risk_flags').select('id').eq('organization_id', organizationId).not('status', 'eq', 'resolved'),
     ]);
 
     return {
@@ -386,7 +386,7 @@ class ClientSuccessService {
 
   async getAllClientsOverview(): Promise<ClientSuccessOverview[]> {
     const { data: orgs, error } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('id')
       .eq('type', 'client')
       .order('created_at', { ascending: false });

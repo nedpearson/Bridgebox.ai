@@ -48,7 +48,7 @@ export async function logTokenUsage(entry: TokenLogEntry): Promise<void> {
     const model = entry.aiModel || 'gpt-4o';
     const costUsd = computeCostUSD(model, entry.promptTokens, entry.completionTokens);
 
-    const { error } = await supabase.from('token_usage_logs').insert({
+    const { error } = await supabase.from('bb_token_usage_logs').insert({
       organization_id: entry.organizationId,
       user_id: entry.userId || null,
       feature_context: entry.featureContext,
@@ -80,7 +80,7 @@ export async function getOrganizationTokenSummary(organizationId: string, period
   const since = new Date(Date.now() - periodDays * 24 * 60 * 60 * 1000).toISOString();
 
   const { data, error } = await supabase
-    .from('token_usage_logs')
+    .from('bb_token_usage_logs')
     .select('prompt_tokens, completion_tokens, total_tokens, cost_usd, feature_context, ai_model, created_at')
     .eq('organization_id', organizationId)
     .gte('created_at', since)
@@ -124,7 +124,7 @@ export async function getUserTokenBreakdown(organizationId: string, periodDays: 
   const since = new Date(Date.now() - periodDays * 24 * 60 * 60 * 1000).toISOString();
 
   const { data, error } = await supabase
-    .from('token_usage_logs')
+    .from('bb_token_usage_logs')
     .select('user_id, prompt_tokens, completion_tokens, total_tokens, cost_usd')
     .eq('organization_id', organizationId)
     .gte('created_at', since);

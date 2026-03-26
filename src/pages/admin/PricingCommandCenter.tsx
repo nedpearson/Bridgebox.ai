@@ -72,7 +72,7 @@ export default function PricingCommandCenter() {
   const loadModels = async () => {
     try {
       const { data, error } = await supabase
-        .from('pricing_models')
+        .from('bb_pricing_models')
         .select('*, organizations(name, industry)')
         .order('created_at', { ascending: false });
 
@@ -114,7 +114,7 @@ export default function PricingCommandCenter() {
     try {
       const overriddenTotal = overrideValues.approved_total_monthly_cost;
       await supabase
-        .from('pricing_models')
+        .from('bb_pricing_models')
         .update({
           base_platform_fee: overrideValues.base_platform_fee,
           ai_margin_multiplier: overrideValues.ai_margin_multiplier,
@@ -138,7 +138,7 @@ export default function PricingCommandCenter() {
       if (status === 'approved') {
         updates.approved_at = new Date().toISOString();
       }
-      await supabase.from('pricing_models').update(updates).eq('id', modelId);
+      await supabase.from('bb_pricing_models').update(updates).eq('id', modelId);
       await loadModels();
     } catch (err) {
       console.error('Failed to update status', err);

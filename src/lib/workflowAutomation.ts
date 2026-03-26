@@ -37,7 +37,7 @@ export async function convertProposalToProject(
   try {
     // 1. Check if proposal already converted
     const { data: existingProject } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .select('id')
       .eq('proposal_id', data.proposalId)
       .maybeSingle();
@@ -56,7 +56,7 @@ export async function convertProposalToProject(
 
     // 3. Create project
     const { data: project, error: projectError } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .insert({
         organization_id: data.organizationId,
         proposal_id: data.proposalId,
@@ -77,7 +77,7 @@ export async function convertProposalToProject(
 
     // 4. Mark proposal as converted
     await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .update({
         converted_to_project: true,
         converted_at: new Date().toISOString(),
@@ -92,14 +92,14 @@ export async function convertProposalToProject(
 
     // 6. Update organization onboarding status if needed
     const { data: org } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('onboarding_status')
       .eq('id', data.organizationId)
       .single();
 
     if (org?.onboarding_status === 'not_started') {
       await supabase
-        .from('organizations')
+        .from('bb_organizations')
         .update({ onboarding_status: 'in_progress' })
         .eq('id', data.organizationId);
     }
@@ -131,7 +131,7 @@ async function applyProjectTemplate(
   try {
     // Create project delivery record
     const { data: delivery, error: deliveryError } = await supabase
-      .from('project_delivery')
+      .from('bb_project_delivery')
       .insert({
         project_id: projectId,
         delivery_phase: template.defaultPhase,
@@ -157,7 +157,7 @@ async function applyProjectTemplate(
         order_index: m.order_index,
       }));
 
-      await supabase.from('milestones').insert(milestones);
+      await supabase.from('bb_milestones').insert(milestones);
     }
 
     // Create default deliverables
@@ -169,7 +169,7 @@ async function applyProjectTemplate(
         status: 'pending',
       }));
 
-      await supabase.from('deliverables').insert(deliverables);
+      await supabase.from('bb_deliverables').insert(deliverables);
     }
 
     return delivery.id;
@@ -186,7 +186,7 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
   try {
     // 1. Get lead data
     const { data: lead, error: leadError } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .select('*')
       .eq('id', leadId)
       .single();
@@ -209,7 +209,7 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
 
     if (!organizationId && lead.company) {
       const { data: existingOrg } = await supabase
-        .from('organizations')
+        .from('bb_organizations')
         .select('id')
         .ilike('name', lead.company)
         .maybeSingle();
@@ -220,7 +220,7 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
     // 4. Create organization if needed
     if (!organizationId) {
       const { data: newOrg, error: orgError } = await supabase
-        .from('organizations')
+        .from('bb_organizations')
         .insert({
           name: lead.company || lead.name,
           onboarding_status: 'not_started',
@@ -237,7 +237,7 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
 
     // 5. Mark lead as converted
     await supabase
-      .from('leads')
+      .from('bb_leads')
       .update({
         converted_to_client: true,
         converted_at: new Date().toISOString(),
@@ -266,7 +266,7 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
 export async function completeOnboarding(organizationId: string): Promise<boolean> {
   try {
     const { error } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .update({
         onboarding_status: 'completed',
         onboarding_completed_at: new Date().toISOString(),

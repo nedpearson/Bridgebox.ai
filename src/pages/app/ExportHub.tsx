@@ -29,7 +29,7 @@ export default function ExportHub() {
         teamService.getOrganizationMembers(currentOrganization.id),
         projectsService.getProjectsByOrganization(currentOrganization.id),
         supabase.from('global_tasks').select('*').eq('tenant_id', currentOrganization.id),
-        supabase.from('documents').select('*').eq('organization_id', currentOrganization.id)
+        supabase.from('bb_documents').select('*').eq('organization_id', currentOrganization.id)
       ]);
 
       const exportPayload = {

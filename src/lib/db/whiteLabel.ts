@@ -60,7 +60,7 @@ export interface PlanFeature {
 export const whiteLabelService = {
   async getBranding(organizationId: string): Promise<OrganizationBranding | null> {
     const { data, error } = await supabase
-      .from('organization_branding')
+      .from('bb_organization_branding')
       .select('*')
       .eq('organization_id', organizationId)
       .maybeSingle();
@@ -74,7 +74,7 @@ export const whiteLabelService = {
     branding: Partial<OrganizationBranding>
   ): Promise<OrganizationBranding> {
     const { data, error } = await supabase
-      .from('organization_branding')
+      .from('bb_organization_branding')
       .upsert({
         organization_id: organizationId,
         ...branding,
@@ -88,7 +88,7 @@ export const whiteLabelService = {
 
   async getFeatureFlags(organizationId: string): Promise<FeatureFlag[]> {
     const { data, error } = await supabase
-      .from('organization_feature_flags')
+      .from('bb_organization_feature_flags')
       .select('*')
       .eq('organization_id', organizationId)
       .order('feature_key');
@@ -102,7 +102,7 @@ export const whiteLabelService = {
     featureKey: string
   ): Promise<FeatureFlag | null> {
     const { data, error } = await supabase
-      .from('organization_feature_flags')
+      .from('bb_organization_feature_flags')
       .select('*')
       .eq('organization_id', organizationId)
       .eq('feature_key', featureKey)
@@ -119,7 +119,7 @@ export const whiteLabelService = {
     userId: string
   ): Promise<FeatureFlag> {
     const { data, error } = await supabase
-      .from('organization_feature_flags')
+      .from('bb_organization_feature_flags')
       .upsert({
         organization_id: organizationId,
         feature_key: featureKey,
@@ -140,7 +140,7 @@ export const whiteLabelService = {
     config: Record<string, any>
   ): Promise<FeatureFlag> {
     const { data, error } = await supabase
-      .from('organization_feature_flags')
+      .from('bb_organization_feature_flags')
       .update({ config })
       .eq('organization_id', organizationId)
       .eq('feature_key', featureKey)
@@ -153,7 +153,7 @@ export const whiteLabelService = {
 
   async getCustomRoles(organizationId: string): Promise<CustomRole[]> {
     const { data, error } = await supabase
-      .from('custom_roles')
+      .from('bb_custom_roles')
       .select('*')
       .eq('organization_id', organizationId)
       .eq('is_active', true)
@@ -169,7 +169,7 @@ export const whiteLabelService = {
     userId: string
   ): Promise<CustomRole> {
     const { data, error } = await supabase
-      .from('custom_roles')
+      .from('bb_custom_roles')
       .insert({
         organization_id: organizationId,
         created_by: userId,
@@ -187,7 +187,7 @@ export const whiteLabelService = {
     updates: Partial<CustomRole>
   ): Promise<CustomRole> {
     const { data, error } = await supabase
-      .from('custom_roles')
+      .from('bb_custom_roles')
       .update(updates)
       .eq('id', roleId)
       .select()
@@ -199,7 +199,7 @@ export const whiteLabelService = {
 
   async deleteCustomRole(roleId: string): Promise<void> {
     const { error } = await supabase
-      .from('custom_roles')
+      .from('bb_custom_roles')
       .update({ is_active: false })
       .eq('id', roleId);
 
@@ -208,7 +208,7 @@ export const whiteLabelService = {
 
   async getPlanFeatures(planId: string): Promise<PlanFeature[]> {
     const { data, error } = await supabase
-      .from('plan_features')
+      .from('bb_plan_features')
       .select('*')
       .eq('plan_id', planId)
       .eq('included', true);
@@ -224,13 +224,13 @@ export const whiteLabelService = {
   ): Promise<boolean> {
     const [planFeature, orgFlag] = await Promise.all([
       supabase
-        .from('plan_features')
+        .from('bb_plan_features')
         .select('*')
         .eq('plan_id', planId)
         .eq('feature_key', featureKey)
         .maybeSingle(),
       supabase
-        .from('organization_feature_flags')
+        .from('bb_organization_feature_flags')
         .select('*')
         .eq('organization_id', organizationId)
         .eq('feature_key', featureKey)

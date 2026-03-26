@@ -4,7 +4,7 @@ import type { Invitation, TeamMember, UserRole, InvitationWithDetails } from '..
 export const teamService = {
   async getOrganizationMembers(organizationId: string) {
     const { data, error } = await supabase
-      .from('organization_memberships')
+      .from('bb_organization_memberships')
       .select(`
         id,
         role,
@@ -42,7 +42,7 @@ export const teamService = {
 
   async getAllMembers() {
     const { data, error } = await supabase
-      .from('organization_memberships')
+      .from('bb_organization_memberships')
       .select(`
         id,
         role,
@@ -79,7 +79,7 @@ export const teamService = {
 
   async updateMemberRole(userId: string, organizationId: string, newRole: UserRole) {
     const { data, error } = await supabase
-      .from('organization_memberships')
+      .from('bb_organization_memberships')
       .update({ role: newRole, updated_at: new Date().toISOString() })
       .eq('user_id', userId)
       .eq('organization_id', organizationId)
@@ -89,7 +89,7 @@ export const teamService = {
     if (error) throw error;
 
     await supabase
-      .from('profiles')
+      .from('bb_profiles')
       .update({ role: newRole, updated_at: new Date().toISOString() })
       .eq('id', userId);
 
@@ -98,7 +98,7 @@ export const teamService = {
 
   async removeMember(userId: string, organizationId: string) {
     const { error } = await supabase
-      .from('organization_memberships')
+      .from('bb_organization_memberships')
       .delete()
       .eq('user_id', userId)
       .eq('organization_id', organizationId);
@@ -110,7 +110,7 @@ export const teamService = {
     const { data: user } = await supabase.auth.getUser();
 
     const { data, error } = await supabase
-      .from('invitations')
+      .from('bb_invitations')
       .insert([
         {
           email,
@@ -128,7 +128,7 @@ export const teamService = {
 
   async getOrganizationInvitations(organizationId: string) {
     const { data, error } = await supabase
-      .from('invitations')
+      .from('bb_invitations')
       .select(`
         *,
         organization:organizations!invitations_organization_id_fkey (
@@ -154,7 +154,7 @@ export const teamService = {
 
   async getAllInvitations() {
     const { data, error } = await supabase
-      .from('invitations')
+      .from('bb_invitations')
       .select(`
         *,
         organization:organizations!invitations_organization_id_fkey (
@@ -179,7 +179,7 @@ export const teamService = {
 
   async resendInvitation(invitationId: string) {
     const { data, error } = await supabase
-      .from('invitations')
+      .from('bb_invitations')
       .update({
         expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
         updated_at: new Date().toISOString(),
@@ -195,7 +195,7 @@ export const teamService = {
 
   async revokeInvitation(invitationId: string) {
     const { data, error } = await supabase
-      .from('invitations')
+      .from('bb_invitations')
       .update({
         status: 'revoked',
         updated_at: new Date().toISOString(),
@@ -210,7 +210,7 @@ export const teamService = {
 
   async getInvitationByToken(token: string) {
     const { data, error } = await supabase
-      .from('invitations')
+      .from('bb_invitations')
       .select(`
         *,
         organization:organizations!invitations_organization_id_fkey (
@@ -234,7 +234,7 @@ export const teamService = {
 
   async acceptInvitation(invitationId: string, userId: string) {
     const { data: invitation, error: invError } = await supabase
-      .from('invitations')
+      .from('bb_invitations')
       .select('*')
       .eq('id', invitationId)
       .maybeSingle();
@@ -243,7 +243,7 @@ export const teamService = {
     if (!invitation) throw new Error('Invitation not found');
 
     const { error: membershipError } = await supabase
-      .from('organization_memberships')
+      .from('bb_organization_memberships')
       .insert([
         {
           user_id: userId,
@@ -255,12 +255,12 @@ export const teamService = {
     if (membershipError) throw membershipError;
 
     await supabase
-      .from('profiles')
+      .from('bb_profiles')
       .update({ role: invitation.role })
       .eq('id', userId);
 
     const { data, error } = await supabase
-      .from('invitations')
+      .from('bb_invitations')
       .update({
         status: 'accepted',
         accepted_at: new Date().toISOString(),
@@ -276,7 +276,7 @@ export const teamService = {
 
   async getUserPendingInvitations(email: string) {
     const { data, error } = await supabase
-      .from('invitations')
+      .from('bb_invitations')
       .select(`
         *,
         organization:organizations!invitations_organization_id_fkey (

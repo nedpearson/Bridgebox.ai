@@ -30,7 +30,7 @@ export const supportAiApi = {
     try {
       // Mark as processing
       await supabase
-        .from('support_tickets')
+        .from('bb_support_tickets')
         .update({ ai_status: 'processing' })
         .eq('id', ticket.id);
 
@@ -55,7 +55,7 @@ export const supportAiApi = {
 
       // Push final result to Supabase
       const { error } = await supabase
-        .from('support_tickets')
+        .from('bb_support_tickets')
         .update({
           ...mockResult,
           ai_processed_at: new Date().toISOString()
@@ -69,7 +69,7 @@ export const supportAiApi = {
     } catch (err: any) {
       console.error('AI Triage Pipeline Error:', err);
       await supabase
-        .from('support_tickets')
+        .from('bb_support_tickets')
         .update({ ai_status: 'failed', ai_error: err.message })
         .eq('id', ticket.id);
       throw err;

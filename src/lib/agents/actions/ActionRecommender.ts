@@ -18,7 +18,7 @@ export class ActionRecommender {
     const recommendations: ActionRecommendation[] = [];
 
     const { data: lead } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .select('*')
       .eq('id', leadId)
       .eq('organization_id', organizationId)
@@ -161,7 +161,7 @@ export class ActionRecommender {
     const recommendations: ActionRecommendation[] = [];
 
     const { data: project } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .select('*, deliverables(*)')
       .eq('id', projectId)
       .eq('organization_id', organizationId)
@@ -225,7 +225,7 @@ export class ActionRecommender {
     const recommendations: ActionRecommendation[] = [];
 
     const { data: ticket } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .select('*')
       .eq('id', ticketId)
       .eq('organization_id', organizationId)
@@ -287,7 +287,7 @@ export class ActionRecommender {
     const recommendations: ActionRecommendation[] = [];
 
     const { data: opportunities } = await supabase
-      .from('scored_opportunities')
+      .from('bb_scored_opportunities')
       .select('*')
       .eq('organization_id', organizationId)
       .eq('opportunity_level', 'high')

@@ -49,7 +49,7 @@ export async function linkCustomerToOrganization(
   try {
     // Check if customer already linked to another organization
     const { data: existing } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('id, name')
       .eq('stripe_customer_id', customerData.stripeCustomerId)
       .neq('id', organizationId)
@@ -64,7 +64,7 @@ export async function linkCustomerToOrganization(
 
     // Link customer to organization
     const { error: updateError } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .update({
         stripe_customer_id: customerData.stripeCustomerId,
         billing_email: customerData.email,
@@ -92,7 +92,7 @@ export async function getOrganizationStripeCustomer(
 ): Promise<{ customerId?: string; error?: string }> {
   try {
     const { data: org, error } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('stripe_customer_id, name, billing_email')
       .eq('id', organizationId)
       .single();
@@ -252,7 +252,7 @@ export async function getOrganizationInvoices(organizationId: string) {
 export async function hasActiveSubscription(organizationId: string): Promise<boolean> {
   try {
     const { data: org } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('subscription_status, is_enterprise_client')
       .eq('id', organizationId)
       .single();

@@ -67,7 +67,7 @@ export const PRIORITY_COLORS: Record<Priority, { bg: string; text: string; borde
 class CopilotService {
   async getConversations(userId: string, includeArchived = false): Promise<CopilotConversation[]> {
     let query = supabase
-      .from('copilot_conversations')
+      .from('bb_copilot_conversations')
       .select('*')
       .eq('user_id', userId)
       .order('updated_at', { ascending: false });
@@ -84,7 +84,7 @@ class CopilotService {
 
   async getConversationById(id: string): Promise<CopilotConversation | null> {
     const { data, error } = await supabase
-      .from('copilot_conversations')
+      .from('bb_copilot_conversations')
       .select('*')
       .eq('id', id)
       .maybeSingle();
@@ -99,7 +99,7 @@ class CopilotService {
     contextType: ContextType = 'general'
   ): Promise<CopilotConversation> {
     const { data, error } = await supabase
-      .from('copilot_conversations')
+      .from('bb_copilot_conversations')
       .insert({
         user_id: userId,
         organization_id: organizationId,
@@ -117,7 +117,7 @@ class CopilotService {
     updates: Partial<CopilotConversation>
   ): Promise<CopilotConversation> {
     const { data, error } = await supabase
-      .from('copilot_conversations')
+      .from('bb_copilot_conversations')
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -129,7 +129,7 @@ class CopilotService {
 
   async archiveConversation(id: string): Promise<void> {
     const { error } = await supabase
-      .from('copilot_conversations')
+      .from('bb_copilot_conversations')
       .update({ is_archived: true })
       .eq('id', id);
 
@@ -138,7 +138,7 @@ class CopilotService {
 
   async deleteConversation(id: string): Promise<void> {
     const { error } = await supabase
-      .from('copilot_conversations')
+      .from('bb_copilot_conversations')
       .delete()
       .eq('id', id);
 
@@ -147,7 +147,7 @@ class CopilotService {
 
   async getMessages(conversationId: string): Promise<CopilotMessage[]> {
     const { data, error } = await supabase
-      .from('copilot_messages')
+      .from('bb_copilot_messages')
       .select('*')
       .eq('conversation_id', conversationId)
       .order('created_at', { ascending: true });
@@ -163,7 +163,7 @@ class CopilotService {
     metadata: Record<string, any> = {}
   ): Promise<CopilotMessage> {
     const { data, error } = await supabase
-      .from('copilot_messages')
+      .from('bb_copilot_messages')
       .insert({
         conversation_id: conversationId,
         role,
@@ -186,7 +186,7 @@ class CopilotService {
     }
   ): Promise<CopilotSuggestion[]> {
     let query = supabase
-      .from('copilot_suggestions')
+      .from('bb_copilot_suggestions')
       .select('*')
       .eq('user_id', userId)
       .order('created_at', { ascending: false });
@@ -219,7 +219,7 @@ class CopilotService {
     priority: Priority = 'medium'
   ): Promise<CopilotSuggestion> {
     const { data, error } = await supabase
-      .from('copilot_suggestions')
+      .from('bb_copilot_suggestions')
       .insert({
         user_id: userId,
         organization_id: organizationId,
@@ -238,7 +238,7 @@ class CopilotService {
 
   async updateSuggestionStatus(id: string, status: SuggestionStatus): Promise<void> {
     const { error } = await supabase
-      .from('copilot_suggestions')
+      .from('bb_copilot_suggestions')
       .update({ status, updated_at: new Date().toISOString() })
       .eq('id', id);
 

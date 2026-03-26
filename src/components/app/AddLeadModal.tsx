@@ -55,7 +55,7 @@ export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModa
       };
 
       const { error: dbError } = await supabase
-        .from('leads')
+        .from('bb_leads')
         .insert([leadData]);
 
       if (dbError) throw dbError;

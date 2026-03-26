@@ -149,7 +149,7 @@ export default function IssueReporter() {
 
       // 1. Upload the local WebM chunk
       const { error: uploadError } = await supabase.storage
-        .from('support_recordings')
+        .from('bb_support_recordings')
         .upload(fileName, blob, { 
           contentType: 'video/webm',
           cacheControl: '3600',

@@ -16,7 +16,7 @@ export interface OrganizationSummary {
 export const organizationsService = {
   async getMyOrganizations() {
     const { data, error } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('*, organization_memberships!inner(role)')
       .order('name');
 
@@ -26,7 +26,7 @@ export const organizationsService = {
 
   async getAllClientOrganizations() {
     const { data, error } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('*, organization_memberships(count)')
       .eq('type', 'client')
       .order('name');
@@ -37,7 +37,7 @@ export const organizationsService = {
 
   async getOrganizationById(id: string) {
     const { data, error } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('*, organization_memberships(user_id, role, profiles(full_name, email))')
       .eq('id', id)
       .maybeSingle();
@@ -51,7 +51,7 @@ export const organizationsService = {
     if (!org) return null;
 
     const { data: projects } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .select('id, status')
       .eq('organization_id', id);
 
@@ -69,7 +69,7 @@ export const organizationsService = {
 
   async getOrganizationMembers(organizationId: string) {
     const { data, error } = await supabase
-      .from('organization_memberships')
+      .from('bb_organization_memberships')
       .select('*, profiles(id, email, full_name, avatar_url, role)')
       .eq('organization_id', organizationId)
       .order('created_at');
@@ -80,7 +80,7 @@ export const organizationsService = {
 
   async searchOrganizations(query: string) {
     const { data, error } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('*')
       .eq('type', 'client')
       .ilike('name', `%${query}%`)
@@ -101,7 +101,7 @@ export const organizationsService = {
     if (!user.user) throw new Error('Not authenticated');
 
     const { data: org, error: orgError } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .insert({
         name: orgData.name,
         type: orgData.type || 'client',
@@ -115,7 +115,7 @@ export const organizationsService = {
     if (orgError) throw orgError;
 
     const { error: membershipError } = await supabase
-      .from('organization_memberships')
+      .from('bb_organization_memberships')
       .insert({
         organization_id: org.id,
         user_id: user.user.id,
@@ -157,7 +157,7 @@ export const organizationsService = {
     logo_url?: string;
   }) {
     const { data, error } = await supabase
-      .from('organizations')
+      .from('bb_organizations')
       .update(updates)
       .eq('id', id)
       .select()

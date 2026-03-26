@@ -17,7 +17,7 @@ export const projectsService = {
     target_launch_date?: string;
   }) {
     const { data, error } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .insert([project])
       .select()
       .single();
@@ -28,7 +28,7 @@ export const projectsService = {
 
   async getAllProjects(filters?: ProjectFilters) {
     let query = supabase
-      .from('projects')
+      .from('bb_projects')
       .select('*, organizations(name), profiles!projects_project_manager_id_fkey(full_name)');
 
     if (filters?.status) {
@@ -51,7 +51,7 @@ export const projectsService = {
 
   async getProjectById(id: string) {
     const { data, error } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .select(`
         *,
         organizations(id, name, type),
@@ -68,7 +68,7 @@ export const projectsService = {
 
   async getProjectsByOrganization(organizationId: string) {
     const { data, error } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .select('*, profiles!projects_project_manager_id_fkey(full_name), project_milestones(*), deliverables(*)')
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false });
@@ -82,7 +82,7 @@ export const projectsService = {
     if (!user.user) throw new Error('Not authenticated');
 
     const { data: memberships } = await supabase
-      .from('organization_memberships')
+      .from('bb_organization_memberships')
       .select('organization_id')
       .eq('user_id', user.user.id);
 
@@ -93,7 +93,7 @@ export const projectsService = {
     const orgIds = memberships.map(m => m.organization_id);
 
     const { data, error } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .select('*, organizations(name), profiles!projects_project_manager_id_fkey(full_name), deliverables(status)')
       .in('organization_id', orgIds)
       .order('created_at', { ascending: false });
@@ -104,7 +104,7 @@ export const projectsService = {
 
   async getProjectMilestones(projectId: string) {
     const { data, error } = await supabase
-      .from('project_milestones')
+      .from('bb_project_milestones')
       .select('*')
       .eq('project_id', projectId)
       .order('order_index');
@@ -115,7 +115,7 @@ export const projectsService = {
 
   async getProjectDeliverables(projectId: string) {
     const { data, error } = await supabase
-      .from('deliverables')
+      .from('bb_deliverables')
       .select('*')
       .eq('project_id', projectId)
       .order('created_at', { ascending: false });
@@ -133,7 +133,7 @@ export const projectsService = {
     notes?: string;
   }) {
     const { data, error } = await supabase
-      .from('projects')
+      .from('bb_projects')
       .update(updates)
       .eq('id', id)
       .select()
@@ -148,7 +148,7 @@ export const projectsService = {
     completed_date?: string;
   }) {
     const { data, error } = await supabase
-      .from('project_milestones')
+      .from('bb_project_milestones')
       .update(updates)
       .eq('id', id)
       .select()
@@ -160,7 +160,7 @@ export const projectsService = {
 
   async searchProjects(query: string, organizationId?: string) {
     let dbQuery = supabase
-      .from('projects')
+      .from('bb_projects')
       .select('*, organizations(name)')
       .ilike('name', `%${query}%`);
 

@@ -193,7 +193,7 @@ export default function PricingPresentation({ sessionId, organizationId, onAppro
       const pricingModelId = session?.ai_intelligence?.pricing_model_id;
       if (pricingModelId) {
         const { data: pricing } = await supabase
-          .from('pricing_models')
+          .from('bb_pricing_models')
           .select('*')
           .eq('id', pricingModelId)
           .single();
@@ -228,7 +228,7 @@ export default function PricingPresentation({ sessionId, organizationId, onAppro
     if (!pricingModel?.id) return;
     setApproving(true);
     try {
-      await supabase.from('pricing_models').update({ status: 'pending_review' }).eq('id', pricingModel.id);
+      await supabase.from('bb_pricing_models').update({ status: 'pending_review' }).eq('id', pricingModel.id);
       setApproved(true);
       onApprove?.(pricingModel.id);
     } finally {

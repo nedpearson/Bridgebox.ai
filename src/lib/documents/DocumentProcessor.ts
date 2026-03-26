@@ -69,7 +69,7 @@ class DocumentProcessor {
       });
 
       await supabase
-        .from('documents')
+        .from('bb_documents')
         .update({
           extracted_text: extractedText,
           page_count: this.estimatePageCount(extractedText),
@@ -107,7 +107,7 @@ Respond with only the category name.`;
       });
 
       await supabase
-        .from('documents')
+        .from('bb_documents')
         .update({ document_type: classification })
         .eq('id', documentId);
 
@@ -139,7 +139,7 @@ Respond with only the category name.`;
       const confidence = this.calculateConfidence(extractedFields);
 
       const { data, error } = await supabase
-        .from('document_extracted_data')
+        .from('bb_document_extracted_data')
         .insert({
           document_id: documentId,
           data_type: dataType,
@@ -168,7 +168,7 @@ Respond with only the category name.`;
 
   async processDocument(documentId: string): Promise<void> {
     const { data: document, error } = await supabase
-      .from('documents')
+      .from('bb_documents')
       .select('*')
       .eq('id', documentId)
       .single();
@@ -176,7 +176,7 @@ Respond with only the category name.`;
     if (error || !document) throw new Error('Document not found');
 
     await supabase
-      .from('documents')
+      .from('bb_documents')
       .update({ status: 'processing' })
       .eq('id', documentId);
 
@@ -193,7 +193,7 @@ Respond with only the category name.`;
       }
 
       const { data: updatedDoc } = await supabase
-        .from('documents')
+        .from('bb_documents')
         .select('document_type')
         .eq('id', documentId)
         .single();
@@ -203,7 +203,7 @@ Respond with only the category name.`;
       }
 
       await supabase
-        .from('documents')
+        .from('bb_documents')
         .update({
           status: 'completed',
           is_processed: true,
@@ -212,7 +212,7 @@ Respond with only the category name.`;
         .eq('id', documentId);
     } catch (error) {
       await supabase
-        .from('documents')
+        .from('bb_documents')
         .update({ status: 'failed' })
         .eq('id', documentId);
       throw error;
@@ -221,7 +221,7 @@ Respond with only the category name.`;
 
   async getQueueStats(organizationId: string) {
     const { data: stats } = await supabase
-      .from('document_processing_queue')
+      .from('bb_document_processing_queue')
       .select('status')
       .eq('organization_id', organizationId);
 
@@ -235,7 +235,7 @@ Respond with only the category name.`;
 
   async getProcessingHistory(documentId: string): Promise<ProcessingHistory[]> {
     const { data, error } = await supabase
-      .from('document_processing_history')
+      .from('bb_document_processing_history')
       .select('*')
       .eq('document_id', documentId)
       .order('created_at', { ascending: false });
@@ -246,7 +246,7 @@ Respond with only the category name.`;
 
   async getExtractedData(documentId: string): Promise<ExtractedData[]> {
     const { data, error } = await supabase
-      .from('document_extracted_data')
+      .from('bb_document_extracted_data')
       .select('*')
       .eq('document_id', documentId)
       .order('created_at', { ascending: false });
@@ -259,7 +259,7 @@ Respond with only the category name.`;
     const { data: { user } } = await supabase.auth.getUser();
 
     await supabase
-      .from('document_extracted_data')
+      .from('bb_document_extracted_data')
       .update({
         validation_status: isValid ? 'valid' : 'invalid',
         validated_by: user?.id,
@@ -276,7 +276,7 @@ Respond with only the category name.`;
     resultData: Record<string, any>
   ): Promise<void> {
     await supabase
-      .from('document_processing_history')
+      .from('bb_document_processing_history')
       .insert({
         document_id: documentId,
         task_type: taskType,

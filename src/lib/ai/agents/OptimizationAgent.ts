@@ -120,7 +120,7 @@ Return a JSON array where each item has:
 
     // Persist report to DB
     try {
-      await supabase.from('platform_cost_events').insert({
+      await supabase.from('bb_platform_cost_events').insert({
         organization_id: organizationId,
         event_type: 'ai_agent_run',
         quantity: 1,

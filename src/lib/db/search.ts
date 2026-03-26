@@ -18,10 +18,10 @@ export const globalSearchService = {
     // Parallel search across core tables utilizing correct isolation columns
     const [clientsRes, projectsRes, tasksRes, docsRes, onboardingRes] = await Promise.all([
       // Organizations acts as the root boundary. Clients are organizations with type = 'client'.
-      supabase.from('organizations').select('id, name, type').eq('type', 'client').ilike('name', searchTerm).limit(5),
-      supabase.from('projects').select('id, name, status').eq('organization_id', tenantId).ilike('name', searchTerm).limit(5),
+      supabase.from('bb_organizations').select('id, name, type').eq('type', 'client').ilike('name', searchTerm).limit(5),
+      supabase.from('bb_projects').select('id, name, status').eq('organization_id', tenantId).ilike('name', searchTerm).limit(5),
       supabase.from('global_tasks').select('id, title, status').eq('tenant_id', tenantId).ilike('title', searchTerm).limit(5),
-      supabase.from('documents').select('id, file_name, document_type').eq('organization_id', tenantId).ilike('file_name', searchTerm).limit(5),
+      supabase.from('bb_documents').select('id, file_name, document_type').eq('organization_id', tenantId).ilike('file_name', searchTerm).limit(5),
       // AI Onboarding Blueprint index
       supabase.from('onboarding_sessions').select('id, session_name, status').eq('organization_id', tenantId).ilike('session_name', searchTerm).limit(5)
     ]);

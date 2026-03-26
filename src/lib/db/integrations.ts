@@ -4,7 +4,7 @@ import type { Integration } from '../../types/database';
 export const integrationsService = {
   async getOrganizationIntegrations(organizationId: string) {
     const { data, error } = await supabase
-      .from('integrations')
+      .from('bb_integrations')
       .select('*')
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false });
@@ -15,7 +15,7 @@ export const integrationsService = {
 
   async getProjectIntegrations(projectId: string) {
     const { data, error } = await supabase
-      .from('integrations')
+      .from('bb_integrations')
       .select('*')
       .eq('project_id', projectId)
       .order('created_at', { ascending: false });
@@ -26,7 +26,7 @@ export const integrationsService = {
 
   async getIntegrationById(id: string) {
     const { data, error } = await supabase
-      .from('integrations')
+      .from('bb_integrations')
       .select('*')
       .eq('id', id)
       .maybeSingle();
@@ -37,7 +37,7 @@ export const integrationsService = {
 
   async createIntegration(integration: Omit<Integration, 'id' | 'created_at' | 'updated_at'>) {
     const { data, error } = await supabase
-      .from('integrations')
+      .from('bb_integrations')
       .insert([integration])
       .select()
       .maybeSingle();
@@ -48,7 +48,7 @@ export const integrationsService = {
 
   async updateIntegration(id: string, updates: Partial<Integration>) {
     const { data, error } = await supabase
-      .from('integrations')
+      .from('bb_integrations')
       .update(updates)
       .eq('id', id)
       .select()
@@ -64,7 +64,7 @@ export const integrationsService = {
 
   async deleteIntegration(id: string) {
     const { error } = await supabase
-      .from('integrations')
+      .from('bb_integrations')
       .delete()
       .eq('id', id);
 

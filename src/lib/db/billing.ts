@@ -4,7 +4,7 @@ import type { BillingInterval } from '../../types/billing';
 export const billingService = {
   async getSubscriptionPlans() {
     const { data, error } = await supabase
-      .from('subscription_plans')
+      .from('bb_subscription_plans')
       .select('*')
       .eq('is_active', true)
       .order('price_monthly');
@@ -15,7 +15,7 @@ export const billingService = {
 
   async getOrganizationSubscription(organizationId: string) {
     const { data, error } = await supabase
-      .from('subscriptions')
+      .from('bb_subscriptions')
       .select('*, subscription_plans(*)')
       .eq('organization_id', organizationId)
       .eq('status', 'active')
@@ -27,7 +27,7 @@ export const billingService = {
 
   async getAllActiveSubscriptions() {
     const { data, error } = await supabase
-      .from('subscriptions')
+      .from('bb_subscriptions')
       .select('*, organizations(name), subscription_plans(name, tier)')
       .eq('status', 'active')
       .order('created_at', { ascending: false });
@@ -38,7 +38,7 @@ export const billingService = {
 
   async getOrganizationInvoices(organizationId: string) {
     const { data, error } = await supabase
-      .from('invoices')
+      .from('bb_invoices')
       .select('*, projects(name)')
       .eq('organization_id', organizationId)
       .order('issue_date', { ascending: false });
@@ -49,7 +49,7 @@ export const billingService = {
 
   async getInvoiceById(id: string) {
     const { data, error } = await supabase
-      .from('invoices')
+      .from('bb_invoices')
       .select('*, organizations(name), projects(name)')
       .eq('id', id)
       .maybeSingle();
@@ -60,7 +60,7 @@ export const billingService = {
 
   async getAllInvoices() {
     const { data, error } = await supabase
-      .from('invoices')
+      .from('bb_invoices')
       .select('*, organizations(name)')
       .order('issue_date', { ascending: false });
 
@@ -76,7 +76,7 @@ export const billingService = {
     stripe_customer_id?: string;
   }) {
     const { data: plan, error: planError } = await supabase
-      .from('subscription_plans')
+      .from('bb_subscription_plans')
       .select('*')
       .eq('id', params.plan_id)
       .maybeSingle();
@@ -98,7 +98,7 @@ export const billingService = {
       : plan.price_yearly / 12;
 
     const { data, error } = await supabase
-      .from('subscriptions')
+      .from('bb_subscriptions')
       .insert({
         organization_id: params.organization_id,
         plan_id: params.plan_id,
@@ -126,7 +126,7 @@ export const billingService = {
     }
 
     const { data, error } = await supabase
-      .from('subscriptions')
+      .from('bb_subscriptions')
       .update(updates)
       .eq('id', subscriptionId)
       .select()
@@ -148,7 +148,7 @@ export const billingService = {
     notes?: string;
   }) {
     const { data, error } = await supabase
-      .from('invoices')
+      .from('bb_invoices')
       .insert({
         ...params,
         status: 'draft',
@@ -171,7 +171,7 @@ export const billingService = {
     }
 
     const { data, error } = await supabase
-      .from('invoices')
+      .from('bb_invoices')
       .update(updates)
       .eq('id', invoiceId)
       .select()
@@ -183,7 +183,7 @@ export const billingService = {
 
   async calculateMRR() {
     const { data, error } = await supabase
-      .from('subscriptions')
+      .from('bb_subscriptions')
       .select('mrr')
       .eq('status', 'active');
 
@@ -194,7 +194,7 @@ export const billingService = {
 
   async getOutstandingInvoicesTotal() {
     const { data, error } = await supabase
-      .from('invoices')
+      .from('bb_invoices')
       .select('total')
       .in('status', ['sent', 'overdue']);
 

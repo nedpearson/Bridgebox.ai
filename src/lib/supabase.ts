@@ -27,7 +27,7 @@ export interface Lead {
 
 export async function submitLead(lead: Lead) {
   const { data, error } = await supabase
-    .from('leads')
+    .from('bb_leads')
     .insert([lead])
     .select()
     .maybeSingle();

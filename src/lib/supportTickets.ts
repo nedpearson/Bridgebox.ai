@@ -67,7 +67,7 @@ export const supportTicketsApi = {
     if (!user.user) throw new Error('Not authenticated');
 
     const { data, error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .insert([{
         ...params,
         created_by_id: user.user.id,
@@ -85,7 +85,7 @@ export const supportTicketsApi = {
    */
   async getMyTickets(organizationId: string): Promise<SupportTicket[]> {
     const { data, error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .select('*')
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false });
@@ -107,7 +107,7 @@ export const supportTicketsApi = {
    */
   async getAllTickets(): Promise<SupportTicket[]> {
     const { data, error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .select('*, profiles!created_by_id(full_name, email), organizations(name)')
       .order('created_at', { ascending: false });
 
@@ -132,7 +132,7 @@ export const supportTicketsApi = {
     const expiresAt = new Date(Date.now() + 15 * 60000).toISOString();
 
     const { error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .update({
         session_code: code,
         session_expires_at: expiresAt
@@ -148,7 +148,7 @@ export const supportTicketsApi = {
    */
   async revokeSession(ticketId: string): Promise<void> {
     const { error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .update({
         session_code: null,
         session_expires_at: null
@@ -163,7 +163,7 @@ export const supportTicketsApi = {
    */
   async getRecordingUrl(path: string): Promise<string> {
     const { data, error } = await supabase.storage
-      .from('support_recordings')
+      .from('bb_support_recordings')
       .createSignedUrl(path, 3600);
       
     if (error) throw error;

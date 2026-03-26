@@ -73,7 +73,7 @@ export const supportService = {
     assigned_to?: string;
   }) {
     let query = supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .select(`
         *,
         organization:organizations!support_tickets_organization_id_fkey(id, name),
@@ -106,7 +106,7 @@ export const supportService = {
 
   async getOrganizationTickets(organizationId: string) {
     const { data, error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .select(`
         *,
         organization:organizations!support_tickets_organization_id_fkey(id, name),
@@ -122,7 +122,7 @@ export const supportService = {
 
   async getTicketById(id: string) {
     const { data, error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .select(`
         *,
         organization:organizations!support_tickets_organization_id_fkey(id, name),
@@ -140,7 +140,7 @@ export const supportService = {
     const { data: user } = await supabase.auth.getUser();
 
     const { data, error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .insert([
         {
           ...ticketData,
@@ -158,7 +158,7 @@ export const supportService = {
 
   async updateTicket(id: string, updates: Partial<SupportTicket>) {
     const { data, error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .update(updates)
       .eq('id', id)
       .select()
@@ -170,7 +170,7 @@ export const supportService = {
 
   async updateTicketStatus(ticketId: string, status: TicketStatus) {
     const { data, error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .update({ status })
       .eq('id', ticketId)
       .select()
@@ -182,7 +182,7 @@ export const supportService = {
 
   async assignTicket(ticketId: string, userId?: string) {
     const { data, error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .update({ assigned_to: userId })
       .eq('id', ticketId)
       .select()
@@ -194,7 +194,7 @@ export const supportService = {
 
   async deleteTicket(id: string) {
     const { error } = await supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .delete()
       .eq('id', id);
 
@@ -203,7 +203,7 @@ export const supportService = {
 
   async getTicketComments(ticketId: string) {
     const { data, error } = await supabase
-      .from('ticket_comments')
+      .from('bb_ticket_comments')
       .select(`
         *,
         author:profiles!ticket_comments_author_id_fkey(full_name, email)
@@ -219,7 +219,7 @@ export const supportService = {
     const { data: user } = await supabase.auth.getUser();
 
     const { data, error } = await supabase
-      .from('ticket_comments')
+      .from('bb_ticket_comments')
       .insert([
         {
           ...commentData,
@@ -236,7 +236,7 @@ export const supportService = {
 
   async updateComment(id: string, content: string) {
     const { data, error } = await supabase
-      .from('ticket_comments')
+      .from('bb_ticket_comments')
       .update({ content })
       .eq('id', id)
       .select()
@@ -248,7 +248,7 @@ export const supportService = {
 
   async deleteComment(id: string) {
     const { error } = await supabase
-      .from('ticket_comments')
+      .from('bb_ticket_comments')
       .delete()
       .eq('id', id);
 
@@ -257,7 +257,7 @@ export const supportService = {
 
   async getTicketStats(organizationId?: string) {
     let query = supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .select('status, priority');
 
     if (organizationId) {

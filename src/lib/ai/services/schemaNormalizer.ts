@@ -127,7 +127,7 @@ Return ONLY a raw JSON object containing these EXACT keys:
             ...webhook.mapped_entity_payload,
             organization_id: webhook.organization_id
         }
-        const { error } = await supabase.from('projects').insert(payload);
+        const { error } = await supabase.from('bb_projects').insert(payload);
         if (error) throw error;
       }
 

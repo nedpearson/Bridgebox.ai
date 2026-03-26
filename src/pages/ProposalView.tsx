@@ -74,7 +74,7 @@ export default function ProposalView() {
       setError(null);
 
       const { data, error: fetchError } = await supabase
-        .from('proposals')
+        .from('bb_proposals')
         .select('*')
         .eq('share_token', token)
         .maybeSingle();
@@ -91,7 +91,7 @@ export default function ProposalView() {
       // Mark as viewed if not already
       if (data.status === 'sent') {
         await supabase
-          .from('proposals')
+          .from('bb_proposals')
           .update({ status: 'viewed' })
           .eq('share_token', token);
       }
@@ -115,7 +115,7 @@ export default function ProposalView() {
       setApproving(true);
 
       const { error: updateError } = await supabase
-        .from('proposals')
+        .from('bb_proposals')
         .update({
           status: 'approved',
           approved_at: new Date().toISOString(),
@@ -145,7 +145,7 @@ export default function ProposalView() {
       setDeclining(true);
 
       const { error: updateError } = await supabase
-        .from('proposals')
+        .from('bb_proposals')
         .update({
           status: 'declined',
           declined_at: new Date().toISOString(),

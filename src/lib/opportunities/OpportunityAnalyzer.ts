@@ -34,20 +34,20 @@ export class OpportunityAnalyzer {
 
       const [leadsRes, projectsRes, proposalsRes, signalsRes] = await Promise.all([
         supabase
-          .from('leads')
+          .from('bb_leads')
           .select('industry, estimated_value, status')
           .eq('organization_id', organizationId)
           .gte('created_at', cutoffDate.toISOString()),
         supabase
-          .from('projects')
+          .from('bb_projects')
           .select('industry, budget')
           .eq('organization_id', organizationId),
         supabase
-          .from('proposals')
+          .from('bb_proposals')
           .select('industry, total_amount, status')
           .eq('organization_id', organizationId),
         supabase
-          .from('market_signals')
+          .from('bb_market_signals')
           .select('industry, strength_score, confidence_score')
           .eq('organization_id', organizationId)
           .gte('signal_date', cutoffDate.toISOString()),
@@ -145,16 +145,16 @@ export class OpportunityAnalyzer {
 
       const [leadsRes, projectsRes, deliverablesRes] = await Promise.all([
         supabase
-          .from('leads')
+          .from('bb_leads')
           .select('services_interested, estimated_value')
           .eq('organization_id', organizationId)
           .gte('created_at', cutoffDate.toISOString()),
         supabase
-          .from('projects')
+          .from('bb_projects')
           .select('type, industry, budget')
           .eq('organization_id', organizationId),
         supabase
-          .from('deliverables')
+          .from('bb_deliverables')
           .select('type')
           .eq('organization_id', organizationId),
       ]);

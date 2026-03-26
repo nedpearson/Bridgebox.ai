@@ -88,7 +88,7 @@ export interface ImplementationDetail extends ImplementationWithProject {
 class ImplementationService {
   async getAllImplementations(): Promise<ImplementationWithProject[]> {
     const { data, error } = await supabase
-      .from('project_implementations')
+      .from('bb_project_implementations')
       .select(`
         *,
         project:projects(
@@ -108,7 +108,7 @@ class ImplementationService {
 
   async getImplementationByProjectId(projectId: string): Promise<ImplementationDetail | null> {
     const { data: impl, error: implError } = await supabase
-      .from('project_implementations')
+      .from('bb_project_implementations')
       .select(`
         *,
         project:projects(
@@ -128,17 +128,17 @@ class ImplementationService {
 
     const [checklistsRes, environmentsRes, risksRes] = await Promise.all([
       supabase
-        .from('implementation_checklists')
+        .from('bb_implementation_checklists')
         .select('*')
         .eq('implementation_id', impl.id)
         .order('category')
         .order('order_index'),
       supabase
-        .from('implementation_environments')
+        .from('bb_implementation_environments')
         .select('*')
         .eq('implementation_id', impl.id),
       supabase
-        .from('implementation_risks')
+        .from('bb_implementation_risks')
         .select('*')
         .eq('implementation_id', impl.id)
         .order('severity')
@@ -159,7 +159,7 @@ class ImplementationService {
 
   async createImplementation(projectId: string): Promise<ProjectImplementation> {
     const { data, error } = await supabase
-      .from('project_implementations')
+      .from('bb_project_implementations')
       .insert({ project_id: projectId })
       .select()
       .single();
@@ -173,7 +173,7 @@ class ImplementationService {
     updates: Partial<ProjectImplementation>
   ): Promise<ProjectImplementation> {
     const { data, error } = await supabase
-      .from('project_implementations')
+      .from('bb_project_implementations')
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -188,7 +188,7 @@ class ImplementationService {
     item: Omit<ImplementationChecklist, 'id' | 'implementation_id' | 'created_at' | 'updated_at'>
   ): Promise<ImplementationChecklist> {
     const { data, error } = await supabase
-      .from('implementation_checklists')
+      .from('bb_implementation_checklists')
       .insert({ implementation_id: implementationId, ...item })
       .select()
       .single();
@@ -199,7 +199,7 @@ class ImplementationService {
 
   async toggleChecklistItem(id: string, completed: boolean): Promise<void> {
     const { error } = await supabase
-      .from('implementation_checklists')
+      .from('bb_implementation_checklists')
       .update({
         is_completed: completed,
         completed_at: completed ? new Date().toISOString() : null,
@@ -215,7 +215,7 @@ class ImplementationService {
     updates: Partial<ImplementationChecklist>
   ): Promise<void> {
     const { error } = await supabase
-      .from('implementation_checklists')
+      .from('bb_implementation_checklists')
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id);
 
@@ -223,7 +223,7 @@ class ImplementationService {
   }
 
   async deleteChecklistItem(id: string): Promise<void> {
-    const { error } = await supabase.from('implementation_checklists').delete().eq('id', id);
+    const { error } = await supabase.from('bb_implementation_checklists').delete().eq('id', id);
     if (error) throw error;
   }
 
@@ -233,7 +233,7 @@ class ImplementationService {
     data: Partial<ImplementationEnvironment>
   ): Promise<ImplementationEnvironment> {
     const { data: env, error } = await supabase
-      .from('implementation_environments')
+      .from('bb_implementation_environments')
       .upsert(
         {
           implementation_id: implementationId,
@@ -255,7 +255,7 @@ class ImplementationService {
     risk: Omit<ImplementationRisk, 'id' | 'implementation_id' | 'created_at' | 'updated_at'>
   ): Promise<ImplementationRisk> {
     const { data, error } = await supabase
-      .from('implementation_risks')
+      .from('bb_implementation_risks')
       .insert({ implementation_id: implementationId, ...risk })
       .select()
       .single();
@@ -269,7 +269,7 @@ class ImplementationService {
     updates: Partial<ImplementationRisk>
   ): Promise<ImplementationRisk> {
     const { data, error } = await supabase
-      .from('implementation_risks')
+      .from('bb_implementation_risks')
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -280,7 +280,7 @@ class ImplementationService {
   }
 
   async deleteRisk(id: string): Promise<void> {
-    const { error } = await supabase.from('implementation_risks').delete().eq('id', id);
+    const { error } = await supabase.from('bb_implementation_risks').delete().eq('id', id);
     if (error) throw error;
   }
 
@@ -330,7 +330,7 @@ class ImplementationService {
       implementation_id: implementationId,
     }));
 
-    const { error } = await supabase.from('implementation_checklists').insert(items);
+    const { error } = await supabase.from('bb_implementation_checklists').insert(items);
     if (error) throw error;
   }
 }

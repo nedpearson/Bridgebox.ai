@@ -109,7 +109,7 @@ export default function SupportTicketDetail() {
       };
       
       const { error } = await supabase
-        .from('support_tickets')
+        .from('bb_support_tickets')
         .update(updates)
         .eq('id', ticket.id);
 

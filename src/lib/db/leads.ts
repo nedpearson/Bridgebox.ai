@@ -78,7 +78,7 @@ export const leadsService = {
     };
 
     const { data, error } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .insert([leadData])
       .select()
       .maybeSingle();
@@ -89,7 +89,7 @@ export const leadsService = {
 
   async getAllLeads() {
     const { data, error } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .select('*')
       .order('created_at', { ascending: false });
 
@@ -99,7 +99,7 @@ export const leadsService = {
 
   async getLeadById(id: string) {
     const { data, error } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .select('*')
       .eq('id', id)
       .maybeSingle();
@@ -115,7 +115,7 @@ export const leadsService = {
     };
 
     const { data, error } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .update(updateData)
       .eq('id', id)
       .select()
@@ -156,7 +156,7 @@ export const leadsService = {
 
   async searchLeads(query: string) {
     const { data, error } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .select('*')
       .or(`name.ilike.%${query}%,email.ilike.%${query}%,company.ilike.%${query}%`)
       .order('created_at', { ascending: false });
@@ -167,7 +167,7 @@ export const leadsService = {
 
   async getLeadsByStatus(status: LeadRecord['status']) {
     const { data, error } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .select('*')
       .eq('status', status)
       .order('created_at', { ascending: false });
@@ -178,7 +178,7 @@ export const leadsService = {
 
   async getLeadsByPriority(priority: string) {
     const { data, error } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .select('*')
       .eq('priority', priority)
       .order('created_at', { ascending: false });
@@ -189,7 +189,7 @@ export const leadsService = {
 
   async getLeadsByAssignee(userId: string) {
     const { data, error } = await supabase
-      .from('leads')
+      .from('bb_leads')
       .select('*')
       .eq('assigned_to', userId)
       .order('created_at', { ascending: false });
@@ -205,7 +205,7 @@ export const leadsService = {
     assigned_to?: string;
     source?: string;
   }) {
-    let query = supabase.from('leads').select('*');
+    let query = supabase.from('bb_leads').select('*');
 
     if (filters.status) {
       query = query.eq('status', filters.status);

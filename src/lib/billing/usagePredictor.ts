@@ -137,7 +137,7 @@ export async function predictUsage(
   const since = new Date(Date.now() - windowDays * 86_400_000).toISOString();
 
   const { data, error } = await supabase
-    .from('token_usage_logs')
+    .from('bb_token_usage_logs')
     .select('total_tokens, cost_usd, created_at')
     .eq('organization_id', organizationId)
     .gte('created_at', since)
@@ -246,7 +246,7 @@ export async function getWorkflowUsageStats(
   const since = new Date(Date.now() - daysBack * 86_400_000).toISOString();
 
   const { data } = await supabase
-    .from('token_usage_logs')
+    .from('bb_token_usage_logs')
     .select('workflow_id, total_tokens, cost_usd, created_at')
     .eq('organization_id', organizationId)
     .not('workflow_id', 'is', null)
@@ -283,7 +283,7 @@ export async function getIntegrationLoadStats(
   const since = new Date(Date.now() - daysBack * 86_400_000).toISOString();
 
   const { data } = await supabase
-    .from('token_usage_logs')
+    .from('bb_token_usage_logs')
     .select('integration_id, total_tokens, cost_usd, created_at')
     .eq('organization_id', organizationId)
     .not('integration_id', 'is', null)

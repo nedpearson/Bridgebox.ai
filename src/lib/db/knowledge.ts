@@ -70,7 +70,7 @@ class KnowledgeService {
     featured?: boolean;
   }): Promise<KnowledgeDocument[]> {
     let query = supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .select('*')
       .order('updated_at', { ascending: false });
 
@@ -102,7 +102,7 @@ class KnowledgeService {
 
   async getDocumentById(id: string): Promise<KnowledgeDocument | null> {
     const { data, error } = await supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .select('*')
       .eq('id', id)
       .maybeSingle();
@@ -113,7 +113,7 @@ class KnowledgeService {
 
   async getDocumentBySlug(slug: string): Promise<KnowledgeDocument | null> {
     const { data, error } = await supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .select('*')
       .eq('slug', slug)
       .maybeSingle();
@@ -126,7 +126,7 @@ class KnowledgeService {
     document: Omit<KnowledgeDocument, 'id' | 'view_count' | 'created_at' | 'updated_at'>
   ): Promise<KnowledgeDocument> {
     const { data, error } = await supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .insert(document)
       .select()
       .single();
@@ -137,7 +137,7 @@ class KnowledgeService {
 
   async updateDocument(id: string, updates: Partial<KnowledgeDocument>): Promise<KnowledgeDocument> {
     const { data, error } = await supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -149,7 +149,7 @@ class KnowledgeService {
 
   async deleteDocument(id: string): Promise<void> {
     const { error } = await supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .delete()
       .eq('id', id);
 
@@ -158,7 +158,7 @@ class KnowledgeService {
 
   async logView(documentId: string, userId: string): Promise<void> {
     const { error } = await supabase
-      .from('document_views')
+      .from('bb_document_views')
       .insert({
         document_id: documentId,
         user_id: userId,
@@ -169,7 +169,7 @@ class KnowledgeService {
 
   async getFeaturedDocuments(): Promise<KnowledgeDocument[]> {
     const { data, error } = await supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .select('*')
       .eq('is_featured', true)
       .order('view_count', { ascending: false })
@@ -181,7 +181,7 @@ class KnowledgeService {
 
   async getPopularDocuments(limit = 10): Promise<KnowledgeDocument[]> {
     const { data, error } = await supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .select('*')
       .order('view_count', { ascending: false })
       .limit(limit);
@@ -192,7 +192,7 @@ class KnowledgeService {
 
   async getRecentDocuments(limit = 10): Promise<KnowledgeDocument[]> {
     const { data, error } = await supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .select('*')
       .order('created_at', { ascending: false })
       .limit(limit);
@@ -203,7 +203,7 @@ class KnowledgeService {
 
   async getAllTags(): Promise<string[]> {
     const { data, error } = await supabase
-      .from('knowledge_documents')
+      .from('bb_knowledge_documents')
       .select('tags');
 
     if (error) throw error;
@@ -218,10 +218,10 @@ class KnowledgeService {
 
   async getStats() {
     const [totalDocs, internalDocs, clientDocs, publicDocs] = await Promise.all([
-      supabase.from('knowledge_documents').select('id', { count: 'exact', head: true }),
-      supabase.from('knowledge_documents').select('id', { count: 'exact', head: true }).eq('visibility', 'internal'),
-      supabase.from('knowledge_documents').select('id', { count: 'exact', head: true }).eq('visibility', 'client'),
-      supabase.from('knowledge_documents').select('id', { count: 'exact', head: true }).eq('visibility', 'public'),
+      supabase.from('bb_knowledge_documents').select('id', { count: 'exact', head: true }),
+      supabase.from('bb_knowledge_documents').select('id', { count: 'exact', head: true }).eq('visibility', 'internal'),
+      supabase.from('bb_knowledge_documents').select('id', { count: 'exact', head: true }).eq('visibility', 'client'),
+      supabase.from('bb_knowledge_documents').select('id', { count: 'exact', head: true }).eq('visibility', 'public'),
     ]);
 
     return {

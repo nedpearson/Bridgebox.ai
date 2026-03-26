@@ -90,7 +90,7 @@ class MetricsEngine {
     const endDate = dateRange?.endDate || new Date();
 
     let leadsQuery = supabase
-      .from('leads')
+      .from('bb_leads')
       .select('id, status, estimated_budget, created_at')
       .gte('created_at', startDate.toISOString())
       .lte('created_at', endDate.toISOString());
@@ -102,7 +102,7 @@ class MetricsEngine {
     const { data: leads } = await leadsQuery;
 
     let proposalsQuery = supabase
-      .from('proposals')
+      .from('bb_proposals')
       .select('id, status, total_amount, created_at')
       .gte('created_at', startDate.toISOString())
       .lte('created_at', endDate.toISOString());
@@ -139,7 +139,7 @@ class MetricsEngine {
     const { organizationId } = filters;
 
     let subscriptionsQuery = supabase
-      .from('subscriptions')
+      .from('bb_subscriptions')
       .select('monthly_amount, status, plan_name')
       .eq('status', 'active');
 
@@ -150,7 +150,7 @@ class MetricsEngine {
     const { data: subscriptions } = await subscriptionsQuery;
 
     let invoicesQuery = supabase
-      .from('invoices')
+      .from('bb_invoices')
       .select('amount, status, created_at')
       .eq('status', 'paid')
       .gte('created_at', new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString());
@@ -196,7 +196,7 @@ class MetricsEngine {
     const endDate = dateRange?.endDate || new Date();
 
     let projectsQuery = supabase
-      .from('projects')
+      .from('bb_projects')
       .select('id, status, health_status, created_at, start_date, end_date, completion_percentage');
 
     if (organizationId) {
@@ -261,7 +261,7 @@ class MetricsEngine {
     const endDate = dateRange?.endDate || new Date();
 
     let ticketsQuery = supabase
-      .from('support_tickets')
+      .from('bb_support_tickets')
       .select('id, status, priority, category, created_at, resolved_at')
       .gte('created_at', startDate.toISOString())
       .lte('created_at', endDate.toISOString());
@@ -318,14 +318,14 @@ class MetricsEngine {
     const endDate = dateRange?.endDate || new Date();
 
     const orgsQuery = supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('id, type, status, created_at')
       .eq('type', 'client');
 
     const { data: organizations } = await orgsQuery;
 
     let healthScoresQuery = supabase
-      .from('client_health_scores')
+      .from('bb_client_health_scores')
       .select('organization_id, overall_score, last_updated');
 
     if (organizationId) {
@@ -335,7 +335,7 @@ class MetricsEngine {
     const { data: healthScores } = await healthScoresQuery;
 
     let risksQuery = supabase
-      .from('client_risks')
+      .from('bb_client_risks')
       .select('organization_id, status')
       .eq('status', 'active');
 
@@ -346,7 +346,7 @@ class MetricsEngine {
     const { data: risks } = await risksQuery;
 
     let opportunitiesQuery = supabase
-      .from('client_opportunities')
+      .from('bb_client_opportunities')
       .select('organization_id, status')
       .eq('status', 'open');
 
@@ -393,7 +393,7 @@ class MetricsEngine {
     const endDate = dateRange?.endDate || new Date();
 
     let onboardingsQuery = supabase
-      .from('onboarding_progress')
+      .from('bb_onboarding_progress')
       .select('id, organization_id, status, created_at, completed_at')
       .gte('created_at', startDate.toISOString())
       .lte('created_at', endDate.toISOString());

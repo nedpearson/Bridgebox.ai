@@ -70,7 +70,7 @@ export interface CreateProposalData {
 export const proposalsService = {
   async getAllProposals() {
     const { data, error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .select(`
         *,
         organization:organizations!proposals_organization_id_fkey(id, name),
@@ -85,7 +85,7 @@ export const proposalsService = {
 
   async getProposalById(id: string) {
     const { data, error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .select(`
         *,
         organization:organizations!proposals_organization_id_fkey(id, name),
@@ -101,7 +101,7 @@ export const proposalsService = {
 
   async getProposalsByOrganization(organizationId: string) {
     const { data, error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .select(`
         *,
         organization:organizations!proposals_organization_id_fkey(id, name),
@@ -119,7 +119,7 @@ export const proposalsService = {
     const { data: user } = await supabase.auth.getUser();
 
     const { data, error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .insert([
         {
           ...proposalData,
@@ -136,7 +136,7 @@ export const proposalsService = {
 
   async updateProposal(id: string, updates: Partial<CreateProposalData>) {
     const { data, error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .update(updates)
       .eq('id', id)
       .select()
@@ -163,7 +163,7 @@ export const proposalsService = {
     }
 
     const { data, error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .update(updates)
       .eq('id', id)
       .select()
@@ -180,7 +180,7 @@ export const proposalsService = {
     const { data: user } = await supabase.auth.getUser();
 
     const { data, error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .insert([
         {
           title: `${original.title} (Copy)`,
@@ -209,7 +209,7 @@ export const proposalsService = {
 
   async deleteProposal(id: string) {
     const { error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .delete()
       .eq('id', id);
 
@@ -218,7 +218,7 @@ export const proposalsService = {
 
   async getProposalsByLead(leadId: string) {
     const { data, error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .select(`
         *,
         organization:organizations!proposals_organization_id_fkey(id, name)
@@ -232,7 +232,7 @@ export const proposalsService = {
 
   async getProposalByShareToken(token: string) {
     const { data, error } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .select(`
         *,
         organization:organizations!proposals_organization_id_fkey(id, name)
@@ -244,7 +244,7 @@ export const proposalsService = {
 
     if (data && !data.viewed_at) {
       await supabase
-        .from('proposals')
+        .from('bb_proposals')
         .update({ viewed_at: new Date().toISOString() })
         .eq('id', data.id);
     }

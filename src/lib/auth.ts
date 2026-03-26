@@ -32,7 +32,7 @@ export const authService = {
 
     if (data.user) {
       const isSuperAdmin = data.user.email?.toLowerCase() === 'nedpearson@gmail.com';
-      await supabase.from('profiles').insert({
+      await supabase.from('bb_profiles').insert({
         id: data.user.id,
         email: data.user.email,
         full_name: fullName,
@@ -74,7 +74,7 @@ export const authService = {
     if (!user) return null;
 
     let { data, error } = await supabase
-      .from('profiles')
+      .from('bb_profiles')
       .select('*')
       .eq('id', user.id)
       .maybeSingle();
@@ -86,7 +86,7 @@ export const authService = {
     if (data && data.email?.toLowerCase() === 'nedpearson@gmail.com' && data.role !== 'super_admin') {
       try {
         const { data: updated, error: updateError } = await supabase
-          .from('profiles')
+          .from('bb_profiles')
           .update({ role: 'super_admin' })
           .eq('id', user.id)
           .select()
@@ -110,7 +110,7 @@ export const authService = {
     if (!user) throw new Error('Not authenticated');
 
     const { data, error } = await supabase
-      .from('profiles')
+      .from('bb_profiles')
       .update(updates)
       .eq('id', user.id)
       .select()

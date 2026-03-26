@@ -87,13 +87,13 @@ class TrendDetectionEngine {
     const previousPeriodStart = new Date(Date.now() - (daysBack * 2) * 24 * 60 * 60 * 1000);
     const previousPeriodEnd = currentPeriodStart;
 
-    let query_currentLeads = supabase.from('leads')
+    let query_currentLeads = supabase.from('bb_leads')
       .select('lead_type, estimated_budget')
       .gte('created_at', currentPeriodStart.toISOString());
     if (organizationId) query_currentLeads = query_currentLeads.eq('organization_id', organizationId);
     const { data: currentLeads } = await query_currentLeads;
 
-    let query_previousLeads = supabase.from('leads')
+    let query_previousLeads = supabase.from('bb_leads')
       .select('lead_type, estimated_budget')
       .gte('created_at', previousPeriodStart.toISOString())
       .lt('created_at', previousPeriodEnd.toISOString());
@@ -154,13 +154,13 @@ class TrendDetectionEngine {
     const previousPeriodStart = new Date(Date.now() - (daysBack * 2) * 24 * 60 * 60 * 1000);
     const previousPeriodEnd = currentPeriodStart;
 
-    let query_currentLeads = supabase.from('leads')
+    let query_currentLeads = supabase.from('bb_leads')
       .select('industry, estimated_budget, status')
       .gte('created_at', currentPeriodStart.toISOString());
     if (organizationId) query_currentLeads = query_currentLeads.eq('organization_id', organizationId);
     const { data: currentLeads } = await query_currentLeads;
 
-    let query_previousLeads = supabase.from('leads')
+    let query_previousLeads = supabase.from('bb_leads')
       .select('industry, estimated_budget, status')
       .gte('created_at', previousPeriodStart.toISOString())
       .lt('created_at', previousPeriodEnd.toISOString());
@@ -224,13 +224,13 @@ class TrendDetectionEngine {
   async detectDemandSpikes(organizationId?: string, daysBack: number = 90): Promise<DemandSpike[]> {
     const periodStart = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000);
 
-    let query_leads = supabase.from('leads')
+    let query_leads = supabase.from('bb_leads')
       .select('message, lead_type, source, created_at')
       .gte('created_at', periodStart.toISOString());
     if (organizationId) query_leads = query_leads.eq('organization_id', organizationId);
     const { data: leads } = await query_leads;
 
-    let query_tickets = supabase.from('support_tickets')
+    let query_tickets = supabase.from('bb_support_tickets')
       .select('title, description, category, created_at')
       .gte('created_at', periodStart.toISOString());
     if (organizationId) query_tickets = query_tickets.eq('organization_id', organizationId);
@@ -329,13 +329,13 @@ class TrendDetectionEngine {
     const currentPeriodStart = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000);
     const previousPeriodStart = new Date(Date.now() - (daysBack * 2) * 24 * 60 * 60 * 1000);
 
-    let query_currentActivity = supabase.from('activity_logs')
+    let query_currentActivity = supabase.from('bb_activity_logs')
       .select('action, user_id')
       .gte('created_at', currentPeriodStart.toISOString());
     if (organizationId) query_currentActivity = query_currentActivity.eq('organization_id', organizationId);
     const { data: currentActivity } = await query_currentActivity;
 
-    let query_previousActivity = supabase.from('activity_logs')
+    let query_previousActivity = supabase.from('bb_activity_logs')
       .select('action')
       .gte('created_at', previousPeriodStart.toISOString())
       .lt('created_at', currentPeriodStart.toISOString());
@@ -395,13 +395,13 @@ class TrendDetectionEngine {
   async detectClientRequestPatterns(organizationId?: string, daysBack: number = 90): Promise<ClientRequestPattern[]> {
     const periodStart = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000);
 
-    let query_tickets = supabase.from('support_tickets')
+    let query_tickets = supabase.from('bb_support_tickets')
       .select('title, description, category, organization_id')
       .gte('created_at', periodStart.toISOString());
     if (organizationId) query_tickets = query_tickets.eq('organization_id', organizationId);
     const { data: tickets } = await query_tickets;
 
-    let query_projects = supabase.from('projects')
+    let query_projects = supabase.from('bb_projects')
       .select('name, description, service_type, budget, organization_id')
       .gte('created_at', periodStart.toISOString());
     if (organizationId) query_projects = query_projects.eq('organization_id', organizationId);

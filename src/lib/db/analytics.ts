@@ -73,19 +73,19 @@ export const analyticsService = {
         leadsByStatusResult,
         proposalsResult,
       ] = await Promise.all([
-        supabase.from('leads').select('*', { count: 'exact', head: true }),
-        supabase.from('leads').select('status', { count: 'exact', head: true }).eq('status', 'qualified'),
-        supabase.from('leads').select('source'),
-        supabase.from('leads').select('service_type_category'),
-        supabase.from('leads').select('status'),
-        (organizationId ? supabase.from('proposals').select('status, pricing_amount').eq('organization_id', organizationId) : supabase.from('proposals').select('status, pricing_amount')),
+        supabase.from('bb_leads').select('*', { count: 'exact', head: true }),
+        supabase.from('bb_leads').select('status', { count: 'exact', head: true }).eq('status', 'qualified'),
+        supabase.from('bb_leads').select('source'),
+        supabase.from('bb_leads').select('service_type_category'),
+        supabase.from('bb_leads').select('status'),
+        (organizationId ? supabase.from('bb_proposals').select('status, pricing_amount').eq('organization_id', organizationId) : supabase.from('bb_proposals').select('status, pricing_amount')),
       ]);
 
       const totalLeads = leadsResult.count || 0;
       const qualifiedLeads = leadsCountResult.count || 0;
 
       const { count: convertedCount } = await supabase
-        .from('leads')
+        .from('bb_leads')
         .select('*', { count: 'exact', head: true })
         .eq('status', 'converted');
 
@@ -129,7 +129,7 @@ export const analyticsService = {
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
       const { count: recentCount } = await supabase
-        .from('leads')
+        .from('bb_leads')
         .select('*', { count: 'exact', head: true })
         .gte('created_at', thirtyDaysAgo.toISOString());
 
@@ -161,11 +161,11 @@ export const analyticsService = {
         deliveryResult,
         milestonesResult,
       ] = await Promise.all([
-        (organizationId ? supabase.from('projects').select('*').eq('organization_id', organizationId) : supabase.from('projects').select('*')),
-        (organizationId ? supabase.from('projects').select('status').eq('organization_id', organizationId) : supabase.from('projects').select('status')),
-        (organizationId ? supabase.from('projects').select('service_type_category').eq('organization_id', organizationId) : supabase.from('projects').select('service_type_category')),
-        supabase.from('project_delivery').select('*'),
-        supabase.from('milestones').select('status'),
+        (organizationId ? supabase.from('bb_projects').select('*').eq('organization_id', organizationId) : supabase.from('bb_projects').select('*')),
+        (organizationId ? supabase.from('bb_projects').select('status').eq('organization_id', organizationId) : supabase.from('bb_projects').select('status')),
+        (organizationId ? supabase.from('bb_projects').select('service_type_category').eq('organization_id', organizationId) : supabase.from('bb_projects').select('service_type_category')),
+        supabase.from('bb_project_delivery').select('*'),
+        supabase.from('bb_milestones').select('status'),
       ]);
 
       const projects = projectsResult.data || [];
@@ -252,10 +252,10 @@ export const analyticsService = {
         invoicesResult,
         projectsResult,
       ] = await Promise.all([
-        (organizationId ? supabase.from('subscriptions').select('*').eq('organization_id', organizationId) : supabase.from('subscriptions').select('*')),
+        (organizationId ? supabase.from('bb_subscriptions').select('*').eq('organization_id', organizationId) : supabase.from('bb_subscriptions').select('*')),
         (organizationId ? supabase.from('stripe_subscriptions').select('*').eq('organization_id', organizationId) : supabase.from('stripe_subscriptions').select('*')),
-        (organizationId ? supabase.from('invoices').select('*').eq('organization_id', organizationId) : supabase.from('invoices').select('*')),
-        (organizationId ? supabase.from('projects').select('contract_value').eq('organization_id', organizationId) : supabase.from('projects').select('contract_value')),
+        (organizationId ? supabase.from('bb_invoices').select('*').eq('organization_id', organizationId) : supabase.from('bb_invoices').select('*')),
+        (organizationId ? supabase.from('bb_projects').select('contract_value').eq('organization_id', organizationId) : supabase.from('bb_projects').select('contract_value')),
       ]);
 
       const subscriptions = subscriptionsResult.data || [];
@@ -328,10 +328,10 @@ export const analyticsService = {
         ticketsByCategoryResult,
         ticketsByStatusResult,
       ] = await Promise.all([
-        (organizationId ? supabase.from('support_tickets').select('*').eq('organization_id', organizationId) : supabase.from('support_tickets').select('*')),
-        (organizationId ? supabase.from('support_tickets').select('priority').eq('organization_id', organizationId) : supabase.from('support_tickets').select('priority')),
-        (organizationId ? supabase.from('support_tickets').select('category').eq('organization_id', organizationId) : supabase.from('support_tickets').select('category')),
-        (organizationId ? supabase.from('support_tickets').select('status').eq('organization_id', organizationId) : supabase.from('support_tickets').select('status')),
+        (organizationId ? supabase.from('bb_support_tickets').select('*').eq('organization_id', organizationId) : supabase.from('bb_support_tickets').select('*')),
+        (organizationId ? supabase.from('bb_support_tickets').select('priority').eq('organization_id', organizationId) : supabase.from('bb_support_tickets').select('priority')),
+        (organizationId ? supabase.from('bb_support_tickets').select('category').eq('organization_id', organizationId) : supabase.from('bb_support_tickets').select('category')),
+        (organizationId ? supabase.from('bb_support_tickets').select('status').eq('organization_id', organizationId) : supabase.from('bb_support_tickets').select('status')),
       ]);
 
       const tickets = ticketsResult.data || [];
@@ -412,9 +412,9 @@ export const analyticsService = {
         clientOrgsResult,
         projectsResult,
       ] = await Promise.all([
-        supabase.from('organizations').select('*'),
-        supabase.from('organizations').select('*').eq('type', 'client'),
-        (organizationId ? supabase.from('projects').select('organization_id, contract_value').eq('organization_id', organizationId) : supabase.from('projects').select('organization_id, contract_value')),
+        supabase.from('bb_organizations').select('*'),
+        supabase.from('bb_organizations').select('*').eq('type', 'client'),
+        (organizationId ? supabase.from('bb_projects').select('organization_id, contract_value').eq('organization_id', organizationId) : supabase.from('bb_projects').select('organization_id, contract_value')),
       ]);
 
       const allOrgs = organizationsResult.data || [];
@@ -480,10 +480,10 @@ export const analyticsService = {
 
   async getConversionMetrics(organizationId?: string) {
     const [leads, proposals, projects, orgs] = await Promise.all([
-      supabase.from('leads').select('id, converted_to_client'),
-      (organizationId ? supabase.from('proposals').select('id, status, converted_to_project').eq('organization_id', organizationId) : supabase.from('proposals').select('id, status, converted_to_project')),
-      (organizationId ? supabase.from('projects').select('id, source').eq('organization_id', organizationId) : supabase.from('projects').select('id, source')),
-      supabase.from('organizations').select('id, onboarding_status'),
+      supabase.from('bb_leads').select('id, converted_to_client'),
+      (organizationId ? supabase.from('bb_proposals').select('id, status, converted_to_project').eq('organization_id', organizationId) : supabase.from('bb_proposals').select('id, status, converted_to_project')),
+      (organizationId ? supabase.from('bb_projects').select('id, source').eq('organization_id', organizationId) : supabase.from('bb_projects').select('id, source')),
+      supabase.from('bb_organizations').select('id, onboarding_status'),
     ]);
 
     return {
@@ -499,7 +499,7 @@ export const analyticsService = {
 
   async getConversionTracking(limit = 50, organizationId?: string) {
     const { data, error } = await supabase
-      .from('conversion_tracking')
+      .from('bb_conversion_tracking')
       .select('*')
       .order('lead_converted_at', { ascending: false })
       .limit(limit);

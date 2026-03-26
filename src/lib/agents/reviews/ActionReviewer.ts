@@ -13,7 +13,7 @@ export class ActionReviewer {
   ): Promise<{ actions: AgentAction[]; error: Error | null }> {
     try {
       let query = supabase
-        .from('agent_actions')
+        .from('bb_agent_actions')
         .select('*')
         .eq('organization_id', organizationId);
 
@@ -100,7 +100,7 @@ export class ActionReviewer {
 
       if (decision.modifications) {
         const { data: currentAction } = await supabase
-          .from('agent_actions')
+          .from('bb_agent_actions')
           .select('payload')
           .eq('id', actionId)
           .single();
@@ -114,7 +114,7 @@ export class ActionReviewer {
       }
 
       const { data, error } = await supabase
-        .from('agent_actions')
+        .from('bb_agent_actions')
         .update(updates)
         .eq('id', actionId)
         .select()
@@ -169,7 +169,7 @@ export class ActionReviewer {
   ): Promise<{ stats: ActionStats | null; error: Error | null }> {
     try {
       const { data: actions, error } = await supabase
-        .from('agent_actions')
+        .from('bb_agent_actions')
         .select('*')
         .eq('organization_id', organizationId);
 
@@ -230,7 +230,7 @@ export class ActionReviewer {
   ): Promise<{ action: AgentAction | null; error: Error | null }> {
     try {
       const { data, error } = await supabase
-        .from('agent_actions')
+        .from('bb_agent_actions')
         .update({
           status: 'executed',
           executed_at: new Date().toISOString(),
@@ -254,7 +254,7 @@ export class ActionReviewer {
   ): Promise<{ action: AgentAction | null; error: Error | null }> {
     try {
       const { data, error } = await supabase
-        .from('agent_actions')
+        .from('bb_agent_actions')
         .update({
           status: 'failed',
           error_message: errorMessage,
@@ -276,7 +276,7 @@ export class ActionReviewer {
   ): Promise<{ action: AgentAction | null; error: Error | null }> {
     try {
       const { data, error } = await supabase
-        .from('agent_actions')
+        .from('bb_agent_actions')
         .insert(action)
         .select()
         .single();

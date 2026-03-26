@@ -29,7 +29,7 @@ export class MetricsAggregator {
   ): Promise<void> {
     try {
       let leadsQuery = supabase
-        .from('leads')
+        .from('bb_leads')
         .select('id, status, estimated_budget, created_at')
         .gte('created_at', startDate.toISOString())
         .lte('created_at', endDate.toISOString());
@@ -63,7 +63,7 @@ export class MetricsAggregator {
       );
 
       let proposalsQuery = supabase
-        .from('proposals')
+        .from('bb_proposals')
         .select('id, status, total_amount, created_at')
         .gte('created_at', startDate.toISOString())
         .lte('created_at', endDate.toISOString());
@@ -107,7 +107,7 @@ export class MetricsAggregator {
   ): Promise<void> {
     try {
       let projectsQuery = supabase
-        .from('projects')
+        .from('bb_projects')
         .select('id, status, health_status, created_at');
 
       if (organizationId) {
@@ -139,7 +139,7 @@ export class MetricsAggregator {
       );
 
       const milestonesQuery = supabase
-        .from('project_milestones')
+        .from('bb_project_milestones')
         .select('id, status, due_date')
         .gte('completed_at', startDate.toISOString())
         .lte('completed_at', endDate.toISOString());
@@ -179,7 +179,7 @@ export class MetricsAggregator {
   ): Promise<void> {
     try {
       let ticketsQuery = supabase
-        .from('support_tickets')
+        .from('bb_support_tickets')
         .select('id, status, priority, created_at, resolved_at')
         .gte('created_at', startDate.toISOString())
         .lte('created_at', endDate.toISOString());

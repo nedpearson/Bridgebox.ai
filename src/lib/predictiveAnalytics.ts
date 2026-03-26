@@ -41,7 +41,7 @@ export interface RevenueForecast {
 
 class PredictiveAnalyticsEngine {
   async predictLeadConversion(leadId: string, organizationId?: string): Promise<LeadPrediction> {
-    let query_lead = supabase.from('leads')
+    let query_lead = supabase.from('bb_leads')
       .select('*, organization:organizations(*)')
       .eq('id', leadId);
     if (organizationId) query_lead = query_lead.eq('organization_id', organizationId);
@@ -96,7 +96,7 @@ class PredictiveAnalyticsEngine {
     }
 
     const { data: existingProposal } = await supabase
-      .from('proposals')
+      .from('bb_proposals')
       .select('id')
       .eq('lead_id', leadId)
       .single();
@@ -135,7 +135,7 @@ class PredictiveAnalyticsEngine {
     organizationId?: string
   ): Promise<LeadPrediction[]> {
     let query = supabase
-      .from('leads')
+      .from('bb_leads')
       .select('id')
       .in('status', ['new', 'contacted', 'qualified']);
 
@@ -155,7 +155,7 @@ class PredictiveAnalyticsEngine {
   }
 
   async predictProjectDelay(projectId: string, organizationId?: string): Promise<ProjectRiskPrediction> {
-    let query_project = supabase.from('projects')
+    let query_project = supabase.from('bb_projects')
       .select('*')
       .eq('id', projectId);
     if (organizationId) query_project = query_project.eq('organization_id', organizationId);
@@ -180,7 +180,7 @@ class PredictiveAnalyticsEngine {
     }
 
     const { data: milestones } = await supabase
-      .from('project_milestones')
+      .from('bb_project_milestones')
       .select('*')
       .eq('project_id', projectId);
 
@@ -207,7 +207,7 @@ class PredictiveAnalyticsEngine {
       }
     }
 
-    let query_openTickets = supabase.from('support_tickets')
+    let query_openTickets = supabase.from('bb_support_tickets')
       .select('id')
       .eq('project_id', projectId)
       .in('status', ['open', 'in_progress']);
@@ -274,7 +274,7 @@ class PredictiveAnalyticsEngine {
     organizationId?: string
   ): Promise<ProjectRiskPrediction[]> {
     let query = supabase
-      .from('projects')
+      .from('bb_projects')
       .select('id')
       .eq('status', 'in_progress');
 
@@ -294,7 +294,7 @@ class PredictiveAnalyticsEngine {
   }
 
   async predictClientRisk(clientId: string, organizationId?: string): Promise<ClientChurnPrediction> {
-    let query_client = supabase.from('organizations')
+    let query_client = supabase.from('bb_organizations')
       .select('*')
       .eq('id', clientId)
       .eq('type', 'client');
@@ -310,7 +310,7 @@ class PredictiveAnalyticsEngine {
     let riskScore = 0;
 
     const { data: healthScore } = await supabase
-      .from('client_health_scores')
+      .from('bb_client_health_scores')
       .select('*')
       .eq('organization_id', clientId)
       .order('last_updated', { ascending: false })
@@ -345,7 +345,7 @@ class PredictiveAnalyticsEngine {
       }
     }
 
-    let query_openTickets = supabase.from('support_tickets')
+    let query_openTickets = supabase.from('bb_support_tickets')
       .select('id, priority')
       .eq('organization_id', clientId)
       .in('status', ['open', 'in_progress']);
@@ -367,7 +367,7 @@ class PredictiveAnalyticsEngine {
     }
 
     const { data: subscription } = await supabase
-      .from('subscriptions')
+      .from('bb_subscriptions')
       .select('*')
       .eq('organization_id', clientId)
       .single();
@@ -384,7 +384,7 @@ class PredictiveAnalyticsEngine {
       }
     }
 
-    let query_recentActivity = supabase.from('activity_logs')
+    let query_recentActivity = supabase.from('bb_activity_logs')
       .select('id')
       .eq('organization_id', clientId)
       .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
@@ -397,7 +397,7 @@ class PredictiveAnalyticsEngine {
       retentionActions.push('Re-engage with value demonstration');
     }
 
-    let query_activeProjects = supabase.from('projects')
+    let query_activeProjects = supabase.from('bb_projects')
       .select('id')
       .eq('organization_id', clientId)
       .eq('status', 'in_progress');
@@ -431,7 +431,7 @@ class PredictiveAnalyticsEngine {
     organizationId?: string
   ): Promise<ClientChurnPrediction[]> {
     const query = supabase
-      .from('organizations')
+      .from('bb_organizations')
       .select('id')
       .eq('type', 'client')
       .eq('status', 'active');
@@ -449,12 +449,12 @@ class PredictiveAnalyticsEngine {
 
   async forecastRevenue(organizationId?: string, months: number = 6): Promise<RevenueForecast[]> {
     const { data: historicalMRR } = await supabase
-      .from('subscriptions')
+      .from('bb_subscriptions')
       .select('monthly_amount, created_at, status')
       .eq('status', 'active');
 
     const { data: historicalInvoices } = await supabase
-      .from('invoices')
+      .from('bb_invoices')
       .select('amount, created_at, status')
       .eq('status', 'paid')
       .gte('created_at', new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString());

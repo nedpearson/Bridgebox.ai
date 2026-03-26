@@ -83,7 +83,7 @@ export const deliveryService = {
     risk?: RiskLevel;
   }) {
     let query = supabase
-      .from('project_delivery')
+      .from('bb_project_delivery')
       .select(`
         *,
         project:projects!project_delivery_project_id_fkey(id, name, service_type, organization_id, organizations(name)),
@@ -111,7 +111,7 @@ export const deliveryService = {
 
   async getProjectDelivery(projectId: string) {
     const { data, error } = await supabase
-      .from('project_delivery')
+      .from('bb_project_delivery')
       .select(`
         *,
         project:projects!project_delivery_project_id_fkey(*, organizations(name)),
@@ -126,7 +126,7 @@ export const deliveryService = {
 
   async createProjectDelivery(data: Partial<ProjectDelivery>) {
     const { data: delivery, error } = await supabase
-      .from('project_delivery')
+      .from('bb_project_delivery')
       .insert([data])
       .select()
       .maybeSingle();
@@ -137,7 +137,7 @@ export const deliveryService = {
 
   async updateProjectDelivery(projectId: string, updates: Partial<ProjectDelivery>) {
     const { data, error } = await supabase
-      .from('project_delivery')
+      .from('bb_project_delivery')
       .update(updates)
       .eq('project_id', projectId)
       .select()
@@ -149,7 +149,7 @@ export const deliveryService = {
 
   async getProjectMilestones(projectId: string) {
     const { data, error } = await supabase
-      .from('milestones')
+      .from('bb_milestones')
       .select(`
         *,
         owner:profiles!milestones_owner_id_fkey(full_name, email)
@@ -163,7 +163,7 @@ export const deliveryService = {
 
   async createMilestone(milestone: Partial<Milestone>) {
     const { data, error } = await supabase
-      .from('milestones')
+      .from('bb_milestones')
       .insert([milestone])
       .select()
       .maybeSingle();
@@ -174,7 +174,7 @@ export const deliveryService = {
 
   async updateMilestone(id: string, updates: Partial<Milestone>) {
     const { data, error } = await supabase
-      .from('milestones')
+      .from('bb_milestones')
       .update(updates)
       .eq('id', id)
       .select()
@@ -186,7 +186,7 @@ export const deliveryService = {
 
   async deleteMilestone(id: string) {
     const { error } = await supabase
-      .from('milestones')
+      .from('bb_milestones')
       .delete()
       .eq('id', id);
 
@@ -195,7 +195,7 @@ export const deliveryService = {
 
   async getProjectDeliverables(projectId: string) {
     const { data, error } = await supabase
-      .from('deliverables')
+      .from('bb_deliverables')
       .select('*')
       .eq('project_id', projectId)
       .order('created_at', { ascending: false });
@@ -206,7 +206,7 @@ export const deliveryService = {
 
   async getMilestoneDeliverables(milestoneId: string) {
     const { data, error } = await supabase
-      .from('deliverables')
+      .from('bb_deliverables')
       .select('*')
       .eq('milestone_id', milestoneId)
       .order('created_at', { ascending: false });
@@ -217,7 +217,7 @@ export const deliveryService = {
 
   async createDeliverable(deliverable: Partial<Deliverable>) {
     const { data, error } = await supabase
-      .from('deliverables')
+      .from('bb_deliverables')
       .insert([deliverable])
       .select()
       .maybeSingle();
@@ -228,7 +228,7 @@ export const deliveryService = {
 
   async updateDeliverable(id: string, updates: Partial<Deliverable>) {
     const { data, error } = await supabase
-      .from('deliverables')
+      .from('bb_deliverables')
       .update(updates)
       .eq('id', id)
       .select()
@@ -240,7 +240,7 @@ export const deliveryService = {
 
   async deleteDeliverable(id: string) {
     const { error } = await supabase
-      .from('deliverables')
+      .from('bb_deliverables')
       .delete()
       .eq('id', id);
 
@@ -249,7 +249,7 @@ export const deliveryService = {
 
   async getProjectNotes(projectId: string) {
     const { data, error } = await supabase
-      .from('delivery_notes')
+      .from('bb_delivery_notes')
       .select(`
         *,
         author:profiles!delivery_notes_author_id_fkey(full_name, email)
@@ -265,7 +265,7 @@ export const deliveryService = {
     const { data: user } = await supabase.auth.getUser();
 
     const { data, error } = await supabase
-      .from('delivery_notes')
+      .from('bb_delivery_notes')
       .insert([{ ...note, author_id: user?.user?.id }])
       .select()
       .maybeSingle();
@@ -276,7 +276,7 @@ export const deliveryService = {
 
   async deleteNote(id: string) {
     const { error } = await supabase
-      .from('delivery_notes')
+      .from('bb_delivery_notes')
       .delete()
       .eq('id', id);
 
@@ -285,7 +285,7 @@ export const deliveryService = {
 
   async getDeliveryStats() {
     const { data, error } = await supabase
-      .from('project_delivery')
+      .from('bb_project_delivery')
       .select('delivery_phase, health_status, risk_level');
 
     if (error) throw error;

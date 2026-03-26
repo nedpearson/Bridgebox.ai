@@ -14,7 +14,7 @@ import type {
 class DocumentService {
   async getDocuments(organizationId: string): Promise<Document[]> {
     const { data, error } = await supabase
-      .from('documents')
+      .from('bb_documents')
       .select('*')
       .eq('organization_id', organizationId)
       .order('created_at', { ascending: false });
@@ -34,7 +34,7 @@ class DocumentService {
     if (docIds.length === 0) return [];
 
     const { data, error } = await supabase
-      .from('documents')
+      .from('bb_documents')
       .select('*')
       .in('id', docIds)
       .order('created_at', { ascending: false });
@@ -45,7 +45,7 @@ class DocumentService {
 
   async getDocumentById(documentId: string): Promise<DocumentWithAnalysis | null> {
     const { data: document, error: docError } = await supabase
-      .from('documents')
+      .from('bb_documents')
       .select('*')
       .eq('id', documentId)
       .maybeSingle();
@@ -54,7 +54,7 @@ class DocumentService {
     if (!document) return null;
 
     const { data: analysis, error: analysisError } = await supabase
-      .from('document_analysis')
+      .from('bb_document_analysis')
       .select('*')
       .eq('document_id', documentId)
       .maybeSingle();
@@ -62,7 +62,7 @@ class DocumentService {
     if (analysisError) throw analysisError;
 
     const { data: versions, error: versionsError } = await supabase
-      .from('document_versions')
+      .from('bb_document_versions')
       .select('*')
       .eq('document_id', documentId)
       .order('version_number', { ascending: false });
@@ -78,7 +78,7 @@ class DocumentService {
 
   async createDocument(document: Partial<Document>): Promise<Document> {
     const { data, error } = await supabase
-      .from('documents')
+      .from('bb_documents')
       .insert({
         ...document,
         uploaded_by: (await supabase.auth.getUser()).data.user?.id,
@@ -92,7 +92,7 @@ class DocumentService {
 
   async updateDocument(documentId: string, updates: Partial<Document>): Promise<Document> {
     const { data, error } = await supabase
-      .from('documents')
+      .from('bb_documents')
       .update(updates)
       .eq('id', documentId)
       .select()
@@ -104,7 +104,7 @@ class DocumentService {
 
   async deleteDocument(documentId: string): Promise<void> {
     const { error } = await supabase
-      .from('documents')
+      .from('bb_documents')
       .delete()
       .eq('id', documentId);
 
@@ -133,7 +133,7 @@ ${extractedText.substring(0, 4000)}`;
       const processingTime = Date.now() - startTime;
 
       const { data, error } = await supabase
-        .from('document_analysis')
+        .from('bb_document_analysis')
         .upsert({
           document_id: documentId,
           summary,
@@ -156,7 +156,7 @@ ${extractedText.substring(0, 4000)}`;
       const processingTime = Date.now() - startTime;
 
       const { data, error: fallbackError } = await supabase
-        .from('document_analysis')
+        .from('bb_document_analysis')
         .upsert({
           document_id: documentId,
           summary: 'Analysis pending. Document uploaded successfully.',
@@ -226,7 +226,7 @@ ${extractedText.substring(0, 4000)}`;
 
   async getDocumentStats(organizationId: string): Promise<DocumentStats> {
     const { data: documents, error } = await supabase
-      .from('documents')
+      .from('bb_documents')
       .select('document_type, status, file_size, is_processed')
       .eq('organization_id', organizationId);
 
@@ -272,7 +272,7 @@ ${extractedText.substring(0, 4000)}`;
     query: string
   ): Promise<Document[]> {
     const { data, error } = await supabase
-      .from('documents')
+      .from('bb_documents')
       .select('*')
       .eq('organization_id', organizationId)
       .or(`file_name.ilike.%${query}%,extracted_text.ilike.%${query}%`)
@@ -288,7 +288,7 @@ ${extractedText.substring(0, 4000)}`;
     versionData: Partial<DocumentVersion>
   ): Promise<DocumentVersion> {
     const { data: existingVersions, error: countError } = await supabase
-      .from('document_versions')
+      .from('bb_document_versions')
       .select('version_number')
       .eq('document_id', documentId)
       .order('version_number', { ascending: false })
@@ -301,7 +301,7 @@ ${extractedText.substring(0, 4000)}`;
       : 1;
 
     const { data, error } = await supabase
-      .from('document_versions')
+      .from('bb_document_versions')
       .insert({
         ...versionData,
         document_id: documentId,

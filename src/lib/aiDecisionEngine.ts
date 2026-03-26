@@ -76,7 +76,7 @@ class AIDecisionEngine {
   }
 
   async analyzeSalesOpportunities(organizationId?: string): Promise<SalesRecommendation[]> {
-    let query_leads = supabase.from('leads')
+    let query_leads = supabase.from('bb_leads')
       .select('*')
       .in('status', ['new', 'contacted', 'qualified', 'proposal_sent'])
       .order('created_at', { ascending: false });
@@ -167,7 +167,7 @@ class AIDecisionEngine {
   }
 
   async analyzeProjectRisks(organizationId?: string): Promise<ProjectRecommendation[]> {
-    let query_projects = supabase.from('projects')
+    let query_projects = supabase.from('bb_projects')
       .select('*, project_deliveries(*)')
       .in('status', ['in_progress', 'planning']);
     if (organizationId) query_projects = query_projects.eq('organization_id', organizationId);
@@ -241,7 +241,7 @@ class AIDecisionEngine {
   }
 
   async analyzeClientOpportunities(organizationId?: string): Promise<ClientRecommendation[]> {
-    let query_organizations = supabase.from('organizations')
+    let query_organizations = supabase.from('bb_organizations')
       .select('*, projects(*), subscriptions(*)');
     if (organizationId) query_organizations = query_organizations.eq('organization_id', organizationId);
     const { data: organizations } = await query_organizations;
@@ -317,7 +317,7 @@ class AIDecisionEngine {
   }
 
   async analyzeAutomationOpportunities(organizationId?: string): Promise<AutomationRecommendation[]> {
-    let query_activityLogs = supabase.from('activity_logs')
+    let query_activityLogs = supabase.from('bb_activity_logs')
       .select('action, user_id, created_at')
       .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
     if (organizationId) query_activityLogs = query_activityLogs.eq('organization_id', organizationId);

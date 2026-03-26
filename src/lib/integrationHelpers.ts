@@ -6,21 +6,21 @@ export class IntegrationHelpers {
     try {
       const [projects, tickets, health, billing] = await Promise.all([
         supabase
-          .from('projects')
+          .from('bb_projects')
           .select('id, name, status, health_status')
           .eq('organization_id', organizationId),
         supabase
-          .from('support_tickets')
+          .from('bb_support_tickets')
           .select('id, priority, status')
           .eq('organization_id', organizationId)
           .in('status', ['open', 'in_progress']),
         supabase
-          .from('client_health_scores')
+          .from('bb_client_health_scores')
           .select('*')
           .eq('organization_id', organizationId)
           .maybeSingle(),
         supabase
-          .from('organizations')
+          .from('bb_organizations')
           .select('subscription_status, subscription_plan')
           .eq('id', organizationId)
           .maybeSingle(),
@@ -51,27 +51,27 @@ export class IntegrationHelpers {
     try {
       const [project, milestones, deliverables, implementation, risks] = await Promise.all([
         supabase
-          .from('projects')
+          .from('bb_projects')
           .select('*, organizations(*)')
           .eq('id', projectId)
           .maybeSingle(),
         supabase
-          .from('project_milestones')
+          .from('bb_project_milestones')
           .select('*')
           .eq('project_id', projectId)
           .order('due_date', { ascending: true }),
         supabase
-          .from('project_deliverables')
+          .from('bb_project_deliverables')
           .select('*')
           .eq('project_id', projectId)
           .order('due_date', { ascending: true }),
         supabase
-          .from('implementation_projects')
+          .from('bb_implementation_projects')
           .select('*')
           .eq('project_id', projectId)
           .maybeSingle(),
         supabase
-          .from('client_risks')
+          .from('bb_client_risks')
           .select('*')
           .eq('organization_id', project.data?.organization_id)
           .eq('status', 'active')
@@ -95,17 +95,17 @@ export class IntegrationHelpers {
     try {
       const [lead, proposals, conversations] = await Promise.all([
         supabase
-          .from('leads')
+          .from('bb_leads')
           .select('*')
           .eq('id', leadId)
           .maybeSingle(),
         supabase
-          .from('proposals')
+          .from('bb_proposals')
           .select('*')
           .eq('lead_id', leadId)
           .order('created_at', { ascending: false }),
         supabase
-          .from('copilot_conversations')
+          .from('bb_copilot_conversations')
           .select('id, title, updated_at')
           .eq('context_type', 'crm')
           .order('updated_at', { ascending: false })
@@ -127,17 +127,17 @@ export class IntegrationHelpers {
     try {
       const [ticket, knowledgeArticles, relatedTickets] = await Promise.all([
         supabase
-          .from('support_tickets')
+          .from('bb_support_tickets')
           .select('*, organizations(*)')
           .eq('id', ticketId)
           .maybeSingle(),
         supabase
-          .from('knowledge_documents')
+          .from('bb_knowledge_documents')
           .select('id, title, category, visibility')
           .eq('visibility', 'public')
           .limit(5),
         supabase
-          .from('support_tickets')
+          .from('bb_support_tickets')
           .select('id, title, status, priority')
           .eq('organization_id', ticket.data?.organization_id)
           .neq('id', ticketId)
@@ -210,22 +210,22 @@ export class IntegrationHelpers {
     try {
       const [leads, tickets, projects, existingRules] = await Promise.all([
         supabase
-          .from('leads')
+          .from('bb_leads')
           .select('id, status, created_at')
           .order('created_at', { ascending: false })
           .limit(50),
         supabase
-          .from('support_tickets')
+          .from('bb_support_tickets')
           .select('id, priority, category, created_at')
           .order('created_at', { ascending: false })
           .limit(50),
         supabase
-          .from('projects')
+          .from('bb_projects')
           .select('id, status, created_at')
           .order('created_at', { ascending: false })
           .limit(50),
         supabase
-          .from('automation_rules')
+          .from('bb_automation_rules')
           .select('trigger_type, action_type')
           .eq('is_active', true),
       ]);
@@ -290,7 +290,7 @@ export class IntegrationHelpers {
   async linkKnowledgeToOnboarding(documentId: string, onboardingStage: string) {
     try {
       await supabase
-        .from('knowledge_documents')
+        .from('bb_knowledge_documents')
         .update({
           metadata: {
             onboarding_stage: onboardingStage,
@@ -309,7 +309,7 @@ export class IntegrationHelpers {
   async getOnboardingRecommendedDocs(stage: string) {
     try {
       const { data, error } = await supabase
-        .from('knowledge_documents')
+        .from('bb_knowledge_documents')
         .select('id, title, summary, category')
         .eq('visibility', 'public')
         .or(`metadata->onboarding_stage.eq.${stage},metadata->show_in_onboarding.eq.true`);
