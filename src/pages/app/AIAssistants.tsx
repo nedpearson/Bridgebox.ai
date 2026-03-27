@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, Clock, TrendingUp, ShieldCheck, Zap, Lock, Eye, AlertCircle, Cpu, CheckCircle } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
@@ -15,6 +16,7 @@ const AUTONOMY_LEVELS = [
 ];
 
 export default function AIAssistants() {
+  const navigate = useNavigate();
   const { currentOrganization } = useAuth();
   const [tenantAgents, setTenantAgents] = useState<any[]>([]);
   const [metrics, setMetrics] = useState<any>(null);
@@ -199,7 +201,10 @@ export default function AIAssistants() {
              <p className="text-slate-400 max-w-md mb-8">
                Your organization has no digital workers installed. Visit the Ecosystem Marketplace to provision templates specialized for your industry.
              </p>
-             <button className="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl transition-colors">
+             <button 
+               onClick={() => navigate('/app/marketplace', { state: { category: 'ai_agent' } })}
+               className="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl transition-colors"
+             >
                Explore Industry Assistants
              </button>
            </Card>

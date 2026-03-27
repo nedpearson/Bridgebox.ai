@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, ShoppingBag, Star, Download, TrendingUp, Zap, Building2, Package, LayoutTemplate } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
@@ -8,7 +9,8 @@ import TemplateDetailView from '../../components/marketplace/TemplateDetailView'
 import AgentDetailView from '../../components/marketplace/AgentDetailView';
 
 export default function Marketplace() {
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const location = useLocation();
+  const [activeCategory, setActiveCategory] = useState<string>(location.state?.category || 'all');
   const [searchQuery, setSearchQuery] = useState('');
   const [templates, setTemplates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
