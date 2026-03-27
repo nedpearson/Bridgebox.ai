@@ -54,7 +54,7 @@ CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE TO authentic
 
 -- Organizations
 CREATE TABLE IF NOT EXISTS organizations (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
   type organization_type NOT NULL DEFAULT 'client',
   website text,
@@ -69,7 +69,7 @@ ALTER TABLE organizations ENABLE ROW LEVEL SECURITY;
 
 -- Organization memberships
 CREATE TABLE IF NOT EXISTS organization_memberships (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   user_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
   role user_role NOT NULL DEFAULT 'client_member',
@@ -91,7 +91,7 @@ CREATE POLICY "Users can read their organizations" ON organizations FOR SELECT T
 
 -- Proposals
 CREATE TABLE IF NOT EXISTS proposals (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   lead_id uuid REFERENCES leads(id) ON DELETE SET NULL,
   organization_id uuid REFERENCES organizations(id) ON DELETE SET NULL,
   proposal_number text NOT NULL UNIQUE,
@@ -115,7 +115,7 @@ CREATE POLICY "Clients can read their proposals" ON proposals FOR SELECT TO auth
 
 -- Projects
 CREATE TABLE IF NOT EXISTS projects (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   name text NOT NULL,
   description text,
@@ -144,7 +144,7 @@ CREATE POLICY "Clients can read their projects" ON projects FOR SELECT TO authen
 
 -- Project milestones
 CREATE TABLE IF NOT EXISTS project_milestones (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
   name text NOT NULL,
   description text,
@@ -162,7 +162,7 @@ CREATE POLICY "Users can read milestones" ON project_milestones FOR SELECT TO au
 
 -- Deliverables
 CREATE TABLE IF NOT EXISTS deliverables (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
   name text NOT NULL,
   description text,
@@ -183,7 +183,7 @@ CREATE POLICY "Users can read deliverables" ON deliverables FOR SELECT TO authen
 
 -- Subscription plans
 CREATE TABLE IF NOT EXISTS subscription_plans (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
   tier text NOT NULL,
   price_monthly numeric(10, 2) NOT NULL,
@@ -200,7 +200,7 @@ CREATE POLICY "Anyone can read active plans" ON subscription_plans FOR SELECT TO
 
 -- Subscriptions
 CREATE TABLE IF NOT EXISTS subscriptions (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   plan_id uuid NOT NULL REFERENCES subscription_plans(id) ON DELETE RESTRICT,
   status subscription_status NOT NULL DEFAULT 'active',
@@ -222,7 +222,7 @@ CREATE POLICY "Clients read their subscriptions" ON subscriptions FOR SELECT TO 
 
 -- Invoices
 CREATE TABLE IF NOT EXISTS invoices (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   project_id uuid REFERENCES projects(id) ON DELETE SET NULL,
   invoice_number text NOT NULL UNIQUE,
@@ -246,7 +246,7 @@ CREATE POLICY "Clients read their invoices" ON invoices FOR SELECT TO authentica
 
 -- Support tickets
 CREATE TABLE IF NOT EXISTS support_tickets (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   project_id uuid REFERENCES projects(id) ON DELETE SET NULL,
   title text NOT NULL,
@@ -270,7 +270,7 @@ CREATE POLICY "Clients manage their tickets" ON support_tickets FOR ALL TO authe
 
 -- Integrations
 CREATE TABLE IF NOT EXISTS integrations (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id uuid REFERENCES organizations(id) ON DELETE CASCADE,
   project_id uuid REFERENCES projects(id) ON DELETE CASCADE,
   name text NOT NULL,

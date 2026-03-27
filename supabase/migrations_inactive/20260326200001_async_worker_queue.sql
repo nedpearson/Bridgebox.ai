@@ -2,7 +2,7 @@
 -- Description: Unblocks the UI by migrating heavy document extractions and workflow logic to an asynchronous Postgres queue.
 
 CREATE TABLE IF NOT EXISTS public.bb_async_worker_queue (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     organization_id UUID NOT NULL REFERENCES public.bb_organizations(id) ON DELETE CASCADE,
     job_type TEXT NOT NULL CHECK (job_type IN ('document_extraction', 'ai_generation', 'bulk_import', 'workflow_runner')),
     payload JSONB DEFAULT '{}'::jsonb,

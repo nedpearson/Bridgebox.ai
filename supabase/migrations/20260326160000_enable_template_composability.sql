@@ -8,7 +8,7 @@ ADD COLUMN IF NOT EXISTS merge_strategy TEXT DEFAULT 'skip_existing' CHECK (merg
 
 -- Create the specific dependency junction table
 CREATE TABLE IF NOT EXISTS public.bb_template_dependencies (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     template_id UUID NOT NULL REFERENCES public.bb_templates(id) ON DELETE CASCADE,
     depends_on_template_id UUID NOT NULL REFERENCES public.bb_templates(id) ON DELETE CASCADE,
     version_requirement TEXT DEFAULT '*',

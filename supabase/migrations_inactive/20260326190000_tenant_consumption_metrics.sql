@@ -2,7 +2,7 @@
 -- Description: Tracking execution scale for dynamic Stripe metered billing thresholds.
 
 CREATE TABLE IF NOT EXISTS public.bb_tenant_consumption (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     organization_id UUID NOT NULL REFERENCES public.bb_organizations(id) ON DELETE CASCADE,
     metric_type TEXT NOT NULL CHECK (metric_type IN ('workflow_execution', 'ai_invocation', 'storage_gb', 'api_calls')),
     quantity INTEGER NOT NULL DEFAULT 1,

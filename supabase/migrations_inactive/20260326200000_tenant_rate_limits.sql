@@ -2,7 +2,7 @@
 -- Description: Engineers rigorous consumption limits mapped against subscription tiers.
 
 CREATE TABLE IF NOT EXISTS public.bb_tenant_rate_limits (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     organization_id UUID NOT NULL REFERENCES public.bb_organizations(id) ON DELETE CASCADE,
     ai_requests_per_minute INTEGER DEFAULT 10,
     webhook_ingest_per_minute INTEGER DEFAULT 100,

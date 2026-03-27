@@ -3,7 +3,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 
 -- Create a generic embeddings table for all Bridgebox entities
 CREATE TABLE IF NOT EXISTS public.platform_embeddings (
-    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     organization_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
     entity_type TEXT NOT NULL, -- 'document', 'communication', 'task', etc.
     entity_id UUID NOT NULL,   -- The ID of the specific entity

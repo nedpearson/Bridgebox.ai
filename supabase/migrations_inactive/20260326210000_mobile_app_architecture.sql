@@ -3,7 +3,7 @@
 
 -- 1. Mobile Devices (Push Tokens & Auth Mapping)
 CREATE TABLE IF NOT EXISTS public.bb_mobile_devices (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     organization_id UUID NOT NULL REFERENCES public.bb_organizations(id) ON DELETE CASCADE,
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     device_token TEXT NOT NULL, -- FCM/APNs token for push notifications
@@ -19,7 +19,7 @@ CREATE INDEX IF NOT EXISTS idx_mobile_devices_org_user ON public.bb_mobile_devic
 
 -- 2. Notification Events (Aggregated Multi-channel delivery bus)
 CREATE TABLE IF NOT EXISTS public.bb_notification_events (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     organization_id UUID NOT NULL REFERENCES public.bb_organizations(id) ON DELETE CASCADE,
     user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
     channel TEXT NOT NULL CHECK (channel IN ('push', 'sms', 'email', 'in_app')),
@@ -36,7 +36,7 @@ CREATE INDEX IF NOT EXISTS idx_notification_events_delivery ON public.bb_notific
 
 -- 3. Offline Sync Queue (Mutation reconciliation cache)
 CREATE TABLE IF NOT EXISTS public.bb_offline_sync_queue (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     organization_id UUID NOT NULL REFERENCES public.bb_organizations(id) ON DELETE CASCADE,
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     mobile_device_id UUID REFERENCES public.bb_mobile_devices(id) ON DELETE SET NULL,

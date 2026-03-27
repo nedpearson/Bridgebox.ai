@@ -2,7 +2,7 @@
 -- Description: Creates the execution tracking schema to monitor runtime logic sequences
 
 CREATE TABLE IF NOT EXISTS public.bb_workflow_execution_logs (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     organization_id UUID NOT NULL REFERENCES public.bb_organizations(id) ON DELETE CASCADE,
     workflow_id UUID NOT NULL REFERENCES public.bb_workflows(id) ON DELETE CASCADE,
     triggered_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
