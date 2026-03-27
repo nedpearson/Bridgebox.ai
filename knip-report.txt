@@ -1,0 +1,322 @@
+[93m[4mUnused files[24m[39m (82)
+create-admin.ts                                       
+fixer.cjs                                             
+fix_final.cjs                                         
+fix_legacy_2.cjs                                      
+fix_legacy_connectors.cjs                             
+patch_froms.js                                        
+patch_selects.js                                      
+refactor_app.js                                       
+rename_migrations.js                                  
+replace_logger.js                                     
+test_super_agent.ts                                   
+src/components/ConfirmationModal.tsx                  
+src/components/FileUpload.tsx                         
+src/components/MetricsDashboard.tsx                   
+src/components/UpgradeTriggerModal.tsx                
+src/hooks/useBilling.ts                               
+src/hooks/useBranding.ts                              
+src/hooks/useCachedQuery.ts                           
+src/hooks/useEntitlements.ts                          
+src/hooks/useEventTracking.ts                         
+src/hooks/useLeads.ts                                 
+src/hooks/useOrganizations.ts                         
+src/hooks/useProjects.ts                              
+src/hooks/useSupport.ts                               
+src/lib/enterpriseIntegration.ts                      
+src/lib/integrationHelpers.ts                         
+src/lib/security.ts                                   
+src/lib/systemIntegration.ts                          
+src/lib/workflowExecutor.ts                           
+supabase/functions/autumn/index.ts                    
+supabase/functions/agent-router/index.ts              
+supabase/functions/autonomous-outreach/index.ts       
+supabase/functions/chatwoot-webhook/index.ts          
+supabase/functions/generate-embedding/index.ts        
+supabase/functions/predict-next-action/index.ts       
+supabase/functions/process-inbound-telemetry/index.ts 
+supabase/functions/tenant-data-quality-agent/index.ts 
+supabase/functions/self-healing-agent/index.ts        
+supabase/functions/transcribe-audio/index.ts          
+supabase/functions/webhook-handler/index.ts           
+src/components/app/OnboardingBanner.tsx               
+src/components/app/RevenueProjections.tsx             
+src/components/app/UnifiedSearchBar.tsx               
+src/components/connectors/ConnectorSetupModal.tsx     
+src/components/demo/GuidedTour.tsx                    
+src/components/enterprise/EnterpriseDashboard.tsx     
+src/components/intelligence/RecommendationHub.tsx     
+src/components/market/SignalSourceBadge.tsx           
+src/components/mobile/QuickActionButton.tsx           
+src/pages/app/AgentAnalytics.tsx                      
+src/pages/app/AgentCommandCenter.tsx                  
+src/pages/app/AgentInbox.tsx                          
+src/pages/app/IntegrationsOverview.tsx                
+src/lib/agents/ActionExecutor.ts                      
+src/lib/agents/AgentOrchestrator.ts                   
+src/lib/agents/PolicyEngine.ts                        
+src/lib/billing/autumnClient.ts                       
+src/lib/db/index.ts                                   
+src/lib/db/integrations.ts                            
+src/lib/engines/workflowExecutor.ts                   
+src/lib/integrations/integrationResilience.ts         
+src/lib/integrations/providerInterface.ts             
+src/lib/integrations/registry.ts                      
+src/lib/integrations/types.ts                         
+src/lib/intelligence/insightEngine.ts                 
+src/lib/intelligence/smartNotifications.ts            
+src/lib/intelligence/telemetry.ts                     
+src/lib/stripe/webhookHandlers.ts                     
+src/lib/ai/agents/IntegrationPlannerAgent.ts          
+src/lib/ai/agents/OptimizationAgent.ts                
+src/lib/ai/agents/SolutionArchitectAgent.ts           
+src/lib/ai/agents/SupportDiagnosticAgent.ts           
+src/lib/ai/agents/WorkflowArchitectAgent.ts           
+src/lib/ai/services/searchOrchestrator.ts             
+src/lib/connectors/services/ChatwootPlatformService.ts
+src/lib/integrations/providers/clio.ts                
+src/lib/integrations/providers/commander_ne.ts        
+src/lib/integrations/providers/financial_cents.ts     
+src/lib/integrations/providers/ourfamilywizard.ts     
+src/lib/integrations/providers/soberlink.ts           
+src/lib/integrations/utils/apiClient.ts               
+src/lib/integrations/utils/ImportOrchestrator.ts      
+[93m[4mUnused dependencies[24m[39m (5)
+@simplewebauthn/browser          package.json:14:6
+@tiptap/extension-collaboration  package.json:16:6
+autumn-js                        package.json:20:6
+recharts                         package.json:29:6
+yjs                              package.json:30:6
+[93m[4mUnused exports[24m[39m (98)
+DocumentIntelligenceService      class     src/lib/documents/DocumentIntelligenceService.ts:22:14    
+CopilotEngine                    class     src/lib/ai/services/copilotEngine.ts:71:14                
+fadeUp                                     src/utils/animations.ts:3:14                              
+fadeIn                                     src/utils/animations.ts:12:14                             
+scaleIn                                    src/utils/animations.ts:20:14                             
+slideLeft                                  src/utils/animations.ts:29:14                             
+slideRight                                 src/utils/animations.ts:38:14                             
+textReveal                                 src/utils/animations.ts:67:14                             
+hoverLift                                  src/utils/animations.ts:80:14                             
+glowPulse                                  src/utils/animations.ts:100:14                            
+cardReveal                                 src/utils/animations.ts:112:14                            
+getPlanById                                src/lib/plans.ts:74:14                                    
+getPlanByTier                              src/lib/plans.ts:78:14                                    
+getIndustryBySlug                function  src/data/industries.ts:141:17                             
+getFAQByCategory                 function  src/data/faq.ts:62:17                                     
+determineTier                    function  src/lib/pricingEngine.ts:33:17                            
+validateEmail                              src/lib/db/leads.ts:26:14                                 
+validateLeadSubmission                     src/lib/db/leads.ts:31:14                                 
+RiskBadge                        function  src/components/predictions/PredictionBadge.tsx:9:17       
+InsightCard                      function  src/components/ai/InsightCard.tsx:26:17                   
+useAI                            function  src/hooks/useAI.ts:13:17                                  
+useProjectSummary                function  src/hooks/useAI.ts:97:17                                  
+useTicketSummary                 function  src/hooks/useAI.ts:110:17                                 
+useActionRecommendations         function  src/hooks/useAI.ts:136:17                                 
+useProposalDraft                 function  src/hooks/useAI.ts:149:17                                 
+convertLeadToClient              function  src/lib/workflowAutomation.ts:185:23                      
+completeOnboarding               function  src/lib/workflowAutomation.ts:266:23                      
+stripeConfig                               src/lib/stripe.ts:10:14                                   
+isStripeConfigured                         src/lib/stripe.ts:14:14                                   
+createCheckoutSession                      src/lib/stripe.ts:41:14                                   
+createCustomerPortalSession                src/lib/stripe.ts:47:14                                   
+linkCustomerToOrganization       function  src/lib/stripe/customerSync.ts:45:23                      
+getOrganizationStripeCustomer    function  src/lib/stripe/customerSync.ts:90:23                      
+syncSubscription                 function  src/lib/stripe/customerSync.ts:113:23                     
+syncInvoice                      function  src/lib/stripe/customerSync.ts:159:23                     
+hasActiveSubscription            function  src/lib/stripe/customerSync.ts:252:23                     
+BaseConnector                              src/lib/connectors/index.ts:2:10                          
+ConnectorRegistry                          src/lib/connectors/index.ts:3:10                          
+ConnectorService                           src/lib/connectors/index.ts:4:28                          
+initializeConnectors                       src/lib/connectors/index.ts:5:10                          
+getConnectorProviders                      src/lib/connectors/index.ts:5:32                          
+GoogleConnector                            src/lib/connectors/index.ts:6:10                          
+StripeConnector                            src/lib/connectors/index.ts:7:10                          
+CustomAPIConnector                         src/lib/connectors/index.ts:8:10                          
+CSVConnector                               src/lib/connectors/index.ts:9:10                          
+MockConnector                              src/lib/connectors/index.ts:10:10                         
+DataNormalizer                             src/lib/connectors/index.ts:11:10                         
+useConversionMetrics             function  src/hooks/useMetrics.ts:72:17                             
+useRevenueMetrics                function  src/hooks/useMetrics.ts:125:17                            
+useProjectMetrics                function  src/hooks/useMetrics.ts:154:17                            
+MarketSignalService                        src/lib/market/index.ts:4:31                              
+OpportunityAnalyzer                        src/lib/opportunities/index.ts:4:31                       
+actionRecommender                          src/lib/agents/index.ts:2:10                              
+ActionRecommender                          src/lib/agents/index.ts:2:29                              
+ActionReviewer                             src/lib/agents/index.ts:3:26                              
+ActionExecutor                             src/lib/agents/index.ts:4:26                              
+getSignalById                    function  src/lib/db/marketSignals.ts:81:23                         
+updateMarketSignal               function  src/lib/db/marketSignals.ts:93:23                         
+deleteMarketSignal               function  src/lib/db/marketSignals.ts:107:23                        
+getLatestSignalScores            function  src/lib/db/marketSignals.ts:171:23                        
+updateOpportunityStatus          function  src/lib/db/marketSignals.ts:242:23                        
+addOpportunityActionItem         function  src/lib/db/marketSignals.ts:259:23                        
+ValidationHarness                class     src/lib/ai/testing/validationHarness.ts:15:14             
+AnthropicProvider                          src/lib/ai/providers/index.ts:65:10                       
+OpenAIProvider                             src/lib/ai/providers/index.ts:65:29                       
+MockProvider                               src/lib/ai/providers/index.ts:65:45                       
+systemPrompts                              src/lib/ai/prompts/index.ts:3:14                          
+MetricsAggregator                class     src/lib/metricsAggregator.ts:4:14                         
+MarketSignalService              class     src/lib/market/services/MarketSignalService.ts:21:14      
+OpportunityAnalyzer              class     src/lib/opportunities/OpportunityAnalyzer.ts:26:14        
+ActionRecommender                class     src/lib/agents/actions/ActionRecommender.ts:13:14         
+projectTemplates                           src/lib/projectTemplates.ts:30:14                         
+getTemplateTypes                 function  src/lib/projectTemplates.ts:440:17                        
+ConnectorService                           src/lib/connectors/services/ConnectorService.ts:221:10    
+initializeConnectors             function  src/lib/connectors/services/ConnectorInitializer.ts:226:17
+getConnectorProviders            function  src/lib/connectors/services/ConnectorInitializer.ts:242:17
+DataNormalizer                   class     src/lib/connectors/utils/dataNormalizer.ts:38:14          
+getUserTokenBreakdown            function  src/lib/ai/tokenTracker.ts:123:23                         
+calculateVelocity                function  src/lib/market/signals.ts:26:17                           
+mergeSignalMetadata              function  src/lib/market/signals.ts:68:17                           
+detectSignalAnomaly              function  src/lib/market/signals.ts:130:17                          
+scoreMarketOpportunity           function  src/lib/market/scoring.ts:11:17                           
+calculateMomentumScore           function  src/lib/market/scoring.ts:24:17                           
+calculateConfidenceLevel         function  src/lib/market/scoring.ts:37:17                           
+generateScoreInsights            function  src/lib/market/scoring.ts:72:17                           
+extractKeySignals                function  src/lib/market/scoring.ts:136:17                          
+rankOpportunities                function  src/lib/market/scoring.ts:198:17                          
+calculateDemandMomentum          function  src/lib/opportunities/scoring.ts:18:17                    
+calculateRevenuePotential        function  src/lib/opportunities/scoring.ts:41:17                    
+calculateImplementationFit       function  src/lib/opportunities/scoring.ts:66:17                    
+calculateCapabilityFit           function  src/lib/opportunities/scoring.ts:85:17                    
+calculateDemandFrequency         function  src/lib/opportunities/scoring.ts:99:17                    
+calculateMarketSignalConfidence  function  src/lib/opportunities/scoring.ts:113:17                   
+calculateStrategicAlignment      function  src/lib/opportunities/scoring.ts:128:17                   
+identifyEmergingCombinations     function  src/lib/opportunities/ranking.ts:81:17                    
+compareOpportunities             function  src/lib/opportunities/ranking.ts:235:17                   
+ActionReviewer                   class     src/lib/agents/reviews/ActionReviewer.ts:9:14             
+ActionExecutor                   class     src/lib/agents/actions/ActionExecutor.ts:171:14           
+[93m[4mUnused exported types[24m[39m (132)
+AuthUser                    interface  src/lib/auth.ts:4:18                                 
+SignUpData                  interface  src/lib/auth.ts:8:18                                 
+SignInData                  interface  src/lib/auth.ts:14:18                                
+OrganizationSummary         interface  src/lib/db/organizations.ts:4:18                     
+ProjectFilters              interface  src/lib/db/projects.ts:3:18                          
+IntelligenceClassification  interface  src/lib/documents/DocumentIntelligenceService.ts:5:18
+RecordingStatus             type       src/hooks/useScreenRecorder.ts:3:13                  
+CaptureOptions              type       src/hooks/useScreenRecorder.ts:4:13                  
+PricingOutput               interface  src/lib/pricingEngine.ts:19:18                       
+SalesAnalytics              interface  src/lib/db/analytics.ts:3:18                         
+DeliveryAnalytics           interface  src/lib/db/analytics.ts:17:18                        
+BillingAnalytics            interface  src/lib/db/analytics.ts:29:18                        
+SupportAnalytics            interface  src/lib/db/analytics.ts:42:18                        
+ClientHealthAnalytics       interface  src/lib/db/analytics.ts:53:18                        
+SubscriptionStatus          type       src/types/index.ts:7:13                              
+TicketStatus                type       src/types/index.ts:9:13                              
+TicketPriority              type       src/types/index.ts:11:13                             
+InvoiceStatus               type       src/types/index.ts:13:13                             
+SubscriptionPlan            interface  src/types/index.ts:142:18                            
+Subscription                interface  src/types/index.ts:155:18                            
+DashboardModule             interface  src/types/index.ts:197:18                            
+MobileAppProject            interface  src/types/index.ts:210:18                            
+Integration                 interface  src/types/index.ts:226:18                            
+SupportTicket               interface  src/types/index.ts:245:18                            
+Invoice                     interface  src/types/index.ts:266:18                            
+InvoiceItem                 interface  src/types/index.ts:288:18                            
+TeamMember                  interface  src/types/index.ts:296:18                            
+ActivityLog                 interface  src/types/index.ts:304:18                            
+Milestone                   interface  src/types/index.ts:361:18                            
+Deliverable                 interface  src/types/index.ts:374:18                            
+ClientPortalAccess          interface  src/types/index.ts:391:18                            
+Profile                     interface  src/types/database.ts:1:18                           
+UserRole                    type       src/types/database.ts:11:13                          
+Organization                interface  src/types/database.ts:13:18                          
+OrganizationType            type       src/types/database.ts:28:13                          
+OrganizationMembership      interface  src/types/database.ts:30:18                          
+Proposal                    interface  src/types/database.ts:39:18                          
+ProposalStatus              type       src/types/database.ts:56:13                          
+Project                     interface  src/types/database.ts:58:18                          
+ProjectType                 type       src/types/database.ts:80:13                          
+ProjectStatus               type       src/types/database.ts:81:13                          
+ProjectMilestone            interface  src/types/database.ts:83:18                          
+MilestoneStatus             type       src/types/database.ts:96:13                          
+Deliverable                 interface  src/types/database.ts:98:18                          
+DeliverableType             type       src/types/database.ts:114:13                         
+DeliverableStatus           type       src/types/database.ts:115:13                         
+SubscriptionPlan            interface  src/types/database.ts:117:18                         
+Subscription                interface  src/types/database.ts:129:18                         
+SubscriptionStatus          type       src/types/database.ts:144:13                         
+Invoice                     interface  src/types/database.ts:146:18                         
+InvoiceStatus               type       src/types/database.ts:163:13                         
+SupportTicket               interface  src/types/database.ts:165:18                         
+TicketStatus                type       src/types/database.ts:182:13                         
+TicketPriority              type       src/types/database.ts:183:13                         
+Integration                 interface  src/types/database.ts:185:18                         
+UseAIState                  interface  src/hooks/useAI.ts:5:18                              
+ProjectRiskPrediction       interface  src/lib/predictiveAnalytics.ts:15:18                 
+ClientChurnPrediction       interface  src/lib/predictiveAnalytics.ts:24:18                 
+IntelligenceSnapshot        interface  src/lib/intelligenceOrchestrator.ts:15:18            
+SalesRecommendation         interface  src/lib/aiDecisionEngine.ts:26:18                    
+ProjectRecommendation       interface  src/lib/aiDecisionEngine.ts:37:18                    
+ClientRecommendation        interface  src/lib/aiDecisionEngine.ts:47:18                    
+AutomationRecommendation    interface  src/lib/aiDecisionEngine.ts:56:18                    
+StrategicInsight            interface  src/lib/aiDecisionEngine.ts:65:18                    
+ConversionResult            interface  src/lib/workflowAutomation.ts:4:18                   
+ProposalToProjectData       interface  src/lib/workflowAutomation.ts:13:18                  
+ProposalApprovalData        interface  src/lib/workflowAutomation.ts:23:18                  
+StripeConfig                interface  src/lib/stripe.ts:4:18                               
+StripeCustomerData          interface  src/lib/stripe/customerSync.ts:3:18                  
+StripeSubscriptionData      interface  src/lib/stripe/customerSync.ts:10:18                 
+StripeInvoiceData           interface  src/lib/stripe/customerSync.ts:24:18                 
+NormalizedData              type       src/lib/connectors/index.ts:12:15                    
+NormalizedEvent             type       src/lib/connectors/index.ts:12:31                    
+NormalizedMetric            type       src/lib/connectors/index.ts:12:48                    
+NormalizedEntity            type       src/lib/connectors/index.ts:12:66                    
+DataMapping                 interface  src/lib/connectors/types.ts:152:18                   
+ConnectorWebhook            interface  src/lib/connectors/types.ts:202:18                   
+CreateTicketData            interface  src/lib/db/support.ts:52:18                          
+CreateCommentData           interface  src/lib/db/support.ts:61:18                          
+BucketName                  type       src/lib/storage.ts:3:13                              
+UploadProgress              interface  src/lib/storage.ts:5:18                              
+FileMetadata                interface  src/lib/storage.ts:11:18                             
+FeatureUsageTrend           interface  src/lib/trendDetection.ts:39:18                      
+EnterpriseTelemetry         interface  src/hooks/useEnterpriseMetrics.ts:5:18               
+MarketInsight               interface  src/lib/market/types.ts:166:18                       
+ExecutionStatus             type       src/lib/db/automations.ts:19:13                      
+AutomationExecution         interface  src/lib/db/automations.ts:35:18                      
+DocumentView                interface  src/lib/db/knowledge.ts:29:18                        
+ActivityLog                 interface  src/lib/db/dataPipeline.ts:24:18                     
+AggregatedMetric            interface  src/lib/db/dataPipeline.ts:37:18                     
+DocumentUploadResult        interface  src/types/document.ts:76:18                          
+ProcessingTaskType          type       src/lib/documents/DocumentProcessor.ts:6:13          
+QueueItem                   interface  src/lib/documents/DocumentProcessor.ts:11:18         
+ProcessingHistory           interface  src/lib/documents/DocumentProcessor.ts:27:18         
+PlanFeature                 interface  src/lib/db/whiteLabel.ts:50:18                       
+TemplateInstall             interface  src/lib/db/templates.ts:37:18                        
+ExtractedBuildTask          interface  src/lib/ai/agents/BuildOrchestratorAgent.ts:9:18     
+ExtractedPricingInputs      interface  src/lib/ai/agents/BuildOrchestratorAgent.ts:20:18    
+InternalAuditEvent          interface  src/lib/commandCenter.ts:64:18                       
+CreateSupportTicketParams   type       src/lib/supportTickets.ts:49:13                      
+AITriageResult              interface  src/lib/supportAi.ts:13:18                           
+SignalMessage               type       src/lib/webrtc/SupportSessionProtocol.ts:3:13        
+AntigravityPrompt           interface  src/lib/ai/agents/FeatureIngestionAgent.ts:4:18      
+TopologyNode                interface  src/lib/ai/agents/StackDiscoveryAgent.ts:4:18        
+AITaskType                  type       src/lib/ai/types.ts:63:13                            
+AITaskContext               interface  src/lib/ai/types.ts:75:18                            
+OrchestrationPayload        interface  src/lib/intelligence/orchestrator.ts:4:18            
+OrchestrationResult         interface  src/lib/intelligence/orchestrator.ts:11:18           
+Subscription                interface  src/types/billing.ts:30:18                           
+Invoice                     interface  src/types/billing.ts:48:18                           
+BillingCustomer             interface  src/types/billing.ts:66:18                           
+ConversionMetrics           interface  src/lib/metricsEngine.ts:15:18                       
+RevenueMetrics              interface  src/lib/metricsEngine.ts:26:18                       
+ProjectMetrics              interface  src/lib/metricsEngine.ts:37:18                       
+SupportMetrics              interface  src/lib/metricsEngine.ts:49:18                       
+ClientMetrics               interface  src/lib/metricsEngine.ts:60:18                       
+OnboardingMetrics           interface  src/lib/metricsEngine.ts:71:18                       
+EngagementMetrics           interface  src/lib/metricsEngine.ts:80:18                       
+TemplateMetrics             interface  src/lib/metricsEngine.ts:88:18                       
+ProjectTemplate             interface  src/lib/projectTemplates.ts:11:18                    
+NormalizedEvent             interface  src/lib/connectors/utils/dataNormalizer.ts:1:18      
+NormalizedMetric            interface  src/lib/connectors/utils/dataNormalizer.ts:12:18     
+NormalizedEntity            interface  src/lib/connectors/utils/dataNormalizer.ts:24:18     
+NormalizedData              type       src/lib/connectors/utils/dataNormalizer.ts:36:13     
+TokenLogEntry               interface  src/lib/ai/tokenTracker.ts:9:18                      
+PresenceUser                interface  src/hooks/usePresence.ts:5:18                        
+UnpackResult                interface  src/lib/db/templateInstallEngine.ts:5:18             
+AgentResponse               interface  src/lib/ai/agents/AgentRegistry.ts:9:18              
+WorkflowUsageStat           interface  src/lib/billing/usagePredictor.ts:51:18              
+IntegrationLoadStat         interface  src/lib/billing/usagePredictor.ts:60:18              
+NotificationType            type       src/hooks/useNotifications.ts:4:13                   
+Notification                interface  src/hooks/useNotifications.ts:6:18                   
+[33m[4mConfiguration hints[24m (1)[39m

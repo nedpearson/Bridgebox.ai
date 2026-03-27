@@ -81,10 +81,10 @@ class IntelligenceOrchestrator {
       opportunityData,
       insights,
     ] = await Promise.all([
-      metricsEngine.getSalesMetrics(30),
-      metricsEngine.getOperationsMetrics(30),
-      metricsEngine.getClientMetrics(30),
-      metricsEngine.getFinancialMetrics(30),
+      metricsEngine.calculateConversionRate({ organizationId }),
+      metricsEngine.calculateProjectVelocity({ organizationId }),
+      metricsEngine.calculateClientHealthScore({ organizationId }),
+      metricsEngine.calculateMRR({ organizationId }),
       this.generateAllPredictions(organizationId),
       this.generateAllTrends(),
       organizationId ? this.gatherMarketIntelligence(organizationId) : this.getEmptyMarketData(),
@@ -139,16 +139,16 @@ class IntelligenceOrchestrator {
 
   private async generateAllPredictions(organizationId?: string) {
     const [revenue, projectDelivery, clientChurn, leadConversion] = await Promise.all([
-      predictiveAnalytics.predictRevenue(organizationId, 90).catch(() => null),
-      predictiveAnalytics.predictProjectDeliverySuccess(organizationId).catch(() => null),
-      predictiveAnalytics.predictClientChurn(organizationId).catch(() => null),
-      predictiveAnalytics.predictLeadConversion().catch(() => null),
+      predictiveAnalytics.forecastRevenue(organizationId, 3).catch(() => null),
+      predictiveAnalytics.predictProjectDelayBatch(organizationId).catch(() => null),
+      predictiveAnalytics.predictClientRiskBatch(organizationId).catch(() => null),
+      predictiveAnalytics.predictLeadConversionBatch(organizationId).catch(() => null),
     ]);
 
     return { revenue, projectDelivery, clientChurn, leadConversion };
   }
 
-  private async generateAllTrends() {
+  private async generateAllTrends(organizationId?: string) {
     const [hotOpportunities, serviceGrowth, industryGrowth] = await Promise.all([
       trendDetection.getHotOpportunities(organizationId).catch(() => ({ hotServices: [], hotIndustries: [], emergingKeywords: [] })),
       trendDetection.detectTrendingServices(organizationId, 90).catch(() => []),
@@ -332,12 +332,11 @@ class IntelligenceOrchestrator {
   }
 
   async getRealtimeMetricsSummary() {
-    return await metricsAggregator.getRealTimeMetrics();
+    return { status: 'aggregate-only', message: 'Use metricsAggregator for daily computation' };
   }
 
   async getContextualInsights(context: {
     type: 'lead' | 'project' | 'client' | 'general';
-    organizationId?: string;
     organizationId?: string;
     id?: string;
   }): Promise<AIInsight[]> {
@@ -352,7 +351,7 @@ class IntelligenceOrchestrator {
       });
     }
 
-    const allInsights = await aiDecisionEngine.generateInsights(organizationId);
+    const allInsights = await aiDecisionEngine.generateInsights(context.organizationId);
     return allInsights.filter(i => {
       if (context.type === 'lead') return i.type === 'sales';
       if (context.type === 'project') return i.type === 'project';
@@ -371,12 +370,14 @@ class IntelligenceOrchestrator {
 
   private async gatherMarketIntelligence(organizationId: string) {
     try {
-      const signals = await marketSignalService.getRecentSignals(organizationId, 30);
-      const strongSignals = signals.filter(s => s.strength === 'strong').length;
-      const emergingTrends = signals.filter(s => s.signal_type === 'emerging_trend').length;
+      const { trends, error } = await marketSignalService.getTopEmergingSignals(organizationId, 10);
+      if (error) throw error;
+      
+      const strongSignals = trends.filter(s => s.confidence > 80).length;
+      const emergingTrends = trends.length;
 
       return {
-        signals,
+        signals: trends as any[],
         strongSignals,
         emergingTrends,
       };
@@ -388,7 +389,8 @@ class IntelligenceOrchestrator {
 
   private async analyzeOpportunities(organizationId: string) {
     try {
-      const opportunities = await opportunityAnalyzer.analyzeCurrent(organizationId);
+      const { opportunities, error } = await opportunityAnalyzer.getRankedOpportunities(organizationId);
+      if (error) throw error;
       const highOpportunities = opportunities.filter(o => o.opportunity_level === 'high').length;
       const totalScore = opportunities.reduce((sum, o) => sum + o.overall_score, 0);
 

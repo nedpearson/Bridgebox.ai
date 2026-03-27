@@ -7,6 +7,7 @@ import Card from '../../components/Card';
 import StatusBadge from '../../components/admin/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorState from '../../components/ErrorState';
+import EmptyState from '../../components/EmptyState';
 import { leadsService } from '../../lib/db/leads';
 import type { LeadRecord } from '../../types/database';
 import AddLeadModal from '../../components/app/AddLeadModal';
@@ -203,8 +204,15 @@ export default function LeadsList() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4">
-          {filteredLeads.map((lead, index) => (
+        {filteredLeads.length === 0 ? (
+          <EmptyState
+            icon={Users}
+            title="No leads found"
+            description="Adjust your search filters or add a new lead to get started"
+          />
+        ) : (
+          <div className="grid grid-cols-1 gap-4">
+            {filteredLeads.map((lead, index) => (
             <motion.div
               key={lead.id}
               initial={{ opacity: 0, y: 20 }}
@@ -304,6 +312,7 @@ export default function LeadsList() {
             </motion.div>
           ))}
         </div>
+        )}
       </div>
 
       <AddLeadModal

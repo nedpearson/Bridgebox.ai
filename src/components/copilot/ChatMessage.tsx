@@ -50,6 +50,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
       if (tool.type !== 'function') return null;
       
       let params = tool.function.arguments;
+      // eslint-disable-next-line no-empty
       try { params = typeof params === 'string' ? JSON.parse(params) : params; } catch (e) {}
       
       return (

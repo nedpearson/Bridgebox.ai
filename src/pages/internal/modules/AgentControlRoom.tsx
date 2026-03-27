@@ -20,7 +20,7 @@ export default function AgentControlRoom() {
     { name: 'Build Orchestrator', desc: 'Triggers physical DB writes', func: null }
   ];
 
-  const runTest = async (agentFunc: Function) => {
+  const runTest = async (agentFunc: (params: { intent: string }) => Promise<any>) => {
     if (!testInput.trim()) return;
     setRunning(true);
     try {

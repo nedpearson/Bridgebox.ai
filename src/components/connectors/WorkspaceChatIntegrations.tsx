@@ -39,7 +39,8 @@ export default function WorkspaceChatIntegrations() {
 
   const handleSave = async (type: 'slack' | 'discord') => {
     if (!currentOrganization?.id) return;
-    type === 'slack' ? setSavingSlack(true) : setSavingDiscord(true);
+    if (type === 'slack') setSavingSlack(true);
+    else setSavingDiscord(true);
     
     try {
       const { data: currentSettings } = await supabase
@@ -65,12 +66,14 @@ export default function WorkspaceChatIntegrations() {
 
       // Show brief success alert purely for UX
       setTimeout(() => {
-        type === 'slack' ? setSavingSlack(false) : setSavingDiscord(false);
+        if (type === 'slack') setSavingSlack(false);
+        else setSavingDiscord(false);
       }, 500);
 
     } catch (err) {
       console.error('Failed to save webhook', err);
-      type === 'slack' ? setSavingSlack(false) : setSavingDiscord(false);
+      if (type === 'slack') setSavingSlack(false);
+      else setSavingDiscord(false);
     }
   };
 

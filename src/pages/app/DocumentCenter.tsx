@@ -95,7 +95,7 @@ export default function DocumentCenter() {
     try {
       // 1. Write the Entity Link manually because user approved it
       await entityLinkService.linkEntities({
-        tenant_id: currentOrganization?.id!,
+        tenant_id: currentOrganization.id,
         source_type: 'document',
         source_id: doc.id,
         target_type: 'organization',

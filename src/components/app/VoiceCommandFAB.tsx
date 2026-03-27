@@ -138,9 +138,7 @@ export default function VoiceCommandFAB() {
   return (
     <>
       <button
-        onClick={() => {
-          isRecording ? stopRecording() : startRecording();
-        }}
+        onClick={isRecording ? stopRecording : startRecording}
         className={`fixed bottom-[5.5rem] right-6 z-40 p-4 rounded-full shadow-2xl shadow-indigo-500/30 transition-all hover:scale-105 group border ${
           isRecording 
             ? 'bg-red-500 border-red-400 animate-pulse' 

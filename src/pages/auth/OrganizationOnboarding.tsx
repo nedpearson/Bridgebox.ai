@@ -153,7 +153,7 @@ export default function OrganizationOnboarding() {
         );
       case 3:
       case 4:
-      case 5:
+      case 5: {
         // Condensed mock logic for Modules/Integrations/AI to keep file size reasonable
         const options = currentStep === 3 
           ? ['CRM', 'Invoicing', 'Project Management', 'Inventory', 'Payroll']
@@ -190,6 +190,7 @@ export default function OrganizationOnboarding() {
             </div>
           </div>
         );
+      }
       case 6:
         return (
            <div className="space-y-6 max-w-2xl mx-auto text-center">

@@ -1,6 +1,6 @@
-// @ts-nocheck
 import { ReactNode } from 'react';
-import { Video as LucideIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { LucideIcon } from 'lucide-react';
 
 interface EmptyStateProps {
   icon: LucideIcon;
@@ -8,7 +8,6 @@ interface EmptyStateProps {
   description: string;
   action?: ReactNode;
 }
-import { motion } from 'framer-motion';
 
 export default function EmptyState({ icon: Icon, title, description, action }: EmptyStateProps) {
   return (
