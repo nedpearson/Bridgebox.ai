@@ -147,6 +147,30 @@ export const organizationsService = {
       console.warn('Audit trail or notification failed but mutation succeeded', e);
     }
 
+    // Phase 19: Natively Seed Default Global Tasks for execution layer onboarding
+    try {
+      const defaultTasks = [
+          { title: 'Complete Firm Profile Setup', description: 'Ensure all organizational contact details and billing identifiers are mapped correctly in the settings matrix.', priority: 'high', status: 'todo' },
+          { title: 'Configure External Integrations', description: 'Map Stripe and your native File Storage endpoints in the Admin Command Center.', priority: 'medium', status: 'todo' },
+          { title: 'Invite Core Team Members', description: 'Add your primary paralegals and partners to the Bridgebox OS workspace via the Team settings.', priority: 'medium', status: 'todo' },
+          { title: 'Draft First Internal Workflow', description: 'Navigate to the Workflow matrix and construct the initial procedural operations for your team.', priority: 'low', status: 'todo' }
+      ];
+
+      await supabase.from('bb_global_tasks').insert(
+          defaultTasks.map(t => ({
+              tenant_id: org.id,
+              creator_id: user.user.id,
+              assignee_id: user.user.id,
+              title: t.title,
+              description: t.description,
+              priority: t.priority,
+              status: t.status
+          }))
+      );
+    } catch (tasksError) {
+      console.warn('Failed to natively seed default onboarding tasks', tasksError);
+    }
+
     return org;
   },
 
