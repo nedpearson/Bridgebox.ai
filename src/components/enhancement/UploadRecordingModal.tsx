@@ -21,7 +21,7 @@ interface PendingFile {
   preview?: string;
 }
 
-const MAX_FILE_SIZE_MB = 200;
+const MAX_FILE_SIZE_MB = 2000;
 const ALLOWED_VIDEO = ['video/webm', 'video/mp4', 'video/quicktime', 'video/avi', 'video/x-matroska'];
 const ALLOWED_IMAGE = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp'];
 
