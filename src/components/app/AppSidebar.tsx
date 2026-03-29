@@ -18,7 +18,8 @@ import {
   FileText,
   Store,
   Bot,
-  Inbox
+  Inbox,
+  Wand2
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -80,6 +81,7 @@ export default function AppSidebar() {
     { icon: Zap, label: 'Automations', path: '/app/automations', requirePermission: permissions.canAccessAdminPanel },
     { icon: Network, label: 'Integrations', path: '/app/integrations', requirePermission: permissions.canAccessAdminPanel },
     { icon: Sparkles, label: 'AI Center', path: '/app/ai-assistants', requirePermission: permissions.canAccessAdminPanel },
+    { icon: Wand2, label: 'Enhancement Studio', path: '/app/enhancements', requirePermission: permissions.canAccessAdminPanel },
     { icon: BarChart3, label: 'Reporting', path: '/app/analytics', requirePermission: permissions.canAccessAdminPanel },
     { icon: Smartphone, label: 'Mobile', path: '/app/mobile', requirePermission: permissions.canAccessAdminPanel },
     { icon: Settings, label: 'Admin', path: '/app/settings', requirePermission: permissions.canAccessAdminPanel },

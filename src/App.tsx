@@ -159,6 +159,10 @@ const PricingPresentation = lazy(() => import('./pages/onboarding/PricingPresent
 const ApprovalQueue = lazy(() => import('./pages/app/ApprovalQueue'));
 const AIAssistants = lazy(() => import('./pages/app/AIAssistants'));
 
+// Voice-to-App Enhancement Studio
+const EnhancementQueue = lazy(() => import('./pages/app/EnhancementQueue'));
+const EnhancementDetail = lazy(() => import('./pages/app/EnhancementDetail'));
+
 // Super Admin Layouts & Components
 import SuperAdminLayout from './layouts/SuperAdminLayout';
 const SuperAdminOverview = lazy(() => import('./pages/admin/SuperAdminOverview'));
@@ -303,6 +307,9 @@ function App() {
                       <Route path="/mobile/projects" element={<MobileProjects />} />
                       <Route path="/mobile/projects/:id" element={<MobileProjectDetail />} />
                       <Route path="/mobile/upload" element={<MobileUpload />} />
+                      {/* Voice-to-App Enhancement Studio */}
+                      <Route path="/enhancements" element={<EnhancementQueue />} />
+                      <Route path="/enhancements/:id" element={<EnhancementDetail />} />
                     </Routes>
           </Suspense>
                   </AppLayout>

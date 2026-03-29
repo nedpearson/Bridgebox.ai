@@ -12,12 +12,15 @@ import { globalTasksService } from '../../lib/db/globalTasks';
 import TimelineActivity from '../../components/app/TimelineActivity';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { formatRelativeTime } from '../../lib/dateUtils';
+import WorkspaceEnhancementCard from '../../components/enhancement/WorkspaceEnhancementCard';
+import MergeWorkspaceModal from '../../components/enhancement/MergeWorkspaceModal';
 
 export default function AppOverview() {
   const { currentOrganization } = useAuth();
   const [analytics, setAnalytics] = useState<any>(null);
   const [recentTasks, setRecentTasks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showMerge, setShowMerge] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -99,8 +102,9 @@ export default function AppOverview() {
              </Card>
           </div>
 
-          {/* Side Column: Quick Actions */}
+          {/* Side Column: Enhancement Studio + Quick Actions */}
           <div className="space-y-6">
+             <WorkspaceEnhancementCard onMergeClick={() => setShowMerge(true)} />
              <Card glass className="p-6">
                 <h2 className="text-xl font-bold text-white mb-6">Quick Actions</h2>
                 <div className="grid grid-cols-1 gap-3">
@@ -142,6 +146,7 @@ export default function AppOverview() {
           </div>
         </div>
       </div>
+      <MergeWorkspaceModal isOpen={showMerge} onClose={() => setShowMerge(false)} />
     </>
   );
 }
