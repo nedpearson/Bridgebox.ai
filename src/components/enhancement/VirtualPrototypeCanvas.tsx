@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { 
   BarChart3, LayoutDashboard, Settings, Users, FileText, 
   Bell, Search, Plus, MoreVertical, LayoutGrid, CheckSquare,
-  ArrowRight
+  ArrowRight, MousePointerClick
 } from 'lucide-react';
 
 export type MockupLayoutType = 'dashboard' | 'kanban' | 'detail' | 'table' | 'generic';
