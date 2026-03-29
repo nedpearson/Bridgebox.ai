@@ -84,12 +84,16 @@ export default function AppOverview() {
           <div className="lg:col-span-2 space-y-8">
              <Card glass className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                   <h2 className="text-xl font-bold text-white">My Tasks</h2>
+                   <h2 className="text-xl font-bold text-white">Active Work</h2>
                    <Link to="/app/tasks"><Button variant="outline" size="sm">View All</Button></Link>
                 </div>
                 <div className="space-y-3">
                    {recentTasks.length === 0 ? (
-                       <p className="text-slate-400 text-sm italic">No active tasks.</p>
+                       <div className="text-center py-8">
+                         <CheckCircle2 className="w-8 h-8 text-slate-700 mx-auto mb-2" />
+                         <p className="text-slate-400 text-sm font-medium">No open tasks right now</p>
+                         <p className="text-slate-600 text-xs mt-1">Tasks generated from your build requests will appear here.</p>
+                       </div>
                    ) : (
                        recentTasks.map(task => (
                           <div key={task.id} className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg border border-slate-700/50 hover:border-slate-600 transition-colors">
@@ -116,42 +120,43 @@ export default function AppOverview() {
              </Card>
           </div>
 
-          {/* Side Column: Enhancement Studio + Quick Actions */}
+          {/* Side Column: Voice-to-App Studio + Platform Quick Links */}
           <div className="space-y-6">
              <WorkspaceEnhancementCard onMergeClick={() => setShowMerge(true)} />
              <Card glass className="p-6">
-                <h2 className="text-xl font-bold text-white mb-6">Quick Actions</h2>
-                <div className="grid grid-cols-1 gap-3">
-                   <Link to="/app/projects">
-                     <button className="w-full flex items-center gap-3 p-4 bg-slate-800/50 hover:bg-slate-700 border border-slate-700 rounded-xl transition-colors text-left group">
-                       <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg group-hover:scale-110 transition-transform">
-                          <Plus className="w-5 h-5" />
+                <h2 className="text-base font-bold text-white mb-1">Where to go next</h2>
+                <p className="text-slate-500 text-xs mb-5">The highest-value actions in your workspace.</p>
+                <div className="grid grid-cols-1 gap-2">
+                   <Link to="/app/enhancements">
+                     <button className="w-full flex items-center gap-3 p-3.5 bg-indigo-500/5 hover:bg-indigo-500/10 border border-indigo-500/15 hover:border-indigo-500/30 rounded-xl transition-colors text-left group">
+                       <div className="p-1.5 bg-indigo-500/10 text-indigo-400 rounded-lg group-hover:scale-105 transition-transform">
+                          <Plus className="w-4 h-4" />
                        </div>
                        <div>
-                          <p className="text-white font-medium">New Project</p>
-                          <p className="text-xs text-slate-400">Start a new delivery</p>
+                          <p className="text-white text-sm font-medium">Review Build Queue</p>
+                          <p className="text-xs text-slate-500">See all pending software requests</p>
                        </div>
                      </button>
                    </Link>
                    <Link to="/app/clients">
-                     <button className="w-full flex items-center gap-3 p-4 bg-slate-800/50 hover:bg-slate-700 border border-slate-700 rounded-xl transition-colors text-left group">
-                       <div className="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg group-hover:scale-110 transition-transform">
-                          <Users className="w-5 h-5" />
+                     <button className="w-full flex items-center gap-3 p-3.5 bg-slate-800/50 hover:bg-slate-700 border border-slate-700 rounded-xl transition-colors text-left group">
+                       <div className="p-1.5 bg-emerald-500/10 text-emerald-400 rounded-lg group-hover:scale-105 transition-transform">
+                          <Users className="w-4 h-4" />
                        </div>
                        <div>
-                          <p className="text-white font-medium">Add Client</p>
-                          <p className="text-xs text-slate-400">Onboard new customer</p>
+                          <p className="text-white text-sm font-medium">Manage Client Workspaces</p>
+                          <p className="text-xs text-slate-500">View and update client profiles</p>
                        </div>
                      </button>
                    </Link>
-                   <Link to="/app/marketplace">
-                     <button className="w-full flex items-center gap-3 p-4 bg-slate-800/50 hover:bg-slate-700 border border-slate-700 rounded-xl transition-colors text-left group">
-                       <div className="p-2 bg-purple-500/10 text-purple-400 rounded-lg group-hover:scale-110 transition-transform">
-                          <LayoutTemplate className="w-5 h-5" />
+                   <Link to="/app/projects">
+                     <button className="w-full flex items-center gap-3 p-3.5 bg-slate-800/50 hover:bg-slate-700 border border-slate-700 rounded-xl transition-colors text-left group">
+                       <div className="p-1.5 bg-purple-500/10 text-purple-400 rounded-lg group-hover:scale-105 transition-transform">
+                          <LayoutTemplate className="w-4 h-4" />
                        </div>
                        <div>
-                          <p className="text-white font-medium">Browse Templates</p>
-                          <p className="text-xs text-slate-400">Install workflows</p>
+                          <p className="text-white text-sm font-medium">Active Projects</p>
+                          <p className="text-xs text-slate-500">Track deliverables and timelines</p>
                        </div>
                      </button>
                    </Link>

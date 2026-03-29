@@ -82,8 +82,8 @@ export default function EnhancementQueue() {
   return (
     <>
       <AppHeader
-        title="Enhancement Studio"
-        subtitle="Voice-to-App requests, recordings, and workspace improvements"
+        title="Software Build Queue"
+        subtitle="Every request, recording, and blueprint — tracked from idea to implementation."
       />
 
       <div className="p-6 md:p-8 space-y-6">
@@ -93,25 +93,25 @@ export default function EnhancementQueue() {
             onClick={() => setShowVoice(true)}
             className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-indigo-500/20"
           >
-            <Mic className="w-4 h-4" /> Speak Feature
+            <Mic className="w-4 h-4" /> Start Speaking
           </button>
           <button
             onClick={() => setShowType(true)}
             className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white rounded-xl font-medium text-sm transition-all"
           >
-            <Type className="w-4 h-4" /> Type Feature
+            <Type className="w-4 h-4" /> Describe in Writing
           </button>
           <button
             onClick={() => setShowUpload(true)}
             className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white rounded-xl font-medium text-sm transition-all"
           >
-            <Video className="w-4 h-4" /> Upload Recording
+            <Video className="w-4 h-4" /> Upload Software Recording
           </button>
           <button
             onClick={() => setShowMerge(true)}
             className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white rounded-xl font-medium text-sm transition-all"
           >
-            <GitMerge className="w-4 h-4" /> Merge Workspace
+            <GitMerge className="w-4 h-4" /> Import Feature Pack
           </button>
         </div>
 
@@ -149,13 +149,27 @@ export default function EnhancementQueue() {
           <div className="flex justify-center py-16"><LoadingSpinner /></div>
         ) : filtered.length === 0 ? (
           <Card glass className="py-16 text-center">
-            <Inbox className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-            <p className="text-white font-semibold text-lg">No enhancement requests</p>
-            <p className="text-slate-400 text-sm mt-2">
-              {requests.length > 0
-                ? 'No results match your current filter.'
-                : 'Start by speaking, typing, or uploading a recording of what you want built.'}
-            </p>
+            <Inbox className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+            {requests.length > 0 ? (
+              <>
+                <p className="text-white font-semibold text-lg">No results match that filter</p>
+                <p className="text-slate-400 text-sm mt-2">Try broadening your search or clearing the status filter.</p>
+              </>
+            ) : (
+              <>
+                <p className="text-white font-semibold text-lg">Your build queue is empty</p>
+                <p className="text-slate-400 text-sm mt-2 max-w-sm mx-auto">
+                  Start by describing your current software — by voice, text, or screen recording.
+                  Bridgebox will analyze it and generate a custom implementation blueprint.
+                </p>
+                <button
+                  onClick={() => setShowVoice(true)}
+                  className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-indigo-500/20"
+                >
+                  <Mic className="w-4 h-4" /> Start Speaking Your App
+                </button>
+              </>
+            )}
           </Card>
         ) : (
           <div className="space-y-3">

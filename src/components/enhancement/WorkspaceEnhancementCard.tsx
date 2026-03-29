@@ -47,9 +47,9 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
 
   const quickActions = [
     { icon: Mic, label: 'Speak Feature', color: 'text-indigo-400', bg: 'bg-indigo-500/10 hover:bg-indigo-500/20 border-indigo-500/20', onClick: () => setShowVoice(true) },
-    { icon: Type, label: 'Type Feature', color: 'text-cyan-400', bg: 'bg-cyan-500/10 hover:bg-cyan-500/20 border-cyan-500/20', onClick: () => setShowType(true) },
+    { icon: Type, label: 'Write a Request', color: 'text-cyan-400', bg: 'bg-cyan-500/10 hover:bg-cyan-500/20 border-cyan-500/20', onClick: () => setShowType(true) },
     { icon: Video, label: 'Upload Recording', color: 'text-violet-400', bg: 'bg-violet-500/10 hover:bg-violet-500/20 border-violet-500/20', onClick: () => setShowUpload(true) },
-    { icon: GitMerge, label: 'Merge Workspace', color: 'text-amber-400', bg: 'bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/20', onClick: onMergeClick },
+    { icon: GitMerge, label: 'Import Feature Pack', color: 'text-amber-400', bg: 'bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/20', onClick: onMergeClick },
   ];
 
   return (
@@ -63,12 +63,12 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
                 <Wand2 className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-base">Enhancement Studio</h3>
-                <p className="text-slate-400 text-xs">Speak, type, or record — then build</p>
+                <h3 className="text-white font-bold text-base">Voice-to-App Studio</h3>
+                <p className="text-slate-400 text-xs">Describe it. Record it. We build it.</p>
               </div>
             </div>
             <Link to="/app/enhancements" className="flex items-center gap-1.5 text-xs text-indigo-400 hover:text-indigo-300 transition-colors font-medium">
-              View Queue <ChevronRight className="w-3.5 h-3.5" />
+              Review Queue <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
@@ -85,8 +85,8 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
               <Mic className="w-6 h-6 text-white" />
             </div>
             <div className="text-left">
-              <p className="text-white font-semibold">Speak Your App</p>
-              <p className="text-slate-400 text-sm">Describe what you want — voice-to-software intelligence</p>
+              <p className="text-white font-semibold">Speak Your Requirements</p>
+              <p className="text-slate-400 text-sm">Describe your software in your own words — we handle the rest</p>
             </div>
             <div className="ml-auto flex items-center gap-1.5 flex-shrink-0">
               <Zap className="w-4 h-4 text-indigo-400" />
@@ -129,9 +129,12 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
           )}
 
           {!loading && recentRequests.length === 0 && (
-            <div className="text-center py-4">
-              <p className="text-slate-500 text-sm">No enhancement requests yet.</p>
-              <p className="text-slate-600 text-xs mt-1">Start by speaking or typing what you want built.</p>
+            <div className="text-center py-6 border border-dashed border-slate-700/50 rounded-xl">
+              <Wand2 className="w-8 h-8 text-indigo-500/40 mx-auto mb-3" />
+              <p className="text-slate-300 text-sm font-semibold">No requests yet — you're just getting started</p>
+              <p className="text-slate-500 text-xs mt-1.5 max-w-xs mx-auto">
+                Use any of the options above to describe your current software or what you'd like us to build.
+              </p>
             </div>
           )}
         </div>

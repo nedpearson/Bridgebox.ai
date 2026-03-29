@@ -284,15 +284,15 @@ export interface TransferItem {
 
 // Status display helpers
 export const ENHANCEMENT_STATUS_LABELS: Record<EnhancementStatus, string> = {
-  draft: 'Draft',
-  submitted: 'Submitted',
-  analyzing: 'Analyzing',
-  ready_for_review: 'Ready for Review',
-  approved: 'Approved',
-  rejected: 'Rejected',
-  ready_to_apply: 'Ready to Apply',
-  applied: 'Applied',
-  failed: 'Failed',
+  draft:            'Draft',
+  submitted:        'Submitted',
+  analyzing:        'In Analysis',
+  ready_for_review: 'Needs Review',
+  approved:         'Approved',
+  rejected:         'Not Approved',
+  ready_to_apply:   'Blueprint Ready',
+  applied:          'Added to Build Plan',
+  failed:           'Processing Failed',
 };
 
 export const VOICE_CONTEXT_LABELS: Record<VoiceContextMode, string> = {
