@@ -14,6 +14,10 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import { formatRelativeTime } from '../../lib/dateUtils';
 import WorkspaceEnhancementCard from '../../components/enhancement/WorkspaceEnhancementCard';
 import MergeWorkspaceModal from '../../components/enhancement/MergeWorkspaceModal';
+import VoiceToAppHero from '../../components/dashboard/VoiceToAppHero';
+import SpeakYourAppModal from '../../components/enhancement/SpeakYourAppModal';
+import TypeFeatureModal from '../../components/enhancement/TypeFeatureModal';
+import UploadRecordingModal from '../../components/enhancement/UploadRecordingModal';
 
 export default function AppOverview() {
   const { currentOrganization } = useAuth();
@@ -21,6 +25,9 @@ export default function AppOverview() {
   const [recentTasks, setRecentTasks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showMerge, setShowMerge] = useState(false);
+  const [showVoice, setShowVoice] = useState(false);
+  const [showType, setShowType] = useState(false);
+  const [showUpload, setShowUpload] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -56,6 +63,13 @@ export default function AppOverview() {
     <>
       <AppHeader title="Overview" subtitle="Here's what's happening today." />
       <div className="p-8 space-y-8">
+        {/* Phase 1: Voice To App Hero */}
+        <VoiceToAppHero 
+          onVoiceClick={() => setShowVoice(true)}
+          onRecordingClick={() => setShowUpload(true)}
+          onTypeClick={() => setShowType(true)}
+        />
+
         {/* KPI Cards (4) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {kpis.map((kpi, idx) => (
@@ -147,6 +161,9 @@ export default function AppOverview() {
         </div>
       </div>
       <MergeWorkspaceModal isOpen={showMerge} onClose={() => setShowMerge(false)} />
+      <SpeakYourAppModal isOpen={showVoice} onClose={() => setShowVoice(false)} />
+      <TypeFeatureModal isOpen={showType} onClose={() => setShowType(false)} />
+      <UploadRecordingModal isOpen={showUpload} onClose={() => setShowUpload(false)} />
     </>
   );
 }

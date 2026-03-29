@@ -10,6 +10,7 @@ import TypeFeatureModal from './TypeFeatureModal';
 import UploadRecordingModal from './UploadRecordingModal';
 import type { EnhancementRequest } from '../../types/enhancement';
 import { formatRelativeTime } from '../../lib/dateUtils';
+import { RecentEnhancement } from '../../lib/db/enhancementRequests';
 
 interface WorkspaceEnhancementCardProps {
   onMergeClick?: () => void;
@@ -17,7 +18,7 @@ interface WorkspaceEnhancementCardProps {
 
 export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnhancementCardProps) {
   const { currentOrganization } = useAuth();
-  const [recentRequests, setRecentRequests] = useState<EnhancementRequest[]>([]);
+  const [recentRequests, setRecentRequests] = useState<RecentEnhancement[]>([]);
   const [loading, setLoading] = useState(true);
   const [showVoice, setShowVoice] = useState(false);
   const [showType, setShowType] = useState(false);

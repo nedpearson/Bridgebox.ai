@@ -2,6 +2,16 @@ import { supabase } from '../supabase';
 import { auditService } from './audit';
 import type { EnhancementRequest, EnhancementStatus, EnhancementRecommendations, EnhancementRequestType } from '../../types/enhancement';
 
+// Subset type for recent list view
+export type RecentEnhancement = {
+  id: string;
+  title: string;
+  status: EnhancementStatus;
+  request_type: EnhancementRequestType;
+  input_method: string;
+  created_at: string;
+};
+
 export const enhancementRequestsService = {
   async create(params: {
     workspaceId: string;
@@ -59,7 +69,7 @@ export const enhancementRequestsService = {
     return data || [];
   },
 
-  async listRecent(workspaceId: string, limit = 5): Promise<EnhancementRequest[]> {
+  async listRecent(workspaceId: string, limit = 5): Promise<RecentEnhancement[]> {
     const { data, error } = await supabase
       .from('bb_enhancement_requests')
       .select('id, title, status, request_type, input_method, created_at')
