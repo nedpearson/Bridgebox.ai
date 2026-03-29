@@ -14,12 +14,14 @@ import JSZip from 'jszip';
 export default function ExportHub() {
   const { profile, currentOrganization } = useAuth();
   const [isExporting, setIsExporting] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState(0);
   const [exportComplete, setExportComplete] = useState(false);
   const [error, setError] = useState('');
 
   const handleExportData = async () => {
     if (!currentOrganization) return;
     setIsExporting(true);
+    setDownloadProgress(0);
     setError('');
     setExportComplete(false);
 
@@ -64,7 +66,9 @@ This archive contains a structured JSON payload encapsulating ${members.length} 
       
       zip.file("README_GDPR.txt", summaryText);
 
-      const blob = await zip.generateAsync({ type: "blob" });
+      const blob = await zip.generateAsync({ type: "blob" }, (metadata) => {
+        setDownloadProgress(metadata.percent);
+      });
       const url = URL.createObjectURL(blob);
       
       const a = document.createElement("a");
@@ -169,10 +173,19 @@ This archive contains a structured JSON payload encapsulating ${members.length} 
                     className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 rounded-lg text-white font-medium transition-colors disabled:opacity-50"
                   >
                     {isExporting ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>Aggregating Payloads...</span>
-                      </>
+                      <div className="flex flex-col items-center">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          <span>Aggregating Payloads... {Math.round(downloadProgress)}%</span>
+                        </div>
+                        {/* Compression Progression Bar */}
+                        <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden mt-1 max-w-[200px]">
+                          <div 
+                            className="h-full bg-emerald-400 transition-all duration-300"
+                            style={{ width: `${downloadProgress}%` }}
+                          />
+                        </div>
+                      </div>
                     ) : (
                       <>
                         <Download className="w-5 h-5" />

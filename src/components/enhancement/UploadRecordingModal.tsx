@@ -250,15 +250,27 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
                       </button>
                     </div>
                     {files.map(pf => (
-                      <div key={pf.id} className="flex gap-3 p-3 bg-slate-800/50 border border-slate-700/50 rounded-xl">
+                      <div key={pf.id} className="relative flex gap-3 p-3 bg-slate-800/50 border border-slate-700/50 rounded-xl overflow-hidden">
+                        {/* Progress Bar Background */}
+                        {progress[pf.id] && progress[pf.id] !== 'error' && (
+                          <div
+                            className={`absolute bottom-0 left-0 h-1 transition-all duration-300 z-0 ${
+                              progress[pf.id] === 'done' ? 'bg-emerald-500' : 'bg-gradient-to-r from-blue-600 to-indigo-500'
+                            }`}
+                            style={{
+                              width: progress[pf.id] === 'done' ? '100%' : (progress[pf.id] || '0%')
+                            }}
+                          />
+                        )}
+                        
                         {/* Thumbnail or icon */}
-                        <div className="w-16 h-12 bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0 border border-slate-700">
+                        <div className="relative z-10 w-16 h-12 bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0 border border-slate-700">
                           {pf.preview
                             ? <img src={pf.preview} alt="" className="w-full h-full object-cover" />
                             : <FileVideo className="w-6 h-6 text-slate-500" />
                           }
                         </div>
-                        <div className="flex-1 min-w-0">
+                        <div className="relative z-10 flex-1 min-w-0">
                           <p className="text-white text-sm font-medium truncate">{pf.file.name}</p>
                           <p className="text-slate-500 text-xs">{(pf.file.size / 1024 / 1024).toFixed(1)} MB</p>
                           <input
@@ -269,7 +281,7 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
                             className="mt-1.5 w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-violet-500 placeholder:text-slate-600"
                           />
                         </div>
-                        <div className="flex-shrink-0 flex flex-col items-center justify-center min-w-[32px]">
+                        <div className="relative z-10 flex-shrink-0 flex flex-col items-center justify-center min-w-[32px]">
                           {progress[pf.id] && progress[pf.id] !== 'done' && progress[pf.id] !== 'error' && (
                             <>
                               <Loader2 className="w-4 h-4 text-blue-400 animate-spin mb-1" />
