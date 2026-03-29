@@ -24,6 +24,8 @@ const INTEGRATIONS = ['stripe', 'quickbooks', 'slack', 'gmail'];
 export default function SalesOnboarding() {
   const [currentStep, setCurrentStep] = useState(0);
   const [billingInterval, setBillingInterval] = useState<'monthly' | 'annual'>('annual');
+  const [loading, setLoading] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   const { user, currentOrganization, signUp } = useAuth();
   const navigate = useNavigate();
 
@@ -46,28 +48,49 @@ export default function SalesOnboarding() {
   const currentPricing = calculatePricing({ ...config, model: config.model || 'B2B Services' });
 
   const handleComplete = async () => {
+    setFormError(null);
+    setLoading(true);
     try {
       if (isGhostAccount) {
-        // We convert the ghost profile to a real user securely
-        await supabase.auth.updateUser({ email: config.email, password: config.password });
-        await supabase.from('bb_organizations').update({ 
-           name: `${config.fullName}'s Workspace`,
-           organization_type: 'client',
+        const { error: updateError } = await supabase.auth.updateUser({ email: config.email, password: config.password });
+        if (updateError) throw updateError;
+        await supabase.from('bb_organizations').update({
+          name: `${config.fullName}'s Workspace`,
+          organization_type: 'client',
         }).eq('id', currentOrganization?.id);
-        
-        Logger.info('[Analytics] Demo Converted to Paid Pipeline', { 
-           industry: config.industry, 
-           planValue: currentPricing.monthlyMsrp,
-           tier: currentPricing.tier
+        Logger.info('[Analytics] Demo Converted to Paid Pipeline', {
+          industry: config.industry,
+          planValue: currentPricing.monthlyMsrp,
+          tier: currentPricing.tier
         });
       } else {
-        await signUp(config.email, config.password, config.fullName);
+        try {
+          await signUp(config.email, config.password, config.fullName);
+        } catch (signUpErr: any) {
+          // Supabase returns this when the email is already registered
+          if (
+            signUpErr?.message?.toLowerCase().includes('already registered') ||
+            signUpErr?.message?.toLowerCase().includes('already been registered') ||
+            signUpErr?.status === 422
+          ) {
+            // Fall back to sign-in — user may have started a demo session previously
+            const { error: signInErr } = await supabase.auth.signInWithPassword({
+              email: config.email,
+              password: config.password,
+            });
+            if (signInErr) throw new Error('An account with this email already exists. If you forgot your password, use the login page.');
+          } else {
+            throw signUpErr;
+          }
+        }
         Logger.info('[Analytics] Direct Standard Conversion', { industry: config.industry });
       }
       navigate('/app', { replace: true });
-    } catch (err) {
-      console.error(err);
-      alert('Failed to finalize account. Please try again.');
+    } catch (err: any) {
+      console.error('[SalesOnboarding] handleComplete error:', err);
+      setFormError(err?.message || 'Something went wrong. Please check your details and try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -213,17 +236,28 @@ export default function SalesOnboarding() {
           </div>
         );
       
-      case 3: // Step 4: Finalize Account
+        case 3: // Step 4: Finalize Account
         return (
           <div className="space-y-6">
             <h2 className="text-3xl font-bold text-white mb-2">{isGhostAccount ? 'Claim Your Workspace' : 'Create Account'}</h2>
             <p className="text-slate-400 mb-8">{isGhostAccount ? 'Your demo configuration will instantly migrate to your live profile.' : 'Deploying your command center infrastructure.'}</p>
             
             <div className="space-y-4">
-               <input type="text" placeholder="Full Legal Name" required value={config.fullName} onChange={e => setConfig({...config, fullName: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-indigo-500 focus:outline-none transition-colors" />
-               <input type="email" placeholder="Work Email Address" required value={config.email} onChange={e => setConfig({...config, email: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-indigo-500 focus:outline-none transition-colors" />
-               <input type="password" placeholder="Secure Password" required value={config.password} onChange={e => setConfig({...config, password: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-indigo-500 focus:outline-none transition-colors" />
+              <input type="text" placeholder="Full Legal Name" required value={config.fullName} onChange={e => setConfig({...config, fullName: e.target.value})} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-indigo-500 focus:outline-none transition-colors" />
+              <input type="email" placeholder="Work Email Address" required value={config.email} onChange={e => { setConfig({...config, email: e.target.value}); setFormError(null); }} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-indigo-500 focus:outline-none transition-colors" />
+              <input type="password" placeholder="Secure Password (min 8 chars)" required value={config.password} onChange={e => { setConfig({...config, password: e.target.value}); setFormError(null); }} className="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:border-indigo-500 focus:outline-none transition-colors" />
             </div>
+
+            {formError && (
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-xl"
+              >
+                <span className="text-red-400 text-lg leading-none mt-0.5">⚠</span>
+                <p className="text-red-300 text-sm leading-relaxed">{formError}</p>
+              </motion.div>
+            )}
           </div>
         );
       default:
@@ -277,10 +311,20 @@ export default function SalesOnboarding() {
               {currentStep === STEPS.length - 1 ? (
                  <button 
                    onClick={handleComplete}
-                   disabled={!config.email || !config.password || !config.fullName}
-                   className="flex items-center px-8 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.2)] disabled:opacity-50 transition-all"
+                   disabled={!config.email || !config.password || !config.fullName || loading}
+                   className="flex items-center gap-2 px-8 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.2)] disabled:opacity-50 transition-all"
                  >
-                    Deploy Infrastructure <Lock className="w-4 h-4 ml-2" />
+                   {loading ? (
+                     <>
+                       <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                       </svg>
+                       Deploying…
+                     </>
+                   ) : (
+                     <>Deploy Infrastructure <Lock className="w-4 h-4" /></>
+                   )}
                  </button>
               ) : (
                  <button 
