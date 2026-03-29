@@ -326,7 +326,6 @@ export default function EnhancementDetail() {
                         {/* Literal localized feature video preview mockup */}
                         <FeatureVideoPreview 
                            featureName={f.name} 
-                           realVideoUrl={i === 0 ? "https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" : undefined}
                         />
                       </div>
                       <span className="text-xs text-slate-500 flex-shrink-0 font-mono bg-slate-800/80 px-2 py-1 rounded border border-slate-700">{Math.round(f.confidence * 100)}%</span>
