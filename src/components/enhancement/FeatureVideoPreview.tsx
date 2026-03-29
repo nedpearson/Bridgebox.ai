@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Maximize2, Volume2, Settings } from 'lucide-react';
 
-export default function FeatureVideoPreview({ featureName }: { featureName: string }) {
+export default function FeatureVideoPreview({ featureName, realVideoUrl }: { featureName: string; realVideoUrl?: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
@@ -21,8 +21,16 @@ export default function FeatureVideoPreview({ featureName }: { featureName: stri
            />
         </div>
 
-        {/* Floating animated UI elements */}
-        {isPlaying ? (
+        {/* Floating animated UI elements OR Actual Video */}
+        {realVideoUrl ? (
+          <video 
+            src={realVideoUrl} 
+            className="w-full h-full object-cover relative z-10 opacity-80" 
+            autoPlay={isPlaying} 
+            loop 
+            muted 
+          />
+        ) : isPlaying ? (
           <div className="flex flex-col items-center justify-center gap-3 w-full px-12">
             <motion.div 
                initial={{ width: 0, opacity: 0 }}
@@ -47,7 +55,7 @@ export default function FeatureVideoPreview({ featureName }: { featureName: stri
             <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/50 text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-500/40 transition-all cursor-pointer shadow-[0_0_15px_rgba(99,102,241,0.3)]">
               <Play className="w-4 h-4 ml-1" />
             </div>
-            <span className="mt-3 text-[10px] font-bold tracking-widest uppercase text-slate-400">Play Demo Preview</span>
+            <span className="mt-3 text-[10px] font-bold tracking-widest uppercase text-slate-400">{realVideoUrl ? 'Play Reference Video' : 'Play Demo Preview'}</span>
           </div>
         )}
 

@@ -308,9 +308,9 @@ export default function EnhancementDetail() {
 
             {/* Feature list */}
             {rec.feature_list?.length > 0 && (
-              <CollapsibleSection title={`Feature Extraction (${rec.feature_list.length})`} icon={Layers}>
+              <CollapsibleSection title={`Feature Extraction (${rec.feature_list.length})`} icon={Layers} defaultOpen={true}>
                 <div className="space-y-2.5">
-                  {rec.feature_list.map((f: FeatureItem) => (
+                  {rec.feature_list.map((f: FeatureItem, i: number) => (
                     <div key={f.id} className="flex items-start gap-3 p-3.5 bg-slate-800/40 border border-slate-700/40 rounded-xl">
                       <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${
                         f.priority === 'critical' ? 'bg-red-400' : f.priority === 'high' ? 'bg-orange-400' : f.priority === 'medium' ? 'bg-yellow-400' : 'bg-slate-400'
@@ -324,7 +324,10 @@ export default function EnhancementDetail() {
                         <p className="text-slate-400 text-xs mt-1">{f.description}</p>
                         
                         {/* Literal localized feature video preview mockup */}
-                        <FeatureVideoPreview featureName={f.name} />
+                        <FeatureVideoPreview 
+                           featureName={f.name} 
+                           realVideoUrl={i === 0 ? "https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" : undefined}
+                        />
                       </div>
                       <span className="text-xs text-slate-500 flex-shrink-0 font-mono bg-slate-800/80 px-2 py-1 rounded border border-slate-700">{Math.round(f.confidence * 100)}%</span>
                     </div>
