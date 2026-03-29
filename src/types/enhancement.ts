@@ -101,6 +101,7 @@ export interface WorkflowItem {
 
 export interface UIStructureItem {
   screen_name: string;
+  layout_type?: 'dashboard' | 'kanban' | 'detail' | 'table' | 'generic';
   components: string[];
   interactions: string[];
   data_displayed: string[];

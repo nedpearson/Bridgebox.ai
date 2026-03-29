@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useParams, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, Mic, Type, Video, Sparkles, CheckCircle2, XCircle,
   Clock, FileText, Layers, AlertTriangle, ChevronDown, ChevronUp,
   Activity, Lightbulb, Workflow, Target, Loader2, Image as ImageIcon,
-  MonitorPlay, MousePointerClick, Database
+  MonitorPlay, MousePointerClick, Database, LayoutTemplate, Play
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -16,6 +16,7 @@ import { StatusBadgeWES, RequestTypeBadge } from '../../components/enhancement/S
 import { useAuth } from '../../contexts/AuthContext';
 import { enhancementRequestsService } from '../../lib/db/enhancementRequests';
 import { formatRelativeTime } from '../../lib/dateUtils';
+import VirtualPrototypeCanvas from '../../components/enhancement/VirtualPrototypeCanvas';
 import type { EnhancementRequest, FeatureItem, RiskItem, ImplementationStep, UIStructureItem } from '../../types/enhancement';
 
 const INPUT_ICONS = { voice: Mic, text: Type, recording: Video, screenshot: ImageIcon, mixed: Video };
@@ -59,10 +60,13 @@ function CollapsibleSection({ title, icon: Icon, children, defaultOpen = true }:
 
 export default function EnhancementDetail() {
   const { id } = useParams<{ id: string }>();
-  const { currentOrganization } = useAuth();
+  const navigate = useNavigate();
+  const { currentOrganization, user } = useAuth();
+  
   const [request, setRequest] = useState<EnhancementRequest | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [activeTourIndex, setActiveTourIndex] = useState(0);
   const [actioning, setActioning] = useState(false);
 
   const load = useCallback(async () => {
@@ -200,42 +204,62 @@ export default function EnhancementDetail() {
               </div>
             </CollapsibleSection>
 
-            {/* Virtual Prototype Walkthrough */}
+            {/* Interactive Virtual Prototype Walkthrough Player */}
             {rec.ui_structure?.length > 0 && (
               <CollapsibleSection title={`Virtual Software Preview (${rec.ui_structure.length} Screens)`} icon={MonitorPlay} defaultOpen={true}>
-                <div className="space-y-6">
-                  {rec.ui_structure.map((ui: UIStructureItem, i: number) => (
-                    <div key={i} className="group relative bg-[#0b1121] border border-slate-700 rounded-xl overflow-hidden shadow-2xl">
-                      {/* Browser Decor */}
-                      <div className="flex items-center gap-2 px-4 py-2 bg-slate-800/80 border-b border-slate-700">
-                        <div className="flex gap-1.5">
-                          <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-                          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
-                          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
-                        </div>
-                        <div className="mx-auto bg-slate-900/50 text-slate-400 text-[10px] px-3 py-1 rounded-full font-medium tracking-wide border border-white/5">
-                          bridgebox.ai/preview/{ui.screen_name.toLowerCase().replace(/\s+/g, '-')}
-                        </div>
-                      </div>
-                      
-                      {/* Canvas Elements */}
-                      <div className="p-5 space-y-5">
-                        <div className="flex items-center justify-between pb-3 border-b border-white/5">
-                          <h4 className="text-white font-bold tracking-tight">{ui.screen_name}</h4>
-                          <span className="text-[10px] text-indigo-300 bg-indigo-500/20 px-2 py-0.5 rounded uppercase font-bold tracking-wider">
-                            Interactive Prototype
-                          </span>
-                        </div>
+                <div className="bg-[#0b1121] border border-slate-700 rounded-xl overflow-hidden shadow-2xl relative flex flex-col">
+                  {/* Top Pagination Control */}
+                  <div className="flex items-center justify-between px-4 py-3 bg-slate-900 border-b border-slate-700">
+                     <div className="flex items-center gap-2">
+                        <MonitorPlay className="w-4 h-4 text-indigo-400" />
+                        <span className="font-semibold text-white tracking-wide">Interactive Tour</span>
+                     </div>
+                     <div className="flex gap-1.5">
+                        {rec.ui_structure.map((_, idx) => (
+                           <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === activeTourIndex ? 'w-6 bg-indigo-500' : 'w-2 bg-slate-700 cursor-pointer hover:bg-slate-600'}`} onClick={() => setActiveTourIndex(idx)} />
+                        ))}
+                     </div>
+                     <div className="flex items-center gap-2 text-xs font-medium text-slate-400">
+                        Step {activeTourIndex + 1} of {rec.ui_structure.length}
+                     </div>
+                  </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {/* Player Canvas Area */}
+                  <div className="relative">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeTourIndex}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {/* Literal Visual Prototype Mockup */}
+                        <div className="border-b border-slate-700/50 bg-[#060a13]">
+                          <VirtualPrototypeCanvas 
+                            layoutType={rec.ui_structure[activeTourIndex].layout_type || 'generic'} 
+                            screenName={rec.ui_structure[activeTourIndex].screen_name} 
+                            onInteract={() => {
+                               if (activeTourIndex < rec.ui_structure.length - 1) {
+                                  setActiveTourIndex(activeTourIndex + 1);
+                               } else {
+                                  setActiveTourIndex(0); // loop back
+                               }
+                            }}
+                            isLastScreen={activeTourIndex === rec.ui_structure.length - 1}
+                          />
+                        </div>
+                        
+                        {/* Schema Canvas Elements (Footer Context) */}
+                        <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-5 bg-slate-900/40">
                           {/* Layout Components */}
                           <div className="space-y-2">
                             <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                              <MonitorPlay className="w-3.5 h-3.5" /> Rendered Layout
+                              <LayoutTemplate className="w-3.5 h-3.5" /> Component Architecture
                             </p>
                             <div className="flex flex-wrap gap-2">
-                              {ui.components.map((comp: string, cx: number) => (
-                                <div key={cx} className="px-2.5 py-1.5 bg-slate-800/60 border border-slate-700/50 rounded-md text-xs text-slate-300 whitespace-nowrap">
+                              {rec.ui_structure[activeTourIndex].components.map((comp: string, cx: number) => (
+                                <div key={cx} className="px-2.5 py-1.5 bg-slate-800/80 border border-slate-700/50 rounded-md text-xs text-slate-300 whitespace-nowrap">
                                   {comp}
                                 </div>
                               ))}
@@ -248,7 +272,7 @@ export default function EnhancementDetail() {
                               <Database className="w-3.5 h-3.5" /> Bound Model Data
                             </p>
                             <div className="flex flex-col gap-1.5">
-                              {ui.data_displayed.map((data: string, dx: number) => (
+                              {rec.ui_structure[activeTourIndex].data_displayed.map((data: string, dx: number) => (
                                 <div key={dx} className="flex items-center gap-2 text-xs text-emerald-200/80">
                                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/50"></div>
                                   {data}
@@ -258,22 +282,25 @@ export default function EnhancementDetail() {
                           </div>
                         </div>
 
-                        {/* Interactive Logic */}
-                        <div className="pt-3 border-t border-white/5">
-                          <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                            <MousePointerClick className="w-3.5 h-3.5" /> Virtual Interactions
-                          </p>
-                          <div className="flex flex-col gap-1.5">
-                             {ui.interactions.map((inter: string, ix: number) => (
-                                <p key={ix} className="text-xs text-indigo-200/70 border-l border-indigo-500/30 pl-2">
-                                  <span className="text-indigo-400 font-medium mr-1">WHEN</span> {inter}
-                                </p>
-                             ))}
-                          </div>
+                        {/* Interactive Logic Guide (Overlay) */}
+                        <div className="px-5 py-4 bg-indigo-950/20 border-t border-indigo-500/10 flex items-start gap-4">
+                           <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                              <Play className="w-4 h-4 text-indigo-400 ml-0.5" />
+                           </div>
+                           <div className="space-y-1">
+                             <p className="text-sm text-indigo-300 font-semibold">Active Interactions Mapping</p>
+                             <div className="flex flex-col gap-1">
+                               {rec.ui_structure[activeTourIndex].interactions.map((inter: string, ix: number) => (
+                                  <p key={ix} className="text-xs text-indigo-200/70">
+                                    <span className="text-indigo-400 font-medium mr-1 border border-indigo-500/30 px-1 rounded">WHEN</span> {inter}
+                                  </p>
+                               ))}
+                             </div>
+                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 </div>
               </CollapsibleSection>
             )}
