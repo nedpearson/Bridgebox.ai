@@ -21,14 +21,13 @@ export default function FeatureVideoPreview({ featureName, realVideoUrl }: { fea
            />
         </div>
 
-        {/* Floating animated UI elements OR Actual Video */}
+        {/* Actual Real-Life Video OR Simulated Animation */}
         {realVideoUrl ? (
           <video 
             src={realVideoUrl} 
-            className="w-full h-full object-cover relative z-10 opacity-80" 
-            autoPlay={isPlaying} 
-            loop 
-            muted 
+            className="w-full h-full object-contain relative z-10 bg-black/50" 
+            controls 
+            preload="metadata"
           />
         ) : isPlaying ? (
           <div className="flex flex-col items-center justify-center gap-3 w-full px-12">
@@ -51,11 +50,11 @@ export default function FeatureVideoPreview({ featureName, realVideoUrl }: { fea
             </motion.div>
           </div>
         ) : (
-          <div className="relative z-10 flex flex-col items-center justify-center">
+          <div className="relative z-10 flex flex-col items-center justify-center h-full w-full" onClick={() => setIsPlaying(true)}>
             <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/50 text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-500/40 transition-all cursor-pointer shadow-[0_0_15px_rgba(99,102,241,0.3)]">
               <Play className="w-4 h-4 ml-1" />
             </div>
-            <span className="mt-3 text-[10px] font-bold tracking-widest uppercase text-slate-400">{realVideoUrl ? 'Play Reference Video' : 'Play Demo Preview'}</span>
+            <span className="mt-3 text-[10px] font-bold tracking-widest uppercase text-slate-400">Play Demo Preview</span>
           </div>
         )}
 
@@ -65,36 +64,38 @@ export default function FeatureVideoPreview({ featureName, realVideoUrl }: { fea
         )}
       </div>
 
-      {/* Video Player Controls */}
-      <div className="h-10 bg-slate-900 border-t border-slate-700/50 flex items-center px-4 justify-between relative z-20">
-        <div className="flex items-center gap-4">
-          <button 
-             onClick={(e) => { e.stopPropagation(); setIsPlaying(!isPlaying); }} 
-             className="text-slate-400 hover:text-white transition-colors outline-none"
-          >
-            {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-          </button>
-          
-          <div className="flex items-center gap-2 group/scrub cursor-pointer">
-             <span className="text-[10px] tabular-nums text-slate-500 font-mono">{isPlaying ? '0:03' : '0:00'}</span>
-             <div className="w-24 md:w-48 h-1 bg-slate-700 rounded-full relative overflow-hidden">
-                <motion.div 
-                  initial={{ width: '0%' }}
-                  animate={{ width: isPlaying ? '100%' : '0%' }}
-                  transition={{ duration: 5, ease: 'linear', repeat: isPlaying ? Infinity : 0 }}
-                  className="absolute left-0 top-0 bottom-0 bg-indigo-500" 
-                />
-             </div>
-             <span className="text-[10px] tabular-nums text-slate-500 font-mono">0:05</span>
+      {/* Video Player Controls (Only for Demo Simulation) */}
+      {!realVideoUrl && (
+        <div className="h-10 bg-slate-900 border-t border-slate-700/50 flex items-center px-4 justify-between relative z-20">
+          <div className="flex items-center gap-4">
+            <button 
+               onClick={(e) => { e.stopPropagation(); setIsPlaying(!isPlaying); }} 
+               className="text-slate-400 hover:text-white transition-colors outline-none"
+            >
+              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+            </button>
+            
+            <div className="flex items-center gap-2 group/scrub cursor-pointer">
+               <span className="text-[10px] tabular-nums text-slate-500 font-mono">{isPlaying ? '0:03' : '0:00'}</span>
+               <div className="w-24 md:w-48 h-1 bg-slate-700 rounded-full relative overflow-hidden">
+                  <motion.div 
+                    initial={{ width: '0%' }}
+                    animate={{ width: isPlaying ? '100%' : '0%' }}
+                    transition={{ duration: 5, ease: 'linear', repeat: isPlaying ? Infinity : 0 }}
+                    className="absolute left-0 top-0 bottom-0 bg-indigo-500" 
+                  />
+               </div>
+               <span className="text-[10px] tabular-nums text-slate-500 font-mono">0:05</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+             <Volume2 className="w-3.5 h-3.5 text-slate-500 cursor-pointer hover:text-white" />
+             <Settings className="w-3.5 h-3.5 text-slate-500 cursor-pointer hover:text-white" />
+             <Maximize2 className="w-3.5 h-3.5 text-slate-500 cursor-pointer hover:text-white" />
           </div>
         </div>
-
-        <div className="flex items-center gap-3">
-           <Volume2 className="w-3.5 h-3.5 text-slate-500 cursor-pointer hover:text-white" />
-           <Settings className="w-3.5 h-3.5 text-slate-500 cursor-pointer hover:text-white" />
-           <Maximize2 className="w-3.5 h-3.5 text-slate-500 cursor-pointer hover:text-white" />
-        </div>
-      </div>
+      )}
       
       {/* Context Badge */}
       <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 px-2 py-1 rounded text-[9px] uppercase font-bold tracking-widest text-white/80 z-20 shadow-lg">
