@@ -17,6 +17,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { enhancementRequestsService } from '../../lib/db/enhancementRequests';
 import { formatRelativeTime } from '../../lib/dateUtils';
 import VirtualPrototypeCanvas from '../../components/enhancement/VirtualPrototypeCanvas';
+import FeatureVideoPreview from '../../components/enhancement/FeatureVideoPreview';
 import type { EnhancementRequest, FeatureItem, RiskItem, ImplementationStep, UIStructureItem } from '../../types/enhancement';
 
 const INPUT_ICONS = { voice: Mic, text: Type, recording: Video, screenshot: ImageIcon, mixed: Video };
@@ -321,8 +322,11 @@ export default function EnhancementDetail() {
                           <span className="text-[10px] uppercase tracking-wider font-semibold text-indigo-400/70 bg-indigo-500/10 px-1.5 py-0.5 rounded">{f.source}</span>
                         </div>
                         <p className="text-slate-400 text-xs mt-1">{f.description}</p>
+                        
+                        {/* Literal localized feature video preview mockup */}
+                        <FeatureVideoPreview featureName={f.name} />
                       </div>
-                      <span className="text-xs text-slate-500 flex-shrink-0">{Math.round(f.confidence * 100)}%</span>
+                      <span className="text-xs text-slate-500 flex-shrink-0 font-mono bg-slate-800/80 px-2 py-1 rounded border border-slate-700">{Math.round(f.confidence * 100)}%</span>
                     </div>
                   ))}
                 </div>
