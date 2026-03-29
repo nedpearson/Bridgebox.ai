@@ -11,6 +11,11 @@ import { workspaceProfilesService } from '../../lib/db/workspaceProfiles';
 import { enhancementRequestsService } from '../../lib/db/enhancementRequests';
 import { enhancementMediaService } from '../../lib/db/enhancementMedia';
 import { VoiceCaptureMini } from '../../components/enhancement/VoiceCaptureMini';
+import { useEntitlements } from '../../hooks/useEntitlements';
+import { creditsService } from '../../lib/db/credits';
+import { usageEventsService } from '../../lib/db/usageEvents';
+import LockedFeaturePanel from '../../components/billing/LockedFeaturePanel';
+import UpgradeNudge from '../../components/billing/UpgradeNudge';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -149,11 +154,16 @@ function StepCard({ children }: { children: React.ReactNode }) {
 
 export default function SoftwareDiscoveryOnboarding() {
   const navigate = useNavigate();
-  const { currentOrganization } = useAuth();
+  const { currentOrganization, user } = useAuth();
   const [step, setStep] = useState(1);
   const [data, setData] = useState<DiscoveryData>(INITIAL_DATA);
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState(false);
+  const [creditWarning, setCreditWarning] = useState(false);
+
+  // Entitlements
+  const entitlements = useEntitlements();
+  const hasRecordingAccess = entitlements.can('screen_recording_analysis');
 
   const update = useCallback((patch: Partial<DiscoveryData>) => {
     setData(prev => ({ ...prev, ...patch }));
@@ -167,6 +177,24 @@ export default function SoftwareDiscoveryOnboarding() {
     if (!currentOrganization) return;
     setSaving(true);
     try {
+      // Consume credits for voice blueprint request
+      const creditResult = await creditsService.consumeCredits(
+        currentOrganization.id,
+        'voice_blueprint_request',
+        (user as any)?.id
+      );
+      if (!creditResult.success) {
+        setCreditWarning(true);
+        setSaving(false);
+        return;
+      }
+
+      // Track usage event
+      void usageEventsService.track(currentOrganization.id, 'voice_request', {
+        userId: (user as any)?.id,
+        creditCost: 5,
+      });
+
       const stack = data.currentSoftware
         .filter(s => s.name.trim())
         .map(s => `${s.name}${s.category ? ` (${s.category})` : ''}`);
@@ -266,6 +294,25 @@ export default function SoftwareDiscoveryOnboarding() {
           {step === 6 && <Step6Outcome key="s6" data={data} update={update} />}
         </AnimatePresence>
 
+        {/* Credit warnings */}
+        {creditWarning && (
+          <div className="mt-4">
+            <UpgradeNudge
+              trigger="critical_credits"
+              creditsRemaining={0}
+              onDismiss={() => setCreditWarning(false)}
+            />
+          </div>
+        )}
+        {!creditWarning && entitlements.credits.isLow && !entitlements.credits.isUnlimited && (
+          <div className="mt-4">
+            <UpgradeNudge
+              trigger="low_credits"
+              creditsRemaining={entitlements.credits.balance}
+            />
+          </div>
+        )}
+
         {/* Navigation */}
         {step > 1 && (
           <div className="mt-8 flex items-center justify-between">
@@ -286,8 +333,9 @@ export default function SoftwareDiscoveryOnboarding() {
             ) : (
               <button
                 onClick={handleComplete}
-                disabled={saving}
+                disabled={saving || entitlements.credits.isCritical}
                 className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl font-bold text-sm transition-all shadow-lg shadow-indigo-500/30 disabled:opacity-60"
+                title={entitlements.credits.isCritical ? 'Insufficient AI credits' : undefined}
               >
                 {saving ? 'Saving Profile...' : 'Generate My Software Blueprint'}
                 <Sparkles className="w-4 h-4" />
@@ -295,6 +343,7 @@ export default function SoftwareDiscoveryOnboarding() {
             )}
           </div>
         )}
+
       </div>
     </div>
   );

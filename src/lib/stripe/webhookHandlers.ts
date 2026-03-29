@@ -17,6 +17,9 @@ import {
   type StripeSubscriptionData,
   type StripeInvoiceData,
 } from './customerSync';
+import { creditsService } from '../db/credits';
+import { ADD_ONS } from '../plans';
+import type { AddOnType } from '../../types/billing';
 
 /**
  * Handle checkout.session.completed event
@@ -43,6 +46,35 @@ export async function handleCheckoutCompleted(event: any) {
       email: session.customer_email,
       metadata,
     });
+
+    // ── Provision add-on credits ──────────────────────────────────────────
+    const addonType = metadata.addon_type as AddOnType | undefined;
+    if (addonType) {
+      const addon = ADD_ONS.find((a) => a.id === addonType);
+      if (addon?.creditValue) {
+        await creditsService.addCredits(
+          organizationId,
+          addon.creditValue * (Number(metadata.quantity ?? 1)),
+          'topup_purchase',
+          `Add-on purchase: ${addon.name}`,
+          { addon_type: addonType, session_id: session.id }
+        );
+        Logger.info(`Provisioned ${addon.creditValue} credits for add-on ${addonType} to org ${organizationId}`);
+      }
+
+      // Record the purchase
+      await supabase.from('bb_addon_purchases').insert({
+        organization_id: organizationId,
+        addon_type: addonType,
+        quantity: Number(metadata.quantity ?? 1),
+        unit_price: addon?.price ?? 0,
+        total_paid: session.amount_total ?? 0,
+        stripe_checkout_session_id: session.id,
+        stripe_payment_intent_id: session.payment_intent ?? null,
+        provisioned: true,
+        provisioned_at: new Date().toISOString(),
+      });
+    }
 
     Logger.info(`Checkout completed for organization ${organizationId}`);
     return { success: true };
@@ -216,6 +248,20 @@ export async function handleInvoicePaid(event: any) {
     };
 
     await syncInvoice(organizationId, invoiceData);
+
+    // ── Renew monthly credit allowance ────────────────────────────────────
+    try {
+      const { data: orgData } = await supabase
+        .from('bb_organizations')
+        .select('billing_plan')
+        .eq('id', organizationId)
+        .maybeSingle();
+      const planTier = orgData?.billing_plan ?? 'starter';
+      await creditsService.renewMonthlyAllowance(organizationId, planTier);
+      Logger.info(`Monthly credits renewed for org ${organizationId} on plan ${planTier}`);
+    } catch (creditErr: any) {
+      Logger.error('Failed to renew credits (non-fatal):', creditErr);
+    }
 
     Logger.info(`Invoice paid for organization ${organizationId}`);
     return { success: true };

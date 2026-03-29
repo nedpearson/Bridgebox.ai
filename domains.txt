@@ -1,0 +1,9 @@
+Fetching Domains under pearsonprojects
+> 3 Domains found under pearsonprojects [103ms]
+ 
+  Domain                     Registrar           Nameservers         Expiration Date    Creator             Age    
+  bridgebox.ai               Third Party         Third Party         -                  nedpearson          6d     
+  divorceledger.live         Third Party         Third Party         -                  nedpearson          34d    
+  divoceledger.live          Third Party         Third Party         -                  nedpearson          34d    
+ 
+
