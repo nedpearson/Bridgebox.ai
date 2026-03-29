@@ -122,7 +122,6 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
   const handleSubmit = async () => {
     if (!currentOrganization || files.length === 0) return;
     setIsUploading(true);
-    setPendingCost(null);
     setError('');
 
     try {
@@ -384,6 +383,36 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
                       </span>
                     </div>
                   </div>
+
+                  {/* Dynamic Progress Renderer on Final Screen */}
+                  {isUploading && (
+                    <div className="pt-4 border-t border-slate-700/50 space-y-3">
+                      <p className="text-xs text-slate-400 uppercase font-semibold tracking-wider">Active Upload Stream</p>
+                      {files.map((file) => (
+                        <div key={file.id} className="flex flex-col gap-2 p-3 bg-slate-900/50 rounded-lg border border-slate-700">
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm font-medium text-slate-300 truncate pr-4">{file.file.name}</span>
+                            <span className="text-xs font-bold text-violet-400 whitespace-nowrap">
+                              {progress[file.id] || 'Starting...'}
+                            </span>
+                          </div>
+                          
+                          {/* Live Progress Bar */}
+                          <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                            <motion.div
+                              className="h-full bg-gradient-to-r from-violet-500 to-indigo-500"
+                              initial={{ width: '0%' }}
+                              animate={{ width: progress[file.id] === 'done' ? '100%' : (progress[file.id] !== 'error' ? progress[file.id] || '0%' : '100%') }}
+                              transition={{ ease: "linear", duration: 0.3 }}
+                              style={{ 
+                                backgroundColor: progress[file.id] === 'error' ? '#ef4444' : progress[file.id] === 'done' ? '#10b981' : undefined
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="flex gap-3 pt-2">
                     <button
