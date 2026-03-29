@@ -68,9 +68,10 @@ export const creditsService = {
     organizationId: string,
     eventType: CreditEventType,
     userId?: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, any>,
+    overrideCost?: number
   ): Promise<{ success: boolean; balance: number; shortfall?: number }> {
-    const cost = CREDIT_COSTS[eventType] ?? 0;
+    const cost = overrideCost ?? CREDIT_COSTS[eventType] ?? 0;
     if (cost === 0) return { success: true, balance: 0 };
 
     const wallet = await this.getWallet(organizationId);

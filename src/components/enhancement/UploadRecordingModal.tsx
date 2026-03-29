@@ -7,6 +7,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { enhancementRequestsService } from '../../lib/db/enhancementRequests';
 import { enhancementMediaService } from '../../lib/db/enhancementMedia';
+import { creditsService } from '../../lib/db/credits';
 
 interface UploadRecordingModalProps {
   isOpen: boolean;
@@ -21,12 +22,12 @@ interface PendingFile {
   preview?: string;
 }
 
-const MAX_FILE_SIZE_MB = 2000;
+const MAX_FILE_SIZE_MB = 6000;
 const ALLOWED_VIDEO = ['video/webm', 'video/mp4', 'video/quicktime', 'video/avi', 'video/x-matroska'];
 const ALLOWED_IMAGE = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp'];
 
 export default function UploadRecordingModal({ isOpen, onClose, onCreated }: UploadRecordingModalProps) {
-  const { currentOrganization } = useAuth();
+  const { user, currentOrganization } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<PendingFile[]>([]);
   const [description, setDescription] = useState('');
@@ -119,6 +120,25 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
       for (const pf of files) {
         setProgress(prev => ({ ...prev, [pf.id]: 'uploading' }));
         try {
+          // Dynamic pricing based on 200MB chunks
+          const isImage = ALLOWED_IMAGE.includes(pf.file.type);
+          const baseEventType = isImage ? 'screenshot_analysis' : 'recording_analysis';
+          const sizeMultiplier = Math.max(1, Math.ceil(pf.file.size / (200 * 1024 * 1024)));
+          const baseCost = isImage ? 3 : 8; // standard cost
+          const totalCost = baseCost * sizeMultiplier;
+
+          const creditResult = await creditsService.consumeCredits(
+            currentOrganization.id,
+            baseEventType,
+            (user as any)?.id,
+            { fileName: pf.file.name, fileSize: pf.file.size },
+            totalCost
+          );
+
+          if (!creditResult.success) {
+            throw new Error(`Insufficient AI credits. Need ${totalCost} credits for this file size.`);
+          }
+
           await enhancementMediaService.upload({
             file: pf.file,
             workspaceId: currentOrganization.id,
@@ -127,8 +147,10 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
           });
           await enhancementRequestsService.incrementMediaCount(request.id, currentOrganization.id);
           setProgress(prev => ({ ...prev, [pf.id]: 'done' }));
-        } catch {
+        } catch (err: any) {
           setProgress(prev => ({ ...prev, [pf.id]: 'error' }));
+          setError(err.message || 'Upload or credit deduction failed.');
+          break; // Stop processing further files
         }
       }
 
@@ -143,7 +165,7 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
     } finally {
       setIsUploading(false);
     }
-  }, [currentOrganization, files, description, onCreated]);
+  }, [user, currentOrganization, files, description, onCreated]);
 
   if (!isOpen) return null;
 
