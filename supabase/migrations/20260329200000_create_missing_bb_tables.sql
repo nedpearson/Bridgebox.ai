@@ -17,8 +17,12 @@ CREATE TABLE IF NOT EXISTS bb_global_tasks (
     CHECK (status IN ('todo', 'in_progress', 'in_review', 'blocked', 'done', 'cancelled')),
   priority text NOT NULL DEFAULT 'medium'
     CHECK (priority IN ('low', 'medium', 'high', 'urgent')),
-  assignee_id uuid REFERENCES bb_profiles(id) ON DELETE SET NULL,
-  creator_id uuid REFERENCES bb_profiles(id) ON DELETE SET NULL,
+  -- Explicit constraint names match the PostgREST fkey hints used in the frontend:
+  -- bb_profiles!global_tasks_assignee_id_fkey and bb_profiles!global_tasks_creator_id_fkey
+  assignee_id uuid,
+  creator_id uuid,
+  CONSTRAINT global_tasks_assignee_id_fkey FOREIGN KEY (assignee_id) REFERENCES bb_profiles(id) ON DELETE SET NULL,
+  CONSTRAINT global_tasks_creator_id_fkey FOREIGN KEY (creator_id) REFERENCES bb_profiles(id) ON DELETE SET NULL,
   due_date timestamptz,
   completed_at timestamptz,
   metadata jsonb DEFAULT '{}'::jsonb,
