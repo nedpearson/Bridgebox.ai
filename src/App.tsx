@@ -162,6 +162,7 @@ const AIAssistants = lazy(() => import('./pages/app/AIAssistants'));
 // Voice-to-App Enhancement Studio
 const EnhancementQueue = lazy(() => import('./pages/app/EnhancementQueue'));
 const EnhancementDetail = lazy(() => import('./pages/app/EnhancementDetail'));
+const SoftwareDiscoveryOnboarding = lazy(() => import('./pages/onboarding/SoftwareDiscoveryOnboarding'));
 
 // Super Admin Layouts & Components
 import SuperAdminLayout from './layouts/SuperAdminLayout';
@@ -196,6 +197,7 @@ function App() {
           <Route path="/onboarding" element={<ProtectedRoute><OrganizationOnboarding /></ProtectedRoute>} />
           <Route path="/setup" element={<ProtectedRoute><OnboardingFlow /></ProtectedRoute>} />
           <Route path="/ai-onboarding" element={<ProtectedRoute><AiOnboardingWizard /></ProtectedRoute>} />
+          <Route path="/app/software-discovery" element={<ProtectedRoute><SoftwareDiscoveryOnboarding /></ProtectedRoute>} />
           <Route path="/invitations/accept" element={<AcceptInvitation />} />
           <Route path="/admin-preview" element={<AdminPreview />} />
           <Route path="/proposal/:token" element={<ProposalView />} />

@@ -259,3 +259,22 @@
     display: none;
   }
 }
+
+/* ── Discovery Link ────────────────────────────────────────────── */
+.discoveryLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #6366f1;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  margin-top: 0.25rem;
+  align-self: flex-start;
+}
+
+.discoveryLink:hover {
+  color: #818cf8;
+}
+

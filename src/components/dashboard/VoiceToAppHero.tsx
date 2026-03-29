@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Mic, Video, Type, CheckCircle2, Wand2, ArrowRight } from 'lucide-react';
+import { Mic, Video, Type, CheckCircle2, Wand2, ArrowRight, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import styles from './VoiceToAppHero.module.css';
 
 interface VoiceToAppHeroProps {
@@ -117,6 +118,13 @@ export default function VoiceToAppHero({ onVoiceClick, onRecordingClick, onTypeC
               </div>
             ))}
           </div>
+          <Link
+            to="/app/software-discovery"
+            className={styles.discoveryLink}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            Run full Software Discovery →
+          </Link>
         </motion.div>
       </div>
     </div>
