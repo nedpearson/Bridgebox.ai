@@ -28,7 +28,8 @@ const ALLOWED_VIDEO = ['video/webm', 'video/mp4', 'video/quicktime', 'video/avi'
 const ALLOWED_IMAGE = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp'];
 
 export default function UploadRecordingModal({ isOpen, onClose, onCreated }: UploadRecordingModalProps) {
-  const { user, currentOrganization } = useAuth();
+  const { user, profile, currentOrganization } = useAuth();
+  const isSuperAdmin = profile?.role === 'super_admin';
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<PendingFile[]>([]);
   const [description, setDescription] = useState('');
@@ -108,6 +109,13 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
       const sizeMultiplier = Math.max(1, Math.ceil(pf.file.size / (200 * 1024 * 1024)));
       return acc + (baseCost * sizeMultiplier);
     }, 0);
+
+    // Bypass explicit approval wizard for platform administrators
+    if (isSuperAdmin) {
+      handleSubmit();
+      return;
+    }
+
     setPendingCost(totalCostRequired);
   };
 
