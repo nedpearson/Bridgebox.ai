@@ -1,14 +1,15 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mic, Type, Video, ArrowRight, ArrowLeft, CheckCircle2,
   Plus, X, Wand2, Sparkles, Layers, Zap, Users,
-  ChevronRight
+  ChevronRight, Upload, FileVideo, Loader2, AlertCircle
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { workspaceProfilesService } from '../../lib/db/workspaceProfiles';
 import { enhancementRequestsService } from '../../lib/db/enhancementRequests';
+import { enhancementMediaService } from '../../lib/db/enhancementMedia';
 import { VoiceCaptureMini } from '../../components/enhancement/VoiceCaptureMini';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -25,6 +26,7 @@ interface SoftwareItem {
 interface DiscoveryData {
   entryMode: EntryMode;
   voiceTranscript: string;
+  recordingFiles: File[];
   currentSoftware: SoftwareItem[];
   keepFeatures: string[];
   improveFeatures: string[];
@@ -41,6 +43,7 @@ interface DiscoveryData {
 const INITIAL_DATA: DiscoveryData = {
   entryMode: null,
   voiceTranscript: '',
+  recordingFiles: [],
   currentSoftware: [{ name: '', category: '', keep: '', notes: '' }],
   keepFeatures: [''],
   improveFeatures: [''],
@@ -159,17 +162,15 @@ export default function SoftwareDiscoveryOnboarding() {
   const goNext = () => setStep(s => Math.min(s + 1, STEPS.length));
   const goBack = () => setStep(s => Math.max(s - 1, 1));
 
-  // ── Final submit: write to workspace profile + create a summary enhancement request ──
+  // ── Final submit ──
   const handleComplete = async () => {
     if (!currentOrganization) return;
     setSaving(true);
     try {
-      // Build software stack string array
       const stack = data.currentSoftware
         .filter(s => s.name.trim())
         .map(s => `${s.name}${s.category ? ` (${s.category})` : ''}`);
 
-      // Write workspace intelligence profile
       await workspaceProfilesService.update(currentOrganization.id, {
         current_software_stack: stack,
         must_keep_features: data.keepFeatures.filter(Boolean),
@@ -181,17 +182,29 @@ export default function SoftwareDiscoveryOnboarding() {
         industry_context: data.industryContext || undefined,
       });
 
-      // Build a rich discovery transcript for the enhancement engine
       const discoveryTranscript = buildTranscript(data);
 
-      // Create a full_software_blueprint enhancement request
-      await enhancementRequestsService.create({
+      const req = await enhancementRequestsService.create({
         workspaceId: currentOrganization.id,
         title: `Software Discovery: ${currentOrganization.name}`,
         inputMethod: data.entryMode === 'voice' ? 'voice' : data.entryMode === 'recording' ? 'recording' : 'text',
         transcript: discoveryTranscript,
         originalPrompt: data.idealOutcome,
       });
+
+      // Upload any recording files captured on Step 1
+      if (data.recordingFiles.length > 0) {
+        await Promise.allSettled(
+          data.recordingFiles.map(file =>
+            enhancementMediaService.upload({
+              file,
+              workspaceId: currentOrganization.id,
+              enhancementRequestId: req.id,
+              annotation: 'Uploaded via Software Discovery onboarding',
+            })
+          )
+        );
+      }
 
       setDone(true);
       setTimeout(() => navigate('/app/enhancements'), 2500);
@@ -287,6 +300,169 @@ export default function SoftwareDiscoveryOnboarding() {
   );
 }
 
+// ─── Guided Voice Prompts ─────────────────────────────────────────────────────
+
+const VOICE_PROMPTS = [
+  { label: 'Start here', text: 'Tell us the names of every software tool your team uses today, even ones you dislike.' },
+  { label: 'What works', text: 'Which features or workflows do you absolutely depend on and never want to lose?' },
+  { label: 'What frustrates you', text: 'What wastes the most time? What\'s broken, confusing, or just painful every day?' },
+  { label: 'Your team', text: 'Who uses your software? Describe each role — what do they need to see and do every day?' },
+  { label: 'Ideal outcome', text: 'If your perfect system existed today, what would it let you do that you can\'t do now?' },
+  { label: 'Integrations', text: 'What other tools or systems must your new software connect to? Payments, accounting, email, etc.' },
+];
+
+function GuidedPromptCards({ isRecording }: { isRecording: boolean }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    if (!isRecording) return;
+    const timer = setInterval(() => {
+      setActiveIdx(i => (i + 1) % VOICE_PROMPTS.length);
+    }, 18000); // Rotate every 18s
+    return () => clearInterval(timer);
+  }, [isRecording]);
+
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-slate-500 uppercase tracking-widest font-semibold mb-3">
+        {isRecording ? 'Guided prompts — rotating automatically' : 'What to cover'}
+      </p>
+      <div className="grid grid-cols-2 gap-2">
+        {VOICE_PROMPTS.map((p, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveIdx(i)}
+            className={`p-3 rounded-xl text-left border transition-all ${
+              i === activeIdx
+                ? 'bg-indigo-500/15 border-indigo-500/40 shadow-sm shadow-indigo-500/10'
+                : 'bg-slate-800/40 border-slate-700/40 hover:border-slate-600'
+            }`}
+          >
+            <p className={`text-xs font-bold mb-1 ${i === activeIdx ? 'text-indigo-400' : 'text-slate-500'}`}>
+              {p.label}
+            </p>
+            <p className={`text-xs leading-relaxed ${i === activeIdx ? 'text-slate-200' : 'text-slate-500'}`}>
+              {p.text}
+            </p>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Recording Upload Panel ───────────────────────────────────────────────────
+
+function RecordingUploadPanel({
+  files,
+  onFilesChange,
+  onNext,
+}: {
+  files: File[];
+  onFilesChange: (f: File[]) => void;
+  onNext: () => void;
+}) {
+  const [dragging, setDragging] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const addFiles = (newFiles: File[]) => {
+    const valid = newFiles.filter(f =>
+      f.type.startsWith('video/') || f.type.startsWith('image/') || f.type.startsWith('audio/')
+    );
+    onFilesChange([...files, ...valid]);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragging(false);
+    addFiles(Array.from(e.dataTransfer.files));
+  };
+
+  const formatSize = (bytes: number) => {
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      className="mt-6 space-y-5"
+    >
+      <div className="p-4 bg-violet-500/5 border border-violet-500/20 rounded-2xl">
+        <p className="text-violet-300 text-sm font-semibold mb-1">What to record</p>
+        <p className="text-slate-400 text-xs leading-relaxed">
+          Screen recordings of your current software in action are most valuable.
+          Show us your dashboards, workflows, forms, reports — anything your team uses daily.
+          Screenshots and audio are also accepted.
+        </p>
+      </div>
+
+      {/* Drop zone */}
+      <div
+        onDragOver={e => { e.preventDefault(); setDragging(true); }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={handleDrop}
+        onClick={() => inputRef.current?.click()}
+        className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all ${
+          dragging
+            ? 'border-violet-500/60 bg-violet-500/10'
+            : 'border-slate-700 hover:border-slate-600 hover:bg-slate-800/30'
+        }`}
+      >
+        <input
+          ref={inputRef}
+          type="file"
+          multiple
+          accept="video/*,image/*,audio/*"
+          className="hidden"
+          onChange={e => addFiles(Array.from(e.target.files || []))}
+        />
+        <Upload className="w-8 h-8 text-slate-500 mx-auto mb-3" />
+        <p className="text-slate-300 text-sm font-medium">Drop recordings here, or click to browse</p>
+        <p className="text-slate-600 text-xs mt-1">MP4, MOV, WebM, PNG, JPG, MP3 · Max 2GB each</p>
+      </div>
+
+      {/* File list */}
+      {files.length > 0 && (
+        <div className="space-y-2">
+          {files.map((f, i) => (
+            <div key={i} className="flex items-center gap-3 p-3 bg-slate-800/50 border border-slate-700/50 rounded-xl">
+              <FileVideo className="w-4 h-4 text-violet-400 flex-shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-white text-sm truncate">{f.name}</p>
+                <p className="text-slate-500 text-xs">{formatSize(f.size)}</p>
+              </div>
+              <button
+                onClick={() => onFilesChange(files.filter((_, idx) => idx !== i))}
+                className="p-1 text-slate-600 hover:text-red-400 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          ))}
+          <button
+            onClick={onNext}
+            className="mt-2 w-full flex items-center justify-center gap-2 px-5 py-3 bg-violet-600 hover:bg-violet-500 text-white rounded-xl font-semibold text-sm transition-all"
+          >
+            Continue with {files.length} recording{files.length > 1 ? 's' : ''} <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
+      {files.length === 0 && (
+        <button
+          onClick={onNext}
+          className="w-full text-center text-xs text-slate-600 hover:text-slate-400 transition-colors py-2"
+        >
+          Skip and continue without uploading
+        </button>
+      )}
+    </motion.div>
+  );
+}
+
 // ─── Step 1: Entry Mode Selection ─────────────────────────────────────────────
 
 function Step1EntryMode({
@@ -297,7 +473,7 @@ function Step1EntryMode({
       id: 'voice' as EntryMode,
       icon: Mic,
       title: 'Talk me through it',
-      desc: 'Speak naturally about your current software, workflows, and what you want. We\'ll listen and extract every detail.',
+      desc: 'Speak naturally about your current software, workflows, and what you want. Guided prompts keep you on track.',
       badge: 'Recommended',
       badgeColor: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
       iconBg: 'bg-indigo-600',
@@ -319,7 +495,7 @@ function Step1EntryMode({
       id: 'recording' as EntryMode,
       icon: Video,
       title: 'Show us your screen',
-      desc: 'Upload a recording of your current software in action. We\'ll analyze the workflows and extract the features you use.',
+      desc: 'Upload recordings of your current software in action. We extract workflows, features, and UI patterns automatically.',
       badge: 'Deep Analysis',
       badgeColor: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
       iconBg: 'bg-violet-600',
@@ -329,10 +505,11 @@ function Step1EntryMode({
   ];
 
   const [voiceTranscript, setVoiceTranscript] = useState(data.voiceTranscript);
+  const [isVoiceRecording, setIsVoiceRecording] = useState(false);
 
   const handleSelect = (mode: EntryMode) => {
     update({ entryMode: mode, voiceTranscript });
-    if (mode !== 'voice') onNext();
+    if (mode === 'type') onNext();
   };
 
   return (
@@ -369,33 +546,45 @@ function Step1EntryMode({
         ))}
       </div>
 
-      {/* Voice panel — shown when voice is selected */}
+      {/* Voice panel */}
       <AnimatePresence>
         {data.entryMode === 'voice' && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="mt-6 p-5 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl"
+            className="mt-6 p-5 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl space-y-6"
           >
-            <p className="text-indigo-300 text-sm font-semibold mb-1">Ready to listen</p>
-            <p className="text-slate-400 text-xs mb-4">
-              Tell us: what software you use, what you like, what frustrates you, and what your ideal system would do.
-            </p>
+            <div>
+              <p className="text-indigo-300 text-sm font-semibold mb-1">Recording session</p>
+              <p className="text-slate-500 text-xs">Speak freely — the prompts below will guide you through each topic automatically.</p>
+            </div>
+            <GuidedPromptCards isRecording={isVoiceRecording} />
             <VoiceCaptureMini
               transcript={voiceTranscript}
               onTranscriptChange={(t) => { setVoiceTranscript(t); update({ voiceTranscript: t }); }}
-              placeholder="Tell us about the software you use, what you like and dislike, and what you wish existed..."
+              placeholder="Follow the prompts above and speak naturally. We'll extract every detail."
             />
             {voiceTranscript.length > 30 && (
               <button
                 onClick={onNext}
-                className="mt-4 w-full flex items-center justify-center gap-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-sm transition-all"
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-sm transition-all"
               >
                 Continue with this transcript <ArrowRight className="w-4 h-4" />
               </button>
             )}
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Recording upload panel */}
+      <AnimatePresence>
+        {data.entryMode === 'recording' && (
+          <RecordingUploadPanel
+            files={data.recordingFiles}
+            onFilesChange={(f) => update({ recordingFiles: f })}
+            onNext={onNext}
+          />
         )}
       </AnimatePresence>
     </StepCard>

@@ -86,7 +86,7 @@ export interface FeatureItem {
   description: string;
   priority: 'critical' | 'high' | 'medium' | 'low';
   category: string;
-  source: 'voice' | 'recording' | 'screenshot' | 'inferred';
+  source: 'voice' | 'recording' | 'screenshot' | 'inferred' | 'profile';
   confidence: number;
 }
 
