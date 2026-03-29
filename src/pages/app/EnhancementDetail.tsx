@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import {
   ArrowLeft, Mic, Type, Video, Sparkles, CheckCircle2, XCircle,
   Clock, FileText, Layers, AlertTriangle, ChevronDown, ChevronUp,
-  Activity, Lightbulb, Workflow, Target, Loader2, Image as ImageIcon
+  Activity, Lightbulb, Workflow, Target, Loader2, Image as ImageIcon,
+  MonitorPlay, MousePointerClick, Database
 } from 'lucide-react';
 import AppHeader from '../../components/app/AppHeader';
 import Card from '../../components/Card';
@@ -15,7 +16,7 @@ import { StatusBadgeWES, RequestTypeBadge } from '../../components/enhancement/S
 import { useAuth } from '../../contexts/AuthContext';
 import { enhancementRequestsService } from '../../lib/db/enhancementRequests';
 import { formatRelativeTime } from '../../lib/dateUtils';
-import type { EnhancementRequest, FeatureItem, RiskItem, ImplementationStep } from '../../types/enhancement';
+import type { EnhancementRequest, FeatureItem, RiskItem, ImplementationStep, UIStructureItem } from '../../types/enhancement';
 
 const INPUT_ICONS = { voice: Mic, text: Type, recording: Video, screenshot: ImageIcon, mixed: Video };
 
@@ -198,6 +199,84 @@ export default function EnhancementDetail() {
                 </div>
               </div>
             </CollapsibleSection>
+
+            {/* Virtual Prototype Walkthrough */}
+            {rec.ui_structure?.length > 0 && (
+              <CollapsibleSection title={`Virtual Software Preview (${rec.ui_structure.length} Screens)`} icon={MonitorPlay} defaultOpen={true}>
+                <div className="space-y-6">
+                  {rec.ui_structure.map((ui: UIStructureItem, i: number) => (
+                    <div key={i} className="group relative bg-[#0b1121] border border-slate-700 rounded-xl overflow-hidden shadow-2xl">
+                      {/* Browser Decor */}
+                      <div className="flex items-center gap-2 px-4 py-2 bg-slate-800/80 border-b border-slate-700">
+                        <div className="flex gap-1.5">
+                          <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+                          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
+                        </div>
+                        <div className="mx-auto bg-slate-900/50 text-slate-400 text-[10px] px-3 py-1 rounded-full font-medium tracking-wide border border-white/5">
+                          bridgebox.ai/preview/{ui.screen_name.toLowerCase().replace(/\s+/g, '-')}
+                        </div>
+                      </div>
+                      
+                      {/* Canvas Elements */}
+                      <div className="p-5 space-y-5">
+                        <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                          <h4 className="text-white font-bold tracking-tight">{ui.screen_name}</h4>
+                          <span className="text-[10px] text-indigo-300 bg-indigo-500/20 px-2 py-0.5 rounded uppercase font-bold tracking-wider">
+                            Interactive Prototype
+                          </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          {/* Layout Components */}
+                          <div className="space-y-2">
+                            <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                              <MonitorPlay className="w-3.5 h-3.5" /> Rendered Layout
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              {ui.components.map((comp: string, cx: number) => (
+                                <div key={cx} className="px-2.5 py-1.5 bg-slate-800/60 border border-slate-700/50 rounded-md text-xs text-slate-300 whitespace-nowrap">
+                                  {comp}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Data Binding */}
+                          <div className="space-y-2">
+                            <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                              <Database className="w-3.5 h-3.5" /> Bound Model Data
+                            </p>
+                            <div className="flex flex-col gap-1.5">
+                              {ui.data_displayed.map((data: string, dx: number) => (
+                                <div key={dx} className="flex items-center gap-2 text-xs text-emerald-200/80">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/50"></div>
+                                  {data}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Interactive Logic */}
+                        <div className="pt-3 border-t border-white/5">
+                          <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                            <MousePointerClick className="w-3.5 h-3.5" /> Virtual Interactions
+                          </p>
+                          <div className="flex flex-col gap-1.5">
+                             {ui.interactions.map((inter: string, ix: number) => (
+                                <p key={ix} className="text-xs text-indigo-200/70 border-l border-indigo-500/30 pl-2">
+                                  <span className="text-indigo-400 font-medium mr-1">WHEN</span> {inter}
+                                </p>
+                             ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CollapsibleSection>
+            )}
 
             {/* Feature list */}
             {rec.feature_list?.length > 0 && (

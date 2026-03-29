@@ -283,7 +283,26 @@ export function buildEnhancementRecommendations(
     business_summary: businessSummary,
     feature_list: features,
     workflow_breakdown: workflows,
-    ui_structure: [],
+    ui_structure: [
+      {
+        screen_name: "Master Control Dashboard",
+        components: ["Global Navigation", "Metric KPI Cards", "Recent Activity Feed", "Quick Action Floating Menu"],
+        interactions: ["Click KPI to open drilldown", "Drag components to re-arrange layout"],
+        data_displayed: ["Aggregated total metrics", "Real-time task graphs", "User session indicators"]
+      },
+      {
+        screen_name: "Workflow & Operations Hub",
+        components: ["Interactive Kanban Board", "Data Grid Table", "Contextual Insight Panel", "Export Utility"],
+        interactions: ["Drag-and-drop status lanes", "Row multi-select", "Right-click context actions"],
+        data_displayed: ["Active task entities", "Assigned operators", "Workflow timestamps", "Priority severity flags"]
+      },
+      {
+        screen_name: "Deep Detail View",
+        components: ["Omni-Search Bar", "Properties Sandbox", "Historical Audit Log", "Relation Graph Modal"],
+        interactions: ["Inline edit properties", "Expand complex nested data", "Hover to view audit diffs"],
+        data_displayed: ["Core entity properties", "Relational foreign keys", "Calculated formulas"]
+      }
+    ],
     data_model_hypothesis: [],
     integration_map: [],
     automation_opportunities: automations,

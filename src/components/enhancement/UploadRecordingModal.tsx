@@ -182,8 +182,25 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
 
       await Promise.all(uploadPromises);
 
-      // Update status to submitted
-      await enhancementRequestsService.updateStatus(request.id, 'submitted', currentOrganization.id);
+      await Promise.all(uploadPromises);
+
+      // Generate the internal AI blueprint automatically for the immediate Virtual Tour
+      const { buildEnhancementRecommendations } = await import('../../lib/enhancement/analysisEngine');
+      const recResult = buildEnhancementRecommendations(
+        description || 'Screen recording of existing software workflow',
+        files.length
+      );
+
+      // Save the analysis to the database and transition state to ready_for_review automatically
+      await enhancementRequestsService.submitForAnalysis(
+        request.id,
+        currentOrganization.id,
+        {
+          analysis_summary: recResult.business_summary,
+          recommendations_json: recResult,
+          request_type: recResult.request_classification,
+        }
+      );
 
       setCreatedId(request.id);
       setDone(true);
