@@ -58,7 +58,7 @@ export default function VoiceCapturePanel({
     return () => {
       stopTimer();
       if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch {}
+        try { recognitionRef.current.stop(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
       }
     };
   }, [stopTimer]);
@@ -105,7 +105,7 @@ export default function VoiceCapturePanel({
     recognition.onend = () => {
       // Auto-restart if still supposed to be recording (handles Chrome 60s limit)
       if (isRecording && !isPaused) {
-        try { recognition.start(); } catch {}
+        try { recognition.start(); } catch (_e) { /* Chrome 60s auto-restart — safe to ignore */ }
       }
     };
 
@@ -119,7 +119,7 @@ export default function VoiceCapturePanel({
 
   const pauseRecording = useCallback(() => {
     if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch {}
+      try { recognitionRef.current.stop(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
     }
     setIsPaused(true);
     stopTimer();
@@ -128,13 +128,13 @@ export default function VoiceCapturePanel({
   const resumeRecording = useCallback(() => {
     if (!recognitionRef.current) return;
     setIsPaused(false);
-    try { recognitionRef.current.start(); } catch {}
+    try { recognitionRef.current.start(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
     startTimer();
   }, [startTimer]);
 
   const stopRecording = useCallback(() => {
     if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch {}
+      try { recognitionRef.current.stop(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
       recognitionRef.current = null;
     }
     stopTimer();
@@ -149,7 +149,7 @@ export default function VoiceCapturePanel({
   const handleReset = useCallback(() => {
     stopTimer();
     if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch {}
+      try { recognitionRef.current.stop(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
       recognitionRef.current = null;
     }
     accumulatedRef.current = '';
