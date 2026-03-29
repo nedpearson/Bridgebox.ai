@@ -599,6 +599,8 @@ function Step1EntryMode({
       <AnimatePresence>
         {data.entryMode === 'voice' && (
           <motion.div
+            key="voice-panel"
+            id="voice-recording-panel"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -629,11 +631,13 @@ function Step1EntryMode({
       {/* Recording upload panel */}
       <AnimatePresence>
         {data.entryMode === 'recording' && (
-          <RecordingUploadPanel
-            files={data.recordingFiles}
-            onFilesChange={(f) => update({ recordingFiles: f })}
-            onNext={onNext}
-          />
+          <motion.div key="recording-panel">
+            <RecordingUploadPanel
+              files={data.recordingFiles}
+              onFilesChange={(f) => update({ recordingFiles: f })}
+              onNext={onNext}
+            />
+          </motion.div>
         )}
       </AnimatePresence>
     </StepCard>
