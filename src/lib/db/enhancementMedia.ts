@@ -1,3 +1,4 @@
+import * as tus from 'tus-js-client';
 import { supabase } from '../supabase';
 import type { EnhancementMedia, MediaProcessingStatus } from '../../types/enhancement';
 
@@ -7,9 +8,13 @@ export const enhancementMediaService = {
     workspaceId: string;
     enhancementRequestId: string;
     annotation?: string;
+    onProgress?: (progress: number) => void;
   }): Promise<EnhancementMedia> {
-    const { data: userResult } = await supabase.auth.getUser();
-    if (!userResult.user) throw new Error('Not authenticated');
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData.session) throw new Error('Not authenticated');
+    
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData.user) throw new Error('Not authenticated');
 
     const fileType: EnhancementMedia['file_type'] = params.file.type.startsWith('image/')
       ? 'screenshot'
@@ -29,39 +34,49 @@ export const enhancementMediaService = {
     let finalPath = storagePath;
     let storageUrl: string | undefined;
 
-    try {
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('enhancement_media')
-        .upload(storagePath, params.file, { cacheControl: '3600', upsert: false });
+    // Upload via high-performance fast streams using Tus Protocol to combat timeout issues
+    await new Promise<void>((resolve, reject) => {
+      const upload = new tus.Upload(params.file, {
+        endpoint: `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/upload/resumable`,
+        retryDelays: [0, 1000, 3000, 5000],
+        headers: {
+          authorization: `Bearer ${sessionData.session?.access_token}`,
+          'x-upsert': 'true',
+        },
+        uploadDataDuringCreation: true,
+        removeFingerprintOnSuccess: true,
+        metadata: {
+          bucketName: 'enhancement_media',
+          objectName: storagePath,
+          contentType: params.file.type || 'application/octet-stream',
+          cacheControl: '3600',
+        },
+        chunkSize: 6 * 1024 * 1024,
+        onError: reject,
+        onProgress: (bytesUploaded, bytesTotal) => {
+          params.onProgress?.((bytesUploaded / bytesTotal) * 100);
+        },
+        onSuccess: () => resolve(),
+      });
 
-      if (uploadError) throw uploadError;
-      finalPath = uploadData.path;
+      upload.findPreviousUploads().then((previous) => {
+        if (previous.length) upload.resumeFromPreviousUpload(previous[0]);
+        upload.start();
+      });
+    });
 
-      const { data: urlData } = await supabase.storage
-        .from('enhancement_media')
-        .createSignedUrl(finalPath, 3600);
-      storageUrl = urlData?.signedUrl;
-    } catch {
-      // Fallback to internal_assets if bucket doesn't exist yet
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('internal_assets')
-        .upload(storagePath, params.file, { cacheControl: '3600', upsert: false });
+    const { data: urlData } = await supabase.storage
+      .from('enhancement_media')
+      .createSignedUrl(finalPath, 3600);
+    storageUrl = urlData?.signedUrl;
 
-      if (uploadError) throw uploadError;
-      finalPath = uploadData.path;
-
-      const { data: urlData } = await supabase.storage
-        .from('internal_assets')
-        .createSignedUrl(finalPath, 3600);
-      storageUrl = urlData?.signedUrl;
-    }
 
     const { data, error } = await supabase
       .from('bb_enhancement_media')
       .insert({
         enhancement_request_id: params.enhancementRequestId,
         workspace_id: params.workspaceId,
-        uploaded_by: userResult.user.id,
+        uploaded_by: userData.user.id,
         file_name: params.file.name,
         file_type: fileType,
         mime_type: params.file.type,

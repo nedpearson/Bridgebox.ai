@@ -32,7 +32,7 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
   const [files, setFiles] = useState<PendingFile[]>([]);
   const [description, setDescription] = useState('');
   const [isUploading, setIsUploading] = useState(false);
-  const [progress, setProgress] = useState<Record<string, 'pending' | 'uploading' | 'done' | 'error'>>({});
+  const [progress, setProgress] = useState<Record<string, string>>({});
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
   const [createdId, setCreatedId] = useState('');
@@ -116,9 +116,9 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
         originalPrompt: description.trim() || undefined,
       });
 
-      // Upload each file
-      for (const pf of files) {
-        setProgress(prev => ({ ...prev, [pf.id]: 'uploading' }));
+      // Upload each file concurrently
+      const uploadPromises = files.map(async (pf) => {
+        setProgress(prev => ({ ...prev, [pf.id]: '0%' }));
         try {
           // Dynamic pricing based on 200MB chunks
           const isImage = ALLOWED_IMAGE.includes(pf.file.type);
@@ -144,15 +144,18 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
             workspaceId: currentOrganization.id,
             enhancementRequestId: request.id,
             annotation: pf.annotation || undefined,
+            onProgress: (p) => setProgress(prev => ({ ...prev, [pf.id]: `${Math.round(p)}%` }))
           });
           await enhancementRequestsService.incrementMediaCount(request.id, currentOrganization.id);
           setProgress(prev => ({ ...prev, [pf.id]: 'done' }));
         } catch (err: any) {
           setProgress(prev => ({ ...prev, [pf.id]: 'error' }));
           setError(err.message || 'Upload or credit deduction failed.');
-          break; // Stop processing further files
+          throw err;
         }
-      }
+      });
+
+      await Promise.all(uploadPromises);
 
       // Update status to submitted
       await enhancementRequestsService.updateStatus(request.id, 'submitted', currentOrganization.id);
@@ -266,8 +269,13 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
                             className="mt-1.5 w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-violet-500 placeholder:text-slate-600"
                           />
                         </div>
-                        <div className="flex-shrink-0 flex items-center">
-                          {progress[pf.id] === 'uploading' && <Loader2 className="w-4 h-4 text-blue-400 animate-spin" />}
+                        <div className="flex-shrink-0 flex flex-col items-center justify-center min-w-[32px]">
+                          {progress[pf.id] && progress[pf.id] !== 'done' && progress[pf.id] !== 'error' && (
+                            <>
+                              <Loader2 className="w-4 h-4 text-blue-400 animate-spin mb-1" />
+                              <span className="text-[10px] text-blue-400 font-mono font-medium">{progress[pf.id]}</span>
+                            </>
+                          )}
                           {progress[pf.id] === 'done' && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
                           {progress[pf.id] === 'error' && <AlertCircle className="w-4 h-4 text-red-400" />}
                           {!progress[pf.id] && (
