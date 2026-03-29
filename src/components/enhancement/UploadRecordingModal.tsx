@@ -2,7 +2,8 @@ import { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, Upload, Video, Image as ImageIcon, FileVideo,
-  Loader2, CheckCircle2, AlertCircle, Trash2, Plus
+  Loader2, CheckCircle2, AlertCircle, Trash2, Plus,
+  CreditCard, DollarSign, ArrowLeft
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { enhancementRequestsService } from '../../lib/db/enhancementRequests';
@@ -32,6 +33,7 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
   const [files, setFiles] = useState<PendingFile[]>([]);
   const [description, setDescription] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [pendingCost, setPendingCost] = useState<number | null>(null);
   const [progress, setProgress] = useState<Record<string, string>>({});
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
@@ -45,6 +47,7 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
     setDone(false);
     setCreatedId('');
     setIsUploading(false);
+    setPendingCost(null);
     onClose();
   }, [onClose]);
 
@@ -94,7 +97,21 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
     setFiles(prev => prev.map(f => f.id === id ? { ...f, annotation } : f));
   }, []);
 
-  const handleSubmit = useCallback(async () => {
+  const handlePreSubmit = () => {
+    if (files.length === 0) {
+      setError('Please add at least one file.');
+      return;
+    }
+    const totalCostRequired = files.reduce((acc, pf) => {
+      const isImage = ALLOWED_IMAGE.includes(pf.file.type);
+      const baseCost = isImage ? 3 : 8;
+      const sizeMultiplier = Math.max(1, Math.ceil(pf.file.size / (200 * 1024 * 1024)));
+      return acc + (baseCost * sizeMultiplier);
+    }, 0);
+    setPendingCost(totalCostRequired);
+  };
+
+  const handleSubmit = async () => {
     if (!currentOrganization || files.length === 0) return;
     setIsUploading(true);
     setError('');
@@ -168,7 +185,7 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
     } finally {
       setIsUploading(false);
     }
-  }, [user, currentOrganization, files, description, onCreated]);
+  };
 
   if (!isOpen) return null;
 
@@ -207,6 +224,7 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
 
           <div className="flex-1 overflow-y-auto p-6 space-y-5">
             {!done ? (
+              pendingCost === null ? (
               <>
                 {/* Drop zone */}
                 <div
@@ -321,17 +339,61 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
                 )}
 
                 <button
-                  onClick={handleSubmit}
+                  onClick={handlePreSubmit}
                   disabled={isUploading || files.length === 0}
                   className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 disabled:from-slate-700 disabled:to-slate-700 disabled:text-slate-500 text-white rounded-xl font-semibold transition-all"
                 >
-                  {isUploading ? (
-                    <><Loader2 className="w-4 h-4 animate-spin" /> Uploading {files.length} file{files.length > 1 ? 's' : ''}...</>
-                  ) : (
-                    <><Upload className="w-4 h-4" /> Upload & Register</>
-                  )}
+                  <Upload className="w-4 h-4" /> Next Step
                 </button>
               </>
+              ) : (
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-blue-500/15 border border-blue-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <CreditCard className="w-8 h-8 text-blue-400" />
+                    </div>
+                    <h3 className="text-white font-bold text-xl">Approve AI Credit Usage</h3>
+                    <p className="text-slate-400 text-sm mt-2">
+                      Processing these {files.length} file(s) requires AI ingestion credits.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-slate-800/80 border border-slate-700/50 rounded-xl p-5 space-y-4">
+                    <div className="flex items-center justify-between pb-4 border-b border-slate-700">
+                      <span className="text-slate-400 font-medium">AI Credits Required</span>
+                      <span className="text-white font-bold text-lg">{pendingCost} Credits</span>
+                    </div>
+                    <div className="flex items-center justify-between pb-2">
+                      <span className="text-slate-400 font-medium">Equivalent Value Commitment</span>
+                      <span className="text-emerald-400 font-bold flex items-center gap-1">
+                        <DollarSign className="w-4 h-4" />
+                        {((pendingCost || 0) * 0.50).toFixed(2)} USD
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 pt-2">
+                    <button
+                      onClick={() => setPendingCost(null)}
+                      disabled={isUploading}
+                      className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2"
+                    >
+                      <ArrowLeft className="w-4 h-4" /> Back
+                    </button>
+                    <button
+                      onClick={handleSubmit}
+                      disabled={isUploading}
+                      className="flex-[2] py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2"
+                    >
+                      {isUploading ? (
+                        <><Loader2 className="w-4 h-4 animate-spin" /> Committing Funds...</>
+                      ) : (
+                        <><CheckCircle2 className="w-4 h-4" /> Approve & Upload</>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              )
             ) : (
               <div className="text-center py-8 space-y-4">
                 <div className="w-16 h-16 bg-emerald-500/15 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto">
