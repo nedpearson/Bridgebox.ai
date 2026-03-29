@@ -86,8 +86,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } else {
           setLoading(false);
         }
-      } catch (err) {
-        console.error('Initial session fetch error:', err);
+      } catch (err: any) {
+        // If the session refresh fails (e.g. stale token from a previous deployment),
+        // silently clear all local auth state and let the user log in fresh.
+        // This prevents "Database error querying schema" from showing on the login page.
+        const msg = err?.message || '';
+        if (
+          msg.includes('Database error') ||
+          msg.includes('schema') ||
+          msg.includes('Invalid Refresh Token') ||
+          msg.includes('refresh_token_not_found') ||
+          msg.includes('JWT')
+        ) {
+          console.warn('Stale session detected — clearing local auth state.', msg);
+          try {
+            localStorage.clear();
+            sessionStorage.clear();
+            await authService.signOut().catch(() => {});
+          } catch (_) { /* ignore */ }
+        } else {
+          console.error('Initial session fetch error:', err);
+        }
         if (mounted) setLoading(false);
       }
     };
@@ -101,8 +120,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        // Prevent duplicate loads if already loading or if the session just initialized
-        if (event !== 'INITIAL_SESSION') {
+        // Prevent duplicate loads on INITIAL_SESSION (handled by initialize())
+        // and TOKEN_REFRESHED (no profile reload needed on silent refresh)
+        if (event !== 'INITIAL_SESSION' && event !== 'TOKEN_REFRESHED') {
           await loadUserData();
         }
       } else {

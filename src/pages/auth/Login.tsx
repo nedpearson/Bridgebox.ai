@@ -34,10 +34,37 @@ export default function Login() {
     try {
       await signIn(email, password);
     } catch (err: any) {
-      setError(err.message || 'Failed to sign in. Please check your credentials.');
+      const raw: string = err?.message || '';
+      // Map ugly internal Supabase/Postgres errors to friendly messages
+      let friendly = raw;
+      if (
+        raw.includes('Database error') ||
+        raw.includes('querying schema') ||
+        raw.includes('schema cache')
+      ) {
+        friendly = 'Sign in failed due to a temporary server issue. Please try again.';
+      } else if (
+        raw.includes('Invalid login credentials') ||
+        raw.includes('invalid_credentials')
+      ) {
+        friendly = 'Incorrect email or password. Please try again.';
+      } else if (
+        raw.includes('Invalid Refresh Token') ||
+        raw.includes('refresh_token_not_found') ||
+        raw.includes('JWT')
+      ) {
+        // Stale session — clear storage and show a clean retry message
+        localStorage.clear();
+        sessionStorage.clear();
+        friendly = 'Your session expired. Please sign in again.';
+      } else if (!raw) {
+        friendly = 'Failed to sign in. Please check your credentials.';
+      }
+      setError(friendly);
       setLoading(false);
     }
   };
+
 
   const handlePasskeyLogin = async () => {
     try {
