@@ -114,6 +114,7 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
   const handleSubmit = async () => {
     if (!currentOrganization || files.length === 0) return;
     setIsUploading(true);
+    setPendingCost(null);
     setError('');
 
     try {
@@ -343,7 +344,11 @@ export default function UploadRecordingModal({ isOpen, onClose, onCreated }: Upl
                   disabled={isUploading || files.length === 0}
                   className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 disabled:from-slate-700 disabled:to-slate-700 disabled:text-slate-500 text-white rounded-xl font-semibold transition-all"
                 >
-                  <Upload className="w-4 h-4" /> Next Step
+                  {isUploading ? (
+                    <><Loader2 className="w-4 h-4 animate-spin" /> Uploading {files.length} file{files.length !== 1 ? 's' : ''}...</>
+                  ) : (
+                    <><Upload className="w-4 h-4" /> Next Step</>
+                  )}
                 </button>
               </>
               ) : (
