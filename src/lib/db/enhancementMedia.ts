@@ -43,7 +43,7 @@ export const enhancementMediaService = {
           authorization: `Bearer ${sessionData.session?.access_token}`,
           'x-upsert': 'true',
         },
-        uploadDataDuringCreation: true,
+        uploadDataDuringCreation: false,
         removeFingerprintOnSuccess: true,
         metadata: {
           bucketName: 'enhancement_media',
