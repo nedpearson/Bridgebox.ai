@@ -52,7 +52,11 @@ export function VoiceCaptureMini({ transcript, onTranscriptChange, placeholder }
     rec.onresult = (e: any) => {
       let fin = '', inter = '';
       for (let i = e.resultIndex; i < e.results.length; i++) {
-        e.results[i].isFinal ? (fin += e.results[i][0].transcript + ' ') : (inter += e.results[i][0].transcript);
+        if (e.results[i].isFinal) {
+          fin += e.results[i][0].transcript + ' ';
+        } else {
+          inter += e.results[i][0].transcript;
+        }
       }
       if (fin) { accumulated.current += fin; onTranscriptChange(accumulated.current); }
       setInterim(inter);
@@ -62,7 +66,9 @@ export function VoiceCaptureMini({ transcript, onTranscriptChange, placeholder }
       setIsRecording(false); setIsPaused(false); stopTimer();
     };
     rec.onend = () => {
-      if (isRecording && !isPaused) try { rec.start(); } catch {}
+      if (isRecording && !isPaused) {
+        try { rec.start(); } catch (_e) { /* auto-restart blocked — Chrome limit or aborted */ }
+      }
     };
 
     rec.start();
@@ -77,7 +83,7 @@ export function VoiceCaptureMini({ transcript, onTranscriptChange, placeholder }
 
   const resume = useCallback(() => {
     setIsPaused(false);
-    try { recognitionRef.current?.start?.(); } catch {}
+    try { recognitionRef.current?.start?.(); } catch (_e) { /* resumed state already set */ }
     startTimer();
   }, []);
 
