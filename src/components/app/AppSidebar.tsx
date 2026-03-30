@@ -145,7 +145,7 @@ export default function AppSidebar() {
     {
       icon: Video,
       label: "Recording Center",
-      path: "/app/recording-center",
+      path: "/app/internal/recording-center",
       requirePermission: permissions.canAccessAdminPanel,
     },
     {

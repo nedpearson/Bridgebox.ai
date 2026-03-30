@@ -599,6 +599,15 @@ function App() {
                               element={<MarketSignals />}
                             />
                             <Route
+                              path="/recording-center"
+                              element={
+                                <Navigate
+                                  to="/app/internal/recording-center"
+                                  replace
+                                />
+                              }
+                            />
+                            <Route
                               path="/opportunities"
                               element={<Opportunities />}
                             />
