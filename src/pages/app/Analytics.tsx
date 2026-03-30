@@ -1037,7 +1037,7 @@ function DeliveryView({ data }: { data: any }) {
               <p className="text-slate-400 text-sm">Avg. Duration</p>
             </div>
             <p className="text-3xl font-bold text-white">
-              {data.averageCompletion.toFixed(0)}d
+              {(data?.avgProjectDuration || 0).toFixed(0)}d
             </p>
           </Card>
         </Link>
@@ -1313,7 +1313,7 @@ function SupportView({ data }: { data: any }) {
               <p className="text-slate-400 text-sm">Avg. Resolution</p>
             </div>
             <p className="text-3xl font-bold text-white">
-              {data.averageResolutionTime.toFixed(0)}h
+              {(data?.avgResolutionTime || 0).toFixed(0)}h
             </p>
           </Card>
         </Link>
