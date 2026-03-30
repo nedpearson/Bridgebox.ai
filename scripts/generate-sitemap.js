@@ -7,27 +7,7 @@ const __dirname = path.dirname(__filename);
 
 const BASE_URL = 'https://bridgebox.ai';
 
-// Simple Regex Extractor to avoid ts-node overhead during CI/CD build scripts
-function extractSlugsFromTsFile(filePath) {
-  try {
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const slugMatches = [...content.matchAll(/slug:\s*['"]([^'"]+)['"]/g)];
-    return slugMatches.map(match => match[1]);
-  } catch (error) {
-    console.warn(`Could not read ${filePath} for SEO generation. Assuming empty.`);
-    return [];
-  }
-}
-
-// Map the static programmatic arrays
-const industries = extractSlugsFromTsFile(path.join(__dirname, '../src/data/marketing/industries.ts'));
-const useCases = extractSlugsFromTsFile(path.join(__dirname, '../src/data/marketing/use-cases.ts'));
-const integrations = extractSlugsFromTsFile(path.join(__dirname, '../src/data/marketing/integrations.ts'));
-const comparisons = extractSlugsFromTsFile(path.join(__dirname, '../src/data/marketing/comparisons.ts'));
-const features = extractSlugsFromTsFile(path.join(__dirname, '../src/data/marketing/features.ts'));
-
-// Build Core Pages structure
-const pages = [
+const corePages = [
   '/',
   '/platform',
   '/solutions',
@@ -45,12 +25,18 @@ const pages = [
   '/start'
 ];
 
-// Append dynamic pages
-industries.forEach(slug => pages.push(`/solutions/${slug}`));
-useCases.forEach(slug => pages.push(`/use-cases/${slug}`));
-integrations.forEach(slug => pages.push(`/integrations/${slug}`));
-comparisons.forEach(slug => pages.push(`/compare/${slug}`));
-features.forEach(slug => pages.push(`/features/${slug}`));
+let pages = [...corePages];
+
+try {
+  const registryRaw = fs.readFileSync(path.join(__dirname, '../src/data/seo-content/registry.json'), 'utf-8');
+  const registry = JSON.parse(registryRaw);
+  
+  registry.forEach(route => {
+    pages.push(`/${route.category}/${route.slug}`);
+  });
+} catch (err) {
+  console.warn(`Could not load programmatic SEO registry. Generating standard core pages.`);
+}
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

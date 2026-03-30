@@ -1,0 +1,80 @@
+{
+  "id": "features-data-normalization",
+  "category": "features",
+  "slug": "data-normalization",
+  "keyword": "data normalization",
+  "intent": "informational",
+  "difficulty": "medium",
+  "priority": "high",
+  "metadata": {
+    "title": "Data Normalization - Core Capability | Bridgebox AI",
+    "description": "Discover how Bridgebox AI can streamline your operations with data normalization. Automate intelligently and scale without heavy custom development.",
+    "canonical": "https://bridgebox.ai/features/data-normalization"
+  },
+  "content": {
+    "heroH1": "Data Normalization",
+    "heroSubtitle": "Discover how the data normalization capability empowers the next generation of enterprise architecture.",
+    "problemStatement": "Most organizations struggle to implement data normalization because traditional software development is too slow and generic no-code tools lack enterprise robustness.",
+    "solutionExplanation": "Bridgebox provides a dedicated AI intelligence layer that understands your distinct operations. We translate your natural voice and workflow recordings directly into a scalable data normalization environment.",
+    "benefits": [
+      {
+        "title": "Rapid Deployment",
+        "description": "Launch enterprise-grade automations in days, not months."
+      },
+      {
+        "title": "Zero Technical Debt",
+        "description": "Our AI generates clean, scalable architecture behind the scenes."
+      },
+      {
+        "title": "End-to-End Security",
+        "description": "Bank-level encryption and strict multi-tenant data isolation natively."
+      }
+    ],
+    "featuresUsed": [
+      "voice-to-build",
+      "screen recording ingestion",
+      "integration engine"
+    ],
+    "integrationsReferenced": [
+      "quickbooks",
+      "salesforce"
+    ],
+    "faq": [
+      {
+        "question": "How long does it take to implement data normalization logic?",
+        "answer": "Depending on complexity, Bridgebox can orchestrate your initial workflow in minutes to hours using Voice-to-Build capabilities."
+      },
+      {
+        "question": "Do I need a database administrator?",
+        "answer": "No. Bridgebox natively provisions and scales your relational tables autonomously through your conversational intents."
+      }
+    ],
+    "cta": {
+      "primary": "Start Building for Free",
+      "secondary": "Talk to an Automation Architect",
+      "trustText": "Join innovative companies replacing legacy systems with autonomous software."
+    }
+  },
+  "internalLinks": [
+    {
+      "text": "Explore The Ultimate Guide To Scaling Employee Onboarding Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-employee-onboarding-processes"
+    },
+    {
+      "text": "Explore Automate Social Media Posting",
+      "url": "/use-cases/social-media-posting"
+    },
+    {
+      "text": "Explore 5 Ways To Automate Construction Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-construction-operations-without-coding"
+    },
+    {
+      "text": "Explore Automate Client Onboarding",
+      "url": "/use-cases/client-onboarding"
+    },
+    {
+      "text": "Explore Bridgebox Vs Custom Development",
+      "url": "/compare/bridgebox-vs-custom-development"
+    }
+  ]
+}

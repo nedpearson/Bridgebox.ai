@@ -32,11 +32,7 @@ const CaseStudyDetail = lazy(() => import("./pages/CaseStudyDetail"));
 const Industries = lazy(() => import("./pages/Industries"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Start = lazy(() => import("./pages/Start"));
-const IndustrySolution = lazy(() => import("./pages/marketing/IndustrySolution"));
-const UseCaseSolution = lazy(() => import("./pages/marketing/UseCaseSolution"));
-const IntegrationSolution = lazy(() => import("./pages/marketing/IntegrationSolution"));
-const ComparisonSolution = lazy(() => import("./pages/marketing/ComparisonSolution"));
-const FeatureSolution = lazy(() => import("./pages/marketing/FeatureSolution"));
+const ProgrammaticSeoPage = lazy(() => import("./pages/marketing/ProgrammaticSeoPage"));
 const Login = lazy(() => import("./pages/auth/Login"));
 const Signup = lazy(() => import("./pages/auth/Signup"));
 const SalesOnboarding = lazy(
@@ -945,12 +941,13 @@ function App() {
                           <Route path="/" element={<Home />} />
                           <Route path="/platform" element={<Platform />} />
                           <Route path="/solutions" element={<Solutions />} />
-                          <Route path="/solutions/:industrySlug" element={<IndustrySolution />} />
+                          <Route path="/industry/:slug" element={<ProgrammaticSeoPage />} />
                           <Route path="/use-cases" element={<UseCases />} />
-                          <Route path="/use-cases/:slug" element={<UseCaseSolution />} />
-                          <Route path="/integrations/:slug" element={<IntegrationSolution />} />
-                          <Route path="/compare/:slug" element={<ComparisonSolution />} />
-                          <Route path="/features/:slug" element={<FeatureSolution />} />
+                          <Route path="/use-cases/:slug" element={<ProgrammaticSeoPage />} />
+                          <Route path="/integrations/:slug" element={<ProgrammaticSeoPage />} />
+                          <Route path="/compare/:slug" element={<ProgrammaticSeoPage />} />
+                          <Route path="/features/:slug" element={<ProgrammaticSeoPage />} />
+                          <Route path="/blog/:slug" element={<ProgrammaticSeoPage />} />
                           <Route path="/services" element={<Services />} />
                           <Route
                             path="/custom-software"

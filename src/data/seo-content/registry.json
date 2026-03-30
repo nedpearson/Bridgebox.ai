@@ -1,0 +1,727 @@
+[
+  {
+    "category": "industry",
+    "slug": "law-firms",
+    "keyword": "ai automation for law firms"
+  },
+  {
+    "category": "industry",
+    "slug": "logistics",
+    "keyword": "ai automation for logistics"
+  },
+  {
+    "category": "industry",
+    "slug": "accounting",
+    "keyword": "ai automation for accounting"
+  },
+  {
+    "category": "industry",
+    "slug": "healthcare",
+    "keyword": "ai automation for healthcare"
+  },
+  {
+    "category": "industry",
+    "slug": "real-estate",
+    "keyword": "ai automation for real estate"
+  },
+  {
+    "category": "industry",
+    "slug": "dealerships",
+    "keyword": "ai automation for dealerships"
+  },
+  {
+    "category": "industry",
+    "slug": "construction",
+    "keyword": "ai automation for construction"
+  },
+  {
+    "category": "industry",
+    "slug": "agencies",
+    "keyword": "ai automation for agencies"
+  },
+  {
+    "category": "industry",
+    "slug": "e-commerce",
+    "keyword": "ai automation for e-commerce"
+  },
+  {
+    "category": "industry",
+    "slug": "financial-services",
+    "keyword": "ai automation for financial services"
+  },
+  {
+    "category": "industry",
+    "slug": "manufacturing",
+    "keyword": "ai automation for manufacturing"
+  },
+  {
+    "category": "industry",
+    "slug": "education",
+    "keyword": "ai automation for education"
+  },
+  {
+    "category": "industry",
+    "slug": "hospitality",
+    "keyword": "ai automation for hospitality"
+  },
+  {
+    "category": "industry",
+    "slug": "retail",
+    "keyword": "ai automation for retail"
+  },
+  {
+    "category": "industry",
+    "slug": "insurance",
+    "keyword": "ai automation for insurance"
+  },
+  {
+    "category": "industry",
+    "slug": "wealth-management",
+    "keyword": "ai automation for wealth management"
+  },
+  {
+    "category": "industry",
+    "slug": "dental-clinics",
+    "keyword": "ai automation for dental clinics"
+  },
+  {
+    "category": "industry",
+    "slug": "veterinary",
+    "keyword": "ai automation for veterinary"
+  },
+  {
+    "category": "industry",
+    "slug": "property-management",
+    "keyword": "ai automation for property management"
+  },
+  {
+    "category": "industry",
+    "slug": "automotive-repair",
+    "keyword": "ai automation for automotive repair"
+  },
+  {
+    "category": "use-cases",
+    "slug": "invoice-processing",
+    "keyword": "automate invoice processing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "client-onboarding",
+    "keyword": "automate client onboarding"
+  },
+  {
+    "category": "use-cases",
+    "slug": "logistics-tracking",
+    "keyword": "automate logistics tracking"
+  },
+  {
+    "category": "use-cases",
+    "slug": "inventory-management",
+    "keyword": "automate inventory management"
+  },
+  {
+    "category": "use-cases",
+    "slug": "document-extraction",
+    "keyword": "automate document extraction"
+  },
+  {
+    "category": "use-cases",
+    "slug": "contract-generation",
+    "keyword": "automate contract generation"
+  },
+  {
+    "category": "use-cases",
+    "slug": "employee-onboarding",
+    "keyword": "automate employee onboarding"
+  },
+  {
+    "category": "use-cases",
+    "slug": "lead-qualification",
+    "keyword": "automate lead qualification"
+  },
+  {
+    "category": "use-cases",
+    "slug": "support-ticket-routing",
+    "keyword": "automate support ticket routing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "compliance-reporting",
+    "keyword": "automate compliance reporting"
+  },
+  {
+    "category": "use-cases",
+    "slug": "expense-approvals",
+    "keyword": "automate expense approvals"
+  },
+  {
+    "category": "use-cases",
+    "slug": "shift-scheduling",
+    "keyword": "automate shift scheduling"
+  },
+  {
+    "category": "use-cases",
+    "slug": "data-entry",
+    "keyword": "automate data entry"
+  },
+  {
+    "category": "use-cases",
+    "slug": "payment-reconciliation",
+    "keyword": "automate payment reconciliation"
+  },
+  {
+    "category": "use-cases",
+    "slug": "crm-sync",
+    "keyword": "automate CRM sync"
+  },
+  {
+    "category": "use-cases",
+    "slug": "proposal-drafting",
+    "keyword": "automate proposal drafting"
+  },
+  {
+    "category": "use-cases",
+    "slug": "social-media-posting",
+    "keyword": "automate social media posting"
+  },
+  {
+    "category": "use-cases",
+    "slug": "email-triage",
+    "keyword": "automate email triage"
+  },
+  {
+    "category": "use-cases",
+    "slug": "appointment-booking",
+    "keyword": "automate appointment booking"
+  },
+  {
+    "category": "use-cases",
+    "slug": "vendor-management",
+    "keyword": "automate vendor management"
+  },
+  {
+    "category": "use-cases",
+    "slug": "supply-chain-alerts",
+    "keyword": "automate supply chain alerts"
+  },
+  {
+    "category": "use-cases",
+    "slug": "quality-assurance",
+    "keyword": "automate quality assurance"
+  },
+  {
+    "category": "use-cases",
+    "slug": "refund-processing",
+    "keyword": "automate refund processing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "commission-tracking",
+    "keyword": "automate commission tracking"
+  },
+  {
+    "category": "use-cases",
+    "slug": "fleet-routing",
+    "keyword": "automate fleet routing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "tax-document-sorting",
+    "keyword": "automate tax document sorting"
+  },
+  {
+    "category": "use-cases",
+    "slug": "asset-management",
+    "keyword": "automate asset management"
+  },
+  {
+    "category": "use-cases",
+    "slug": "maintenance-requests",
+    "keyword": "automate maintenance requests"
+  },
+  {
+    "category": "use-cases",
+    "slug": "loan-processing",
+    "keyword": "automate loan processing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "event-registration",
+    "keyword": "automate event registration"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-zapier",
+    "keyword": "bridgebox vs zapier"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-make-com",
+    "keyword": "bridgebox vs make.com"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-workato",
+    "keyword": "bridgebox vs workato"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-tray-io",
+    "keyword": "bridgebox vs tray.io"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-n8n",
+    "keyword": "bridgebox vs n8n"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-retool",
+    "keyword": "bridgebox vs retool"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-bubble",
+    "keyword": "bridgebox vs bubble"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-autocode",
+    "keyword": "bridgebox vs autocode"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-custom-development",
+    "keyword": "bridgebox vs custom development"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-manual-labor",
+    "keyword": "bridgebox vs manual labor"
+  },
+  {
+    "category": "integrations",
+    "slug": "quickbooks",
+    "keyword": "bridgebox quickbooks integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "salesforce",
+    "keyword": "bridgebox salesforce integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "google-drive",
+    "keyword": "bridgebox google drive integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "slack",
+    "keyword": "bridgebox slack integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "gmail",
+    "keyword": "bridgebox gmail integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "hubspot",
+    "keyword": "bridgebox hubspot integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "jira",
+    "keyword": "bridgebox jira integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "monday-com",
+    "keyword": "bridgebox monday.com integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "airtable",
+    "keyword": "bridgebox airtable integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "notion",
+    "keyword": "bridgebox notion integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "stripe",
+    "keyword": "bridgebox stripe integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "shopify",
+    "keyword": "bridgebox shopify integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "xero",
+    "keyword": "bridgebox xero integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "zendesk",
+    "keyword": "bridgebox zendesk integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "dropbox",
+    "keyword": "bridgebox dropbox integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "docusign",
+    "keyword": "bridgebox docusign integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "teams",
+    "keyword": "bridgebox teams integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "asana",
+    "keyword": "bridgebox asana integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "trello",
+    "keyword": "bridgebox trello integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "mailchimp",
+    "keyword": "bridgebox mailchimp integration"
+  },
+  {
+    "category": "features",
+    "slug": "voice-to-build",
+    "keyword": "voice-to-build"
+  },
+  {
+    "category": "features",
+    "slug": "screen-recording-ingestion",
+    "keyword": "screen recording ingestion"
+  },
+  {
+    "category": "features",
+    "slug": "integration-engine",
+    "keyword": "integration engine"
+  },
+  {
+    "category": "features",
+    "slug": "workflow-orchestration",
+    "keyword": "workflow orchestration"
+  },
+  {
+    "category": "features",
+    "slug": "visual-canvas",
+    "keyword": "visual canvas"
+  },
+  {
+    "category": "features",
+    "slug": "data-normalization",
+    "keyword": "data normalization"
+  },
+  {
+    "category": "features",
+    "slug": "ai-logic-gates",
+    "keyword": "ai logic gates"
+  },
+  {
+    "category": "features",
+    "slug": "human-in-the-loop-approvals",
+    "keyword": "human-in-the-loop approvals"
+  },
+  {
+    "category": "features",
+    "slug": "multi-tenant-architecture",
+    "keyword": "multi-tenant architecture"
+  },
+  {
+    "category": "features",
+    "slug": "role-based-access-control",
+    "keyword": "role-based access control"
+  },
+  {
+    "category": "features",
+    "slug": "webhook-listeners",
+    "keyword": "webhook listeners"
+  },
+  {
+    "category": "features",
+    "slug": "scheduled-triggers",
+    "keyword": "scheduled triggers"
+  },
+  {
+    "category": "features",
+    "slug": "api-proxying",
+    "keyword": "api proxying"
+  },
+  {
+    "category": "features",
+    "slug": "audit-logging",
+    "keyword": "audit logging"
+  },
+  {
+    "category": "features",
+    "slug": "custom-form-builder",
+    "keyword": "custom form builder"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-law-firms-in-2026",
+    "keyword": "how ai is disrupting law firms in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-law-firms-operations-without-coding",
+    "keyword": "5 ways to automate law firms operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-logistics-in-2026",
+    "keyword": "how ai is disrupting logistics in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-logistics-operations-without-coding",
+    "keyword": "5 ways to automate logistics operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-accounting-in-2026",
+    "keyword": "how ai is disrupting accounting in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-accounting-operations-without-coding",
+    "keyword": "5 ways to automate accounting operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-healthcare-in-2026",
+    "keyword": "how ai is disrupting healthcare in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-healthcare-operations-without-coding",
+    "keyword": "5 ways to automate healthcare operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-real-estate-in-2026",
+    "keyword": "how ai is disrupting real estate in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-real-estate-operations-without-coding",
+    "keyword": "5 ways to automate real estate operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-dealerships-in-2026",
+    "keyword": "how ai is disrupting dealerships in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-dealerships-operations-without-coding",
+    "keyword": "5 ways to automate dealerships operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-construction-in-2026",
+    "keyword": "how ai is disrupting construction in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-construction-operations-without-coding",
+    "keyword": "5 ways to automate construction operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-agencies-in-2026",
+    "keyword": "how ai is disrupting agencies in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-agencies-operations-without-coding",
+    "keyword": "5 ways to automate agencies operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-e-commerce-in-2026",
+    "keyword": "how ai is disrupting e-commerce in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-e-commerce-operations-without-coding",
+    "keyword": "5 ways to automate e-commerce operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-financial-services-in-2026",
+    "keyword": "how ai is disrupting financial services in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-financial-services-operations-without-coding",
+    "keyword": "5 ways to automate financial services operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-manufacturing-in-2026",
+    "keyword": "how ai is disrupting manufacturing in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-manufacturing-operations-without-coding",
+    "keyword": "5 ways to automate manufacturing operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-education-in-2026",
+    "keyword": "how ai is disrupting education in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-education-operations-without-coding",
+    "keyword": "5 ways to automate education operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-hospitality-in-2026",
+    "keyword": "how ai is disrupting hospitality in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-hospitality-operations-without-coding",
+    "keyword": "5 ways to automate hospitality operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-retail-in-2026",
+    "keyword": "how ai is disrupting retail in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-retail-operations-without-coding",
+    "keyword": "5 ways to automate retail operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-insurance-in-2026",
+    "keyword": "how ai is disrupting insurance in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-insurance-operations-without-coding",
+    "keyword": "5 ways to automate insurance operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-wealth-management-in-2026",
+    "keyword": "how ai is disrupting wealth management in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-wealth-management-operations-without-coding",
+    "keyword": "5 ways to automate wealth management operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-dental-clinics-in-2026",
+    "keyword": "how ai is disrupting dental clinics in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-dental-clinics-operations-without-coding",
+    "keyword": "5 ways to automate dental clinics operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-veterinary-in-2026",
+    "keyword": "how ai is disrupting veterinary in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-veterinary-operations-without-coding",
+    "keyword": "5 ways to automate veterinary operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-property-management-in-2026",
+    "keyword": "how ai is disrupting property management in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-property-management-operations-without-coding",
+    "keyword": "5 ways to automate property management operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-automotive-repair-in-2026",
+    "keyword": "how ai is disrupting automotive repair in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-automotive-repair-operations-without-coding",
+    "keyword": "5 ways to automate automotive repair operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-invoice-processing-processes",
+    "keyword": "the ultimate guide to scaling invoice processing processes"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-client-onboarding-processes",
+    "keyword": "the ultimate guide to scaling client onboarding processes"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-logistics-tracking-processes",
+    "keyword": "the ultimate guide to scaling logistics tracking processes"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-inventory-management-processes",
+    "keyword": "the ultimate guide to scaling inventory management processes"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-document-extraction-processes",
+    "keyword": "the ultimate guide to scaling document extraction processes"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-contract-generation-processes",
+    "keyword": "the ultimate guide to scaling contract generation processes"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-employee-onboarding-processes",
+    "keyword": "the ultimate guide to scaling employee onboarding processes"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-lead-qualification-processes",
+    "keyword": "the ultimate guide to scaling lead qualification processes"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-support-ticket-routing-processes",
+    "keyword": "the ultimate guide to scaling support ticket routing processes"
+  },
+  {
+    "category": "blog",
+    "slug": "the-ultimate-guide-to-scaling-compliance-reporting-processes",
+    "keyword": "the ultimate guide to scaling compliance reporting processes"
+  }
+]

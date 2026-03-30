@@ -1,0 +1,80 @@
+{
+  "id": "industry-hospitality",
+  "category": "industry",
+  "slug": "hospitality",
+  "keyword": "ai automation for hospitality",
+  "intent": "commercial",
+  "difficulty": "medium",
+  "priority": "high",
+  "metadata": {
+    "title": "AI Automation Software for Hospitality | Bridgebox AI",
+    "description": "Discover how Bridgebox AI can streamline your operations with ai automation for hospitality. Automate intelligently and scale without heavy custom development.",
+    "canonical": "https://bridgebox.ai/industry/hospitality"
+  },
+  "content": {
+    "heroH1": "Intelligent Software & Workflow Automation for Hospitality",
+    "heroSubtitle": "Stop doing manual work. Bridgebox AI builds and orchestrates your ai automation for hospitality processes automatically using intelligent voice and visual mapping.",
+    "problemStatement": "For hospitality, relying on disjointed SaaS stacks and manual data transfer causes severe operational lag and critical data errors.",
+    "solutionExplanation": "Bridgebox unifies your entire operations. By understanding the unique logistical rules of hospitality, our platform generates perfectly tailored data moats and unified dashboards dynamically.",
+    "benefits": [
+      {
+        "title": "Reduce Overhead in Hospitality",
+        "description": "Cut operational friction by up to 80% replacing manual admin tasks with event-driven automation."
+      },
+      {
+        "title": "Unified Client Portals",
+        "description": "Provide an elite, white-labeled experience seamlessly connecting your backend processing directly to the front line."
+      },
+      {
+        "title": "Compliance Automations",
+        "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
+      }
+    ],
+    "featuresUsed": [
+      "voice-to-build",
+      "data normalization",
+      "human-in-the-loop approvals"
+    ],
+    "integrationsReferenced": [
+      "xero",
+      "zendesk"
+    ],
+    "faq": [
+      {
+        "question": "How long does it take to implement ai automation for hospitality logic?",
+        "answer": "Depending on complexity, Bridgebox can orchestrate your initial workflow in minutes to hours using Voice-to-Build capabilities."
+      },
+      {
+        "question": "Do I need a database administrator?",
+        "answer": "No. Bridgebox natively provisions and scales your relational tables autonomously through your conversational intents."
+      }
+    ],
+    "cta": {
+      "primary": "Start Building for Free",
+      "secondary": "Talk to an Automation Architect",
+      "trustText": "Join innovative companies replacing legacy systems with autonomous software."
+    }
+  },
+  "internalLinks": [
+    {
+      "text": "Explore Automate Social Media Posting",
+      "url": "/use-cases/social-media-posting"
+    },
+    {
+      "text": "Explore How Ai Is Disrupting Accounting In 2026",
+      "url": "/blog/how-ai-is-disrupting-accounting-in-2026"
+    },
+    {
+      "text": "Explore The Ultimate Guide To Scaling Employee Onboarding Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-employee-onboarding-processes"
+    },
+    {
+      "text": "Explore Automate Employee Onboarding",
+      "url": "/use-cases/employee-onboarding"
+    },
+    {
+      "text": "Explore How Ai Is Disrupting Law Firms In 2026",
+      "url": "/blog/how-ai-is-disrupting-law-firms-in-2026"
+    }
+  ]
+}
