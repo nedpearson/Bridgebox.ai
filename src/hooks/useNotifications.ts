@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabase";
 
-export type NotificationType = 'info' | 'success' | 'warning' | 'error';
+export type NotificationType = "info" | "success" | "warning" | "error";
 
 export interface Notification {
   id: string;
@@ -27,18 +27,18 @@ export function useNotifications(userId?: string) {
     loadNotifications();
 
     const channel = supabase
-      .channel('notifications')
+      .channel("notifications")
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*',
-          schema: 'public',
-          table: 'notifications',
+          event: "*",
+          schema: "public",
+          table: "notifications",
           filter: `user_id=eq.${userId}`,
         },
         () => {
           loadNotifications();
-        }
+        },
       )
       .subscribe();
 
@@ -53,18 +53,18 @@ export function useNotifications(userId?: string) {
     try {
       setLoading(true);
       const { data, error } = await supabase
-        .from('bb_notifications')
-        .select('*')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false })
+        .from("bb_notifications")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false })
         .limit(50);
 
       if (error) throw error;
 
       setNotifications(data || []);
-      setUnreadCount((data || []).filter(n => !n.read).length);
+      setUnreadCount((data || []).filter((n) => !n.read).length);
     } catch (error) {
-      console.error('Failed to load notifications:', error);
+      console.error("Failed to load notifications:", error);
     } finally {
       setLoading(false);
     }
@@ -73,18 +73,18 @@ export function useNotifications(userId?: string) {
   const markAsRead = async (notificationId: string) => {
     try {
       const { error } = await supabase
-        .from('bb_notifications')
+        .from("bb_notifications")
         .update({ read: true })
-        .eq('id', notificationId);
+        .eq("id", notificationId);
 
       if (error) throw error;
 
-      setNotifications(prev =>
-        prev.map(n => (n.id === notificationId ? { ...n, read: true } : n))
+      setNotifications((prev) =>
+        prev.map((n) => (n.id === notificationId ? { ...n, read: true } : n)),
       );
-      setUnreadCount(prev => Math.max(0, prev - 1));
+      setUnreadCount((prev) => Math.max(0, prev - 1));
     } catch (error) {
-      console.error('Failed to mark notification as read:', error);
+      console.error("Failed to mark notification as read:", error);
     }
   };
 
@@ -93,17 +93,17 @@ export function useNotifications(userId?: string) {
 
     try {
       const { error } = await supabase
-        .from('bb_notifications')
+        .from("bb_notifications")
         .update({ read: true })
-        .eq('user_id', userId)
-        .eq('read', false);
+        .eq("user_id", userId)
+        .eq("read", false);
 
       if (error) throw error;
 
-      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+      setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
       setUnreadCount(0);
     } catch (error) {
-      console.error('Failed to mark all as read:', error);
+      console.error("Failed to mark all as read:", error);
     }
   };
 
@@ -111,12 +111,12 @@ export function useNotifications(userId?: string) {
     type: NotificationType,
     title: string,
     message: string,
-    link?: string
+    link?: string,
   ) => {
     if (!userId) return;
 
     try {
-      const { error } = await supabase.from('bb_notifications').insert({
+      const { error } = await supabase.from("bb_notifications").insert({
         user_id: userId,
         type,
         title,
@@ -127,7 +127,7 @@ export function useNotifications(userId?: string) {
 
       if (error) throw error;
     } catch (error) {
-      console.error('Failed to create notification:', error);
+      console.error("Failed to create notification:", error);
     }
   };
 

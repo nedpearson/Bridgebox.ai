@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Network } from 'lucide-react';
-import Button from '../../components/Button';
-import Card from '../../components/Card';
-import { useOnboarding } from '../../contexts/OnboardingContext';
-import type { CurrentSystems } from '../../types/onboarding';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowLeft, Network } from "lucide-react";
+import Button from "../../components/Button";
+import Card from "../../components/Card";
+import { useOnboarding } from "../../contexts/OnboardingContext";
+import type { CurrentSystems } from "../../types/onboarding";
 
 export default function CurrentSystemsStep() {
-  const { onboardingData, updateOnboardingData, saveOnboarding, setCurrentStep } = useOnboarding();
+  const {
+    onboardingData,
+    updateOnboardingData,
+    saveOnboarding,
+    setCurrentStep,
+  } = useOnboarding();
   const [systems, setSystems] = useState<CurrentSystems>(
-    onboardingData.current_systems || {}
+    onboardingData.current_systems || {},
   );
   const [isSaving, setIsSaving] = useState(false);
 
@@ -24,7 +29,7 @@ export default function CurrentSystemsStep() {
       await saveOnboarding();
       setCurrentStep(4);
     } catch (error) {
-      console.error('Failed to save:', error);
+      console.error("Failed to save:", error);
     } finally {
       setIsSaving(false);
     }
@@ -39,35 +44,47 @@ export default function CurrentSystemsStep() {
           </div>
           <div>
             <h2 className="text-3xl font-bold text-white">Current Systems</h2>
-            <p className="text-slate-400 mt-1">Tell us about your existing tools and platforms</p>
+            <p className="text-slate-400 mt-1">
+              Tell us about your existing tools and platforms
+            </p>
           </div>
         </div>
 
         <div className="space-y-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="crm" className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                htmlFor="crm"
+                className="block text-sm font-medium text-slate-300 mb-2"
+              >
                 CRM System
               </label>
               <input
                 type="text"
                 id="crm"
-                value={systems.crm || ''}
-                onChange={(e) => setSystems({ ...systems, crm: e.target.value })}
+                value={systems.crm || ""}
+                onChange={(e) =>
+                  setSystems({ ...systems, crm: e.target.value })
+                }
                 className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 placeholder="e.g., Salesforce, HubSpot"
               />
             </div>
 
             <div>
-              <label htmlFor="erp" className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                htmlFor="erp"
+                className="block text-sm font-medium text-slate-300 mb-2"
+              >
                 ERP System
               </label>
               <input
                 type="text"
                 id="erp"
-                value={systems.erp || ''}
-                onChange={(e) => setSystems({ ...systems, erp: e.target.value })}
+                value={systems.erp || ""}
+                onChange={(e) =>
+                  setSystems({ ...systems, erp: e.target.value })
+                }
                 className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 placeholder="e.g., NetSuite, SAP"
               />
@@ -76,28 +93,41 @@ export default function CurrentSystemsStep() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="accounting" className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                htmlFor="accounting"
+                className="block text-sm font-medium text-slate-300 mb-2"
+              >
                 Accounting Software
               </label>
               <input
                 type="text"
                 id="accounting"
-                value={systems.accounting || ''}
-                onChange={(e) => setSystems({ ...systems, accounting: e.target.value })}
+                value={systems.accounting || ""}
+                onChange={(e) =>
+                  setSystems({ ...systems, accounting: e.target.value })
+                }
                 className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 placeholder="e.g., QuickBooks, Xero"
               />
             </div>
 
             <div>
-              <label htmlFor="document_management" className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                htmlFor="document_management"
+                className="block text-sm font-medium text-slate-300 mb-2"
+              >
                 Document Management
               </label>
               <input
                 type="text"
                 id="document_management"
-                value={systems.document_management || ''}
-                onChange={(e) => setSystems({ ...systems, document_management: e.target.value })}
+                value={systems.document_management || ""}
+                onChange={(e) =>
+                  setSystems({
+                    ...systems,
+                    document_management: e.target.value,
+                  })
+                }
                 className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 placeholder="e.g., SharePoint, Google Drive"
               />
@@ -109,7 +139,9 @@ export default function CurrentSystemsStep() {
               <input
                 type="checkbox"
                 checked={systems.spreadsheets || false}
-                onChange={(e) => setSystems({ ...systems, spreadsheets: e.target.checked })}
+                onChange={(e) =>
+                  setSystems({ ...systems, spreadsheets: e.target.checked })
+                }
                 className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-0"
               />
               <span className="text-slate-300 group-hover:text-white transition-colors">
@@ -121,7 +153,12 @@ export default function CurrentSystemsStep() {
               <input
                 type="checkbox"
                 checked={systems.internal_dashboards || false}
-                onChange={(e) => setSystems({ ...systems, internal_dashboards: e.target.checked })}
+                onChange={(e) =>
+                  setSystems({
+                    ...systems,
+                    internal_dashboards: e.target.checked,
+                  })
+                }
                 className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-0"
               />
               <span className="text-slate-300 group-hover:text-white transition-colors">
@@ -131,18 +168,21 @@ export default function CurrentSystemsStep() {
           </div>
 
           <div>
-            <label htmlFor="other_systems" className="block text-sm font-medium text-slate-300 mb-2">
+            <label
+              htmlFor="other_systems"
+              className="block text-sm font-medium text-slate-300 mb-2"
+            >
               Other Systems or Tools
             </label>
             <textarea
               id="other_systems"
               rows={3}
-              value={systems.other?.join(', ') || ''}
+              value={systems.other?.join(", ") || ""}
               onChange={(e) =>
                 setSystems({
                   ...systems,
                   other: e.target.value
-                    ? e.target.value.split(',').map((s) => s.trim())
+                    ? e.target.value.split(",").map((s) => s.trim())
                     : [],
                 })
               }
@@ -158,7 +198,8 @@ export default function CurrentSystemsStep() {
           </Button>
 
           <Button variant="primary" onClick={handleNext} disabled={isSaving}>
-            {isSaving ? 'Saving...' : 'Continue'} <ArrowRight className="ml-2 w-5 h-5" />
+            {isSaving ? "Saving..." : "Continue"}{" "}
+            <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </div>
       </Card>

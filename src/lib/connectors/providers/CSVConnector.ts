@@ -1,6 +1,10 @@
 // @ts-nocheck
-import { BaseConnector } from '../core/BaseConnector';
-import type { ConnectorConfig, SyncResult, ConnectorCapability } from '../types';
+import { BaseConnector } from "../core/BaseConnector";
+import type {
+  ConnectorConfig,
+  SyncResult,
+  ConnectorCapability,
+} from "../types";
 
 interface CSVConfig {
   delimiter: string;
@@ -10,7 +14,7 @@ interface CSVConfig {
 
 interface CSVMapping {
   idColumn: string | number;
-  dataType: 'event' | 'metric' | 'entity';
+  dataType: "event" | "metric" | "entity";
   columnMappings: Record<string, string | number>;
   timestampColumn?: string | number;
   timestampFormat?: string;
@@ -25,18 +29,18 @@ export class CSVConnector extends BaseConnector {
 
     const credentials = this.parseCredentials<CSVConfig>(config.credentials);
     this.config = {
-      delimiter: credentials.delimiter || ',',
+      delimiter: credentials.delimiter || ",",
       hasHeader: credentials.hasHeader !== false,
-      encoding: credentials.encoding || 'utf-8'
+      encoding: credentials.encoding || "utf-8",
     };
 
     const mappingConfig = config.mapping_config as CSVMapping;
     this.mapping = {
       idColumn: mappingConfig?.idColumn || 0,
-      dataType: mappingConfig?.dataType || 'entity',
+      dataType: mappingConfig?.dataType || "entity",
       columnMappings: mappingConfig?.columnMappings || {},
       timestampColumn: mappingConfig?.timestampColumn,
-      timestampFormat: mappingConfig?.timestampFormat
+      timestampFormat: mappingConfig?.timestampFormat,
     };
   }
 
@@ -51,7 +55,7 @@ export class CSVConnector extends BaseConnector {
       recordsCreated: 0,
       recordsUpdated: 0,
       recordsFailed: 0,
-      errors: ['CSV connector requires manual import via importCSV method']
+      errors: ["CSV connector requires manual import via importCSV method"],
     };
 
     return results;
@@ -66,7 +70,7 @@ export class CSVConnector extends BaseConnector {
   }
 
   getCapabilities(): ConnectorCapability[] {
-    return ['read'];
+    return ["read"];
   }
 
   async importCSV(file: File): Promise<SyncResult> {
@@ -77,7 +81,7 @@ export class CSVConnector extends BaseConnector {
       recordsCreated: 0,
       recordsUpdated: 0,
       recordsFailed: 0,
-      errors: []
+      errors: [],
     };
 
     try {
@@ -85,7 +89,7 @@ export class CSVConnector extends BaseConnector {
       const rows = await this.parseCSV(content);
 
       if (rows.length === 0) {
-        results.errors.push('No data found in CSV file');
+        results.errors.push("No data found in CSV file");
         results.success = false;
         return results;
       }
@@ -97,7 +101,10 @@ export class CSVConnector extends BaseConnector {
         headers = rows[0];
         dataRows = rows.slice(1);
       } else {
-        headers = Array.from({ length: rows[0].length }, (_, i) => `column_${i}`);
+        headers = Array.from(
+          { length: rows[0].length },
+          (_, i) => `column_${i}`,
+        );
       }
 
       for (const row of dataRows) {
@@ -115,7 +122,9 @@ export class CSVConnector extends BaseConnector {
       return results;
     } catch (error) {
       results.success = false;
-      results.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      results.errors.push(
+        error instanceof Error ? error.message : "Unknown error",
+      );
       results.duration = Date.now() - startTime;
       return results;
     }
@@ -129,14 +138,14 @@ export class CSVConnector extends BaseConnector {
       recordsCreated: 0,
       recordsUpdated: 0,
       recordsFailed: 0,
-      errors: []
+      errors: [],
     };
 
     try {
       const rows = await this.parseCSV(csvText);
 
       if (rows.length === 0) {
-        results.errors.push('No data found in CSV');
+        results.errors.push("No data found in CSV");
         results.success = false;
         return results;
       }
@@ -148,7 +157,10 @@ export class CSVConnector extends BaseConnector {
         headers = rows[0];
         dataRows = rows.slice(1);
       } else {
-        headers = Array.from({ length: rows[0].length }, (_, i) => `column_${i}`);
+        headers = Array.from(
+          { length: rows[0].length },
+          (_, i) => `column_${i}`,
+        );
       }
 
       for (const row of dataRows) {
@@ -166,7 +178,9 @@ export class CSVConnector extends BaseConnector {
       return results;
     } catch (error) {
       results.success = false;
-      results.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      results.errors.push(
+        error instanceof Error ? error.message : "Unknown error",
+      );
       results.duration = Date.now() - startTime;
       return results;
     }
@@ -178,15 +192,15 @@ export class CSVConnector extends BaseConnector {
 
       reader.onload = (e) => {
         const content = e.target?.result;
-        if (typeof content === 'string') {
+        if (typeof content === "string") {
           resolve(content);
         } else {
-          reject(new Error('Failed to read file as text'));
+          reject(new Error("Failed to read file as text"));
         }
       };
 
       reader.onerror = () => {
-        reject(new Error('Failed to read file'));
+        reject(new Error("Failed to read file"));
       };
 
       reader.readAsText(file, this.config.encoding);
@@ -209,7 +223,7 @@ export class CSVConnector extends BaseConnector {
 
   private parseLine(line: string): string[] {
     const result: string[] = [];
-    let current = '';
+    let current = "";
     let inQuotes = false;
 
     for (let i = 0; i < line.length; i++) {
@@ -225,7 +239,7 @@ export class CSVConnector extends BaseConnector {
         }
       } else if (char === this.config.delimiter && !inQuotes) {
         result.push(current.trim());
-        current = '';
+        current = "";
       } else {
         current += char;
       }
@@ -239,19 +253,25 @@ export class CSVConnector extends BaseConnector {
     const sourceId = this.getColumnValue(row, headers, this.mapping.idColumn);
 
     if (!sourceId) {
-      throw new Error('No ID column found in row');
+      throw new Error("No ID column found in row");
     }
 
     const normalizedData: Record<string, any> = {};
 
-    for (const [targetField, sourceColumn] of Object.entries(this.mapping.columnMappings)) {
+    for (const [targetField, sourceColumn] of Object.entries(
+      this.mapping.columnMappings,
+    )) {
       const value = this.getColumnValue(row, headers, sourceColumn);
       normalizedData[targetField] = this.coerceValue(value);
     }
 
     let timestamp = new Date();
     if (this.mapping.timestampColumn !== undefined) {
-      const timestampValue = this.getColumnValue(row, headers, this.mapping.timestampColumn);
+      const timestampValue = this.getColumnValue(
+        row,
+        headers,
+        this.mapping.timestampColumn,
+      );
       if (timestampValue) {
         timestamp = this.parseTimestamp(timestampValue);
       }
@@ -264,37 +284,41 @@ export class CSVConnector extends BaseConnector {
 
     await this.storeData({
       connector_id: this.connectorConfig.id,
-      source_system: 'csv_import',
+      source_system: "csv_import",
       source_id: String(sourceId),
       data_type: this.mapping.dataType,
       raw_data: rawData,
       normalized_data: normalizedData,
       metadata: {
-        filename: 'manual_import',
-        row_number: row.length
+        filename: "manual_import",
+        row_number: row.length,
       },
-      synced_at: timestamp
+      synced_at: timestamp,
     });
   }
 
-  private getColumnValue(row: string[], headers: string[], column: string | number): string {
-    if (typeof column === 'number') {
-      return row[column] || '';
+  private getColumnValue(
+    row: string[],
+    headers: string[],
+    column: string | number,
+  ): string {
+    if (typeof column === "number") {
+      return row[column] || "";
     }
 
     const index = headers.indexOf(column);
     if (index === -1) {
-      return '';
+      return "";
     }
 
-    return row[index] || '';
+    return row[index] || "";
   }
 
   private coerceValue(value: string): any {
-    if (!value || value === '') return null;
+    if (!value || value === "") return null;
 
-    if (value.toLowerCase() === 'true') return true;
-    if (value.toLowerCase() === 'false') return false;
+    if (value.toLowerCase() === "true") return true;
+    if (value.toLowerCase() === "false") return false;
 
     const num = Number(value);
     if (!isNaN(num) && value === num.toString()) {
@@ -330,7 +354,8 @@ export class CSVConnector extends BaseConnector {
     return [];
   }
 
-  async syncNow(): Promise<any> { // @ts-ignore
+  async syncNow(): Promise<any> {
+    // @ts-ignore
     return {
       success: true,
       recordsProcessed: 0,
@@ -341,7 +366,7 @@ export class CSVConnector extends BaseConnector {
       errors: [],
       duration: 0,
       startedAt: new Date().toISOString(),
-      completedAt: new Date().toISOString()
+      completedAt: new Date().toISOString(),
     };
   }
 

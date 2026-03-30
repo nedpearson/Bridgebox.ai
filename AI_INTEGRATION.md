@@ -77,6 +77,7 @@ If no provider is configured, the system automatically uses mock mode.
 ### Auto-Detection
 
 If you don't set `VITE_AI_PROVIDER`, the system automatically detects which provider to use based on available API keys:
+
 1. Checks for Anthropic API key first
 2. Falls back to OpenAI if available
 3. Uses mock provider if neither is configured
@@ -90,8 +91,9 @@ If you don't set `VITE_AI_PROVIDER`, the system automatically detects which prov
 **Where**: Lead detail pages (`/app/leads/:id`)
 
 **Usage**:
+
 ```typescript
-import { useLeadSummary } from '../hooks/useAI';
+import { useLeadSummary } from "../hooks/useAI";
 
 const { data, loading, error, summarize } = useLeadSummary();
 
@@ -112,8 +114,9 @@ console.log(data.nextActions);
 **Where**: Project detail pages
 
 **Usage**:
+
 ```typescript
-import { useProjectSummary } from '../hooks/useAI';
+import { useProjectSummary } from "../hooks/useAI";
 
 const { data, loading, summarize } = useProjectSummary();
 await summarize(projectData);
@@ -126,8 +129,9 @@ await summarize(projectData);
 **Where**: Support ticket pages
 
 **Usage**:
+
 ```typescript
-import { useTicketSummary } from '../hooks/useAI';
+import { useTicketSummary } from "../hooks/useAI";
 
 const { data, loading, summarize } = useTicketSummary();
 await summarize(ticketData);
@@ -140,8 +144,9 @@ await summarize(ticketData);
 **Where**: Analytics dashboard (`/app/analytics`)
 
 **Usage**:
+
 ```typescript
-import { useBusinessInsights } from '../hooks/useAI';
+import { useBusinessInsights } from "../hooks/useAI";
 
 const { data, loading, generate } = useBusinessInsights();
 await generate(metricsData);
@@ -152,8 +157,9 @@ await generate(metricsData);
 **What it does**: Provides prioritized action recommendations based on current business context.
 
 **Usage**:
+
 ```typescript
-import { useActionRecommendations } from '../hooks/useAI';
+import { useActionRecommendations } from "../hooks/useAI";
 
 const { data, loading, recommend } = useActionRecommendations();
 await recommend(contextData);
@@ -164,8 +170,9 @@ await recommend(contextData);
 **What it does**: Generates proposal summaries, value propositions, and timelines.
 
 **Usage**:
+
 ```typescript
-import { useProposalDraft } from '../hooks/useAI';
+import { useProposalDraft } from "../hooks/useAI";
 
 const { data, loading, draft } = useProposalDraft();
 await draft(proposalData);
@@ -176,8 +183,8 @@ await draft(proposalData);
 ### Basic Pattern
 
 ```tsx
-import AIContent, { AIButton } from '../components/ai/AIContent';
-import { useLeadSummary } from '../hooks/useAI';
+import AIContent, { AIButton } from "../components/ai/AIContent";
+import { useLeadSummary } from "../hooks/useAI";
 
 function MyComponent({ lead }) {
   const ai = useLeadSummary();
@@ -185,9 +192,7 @@ function MyComponent({ lead }) {
   return (
     <div>
       {ai.isAvailable && (
-        <AIButton onClick={() => ai.summarize(lead)}>
-          Analyze with AI
-        </AIButton>
+        <AIButton onClick={() => ai.summarize(lead)}>Analyze with AI</AIButton>
       )}
 
       <AIContent
@@ -197,9 +202,7 @@ function MyComponent({ lead }) {
         provider={ai.provider}
         onRetry={() => ai.summarize(lead, false)}
       >
-        {ai.data && (
-          <div>{ai.data.overview}</div>
-        )}
+        {ai.data && <div>{ai.data.overview}</div>}
       </AIContent>
     </div>
   );
@@ -209,11 +212,13 @@ function MyComponent({ lead }) {
 ### Caching
 
 AI results are automatically cached for 5 minutes to:
+
 - Reduce API costs
 - Improve performance
 - Provide instant results for repeated requests
 
 Force fresh generation:
+
 ```typescript
 await summarize(data, false); // Skip cache
 ```
@@ -257,6 +262,7 @@ All AI operations include comprehensive error handling:
 ```
 
 Error types:
+
 - `MISSING_API_KEY`: Provider not configured
 - `API_ERROR`: API request failed
 - `NETWORK_ERROR`: Network connectivity issue
@@ -267,6 +273,7 @@ Error types:
 ### Token Usage
 
 All AI responses include usage statistics:
+
 ```typescript
 {
   usage: {
@@ -319,6 +326,7 @@ Planned features for AI system:
 ### AI Not Available
 
 Check:
+
 1. Environment variable is set correctly
 2. API key is valid
 3. Network connectivity
@@ -342,7 +350,7 @@ The mock provider is perfect for testing:
 
 ```typescript
 // In your test setup
-process.env.VITE_AI_PROVIDER = 'mock';
+process.env.VITE_AI_PROVIDER = "mock";
 
 // Tests will use mock responses
 const result = await aiService.summarizeLead(testLead);
@@ -363,6 +371,7 @@ If you're migrating from a hardcoded AI implementation:
 ## Support
 
 For issues or questions about the AI integration:
+
 1. Check this documentation
 2. Review example implementations in codebase
 3. Check provider-specific documentation

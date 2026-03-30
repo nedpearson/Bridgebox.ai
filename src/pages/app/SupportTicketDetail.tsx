@@ -1,15 +1,27 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Send, Building2, User, Clock, MessageSquare } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import TicketStatusBadge from '../../components/support/TicketStatusBadge';
-import TicketPriorityBadge from '../../components/support/TicketPriorityBadge';
-import TicketCategoryBadge from '../../components/support/TicketCategoryBadge';
-import { supportService, TicketWithDetails, CommentWithAuthor, TicketStatus } from '../../lib/db/support';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  Send,
+  Building2,
+  User,
+  Clock,
+  MessageSquare,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import TicketStatusBadge from "../../components/support/TicketStatusBadge";
+import TicketPriorityBadge from "../../components/support/TicketPriorityBadge";
+import TicketCategoryBadge from "../../components/support/TicketCategoryBadge";
+import {
+  supportService,
+  TicketWithDetails,
+  CommentWithAuthor,
+  TicketStatus,
+} from "../../lib/db/support";
 
 export default function SupportTicketDetail() {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +29,7 @@ export default function SupportTicketDetail() {
   const [ticket, setTicket] = useState<TicketWithDetails | null>(null);
   const [comments, setComments] = useState<CommentWithAuthor[]>([]);
   const [loading, setLoading] = useState(true);
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
   const [isInternal, setIsInternal] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -37,7 +49,7 @@ export default function SupportTicketDetail() {
       setTicket(ticketData);
       setComments(commentsData);
     } catch (error) {
-      console.error('Failed to load ticket:', error);
+      console.error("Failed to load ticket:", error);
     } finally {
       setLoading(false);
     }
@@ -50,7 +62,7 @@ export default function SupportTicketDetail() {
       await supportService.updateTicketStatus(id, status);
       loadData();
     } catch (error) {
-      console.error('Failed to update status:', error);
+      console.error("Failed to update status:", error);
     }
   };
 
@@ -64,11 +76,11 @@ export default function SupportTicketDetail() {
         content: newComment.trim(),
         is_internal: isInternal,
       });
-      setNewComment('');
+      setNewComment("");
       setIsInternal(false);
       loadData();
     } catch (error) {
-      console.error('Failed to create comment:', error);
+      console.error("Failed to create comment:", error);
     } finally {
       setSubmitting(false);
     }
@@ -91,8 +103,10 @@ export default function SupportTicketDetail() {
         <AppHeader title="Ticket Not Found" />
         <div className="p-8">
           <Card glass className="p-12 text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">Ticket Not Found</h2>
-            <Button variant="primary" onClick={() => navigate('/app/support')}>
+            <h2 className="text-2xl font-bold text-white mb-4">
+              Ticket Not Found
+            </h2>
+            <Button variant="primary" onClick={() => navigate("/app/support")}>
               Back to Support Queue
             </Button>
           </Card>
@@ -121,7 +135,9 @@ export default function SupportTicketDetail() {
               <TicketStatusBadge status={ticket.status} />
               <select
                 value={ticket.status}
-                onChange={(e) => handleStatusChange(e.target.value as TicketStatus)}
+                onChange={(e) =>
+                  handleStatusChange(e.target.value as TicketStatus)
+                }
                 className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <option value="open">Open</option>
@@ -153,7 +169,9 @@ export default function SupportTicketDetail() {
                 <Building2 className="w-5 h-5 text-slate-400 mt-1" />
                 <div>
                   <p className="text-sm text-slate-400">Organization</p>
-                  <p className="text-white font-medium">{ticket.organization.name}</p>
+                  <p className="text-white font-medium">
+                    {ticket.organization.name}
+                  </p>
                 </div>
               </div>
             )}
@@ -163,7 +181,9 @@ export default function SupportTicketDetail() {
                 <User className="w-5 h-5 text-slate-400 mt-1" />
                 <div>
                   <p className="text-sm text-slate-400">Requester</p>
-                  <p className="text-white font-medium">{ticket.requester.full_name || ticket.requester.email}</p>
+                  <p className="text-white font-medium">
+                    {ticket.requester.full_name || ticket.requester.email}
+                  </p>
                 </div>
               </div>
             )}
@@ -172,7 +192,9 @@ export default function SupportTicketDetail() {
               <Clock className="w-5 h-5 text-slate-400 mt-1" />
               <div>
                 <p className="text-sm text-slate-400">Created</p>
-                <p className="text-white font-medium">{new Date(ticket.created_at).toLocaleString()}</p>
+                <p className="text-white font-medium">
+                  {new Date(ticket.created_at).toLocaleString()}
+                </p>
               </div>
             </div>
 
@@ -181,15 +203,22 @@ export default function SupportTicketDetail() {
                 <User className="w-5 h-5 text-slate-400 mt-1" />
                 <div>
                   <p className="text-sm text-slate-400">Assigned To</p>
-                  <p className="text-white font-medium">{ticket.assigned_user.full_name || ticket.assigned_user.email}</p>
+                  <p className="text-white font-medium">
+                    {ticket.assigned_user.full_name ||
+                      ticket.assigned_user.email}
+                  </p>
                 </div>
               </div>
             )}
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">Description</h3>
-            <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{ticket.description}</p>
+            <h3 className="text-lg font-semibold text-white mb-3">
+              Description
+            </h3>
+            <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">
+              {ticket.description}
+            </p>
           </div>
         </Card>
 
@@ -207,14 +236,16 @@ export default function SupportTicketDetail() {
                 animate={{ opacity: 1, y: 0 }}
                 className={`p-4 rounded-lg ${
                   comment.is_internal
-                    ? 'bg-yellow-500/5 border border-yellow-500/30'
-                    : 'bg-slate-800/30 border border-slate-700'
+                    ? "bg-yellow-500/5 border border-yellow-500/30"
+                    : "bg-slate-800/30 border border-slate-700"
                 }`}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-2">
                     <span className="font-medium text-white">
-                      {comment.author?.full_name || comment.author?.email || 'Unknown'}
+                      {comment.author?.full_name ||
+                        comment.author?.email ||
+                        "Unknown"}
                     </span>
                     {comment.is_internal && (
                       <span className="text-xs px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">
@@ -226,7 +257,9 @@ export default function SupportTicketDetail() {
                     {new Date(comment.created_at).toLocaleString()}
                   </span>
                 </div>
-                <p className="text-slate-300 whitespace-pre-wrap">{comment.content}</p>
+                <p className="text-slate-300 whitespace-pre-wrap">
+                  {comment.content}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -258,7 +291,7 @@ export default function SupportTicketDetail() {
                   disabled={!newComment.trim() || submitting}
                 >
                   <Send className="w-4 h-4 mr-2" />
-                  {submitting ? 'Sending...' : 'Send Comment'}
+                  {submitting ? "Sending..." : "Send Comment"}
                 </Button>
               </div>
             </div>

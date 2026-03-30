@@ -1,13 +1,18 @@
 // @ts-nocheck
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, HelpCircle, MessageCircle, ArrowRight } from 'lucide-react';
-import Section from '../components/Section';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import GridPattern from '../components/GridPattern';
-import FinalCTA from '../components/FinalCTA';
-import { faqItems } from '../data/faq';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ChevronDown,
+  HelpCircle,
+  MessageCircle,
+  ArrowRight,
+} from "lucide-react";
+import Section from "../components/Section";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import GridPattern from "../components/GridPattern";
+import FinalCTA from "../components/FinalCTA";
+import { faqItems } from "../data/faq";
 
 export default function FAQ() {
   const [openId, setOpenId] = useState<string | null>(faqItems[0]?.id || null);
@@ -46,7 +51,8 @@ export default function FAQ() {
             transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl text-slate-300 leading-relaxed"
           >
-            Find answers to common questions about Bridgebox capabilities, services, and how we work with clients.
+            Find answers to common questions about Bridgebox capabilities,
+            services, and how we work with clients.
           </motion.p>
         </div>
       </Section>
@@ -69,7 +75,9 @@ export default function FAQ() {
               >
                 <Card
                   className={`cursor-pointer transition-all duration-300 ${
-                    openId === item.id ? 'border-indigo-500/50' : 'hover:border-indigo-500/30'
+                    openId === item.id
+                      ? "border-indigo-500/50"
+                      : "hover:border-indigo-500/30"
                   }`}
                   onClick={() => toggleItem(item.id)}
                 >
@@ -79,17 +87,24 @@ export default function FAQ() {
                         <HelpCircle className="w-5 h-5 text-indigo-500" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold text-white mb-2">{item.question}</h3>
+                        <h3 className="text-lg font-semibold text-white mb-2">
+                          {item.question}
+                        </h3>
                         <AnimatePresence>
                           {openId === item.id && (
                             <motion.div
                               initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
+                              animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                              transition={{
+                                duration: 0.3,
+                                ease: [0.22, 1, 0.36, 1],
+                              }}
                               className="overflow-hidden"
                             >
-                              <p className="text-slate-300 leading-relaxed pt-2">{item.answer}</p>
+                              <p className="text-slate-300 leading-relaxed pt-2">
+                                {item.answer}
+                              </p>
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -125,7 +140,9 @@ export default function FAQ() {
                 Still Have Questions?
               </h2>
               <p className="text-lg text-slate-300 mb-8">
-                Our team is ready to answer any questions about how Bridgebox can solve your specific operational challenges. Schedule a call to discuss your needs.
+                Our team is ready to answer any questions about how Bridgebox
+                can solve your specific operational challenges. Schedule a call
+                to discuss your needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" to="/contact">
@@ -148,9 +165,12 @@ export default function FAQ() {
             viewport={{ once: true }}
           >
             <Card glass className="text-center h-full">
-              <h3 className="text-xl font-bold text-white mb-3">Technical Questions</h3>
+              <h3 className="text-xl font-bold text-white mb-3">
+                Technical Questions
+              </h3>
               <p className="text-slate-400 mb-4">
-                Learn about integrations, technical capabilities, and implementation details
+                Learn about integrations, technical capabilities, and
+                implementation details
               </p>
               <Button variant="outline" size="sm" to="/platform">
                 View Platform
@@ -165,9 +185,12 @@ export default function FAQ() {
             transition={{ delay: 0.1 }}
           >
             <Card glass className="text-center h-full">
-              <h3 className="text-xl font-bold text-white mb-3">Service Questions</h3>
+              <h3 className="text-xl font-bold text-white mb-3">
+                Service Questions
+              </h3>
               <p className="text-slate-400 mb-4">
-                Discover our custom software, dashboard, and mobile app development services
+                Discover our custom software, dashboard, and mobile app
+                development services
               </p>
               <Button variant="outline" size="sm" to="/services">
                 View Services
@@ -182,9 +205,12 @@ export default function FAQ() {
             transition={{ delay: 0.2 }}
           >
             <Card glass className="text-center h-full">
-              <h3 className="text-xl font-bold text-white mb-3">Success Stories</h3>
+              <h3 className="text-xl font-bold text-white mb-3">
+                Success Stories
+              </h3>
               <p className="text-slate-400 mb-4">
-                See how we've solved similar challenges for clients across industries
+                See how we've solved similar challenges for clients across
+                industries
               </p>
               <Button variant="outline" size="sm" to="/case-studies">
                 View Case Studies

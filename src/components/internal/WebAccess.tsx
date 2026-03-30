@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Search, Loader2, ShieldAlert } from 'lucide-react';
+import { useState } from "react";
+import { Search, Loader2, ShieldAlert } from "lucide-react";
 
 export default function WebAccess() {
-  const [inputUrl, setInputUrl] = useState('https://bridgebox.ai');
-  const [activeUrl, setActiveUrl] = useState('https://bridgebox.ai');
+  const [inputUrl, setInputUrl] = useState("https://bridgebox.ai");
+  const [activeUrl, setActiveUrl] = useState("https://bridgebox.ai");
   const [loading, setLoading] = useState(false);
 
   const handleNavigate = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputUrl.trim()) return;
-    
+
     let target = inputUrl.trim();
-    if (!target.startsWith('http')) {
+    if (!target.startsWith("http")) {
       target = `https://${target}`;
     }
     setLoading(true);
@@ -24,8 +24,12 @@ export default function WebAccess() {
         <div className="flex items-center gap-4 mb-4">
           <ShieldAlert className="w-5 h-5 text-amber-500" />
           <div>
-            <h2 className="text-lg font-semibold text-white tracking-tight">Isolated Web Access</h2>
-            <p className="text-xs text-slate-400">Safely navigate while Screen Recording active telemetry.</p>
+            <h2 className="text-lg font-semibold text-white tracking-tight">
+              Isolated Web Access
+            </h2>
+            <p className="text-xs text-slate-400">
+              Safely navigate while Screen Recording active telemetry.
+            </p>
           </div>
         </div>
 
@@ -51,7 +55,9 @@ export default function WebAccess() {
         {loading && (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-sm">
             <Loader2 className="w-8 h-8 text-indigo-500 animate-spin mb-4" />
-            <p className="text-slate-400 font-medium">Resolving secure tunnel...</p>
+            <p className="text-slate-400 font-medium">
+              Resolving secure tunnel...
+            </p>
           </div>
         )}
         <iframe

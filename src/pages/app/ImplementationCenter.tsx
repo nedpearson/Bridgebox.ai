@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   Rocket,
   ExternalLink,
@@ -10,24 +10,31 @@ import {
   CheckCircle2,
   Search,
   Plus,
-} from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ErrorState from '../../components/ErrorState';
-import EmptyState from '../../components/EmptyState';
-import DeploymentPhaseBadge from '../../components/implementation/DeploymentPhaseBadge';
-import LaunchStatusBadge from '../../components/implementation/LaunchStatusBadge';
-import DeploymentReadinessBadge from '../../components/implementation/DeploymentReadinessBadge';
-import { implementationService, ImplementationWithProject } from '../../lib/db/implementation';
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorState from "../../components/ErrorState";
+import EmptyState from "../../components/EmptyState";
+import DeploymentPhaseBadge from "../../components/implementation/DeploymentPhaseBadge";
+import LaunchStatusBadge from "../../components/implementation/LaunchStatusBadge";
+import DeploymentReadinessBadge from "../../components/implementation/DeploymentReadinessBadge";
+import {
+  implementationService,
+  ImplementationWithProject,
+} from "../../lib/db/implementation";
 
 export default function ImplementationCenter() {
-  const [implementations, setImplementations] = useState<ImplementationWithProject[]>([]);
-  const [filteredImplementations, setFilteredImplementations] = useState<ImplementationWithProject[]>([]);
+  const [implementations, setImplementations] = useState<
+    ImplementationWithProject[]
+  >([]);
+  const [filteredImplementations, setFilteredImplementations] = useState<
+    ImplementationWithProject[]
+  >([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     loadImplementations();
@@ -38,8 +45,10 @@ export default function ImplementationCenter() {
       const query = searchQuery.toLowerCase();
       const filtered = implementations.filter(
         (impl) =>
-          (impl.project?.name || '').toLowerCase().includes(query) ||
-          (impl.project?.organization?.name || '').toLowerCase().includes(query)
+          (impl.project?.name || "").toLowerCase().includes(query) ||
+          (impl.project?.organization?.name || "")
+            .toLowerCase()
+            .includes(query),
       );
       setFilteredImplementations(filtered);
     } else {
@@ -50,32 +59,39 @@ export default function ImplementationCenter() {
   const loadImplementations = async () => {
     try {
       setLoading(true);
-      setError('');
+      setError("");
       const data = await implementationService.getAllImplementations();
       setImplementations(data);
       setFilteredImplementations(data);
     } catch (err: any) {
-      setError(err.message || 'Failed to load implementations');
+      setError(err.message || "Failed to load implementations");
     } finally {
       setLoading(false);
     }
   };
 
   const getPhaseProgress = (phase: string): number => {
-    const phaseOrder = ['setup', 'integration', 'testing', 'staging', 'production', 'post_launch_support'];
+    const phaseOrder = [
+      "setup",
+      "integration",
+      "testing",
+      "staging",
+      "production",
+      "post_launch_support",
+    ];
     const index = phaseOrder.indexOf(phase);
     return ((index + 1) / phaseOrder.length) * 100;
   };
 
   const formatLastUpdate = (date?: string): string => {
-    if (!date) return 'Never';
+    if (!date) return "Never";
     const d = new Date(date);
     const now = new Date();
     const diffMs = now.getTime() - d.getTime();
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    if (diffDays === 0) return 'Today';
-    if (diffDays === 1) return 'Yesterday';
+    if (diffDays === 0) return "Today";
+    if (diffDays === 1) return "Yesterday";
     if (diffDays < 7) return `${diffDays} days ago`;
     return d.toLocaleDateString();
   };
@@ -83,7 +99,10 @@ export default function ImplementationCenter() {
   if (loading) {
     return (
       <>
-        <AppHeader title="Implementation Center" subtitle="Track real-world deployments and system rollouts" />
+        <AppHeader
+          title="Implementation Center"
+          subtitle="Track real-world deployments and system rollouts"
+        />
         <div className="flex items-center justify-center h-64">
           <LoadingSpinner size="lg" />
         </div>
@@ -94,18 +113,21 @@ export default function ImplementationCenter() {
   if (error) {
     return (
       <>
-        <AppHeader title="Implementation Center" subtitle="Track real-world deployments and system rollouts" />
-        <ErrorState
-          message={error}
-          onRetry={loadImplementations}
+        <AppHeader
+          title="Implementation Center"
+          subtitle="Track real-world deployments and system rollouts"
         />
+        <ErrorState message={error} onRetry={loadImplementations} />
       </>
     );
   }
 
   return (
     <>
-      <AppHeader title="Implementation Center" subtitle="Track real-world deployments and system rollouts" />
+      <AppHeader
+        title="Implementation Center"
+        subtitle="Track real-world deployments and system rollouts"
+      />
 
       <div className="p-4 md:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -124,11 +146,15 @@ export default function ImplementationCenter() {
         {filteredImplementations.length === 0 ? (
           <EmptyState
             icon={Rocket}
-            title={searchQuery ? 'No implementations found' : 'No implementations yet'}
+            title={
+              searchQuery
+                ? "No implementations found"
+                : "No implementations yet"
+            }
             description={
               searchQuery
-                ? 'Try adjusting your search criteria'
-                : 'Implementations will appear here when projects enter the deployment phase'
+                ? "Try adjusting your search criteria"
+                : "Implementations will appear here when projects enter the deployment phase"
             }
           />
         ) : (
@@ -140,7 +166,10 @@ export default function ImplementationCenter() {
                 animate={{ opacity: 1, y: 0 }}
               >
                 <Link to={`/app/implementation/${impl.project_id}`}>
-                  <Card glass className="p-6 hover:border-slate-600 transition-all group">
+                  <Card
+                    glass
+                    className="p-6 hover:border-slate-600 transition-all group"
+                  >
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                       <div className="flex-1 space-y-3">
                         <div>
@@ -156,21 +185,37 @@ export default function ImplementationCenter() {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-3">
-                          <DeploymentPhaseBadge phase={impl.deployment_phase} size="sm" />
-                          <DeploymentReadinessBadge readiness={impl.deployment_readiness} size="sm" />
-                          <LaunchStatusBadge status={impl.launch_status} size="sm" />
+                          <DeploymentPhaseBadge
+                            phase={impl.deployment_phase}
+                            size="sm"
+                          />
+                          <DeploymentReadinessBadge
+                            readiness={impl.deployment_readiness}
+                            size="sm"
+                          />
+                          <LaunchStatusBadge
+                            status={impl.launch_status}
+                            size="sm"
+                          />
                         </div>
 
                         <div className="space-y-2">
                           <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
                             <span>Deployment Progress</span>
-                            <span>{Math.round(getPhaseProgress(impl.deployment_phase))}%</span>
+                            <span>
+                              {Math.round(
+                                getPhaseProgress(impl.deployment_phase),
+                              )}
+                              %
+                            </span>
                           </div>
                           <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
                             <motion.div
                               initial={{ width: 0 }}
-                              animate={{ width: `${getPhaseProgress(impl.deployment_phase)}%` }}
-                              transition={{ duration: 1, ease: 'easeOut' }}
+                              animate={{
+                                width: `${getPhaseProgress(impl.deployment_phase)}%`,
+                              }}
+                              transition={{ duration: 1, ease: "easeOut" }}
                               className="h-full bg-gradient-to-r from-indigo-500 to-[#10B981]"
                             />
                           </div>
@@ -181,7 +226,10 @@ export default function ImplementationCenter() {
                         {impl.last_deployment_at && (
                           <div className="flex items-center space-x-2 text-sm text-slate-400">
                             <Clock className="w-4 h-4" />
-                            <span>Updated {formatLastUpdate(impl.last_deployment_at)}</span>
+                            <span>
+                              Updated{" "}
+                              {formatLastUpdate(impl.last_deployment_at)}
+                            </span>
                           </div>
                         )}
 
@@ -191,14 +239,20 @@ export default function ImplementationCenter() {
                               <>
                                 <AlertTriangle className="w-4 h-4 text-yellow-400" />
                                 <span className="text-yellow-400">
-                                  Go-live: {new Date(impl.go_live_date).toLocaleDateString()}
+                                  Go-live:{" "}
+                                  {new Date(
+                                    impl.go_live_date,
+                                  ).toLocaleDateString()}
                                 </span>
                               </>
                             ) : (
                               <>
                                 <CheckCircle2 className="w-4 h-4 text-green-400" />
                                 <span className="text-green-400">
-                                  Launched: {new Date(impl.go_live_date).toLocaleDateString()}
+                                  Launched:{" "}
+                                  {new Date(
+                                    impl.go_live_date,
+                                  ).toLocaleDateString()}
                                 </span>
                               </>
                             )}

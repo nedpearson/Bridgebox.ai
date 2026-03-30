@@ -1,7 +1,17 @@
-import { ArrowRight, Users, DollarSign, Target } from 'lucide-react';
-import Card from '../Card';
-import { TrendBadge, TrendStrengthBadge, GrowthRateDisplay, HotIndicator, EmergingBadge } from './TrendBadge';
-import type { ServiceTrend, IndustryTrend, DemandSpike } from '../../lib/trendDetection';
+import { ArrowRight, Users, DollarSign, Target } from "lucide-react";
+import Card from "../Card";
+import {
+  TrendBadge,
+  TrendStrengthBadge,
+  GrowthRateDisplay,
+  HotIndicator,
+  EmergingBadge,
+} from "./TrendBadge";
+import type {
+  ServiceTrend,
+  IndustryTrend,
+  DemandSpike,
+} from "../../lib/trendDetection";
 
 interface ServiceTrendCardProps {
   trend: ServiceTrend;
@@ -9,10 +19,13 @@ interface ServiceTrendCardProps {
 
 export function ServiceTrendCard({ trend }: ServiceTrendCardProps) {
   const formatServiceName = (name: string) => {
-    return name.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    return name
+      .split("_")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
   };
 
-  const isHot = trend.direction === 'up' && trend.growthRate > 50;
+  const isHot = trend.direction === "up" && trend.growthRate > 50;
 
   return (
     <Card className="p-6 hover:border-blue-500/30 transition-all">
@@ -35,11 +48,15 @@ export function ServiceTrendCard({ trend }: ServiceTrendCardProps) {
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
           <p className="text-xs text-slate-400 mb-1">Current Period</p>
-          <p className="text-2xl font-bold text-white">{trend.currentPeriodCount}</p>
+          <p className="text-2xl font-bold text-white">
+            {trend.currentPeriodCount}
+          </p>
         </div>
         <div>
           <p className="text-xs text-slate-400 mb-1">Previous Period</p>
-          <p className="text-lg font-medium text-slate-300">{trend.previousPeriodCount}</p>
+          <p className="text-lg font-medium text-slate-300">
+            {trend.previousPeriodCount}
+          </p>
         </div>
       </div>
 
@@ -66,14 +83,16 @@ interface IndustryTrendCardProps {
 }
 
 export function IndustryTrendCard({ trend }: IndustryTrendCardProps) {
-  const isHot = trend.direction === 'up' && trend.growthRate > 60;
+  const isHot = trend.direction === "up" && trend.growthRate > 60;
 
   return (
     <Card className="p-6 hover:border-green-500/30 transition-all">
       <div className="flex items-start justify-between mb-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <h3 className="text-lg font-semibold text-white">{trend.industry}</h3>
+            <h3 className="text-lg font-semibold text-white">
+              {trend.industry}
+            </h3>
             {isHot && <HotIndicator />}
           </div>
           <div className="flex items-center gap-2">
@@ -90,7 +109,9 @@ export function IndustryTrendCard({ trend }: IndustryTrendCardProps) {
             <Users className="w-4 h-4 text-blue-400" />
             <p className="text-xs text-slate-400">Leads</p>
           </div>
-          <p className="text-2xl font-bold text-white">{trend.currentPeriodCount}</p>
+          <p className="text-2xl font-bold text-white">
+            {trend.currentPeriodCount}
+          </p>
         </div>
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -128,7 +149,9 @@ export function DemandSpikeCard({ spike }: DemandSpikeCardProps) {
       <div className="flex items-start justify-between mb-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <h3 className="text-lg font-semibold text-white capitalize">{spike.keyword}</h3>
+            <h3 className="text-lg font-semibold text-white capitalize">
+              {spike.keyword}
+            </h3>
             <EmergingBadge isEmerging={spike.isEmergingTrend} />
           </div>
           <p className="text-sm text-slate-400">
@@ -146,7 +169,7 @@ export function DemandSpikeCard({ spike }: DemandSpikeCardProps) {
                 key={index}
                 className="px-2 py-1 bg-slate-800/50 text-slate-300 text-xs rounded-md"
               >
-                {service.replace('_', ' ')}
+                {service.replace("_", " ")}
               </span>
             ))}
           </div>
@@ -164,32 +187,38 @@ export function DemandSpikeCard({ spike }: DemandSpikeCardProps) {
 }
 
 interface TrendInsightCardProps {
-  type: 'opportunity' | 'warning' | 'info';
+  type: "opportunity" | "warning" | "info";
   title: string;
   description: string;
   metric?: string;
   action?: string;
 }
 
-export function TrendInsightCard({ type, title, description, metric, action }: TrendInsightCardProps) {
+export function TrendInsightCard({
+  type,
+  title,
+  description,
+  metric,
+  action,
+}: TrendInsightCardProps) {
   const config = {
     opportunity: {
-      bg: 'bg-green-500/10',
-      border: 'border-green-500/20',
-      iconBg: 'bg-green-500/20',
-      iconColor: 'text-green-400',
+      bg: "bg-green-500/10",
+      border: "border-green-500/20",
+      iconBg: "bg-green-500/20",
+      iconColor: "text-green-400",
     },
     warning: {
-      bg: 'bg-orange-500/10',
-      border: 'border-orange-500/20',
-      iconBg: 'bg-orange-500/20',
-      iconColor: 'text-orange-400',
+      bg: "bg-orange-500/10",
+      border: "border-orange-500/20",
+      iconBg: "bg-orange-500/20",
+      iconColor: "text-orange-400",
     },
     info: {
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/20',
-      iconBg: 'bg-blue-500/20',
-      iconColor: 'text-blue-400',
+      bg: "bg-blue-500/10",
+      border: "border-blue-500/20",
+      iconBg: "bg-blue-500/20",
+      iconColor: "text-blue-400",
     },
   };
 

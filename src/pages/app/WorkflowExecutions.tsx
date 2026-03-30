@@ -1,14 +1,25 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Clock, CheckCircle, XCircle, Pause, AlertCircle } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import EmptyState from '../../components/EmptyState';
-import { workflowService } from '../../lib/db/workflows';
-import type { Workflow, WorkflowExecution, WorkflowExecutionStatus } from '../../types/workflow';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  Clock,
+  CheckCircle,
+  XCircle,
+  Pause,
+  AlertCircle,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import EmptyState from "../../components/EmptyState";
+import { workflowService } from "../../lib/db/workflows";
+import type {
+  Workflow,
+  WorkflowExecution,
+  WorkflowExecutionStatus,
+} from "../../types/workflow";
 
 const STATUS_CONFIG: Record<
   WorkflowExecutionStatus,
@@ -16,28 +27,28 @@ const STATUS_CONFIG: Record<
 > = {
   running: {
     icon: Clock,
-    color: 'blue',
-    label: 'Running',
+    color: "blue",
+    label: "Running",
   },
   completed: {
     icon: CheckCircle,
-    color: 'green',
-    label: 'Completed',
+    color: "green",
+    label: "Completed",
   },
   failed: {
     icon: XCircle,
-    color: 'red',
-    label: 'Failed',
+    color: "red",
+    label: "Failed",
   },
   paused: {
     icon: Pause,
-    color: 'amber',
-    label: 'Paused',
+    color: "amber",
+    label: "Paused",
   },
   cancelled: {
     icon: AlertCircle,
-    color: 'slate',
-    label: 'Cancelled',
+    color: "slate",
+    label: "Cancelled",
   },
 };
 
@@ -47,7 +58,9 @@ export function WorkflowExecutions() {
   const [workflow, setWorkflow] = useState<Workflow | null>(null);
   const [executions, setExecutions] = useState<WorkflowExecution[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filterStatus, setFilterStatus] = useState<WorkflowExecutionStatus | 'all'>('all');
+  const [filterStatus, setFilterStatus] = useState<
+    WorkflowExecutionStatus | "all"
+  >("all");
 
   useEffect(() => {
     if (id) {
@@ -67,14 +80,14 @@ export function WorkflowExecutions() {
       setWorkflow(workflowData);
       setExecutions(executionsData);
     } catch (err) {
-      console.error('Failed to load data:', err);
+      console.error("Failed to load data:", err);
     } finally {
       setLoading(false);
     }
   };
 
   const formatDuration = (seconds?: number) => {
-    if (!seconds) return 'N/A';
+    if (!seconds) return "N/A";
     if (seconds < 60) return `${seconds}s`;
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -82,7 +95,7 @@ export function WorkflowExecutions() {
   };
 
   const filteredExecutions = executions.filter(
-    (execution) => filterStatus === 'all' || execution.status === filterStatus
+    (execution) => filterStatus === "all" || execution.status === filterStatus,
   );
 
   if (loading) {
@@ -101,7 +114,7 @@ export function WorkflowExecutions() {
           title="Workflow not found"
           description="The workflow you're looking for doesn't exist"
           action={
-            <Button onClick={() => navigate('/app/workflows')}>
+            <Button onClick={() => navigate("/app/workflows")}>
               Back to Workflows
             </Button>
           }
@@ -120,7 +133,7 @@ export function WorkflowExecutions() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="flex items-center gap-4 mb-6">
           <button
-            onClick={() => navigate('/app/workflows')}
+            onClick={() => navigate("/app/workflows")}
             className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-slate-400" />
@@ -143,27 +156,29 @@ export function WorkflowExecutions() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <Card className="p-6 bg-slate-900/50 border-slate-800">
             <div className="text-sm text-slate-400 mb-1">Total Executions</div>
-            <div className="text-3xl font-bold text-white">{executions.length}</div>
+            <div className="text-3xl font-bold text-white">
+              {executions.length}
+            </div>
           </Card>
 
           <Card className="p-6 bg-slate-900/50 border-slate-800">
             <div className="text-sm text-slate-400 mb-1">Completed</div>
             <div className="text-3xl font-bold text-green-400">
-              {executions.filter((e) => e.status === 'completed').length}
+              {executions.filter((e) => e.status === "completed").length}
             </div>
           </Card>
 
           <Card className="p-6 bg-slate-900/50 border-slate-800">
             <div className="text-sm text-slate-400 mb-1">Failed</div>
             <div className="text-3xl font-bold text-red-400">
-              {executions.filter((e) => e.status === 'failed').length}
+              {executions.filter((e) => e.status === "failed").length}
             </div>
           </Card>
 
           <Card className="p-6 bg-slate-900/50 border-slate-800">
             <div className="text-sm text-slate-400 mb-1">Running</div>
             <div className="text-3xl font-bold text-blue-400">
-              {executions.filter((e) => e.status === 'running').length}
+              {executions.filter((e) => e.status === "running").length}
             </div>
           </Card>
         </div>
@@ -174,8 +189,8 @@ export function WorkflowExecutions() {
             title="No executions found"
             description={
               executions.length === 0
-                ? 'This workflow has not been executed yet'
-                : 'No executions match the selected filter'
+                ? "This workflow has not been executed yet"
+                : "No executions match the selected filter"
             }
           />
         ) : (
@@ -205,7 +220,9 @@ export function WorkflowExecutions() {
                             <span className="text-sm text-slate-400">
                               {new Date(execution.started_at).toLocaleString()}
                             </span>
-                            <span className={`px-2.5 py-1 text-xs font-medium rounded-full bg-${statusConfig.color}-500/10 text-${statusConfig.color}-400 border border-${statusConfig.color}-500/20`}>
+                            <span
+                              className={`px-2.5 py-1 text-xs font-medium rounded-full bg-${statusConfig.color}-500/10 text-${statusConfig.color}-400 border border-${statusConfig.color}-500/20`}
+                            >
                               {statusConfig.label}
                             </span>
                           </div>
@@ -225,9 +242,13 @@ export function WorkflowExecutions() {
                             </div>
                             {execution.completed_at && (
                               <div>
-                                <span className="text-slate-500">Completed:</span>
+                                <span className="text-slate-500">
+                                  Completed:
+                                </span>
                                 <span className="text-slate-300 ml-2">
-                                  {new Date(execution.completed_at).toLocaleTimeString()}
+                                  {new Date(
+                                    execution.completed_at,
+                                  ).toLocaleTimeString()}
                                 </span>
                               </div>
                             )}

@@ -79,6 +79,7 @@ CREATE TABLE stripe_subscriptions (
 ```
 
 **Indexes:**
+
 - `stripe_subscription_id` (unique)
 - `organization_id`
 - `stripe_customer_id`
@@ -110,6 +111,7 @@ CREATE TABLE stripe_invoices (
 ```
 
 **Indexes:**
+
 - `stripe_invoice_id` (unique)
 - `organization_id`
 - `stripe_customer_id`
@@ -130,16 +132,19 @@ This trigger automatically updates organization fields whenever a subscription i
 ### Linking Customers to Organizations
 
 ```typescript
-import { linkCustomerToOrganization } from './lib/stripe/customerSync';
+import { linkCustomerToOrganization } from "./lib/stripe/customerSync";
 
 await linkCustomerToOrganization(organizationId, {
-  stripeCustomerId: 'cus_xxx',
-  email: 'billing@company.com',
-  metadata: { /* optional */ }
+  stripeCustomerId: "cus_xxx",
+  email: "billing@company.com",
+  metadata: {
+    /* optional */
+  },
 });
 ```
 
 **Features:**
+
 - Prevents duplicate customer creation
 - Checks if customer already linked to another org
 - Updates billing email
@@ -148,7 +153,7 @@ await linkCustomerToOrganization(organizationId, {
 ### Getting Customer Info
 
 ```typescript
-import { getOrganizationStripeCustomer } from './lib/stripe/customerSync';
+import { getOrganizationStripeCustomer } from "./lib/stripe/customerSync";
 
 const { customerId } = await getOrganizationStripeCustomer(organizationId);
 ```
@@ -158,6 +163,7 @@ const { customerId } = await getOrganizationStripeCustomer(organizationId);
 ### Subscription Status
 
 Supported statuses (matches Stripe):
+
 - `active` - Subscription is active and current
 - `trialing` - In trial period
 - `past_due` - Payment failed, retrying
@@ -170,21 +176,22 @@ Supported statuses (matches Stripe):
 ### Syncing Subscriptions
 
 ```typescript
-import { syncSubscription } from './lib/stripe/customerSync';
+import { syncSubscription } from "./lib/stripe/customerSync";
 
 await syncSubscription(organizationId, {
-  stripeSubscriptionId: 'sub_xxx',
-  stripeCustomerId: 'cus_xxx',
-  status: 'active',
-  plan: 'professional',
+  stripeSubscriptionId: "sub_xxx",
+  stripeCustomerId: "cus_xxx",
+  status: "active",
+  plan: "professional",
   currentPeriodStart: new Date(),
   currentPeriodEnd: new Date(),
   cancelAtPeriodEnd: false,
-  metadata: {}
+  metadata: {},
 });
 ```
 
 **What Happens:**
+
 1. Upserts to `stripe_subscriptions` table
 2. Trigger automatically syncs to `organizations` table
 3. Updates: status, plan, period dates, cancellation flag
@@ -193,21 +200,22 @@ await syncSubscription(organizationId, {
 ### Getting Subscription Data
 
 ```typescript
-import { getOrganizationSubscription } from './lib/stripe/customerSync';
+import { getOrganizationSubscription } from "./lib/stripe/customerSync";
 
-const { subscription, error } = await getOrganizationSubscription(organizationId);
+const { subscription, error } =
+  await getOrganizationSubscription(organizationId);
 
 if (subscription) {
-  console.log('Plan:', subscription.plan);
-  console.log('Status:', subscription.status);
-  console.log('Renews:', subscription.current_period_end);
+  console.log("Plan:", subscription.plan);
+  console.log("Status:", subscription.status);
+  console.log("Renews:", subscription.current_period_end);
 }
 ```
 
 ### Checking Active Status
 
 ```typescript
-import { hasActiveSubscription } from './lib/stripe/customerSync';
+import { hasActiveSubscription } from "./lib/stripe/customerSync";
 
 const isActive = await hasActiveSubscription(organizationId);
 
@@ -220,33 +228,33 @@ const isActive = await hasActiveSubscription(organizationId);
 ### Syncing Invoices
 
 ```typescript
-import { syncInvoice } from './lib/stripe/customerSync';
+import { syncInvoice } from "./lib/stripe/customerSync";
 
 await syncInvoice(organizationId, {
-  stripeInvoiceId: 'in_xxx',
-  stripeCustomerId: 'cus_xxx',
-  stripeSubscriptionId: 'sub_xxx',
-  status: 'paid',
+  stripeInvoiceId: "in_xxx",
+  stripeCustomerId: "cus_xxx",
+  stripeSubscriptionId: "sub_xxx",
+  status: "paid",
   amountDue: 4900, // cents
   amountPaid: 4900,
-  currency: 'usd',
-  invoicePdf: 'https://...',
-  hostedInvoiceUrl: 'https://...',
-  invoiceNumber: 'ABC-001',
+  currency: "usd",
+  invoicePdf: "https://...",
+  hostedInvoiceUrl: "https://...",
+  invoiceNumber: "ABC-001",
   periodStart: new Date(),
   periodEnd: new Date(),
-  paidAt: new Date()
+  paidAt: new Date(),
 });
 ```
 
 ### Getting Invoice History
 
 ```typescript
-import { getOrganizationInvoices } from './lib/stripe/customerSync';
+import { getOrganizationInvoices } from "./lib/stripe/customerSync";
 
 const { invoices, error } = await getOrganizationInvoices(organizationId);
 
-invoices.forEach(invoice => {
+invoices.forEach((invoice) => {
   console.log(`${invoice.invoice_number}: $${invoice.amount_due / 100}`);
 });
 ```
@@ -266,6 +274,7 @@ import SubscriptionStatusBadge from './components/billing/SubscriptionStatusBadg
 ```
 
 **Features:**
+
 - Color-coded by status (green, blue, yellow, red, gray)
 - Responsive sizing (sm, md, lg)
 - Optional description tooltip
@@ -284,6 +293,7 @@ import BillingPlanBadge from './components/billing/BillingPlanBadge';
 ```
 
 **Features:**
+
 - Displays plan name (Free, Starter, Professional, Enterprise, Custom)
 - Special handling for enterprise clients
 - Color-coded by tier
@@ -333,6 +343,7 @@ const { invoices } = await getOrganizationInvoices(orgId);
 ```
 
 All data flows from:
+
 1. Organization fields (fast, always available)
 2. Stripe subscription table (detailed history)
 3. Stripe invoices table (complete billing history)
@@ -383,26 +394,26 @@ To implement as a Supabase Edge Function:
 **2. Verify Signature:**
 
 ```typescript
-import Stripe from 'https://esm.sh/stripe@12.0.0'
+import Stripe from "https://esm.sh/stripe@12.0.0";
 
-const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY'))
+const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY"));
 
-const signature = req.headers.get('stripe-signature')
-const body = await req.text()
+const signature = req.headers.get("stripe-signature");
+const body = await req.text();
 
 const event = stripe.webhooks.constructEvent(
   body,
   signature,
-  Deno.env.get('STRIPE_WEBHOOK_SECRET')
-)
+  Deno.env.get("STRIPE_WEBHOOK_SECRET"),
+);
 ```
 
 **3. Route to Handler:**
 
 ```typescript
-import { handleStripeWebhook } from './webhookHandlers'
+import { handleStripeWebhook } from "./webhookHandlers";
 
-const result = await handleStripeWebhook(event)
+const result = await handleStripeWebhook(event);
 ```
 
 **4. Deploy:**
@@ -424,18 +435,18 @@ const result = await handleStripeWebhook(event)
 ```typescript
 // When creating checkout session
 const session = await stripe.checkout.sessions.create({
-  customer: 'cus_xxx',
+  customer: "cus_xxx",
   metadata: {
-    organization_id: 'uuid-here'
+    organization_id: "uuid-here",
   },
   // ...
 });
 
 // When creating subscription
 const subscription = await stripe.subscriptions.create({
-  customer: 'cus_xxx',
+  customer: "cus_xxx",
   metadata: {
-    organization_id: 'uuid-here'
+    organization_id: "uuid-here",
   },
   // ...
 });
@@ -448,6 +459,7 @@ Without `organization_id`, webhooks cannot sync data correctly.
 ### Self-Serve Path
 
 **Characteristics:**
+
 - `is_enterprise_client = false`
 - Standard pricing plans
 - Stripe subscription management
@@ -455,6 +467,7 @@ Without `organization_id`, webhooks cannot sync data correctly.
 - Portal access via Stripe
 
 **Flow:**
+
 1. Choose plan on pricing page
 2. Checkout via Stripe
 3. Subscription created automatically
@@ -464,6 +477,7 @@ Without `organization_id`, webhooks cannot sync data correctly.
 ### Enterprise Path
 
 **Characteristics:**
+
 - `is_enterprise_client = true`
 - Custom pricing/proposals
 - Manual billing (invoices)
@@ -471,6 +485,7 @@ Without `organization_id`, webhooks cannot sync data correctly.
 - Custom contract terms
 
 **Flow:**
+
 1. Request custom quote
 2. Sales process / proposal approval
 3. Admin marks as enterprise client
@@ -498,16 +513,19 @@ if (organization.is_enterprise_client) {
 ### Row Level Security
 
 **stripe_subscriptions:**
+
 - ✓ Organization members can view their subscription
 - ✓ Only internal staff can insert/update
 - ✗ Public cannot access
 
 **stripe_invoices:**
+
 - ✓ Organization members can view their invoices
 - ✓ Only internal staff can insert/update
 - ✗ Public cannot access
 
 **organizations (billing fields):**
+
 - ✓ Organization members can view billing info
 - ✓ Owners can update billing email
 - ✓ Only internal staff can modify Stripe IDs
@@ -516,11 +534,13 @@ if (organization.is_enterprise_client) {
 ### API Security
 
 All sync functions require:
+
 - Valid organization ID
 - Authenticated user (for UI calls)
 - Internal staff role (for modifications)
 
 Webhook handler uses:
+
 - Stripe signature verification
 - Service role access (bypasses RLS)
 - Event validation
@@ -544,7 +564,7 @@ if (!customerId) {
 const { success, error } = await syncSubscription(orgId, data);
 
 if (!success) {
-  console.error('Sync failed:', error);
+  console.error("Sync failed:", error);
   // Log to error tracking
   // Retry mechanism
   // Alert admin
@@ -586,15 +606,15 @@ if (invoices.length === 0) {
 ```typescript
 import {
   getBillingPlanDisplay,
-  getSubscriptionStatusInfo
-} from './lib/stripe/customerSync';
+  getSubscriptionStatusInfo,
+} from "./lib/stripe/customerSync";
 
 // Plan name for UI
-const planName = getBillingPlanDisplay('professional');
+const planName = getBillingPlanDisplay("professional");
 // => "Professional"
 
 // Status with color and description
-const statusInfo = getSubscriptionStatusInfo('active');
+const statusInfo = getSubscriptionStatusInfo("active");
 // => { label: 'Active', color: 'green', description: '...' }
 ```
 
@@ -602,13 +622,13 @@ const statusInfo = getSubscriptionStatusInfo('active');
 
 ```typescript
 // Check if subscription is active
-const isActive = status === 'active' || status === 'trialing';
+const isActive = status === "active" || status === "trialing";
 
 // Check if payment issue
-const hasPaymentIssue = status === 'past_due' || status === 'unpaid';
+const hasPaymentIssue = status === "past_due" || status === "unpaid";
 
 // Check if canceled
-const isCanceled = status === 'canceled' || cancelAtPeriodEnd;
+const isCanceled = status === "canceled" || cancelAtPeriodEnd;
 ```
 
 ## Best Practices
@@ -616,6 +636,7 @@ const isCanceled = status === 'canceled' || cancelAtPeriodEnd;
 ### 1. Always Use Organization ID
 
 Never tie billing to individual users:
+
 ```typescript
 // ✓ Good
 const subscription = await getOrganizationSubscription(orgId);
@@ -674,7 +695,7 @@ if (org.is_enterprise_client) {
 }
 
 // ✗ Bad - applies subscription logic to enterprise
-const hasAccess = subscription?.status === 'active';
+const hasAccess = subscription?.status === "active";
 ```
 
 ## Testing
@@ -709,6 +730,7 @@ stripe trigger invoice.paid
 ```
 
 Verify:
+
 - Webhook handler processes event
 - Data syncs to database
 - Organization fields update
@@ -737,6 +759,7 @@ Verify:
 ### Logging
 
 Log these events:
+
 - Customer creation/linking
 - Subscription sync (create/update/delete)
 - Invoice sync
@@ -751,10 +774,11 @@ Log these events:
 **Symptom:** Cannot create subscription, no billing info
 
 **Fix:**
+
 ```typescript
 await linkCustomerToOrganization(orgId, {
-  stripeCustomerId: 'cus_xxx',
-  email: 'billing@company.com'
+  stripeCustomerId: "cus_xxx",
+  email: "billing@company.com",
 });
 ```
 
@@ -763,15 +787,17 @@ await linkCustomerToOrganization(orgId, {
 **Symptom:** UI shows old status after Stripe change
 
 **Check:**
+
 1. Webhook configured correctly?
 2. Webhook firing? (Check Stripe dashboard)
 3. Webhook handler processing? (Check logs)
 4. Database trigger working? (Check directly)
 
 **Manual Fix:**
+
 ```typescript
 // Re-sync from Stripe API
-const subscription = await stripe.subscriptions.retrieve('sub_xxx');
+const subscription = await stripe.subscriptions.retrieve("sub_xxx");
 await syncSubscription(orgId, mapStripeToInternal(subscription));
 ```
 
@@ -780,13 +806,15 @@ await syncSubscription(orgId, mapStripeToInternal(subscription));
 **Symptom:** Invoice paid in Stripe but not shown
 
 **Check:**
+
 1. `invoice.paid` webhook fired?
 2. organization_id in metadata?
 3. Webhook handler processed event?
 
 **Manual Fix:**
+
 ```typescript
-const invoice = await stripe.invoices.retrieve('in_xxx');
+const invoice = await stripe.invoices.retrieve("in_xxx");
 await syncInvoice(orgId, mapStripeToInternal(invoice));
 ```
 
@@ -795,10 +823,12 @@ await syncInvoice(orgId, mapStripeToInternal(invoice));
 **Symptom:** Organization linked to wrong customer
 
 **Prevention:**
+
 - Always check `linkCustomerToOrganization` response
 - Function prevents duplicates automatically
 
 **Fix:**
+
 ```sql
 -- Unlink incorrect customer
 UPDATE organizations

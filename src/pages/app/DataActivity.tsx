@@ -1,21 +1,37 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Activity, TrendingUp, AlertTriangle, Clock, Filter, Download, BarChart3, Users, DollarSign, Briefcase, Headphones as HeadphonesIcon } from 'lucide-react';
-import AppLayout from '../../layouts/AppLayout';
-import Card from '../../components/Card';
-import Badge from '../../components/Badge';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import { dataPipelineService, type SystemEvent, type DataSignal } from '../../lib/db/dataPipeline';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
+  Activity,
+  TrendingUp,
+  AlertTriangle,
+  Clock,
+  Filter,
+  Download,
+  BarChart3,
+  Users,
+  DollarSign,
+  Briefcase,
+  Headphones as HeadphonesIcon,
+} from "lucide-react";
+import AppLayout from "../../layouts/AppLayout";
+import Card from "../../components/Card";
+import Badge from "../../components/Badge";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import {
+  dataPipelineService,
+  type SystemEvent,
+  type DataSignal,
+} from "../../lib/db/dataPipeline";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function DataActivity() {
   const { currentOrganization } = useAuth();
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState<SystemEvent[]>([]);
   const [signals, setSignals] = useState<DataSignal[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [timeRange, setTimeRange] = useState<string>('24h');
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [timeRange, setTimeRange] = useState<string>("24h");
 
   useEffect(() => {
     loadData();
@@ -28,13 +44,13 @@ export default function DataActivity() {
       const startDate = new Date();
 
       switch (timeRange) {
-        case '24h':
+        case "24h":
           startDate.setHours(startDate.getHours() - 24);
           break;
-        case '7d':
+        case "7d":
           startDate.setDate(startDate.getDate() - 7);
           break;
-        case '30d':
+        case "30d":
           startDate.setDate(startDate.getDate() - 30);
           break;
       }
@@ -42,14 +58,15 @@ export default function DataActivity() {
       const [eventsData, signalsData] = await Promise.all([
         dataPipelineService.getEvents({
           organizationId: currentOrganization?.id,
-          eventCategory: selectedCategory !== 'all' ? selectedCategory as any : undefined,
+          eventCategory:
+            selectedCategory !== "all" ? (selectedCategory as any) : undefined,
           startDate: startDate.toISOString(),
           endDate: endDate.toISOString(),
           limit: 100,
         }),
         dataPipelineService.getSignals({
           organizationId: currentOrganization?.id,
-          status: 'new',
+          status: "new",
           limit: 20,
         }),
       ]);
@@ -57,7 +74,7 @@ export default function DataActivity() {
       setEvents(eventsData);
       setSignals(signalsData);
     } catch (error) {
-      console.error('Failed to load data activity:', error);
+      console.error("Failed to load data activity:", error);
     } finally {
       setLoading(false);
     }
@@ -65,15 +82,15 @@ export default function DataActivity() {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'crm':
+      case "crm":
         return Users;
-      case 'billing':
+      case "billing":
         return DollarSign;
-      case 'project':
+      case "project":
         return Briefcase;
-      case 'support':
+      case "support":
         return HeadphonesIcon;
-      case 'user_action':
+      case "user_action":
         return Activity;
       default:
         return BarChart3;
@@ -82,51 +99,57 @@ export default function DataActivity() {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'crm':
-        return 'blue';
-      case 'billing':
-        return 'green';
-      case 'project':
-        return 'purple';
-      case 'support':
-        return 'orange';
-      case 'user_action':
-        return 'slate';
+      case "crm":
+        return "blue";
+      case "billing":
+        return "green";
+      case "project":
+        return "purple";
+      case "support":
+        return "orange";
+      case "user_action":
+        return "slate";
       default:
-        return 'slate';
+        return "slate";
     }
   };
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical':
-        return 'red';
-      case 'high':
-        return 'orange';
-      case 'medium':
-        return 'amber';
-      case 'low':
-        return 'blue';
+      case "critical":
+        return "red";
+      case "high":
+        return "orange";
+      case "medium":
+        return "amber";
+      case "low":
+        return "blue";
       default:
-        return 'slate';
+        return "slate";
     }
   };
 
   const formatEventType = (type: string) => {
     return type
-      .split('_')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   };
 
-  const eventsByCategory = events.reduce((acc, event) => {
-    acc[event.event_category] = (acc[event.event_category] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+  const eventsByCategory = events.reduce(
+    (acc, event) => {
+      acc[event.event_category] = (acc[event.event_category] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   if (loading && events.length === 0) {
     return (
-      <AppLayout title="Data Activity" subtitle="System events and analytics pipeline">
+      <AppLayout
+        title="Data Activity"
+        subtitle="System events and analytics pipeline"
+      >
         <div className="flex items-center justify-center h-64">
           <LoadingSpinner />
         </div>
@@ -135,35 +158,45 @@ export default function DataActivity() {
   }
 
   return (
-    <AppLayout title="Data Activity" subtitle="System events and analytics pipeline">
+    <AppLayout
+      title="Data Activity"
+      subtitle="System events and analytics pipeline"
+    >
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 bg-slate-800/50 border border-slate-700 rounded-lg p-1">
-              {['all', 'crm', 'billing', 'project', 'support', 'user_action'].map((category) => (
+              {[
+                "all",
+                "crm",
+                "billing",
+                "project",
+                "support",
+                "user_action",
+              ].map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                     selectedCategory === category
-                      ? 'bg-blue-500 text-white'
-                      : 'text-slate-400 hover:text-white'
+                      ? "bg-blue-500 text-white"
+                      : "text-slate-400 hover:text-white"
                   }`}
                 >
-                  {category === 'all' ? 'All' : formatEventType(category)}
+                  {category === "all" ? "All" : formatEventType(category)}
                 </button>
               ))}
             </div>
 
             <div className="flex items-center gap-2 bg-slate-800/50 border border-slate-700 rounded-lg p-1">
-              {['24h', '7d', '30d'].map((range) => (
+              {["24h", "7d", "30d"].map((range) => (
                 <button
                   key={range}
                   onClick={() => setTimeRange(range)}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                     timeRange === range
-                      ? 'bg-blue-500 text-white'
-                      : 'text-slate-400 hover:text-white'
+                      ? "bg-blue-500 text-white"
+                      : "text-slate-400 hover:text-white"
                   }`}
                 >
                   {range}
@@ -184,7 +217,9 @@ export default function DataActivity() {
               <Activity className="w-8 h-8 text-blue-400" />
               <TrendingUp className="w-5 h-5 text-green-400" />
             </div>
-            <div className="text-3xl font-bold text-white mb-1">{events.length}</div>
+            <div className="text-3xl font-bold text-white mb-1">
+              {events.length}
+            </div>
             <div className="text-sm text-slate-400">Total Events</div>
           </Card>
 
@@ -193,7 +228,9 @@ export default function DataActivity() {
               <Users className="w-8 h-8 text-green-400" />
               <TrendingUp className="w-5 h-5 text-green-400" />
             </div>
-            <div className="text-3xl font-bold text-white mb-1">{eventsByCategory.crm || 0}</div>
+            <div className="text-3xl font-bold text-white mb-1">
+              {eventsByCategory.crm || 0}
+            </div>
             <div className="text-sm text-slate-400">CRM Events</div>
           </Card>
 
@@ -202,7 +239,9 @@ export default function DataActivity() {
               <Briefcase className="w-8 h-8 text-purple-400" />
               <TrendingUp className="w-5 h-5 text-green-400" />
             </div>
-            <div className="text-3xl font-bold text-white mb-1">{eventsByCategory.project || 0}</div>
+            <div className="text-3xl font-bold text-white mb-1">
+              {eventsByCategory.project || 0}
+            </div>
             <div className="text-sm text-slate-400">Project Events</div>
           </Card>
 
@@ -211,7 +250,9 @@ export default function DataActivity() {
               <AlertTriangle className="w-8 h-8 text-amber-400" />
               <Clock className="w-5 h-5 text-amber-400" />
             </div>
-            <div className="text-3xl font-bold text-white mb-1">{signals.length}</div>
+            <div className="text-3xl font-bold text-white mb-1">
+              {signals.length}
+            </div>
             <div className="text-sm text-slate-400">Active Signals</div>
           </Card>
         </div>
@@ -221,7 +262,9 @@ export default function DataActivity() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <AlertTriangle className="w-5 h-5 text-amber-400" />
-                <h3 className="text-lg font-semibold text-white">Data Signals</h3>
+                <h3 className="text-lg font-semibold text-white">
+                  Data Signals
+                </h3>
               </div>
             </div>
 
@@ -239,16 +282,22 @@ export default function DataActivity() {
                         <Badge variant={getSeverityColor(signal.severity)}>
                           {signal.severity.toUpperCase()}
                         </Badge>
-                        <Badge variant={getCategoryColor(signal.signal_category)}>
+                        <Badge
+                          variant={getCategoryColor(signal.signal_category)}
+                        >
                           {signal.signal_category.toUpperCase()}
                         </Badge>
                         <Badge variant="slate">
                           {signal.signal_type.toUpperCase()}
                         </Badge>
                       </div>
-                      <h4 className="font-medium text-white mb-1">{signal.title}</h4>
+                      <h4 className="font-medium text-white mb-1">
+                        {signal.title}
+                      </h4>
                       {signal.description && (
-                        <p className="text-sm text-slate-400 mb-2">{signal.description}</p>
+                        <p className="text-sm text-slate-400 mb-2">
+                          {signal.description}
+                        </p>
                       )}
                       {signal.confidence_score && (
                         <div className="text-xs text-slate-500">
@@ -278,7 +327,9 @@ export default function DataActivity() {
             {events.length === 0 ? (
               <div className="text-center py-12">
                 <Activity className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-                <p className="text-slate-400">No events in selected time range</p>
+                <p className="text-slate-400">
+                  No events in selected time range
+                </p>
               </div>
             ) : (
               events.map((event) => {
@@ -290,8 +341,12 @@ export default function DataActivity() {
                     animate={{ opacity: 1, x: 0 }}
                     className="flex items-center gap-4 p-3 bg-slate-800/30 hover:bg-slate-800/50 border border-slate-700/50 rounded-lg transition-colors"
                   >
-                    <div className={`p-2 rounded-lg bg-${getCategoryColor(event.event_category)}-500/10`}>
-                      <Icon className={`w-4 h-4 text-${getCategoryColor(event.event_category)}-400`} />
+                    <div
+                      className={`p-2 rounded-lg bg-${getCategoryColor(event.event_category)}-500/10`}
+                    >
+                      <Icon
+                        className={`w-4 h-4 text-${getCategoryColor(event.event_category)}-400`}
+                      />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
@@ -304,7 +359,8 @@ export default function DataActivity() {
                       </div>
                       {event.entity_type && (
                         <p className="text-xs text-slate-500">
-                          {event.entity_type} • {event.entity_id?.substring(0, 8)}
+                          {event.entity_type} •{" "}
+                          {event.entity_id?.substring(0, 8)}
                         </p>
                       )}
                     </div>

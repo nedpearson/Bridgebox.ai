@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 
 interface AnimatedMetricProps {
   value: number;
@@ -14,8 +14,8 @@ interface AnimatedMetricProps {
 export default function AnimatedMetric({
   value,
   label,
-  prefix = '',
-  suffix = '',
+  prefix = "",
+  suffix = "",
   decimals = 0,
   duration = 2,
   delay = 0,

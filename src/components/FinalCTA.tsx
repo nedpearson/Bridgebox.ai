@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import Button from './Button';
-import Section from './Section';
-import { useLeadModal } from '../hooks/useLeadModal';
+import { motion } from "framer-motion";
+import { ArrowRight, Sparkles } from "lucide-react";
+import Button from "./Button";
+import Section from "./Section";
+import { useLeadModal } from "../hooks/useLeadModal";
 
 interface FinalCTAProps {
   headline?: string;
@@ -14,9 +14,9 @@ interface FinalCTAProps {
 
 export default function FinalCTA({
   headline = "Let's Build Your System",
-  subtext = 'Bridgebox connects, automates, and builds the systems your business needs to scale.',
-  primaryCTA = 'Get a Demo',
-  secondaryCTA = 'Request Custom Build',
+  subtext = "Bridgebox connects, automates, and builds the systems your business needs to scale.",
+  primaryCTA = "Get a Demo",
+  secondaryCTA = "Request Custom Build",
   showTrustLine = true,
 }: FinalCTAProps) {
   const { openModal } = useLeadModal();

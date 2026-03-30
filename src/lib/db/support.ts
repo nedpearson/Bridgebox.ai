@@ -1,15 +1,21 @@
-import { supabase } from '../supabase';
+import { supabase } from "../supabase";
 
-export type TicketPriority = 'low' | 'medium' | 'high' | 'urgent';
-export type TicketStatus = 'open' | 'in_review' | 'waiting_on_client' | 'in_progress' | 'resolved' | 'closed';
+export type TicketPriority = "low" | "medium" | "high" | "urgent";
+export type TicketStatus =
+  | "open"
+  | "in_review"
+  | "waiting_on_client"
+  | "in_progress"
+  | "resolved"
+  | "closed";
 export type TicketCategory =
-  | 'bug'
-  | 'feature_request'
-  | 'dashboard_change'
-  | 'mobile_app_request'
-  | 'integration_issue'
-  | 'billing_issue'
-  | 'general_support';
+  | "bug"
+  | "feature_request"
+  | "dashboard_change"
+  | "mobile_app_request"
+  | "integration_issue"
+  | "billing_issue"
+  | "general_support";
 
 export interface SupportTicket {
   id: string;
@@ -73,29 +79,31 @@ export const supportService = {
     assigned_to?: string;
   }) {
     let query = supabase
-      .from('bb_support_tickets')
-      .select(`
+      .from("bb_support_tickets")
+      .select(
+        `
         *,
         organization:bb_organizations!support_tickets_organization_id_fkey(id, name),
         requester:bb_profiles!created_by_id(full_name, email),
         assigned_user:bb_profiles!assigned_to_id(full_name, email)
-      `)
-      .order('created_at', { ascending: false });
+      `,
+      )
+      .order("created_at", { ascending: false });
 
     if (filters?.status) {
-      query = query.eq('status', filters.status);
+      query = query.eq("status", filters.status);
     }
 
     if (filters?.priority) {
-      query = query.eq('priority', filters.priority);
+      query = query.eq("priority", filters.priority);
     }
 
     if (filters?.organization_id) {
-      query = query.eq('organization_id', filters.organization_id);
+      query = query.eq("organization_id", filters.organization_id);
     }
 
     if (filters?.assigned_to) {
-      query = query.eq('assigned_to', filters.assigned_to);
+      query = query.eq("assigned_to", filters.assigned_to);
     }
 
     const { data, error } = await query;
@@ -106,15 +114,17 @@ export const supportService = {
 
   async getOrganizationTickets(organizationId: string) {
     const { data, error } = await supabase
-      .from('bb_support_tickets')
-      .select(`
+      .from("bb_support_tickets")
+      .select(
+        `
         *,
         organization:bb_organizations!support_tickets_organization_id_fkey(id, name),
         requester:bb_profiles!created_by_id(full_name, email),
         assigned_user:bb_profiles!assigned_to_id(full_name, email)
-      `)
-      .eq('organization_id', organizationId)
-      .order('created_at', { ascending: false });
+      `,
+      )
+      .eq("organization_id", organizationId)
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
     return data as TicketWithDetails[];
@@ -122,14 +132,16 @@ export const supportService = {
 
   async getTicketById(id: string) {
     const { data, error } = await supabase
-      .from('bb_support_tickets')
-      .select(`
+      .from("bb_support_tickets")
+      .select(
+        `
         *,
         organization:bb_organizations!support_tickets_organization_id_fkey(id, name),
         requester:bb_profiles!created_by_id(full_name, email),
         assigned_user:bb_profiles!assigned_to_id(full_name, email)
-      `)
-      .eq('id', id)
+      `,
+      )
+      .eq("id", id)
       .maybeSingle();
 
     if (error) throw error;
@@ -140,13 +152,13 @@ export const supportService = {
     const { data: user } = await supabase.auth.getUser();
 
     const { data, error } = await supabase
-      .from('bb_support_tickets')
+      .from("bb_support_tickets")
       .insert([
         {
           ...ticketData,
           requester_id: user?.user?.id,
-          priority: ticketData.priority || 'medium',
-          category: ticketData.category || 'general_support',
+          priority: ticketData.priority || "medium",
+          category: ticketData.category || "general_support",
         },
       ])
       .select()
@@ -158,9 +170,9 @@ export const supportService = {
 
   async updateTicket(id: string, updates: Partial<SupportTicket>) {
     const { data, error } = await supabase
-      .from('bb_support_tickets')
+      .from("bb_support_tickets")
       .update(updates)
-      .eq('id', id)
+      .eq("id", id)
       .select()
       .maybeSingle();
 
@@ -170,9 +182,9 @@ export const supportService = {
 
   async updateTicketStatus(ticketId: string, status: TicketStatus) {
     const { data, error } = await supabase
-      .from('bb_support_tickets')
+      .from("bb_support_tickets")
       .update({ status })
-      .eq('id', ticketId)
+      .eq("id", ticketId)
       .select()
       .maybeSingle();
 
@@ -182,9 +194,9 @@ export const supportService = {
 
   async assignTicket(ticketId: string, userId?: string) {
     const { data, error } = await supabase
-      .from('bb_support_tickets')
+      .from("bb_support_tickets")
       .update({ assigned_to: userId })
-      .eq('id', ticketId)
+      .eq("id", ticketId)
       .select()
       .maybeSingle();
 
@@ -194,22 +206,24 @@ export const supportService = {
 
   async deleteTicket(id: string) {
     const { error } = await supabase
-      .from('bb_support_tickets')
+      .from("bb_support_tickets")
       .delete()
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) throw error;
   },
 
   async getTicketComments(ticketId: string) {
     const { data, error } = await supabase
-      .from('bb_ticket_comments')
-      .select(`
+      .from("bb_ticket_comments")
+      .select(
+        `
         *,
         author:bb_profiles!ticket_comments_author_id_fkey(full_name, email)
-      `)
-      .eq('ticket_id', ticketId)
-      .order('created_at', { ascending: true });
+      `,
+      )
+      .eq("ticket_id", ticketId)
+      .order("created_at", { ascending: true });
 
     if (error) throw error;
     return data as CommentWithAuthor[];
@@ -219,7 +233,7 @@ export const supportService = {
     const { data: user } = await supabase.auth.getUser();
 
     const { data, error } = await supabase
-      .from('bb_ticket_comments')
+      .from("bb_ticket_comments")
       .insert([
         {
           ...commentData,
@@ -236,9 +250,9 @@ export const supportService = {
 
   async updateComment(id: string, content: string) {
     const { data, error } = await supabase
-      .from('bb_ticket_comments')
+      .from("bb_ticket_comments")
       .update({ content })
-      .eq('id', id)
+      .eq("id", id)
       .select()
       .maybeSingle();
 
@@ -248,20 +262,18 @@ export const supportService = {
 
   async deleteComment(id: string) {
     const { error } = await supabase
-      .from('bb_ticket_comments')
+      .from("bb_ticket_comments")
       .delete()
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) throw error;
   },
 
   async getTicketStats(organizationId?: string) {
-    let query = supabase
-      .from('bb_support_tickets')
-      .select('status, priority');
+    let query = supabase.from("bb_support_tickets").select("status, priority");
 
     if (organizationId) {
-      query = query.eq('organization_id', organizationId);
+      query = query.eq("organization_id", organizationId);
     }
 
     const { data, error } = await query;
@@ -270,13 +282,14 @@ export const supportService = {
 
     const stats = {
       total: data.length,
-      open: data.filter((t) => t.status === 'open').length,
-      in_progress: data.filter((t) => t.status === 'in_progress').length,
-      waiting_on_client: data.filter((t) => t.status === 'waiting_on_client').length,
-      resolved: data.filter((t) => t.status === 'resolved').length,
-      closed: data.filter((t) => t.status === 'closed').length,
-      urgent: data.filter((t) => t.priority === 'urgent').length,
-      high: data.filter((t) => t.priority === 'high').length,
+      open: data.filter((t) => t.status === "open").length,
+      in_progress: data.filter((t) => t.status === "in_progress").length,
+      waiting_on_client: data.filter((t) => t.status === "waiting_on_client")
+        .length,
+      resolved: data.filter((t) => t.status === "resolved").length,
+      closed: data.filter((t) => t.status === "closed").length,
+      urgent: data.filter((t) => t.priority === "urgent").length,
+      high: data.filter((t) => t.priority === "high").length,
     };
 
     return stats;

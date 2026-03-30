@@ -1,11 +1,23 @@
-import { supabase } from '../supabase';
+import { supabase } from "../supabase";
 
-export type EventCategory = 'crm' | 'billing' | 'project' | 'support' | 'user_action' | 'system';
-export type MetricCategory = 'crm' | 'billing' | 'project' | 'support' | 'engagement' | 'system';
-export type TimePeriod = 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
-export type SignalType = 'trend' | 'anomaly' | 'pattern' | 'prediction';
-export type SignalSeverity = 'info' | 'low' | 'medium' | 'high' | 'critical';
-export type SignalStatus = 'new' | 'acknowledged' | 'resolved';
+export type EventCategory =
+  | "crm"
+  | "billing"
+  | "project"
+  | "support"
+  | "user_action"
+  | "system";
+export type MetricCategory =
+  | "crm"
+  | "billing"
+  | "project"
+  | "support"
+  | "engagement"
+  | "system";
+export type TimePeriod = "hour" | "day" | "week" | "month" | "quarter" | "year";
+export type SignalType = "trend" | "anomaly" | "pattern" | "prediction";
+export type SignalSeverity = "info" | "low" | "medium" | "high" | "critical";
+export type SignalStatus = "new" | "acknowledged" | "resolved";
 
 export interface SystemEvent {
   id: string;
@@ -75,11 +87,11 @@ class DataPipelineService {
       entityId?: string;
       eventData?: Record<string, any>;
       metadata?: Record<string, any>;
-    }
+    },
   ): Promise<SystemEvent | null> {
     try {
       const { data: event, error } = await supabase
-        .from('bb_system_events')
+        .from("bb_system_events")
         .insert({
           event_type: eventType,
           event_category: eventCategory,
@@ -96,7 +108,7 @@ class DataPipelineService {
       if (error) throw error;
       return event;
     } catch (error) {
-      console.error('Failed to log event:', error);
+      console.error("Failed to log event:", error);
       return null;
     }
   }
@@ -110,11 +122,11 @@ class DataPipelineService {
       resourceId?: string | null;
       page?: string;
       metadata?: Record<string, any>;
-    }
+    },
   ): Promise<ActivityLog | null> {
     try {
       const { data: log, error } = await supabase
-        .from('bb_activity_logs')
+        .from("bb_activity_logs")
         .insert({
           user_id: userId,
           organization_id: data.organizationId || null,
@@ -130,7 +142,7 @@ class DataPipelineService {
       if (error) throw error;
       return log;
     } catch (error) {
-      console.error('Failed to log activity:', error);
+      console.error("Failed to log activity:", error);
       return null;
     }
   }
@@ -146,32 +158,32 @@ class DataPipelineService {
   }): Promise<SystemEvent[]> {
     try {
       let query = supabase
-        .from('bb_system_events')
-        .select('*')
-        .order('timestamp', { ascending: false });
+        .from("bb_system_events")
+        .select("*")
+        .order("timestamp", { ascending: false });
 
       if (filters?.eventType) {
-        query = query.eq('event_type', filters.eventType);
+        query = query.eq("event_type", filters.eventType);
       }
 
       if (filters?.eventCategory) {
-        query = query.eq('event_category', filters.eventCategory);
+        query = query.eq("event_category", filters.eventCategory);
       }
 
       if (filters?.organizationId) {
-        query = query.eq('organization_id', filters.organizationId);
+        query = query.eq("organization_id", filters.organizationId);
       }
 
       if (filters?.userId) {
-        query = query.eq('user_id', filters.userId);
+        query = query.eq("user_id", filters.userId);
       }
 
       if (filters?.startDate) {
-        query = query.gte('timestamp', filters.startDate);
+        query = query.gte("timestamp", filters.startDate);
       }
 
       if (filters?.endDate) {
-        query = query.lte('timestamp', filters.endDate);
+        query = query.lte("timestamp", filters.endDate);
       }
 
       if (filters?.limit) {
@@ -185,7 +197,7 @@ class DataPipelineService {
       if (error) throw error;
       return data || [];
     } catch (error) {
-      console.error('Failed to get events:', error);
+      console.error("Failed to get events:", error);
       return [];
     }
   }
@@ -201,32 +213,32 @@ class DataPipelineService {
   }): Promise<ActivityLog[]> {
     try {
       let query = supabase
-        .from('bb_activity_logs')
-        .select('*')
-        .order('timestamp', { ascending: false });
+        .from("bb_activity_logs")
+        .select("*")
+        .order("timestamp", { ascending: false });
 
       if (filters?.userId) {
-        query = query.eq('user_id', filters.userId);
+        query = query.eq("user_id", filters.userId);
       }
 
       if (filters?.organizationId) {
-        query = query.eq('organization_id', filters.organizationId);
+        query = query.eq("organization_id", filters.organizationId);
       }
 
       if (filters?.action) {
-        query = query.eq('action', filters.action);
+        query = query.eq("action", filters.action);
       }
 
       if (filters?.resourceType) {
-        query = query.eq('resource_type', filters.resourceType);
+        query = query.eq("resource_type", filters.resourceType);
       }
 
       if (filters?.startDate) {
-        query = query.gte('timestamp', filters.startDate);
+        query = query.gte("timestamp", filters.startDate);
       }
 
       if (filters?.endDate) {
-        query = query.lte('timestamp', filters.endDate);
+        query = query.lte("timestamp", filters.endDate);
       }
 
       if (filters?.limit) {
@@ -240,7 +252,7 @@ class DataPipelineService {
       if (error) throw error;
       return data || [];
     } catch (error) {
-      console.error('Failed to get activity logs:', error);
+      console.error("Failed to get activity logs:", error);
       return [];
     }
   }
@@ -256,11 +268,11 @@ class DataPipelineService {
       organizationId?: string | null;
       userId?: string | null;
       metricData?: Record<string, any>;
-    }
+    },
   ): Promise<AggregatedMetric | null> {
     try {
       const { data: metric, error } = await supabase
-        .from('bb_aggregated_metrics')
+        .from("bb_aggregated_metrics")
         .upsert({
           metric_type: metricType,
           metric_category: metricCategory,
@@ -279,7 +291,7 @@ class DataPipelineService {
       if (error) throw error;
       return metric;
     } catch (error) {
-      console.error('Failed to store metric:', error);
+      console.error("Failed to store metric:", error);
       return null;
     }
   }
@@ -296,36 +308,36 @@ class DataPipelineService {
   }): Promise<AggregatedMetric[]> {
     try {
       let query = supabase
-        .from('bb_aggregated_metrics')
-        .select('*')
-        .order('period_start', { ascending: false });
+        .from("bb_aggregated_metrics")
+        .select("*")
+        .order("period_start", { ascending: false });
 
       if (filters.metricType) {
-        query = query.eq('metric_type', filters.metricType);
+        query = query.eq("metric_type", filters.metricType);
       }
 
       if (filters.metricCategory) {
-        query = query.eq('metric_category', filters.metricCategory);
+        query = query.eq("metric_category", filters.metricCategory);
       }
 
       if (filters.organizationId) {
-        query = query.eq('organization_id', filters.organizationId);
+        query = query.eq("organization_id", filters.organizationId);
       }
 
       if (filters.userId) {
-        query = query.eq('user_id', filters.userId);
+        query = query.eq("user_id", filters.userId);
       }
 
       if (filters.timePeriod) {
-        query = query.eq('time_period', filters.timePeriod);
+        query = query.eq("time_period", filters.timePeriod);
       }
 
       if (filters.startDate) {
-        query = query.gte('period_start', filters.startDate);
+        query = query.gte("period_start", filters.startDate);
       }
 
       if (filters.endDate) {
-        query = query.lte('period_start', filters.endDate);
+        query = query.lte("period_start", filters.endDate);
       }
 
       if (filters.limit) {
@@ -339,7 +351,7 @@ class DataPipelineService {
       if (error) throw error;
       return data || [];
     } catch (error) {
-      console.error('Failed to get metrics:', error);
+      console.error("Failed to get metrics:", error);
       return [];
     }
   }
@@ -354,11 +366,11 @@ class DataPipelineService {
       description?: string;
       signalData?: Record<string, any>;
       confidenceScore?: number;
-    }
+    },
   ): Promise<DataSignal | null> {
     try {
       const { data: signal, error } = await supabase
-        .from('bb_data_signals')
+        .from("bb_data_signals")
         .insert({
           signal_type: signalType,
           signal_category: signalCategory,
@@ -375,7 +387,7 @@ class DataPipelineService {
       if (error) throw error;
       return signal;
     } catch (error) {
-      console.error('Failed to create signal:', error);
+      console.error("Failed to create signal:", error);
       return null;
     }
   }
@@ -390,28 +402,28 @@ class DataPipelineService {
   }): Promise<DataSignal[]> {
     try {
       let query = supabase
-        .from('bb_data_signals')
-        .select('*')
-        .order('detected_at', { ascending: false });
+        .from("bb_data_signals")
+        .select("*")
+        .order("detected_at", { ascending: false });
 
       if (filters?.signalType) {
-        query = query.eq('signal_type', filters.signalType);
+        query = query.eq("signal_type", filters.signalType);
       }
 
       if (filters?.signalCategory) {
-        query = query.eq('signal_category', filters.signalCategory);
+        query = query.eq("signal_category", filters.signalCategory);
       }
 
       if (filters?.organizationId) {
-        query = query.eq('organization_id', filters.organizationId);
+        query = query.eq("organization_id", filters.organizationId);
       }
 
       if (filters?.severity) {
-        query = query.eq('severity', filters.severity);
+        query = query.eq("severity", filters.severity);
       }
 
       if (filters?.status) {
-        query = query.eq('status', filters.status);
+        query = query.eq("status", filters.status);
       }
 
       if (filters?.limit) {
@@ -425,21 +437,24 @@ class DataPipelineService {
       if (error) throw error;
       return data || [];
     } catch (error) {
-      console.error('Failed to get signals:', error);
+      console.error("Failed to get signals:", error);
       return [];
     }
   }
 
-  async updateSignalStatus(signalId: string, status: SignalStatus): Promise<void> {
+  async updateSignalStatus(
+    signalId: string,
+    status: SignalStatus,
+  ): Promise<void> {
     try {
       const { error } = await supabase
-        .from('bb_data_signals')
+        .from("bb_data_signals")
         .update({ status })
-        .eq('id', signalId);
+        .eq("id", signalId);
 
       if (error) throw error;
     } catch (error) {
-      console.error('Failed to update signal status:', error);
+      console.error("Failed to update signal status:", error);
     }
   }
 
@@ -447,7 +462,7 @@ class DataPipelineService {
     organizationId: string | null,
     timePeriod: TimePeriod,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
   ): Promise<void> {
     try {
       const events = await this.getEvents({
@@ -457,14 +472,20 @@ class DataPipelineService {
         limit: 10000,
       });
 
-      const crmEvents = events.filter(e => e.event_category === 'crm');
-      const billingEvents = events.filter(e => e.event_category === 'billing');
-      const projectEvents = events.filter(e => e.event_category === 'project');
-      const supportEvents = events.filter(e => e.event_category === 'support');
+      const crmEvents = events.filter((e) => e.event_category === "crm");
+      const billingEvents = events.filter(
+        (e) => e.event_category === "billing",
+      );
+      const projectEvents = events.filter(
+        (e) => e.event_category === "project",
+      );
+      const supportEvents = events.filter(
+        (e) => e.event_category === "support",
+      );
 
       await this.storeMetric(
-        'event_count',
-        'crm',
+        "event_count",
+        "crm",
         timePeriod,
         startDate.toISOString(),
         endDate.toISOString(),
@@ -472,16 +493,22 @@ class DataPipelineService {
         {
           organizationId,
           metricData: {
-            lead_created: crmEvents.filter(e => e.event_type === 'lead_created').length,
-            proposal_created: crmEvents.filter(e => e.event_type === 'proposal_created').length,
-            proposal_approved: crmEvents.filter(e => e.event_type === 'proposal_approved').length,
+            lead_created: crmEvents.filter(
+              (e) => e.event_type === "lead_created",
+            ).length,
+            proposal_created: crmEvents.filter(
+              (e) => e.event_type === "proposal_created",
+            ).length,
+            proposal_approved: crmEvents.filter(
+              (e) => e.event_type === "proposal_approved",
+            ).length,
           },
-        }
+        },
       );
 
       await this.storeMetric(
-        'event_count',
-        'billing',
+        "event_count",
+        "billing",
         timePeriod,
         startDate.toISOString(),
         endDate.toISOString(),
@@ -489,15 +516,19 @@ class DataPipelineService {
         {
           organizationId,
           metricData: {
-            invoice_paid: billingEvents.filter(e => e.event_type === 'invoice_paid').length,
-            invoice_overdue: billingEvents.filter(e => e.event_type === 'invoice_overdue').length,
+            invoice_paid: billingEvents.filter(
+              (e) => e.event_type === "invoice_paid",
+            ).length,
+            invoice_overdue: billingEvents.filter(
+              (e) => e.event_type === "invoice_overdue",
+            ).length,
           },
-        }
+        },
       );
 
       await this.storeMetric(
-        'event_count',
-        'project',
+        "event_count",
+        "project",
         timePeriod,
         startDate.toISOString(),
         endDate.toISOString(),
@@ -505,15 +536,19 @@ class DataPipelineService {
         {
           organizationId,
           metricData: {
-            project_created: projectEvents.filter(e => e.event_type === 'project_created').length,
-            milestone_completed: projectEvents.filter(e => e.event_type === 'milestone_completed').length,
+            project_created: projectEvents.filter(
+              (e) => e.event_type === "project_created",
+            ).length,
+            milestone_completed: projectEvents.filter(
+              (e) => e.event_type === "milestone_completed",
+            ).length,
           },
-        }
+        },
       );
 
       await this.storeMetric(
-        'event_count',
-        'support',
+        "event_count",
+        "support",
         timePeriod,
         startDate.toISOString(),
         endDate.toISOString(),
@@ -521,13 +556,17 @@ class DataPipelineService {
         {
           organizationId,
           metricData: {
-            ticket_created: supportEvents.filter(e => e.event_type === 'support_ticket_created').length,
-            ticket_resolved: supportEvents.filter(e => e.event_type === 'support_ticket_resolved').length,
+            ticket_created: supportEvents.filter(
+              (e) => e.event_type === "support_ticket_created",
+            ).length,
+            ticket_resolved: supportEvents.filter(
+              (e) => e.event_type === "support_ticket_resolved",
+            ).length,
           },
-        }
+        },
       );
     } catch (error) {
-      console.error('Failed to aggregate metrics:', error);
+      console.error("Failed to aggregate metrics:", error);
     }
   }
 }

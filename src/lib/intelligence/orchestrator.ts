@@ -1,5 +1,5 @@
-import { supabase } from '../supabase';
-import { aiService } from '../ai/services/aiService';
+import { supabase } from "../supabase";
+import { aiService } from "../ai/services/aiService";
 
 export interface OrchestrationPayload {
   command: string;
@@ -20,11 +20,10 @@ export interface OrchestrationResult {
  * It chains tasks (e.g., Extract NLP -> Insert row -> Send Notification)
  */
 export const aiOrchestrator = {
-  
   async execute(payload: OrchestrationPayload): Promise<OrchestrationResult> {
     try {
-      console.log('Orchestrator received command:', payload.command);
-      
+      console.log("Orchestrator received command:", payload.command);
+
       // 1. Ask the base AI Copilot to categorize the intent and extract entities
       const intentPrompt = `
         You are the backend AI Orchestrator. 
@@ -44,40 +43,44 @@ export const aiOrchestrator = {
 
       // Mocking the completion for demo/speed; in prod, this hits the LLM stream endpoint
       // const analysis = await aiService.generateCompletion(intentPrompt, 'system');
-      
+
       // Fallback intent router for immediate deterministic behavior
       const lowerCmd = payload.command.toLowerCase();
-      
-      if (lowerCmd.includes('create lead') || lowerCmd.includes('new lead')) {
+
+      if (lowerCmd.includes("create lead") || lowerCmd.includes("new lead")) {
         return await this.handleCreateLead(payload);
-      } 
-      else if (lowerCmd.includes('start project') || lowerCmd.includes('workflow')) {
+      } else if (
+        lowerCmd.includes("start project") ||
+        lowerCmd.includes("workflow")
+      ) {
         return await this.handleCreateProject(payload);
-      }
-      else {
+      } else {
         // Generic fallback to standard RAG query
         return {
           success: true,
-          action_taken: 'EXPLAIN_DATA',
-          message: 'I have analyzed your request. Based on telemetry, this action is not fully automatable yet.'
+          action_taken: "EXPLAIN_DATA",
+          message:
+            "I have analyzed your request. Based on telemetry, this action is not fully automatable yet.",
         };
       }
     } catch (err: any) {
-      console.error('Orchestrator Execution Failed:', err);
-      return { success: false, action_taken: 'ERROR', message: err.message };
+      console.error("Orchestrator Execution Failed:", err);
+      return { success: false, action_taken: "ERROR", message: err.message };
     }
   },
 
-  async handleCreateLead(payload: OrchestrationPayload): Promise<OrchestrationResult> {
+  async handleCreateLead(
+    payload: OrchestrationPayload,
+  ): Promise<OrchestrationResult> {
     // 1. Execute DB Action
     const { data, error } = await supabase
-      .from('bb_leads')
+      .from("bb_leads")
       .insert({
         organization_id: payload.organization_id,
-        first_name: 'AI Generated',
-        last_name: 'Lead',
-        email: 'orchestrator@example.com',
-        status: 'new'
+        first_name: "AI Generated",
+        last_name: "Lead",
+        email: "orchestrator@example.com",
+        status: "new",
       })
       .select()
       .single();
@@ -85,28 +88,29 @@ export const aiOrchestrator = {
     if (error) throw error;
 
     // 2. Track Intelligence Metric
-    await supabase.from('bb_intelligence_events').insert({
+    await supabase.from("bb_intelligence_events").insert({
       organization_id: payload.organization_id,
       user_id: payload.user_id,
-      event_type: 'workflow_started',
-      module: 'copilot',
-      context: { source: 'CmdK_Orchestrator', action: 'CREATE_LEAD' }
+      event_type: "workflow_started",
+      module: "copilot",
+      context: { source: "CmdK_Orchestrator", action: "CREATE_LEAD" },
     });
 
     return {
       success: true,
-      action_taken: 'CREATE_LEAD',
-      message: 'Successfully generated and routed a new lead to the CRM.',
-      data
+      action_taken: "CREATE_LEAD",
+      message: "Successfully generated and routed a new lead to the CRM.",
+      data,
     };
   },
 
-  async handleCreateProject(payload: OrchestrationPayload): Promise<OrchestrationResult> {
+  async handleCreateProject(
+    payload: OrchestrationPayload,
+  ): Promise<OrchestrationResult> {
     return {
       success: true,
-      action_taken: 'START_WORKFLOW',
-      message: 'Project scaffolding initiated via AI Orchestrator.'
+      action_taken: "START_WORKFLOW",
+      message: "Project scaffolding initiated via AI Orchestrator.",
     };
-  }
-
+  },
 };

@@ -1,13 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Bell, Check, CheckCheck, X } from 'lucide-react';
-import { useNotifications } from '../../hooks/useNotifications';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Bell, Check, CheckCheck, X } from "lucide-react";
+import { useNotifications } from "../../hooks/useNotifications";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function NotificationBell() {
   const { user } = useAuth();
-  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications(user?.id);
+  const { notifications, unreadCount, markAsRead, markAllAsRead } =
+    useNotifications(user?.id);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const bellRef = useRef<HTMLDivElement>(null);
@@ -19,12 +20,12 @@ export default function NotificationBell() {
       }
     };
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  const handleNotificationClick = (notification: typeof notifications[0]) => {
+  const handleNotificationClick = (notification: (typeof notifications)[0]) => {
     markAsRead(notification.id);
     if (notification.link) {
       navigate(notification.link);
@@ -34,14 +35,14 @@ export default function NotificationBell() {
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'success':
-        return 'text-green-400 bg-green-500/10 border-green-500/20';
-      case 'warning':
-        return 'text-amber-400 bg-amber-500/10 border-amber-500/20';
-      case 'error':
-        return 'text-red-400 bg-red-500/10 border-red-500/20';
+      case "success":
+        return "text-green-400 bg-green-500/10 border-green-500/20";
+      case "warning":
+        return "text-amber-400 bg-amber-500/10 border-amber-500/20";
+      case "error":
+        return "text-red-400 bg-red-500/10 border-red-500/20";
       default:
-        return 'text-blue-400 bg-blue-500/10 border-blue-500/20';
+        return "text-blue-400 bg-blue-500/10 border-blue-500/20";
     }
   };
 
@@ -58,7 +59,7 @@ export default function NotificationBell() {
             animate={{ scale: 1 }}
             className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center"
           >
-            {unreadCount > 9 ? '9+' : unreadCount}
+            {unreadCount > 9 ? "9+" : unreadCount}
           </motion.span>
         )}
       </button>
@@ -76,7 +77,9 @@ export default function NotificationBell() {
                 <div>
                   <h3 className="font-semibold text-white">Notifications</h3>
                   <p className="text-xs text-slate-400">
-                    {unreadCount > 0 ? `${unreadCount} unread` : 'All caught up'}
+                    {unreadCount > 0
+                      ? `${unreadCount} unread`
+                      : "All caught up"}
                   </p>
                 </div>
                 {unreadCount > 0 && (
@@ -94,7 +97,9 @@ export default function NotificationBell() {
                 {notifications.length === 0 ? (
                   <div className="p-8 text-center">
                     <Bell className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-                    <p className="text-sm text-slate-400">No notifications yet</p>
+                    <p className="text-sm text-slate-400">
+                      No notifications yet
+                    </p>
                   </div>
                 ) : (
                   <div className="divide-y divide-white/10">
@@ -103,14 +108,14 @@ export default function NotificationBell() {
                         key={notification.id}
                         onClick={() => handleNotificationClick(notification)}
                         className={`w-full p-4 text-left hover:bg-white/5 transition-colors ${
-                          !notification.read ? 'bg-blue-500/5' : ''
+                          !notification.read ? "bg-blue-500/5" : ""
                         }`}
                         whileHover={{ x: 4 }}
                       >
                         <div className="flex items-start gap-3">
                           <div
                             className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                              notification.read ? 'bg-slate-600' : 'bg-blue-500'
+                              notification.read ? "bg-slate-600" : "bg-blue-500"
                             }`}
                           />
 
@@ -121,7 +126,7 @@ export default function NotificationBell() {
                               </h4>
                               <span
                                 className={`px-2 py-0.5 rounded text-xs border ${getTypeColor(
-                                  notification.type
+                                  notification.type,
                                 )}`}
                               >
                                 {notification.type}
@@ -131,11 +136,13 @@ export default function NotificationBell() {
                               {notification.message}
                             </p>
                             <p className="text-xs text-slate-500">
-                              {new Date(notification.created_at).toLocaleDateString('en-US', {
-                                month: 'short',
-                                day: 'numeric',
-                                hour: 'numeric',
-                                minute: '2-digit',
+                              {new Date(
+                                notification.created_at,
+                              ).toLocaleDateString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                                hour: "numeric",
+                                minute: "2-digit",
                               })}
                             </p>
                           </div>

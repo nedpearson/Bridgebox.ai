@@ -1,16 +1,24 @@
-import { Eye, Lock, Globe } from 'lucide-react';
-import { VISIBILITY_LABELS, VISIBILITY_COLORS, type DocumentVisibility } from '../../lib/db/knowledge';
+import { Eye, Lock, Globe } from "lucide-react";
+import {
+  VISIBILITY_LABELS,
+  VISIBILITY_COLORS,
+  type DocumentVisibility,
+} from "../../lib/db/knowledge";
 
 interface DocumentVisibilityBadgeProps {
   visibility: DocumentVisibility;
   showIcon?: boolean;
 }
 
-export default function DocumentVisibilityBadge({ visibility, showIcon = true }: DocumentVisibilityBadgeProps) {
+export default function DocumentVisibilityBadge({
+  visibility,
+  showIcon = true,
+}: DocumentVisibilityBadgeProps) {
   const colors = VISIBILITY_COLORS[visibility];
   const label = VISIBILITY_LABELS[visibility];
 
-  const Icon = visibility === 'internal' ? Lock : visibility === 'public' ? Globe : Eye;
+  const Icon =
+    visibility === "internal" ? Lock : visibility === "public" ? Globe : Eye;
 
   return (
     <span

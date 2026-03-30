@@ -1,11 +1,11 @@
-import { AIProviderFactory } from '../providers';
-import { AgentRegistry, AgentPayload } from './AgentRegistry';
+import { AIProviderFactory } from "../providers";
+import { AgentRegistry, AgentPayload } from "./AgentRegistry";
 
 export interface TopologyNode {
   name: string;
   category: string; // e.g. "Accounting", "CRM", "Communication"
-  integration_type: 'inbound_webhook' | 'outbound_api' | 'bi_directional';
-  complexity: 'low' | 'medium' | 'high';
+  integration_type: "inbound_webhook" | "outbound_api" | "bi_directional";
+  complexity: "low" | "medium" | "high";
   bridgebox_target: string; // e.g. "invoices", "leads", "tasks"
 }
 
@@ -15,11 +15,15 @@ export const StackDiscoveryAgent = {
    * outputting strict JSON determining exactly how Bridgebox needs to orchestrate them.
    */
   async mapTopology(payload: AgentPayload) {
-    return AgentRegistry.execute<{ nodes: TopologyNode[] }>('StackDiscoveryAgent', payload, async () => {
-      const provider = AIProviderFactory.getProvider();
-      if (!provider.isConfigured()) throw new Error("AI Provider unavailable.");
+    return AgentRegistry.execute<{ nodes: TopologyNode[] }>(
+      "StackDiscoveryAgent",
+      payload,
+      async () => {
+        const provider = AIProviderFactory.getProvider();
+        if (!provider.isConfigured())
+          throw new Error("AI Provider unavailable.");
 
-      const prompt = `
+        const prompt = `
 You are the Bridgebox Stack Discovery Agent. The client has provided their messy tech stack:
 "${payload.intent}"
 Context Data: ${JSON.stringify(payload.context || {})}
@@ -39,17 +43,22 @@ Output exactly this JSON:
 }
       `.trim();
 
-      const response = await provider.complete({
-        messages: [
-          { role: 'system', content: 'You are a meticulous Enterprise System Architect outputting rigid JSON topologies.' },
-          { role: 'user', content: prompt }
-        ],
-        temperature: 0.1,
-        ...({ responseFormat: "json_object" } as any)
-      });
+        const response = await provider.complete({
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are a meticulous Enterprise System Architect outputting rigid JSON topologies.",
+            },
+            { role: "user", content: prompt },
+          ],
+          temperature: 0.1,
+          ...({ responseFormat: "json_object" } as any),
+        });
 
-      if (!response.content) throw new Error("Empty AI Response");
-      return JSON.parse(response.content);
-    });
-  }
+        if (!response.content) throw new Error("Empty AI Response");
+        return JSON.parse(response.content);
+      },
+    );
+  },
 };

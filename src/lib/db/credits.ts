@@ -4,44 +4,54 @@
 // Tables: bb_credit_wallets, bb_credit_ledger
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { supabase } from '../supabase';
-import type { CreditWallet, CreditLedgerEntry, CreditEventType } from '../../types/billing';
-import { CREDIT_COSTS, CREDIT_LABELS } from '../../types/billing';
-import { getCreditAllowance } from '../entitlements';
+import { supabase } from "../supabase";
+import type {
+  CreditWallet,
+  CreditLedgerEntry,
+  CreditEventType,
+} from "../../types/billing";
+import { CREDIT_COSTS, CREDIT_LABELS } from "../../types/billing";
+import { getCreditAllowance } from "../entitlements";
 
 export const creditsService = {
-
   // ─── Wallet ────────────────────────────────────────────────────────────────
 
   async getWallet(organizationId: string): Promise<CreditWallet | null> {
     const { data, error } = await supabase
-      .from('bb_credit_wallets')
-      .select('*')
-      .eq('organization_id', organizationId)
+      .from("bb_credit_wallets")
+      .select("*")
+      .eq("organization_id", organizationId)
       .maybeSingle();
 
     if (error) throw error;
     return data;
   },
 
-  async ensureWallet(organizationId: string, planTier = 'starter'): Promise<CreditWallet> {
+  async ensureWallet(
+    organizationId: string,
+    planTier = "starter",
+  ): Promise<CreditWallet> {
     const existing = await this.getWallet(organizationId);
     if (existing) return existing;
 
     const allowance = getCreditAllowance(planTier);
     const now = new Date();
-    const periodEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1).toISOString();
+    const periodEnd = new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      1,
+    ).toISOString();
 
     const { data, error } = await supabase
-      .from('bb_credit_wallets')
+      .from("bb_credit_wallets")
       .insert({
         organization_id: organizationId,
         balance: allowance > 0 ? allowance : 0,
         monthly_allowance: allowance,
         lifetime_earned: allowance > 0 ? allowance : 0,
         lifetime_spent: 0,
-        period_start: now.toISOString().split('T')[0],
-        period_end: periodEnd.split('T')[0],
+        period_start: now.toISOString().split("T")[0],
+        period_end: periodEnd.split("T")[0],
       })
       .select()
       .single();
@@ -50,7 +60,7 @@ export const creditsService = {
 
     // Log initial allowance
     await this.addLedgerEntry(organizationId, {
-      event_type: 'monthly_allowance',
+      event_type: "monthly_allowance",
       delta: allowance > 0 ? allowance : 0,
       balance_after: allowance > 0 ? allowance : 0,
       description: `Initial monthly allowance for ${planTier} plan`,
@@ -69,7 +79,7 @@ export const creditsService = {
     eventType: CreditEventType,
     userId?: string,
     metadata?: Record<string, any>,
-    overrideCost?: number
+    overrideCost?: number,
   ): Promise<{ success: boolean; balance: number; shortfall?: number }> {
     const cost = overrideCost ?? CREDIT_COSTS[eventType] ?? 0;
     if (cost === 0) return { success: true, balance: 0 };
@@ -91,19 +101,23 @@ export const creditsService = {
     }
 
     if (wallet.balance < cost) {
-      return { success: false, balance: wallet.balance, shortfall: cost - wallet.balance };
+      return {
+        success: false,
+        balance: wallet.balance,
+        shortfall: cost - wallet.balance,
+      };
     }
 
     const newBalance = wallet.balance - cost;
 
     const { error } = await supabase
-      .from('bb_credit_wallets')
+      .from("bb_credit_wallets")
       .update({
         balance: newBalance,
         lifetime_spent: (wallet.lifetime_spent ?? 0) + cost,
         updated_at: new Date().toISOString(),
       })
-      .eq('organization_id', organizationId);
+      .eq("organization_id", organizationId);
 
     if (error) throw error;
 
@@ -127,21 +141,21 @@ export const creditsService = {
     amount: number,
     eventType: CreditEventType,
     description: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, any>,
   ): Promise<CreditWallet> {
     const wallet = await this.getWallet(organizationId);
-    if (!wallet) throw new Error('Wallet not found');
+    if (!wallet) throw new Error("Wallet not found");
 
     const newBalance = wallet.balance + amount;
 
     const { data, error } = await supabase
-      .from('bb_credit_wallets')
+      .from("bb_credit_wallets")
       .update({
         balance: newBalance,
         lifetime_earned: (wallet.lifetime_earned ?? 0) + amount,
         updated_at: new Date().toISOString(),
       })
-      .eq('organization_id', organizationId)
+      .eq("organization_id", organizationId)
       .select()
       .single();
 
@@ -162,7 +176,10 @@ export const creditsService = {
    * Renews monthly allowance at the start of a new billing period.
    * Called from Stripe webhook on invoice.paid.
    */
-  async renewMonthlyAllowance(organizationId: string, planTier: string): Promise<void> {
+  async renewMonthlyAllowance(
+    organizationId: string,
+    planTier: string,
+  ): Promise<void> {
     const allowance = getCreditAllowance(planTier);
     if (allowance <= 0) return;
 
@@ -180,7 +197,7 @@ export const creditsService = {
     const unused = wallet.balance;
     if (unused > 0) {
       await this.addLedgerEntry(organizationId, {
-        event_type: 'expiry',
+        event_type: "expiry",
         delta: -unused,
         balance_after: 0,
         description: `Monthly expiry — ${unused} unused credits expired`,
@@ -188,19 +205,19 @@ export const creditsService = {
     }
 
     await supabase
-      .from('bb_credit_wallets')
+      .from("bb_credit_wallets")
       .update({
         balance: allowance,
         monthly_allowance: allowance,
         lifetime_earned: (wallet.lifetime_earned ?? 0) + allowance,
-        period_start: now.toISOString().split('T')[0],
-        period_end: periodEnd.toISOString().split('T')[0],
+        period_start: now.toISOString().split("T")[0],
+        period_end: periodEnd.toISOString().split("T")[0],
         updated_at: now.toISOString(),
       })
-      .eq('organization_id', organizationId);
+      .eq("organization_id", organizationId);
 
     await this.addLedgerEntry(organizationId, {
-      event_type: 'monthly_allowance',
+      event_type: "monthly_allowance",
       delta: allowance,
       balance_after: allowance,
       description: `Monthly allowance renewed — ${allowance} credits`,
@@ -218,20 +235,23 @@ export const creditsService = {
       description: string;
       user_id?: string;
       metadata?: Record<string, any>;
-    }
+    },
   ): Promise<void> {
-    await supabase.from('bb_credit_ledger').insert({
+    await supabase.from("bb_credit_ledger").insert({
       organization_id: organizationId,
       ...entry,
     });
   },
 
-  async getLedger(organizationId: string, limit = 20): Promise<CreditLedgerEntry[]> {
+  async getLedger(
+    organizationId: string,
+    limit = 20,
+  ): Promise<CreditLedgerEntry[]> {
     const { data, error } = await supabase
-      .from('bb_credit_ledger')
-      .select('*')
-      .eq('organization_id', organizationId)
-      .order('created_at', { ascending: false })
+      .from("bb_credit_ledger")
+      .select("*")
+      .eq("organization_id", organizationId)
+      .order("created_at", { ascending: false })
       .limit(limit);
 
     if (error) throw error;
@@ -245,14 +265,18 @@ export const creditsService = {
     totalConsumed: number;
   }> {
     const now = new Date();
-    const periodStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+    const periodStart = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      1,
+    ).toISOString();
 
     const { data, error } = await supabase
-      .from('bb_credit_ledger')
-      .select('event_type, delta')
-      .eq('organization_id', organizationId)
-      .gte('created_at', periodStart)
-      .lt('delta', 0); // only consumption events
+      .from("bb_credit_ledger")
+      .select("event_type, delta")
+      .eq("organization_id", organizationId)
+      .gte("created_at", periodStart)
+      .lt("delta", 0); // only consumption events
 
     if (error) throw error;
 
@@ -274,18 +298,19 @@ export const creditsService = {
   async adminAdjustBalance(
     organizationId: string,
     amount: number,
-    reason: string
+    reason: string,
   ): Promise<void> {
-    const eventType: CreditEventType = 'admin_adjustment';
+    const eventType: CreditEventType = "admin_adjustment";
     if (amount > 0) {
       await this.addCredits(organizationId, amount, eventType, reason);
     } else {
       const wallet = await this.getWallet(organizationId);
-      if (!wallet) throw new Error('Wallet not found');
+      if (!wallet) throw new Error("Wallet not found");
       const newBalance = Math.max(0, wallet.balance + amount);
-      await supabase.from('bb_credit_wallets')
+      await supabase
+        .from("bb_credit_wallets")
         .update({ balance: newBalance, updated_at: new Date().toISOString() })
-        .eq('organization_id', organizationId);
+        .eq("organization_id", organizationId);
       await this.addLedgerEntry(organizationId, {
         event_type: eventType,
         delta: amount,

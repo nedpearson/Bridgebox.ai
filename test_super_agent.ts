@@ -1,15 +1,16 @@
-import { config } from 'dotenv';
+import { config } from "dotenv";
 config();
 
-import { FeatureIngestionAgent } from './src/lib/ai/agents/FeatureIngestionAgent';
+import { FeatureIngestionAgent } from "./src/lib/ai/agents/FeatureIngestionAgent";
 
 async function run() {
   console.log("🚀 Testing Bridgebox Feature Ingestion Agent...");
-  
+
   try {
     const response = await FeatureIngestionAgent.draftCodePrompt({
-      intent: "I need a native Calendar widget that syncs with Outlook and Apple Calendar to show task deadlines visually.",
-      context: { source: "CLI_TEST" }
+      intent:
+        "I need a native Calendar widget that syncs with Outlook and Apple Calendar to show task deadlines visually.",
+      context: { source: "CLI_TEST" },
     });
 
     if (response.success) {

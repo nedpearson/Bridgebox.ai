@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 interface AnimatedChartProps {
   data?: number[];
@@ -10,7 +10,7 @@ interface AnimatedChartProps {
 export default function AnimatedChart({
   data = [30, 45, 35, 55, 40, 60, 50, 70, 65, 80, 75, 85],
   height = 80,
-  color = '#3B82F6',
+  color = "#3B82F6",
   delay = 0,
 }: AnimatedChartProps) {
   const max = Math.max(...data);
@@ -22,7 +22,7 @@ export default function AnimatedChart({
   const pathData = points.reduce((acc, point, index) => {
     if (index === 0) return `M ${point.x} ${point.y}`;
     return `${acc} L ${point.x} ${point.y}`;
-  }, '');
+  }, "");
 
   const areaPath = `${pathData} L 100 100 L 0 100 Z`;
 
@@ -34,7 +34,13 @@ export default function AnimatedChart({
         preserveAspectRatio="none"
       >
         <defs>
-          <linearGradient id={`gradient-${delay}`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <linearGradient
+            id={`gradient-${delay}`}
+            x1="0%"
+            y1="0%"
+            x2="0%"
+            y2="100%"
+          >
             <stop offset="0%" style={{ stopColor: color, stopOpacity: 0.3 }} />
             <stop offset="100%" style={{ stopColor: color, stopOpacity: 0 }} />
           </linearGradient>

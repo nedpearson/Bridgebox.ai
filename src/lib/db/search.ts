@@ -1,5 +1,5 @@
-import { supabase } from '../supabase';
-import { EntityType } from './entityLinks';
+import { supabase } from "../supabase";
+import { EntityType } from "./entityLinks";
 
 export interface SearchResult {
   id: string;
@@ -16,76 +16,102 @@ export const globalSearchService = {
     const results: SearchResult[] = [];
 
     // Parallel search across core tables utilizing correct isolation columns
-    const [clientsRes, projectsRes, tasksRes, docsRes, onboardingRes] = await Promise.all([
-      // Organizations acts as the root boundary. Clients are organizations with type = 'client'.
-      supabase.from('bb_organizations').select('id, name, type').eq('type', 'client').ilike('name', searchTerm).limit(5),
-      supabase.from('bb_projects').select('id, name, status').eq('organization_id', tenantId).ilike('name', searchTerm).limit(5),
-      supabase.from('bb_global_tasks').select('id, title, status').eq('tenant_id', tenantId).ilike('title', searchTerm).limit(5),
-      supabase.from('bb_documents').select('id, file_name, document_type').eq('organization_id', tenantId).ilike('file_name', searchTerm).limit(5),
-      // AI Onboarding Blueprint index
-      supabase.from('bb_onboarding_sessions').select('id, session_name, status').eq('organization_id', tenantId).ilike('session_name', searchTerm).limit(5)
-    ]);
+    const [clientsRes, projectsRes, tasksRes, docsRes, onboardingRes] =
+      await Promise.all([
+        // Organizations acts as the root boundary. Clients are organizations with type = 'client'.
+        supabase
+          .from("bb_organizations")
+          .select("id, name, type")
+          .eq("type", "client")
+          .ilike("name", searchTerm)
+          .limit(5),
+        supabase
+          .from("bb_projects")
+          .select("id, name, status")
+          .eq("organization_id", tenantId)
+          .ilike("name", searchTerm)
+          .limit(5),
+        supabase
+          .from("bb_global_tasks")
+          .select("id, title, status")
+          .eq("tenant_id", tenantId)
+          .ilike("title", searchTerm)
+          .limit(5),
+        supabase
+          .from("bb_documents")
+          .select("id, file_name, document_type")
+          .eq("organization_id", tenantId)
+          .ilike("file_name", searchTerm)
+          .limit(5),
+        // AI Onboarding Blueprint index
+        supabase
+          .from("bb_onboarding_sessions")
+          .select("id, session_name, status")
+          .eq("organization_id", tenantId)
+          .ilike("session_name", searchTerm)
+          .limit(5),
+      ]);
 
     if (clientsRes.data) {
-      clientsRes.data.forEach(client => {
+      clientsRes.data.forEach((client) => {
         results.push({
           id: client.id,
-          type: 'organization',
+          type: "organization",
           title: client.name,
-          subtitle: `Client • ${client.type || 'Standard'}`,
-          url: `/app/clients/${client.id}`
+          subtitle: `Client • ${client.type || "Standard"}`,
+          url: `/app/clients/${client.id}`,
         });
       });
     }
 
     if (projectsRes.data) {
-      projectsRes.data.forEach(project => {
+      projectsRes.data.forEach((project) => {
         results.push({
           id: project.id,
-          type: 'project',
+          type: "project",
           title: project.name,
           subtitle: `Project • ${project.status}`,
-          url: `/app/projects/${project.id}`
+          url: `/app/projects/${project.id}`,
         });
       });
     }
 
     if (tasksRes.data) {
-      tasksRes.data.forEach(task => {
+      tasksRes.data.forEach((task) => {
         results.push({
           id: task.id,
-          type: 'task',
+          type: "task",
           title: task.title,
-          subtitle: `Task • ${task.status.replace('_', ' ')}`,
-          url: `/app/tasks/${task.id}`
+          subtitle: `Task • ${task.status.replace("_", " ")}`,
+          url: `/app/tasks/${task.id}`,
         });
       });
     }
 
     if (docsRes.data) {
-      docsRes.data.forEach(doc => {
+      docsRes.data.forEach((doc) => {
         results.push({
           id: doc.id,
-          type: 'document',
+          type: "document",
           title: doc.file_name,
-          subtitle: `Document • ${doc.document_type || 'File'}`,
-          url: `/app/documents/${doc.id}`
+          subtitle: `Document • ${doc.document_type || "File"}`,
+          url: `/app/documents/${doc.id}`,
         });
       });
     }
 
     if (onboardingRes.data) {
-      onboardingRes.data.forEach(session => {
+      onboardingRes.data.forEach((session) => {
         results.push({
           id: session.id,
-          type: 'onboarding',
-          title: session.session_name || 'Unnamed Session',
+          type: "onboarding",
+          title: session.session_name || "Unnamed Session",
           subtitle: `AI Onboarding • ${session.status}`,
-          url: `/app/onboarding/${session.id}`
+          url: `/app/onboarding/${session.id}`,
         });
       });
     }
 
     return results;
-  }
+  },
 };

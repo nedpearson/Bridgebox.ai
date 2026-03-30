@@ -1,7 +1,7 @@
-import { intelligenceGraph } from '../graph/IntelligenceGraph';
-import type { GraphNode, NodeType } from '../graph/types';
-import { AIProviderFactory } from '../providers';
-import { supabase } from '../../supabase';
+import { intelligenceGraph } from "../graph/IntelligenceGraph";
+import type { GraphNode, NodeType } from "../graph/types";
+import { AIProviderFactory } from "../providers";
+import { supabase } from "../../supabase";
 
 export type UserContext = {
   role: string;
@@ -28,44 +28,68 @@ const PLATFORM_TOOLS = [
         type: "object",
         properties: {
           title: { type: "string", description: "The task title" },
-          description: { type: "string", description: "Detailed description of the task" },
-          priority: { type: "string", enum: ["low", "medium", "high"], description: "Task priority" }
+          description: {
+            type: "string",
+            description: "Detailed description of the task",
+          },
+          priority: {
+            type: "string",
+            enum: ["low", "medium", "high"],
+            description: "Task priority",
+          },
         },
-        required: ["title", "priority"]
-      }
-    }
+        required: ["title", "priority"],
+      },
+    },
   },
   {
     type: "function",
     function: {
-        name: "update_project_target_date",
-        description: "Updates the target completion date for a given project.",
-        parameters: {
-             type: "object",
-             properties: {
-                 project_id: { type: "string", description: "The UUID of the project" },
-                 new_target_date: { type: "string", description: "The new target date in YYYY-MM-DD format" },
-                 reason: { type: "string", description: "Reason for the date change." }
-             },
-             required: ["project_id", "new_target_date"]
-        }
-    }
+      name: "update_project_target_date",
+      description: "Updates the target completion date for a given project.",
+      parameters: {
+        type: "object",
+        properties: {
+          project_id: {
+            type: "string",
+            description: "The UUID of the project",
+          },
+          new_target_date: {
+            type: "string",
+            description: "The new target date in YYYY-MM-DD format",
+          },
+          reason: {
+            type: "string",
+            description: "Reason for the date change.",
+          },
+        },
+        required: ["project_id", "new_target_date"],
+      },
+    },
   },
   {
     type: "function",
     function: {
-        name: "draft_autonomous_email",
-        description: "Generates an intelligent unblocking email draft for an overdue or stalled task natively mapped to an edge extraction node.",
-        parameters: {
-             type: "object",
-             properties: {
-                 task_id: { type: "string", description: "The UUID of the blocked task" },
-                 context_notes: { type: "string", description: "Any specific notes the Copilot wants to include in the email draft inference." }
-             },
-             required: ["task_id"]
-        }
-    }
-  }
+      name: "draft_autonomous_email",
+      description:
+        "Generates an intelligent unblocking email draft for an overdue or stalled task natively mapped to an edge extraction node.",
+      parameters: {
+        type: "object",
+        properties: {
+          task_id: {
+            type: "string",
+            description: "The UUID of the blocked task",
+          },
+          context_notes: {
+            type: "string",
+            description:
+              "Any specific notes the Copilot wants to include in the email draft inference.",
+          },
+        },
+        required: ["task_id"],
+      },
+    },
+  },
 ];
 
 export class CopilotEngine {
@@ -76,108 +100,132 @@ export class CopilotEngine {
   public async generateReasonedResponse(
     userPrompt: string,
     systemContext: UserContext,
-    domContext: DOMContext
-  ): Promise<{ text: string; provenance: GraphNode[], execution_time_ms: number, tool_calls?: any[] }> {
+    domContext: DOMContext,
+  ): Promise<{
+    text: string;
+    provenance: GraphNode[];
+    execution_time_ms: number;
+    tool_calls?: any[];
+  }> {
     const startTime = Date.now();
     const provider = AIProviderFactory.getProvider();
-    
+
     if (!provider.isConfigured()) {
       return {
         text: "The AI Copilot Intelligence layer is disabled because no AI provider is configured.",
         provenance: [],
-        execution_time_ms: 0
+        execution_time_ms: 0,
       };
     }
 
     // 1. Resolve which nodes the user is allowed to "know" about
-    const authorizedNodes = intelligenceGraph.getNodesByRoleScope(systemContext.role);
-    
+    const authorizedNodes = intelligenceGraph.getNodesByRoleScope(
+      systemContext.role,
+    );
+
     // 2. Extract DOM matching nodes
     const contextNodes: GraphNode[] = [];
     if (domContext.activeModule) {
-      const parent = authorizedNodes.find(n => n.id === domContext.activeModule);
+      const parent = authorizedNodes.find(
+        (n) => n.id === domContext.activeModule,
+      );
       if (parent) {
         contextNodes.push(parent);
-        parent.relatedNodes.forEach(id => {
-          const relation = authorizedNodes.find(n => n.id === id);
+        parent.relatedNodes.forEach((id) => {
+          const relation = authorizedNodes.find((n) => n.id === id);
           if (relation) contextNodes.push(relation);
         });
       }
     }
 
     // 3. Optional: Semantic Vector Search
-    let semanticContext = '';
+    let semanticContext = "";
     if (provider.generateEmbedding && systemContext.organizationId) {
       try {
         const embedding = await provider.generateEmbedding(userPrompt);
-        const { data: vectorMatches, error } = await supabase.rpc('match_platform_embeddings', {
-          query_embedding: embedding,
-          match_threshold: 0.7,
-          match_count: 5,
-          p_organization_id: systemContext.organizationId
-        });
+        const { data: vectorMatches, error } = await supabase.rpc(
+          "match_platform_embeddings",
+          {
+            query_embedding: embedding,
+            match_threshold: 0.7,
+            match_count: 5,
+            p_organization_id: systemContext.organizationId,
+          },
+        );
 
         if (!error && vectorMatches && vectorMatches.length > 0) {
-          semanticContext = `\n\nSEMANTIC VECTOR MATCHES (Relevant Historical Records):\n` +
-            vectorMatches.map((m: any, i: number) => 
-              `${i + 1}. [${m.entity_type.toUpperCase()}] Content: ${m.content} (Similarity: ${(m.similarity * 100).toFixed(1)}%)`
-            ).join('\n');
+          semanticContext =
+            `\n\nSEMANTIC VECTOR MATCHES (Relevant Historical Records):\n` +
+            vectorMatches
+              .map(
+                (m: any, i: number) =>
+                  `${i + 1}. [${m.entity_type.toUpperCase()}] Content: ${m.content} (Similarity: ${(m.similarity * 100).toFixed(1)}%)`,
+              )
+              .join("\n");
         }
       } catch (err) {
-        console.warn('Vector proximity search failed silently:', err);
+        console.warn("Vector proximity search failed silently:", err);
       }
     }
 
     // 4. Determine Specialized Multi-Agent Route Natively via DOM Context
-    let dynamicPersona = "You are the Bridgebox Master Copilot. You are a helpful, capable assistant overseeing the general relational OS.";
-    
+    let dynamicPersona =
+      "You are the Bridgebox Master Copilot. You are a helpful, capable assistant overseeing the general relational OS.";
+
     // Natively bind specialized Agent personas entirely based on the React virtual DOM location
     if (domContext.activeModule) {
-       switch (domContext.activeModule) {
-          case 'billing':
-          case 'proposals':
-             dynamicPersona = "You are the Bridgebox Finance Super Agent. You specialize in analyzing budgets, MRR, billing, payments, proposals, and financial timelines. You are highly analytical and strict. You do NOT hallucinate numbers.";
-             break;
-          case 'delivery':
-          case 'projects':
-          case 'tasks':
-             dynamicPersona = "You are the Bridgebox Operations Super Agent. You specialize in resolving blockers, escalating overdue tasks, resource allocation, and workflow unblocking. You are highly action-oriented.";
-             break;
-          case 'leads':
-          case 'pipeline':
-             dynamicPersona = "You are the Bridgebox Sales Super Agent. You specialize in parsing inbound lead conversions, maximizing pipeline velocity, and drafting perfect unblocking emails.";
-             break;
-          case 'knowledge':
-          case 'documents':
-             dynamicPersona = "You are the Bridgebox Knowledge Super Agent. You specialize in parsing highly dense legal, technical, and operational documentation, returning precise bulleted summaries with citations.";
-             break;
-       }
+      switch (domContext.activeModule) {
+        case "billing":
+        case "proposals":
+          dynamicPersona =
+            "You are the Bridgebox Finance Super Agent. You specialize in analyzing budgets, MRR, billing, payments, proposals, and financial timelines. You are highly analytical and strict. You do NOT hallucinate numbers.";
+          break;
+        case "delivery":
+        case "projects":
+        case "tasks":
+          dynamicPersona =
+            "You are the Bridgebox Operations Super Agent. You specialize in resolving blockers, escalating overdue tasks, resource allocation, and workflow unblocking. You are highly action-oriented.";
+          break;
+        case "leads":
+        case "pipeline":
+          dynamicPersona =
+            "You are the Bridgebox Sales Super Agent. You specialize in parsing inbound lead conversions, maximizing pipeline velocity, and drafting perfect unblocking emails.";
+          break;
+        case "knowledge":
+        case "documents":
+          dynamicPersona =
+            "You are the Bridgebox Knowledge Super Agent. You specialize in parsing highly dense legal, technical, and operational documentation, returning precise bulleted summaries with citations.";
+          break;
+      }
     }
 
     // 4.5. Fetch Tenant Onboarding Telemetry (Phase 10)
-    let onboardingContext = '';
+    let onboardingContext = "";
     if (systemContext.organizationId) {
-       try {
-           const { data, error } = await supabase
-              .from('bb_onboarding_sessions')
-              .select('raw_input, ai_intelligence, status')
-              .eq('organization_id', systemContext.organizationId)
-              .order('created_at', { ascending: false })
-              .limit(1)
-              .single();
-              
-           if (!error && data) {
-               onboardingContext = `
+      try {
+        const { data, error } = await supabase
+          .from("bb_onboarding_sessions")
+          .select("raw_input, ai_intelligence, status")
+          .eq("organization_id", systemContext.organizationId)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .single();
+
+        if (!error && data) {
+          onboardingContext = `
 CLIENT ONBOARDING TELEMETRY (Structural Workflows):
 Status: ${data.status}
 Raw Intent: ${JSON.stringify(data.raw_input || {})}
 Detected Workflows: ${JSON.stringify(data.ai_intelligence || {})}
 When assisting this user, explicitly reference their custom organizational workflows to provide highly contextual system answers.
 `.trim();
-           }
-       } catch (err) {
-           console.warn("Soft failure resolving onboarding telemetry for Copilot map.", err);
-       }
+        }
+      } catch (err) {
+        console.warn(
+          "Soft failure resolving onboarding telemetry for Copilot map.",
+          err,
+        );
+      }
     }
 
     // 5. Assemble Grounding Pipeline Prompt
@@ -188,12 +236,12 @@ When assisting this user, explicitly reference their custom organizational workf
       systemContext.role,
       semanticContext,
       dynamicPersona,
-      onboardingContext
+      onboardingContext,
     );
 
     const messages = [
-      { role: 'system' as const, content: systemInstruction },
-      { role: 'user' as const, content: userPrompt }
+      { role: "system" as const, content: systemInstruction },
+      { role: "user" as const, content: userPrompt },
     ];
 
     try {
@@ -201,40 +249,43 @@ When assisting this user, explicitly reference their custom organizational workf
         messages,
         temperature: 0.2, // Low temperature for high precision grounding
         maxTokens: 1000,
-        tools: PLATFORM_TOOLS
+        tools: PLATFORM_TOOLS,
       });
 
-      const responseText = response.content ? response.content.trim() : "Proposed system action:";
+      const responseText = response.content
+        ? response.content.trim()
+        : "Proposed system action:";
 
       // Parse dynamic provenance tokens securely injected by the LLM
       const nodeMatches = [...responseText.matchAll(/\[Node:([^\]]+)\]/g)];
       let dynamicNodes: GraphNode[] = [];
       if (nodeMatches.length > 0) {
-        const ids = nodeMatches.map(m => m[1]);
-        dynamicNodes = authorizedNodes.filter(n => ids.includes(n.id));
+        const ids = nodeMatches.map((m) => m[1]);
+        dynamicNodes = authorizedNodes.filter((n) => ids.includes(n.id));
       }
 
       // Prioritize active DOM context, fallback to dynamically cited LLM nodes, fallback to standard mock.
-      let returnedProvenance = contextNodes.length > 0 ? contextNodes : authorizedNodes.slice(0, 3);
+      let returnedProvenance =
+        contextNodes.length > 0 ? contextNodes : authorizedNodes.slice(0, 3);
       if (contextNodes.length === 0 && dynamicNodes.length > 0) {
         returnedProvenance = dynamicNodes;
       }
 
       // Strip internal provenance tags before rendering to the user DOM
-      const cleanText = responseText.replace(/\[Node:[^\]]+\]/g, '').trim();
+      const cleanText = responseText.replace(/\[Node:[^\]]+\]/g, "").trim();
 
       return {
         text: cleanText,
         provenance: returnedProvenance,
         execution_time_ms: Date.now() - startTime,
-        tool_calls: response.tool_calls
+        tool_calls: response.tool_calls,
       };
     } catch (e: any) {
-      console.error('Copilot Engine RAG Execution Error', e);
+      console.error("Copilot Engine RAG Execution Error", e);
       return {
         text: "An error occurred while securely resolving your query against the Bridgebox Intelligence Graph.",
         provenance: [],
-        execution_time_ms: Date.now() - startTime
+        execution_time_ms: Date.now() - startTime,
       };
     }
   }
@@ -246,15 +297,17 @@ When assisting this user, explicitly reference their custom organizational workf
     userRole: string,
     semanticContext: string,
     dynamicPersona: string,
-    onboardingContext: string
+    onboardingContext: string,
   ): string {
-    const activeModuleDescription = contextNodes.length > 0 
-      ? `\nActive Focus Area: The user is currently looking at: ${contextNodes[0].name}. Description: ${contextNodes[0].description}`
-      : '\nActive Focus Area: The user is on a general dashboard.';
+    const activeModuleDescription =
+      contextNodes.length > 0
+        ? `\nActive Focus Area: The user is currently looking at: ${contextNodes[0].name}. Description: ${contextNodes[0].description}`
+        : "\nActive Focus Area: The user is on a general dashboard.";
 
-    const domActions = (domContext.onScreenActions && domContext.onScreenActions.length > 0)
-      ? `\nVisible Actions on screen: ${domContext.onScreenActions.join(', ')}.`
-      : '';
+    const domActions =
+      domContext.onScreenActions && domContext.onScreenActions.length > 0
+        ? `\nVisible Actions on screen: ${domContext.onScreenActions.join(", ")}.`
+        : "";
 
     const payload = `
 ${dynamicPersona}
@@ -269,15 +322,22 @@ You are operating in a multi-tenant environment. When generating strategies, dis
 ${activeModuleDescription}${domActions}
 
 ACTIVE CONTEXT KNOWLEDGE BASE (Deep Dive):
-${contextNodes.length > 0 
-  ? contextNodes.map((n, i) => `${i + 1}. [${n.type.toUpperCase()}] ${n.name} (ID: ${n.id})\nDescription: ${n.description}\nActions: ${(n.actions || []).map(a => a.name).join(', ')}`).join('\n')
-  : 'The user is not actively viewing a deep-mapped module. Utilize general knowledge.'}
+${
+  contextNodes.length > 0
+    ? contextNodes
+        .map(
+          (n, i) =>
+            `${i + 1}. [${n.type.toUpperCase()}] ${n.name} (ID: ${n.id})\nDescription: ${n.description}\nActions: ${(n.actions || []).map((a) => a.name).join(", ")}`,
+        )
+        .join("\n")
+    : "The user is not actively viewing a deep-mapped module. Utilize general knowledge."
+}
 ${semanticContext}
 
 ${onboardingContext}
 
 PLATFORM MODULE DIRECTORY (Global Overview):
-${authorizedNodes.map((n) => `- ${n.name} (${n.id})`).join('\n')}
+${authorizedNodes.map((n) => `- ${n.name} (${n.id})`).join("\n")}
 
 OPERATIONAL MODES (Implicitly adopt the best mode based on the user's question):
 1. Navigation Mode: Tell them exactly where to go.

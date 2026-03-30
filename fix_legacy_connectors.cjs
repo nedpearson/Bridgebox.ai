@@ -1,11 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const connectorFiles = [
-  'src/lib/connectors/providers/CSVConnector.ts',
-  'src/lib/connectors/providers/CustomAPIConnector.ts',
-  'src/lib/connectors/providers/GoogleConnector.ts',
-  'src/lib/connectors/providers/StripeConnector.ts'
+  "src/lib/connectors/providers/CSVConnector.ts",
+  "src/lib/connectors/providers/CustomAPIConnector.ts",
+  "src/lib/connectors/providers/GoogleConnector.ts",
+  "src/lib/connectors/providers/StripeConnector.ts",
 ];
 
 const methodsToInject = `
@@ -40,13 +40,16 @@ const methodsToInject = `
 for (const file of connectorFiles) {
   const fullPath = path.join(process.cwd(), file);
   if (!fs.existsSync(fullPath)) continue;
-  let content = fs.readFileSync(fullPath, 'utf8');
-  
+  let content = fs.readFileSync(fullPath, "utf8");
+
   // Find the last closing brace of the class and insert methods before it
-  const lastBraceIndex = content.lastIndexOf('}');
+  const lastBraceIndex = content.lastIndexOf("}");
   if (lastBraceIndex !== -1) {
-    content = content.substring(0, lastBraceIndex) + methodsToInject + content.substring(lastBraceIndex);
-    fs.writeFileSync(fullPath, content, 'utf8');
-    console.log('Fixed', file);
+    content =
+      content.substring(0, lastBraceIndex) +
+      methodsToInject +
+      content.substring(lastBraceIndex);
+    fs.writeFileSync(fullPath, content, "utf8");
+    console.log("Fixed", file);
   }
 }

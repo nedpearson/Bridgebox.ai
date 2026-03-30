@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
   TrendingUp,
   AlertTriangle,
@@ -12,10 +12,15 @@ import {
   FolderKanban,
   Building2,
   Brain,
-} from 'lucide-react';
-import Card from '../Card';
-import { ConfidenceBadge } from '../intelligence/ConfidenceBadge';
-import type { AIInsight, InsightType, InsightCategory, InsightPriority } from '../../lib/aiDecisionEngine';
+} from "lucide-react";
+import Card from "../Card";
+import { ConfidenceBadge } from "../intelligence/ConfidenceBadge";
+import type {
+  AIInsight,
+  InsightType,
+  InsightCategory,
+  InsightPriority,
+} from "../../lib/aiDecisionEngine";
 
 interface InsightCardProps {
   insight: AIInsight;
@@ -23,39 +28,49 @@ interface InsightCardProps {
   compact?: boolean;
 }
 
-export function InsightCard({ insight, onClick, compact = false }: InsightCardProps) {
-  const categoryConfig: Record<InsightCategory, { bg: string; border: string; icon: any; label: string }> = {
+export function InsightCard({
+  insight,
+  onClick,
+  compact = false,
+}: InsightCardProps) {
+  const categoryConfig: Record<
+    InsightCategory,
+    { bg: string; border: string; icon: any; label: string }
+  > = {
     opportunity: {
-      bg: 'bg-green-500/10',
-      border: 'border-green-500/30',
+      bg: "bg-green-500/10",
+      border: "border-green-500/30",
       icon: TrendingUp,
-      label: 'Opportunity',
+      label: "Opportunity",
     },
     risk: {
-      bg: 'bg-red-500/10',
-      border: 'border-red-500/30',
+      bg: "bg-red-500/10",
+      border: "border-red-500/30",
       icon: AlertTriangle,
-      label: 'Risk',
+      label: "Risk",
     },
     optimization: {
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/30',
+      bg: "bg-blue-500/10",
+      border: "border-blue-500/30",
       icon: Zap,
-      label: 'Optimization',
+      label: "Optimization",
     },
     alert: {
-      bg: 'bg-orange-500/10',
-      border: 'border-orange-500/30',
+      bg: "bg-orange-500/10",
+      border: "border-orange-500/30",
       icon: AlertTriangle,
-      label: 'Alert',
+      label: "Alert",
     },
   };
 
-  const priorityConfig: Record<InsightPriority, { color: string; label: string }> = {
-    critical: { color: 'text-red-400', label: 'Critical' },
-    high: { color: 'text-orange-400', label: 'High Priority' },
-    medium: { color: 'text-yellow-400', label: 'Medium Priority' },
-    low: { color: 'text-slate-400', label: 'Low Priority' },
+  const priorityConfig: Record<
+    InsightPriority,
+    { color: string; label: string }
+  > = {
+    critical: { color: "text-red-400", label: "Critical" },
+    high: { color: "text-orange-400", label: "High Priority" },
+    medium: { color: "text-yellow-400", label: "Medium Priority" },
+    low: { color: "text-slate-400", label: "Low Priority" },
   };
 
   const typeIcons: Record<InsightType, any> = {
@@ -72,9 +87,9 @@ export function InsightCard({ insight, onClick, compact = false }: InsightCardPr
   const CategoryIcon = category.icon;
 
   const impactColor = {
-    high: 'text-green-400',
-    medium: 'text-yellow-400',
-    low: 'text-slate-400',
+    high: "text-green-400",
+    medium: "text-yellow-400",
+    low: "text-slate-400",
   }[insight.impact];
 
   return (
@@ -86,11 +101,13 @@ export function InsightCard({ insight, onClick, compact = false }: InsightCardPr
     >
       <Card
         className={`${category.bg} border ${category.border} ${
-          onClick ? 'cursor-pointer hover:border-blue-500/50' : ''
+          onClick ? "cursor-pointer hover:border-blue-500/50" : ""
         } transition-all`}
         onClick={onClick}
       >
-        <div className={`p-${compact ? '4' : '6'} space-y-${compact ? '3' : '4'}`}>
+        <div
+          className={`p-${compact ? "4" : "6"} space-y-${compact ? "3" : "4"}`}
+        >
           <div className="flex items-start justify-between">
             <div className="flex items-start gap-3 flex-1">
               <div className={`p-2 ${category.bg} rounded-lg flex-shrink-0`}>
@@ -98,14 +115,20 @@ export function InsightCard({ insight, onClick, compact = false }: InsightCardPr
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-2 flex-wrap">
-                  <span className={`text-xs font-medium ${priority.color} flex items-center gap-1`}>
+                  <span
+                    className={`text-xs font-medium ${priority.color} flex items-center gap-1`}
+                  >
                     <TypeIcon className="w-3 h-3" />
                     {priority.label}
                   </span>
                   <span className="text-xs text-slate-500">•</span>
-                  <span className="text-xs text-slate-400 capitalize">{insight.type}</span>
+                  <span className="text-xs text-slate-400 capitalize">
+                    {insight.type}
+                  </span>
                   <span className="text-xs text-slate-500">•</span>
-                  <span className={`text-xs ${impactColor} font-medium capitalize`}>
+                  <span
+                    className={`text-xs ${impactColor} font-medium capitalize`}
+                  >
                     {insight.impact} Impact
                   </span>
                 </div>
@@ -113,7 +136,9 @@ export function InsightCard({ insight, onClick, compact = false }: InsightCardPr
                   {insight.title}
                 </h3>
                 {!compact && (
-                  <p className="text-sm text-slate-300 mb-2">{insight.description}</p>
+                  <p className="text-sm text-slate-300 mb-2">
+                    {insight.description}
+                  </p>
                 )}
               </div>
             </div>
@@ -129,7 +154,9 @@ export function InsightCard({ insight, onClick, compact = false }: InsightCardPr
                   <Sparkles className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-slate-400 mb-1">AI Reasoning</p>
-                    <p className="text-sm text-slate-300">{insight.reasoning}</p>
+                    <p className="text-sm text-slate-300">
+                      {insight.reasoning}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 mt-3 pt-3 border-t border-slate-700">
@@ -187,7 +214,12 @@ interface InsightListProps {
   limit?: number;
 }
 
-export function InsightList({ insights, onInsightClick, compact = false, limit }: InsightListProps) {
+export function InsightList({
+  insights,
+  onInsightClick,
+  compact = false,
+  limit,
+}: InsightListProps) {
   const displayInsights = limit ? insights.slice(0, limit) : insights;
 
   if (insights.length === 0) {
@@ -221,10 +253,14 @@ interface InsightSummaryProps {
 }
 
 export function InsightSummary({ insights }: InsightSummaryProps) {
-  const criticalCount = insights.filter(i => i.priority === 'critical').length;
-  const highCount = insights.filter(i => i.priority === 'high').length;
-  const opportunityCount = insights.filter(i => i.category === 'opportunity').length;
-  const riskCount = insights.filter(i => i.category === 'risk').length;
+  const criticalCount = insights.filter(
+    (i) => i.priority === "critical",
+  ).length;
+  const highCount = insights.filter((i) => i.priority === "high").length;
+  const opportunityCount = insights.filter(
+    (i) => i.category === "opportunity",
+  ).length;
+  const riskCount = insights.filter((i) => i.category === "risk").length;
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

@@ -1,33 +1,34 @@
 // @ts-nocheck
-import { TrendingUp, AlertCircle, Target, ChevronRight } from 'lucide-react';
-import Card from '../Card';
-import { GrowthDirectionBadge } from './GrowthDirectionBadge';
-import type { MarketOpportunity } from '../../lib/market/types';
+import { TrendingUp, AlertCircle, Target, ChevronRight } from "lucide-react";
+import Card from "../Card";
+import { GrowthDirectionBadge } from "./GrowthDirectionBadge";
+import type { MarketOpportunity } from "../../lib/market/types";
 
 interface OpportunityCardProps {
   opportunity: MarketOpportunity;
   onClick?: () => void;
 }
 
-export function OpportunityCard({ opportunity, onClick }: OpportunityCardProps) {
-  const priorityColor = opportunity.priority_score >= 75
-    ? 'text-emerald-600'
-    : opportunity.priority_score >= 50
-    ? 'text-blue-600'
-    : 'text-amber-600';
+export function OpportunityCard({
+  opportunity,
+  onClick,
+}: OpportunityCardProps) {
+  const priorityColor =
+    opportunity.priority_score >= 75
+      ? "text-emerald-600"
+      : opportunity.priority_score >= 50
+        ? "text-blue-600"
+        : "text-amber-600";
 
-  const confidenceColor = opportunity.confidence_score >= 70
-    ? 'text-emerald-600'
-    : opportunity.confidence_score >= 50
-    ? 'text-blue-600'
-    : 'text-amber-600';
+  const confidenceColor =
+    opportunity.confidence_score >= 70
+      ? "text-emerald-600"
+      : opportunity.confidence_score >= 50
+        ? "text-blue-600"
+        : "text-amber-600";
 
   return (
-    <Card
-      hover
-      className="cursor-pointer"
-      onClick={onClick}
-    >
+    <Card hover className="cursor-pointer" onClick={onClick}>
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
@@ -36,7 +37,9 @@ export function OpportunityCard({ opportunity, onClick }: OpportunityCardProps) 
           </div>
 
           {opportunity.description && (
-            <p className="text-sm text-gray-600 mb-3 line-clamp-2">{opportunity.description}</p>
+            <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+              {opportunity.description}
+            </p>
           )}
 
           <div className="flex flex-wrap gap-2 mb-3">
@@ -58,11 +61,15 @@ export function OpportunityCard({ opportunity, onClick }: OpportunityCardProps) 
           <div className="grid grid-cols-2 gap-4 pt-3 border-t border-gray-100">
             <div>
               <p className="text-xs text-gray-500 mb-1">Priority Score</p>
-              <p className={`text-lg font-bold ${priorityColor}`}>{opportunity.priority_score}</p>
+              <p className={`text-lg font-bold ${priorityColor}`}>
+                {opportunity.priority_score}
+              </p>
             </div>
             <div>
               <p className="text-xs text-gray-500 mb-1">Confidence</p>
-              <p className={`text-lg font-bold ${confidenceColor}`}>{opportunity.confidence_score}%</p>
+              <p className={`text-lg font-bold ${confidenceColor}`}>
+                {opportunity.confidence_score}%
+              </p>
             </div>
           </div>
 

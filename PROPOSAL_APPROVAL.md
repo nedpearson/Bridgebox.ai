@@ -5,6 +5,7 @@ Bridgebox implements a premium, secure proposal approval workflow that allows cl
 ## Overview
 
 The proposal approval system enables:
+
 - **Secure Share Links** - Unique tokens for each proposal
 - **Client-Facing View** - Premium document presentation
 - **Digital Approval** - Capture approver details and agreement
@@ -16,6 +17,7 @@ The proposal approval system enables:
 ### 1. Internal Proposal Creation
 
 **Admin/Staff Actions:**
+
 1. Create proposal in `/app/proposals/new`
 2. Add client details, scope, deliverables, pricing
 3. Set status to `draft` for internal review
@@ -23,6 +25,7 @@ The proposal approval system enables:
 5. Change status to `sent` when ready
 
 **Status Flow:**
+
 - `draft` → Internal team is still building the proposal
 - `internal_review` → Ready for team review before sending
 - `sent` → Shared with client, awaiting their review
@@ -30,17 +33,20 @@ The proposal approval system enables:
 ### 2. Sharing with Client
 
 **Share Link Generation:**
+
 - Each proposal automatically has a unique `share_token`
 - Share URL format: `https://yourdomain.com/proposal/{token}`
 - Token is secure, random, and non-guessable
 
 **How to Share:**
+
 1. Open proposal detail page (`/app/proposals/{id}`)
 2. Click "Copy Share Link" button
 3. Paste link into email to client
 4. System tracks when client views the proposal
 
 **Security:**
+
 - No authentication required for viewing
 - Read-only access via token
 - Approval/decline requires filling out form
@@ -49,6 +55,7 @@ The proposal approval system enables:
 ### 3. Client Review Experience
 
 **Premium Document View:**
+
 ```
 ┌─────────────────────────────────────┐
 │         PROPOSAL BADGE              │
@@ -70,6 +77,7 @@ The proposal approval system enables:
 ```
 
 **Client Actions:**
+
 - **Approve** - Opens approval form
 - **Request Changes** - Opens feedback form
 - **Contact Us** - Email link for questions
@@ -77,6 +85,7 @@ The proposal approval system enables:
 ### 4. Approval Process
 
 **Approval Form Fields:**
+
 - Full Name (required)
 - Email Address (required)
 - Title/Position (optional)
@@ -84,6 +93,7 @@ The proposal approval system enables:
   - "I have reviewed this proposal and approve moving forward..."
 
 **What Happens on Approval:**
+
 1. Proposal status → `approved`
 2. `approved_at` timestamp recorded
 3. Approver details saved
@@ -92,6 +102,7 @@ The proposal approval system enables:
 6. Proposal becomes eligible for project conversion
 
 **Data Captured:**
+
 ```javascript
 {
   status: 'approved',
@@ -107,11 +118,13 @@ The proposal approval system enables:
 ### 5. Decline/Change Request Process
 
 **Decline Form:**
+
 - Optional comments field
 - "Request Changes" vs. "Decline"
 - Preserves relationship and opens dialogue
 
 **What Happens on Decline:**
+
 1. Proposal status → `declined`
 2. `declined_at` timestamp recorded
 3. Reason/comments saved to `declined_reason`
@@ -119,6 +132,7 @@ The proposal approval system enables:
 5. Team can revise and resend proposal
 
 **Feedback Captured:**
+
 ```javascript
 {
   status: 'declined',
@@ -130,6 +144,7 @@ The proposal approval system enables:
 ### 6. Internal Tracking
 
 **Admin View Enhancements:**
+
 - Approval information card on proposal detail page
 - Shows approver name, title, email
 - Displays approval/decline timestamp
@@ -137,6 +152,7 @@ The proposal approval system enables:
 - Links to convert to project if approved
 
 **Status Badges:**
+
 - Draft (gray)
 - Internal Review (blue)
 - Sent (yellow)
@@ -173,6 +189,7 @@ share_token TEXT UNIQUE
 ### Row Level Security
 
 **Public Access for Viewing:**
+
 ```sql
 CREATE POLICY "Public can view proposals via share token"
   ON proposals FOR SELECT TO anon
@@ -180,6 +197,7 @@ CREATE POLICY "Public can view proposals via share token"
 ```
 
 **Public Updates (Approval/Decline):**
+
 ```sql
 CREATE POLICY "Public can update proposal status via share token"
   ON proposals FOR UPDATE TO anon
@@ -191,6 +209,7 @@ CREATE POLICY "Public can update proposal status via share token"
 ```
 
 **Security Notes:**
+
 - Anon users can only view and update status
 - Cannot modify pricing, scope, or other details
 - Can only transition to approved, declined, or viewed
@@ -289,6 +308,7 @@ approved OR declined
 ### Success States
 
 **After Approval:**
+
 ```
 ┌─────────────────────────────────────┐
 │   ✓ Proposal Approved               │
@@ -304,6 +324,7 @@ approved OR declined
 ```
 
 **After Decline:**
+
 ```
 ┌─────────────────────────────────────┐
 │   ℹ Changes Requested               │
@@ -443,6 +464,7 @@ The system is designed to be intuitive, but you can guide clients:
 ### Audit Trail
 
 System tracks:
+
 - When proposal was created
 - When it was sent
 - When client viewed it
@@ -536,18 +558,21 @@ Potential additions to the system:
 ### Common Issues
 
 **Client can't access proposal:**
+
 - Check share token is in URL
 - Verify link wasn't truncated in email
 - Test link yourself
 - Generate new token if needed
 
 **Approval not saving:**
+
 - Check all required fields filled
 - Verify agreement checkbox checked
 - Check browser console for errors
 - Try different browser
 
 **Share link not working:**
+
 - Ensure proposal status is `sent` or later
 - Check RLS policies are active
 - Verify share_token exists
@@ -558,6 +583,7 @@ Potential additions to the system:
 ### Frontend Components
 
 **ProposalView.tsx** (`/src/pages/ProposalView.tsx`)
+
 - Client-facing proposal display
 - Approval form modal
 - Decline form modal
@@ -565,6 +591,7 @@ Potential additions to the system:
 - Success states
 
 **ProposalDetail.tsx** (`/src/pages/app/ProposalDetail.tsx`)
+
 - Internal proposal management
 - Copy share link button
 - Approval information display
@@ -573,6 +600,7 @@ Potential additions to the system:
 ### Backend Integration
 
 **Database Triggers:**
+
 ```sql
 -- Auto-track when proposal is viewed
 CREATE TRIGGER trigger_track_proposal_view
@@ -582,6 +610,7 @@ CREATE TRIGGER trigger_track_proposal_view
 ```
 
 **RLS Policies:**
+
 - Public read via share token
 - Public status updates (approved/declined)
 - Authenticated full access (internal staff)
@@ -589,31 +618,31 @@ CREATE TRIGGER trigger_track_proposal_view
 ### API Endpoints
 
 All operations use Supabase client:
+
 ```typescript
 // View proposal (public)
-supabase.from('proposals')
-  .select('*')
-  .eq('share_token', token)
-  .maybeSingle()
+supabase.from("proposals").select("*").eq("share_token", token).maybeSingle();
 
 // Approve proposal (public)
-supabase.from('proposals')
+supabase
+  .from("proposals")
   .update({
-    status: 'approved',
+    status: "approved",
     approved_at: now(),
     approver_name: name,
     // ...
   })
-  .eq('share_token', token)
+  .eq("share_token", token);
 
 // Decline proposal (public)
-supabase.from('proposals')
+supabase
+  .from("proposals")
   .update({
-    status: 'declined',
+    status: "declined",
     declined_at: now(),
-    declined_reason: reason
+    declined_reason: reason,
   })
-  .eq('share_token', token)
+  .eq("share_token", token);
 ```
 
 ## Summary

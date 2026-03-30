@@ -1,53 +1,60 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Building2, Truck, Briefcase, Scale, Users, ArrowRight } from 'lucide-react';
-import Section from '../components/Section';
-import Card from '../components/Card';
-import GridPattern from '../components/GridPattern';
-import FinalCTA from '../components/FinalCTA';
-import { staggerContainer, staggerItem } from '../utils/animations';
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import {
+  Building2,
+  Truck,
+  Briefcase,
+  Scale,
+  Users,
+  ArrowRight,
+} from "lucide-react";
+import Section from "../components/Section";
+import Card from "../components/Card";
+import GridPattern from "../components/GridPattern";
+import FinalCTA from "../components/FinalCTA";
+import { staggerContainer, staggerItem } from "../utils/animations";
 
 export default function Solutions() {
   const solutions = [
     {
       icon: Users,
-      title: 'Small Business',
-      problem: 'Disconnected tools and inefficiencies',
-      solution: 'Unified workflow automation',
-      outcome: 'Faster operations with less overhead',
-      color: '#3B82F6',
+      title: "Small Business",
+      problem: "Disconnected tools and inefficiencies",
+      solution: "Unified workflow automation",
+      outcome: "Faster operations with less overhead",
+      color: "#3B82F6",
     },
     {
       icon: Building2,
-      title: 'Enterprise',
-      problem: 'Complex systems and fragmented data',
-      solution: 'AI integration layer across infrastructure',
-      outcome: 'Scalable efficiency and control',
-      color: '#10B981',
+      title: "Enterprise",
+      problem: "Complex systems and fragmented data",
+      solution: "AI integration layer across infrastructure",
+      outcome: "Scalable efficiency and control",
+      color: "#10B981",
     },
     {
       icon: Truck,
-      title: 'Logistics',
-      problem: 'Fragmented tracking and operations',
-      solution: 'Real-time unified data system',
-      outcome: 'Complete operational visibility',
-      color: '#F59E0B',
+      title: "Logistics",
+      problem: "Fragmented tracking and operations",
+      solution: "Real-time unified data system",
+      outcome: "Complete operational visibility",
+      color: "#F59E0B",
     },
     {
       icon: Briefcase,
-      title: 'Finance',
-      problem: 'Manual processes and risk exposure',
-      solution: 'AI-driven automation and validation',
-      outcome: 'Accuracy, compliance, and speed',
-      color: '#8B5CF6',
+      title: "Finance",
+      problem: "Manual processes and risk exposure",
+      solution: "AI-driven automation and validation",
+      outcome: "Accuracy, compliance, and speed",
+      color: "#8B5CF6",
     },
     {
       icon: Scale,
-      title: 'Legal',
-      problem: 'Document overload and inefficiency',
-      solution: 'Intelligent organization and automation',
-      outcome: 'Faster case and workflow management',
-      color: '#EC4899',
+      title: "Legal",
+      problem: "Document overload and inefficiency",
+      solution: "Intelligent organization and automation",
+      outcome: "Faster case and workflow management",
+      color: "#EC4899",
     },
   ];
 
@@ -79,7 +86,9 @@ export default function Solutions() {
             transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl text-slate-300 leading-relaxed mb-4"
           >
-            We engineer custom software, build operational dashboards, develop mobile applications, and integrate AI automation—tailored to how your industry actually operates.
+            We engineer custom software, build operational dashboards, develop
+            mobile applications, and integrate AI automation—tailored to how
+            your industry actually operates.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -87,7 +96,9 @@ export default function Solutions() {
             transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg text-slate-400 leading-relaxed"
           >
-            Every solution combines the Bridgebox platform with custom development, data engineering, and systems integration designed for your exact workflows.
+            Every solution combines the Bridgebox platform with custom
+            development, data engineering, and systems integration designed for
+            your exact workflows.
           </motion.p>
         </div>
       </Section>
@@ -106,7 +117,11 @@ export default function Solutions() {
               variants={staggerItem}
               custom={index}
             >
-              <Card hover glass className="h-full group relative overflow-hidden">
+              <Card
+                hover
+                glass
+                className="h-full group relative overflow-hidden"
+              >
                 <motion.div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
                   style={{
@@ -120,12 +135,15 @@ export default function Solutions() {
                     style={{
                       backgroundColor: `${solution.color}20`,
                       borderColor: `${solution.color}40`,
-                      borderWidth: '1px',
+                      borderWidth: "1px",
                     }}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <solution.icon className="w-8 h-8" style={{ color: solution.color }} />
+                    <solution.icon
+                      className="w-8 h-8"
+                      style={{ color: solution.color }}
+                    />
                     <motion.div
                       className="absolute inset-0 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       style={{ backgroundColor: `${solution.color}40` }}
@@ -138,7 +156,10 @@ export default function Solutions() {
 
                   <div className="space-y-4">
                     <div>
-                      <div className="text-sm font-semibold uppercase tracking-wider mb-2" style={{ color: solution.color }}>
+                      <div
+                        className="text-sm font-semibold uppercase tracking-wider mb-2"
+                        style={{ color: solution.color }}
+                      >
                         Problem
                       </div>
                       <p className="text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">
@@ -165,7 +186,9 @@ export default function Solutions() {
                     </div>
                   </div>
 
-                  <Link to={`/contact?solution=${encodeURIComponent(solution.title)}`}>
+                  <Link
+                    to={`/contact?solution=${encodeURIComponent(solution.title)}`}
+                  >
                     <motion.div
                       className="mt-6 flex items-center text-sm font-medium group-hover:text-indigo-500 transition-colors duration-300"
                       style={{ color: solution.color }}

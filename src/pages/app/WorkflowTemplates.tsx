@@ -1,22 +1,22 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Sparkles, Loader2 } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import EmptyState from '../../components/EmptyState';
-import { workflowService } from '../../lib/db/workflows';
-import type { WorkflowTemplate, WorkflowCategory } from '../../types/workflow';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, Sparkles, Loader2 } from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import EmptyState from "../../components/EmptyState";
+import { workflowService } from "../../lib/db/workflows";
+import type { WorkflowTemplate, WorkflowCategory } from "../../types/workflow";
+import { useAuth } from "../../contexts/AuthContext";
 
 const CATEGORY_COLORS: Record<WorkflowCategory, string> = {
-  lead: 'blue',
-  project: 'green',
-  billing: 'amber',
-  support: 'red',
-  custom: 'slate',
+  lead: "blue",
+  project: "green",
+  billing: "amber",
+  support: "red",
+  custom: "slate",
 };
 
 export function WorkflowTemplates() {
@@ -24,7 +24,9 @@ export function WorkflowTemplates() {
   const { currentOrganization } = useAuth();
   const [templates, setTemplates] = useState<WorkflowTemplate[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filterCategory, setFilterCategory] = useState<WorkflowCategory | 'all'>('all');
+  const [filterCategory, setFilterCategory] = useState<
+    WorkflowCategory | "all"
+  >("all");
   const [creating, setCreating] = useState<string | null>(null);
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export function WorkflowTemplates() {
       const data = await workflowService.getTemplates();
       setTemplates(data);
     } catch (err) {
-      console.error('Failed to load templates:', err);
+      console.error("Failed to load templates:", err);
     } finally {
       setLoading(false);
     }
@@ -51,18 +53,19 @@ export function WorkflowTemplates() {
       const workflow = await workflowService.createFromTemplate(
         template.id,
         currentOrganization.id,
-        `${template.name} (Copy)`
+        `${template.name} (Copy)`,
       );
       navigate(`/app/workflows/${workflow.id}`);
     } catch (err) {
-      console.error('Failed to create workflow from template:', err);
-      alert('Failed to create workflow from template');
+      console.error("Failed to create workflow from template:", err);
+      alert("Failed to create workflow from template");
       setCreating(null);
     }
   };
 
-  const filteredTemplates = templates.filter((template) =>
-    filterCategory === 'all' || template.category === filterCategory
+  const filteredTemplates = templates.filter(
+    (template) =>
+      filterCategory === "all" || template.category === filterCategory,
   );
 
   if (loading) {
@@ -83,7 +86,7 @@ export function WorkflowTemplates() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="flex items-center gap-4 mb-6">
           <button
-            onClick={() => navigate('/app/workflows')}
+            onClick={() => navigate("/app/workflows")}
             className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-slate-400" />
@@ -129,7 +132,9 @@ export function WorkflowTemplates() {
                       <h3 className="text-lg font-semibold text-white mb-1">
                         {template.name}
                       </h3>
-                      <span className={`px-2.5 py-1 text-xs rounded-full bg-${CATEGORY_COLORS[template.category]}-500/10 text-${CATEGORY_COLORS[template.category]}-400 border border-${CATEGORY_COLORS[template.category]}-500/20`}>
+                      <span
+                        className={`px-2.5 py-1 text-xs rounded-full bg-${CATEGORY_COLORS[template.category]}-500/10 text-${CATEGORY_COLORS[template.category]}-400 border border-${CATEGORY_COLORS[template.category]}-500/20`}
+                      >
                         {template.category}
                       </span>
                     </div>
@@ -156,7 +161,7 @@ export function WorkflowTemplates() {
                           Creating...
                         </>
                       ) : (
-                        'Use Template'
+                        "Use Template"
                       )}
                     </Button>
                   </div>

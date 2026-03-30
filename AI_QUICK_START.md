@@ -5,6 +5,7 @@ Get AI-powered features running in Bridgebox in 2 minutes.
 ## Option 1: Use Mock AI (No Setup)
 
 The system automatically uses mock AI if no provider is configured. This is perfect for:
+
 - Development
 - Testing
 - Demos
@@ -67,35 +68,42 @@ Done! AI features are now powered by GPT-4.
 ## Where to Use AI
 
 ### 1. Lead Analysis
+
 - Navigate to any lead: `/app/leads/:id`
 - Click "Generate AI Summary"
 - Get instant analysis of needs, value, and next actions
 
 ### 2. Business Insights
+
 - Navigate to Analytics: `/app/analytics`
 - Click "Generate Insights" button
 - Get opportunities, risks, and strategic recommendations
 
 ### 3. Project Summaries
+
 - Navigate to any project detail page
 - Use AI features to analyze project health
 
 ### 4. Support Tickets
+
 - View support tickets
 - Get AI-powered classification and resolution suggestions
 
 ## Costs (Real AI Only)
 
 ### Anthropic Claude
+
 - ~$0.01 per lead analysis
 - ~$0.02 per business insights
 - Typical monthly cost: $10-50 for moderate use
 
 ### OpenAI GPT-4
+
 - ~$0.01-0.03 per analysis
 - Typical monthly cost: $20-80 for moderate use
 
 ### Cost Optimization
+
 - Results are cached for 5 minutes
 - AI only runs when explicitly requested
 - No background processing
@@ -110,17 +118,20 @@ Done! AI features are now powered by GPT-4.
 ## Troubleshooting
 
 ### "AI analysis is not available"
+
 - Check your `.env` file has the API key
 - Restart the dev server
 - Check console for errors
 
 ### "API key not configured"
+
 - Ensure key starts with correct prefix:
   - Anthropic: `sk-ant-`
   - OpenAI: `sk-`
 - Check for typos or extra spaces
 
 ### Slow Responses
+
 - First request takes longer (no cache)
 - Subsequent requests are instant (cached)
 - Consider using GPT-3.5 for faster/cheaper results

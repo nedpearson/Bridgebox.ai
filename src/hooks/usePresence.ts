@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
-import { useAuth } from '../contexts/AuthContext';
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
+import { useAuth } from "../contexts/AuthContext";
 
 export interface PresenceUser {
   id: string;
@@ -27,9 +27,9 @@ export function usePresence(roomName: string) {
     });
 
     // Handle updates to the presence state
-    channel.on('presence', { event: 'sync' }, () => {
+    channel.on("presence", { event: "sync" }, () => {
       const state = channel.presenceState();
-      
+
       const users: PresenceUser[] = [];
       // Extract the unique users currently present in the channel
       for (const [key, presences] of Object.entries(state)) {
@@ -50,7 +50,7 @@ export function usePresence(roomName: string) {
 
     // Subscribe and track this user natively
     channel.subscribe(async (status) => {
-      if (status === 'SUBSCRIBED') {
+      if (status === "SUBSCRIBED") {
         const payload = {
           email: user.email,
           full_name: profile.full_name,

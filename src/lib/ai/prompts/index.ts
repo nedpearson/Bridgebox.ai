@@ -1,4 +1,4 @@
-import type { AIMessage } from '../types';
+import type { AIMessage } from "../types";
 
 export const systemPrompts = {
   businessAnalyst: `You are an expert business analyst for Bridgebox, a software development agency.
@@ -26,22 +26,22 @@ export class PromptBuilder {
   static summarizeLead(leadData: any): AIMessage[] {
     return [
       {
-        role: 'system',
+        role: "system",
         content: systemPrompts.salesAssistant,
       },
       {
-        role: 'user',
+        role: "user",
         content: `Analyze this lead and provide a structured summary in JSON format:
 
 Lead Information:
 - Name: ${leadData.name}
-- Company: ${leadData.company || 'Not provided'}
+- Company: ${leadData.company || "Not provided"}
 - Email: ${leadData.email}
 - Status: ${leadData.status}
 - Service Type: ${leadData.lead_type}
-- Budget: ${leadData.budget || 'Not specified'}
-- Timeline: ${leadData.timeline || 'Not specified'}
-- Description: ${leadData.project_description || 'No description provided'}
+- Budget: ${leadData.budget || "Not specified"}
+- Timeline: ${leadData.timeline || "Not specified"}
+- Description: ${leadData.project_description || "No description provided"}
 
 Respond with JSON only:
 {
@@ -60,20 +60,20 @@ Respond with JSON only:
   static summarizeProject(projectData: any): AIMessage[] {
     return [
       {
-        role: 'system',
+        role: "system",
         content: systemPrompts.projectAdvisor,
       },
       {
-        role: 'user',
+        role: "user",
         content: `Analyze this project and provide a structured summary in JSON format:
 
 Project Information:
 - Name: ${projectData.name}
 - Status: ${projectData.status}
-- Start Date: ${projectData.start_date || 'Not set'}
-- Target End: ${projectData.target_end_date || 'Not set'}
-- Description: ${projectData.description || 'No description'}
-- Budget: ${projectData.budget || 'Not specified'}
+- Start Date: ${projectData.start_date || "Not set"}
+- Target End: ${projectData.target_end_date || "Not set"}
+- Description: ${projectData.description || "No description"}
+- Budget: ${projectData.budget || "Not specified"}
 
 Respond with JSON only:
 {
@@ -91,18 +91,18 @@ Respond with JSON only:
   static summarizeTicket(ticketData: any): AIMessage[] {
     return [
       {
-        role: 'system',
+        role: "system",
         content: systemPrompts.supportSpecialist,
       },
       {
-        role: 'user',
+        role: "user",
         content: `Analyze this support ticket and provide a structured summary in JSON format:
 
 Ticket Information:
 - Title: ${ticketData.title}
 - Description: ${ticketData.description}
-- Category: ${ticketData.category || 'Not categorized'}
-- Priority: ${ticketData.priority || 'Not set'}
+- Category: ${ticketData.category || "Not categorized"}
+- Priority: ${ticketData.priority || "Not set"}
 - Status: ${ticketData.status}
 
 Respond with JSON only:
@@ -121,11 +121,13 @@ Respond with JSON only:
   static generateBusinessInsights(metricsData: any): AIMessage[] {
     return [
       {
-        role: 'system',
-        content: systemPrompts.businessAnalyst + "\\nCRITICAL: You MUST ONLY return a raw JSON object. Never include conversational text. Even if all metrics are 0, invent reasonable placeholder insights or provide a valid JSON skeleton acknowledging the lack of data.",
+        role: "system",
+        content:
+          systemPrompts.businessAnalyst +
+          "\\nCRITICAL: You MUST ONLY return a raw JSON object. Never include conversational text. Even if all metrics are 0, invent reasonable placeholder insights or provide a valid JSON skeleton acknowledging the lack of data.",
       },
       {
-        role: 'user',
+        role: "user",
         content: `Analyze these business metrics and provide strategic insights in JSON format:
 
 Metrics Summary:
@@ -163,11 +165,11 @@ Respond with JSON only:
   static recommendActions(contextData: any): AIMessage[] {
     return [
       {
-        role: 'system',
+        role: "system",
         content: systemPrompts.businessAnalyst,
       },
       {
-        role: 'user',
+        role: "user",
         content: `Based on this business context, recommend the top priority actions in JSON format:
 
 Context:
@@ -190,19 +192,19 @@ Respond with JSON array only:
   static draftProposal(proposalData: any): AIMessage[] {
     return [
       {
-        role: 'system',
+        role: "system",
         content: systemPrompts.salesAssistant,
       },
       {
-        role: 'user',
+        role: "user",
         content: `Create a proposal draft based on this information in JSON format:
 
 Lead Information:
 - Company: ${proposalData.company}
 - Service: ${proposalData.serviceType}
-- Budget: ${proposalData.budget || 'To be discussed'}
-- Timeline: ${proposalData.timeline || 'Flexible'}
-- Requirements: ${proposalData.requirements || 'Standard service delivery'}
+- Budget: ${proposalData.budget || "To be discussed"}
+- Timeline: ${proposalData.timeline || "Flexible"}
+- Requirements: ${proposalData.requirements || "Standard service delivery"}
 
 Respond with JSON only:
 {
@@ -219,11 +221,11 @@ Respond with JSON only:
   static detectPriority(itemData: any): AIMessage[] {
     return [
       {
-        role: 'system',
+        role: "system",
         content: systemPrompts.businessAnalyst,
       },
       {
-        role: 'user',
+        role: "user",
         content: `Analyze this item and determine its priority level in JSON format:
 
 Item Data:
@@ -243,11 +245,11 @@ Respond with JSON only:
   static classifyRequest(requestData: any): AIMessage[] {
     return [
       {
-        role: 'system',
+        role: "system",
         content: systemPrompts.businessAnalyst,
       },
       {
-        role: 'user',
+        role: "user",
         content: `Classify this request and provide structured analysis in JSON format:
 
 Request:

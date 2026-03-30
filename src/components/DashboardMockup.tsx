@@ -1,17 +1,20 @@
-import { motion } from 'framer-motion';
-import { TrendingUp, Activity, Zap, CheckCircle, Clock, ArrowUp } from 'lucide-react';
-import { subtleFloat } from '../utils/animations';
-import AnimatedChart from './AnimatedChart';
-import AnimatedMetric from './AnimatedMetric';
-import PulseIndicator from './PulseIndicator';
+import { motion } from "framer-motion";
+import {
+  TrendingUp,
+  Activity,
+  Zap,
+  CheckCircle,
+  Clock,
+  ArrowUp,
+} from "lucide-react";
+import { subtleFloat } from "../utils/animations";
+import AnimatedChart from "./AnimatedChart";
+import AnimatedMetric from "./AnimatedMetric";
+import PulseIndicator from "./PulseIndicator";
 
 export default function DashboardMockup() {
   return (
-    <motion.div
-      className="relative"
-      variants={subtleFloat}
-      animate="animate"
-    >
+    <motion.div className="relative" variants={subtleFloat} animate="animate">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -26,13 +29,15 @@ export default function DashboardMockup() {
           transition={{
             duration: 4,
             repeat: Infinity,
-            ease: 'easeInOut'
+            ease: "easeInOut",
           }}
         />
 
         <div className="relative p-6 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-white">System Overview</h3>
+            <h3 className="text-lg font-semibold text-white">
+              System Overview
+            </h3>
             <PulseIndicator color="#10B981" label="Live" delay={0.4} />
           </div>
 
@@ -48,7 +53,11 @@ export default function DashboardMockup() {
                 <span className="text-sm text-slate-400">Active Workflows</span>
                 <motion.div
                   animate={{ rotate: [0, 5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 >
                   <TrendingUp className="w-4 h-4 text-[#10B981] group-hover:scale-110 transition-transform" />
                 </motion.div>
@@ -78,7 +87,11 @@ export default function DashboardMockup() {
                 <span className="text-sm text-slate-400">Data Synced</span>
                 <motion.div
                   animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 >
                   <Zap className="w-4 h-4 text-indigo-500 group-hover:scale-110 transition-transform" />
                 </motion.div>
@@ -104,7 +117,9 @@ export default function DashboardMockup() {
             className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10"
           >
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-medium text-white">Performance Trends</span>
+              <span className="text-sm font-medium text-white">
+                Performance Trends
+              </span>
               <span className="text-xs text-slate-400">Last 12h</span>
             </div>
             <AnimatedChart
@@ -126,9 +141,12 @@ export default function DashboardMockup() {
                 <Zap className="w-5 h-5 text-indigo-500" />
               </div>
               <div className="flex-1">
-                <div className="text-sm font-medium text-white mb-1">AI Insight</div>
+                <div className="text-sm font-medium text-white mb-1">
+                  AI Insight
+                </div>
                 <div className="text-xs text-slate-400 leading-relaxed">
-                  System detected 3 workflow optimization opportunities. Estimated time savings: 4.2 hours/day.
+                  System detected 3 workflow optimization opportunities.
+                  Estimated time savings: 4.2 hours/day.
                 </div>
               </div>
             </div>
@@ -186,7 +204,7 @@ export default function DashboardMockup() {
         transition={{
           duration: 5,
           repeat: Infinity,
-          ease: 'easeInOut'
+          ease: "easeInOut",
         }}
       />
     </motion.div>

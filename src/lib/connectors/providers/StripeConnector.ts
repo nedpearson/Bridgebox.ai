@@ -1,6 +1,10 @@
 // @ts-nocheck
-import { BaseConnector } from '../core/BaseConnector';
-import type { ConnectorConfig, SyncResult, ConnectorCapability } from '../types';
+import { BaseConnector } from "../core/BaseConnector";
+import type {
+  ConnectorConfig,
+  SyncResult,
+  ConnectorCapability,
+} from "../types";
 
 interface StripeConfig {
   apiKey: string;
@@ -52,7 +56,7 @@ interface StripeSubscription {
 
 export class StripeConnector extends BaseConnector {
   private config: StripeConfig;
-  private baseURL = 'https://api.stripe.com/v1';
+  private baseURL = "https://api.stripe.com/v1";
 
   constructor(config: ConnectorConfig) {
     super(config);
@@ -63,13 +67,13 @@ export class StripeConnector extends BaseConnector {
     try {
       const response = await fetch(`${this.baseURL}/customers?limit=1`, {
         headers: {
-          'Authorization': `Bearer ${this.config.apiKey}`
-        }
+          Authorization: `Bearer ${this.config.apiKey}`,
+        },
       });
 
       return response.ok;
     } catch (error) {
-      console.error('Stripe connection failed:', error);
+      console.error("Stripe connection failed:", error);
       return false;
     }
   }
@@ -82,7 +86,7 @@ export class StripeConnector extends BaseConnector {
       recordsCreated: 0,
       recordsUpdated: 0,
       recordsFailed: 0,
-      errors: []
+      errors: [],
     };
 
     try {
@@ -99,7 +103,9 @@ export class StripeConnector extends BaseConnector {
       return results;
     } catch (error) {
       results.success = false;
-      results.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      results.errors.push(
+        error instanceof Error ? error.message : "Unknown error",
+      );
       results.duration = Date.now() - startTime.getTime();
       return results;
     }
@@ -114,7 +120,7 @@ export class StripeConnector extends BaseConnector {
   }
 
   getCapabilities(): ConnectorCapability[] {
-    return ['read', 'sync', 'webhook'];
+    return ["read", "sync", "webhook"];
   }
 
   private async syncCustomers(): Promise<SyncResult> {
@@ -124,7 +130,7 @@ export class StripeConnector extends BaseConnector {
       recordsCreated: 0,
       recordsUpdated: 0,
       recordsFailed: 0,
-      errors: []
+      errors: [],
     };
 
     try {
@@ -133,19 +139,19 @@ export class StripeConnector extends BaseConnector {
 
       while (hasMore) {
         const url = new URL(`${this.baseURL}/customers`);
-        url.searchParams.set('limit', '100');
+        url.searchParams.set("limit", "100");
         if (startingAfter) {
-          url.searchParams.set('starting_after', startingAfter);
+          url.searchParams.set("starting_after", startingAfter);
         }
 
         const response = await fetch(url.toString(), {
           headers: {
-            'Authorization': `Bearer ${this.config.apiKey}`
-          }
+            Authorization: `Bearer ${this.config.apiKey}`,
+          },
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch Stripe customers');
+          throw new Error("Failed to fetch Stripe customers");
         }
 
         const data = await response.json();
@@ -159,23 +165,25 @@ export class StripeConnector extends BaseConnector {
         for (const customer of customers) {
           try {
             await this.normalizeAndStore({
-              type: 'entity',
-              source: 'stripe_customer',
+              type: "entity",
+              source: "stripe_customer",
               sourceId: customer.id,
               data: {
                 email: customer.email,
                 name: customer.name,
                 createdAt: new Date(customer.created * 1000),
-                metadata: customer.metadata
+                metadata: customer.metadata,
               },
-              timestamp: new Date(customer.created * 1000)
+              timestamp: new Date(customer.created * 1000),
             });
 
             results.recordsProcessed++;
             results.recordsCreated++;
           } catch (error) {
             results.recordsFailed++;
-            results.errors.push(`Failed to process customer ${customer.id}: ${error}`);
+            results.errors.push(
+              `Failed to process customer ${customer.id}: ${error}`,
+            );
           }
         }
       }
@@ -183,7 +191,9 @@ export class StripeConnector extends BaseConnector {
       return results;
     } catch (error) {
       results.success = false;
-      results.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      results.errors.push(
+        error instanceof Error ? error.message : "Unknown error",
+      );
       return results;
     }
   }
@@ -195,7 +205,7 @@ export class StripeConnector extends BaseConnector {
       recordsCreated: 0,
       recordsUpdated: 0,
       recordsFailed: 0,
-      errors: []
+      errors: [],
     };
 
     try {
@@ -204,19 +214,19 @@ export class StripeConnector extends BaseConnector {
 
       while (hasMore) {
         const url = new URL(`${this.baseURL}/invoices`);
-        url.searchParams.set('limit', '100');
+        url.searchParams.set("limit", "100");
         if (startingAfter) {
-          url.searchParams.set('starting_after', startingAfter);
+          url.searchParams.set("starting_after", startingAfter);
         }
 
         const response = await fetch(url.toString(), {
           headers: {
-            'Authorization': `Bearer ${this.config.apiKey}`
-          }
+            Authorization: `Bearer ${this.config.apiKey}`,
+          },
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch Stripe invoices');
+          throw new Error("Failed to fetch Stripe invoices");
         }
 
         const data = await response.json();
@@ -230,8 +240,8 @@ export class StripeConnector extends BaseConnector {
         for (const invoice of invoices) {
           try {
             await this.normalizeAndStore({
-              type: 'metric',
-              source: 'stripe_invoice',
+              type: "metric",
+              source: "stripe_invoice",
               sourceId: invoice.id,
               data: {
                 customerId: invoice.customer,
@@ -240,17 +250,23 @@ export class StripeConnector extends BaseConnector {
                 currency: invoice.currency,
                 status: invoice.status,
                 createdAt: new Date(invoice.created * 1000),
-                dueDate: invoice.due_date ? new Date(invoice.due_date * 1000) : null,
-                paidAt: invoice.paid_at ? new Date(invoice.paid_at * 1000) : null
+                dueDate: invoice.due_date
+                  ? new Date(invoice.due_date * 1000)
+                  : null,
+                paidAt: invoice.paid_at
+                  ? new Date(invoice.paid_at * 1000)
+                  : null,
               },
-              timestamp: new Date(invoice.created * 1000)
+              timestamp: new Date(invoice.created * 1000),
             });
 
             results.recordsProcessed++;
             results.recordsCreated++;
           } catch (error) {
             results.recordsFailed++;
-            results.errors.push(`Failed to process invoice ${invoice.id}: ${error}`);
+            results.errors.push(
+              `Failed to process invoice ${invoice.id}: ${error}`,
+            );
           }
         }
       }
@@ -258,7 +274,9 @@ export class StripeConnector extends BaseConnector {
       return results;
     } catch (error) {
       results.success = false;
-      results.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      results.errors.push(
+        error instanceof Error ? error.message : "Unknown error",
+      );
       return results;
     }
   }
@@ -270,7 +288,7 @@ export class StripeConnector extends BaseConnector {
       recordsCreated: 0,
       recordsUpdated: 0,
       recordsFailed: 0,
-      errors: []
+      errors: [],
     };
 
     try {
@@ -279,19 +297,19 @@ export class StripeConnector extends BaseConnector {
 
       while (hasMore) {
         const url = new URL(`${this.baseURL}/subscriptions`);
-        url.searchParams.set('limit', '100');
+        url.searchParams.set("limit", "100");
         if (startingAfter) {
-          url.searchParams.set('starting_after', startingAfter);
+          url.searchParams.set("starting_after", startingAfter);
         }
 
         const response = await fetch(url.toString(), {
           headers: {
-            'Authorization': `Bearer ${this.config.apiKey}`
-          }
+            Authorization: `Bearer ${this.config.apiKey}`,
+          },
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch Stripe subscriptions');
+          throw new Error("Failed to fetch Stripe subscriptions");
         }
 
         const data = await response.json();
@@ -304,34 +322,40 @@ export class StripeConnector extends BaseConnector {
 
         for (const subscription of subscriptions) {
           try {
-            const items = subscription.items.data.map(item => ({
+            const items = subscription.items.data.map((item) => ({
               priceId: item.price.id,
               amount: item.price.unit_amount ? item.price.unit_amount / 100 : 0,
               currency: item.price.currency,
               interval: item.price.recurring?.interval,
-              intervalCount: item.price.recurring?.interval_count
+              intervalCount: item.price.recurring?.interval_count,
             }));
 
             await this.normalizeAndStore({
-              type: 'entity',
-              source: 'stripe_subscription',
+              type: "entity",
+              source: "stripe_subscription",
               sourceId: subscription.id,
               data: {
                 customerId: subscription.customer,
                 status: subscription.status,
-                currentPeriodStart: new Date(subscription.current_period_start * 1000),
-                currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                currentPeriodStart: new Date(
+                  subscription.current_period_start * 1000,
+                ),
+                currentPeriodEnd: new Date(
+                  subscription.current_period_end * 1000,
+                ),
                 cancelAtPeriodEnd: subscription.cancel_at_period_end,
-                items
+                items,
               },
-              timestamp: new Date()
+              timestamp: new Date(),
             });
 
             results.recordsProcessed++;
             results.recordsCreated++;
           } catch (error) {
             results.recordsFailed++;
-            results.errors.push(`Failed to process subscription ${subscription.id}: ${error}`);
+            results.errors.push(
+              `Failed to process subscription ${subscription.id}: ${error}`,
+            );
           }
         }
       }
@@ -339,7 +363,9 @@ export class StripeConnector extends BaseConnector {
       return results;
     } catch (error) {
       results.success = false;
-      results.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      results.errors.push(
+        error instanceof Error ? error.message : "Unknown error",
+      );
       return results;
     }
   }
@@ -354,7 +380,7 @@ export class StripeConnector extends BaseConnector {
   }
 
   private async normalizeAndStore(data: {
-    type: 'event' | 'metric' | 'entity';
+    type: "event" | "metric" | "entity";
     source: string;
     sourceId: string;
     data: Record<string, any>;
@@ -368,7 +394,7 @@ export class StripeConnector extends BaseConnector {
       raw_data: data.data,
       normalized_data: data.data,
       metadata: {},
-      synced_at: data.timestamp
+      synced_at: data.timestamp,
     });
   }
 
@@ -380,7 +406,8 @@ export class StripeConnector extends BaseConnector {
     return [];
   }
 
-  async syncNow(): Promise<any> { // @ts-ignore
+  async syncNow(): Promise<any> {
+    // @ts-ignore
     return {
       success: true,
       recordsProcessed: 0,
@@ -391,7 +418,7 @@ export class StripeConnector extends BaseConnector {
       errors: [],
       duration: 0,
       startedAt: new Date().toISOString(),
-      completedAt: new Date().toISOString()
+      completedAt: new Date().toISOString(),
     };
   }
 

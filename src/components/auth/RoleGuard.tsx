@@ -1,13 +1,15 @@
-import { ReactNode } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { permissions, PermissionContext } from '../../lib/permissions';
-import LoadingSpinner from '../LoadingSpinner';
-import UnauthorizedState from '../UnauthorizedState';
+import { ReactNode } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { permissions, PermissionContext } from "../../lib/permissions";
+import LoadingSpinner from "../LoadingSpinner";
+import UnauthorizedState from "../UnauthorizedState";
 
 interface RoleGuardProps {
   children: ReactNode;
-  allowedRoles?: Array<'super_admin' | 'internal_staff' | 'client_admin' | 'client_member'>;
+  allowedRoles?: Array<
+    "super_admin" | "internal_staff" | "client_admin" | "client_member"
+  >;
   requireInternalStaff?: boolean;
   requireClientUser?: boolean;
   checkPermission?: (context: PermissionContext) => boolean;

@@ -1,7 +1,7 @@
-import { AnthropicProvider } from './anthropic';
-import { OpenAIProvider } from './openai';
-import { MockProvider } from './mock';
-import type { AIProvider, AIProviderClient } from '../types';
+import { AnthropicProvider } from "./anthropic";
+import { OpenAIProvider } from "./openai";
+import { MockProvider } from "./mock";
+import type { AIProvider, AIProviderClient } from "../types";
 
 export class AIProviderFactory {
   private static providers: Map<AIProvider, AIProviderClient> = new Map();
@@ -19,31 +19,33 @@ export class AIProviderFactory {
   private static detectProvider(): AIProvider {
     const envProvider = import.meta.env.VITE_AI_PROVIDER as AIProvider;
 
-    if (envProvider && ['anthropic', 'openai', 'mock'].includes(envProvider)) {
+    if (envProvider && ["anthropic", "openai", "mock"].includes(envProvider)) {
       return envProvider;
     }
 
     const anthropic = new AnthropicProvider();
     if (anthropic.isConfigured()) {
-      return 'anthropic';
+      return "anthropic";
     }
 
     const openai = new OpenAIProvider();
     if (openai.isConfigured()) {
-      return 'openai';
+      return "openai";
     }
 
-    console.warn('No AI provider configured. Using mock provider. Set VITE_ANTHROPIC_API_KEY or VITE_OPENAI_API_KEY.');
-    return 'mock';
+    console.warn(
+      "No AI provider configured. Using mock provider. Set VITE_ANTHROPIC_API_KEY or VITE_OPENAI_API_KEY.",
+    );
+    return "mock";
   }
 
   private static createProvider(provider: AIProvider): AIProviderClient {
     switch (provider) {
-      case 'anthropic':
+      case "anthropic":
         return new AnthropicProvider();
-      case 'openai':
+      case "openai":
         return new OpenAIProvider();
-      case 'mock':
+      case "mock":
         return new MockProvider();
       default:
         console.warn(`Unknown provider: ${provider}. Falling back to mock.`);

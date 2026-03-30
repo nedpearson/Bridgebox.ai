@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   DollarSign,
   Building2,
@@ -22,28 +22,37 @@ import {
   Calendar,
   Brain,
   Radar,
-} from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ErrorState from '../../components/ErrorState';
-import DonutChart from '../../components/analytics/DonutChart';
-import { ForecastCard, ForecastSummary } from '../../components/predictions/ForecastCard';
-import { RiskIndicator, CompactRiskIndicator } from '../../components/predictions/RiskIndicator';
-import { ConversionBadge } from '../../components/predictions/PredictionBadge';
-import { InsightList, InsightSummary } from '../../components/ai/InsightCard';
-import { EmergingTrendCard } from '../../components/market/EmergingTrendCard';
-import { OpportunityScoreCard } from '../../components/opportunities/OpportunityScoreCard';
-import { DataQualityBadge, UncertaintyNotice } from '../../components/intelligence/ConfidenceBadge';
-import { executiveService } from '../../lib/db/executive';
-import { predictiveAnalytics } from '../../lib/predictiveAnalytics';
-import { aiDecisionEngine, type AIInsight } from '../../lib/aiDecisionEngine';
-import { marketSignalService } from '../../lib/market';
-import { opportunityAnalyzer } from '../../lib/opportunities';
-import { intelligenceOrchestrator } from '../../lib/intelligenceOrchestrator';
-import { useAuth } from '../../contexts/AuthContext';
-import type { EmergingTrend } from '../../lib/market/types';
-import type { ScoredOpportunity } from '../../lib/opportunities/types';
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorState from "../../components/ErrorState";
+import DonutChart from "../../components/analytics/DonutChart";
+import {
+  ForecastCard,
+  ForecastSummary,
+} from "../../components/predictions/ForecastCard";
+import {
+  RiskIndicator,
+  CompactRiskIndicator,
+} from "../../components/predictions/RiskIndicator";
+import { ConversionBadge } from "../../components/predictions/PredictionBadge";
+import { InsightList, InsightSummary } from "../../components/ai/InsightCard";
+import { EmergingTrendCard } from "../../components/market/EmergingTrendCard";
+import { OpportunityScoreCard } from "../../components/opportunities/OpportunityScoreCard";
+import {
+  DataQualityBadge,
+  UncertaintyNotice,
+} from "../../components/intelligence/ConfidenceBadge";
+import { executiveService } from "../../lib/db/executive";
+import { predictiveAnalytics } from "../../lib/predictiveAnalytics";
+import { aiDecisionEngine, type AIInsight } from "../../lib/aiDecisionEngine";
+import { marketSignalService } from "../../lib/market";
+import { opportunityAnalyzer } from "../../lib/opportunities";
+import { intelligenceOrchestrator } from "../../lib/intelligenceOrchestrator";
+import { useAuth } from "../../contexts/AuthContext";
+import type { EmergingTrend } from "../../lib/market/types";
+import type { ScoredOpportunity } from "../../lib/opportunities/types";
 import type {
   ExecutiveKPIs,
   SalesSnapshot,
@@ -52,24 +61,28 @@ import type {
   BillingSnapshot,
   OperationalAlert,
   RecentActivity,
-} from '../../lib/db/executive';
+} from "../../lib/db/executive";
 
 export default function ExecutiveCommandCenter() {
   const { currentOrganization } = useAuth();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const [kpis, setKpis] = useState<ExecutiveKPIs | null>(null);
   const [sales, setSales] = useState<SalesSnapshot | null>(null);
   const [delivery, setDelivery] = useState<DeliverySnapshot | null>(null);
-  const [clientHealth, setClientHealth] = useState<ClientHealthSnapshot | null>(null);
+  const [clientHealth, setClientHealth] = useState<ClientHealthSnapshot | null>(
+    null,
+  );
   const [billing, setBilling] = useState<BillingSnapshot | null>(null);
   const [alerts, setAlerts] = useState<OperationalAlert[]>([]);
   const [activity, setActivity] = useState<RecentActivity[]>([]);
   const [predictions, setPredictions] = useState<any>(null);
   const [aiInsights, setAiInsights] = useState<AIInsight[]>([]);
   const [marketTrends, setMarketTrends] = useState<EmergingTrend[]>([]);
-  const [topOpportunities, setTopOpportunities] = useState<ScoredOpportunity[]>([]);
+  const [topOpportunities, setTopOpportunities] = useState<ScoredOpportunity[]>(
+    [],
+  );
 
   useEffect(() => {
     loadExecutiveData();
@@ -78,15 +91,24 @@ export default function ExecutiveCommandCenter() {
   const loadExecutiveData = async () => {
     try {
       setLoading(true);
-      setError('');
+      setError("");
 
-      const [dashboardData, predictionsData, insights, trendsData, oppsData] = await Promise.all([
-        executiveService.getExecutiveDashboard(currentOrganization?.id),
-        predictiveAnalytics.generateExecutivePredictions(currentOrganization?.id),
-        aiDecisionEngine.getDashboardInsights(currentOrganization?.id, 8),
-        marketSignalService.getTopEmergingSignals(currentOrganization?.id || '', 3),
-        opportunityAnalyzer.getRankedOpportunities(currentOrganization?.id || '', { limit: 3, min_score: 70 }),
-      ]);
+      const [dashboardData, predictionsData, insights, trendsData, oppsData] =
+        await Promise.all([
+          executiveService.getExecutiveDashboard(currentOrganization?.id),
+          predictiveAnalytics.generateExecutivePredictions(
+            currentOrganization?.id,
+          ),
+          aiDecisionEngine.getDashboardInsights(currentOrganization?.id, 8),
+          marketSignalService.getTopEmergingSignals(
+            currentOrganization?.id || "",
+            3,
+          ),
+          opportunityAnalyzer.getRankedOpportunities(
+            currentOrganization?.id || "",
+            { limit: 3, min_score: 70 },
+          ),
+        ]);
 
       setKpis(dashboardData.kpis);
       setSales(dashboardData.sales);
@@ -100,7 +122,7 @@ export default function ExecutiveCommandCenter() {
       setMarketTrends(trendsData.trends);
       setTopOpportunities(oppsData.opportunities || []);
     } catch (err: any) {
-      setError(err.message || 'Failed to load executive dashboard');
+      setError(err.message || "Failed to load executive dashboard");
     } finally {
       setLoading(false);
     }
@@ -151,8 +173,12 @@ export default function ExecutiveCommandCenter() {
                   <Brain className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-white">AI Strategic Insights</h2>
-                  <p className="text-sm text-slate-400">Top priorities and recommendations</p>
+                  <h2 className="text-xl font-bold text-white">
+                    AI Strategic Insights
+                  </h2>
+                  <p className="text-sm text-slate-400">
+                    Top priorities and recommendations
+                  </p>
                 </div>
               </div>
               <Link
@@ -207,7 +233,7 @@ export default function ExecutiveCommandCenter() {
             label="Support Health"
             value={kpis.supportHealth.open.toString()}
             subtext={`${kpis.supportHealth.urgent} urgent`}
-            color={kpis.supportHealth.urgent > 0 ? '#EF4444' : '#10B981'}
+            color={kpis.supportHealth.urgent > 0 ? "#EF4444" : "#10B981"}
             link="/app/support"
           />
           <KPICard
@@ -225,8 +251,12 @@ export default function ExecutiveCommandCenter() {
             <div className="flex items-center gap-3">
               <Brain className="w-6 h-6 text-purple-400" />
               <div>
-                <h2 className="text-xl font-bold text-white">Predictive Insights</h2>
-                <p className="text-sm text-slate-400">Forward-looking analytics and forecasts</p>
+                <h2 className="text-xl font-bold text-white">
+                  Predictive Insights
+                </h2>
+                <p className="text-sm text-slate-400">
+                  Forward-looking analytics and forecasts
+                </p>
               </div>
             </div>
 
@@ -236,23 +266,31 @@ export default function ExecutiveCommandCenter() {
               <Card className="p-6">
                 <div className="flex items-center gap-2 mb-4">
                   <Target className="w-5 h-5 text-green-400" />
-                  <h3 className="font-semibold text-white">High-Value Opportunities</h3>
+                  <h3 className="font-semibold text-white">
+                    High-Value Opportunities
+                  </h3>
                 </div>
                 <div className="text-3xl font-bold text-white mb-2">
                   {predictions.summary.totalHighValueLeads}
                 </div>
                 <div className="text-sm text-slate-400 mb-4">
-                  ${(predictions.summary.potentialRevenue / 1000).toFixed(0)}K potential value
+                  ${(predictions.summary.potentialRevenue / 1000).toFixed(0)}K
+                  potential value
                 </div>
                 {predictions.highValueLeads.slice(0, 3).map((lead: any) => (
-                  <div key={lead.leadId} className="mb-3 pb-3 border-b border-slate-700 last:border-0">
+                  <div
+                    key={lead.leadId}
+                    className="mb-3 pb-3 border-b border-slate-700 last:border-0"
+                  >
                     <div className="flex items-center justify-between mb-2">
                       <ConversionBadge likelihood={lead.conversionLikelihood} />
                       <span className="text-sm font-medium text-white">
                         ${(lead.estimatedDealValue / 1000).toFixed(0)}K
                       </span>
                     </div>
-                    <p className="text-xs text-slate-400">{lead.daysToClose} days to close</p>
+                    <p className="text-xs text-slate-400">
+                      {lead.daysToClose} days to close
+                    </p>
                   </div>
                 ))}
               </Card>
@@ -265,7 +303,9 @@ export default function ExecutiveCommandCenter() {
                 <div className="space-y-4">
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm text-slate-400">Projects at Risk</span>
+                      <span className="text-sm text-slate-400">
+                        Projects at Risk
+                      </span>
                       <span className="text-lg font-bold text-orange-400">
                         {predictions.summary.projectsAtRisk}
                       </span>
@@ -273,7 +313,9 @@ export default function ExecutiveCommandCenter() {
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm text-slate-400">Clients at Risk</span>
+                      <span className="text-sm text-slate-400">
+                        Clients at Risk
+                      </span>
                       <span className="text-lg font-bold text-red-400">
                         {predictions.summary.clientsAtRisk}
                       </span>
@@ -285,25 +327,31 @@ export default function ExecutiveCommandCenter() {
 
             {predictions.criticalProjects.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-white mb-4">Critical Project Risks</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">
+                  Critical Project Risks
+                </h3>
                 <div className="grid lg:grid-cols-2 gap-4">
-                  {predictions.criticalProjects.slice(0, 4).map((project: any) => (
-                    <RiskIndicator
-                      key={project.projectId}
-                      level={project.riskLevel}
-                      title={`Project at ${project.riskLevel} risk`}
-                      description={`${project.delayProbability}% probability of delay`}
-                      factors={project.riskFactors.slice(0, 3)}
-                      actions={project.recommendations.slice(0, 2)}
-                    />
-                  ))}
+                  {predictions.criticalProjects
+                    .slice(0, 4)
+                    .map((project: any) => (
+                      <RiskIndicator
+                        key={project.projectId}
+                        level={project.riskLevel}
+                        title={`Project at ${project.riskLevel} risk`}
+                        description={`${project.delayProbability}% probability of delay`}
+                        factors={project.riskFactors.slice(0, 3)}
+                        actions={project.recommendations.slice(0, 2)}
+                      />
+                    ))}
                 </div>
               </div>
             )}
 
             {predictions.atRiskClients.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-white mb-4">At-Risk Clients</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">
+                  At-Risk Clients
+                </h3>
                 <div className="grid lg:grid-cols-2 gap-4">
                   {predictions.atRiskClients.slice(0, 4).map((client: any) => (
                     <RiskIndicator
@@ -346,8 +394,12 @@ export default function ExecutiveCommandCenter() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-slate-400 text-xs mb-1">Pending Proposals</p>
-                  <p className="text-xl font-bold text-white">{sales.proposalsPending}</p>
+                  <p className="text-slate-400 text-xs mb-1">
+                    Pending Proposals
+                  </p>
+                  <p className="text-xl font-bold text-white">
+                    {sales.proposalsPending}
+                  </p>
                 </div>
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Win Rate</p>
@@ -360,11 +412,16 @@ export default function ExecutiveCommandCenter() {
                 <p className="text-slate-400 text-sm mb-3">Top Service Types</p>
                 <div className="space-y-2">
                   {sales.topServiceTypes.slice(0, 3).map((type, index) => (
-                    <div key={type.service_type} className="flex items-center justify-between">
+                    <div
+                      key={type.service_type}
+                      className="flex items-center justify-between"
+                    >
                       <span className="text-sm text-slate-300">
-                        {type.service_type.replace('_', ' ')}
+                        {type.service_type.replace("_", " ")}
                       </span>
-                      <span className="text-sm font-medium text-white">{type.count}</span>
+                      <span className="text-sm font-medium text-white">
+                        {type.count}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -377,7 +434,9 @@ export default function ExecutiveCommandCenter() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <Package className="w-5 h-5 text-[#8B5CF6]" />
-                <h3 className="text-lg font-bold text-white">Delivery Snapshot</h3>
+                <h3 className="text-lg font-bold text-white">
+                  Delivery Snapshot
+                </h3>
               </div>
               <Link
                 to="/app/delivery"
@@ -395,7 +454,9 @@ export default function ExecutiveCommandCenter() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-slate-400 text-xs mb-1">Upcoming Milestones</p>
+                  <p className="text-slate-400 text-xs mb-1">
+                    Upcoming Milestones
+                  </p>
                   <p className="text-xl font-bold text-white">
                     {delivery.upcomingMilestones.length}
                   </p>
@@ -460,13 +521,17 @@ export default function ExecutiveCommandCenter() {
               </div>
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-slate-400 text-xs">Incomplete Onboarding</span>
+                  <span className="text-slate-400 text-xs">
+                    Incomplete Onboarding
+                  </span>
                   <span className="text-white font-bold">
                     {clientHealth.onboardingIncomplete}
                   </span>
                 </div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-slate-400 text-xs">Support Escalations</span>
+                  <span className="text-slate-400 text-xs">
+                    Support Escalations
+                  </span>
                   <span className="text-[#EF4444] font-bold">
                     {clientHealth.supportEscalations}
                   </span>
@@ -489,7 +554,9 @@ export default function ExecutiveCommandCenter() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <CreditCard className="w-5 h-5 text-[#10B981]" />
-                <h3 className="text-lg font-bold text-white">Billing Snapshot</h3>
+                <h3 className="text-lg font-bold text-white">
+                  Billing Snapshot
+                </h3>
               </div>
               <Link
                 to="/app/billing"
@@ -508,7 +575,9 @@ export default function ExecutiveCommandCenter() {
                 </div>
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Invoices Due</p>
-                  <p className="text-xl font-bold text-[#F59E0B]">{billing.invoicesDue}</p>
+                  <p className="text-xl font-bold text-[#F59E0B]">
+                    {billing.invoicesDue}
+                  </p>
                 </div>
                 <div>
                   <p className="text-slate-400 text-xs mb-1">Outstanding</p>
@@ -521,14 +590,14 @@ export default function ExecutiveCommandCenter() {
                 <DonutChart
                   data={[
                     {
-                      label: 'Platform Revenue',
+                      label: "Platform Revenue",
                       value: Math.round(billing.recurringRevenue),
-                      color: '#3B82F6',
+                      color: "#3B82F6",
                     },
                     {
-                      label: 'Custom Revenue',
+                      label: "Custom Revenue",
                       value: Math.round(billing.customRevenue),
-                      color: '#10B981',
+                      color: "#10B981",
                     },
                   ]}
                   size={140}
@@ -541,13 +610,17 @@ export default function ExecutiveCommandCenter() {
           <Card glass className="p-6">
             <div className="flex items-center space-x-3 mb-6">
               <AlertTriangle className="w-5 h-5 text-[#F59E0B]" />
-              <h3 className="text-lg font-bold text-white">Operations & Alerts</h3>
+              <h3 className="text-lg font-bold text-white">
+                Operations & Alerts
+              </h3>
             </div>
             <div className="space-y-3 max-h-[300px] overflow-y-auto">
               {alerts.length === 0 ? (
                 <div className="text-center py-8">
                   <CheckCircle2 className="w-12 h-12 text-[#10B981] mx-auto mb-2 opacity-50" />
-                  <p className="text-slate-400 text-sm">All systems operational</p>
+                  <p className="text-slate-400 text-sm">
+                    All systems operational
+                  </p>
                 </div>
               ) : (
                 alerts.slice(0, 8).map((alert) => (
@@ -561,16 +634,20 @@ export default function ExecutiveCommandCenter() {
                         <div className="flex items-center space-x-2 mb-1">
                           <span
                             className={`w-2 h-2 rounded-full ${
-                              alert.severity === 'critical'
-                                ? 'bg-[#EF4444]'
-                                : alert.severity === 'high'
-                                ? 'bg-[#F59E0B]'
-                                : 'bg-indigo-500'
+                              alert.severity === "critical"
+                                ? "bg-[#EF4444]"
+                                : alert.severity === "high"
+                                  ? "bg-[#F59E0B]"
+                                  : "bg-indigo-500"
                             }`}
                           />
-                          <p className="text-sm font-medium text-white">{alert.title}</p>
+                          <p className="text-sm font-medium text-white">
+                            {alert.title}
+                          </p>
                         </div>
-                        <p className="text-xs text-slate-400">{alert.description}</p>
+                        <p className="text-xs text-slate-400">
+                          {alert.description}
+                        </p>
                       </div>
                       <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-slate-300 transition-colors flex-shrink-0 ml-2" />
                     </div>
@@ -587,7 +664,9 @@ export default function ExecutiveCommandCenter() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <Radar className="w-5 h-5 text-[#10B981]" />
-                <h3 className="text-lg font-bold text-white">Emerging Market Signals</h3>
+                <h3 className="text-lg font-bold text-white">
+                  Emerging Market Signals
+                </h3>
               </div>
               <Link
                 to="/app/market-signals"
@@ -610,7 +689,9 @@ export default function ExecutiveCommandCenter() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <Target className="w-5 h-5 text-indigo-500" />
-                <h3 className="text-lg font-bold text-white">Top Growth Opportunities</h3>
+                <h3 className="text-lg font-bold text-white">
+                  Top Growth Opportunities
+                </h3>
               </div>
               <Link
                 to="/app/opportunities"
@@ -645,8 +726,12 @@ export default function ExecutiveCommandCenter() {
                     <ActivityIcon icon={item.icon} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-white mb-1">{item.title}</p>
-                    <p className="text-xs text-slate-400 truncate">{item.description}</p>
+                    <p className="text-sm font-medium text-white mb-1">
+                      {item.title}
+                    </p>
+                    <p className="text-xs text-slate-400 truncate">
+                      {item.description}
+                    </p>
                     <p className="text-xs text-slate-500 mt-1">
                       {formatRelativeTime(item.timestamp)}
                     </p>

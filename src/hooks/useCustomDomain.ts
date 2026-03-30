@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
-import { useAuth } from '../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabase";
+import { useAuth } from "../contexts/AuthContext";
 
 interface DomainConfig {
   isCustomDomain: boolean;
@@ -13,7 +13,7 @@ export function useCustomDomain(): DomainConfig {
   const [config, setConfig] = useState<DomainConfig>({
     isCustomDomain: false,
     tenantId: null,
-    loading: true
+    loading: true,
   });
 
   useEffect(() => {
@@ -21,16 +21,21 @@ export function useCustomDomain(): DomainConfig {
 
     async function resolveDomain() {
       const hostname = window.location.hostname;
-      
+
       // Bypass standard application entries
       if (
-        hostname === 'localhost' || 
-        hostname === '127.0.0.1' || 
-        hostname.includes('bridgebox.ai') || 
-        hostname.includes('vercel.app') ||
-        hostname.includes('netlify.app')
+        hostname === "localhost" ||
+        hostname === "127.0.0.1" ||
+        hostname.includes("bridgebox.ai") ||
+        hostname.includes("vercel.app") ||
+        hostname.includes("netlify.app")
       ) {
-        if (mounted) setConfig(prev => ({ ...prev, isCustomDomain: false, loading: false }));
+        if (mounted)
+          setConfig((prev) => ({
+            ...prev,
+            isCustomDomain: false,
+            loading: false,
+          }));
         return;
       }
 
@@ -40,21 +45,24 @@ export function useCustomDomain(): DomainConfig {
         // we simulate a DB fetch scanning the tenant mapping.
         // In production, this would be an Edge Function or exact column match:
         // .eq('custom_domain', hostname)
-        
+
         // Mocking the successful discovery of a White-Label tenant domain for demonstration
         if (mounted) {
           setConfig({
             isCustomDomain: true,
-            tenantId: 'resolved-tenant-uuid-placeholder',
-            brandColors: { primary: '#3B82F6', secondary: '#10B981' },
-            loading: false
+            tenantId: "resolved-tenant-uuid-placeholder",
+            brandColors: { primary: "#3B82F6", secondary: "#10B981" },
+            loading: false,
           });
 
           // Inject CSS variables for absolute Whitelabeling
-          document.documentElement.style.setProperty('--primary-color', '#3B82F6');
+          document.documentElement.style.setProperty(
+            "--primary-color",
+            "#3B82F6",
+          );
         }
       } catch (err) {
-        if (mounted) setConfig(prev => ({ ...prev, loading: false }));
+        if (mounted) setConfig((prev) => ({ ...prev, loading: false }));
       }
     }
 

@@ -1,14 +1,17 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Palette, Upload, Save, Eye } from 'lucide-react';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import Heading from '../../components/Heading';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import { useAuth } from '../../contexts/AuthContext';
-import { whiteLabelService, OrganizationBranding } from '../../lib/db/whiteLabel';
-import { hasPermission } from '../../lib/permissions';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Palette, Upload, Save, Eye } from "lucide-react";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import Heading from "../../components/Heading";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { useAuth } from "../../contexts/AuthContext";
+import {
+  whiteLabelService,
+  OrganizationBranding,
+} from "../../lib/db/whiteLabel";
+import { hasPermission } from "../../lib/permissions";
 
 export default function BrandingSettings() {
   const { user, currentOrganization, profile } = useAuth();
@@ -18,17 +21,17 @@ export default function BrandingSettings() {
   const [previewMode, setPreviewMode] = useState(false);
 
   const [formData, setFormData] = useState({
-    company_name: '',
-    tagline: '',
-    primary_color: '#3b82f6',
-    secondary_color: '#1e293b',
-    accent_color: '#10b981',
-    logo_url: '',
-    support_email: '',
-    support_phone: '',
+    company_name: "",
+    tagline: "",
+    primary_color: "#3b82f6",
+    secondary_color: "#1e293b",
+    accent_color: "#10b981",
+    logo_url: "",
+    support_email: "",
+    support_phone: "",
   });
 
-  const canEdit = hasPermission(profile?.role, 'settings', 'update');
+  const canEdit = hasPermission(profile?.role, "settings", "update");
 
   useEffect(() => {
     if (currentOrganization) {
@@ -46,18 +49,18 @@ export default function BrandingSettings() {
       if (data) {
         setBranding(data);
         setFormData({
-          company_name: data.company_name || '',
-          tagline: data.tagline || '',
+          company_name: data.company_name || "",
+          tagline: data.tagline || "",
           primary_color: data.primary_color,
           secondary_color: data.secondary_color,
           accent_color: data.accent_color,
-          logo_url: data.logo_url || '',
-          support_email: data.support_email || '',
-          support_phone: data.support_phone || '',
+          logo_url: data.logo_url || "",
+          support_email: data.support_email || "",
+          support_phone: data.support_phone || "",
         });
       }
     } catch (error) {
-      console.error('Failed to load branding:', error);
+      console.error("Failed to load branding:", error);
     } finally {
       setLoading(false);
     }
@@ -71,8 +74,8 @@ export default function BrandingSettings() {
       await whiteLabelService.upsertBranding(currentOrganization.id, formData);
       await loadBranding();
     } catch (error) {
-      console.error('Failed to save branding:', error);
-      alert('Failed to save branding settings. Please try again.');
+      console.error("Failed to save branding:", error);
+      alert("Failed to save branding settings. Please try again.");
     } finally {
       setSaving(false);
     }
@@ -100,12 +103,12 @@ export default function BrandingSettings() {
             onClick={() => setPreviewMode(!previewMode)}
           >
             <Eye className="w-4 h-4 mr-2" />
-            {previewMode ? 'Edit' : 'Preview'}
+            {previewMode ? "Edit" : "Preview"}
           </Button>
           {canEdit && (
             <Button onClick={handleSave} disabled={saving}>
               <Save className="w-4 h-4 mr-2" />
-              {saving ? 'Saving...' : 'Save Changes'}
+              {saving ? "Saving..." : "Save Changes"}
             </Button>
           )}
         </div>
@@ -114,7 +117,8 @@ export default function BrandingSettings() {
       {!canEdit && (
         <Card className="bg-amber-500/10 border-amber-500/20">
           <p className="text-sm text-amber-300">
-            You do not have permission to modify branding settings. Contact your administrator.
+            You do not have permission to modify branding settings. Contact your
+            administrator.
           </p>
         </Card>
       )}
@@ -333,8 +337,11 @@ function BrandingPreview({ branding }: BrandingPreviewProps) {
                 className="h-10 object-contain"
               />
             ) : (
-              <div className="text-2xl font-bold" style={{ color: branding.primary_color }}>
-                {branding.company_name || 'Your Company'}
+              <div
+                className="text-2xl font-bold"
+                style={{ color: branding.primary_color }}
+              >
+                {branding.company_name || "Your Company"}
               </div>
             )}
           </div>
@@ -368,10 +375,14 @@ function BrandingPreview({ branding }: BrandingPreviewProps) {
             <p className="text-sm text-slate-400 mb-3">Contact Information</p>
             <div className="space-y-2 text-sm">
               {branding.support_email && (
-                <p className="text-slate-300">Email: {branding.support_email}</p>
+                <p className="text-slate-300">
+                  Email: {branding.support_email}
+                </p>
               )}
               {branding.support_phone && (
-                <p className="text-slate-300">Phone: {branding.support_phone}</p>
+                <p className="text-slate-300">
+                  Phone: {branding.support_phone}
+                </p>
               )}
             </div>
           </div>

@@ -1,5 +1,5 @@
-import { CheckCircle2, Clock, XCircle, Pause, AlertCircle } from 'lucide-react';
-import type { ConnectorStatus } from '../../lib/connectors/types';
+import { CheckCircle2, Clock, XCircle, Pause, AlertCircle } from "lucide-react";
+import type { ConnectorStatus } from "../../lib/connectors/types";
 
 interface ConnectorStatusBadgeProps {
   status: ConnectorStatus;
@@ -8,33 +8,33 @@ interface ConnectorStatusBadgeProps {
 
 export default function ConnectorStatusBadge({
   status,
-  className = '',
+  className = "",
 }: ConnectorStatusBadgeProps) {
   const config = {
     not_connected: {
       icon: AlertCircle,
-      label: 'Not Connected',
-      className: 'bg-slate-500/20 border-slate-500/30 text-slate-300',
+      label: "Not Connected",
+      className: "bg-slate-500/20 border-slate-500/30 text-slate-300",
     },
     connected: {
       icon: CheckCircle2,
-      label: 'Connected',
-      className: 'bg-green-500/20 border-green-500/30 text-green-300',
+      label: "Connected",
+      className: "bg-green-500/20 border-green-500/30 text-green-300",
     },
     syncing: {
       icon: Clock,
-      label: 'Syncing',
-      className: 'bg-blue-500/20 border-blue-500/30 text-blue-300',
+      label: "Syncing",
+      className: "bg-blue-500/20 border-blue-500/30 text-blue-300",
     },
     error: {
       icon: XCircle,
-      label: 'Error',
-      className: 'bg-red-500/20 border-red-500/30 text-red-300',
+      label: "Error",
+      className: "bg-red-500/20 border-red-500/30 text-red-300",
     },
     paused: {
       icon: Pause,
-      label: 'Paused',
-      className: 'bg-yellow-500/20 border-yellow-500/30 text-yellow-300',
+      label: "Paused",
+      className: "bg-yellow-500/20 border-yellow-500/30 text-yellow-300",
     },
   };
 

@@ -1,9 +1,15 @@
-import { supabase } from '../supabase';
-import { EntityType, entityLinkService } from './entityLinks';
-import { auditService } from './audit';
+import { supabase } from "../supabase";
+import { EntityType, entityLinkService } from "./entityLinks";
+import { auditService } from "./audit";
 
-export type GlobalTaskPriority = 'low' | 'medium' | 'high' | 'urgent';
-export type GlobalTaskStatus = 'todo' | 'in_progress' | 'in_review' | 'blocked' | 'done' | 'cancelled';
+export type GlobalTaskPriority = "low" | "medium" | "high" | "urgent";
+export type GlobalTaskStatus =
+  | "todo"
+  | "in_progress"
+  | "in_review"
+  | "blocked"
+  | "done"
+  | "cancelled";
 
 export interface GlobalTask {
   id: string;
@@ -25,10 +31,12 @@ export const globalTasksService = {
   async getTenantTasks(tenantId: string) {
     if (!tenantId) return [];
     const { data, error } = await supabase
-      .from('bb_global_tasks')
-      .select('*, assignee:bb_profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:bb_profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
-      .eq('tenant_id', tenantId)
-      .order('created_at', { ascending: false });
+      .from("bb_global_tasks")
+      .select(
+        "*, assignee:bb_profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:bb_profiles!global_tasks_creator_id_fkey(full_name, avatar_url)",
+      )
+      .eq("tenant_id", tenantId)
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
     return data;
@@ -37,7 +45,7 @@ export const globalTasksService = {
   async createTask(task: Partial<GlobalTask>) {
     if (!task.tenant_id) throw new Error("Task tenant_id is required");
     const { data, error } = await supabase
-      .from('bb_global_tasks')
+      .from("bb_global_tasks")
       .insert(task)
       .select()
       .single();
@@ -45,39 +53,43 @@ export const globalTasksService = {
     if (error) throw error;
 
     if (data.tenant_id) {
-      auditService.logEvent({
-        organizationId: data.tenant_id,
-        actionType: 'create',
-        resourceType: 'global_task',
-        resourceId: data.id,
-        deltaJson: task
-      }).catch(e => console.warn('Audit Trail failed', e));
+      auditService
+        .logEvent({
+          organizationId: data.tenant_id,
+          actionType: "create",
+          resourceType: "global_task",
+          resourceId: data.id,
+          deltaJson: task,
+        })
+        .catch((e) => console.warn("Audit Trail failed", e));
     }
 
     return data;
   },
 
   async updateTask(id: string, updates: Partial<GlobalTask>) {
-    if (updates.status === 'done' && !updates.completed_at) {
-       updates.completed_at = new Date().toISOString();
+    if (updates.status === "done" && !updates.completed_at) {
+      updates.completed_at = new Date().toISOString();
     }
     const { data, error } = await supabase
-      .from('bb_global_tasks')
+      .from("bb_global_tasks")
       .update(updates)
-      .eq('id', id)
+      .eq("id", id)
       .select()
       .single();
 
     if (error) throw error;
 
     if (data.tenant_id) {
-      auditService.logEvent({
-        organizationId: data.tenant_id,
-        actionType: 'update',
-        resourceType: 'global_task',
-        resourceId: data.id,
-        deltaJson: updates
-      }).catch(e => console.warn('Audit Trail failed', e));
+      auditService
+        .logEvent({
+          organizationId: data.tenant_id,
+          actionType: "update",
+          resourceType: "global_task",
+          resourceId: data.id,
+          deltaJson: updates,
+        })
+        .catch((e) => console.warn("Audit Trail failed", e));
     }
 
     return data;
@@ -85,25 +97,27 @@ export const globalTasksService = {
 
   async updateTaskStatus(id: string, status: GlobalTaskStatus) {
     const updates: Partial<GlobalTask> = { status };
-    if (status === 'done') updates.completed_at = new Date().toISOString();
-    
+    if (status === "done") updates.completed_at = new Date().toISOString();
+
     const { data, error } = await supabase
-      .from('bb_global_tasks')
+      .from("bb_global_tasks")
       .update(updates)
-      .eq('id', id)
+      .eq("id", id)
       .select()
       .single();
 
     if (error) throw error;
 
     if (data.tenant_id) {
-      auditService.logEvent({
-        organizationId: data.tenant_id,
-        actionType: 'update',
-        resourceType: 'global_task',
-        resourceId: data.id,
-        deltaJson: { status }
-      }).catch(e => console.warn('Audit Trail failed', e));
+      auditService
+        .logEvent({
+          organizationId: data.tenant_id,
+          actionType: "update",
+          resourceType: "global_task",
+          resourceId: data.id,
+          deltaJson: { status },
+        })
+        .catch((e) => console.warn("Audit Trail failed", e));
     }
 
     return data;
@@ -112,30 +126,38 @@ export const globalTasksService = {
   async getTaskById(id: string) {
     if (!id) throw new Error("Task ID is missing");
     const { data, error } = await supabase
-      .from('bb_global_tasks')
-      .select('*, assignee:bb_profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:bb_profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
-      .eq('id', id)
+      .from("bb_global_tasks")
+      .select(
+        "*, assignee:bb_profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:bb_profiles!global_tasks_creator_id_fkey(full_name, avatar_url)",
+      )
+      .eq("id", id)
       .single();
-      
+
     if (error) throw error;
-    return data as (GlobalTask & { assignee?: any, creator?: any });
+    return data as GlobalTask & { assignee?: any; creator?: any };
   },
 
   async getLinkedTasks(entityType: EntityType, entityId: string) {
-    const links = await entityLinkService.getLinkedEntities(entityType, entityId, 'task');
-    const taskIds = links.map(link => 
-      link.source_type === 'task' ? link.source_id : link.target_id
+    const links = await entityLinkService.getLinkedEntities(
+      entityType,
+      entityId,
+      "task",
+    );
+    const taskIds = links.map((link) =>
+      link.source_type === "task" ? link.source_id : link.target_id,
     );
 
     if (taskIds.length === 0) return [];
 
     const { data, error } = await supabase
-      .from('bb_global_tasks')
-      .select('*, assignee:bb_profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:bb_profiles!global_tasks_creator_id_fkey(full_name, avatar_url)')
-      .in('id', taskIds)
-      .order('created_at', { ascending: false });
+      .from("bb_global_tasks")
+      .select(
+        "*, assignee:bb_profiles!global_tasks_assignee_id_fkey(full_name, avatar_url), creator:bb_profiles!global_tasks_creator_id_fkey(full_name, avatar_url)",
+      )
+      .in("id", taskIds)
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
-    return data as (GlobalTask & { assignee?: any, creator?: any })[];
-  }
+    return data as (GlobalTask & { assignee?: any; creator?: any })[];
+  },
 };

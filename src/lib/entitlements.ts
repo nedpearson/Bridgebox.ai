@@ -4,31 +4,31 @@
 // feature gating throughout the application.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { FeatureKey, EntitlementMap, PlanTier } from '../types/billing';
-import { PLANS, getPlanByTier } from './plans';
+import type { FeatureKey, EntitlementMap, PlanTier } from "../types/billing";
+import { PLANS, getPlanByTier } from "./plans";
 
 // ─── Per-Plan Entitlement Maps ────────────────────────────────────────────────
 
 const ALL_FEATURES: FeatureKey[] = [
-  'voice_to_app',
-  'screen_recording_analysis',
-  'screenshot_analysis',
-  'blueprint_generation',
-  'workspace_learning_ai',
-  'reusable_feature_packs',
-  'workspace_merge',
-  'advanced_integrations',
-  'export_blueprint',
-  'premium_admin_controls',
-  'multi_workspace',
-  'white_glove_onboarding',
-  'priority_support',
-  'custom_branding',
-  'sso_ready',
-  'audit_controls',
-  'predictive_recommendations',
-  'implementation_queue',
-  'analytics_suite',
+  "voice_to_app",
+  "screen_recording_analysis",
+  "screenshot_analysis",
+  "blueprint_generation",
+  "workspace_learning_ai",
+  "reusable_feature_packs",
+  "workspace_merge",
+  "advanced_integrations",
+  "export_blueprint",
+  "premium_admin_controls",
+  "multi_workspace",
+  "white_glove_onboarding",
+  "priority_support",
+  "custom_branding",
+  "sso_ready",
+  "audit_controls",
+  "predictive_recommendations",
+  "implementation_queue",
+  "analytics_suite",
 ];
 
 function buildEntitlementMap(grantedKeys: FeatureKey[]): EntitlementMap {
@@ -38,9 +38,10 @@ function buildEntitlementMap(grantedKeys: FeatureKey[]): EntitlementMap {
   }, {} as EntitlementMap);
 }
 
-export const PLAN_ENTITLEMENTS: Record<string, EntitlementMap> = Object.fromEntries(
-  PLANS.map((plan) => [plan.tier, buildEntitlementMap(plan.entitlements)])
-);
+export const PLAN_ENTITLEMENTS: Record<string, EntitlementMap> =
+  Object.fromEntries(
+    PLANS.map((plan) => [plan.tier, buildEntitlementMap(plan.entitlements)]),
+  );
 
 // ─── Credit Cost Registry ─────────────────────────────────────────────────────
 
@@ -60,7 +61,7 @@ export const CREDIT_COST_BY_FEATURE: Partial<Record<FeatureKey, number>> = {
  * Falls back to starter if tier is unrecognised.
  */
 export function getEntitlements(planTier: string): EntitlementMap {
-  return PLAN_ENTITLEMENTS[planTier] ?? PLAN_ENTITLEMENTS['starter'];
+  return PLAN_ENTITLEMENTS[planTier] ?? PLAN_ENTITLEMENTS["starter"];
 }
 
 /**
@@ -70,7 +71,7 @@ export function getEntitlements(planTier: string): EntitlementMap {
 export function hasFeature(
   planTier: string,
   feature: FeatureKey,
-  adminOverrides?: FeatureKey[]
+  adminOverrides?: FeatureKey[],
 ): boolean {
   if (adminOverrides?.includes(feature)) return true;
   return getEntitlements(planTier)[feature] ?? false;
@@ -88,8 +89,10 @@ export function getCreditAllowance(planTier: string): number {
 /**
  * Returns the minimum plan tier that grants a given feature.
  */
-export function getRequiredPlanForFeature(feature: FeatureKey): PlanTier | null {
-  const order: PlanTier[] = ['starter', 'growth', 'pro', 'enterprise'];
+export function getRequiredPlanForFeature(
+  feature: FeatureKey,
+): PlanTier | null {
+  const order: PlanTier[] = ["starter", "growth", "pro", "enterprise"];
   for (const tier of order) {
     if (PLAN_ENTITLEMENTS[tier]?.[feature]) return tier;
   }
@@ -101,9 +104,9 @@ export function getRequiredPlanForFeature(feature: FeatureKey): PlanTier | null 
  */
 export function getRequiredPlanLabel(feature: FeatureKey): string {
   const tier = getRequiredPlanForFeature(feature);
-  if (!tier) return 'Enterprise';
+  if (!tier) return "Enterprise";
   const plan = getPlanByTier(tier);
-  return plan?.name ?? 'Upgrade Required';
+  return plan?.name ?? "Upgrade Required";
 }
 
 /**
@@ -117,7 +120,10 @@ export function getCreditCost(feature: FeatureKey): number {
 /**
  * Returns upgrade context for a locked feature — used to power UpgradeModal.
  */
-export function getUpgradeContext(feature: FeatureKey, currentTier: string): {
+export function getUpgradeContext(
+  feature: FeatureKey,
+  currentTier: string,
+): {
   requiredPlan: string;
   requiredPlanTier: PlanTier | null;
   message: string;
@@ -129,27 +135,28 @@ export function getUpgradeContext(feature: FeatureKey, currentTier: string): {
 
   const FEATURE_UPGRADE_MESSAGES: Partial<Record<FeatureKey, string>> = {
     screen_recording_analysis:
-      'Show us your current software. We\'ll analyze the recordings and extract every workflow your team relies on.',
+      "Show us your current software. We'll analyze the recordings and extract every workflow your team relies on.",
     workspace_learning_ai:
-      'Your AI learns your business over time — improving every recommendation, reducing friction, and speeding future builds.',
+      "Your AI learns your business over time — improving every recommendation, reducing friction, and speeding future builds.",
     workspace_merge:
-      'Combine approved features from multiple workspaces into a unified platform blueprint.',
+      "Combine approved features from multiple workspaces into a unified platform blueprint.",
     predictive_recommendations:
-      'Bridgebox predicts your next best feature based on usage patterns and workspace intelligence.',
+      "Bridgebox predicts your next best feature based on usage patterns and workspace intelligence.",
     multi_workspace:
-      'Manage multiple client workspaces or product lines from a single operator view.',
+      "Manage multiple client workspaces or product lines from a single operator view.",
     white_glove_onboarding:
-      'A Bridgebox specialist guides your full discovery session and sets up your intelligence profile.',
+      "A Bridgebox specialist guides your full discovery session and sets up your intelligence profile.",
     reusable_feature_packs:
-      'Build once, reuse everywhere — save feature modules across workspaces and client projects.',
+      "Build once, reuse everywhere — save feature modules across workspaces and client projects.",
     implementation_queue:
-      'Control feature prioritization, sprint order, and delivery timelines from your workspace.',
+      "Control feature prioritization, sprint order, and delivery timelines from your workspace.",
   };
 
   return {
     requiredPlan,
     requiredPlanTier,
-    message: FEATURE_UPGRADE_MESSAGES[feature] ??
+    message:
+      FEATURE_UPGRADE_MESSAGES[feature] ??
       `This feature requires the ${requiredPlan} plan. Upgrade to unlock it.`,
     isLocked: locked,
   };

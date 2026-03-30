@@ -1,7 +1,16 @@
-import { motion } from 'framer-motion';
-import { LayoutDashboard, FolderKanban, Package, Headphones, CreditCard, Settings, LogOut, Box } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { motion } from "framer-motion";
+import {
+  LayoutDashboard,
+  FolderKanban,
+  Package,
+  Headphones,
+  CreditCard,
+  Settings,
+  LogOut,
+  Box,
+} from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface NavItem {
   icon: typeof LayoutDashboard;
@@ -17,24 +26,24 @@ export default function ClientPortalNav() {
   const handleSignOut = async () => {
     try {
       await signOut();
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error("Error signing out:", error);
     }
   };
 
   const navItems: NavItem[] = [
-    { icon: LayoutDashboard, label: 'Home', path: '/portal' },
-    { icon: FolderKanban, label: 'Projects', path: '/portal/projects' },
-    { icon: Package, label: 'Deliverables', path: '/portal/deliverables' },
-    { icon: Headphones, label: 'Support', path: '/portal/support' },
-    { icon: CreditCard, label: 'Billing', path: '/portal/billing' },
-    { icon: Settings, label: 'Settings', path: '/portal/settings' },
+    { icon: LayoutDashboard, label: "Home", path: "/portal" },
+    { icon: FolderKanban, label: "Projects", path: "/portal/projects" },
+    { icon: Package, label: "Deliverables", path: "/portal/deliverables" },
+    { icon: Headphones, label: "Support", path: "/portal/support" },
+    { icon: CreditCard, label: "Billing", path: "/portal/billing" },
+    { icon: Settings, label: "Settings", path: "/portal/settings" },
   ];
 
   const isActive = (path: string) => {
-    if (path === '/portal') {
-      return location.pathname === '/portal';
+    if (path === "/portal") {
+      return location.pathname === "/portal";
     }
     return location.pathname.startsWith(path);
   };
@@ -43,7 +52,7 @@ export default function ClientPortalNav() {
     <div className="w-64 bg-slate-900/50 backdrop-blur-sm border-r border-slate-800 h-screen fixed left-0 top-0 flex flex-col">
       <div className="p-6 border-b border-slate-800">
         <Link to="/" className="flex items-center space-x-3 group">
-          <Box className="w-7 h-7 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
+          <BridgeboxLogo className="w-7 h-7 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
           <div>
             <h2 className="text-xl font-bold text-white">Bridgebox</h2>
             <p className="text-xs text-slate-400">Client Portal</p>
@@ -62,8 +71,8 @@ export default function ClientPortalNav() {
                 to={item.path}
                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                   active
-                    ? 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/30'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    ? "bg-indigo-500/10 text-indigo-500 border border-indigo-500/30"
+                    : "text-slate-400 hover:text-white hover:bg-slate-800/50"
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -79,12 +88,20 @@ export default function ClientPortalNav() {
           <div className="flex items-center space-x-3 mb-3">
             <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-full flex items-center justify-center flex-shrink-0">
               <span className="text-white text-sm font-bold">
-                {profile?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                {profile?.full_name
+                  ?.split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .toUpperCase() || "U"}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-white text-sm font-medium truncate">{profile?.full_name || 'User'}</p>
-              <p className="text-slate-400 text-xs truncate">{currentOrganization?.name || 'Organization'}</p>
+              <p className="text-white text-sm font-medium truncate">
+                {profile?.full_name || "User"}
+              </p>
+              <p className="text-slate-400 text-xs truncate">
+                {currentOrganization?.name || "Organization"}
+              </p>
             </div>
           </div>
         </div>

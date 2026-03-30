@@ -1,41 +1,41 @@
-import { Link } from 'react-router-dom';
-import { Box, Linkedin, Twitter, Github, Mail } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { staggerContainer, staggerItem } from '../utils/animations';
+import { Link } from "react-router-dom";
+import { Box, Linkedin, Twitter, Github, Mail } from "lucide-react";
+import { motion } from "framer-motion";
+import { staggerContainer, staggerItem } from "../utils/animations";
 
 export default function Footer() {
   const footerLinks = {
     Product: [
-      { name: 'Platform', path: '/platform' },
-      { name: 'Solutions', path: '/solutions' },
-      { name: 'Use Cases', path: '/use-cases' },
-      { name: 'Pricing', path: '/contact' },
+      { name: "Platform", path: "/platform" },
+      { name: "Solutions", path: "/solutions" },
+      { name: "Use Cases", path: "/use-cases" },
+      { name: "Pricing", path: "/contact" },
     ],
     Company: [
-      { name: 'About', path: '/about' },
-      { name: 'Contact', path: '/contact' },
-      { name: 'Careers', path: '/contact' },
-      { name: 'Blog', path: '/contact' },
+      { name: "About", path: "/about" },
+      { name: "Contact", path: "/contact" },
+      { name: "Careers", path: "/contact" },
+      { name: "Blog", path: "/contact" },
     ],
     Resources: [
-      { name: 'Case Studies', path: '/case-studies' },
-      { name: 'Industries', path: '/industries' },
-      { name: 'FAQ', path: '/faq' },
-      { name: 'Support', path: '/contact' },
+      { name: "Case Studies", path: "/case-studies" },
+      { name: "Industries", path: "/industries" },
+      { name: "FAQ", path: "/faq" },
+      { name: "Support", path: "/contact" },
     ],
     Legal: [
-      { name: 'Privacy Policy', path: '/contact' },
-      { name: 'Terms of Service', path: '/contact' },
-      { name: 'Cookie Policy', path: '/contact' },
-      { name: 'Compliance', path: '/contact' },
+      { name: "Privacy Policy", path: "/contact" },
+      { name: "Terms of Service", path: "/contact" },
+      { name: "Cookie Policy", path: "/contact" },
+      { name: "Compliance", path: "/contact" },
     ],
   };
 
   const socialLinks = [
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Mail, href: '#', label: 'Email' },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { icon: Github, href: "#", label: "GitHub" },
+    { icon: Mail, href: "#", label: "Email" },
   ];
 
   return (
@@ -49,18 +49,22 @@ export default function Footer() {
           viewport={{ once: true }}
           className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12"
         >
-          <motion.div variants={staggerItem} className="col-span-2 md:col-span-1">
+          <motion.div
+            variants={staggerItem}
+            className="col-span-2 md:col-span-1"
+          >
             <Link to="/" className="flex items-center space-x-3 mb-6 group">
               <motion.div
                 whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6, ease: 'easeInOut' }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
               >
-                <Box className="w-8 h-8 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
+                <BridgeboxLogo className="w-8 h-8 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
               </motion.div>
               <span className="text-xl font-bold text-white">Bridgebox</span>
             </Link>
             <p className="text-sm text-slate-400 mb-6 leading-relaxed">
-              Custom software, dashboards, mobile apps, and AI automation engineered for modern enterprise operations.
+              Custom software, dashboards, mobile apps, and AI automation
+              engineered for modern enterprise operations.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
@@ -83,7 +87,9 @@ export default function Footer() {
 
           {Object.entries(footerLinks).map(([category, links], catIndex) => (
             <motion.div key={category} variants={staggerItem} custom={catIndex}>
-              <h3 className="text-sm font-semibold text-white mb-4">{category}</h3>
+              <h3 className="text-sm font-semibold text-white mb-4">
+                {category}
+              </h3>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.name}>

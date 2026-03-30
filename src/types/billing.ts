@@ -3,8 +3,8 @@
 // Covers subscriptions, invoices, AI credits, entitlements, and usage metering
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type BillingInterval = 'monthly' | 'yearly';
-export type PlanTier = 'starter' | 'growth' | 'pro' | 'enterprise' | 'custom';
+export type BillingInterval = "monthly" | "yearly";
+export type PlanTier = "starter" | "growth" | "pro" | "enterprise" | "custom";
 
 // ─── Plan Structure ────────────────────────────────────────────────────────
 
@@ -35,11 +35,11 @@ export interface Plan {
   highlighted: boolean;
   badge?: string;
   // Credit allocations
-  monthlyCredits: number;          // AI credits included per month
-  maxWorkspaces: number;           // workspace limit
-  maxUsersPerWorkspace: number;    // seat limit
-  maxRecordingsPerMonth: number;   // recording uploads per month
-  maxIntegrations: number;         // connected integrations
+  monthlyCredits: number; // AI credits included per month
+  maxWorkspaces: number; // workspace limit
+  maxUsersPerWorkspace: number; // seat limit
+  maxRecordingsPerMonth: number; // recording uploads per month
+  maxIntegrations: number; // connected integrations
   // Entitlement keys unlocked by this plan
   entitlements: FeatureKey[];
 }
@@ -47,25 +47,25 @@ export interface Plan {
 // ─── Feature Entitlements ────────────────────────────────────────────────────
 
 export type FeatureKey =
-  | 'voice_to_app'
-  | 'screen_recording_analysis'
-  | 'screenshot_analysis'
-  | 'blueprint_generation'
-  | 'workspace_learning_ai'
-  | 'reusable_feature_packs'
-  | 'workspace_merge'
-  | 'advanced_integrations'
-  | 'export_blueprint'
-  | 'premium_admin_controls'
-  | 'multi_workspace'
-  | 'white_glove_onboarding'
-  | 'priority_support'
-  | 'custom_branding'
-  | 'sso_ready'
-  | 'audit_controls'
-  | 'predictive_recommendations'
-  | 'implementation_queue'
-  | 'analytics_suite';
+  | "voice_to_app"
+  | "screen_recording_analysis"
+  | "screenshot_analysis"
+  | "blueprint_generation"
+  | "workspace_learning_ai"
+  | "reusable_feature_packs"
+  | "workspace_merge"
+  | "advanced_integrations"
+  | "export_blueprint"
+  | "premium_admin_controls"
+  | "multi_workspace"
+  | "white_glove_onboarding"
+  | "priority_support"
+  | "custom_branding"
+  | "sso_ready"
+  | "audit_controls"
+  | "predictive_recommendations"
+  | "implementation_queue"
+  | "analytics_suite";
 
 export type EntitlementMap = Record<FeatureKey, boolean>;
 
@@ -73,8 +73,8 @@ export interface FeatureEntitlementOverride {
   id: string;
   organization_id: string;
   feature_key: FeatureKey;
-  granted: boolean;            // true = grant, false = revoke
-  granted_by: string;          // admin user id
+  granted: boolean; // true = grant, false = revoke
+  granted_by: string; // admin user id
   reason?: string;
   expires_at?: string;
   created_at: string;
@@ -83,18 +83,18 @@ export interface FeatureEntitlementOverride {
 // ─── AI Credit System ────────────────────────────────────────────────────────
 
 export type CreditEventType =
-  | 'voice_blueprint_request'     // 5 credits
-  | 'recording_analysis'          // 8 credits
-  | 'screenshot_analysis'         // 3 credits
-  | 'blueprint_generation'        // 10 credits
-  | 'workspace_intelligence_run'  // 15 credits
-  | 'roadmap_generation'          // 8 credits
-  | 'refinement_cycle'            // 3 credits
-  | 'integration_setup_ai'        // 5 credits
-  | 'monthly_allowance'           // credits added (positive)
-  | 'topup_purchase'              // credits purchased (positive)
-  | 'admin_adjustment'            // manual admin grant
-  | 'expiry';                     // end-of-month expiry (negative)
+  | "voice_blueprint_request" // 5 credits
+  | "recording_analysis" // 8 credits
+  | "screenshot_analysis" // 3 credits
+  | "blueprint_generation" // 10 credits
+  | "workspace_intelligence_run" // 15 credits
+  | "roadmap_generation" // 8 credits
+  | "refinement_cycle" // 3 credits
+  | "integration_setup_ai" // 5 credits
+  | "monthly_allowance" // credits added (positive)
+  | "topup_purchase" // credits purchased (positive)
+  | "admin_adjustment" // manual admin grant
+  | "expiry"; // end-of-month expiry (negative)
 
 export const CREDIT_COSTS: Record<string, number> = {
   voice_blueprint_request: 5,
@@ -108,28 +108,28 @@ export const CREDIT_COSTS: Record<string, number> = {
 };
 
 export const CREDIT_LABELS: Record<string, string> = {
-  voice_blueprint_request: 'Voice Blueprint Request',
-  recording_analysis: 'Recording Analysis',
-  screenshot_analysis: 'Screenshot Analysis',
-  blueprint_generation: 'Blueprint Generation',
-  workspace_intelligence_run: 'Workspace Intelligence Run',
-  roadmap_generation: 'Roadmap Generation',
-  refinement_cycle: 'Refinement Cycle',
-  integration_setup_ai: 'Integration Setup AI',
-  monthly_allowance: 'Monthly Allowance',
-  topup_purchase: 'Credit Top-Up',
-  admin_adjustment: 'Admin Adjustment',
-  expiry: 'Monthly Expiry',
+  voice_blueprint_request: "Voice Blueprint Request",
+  recording_analysis: "Recording Analysis",
+  screenshot_analysis: "Screenshot Analysis",
+  blueprint_generation: "Blueprint Generation",
+  workspace_intelligence_run: "Workspace Intelligence Run",
+  roadmap_generation: "Roadmap Generation",
+  refinement_cycle: "Refinement Cycle",
+  integration_setup_ai: "Integration Setup AI",
+  monthly_allowance: "Monthly Allowance",
+  topup_purchase: "Credit Top-Up",
+  admin_adjustment: "Admin Adjustment",
+  expiry: "Monthly Expiry",
 };
 
 export interface CreditWallet {
   id: string;
   organization_id: string;
-  balance: number;              // current available credits
-  monthly_allowance: number;   // credits included by plan per month
+  balance: number; // current available credits
+  monthly_allowance: number; // credits included by plan per month
   lifetime_earned: number;
   lifetime_spent: number;
-  period_start: string;        // current billing period
+  period_start: string; // current billing period
   period_end: string;
   updated_at: string;
   created_at: string;
@@ -140,7 +140,7 @@ export interface CreditLedgerEntry {
   organization_id: string;
   user_id?: string;
   event_type: CreditEventType;
-  delta: number;               // positive = earned, negative = consumed
+  delta: number; // positive = earned, negative = consumed
   balance_after: number;
   description: string;
   metadata?: Record<string, any>;
@@ -150,16 +150,16 @@ export interface CreditLedgerEntry {
 // ─── Usage Metering ───────────────────────────────────────────────────────────
 
 export type UsageMetricType =
-  | 'voice_request'
-  | 'recording_upload'
-  | 'recording_analyzed'
-  | 'screenshot_analyzed'
-  | 'blueprint_generated'
-  | 'refinement_processed'
-  | 'integration_connected'
-  | 'workspace_created'
-  | 'ai_credit_consumed'
-  | 'storage_bytes';
+  | "voice_request"
+  | "recording_upload"
+  | "recording_analyzed"
+  | "screenshot_analyzed"
+  | "blueprint_generated"
+  | "refinement_processed"
+  | "integration_connected"
+  | "workspace_created"
+  | "ai_credit_consumed"
+  | "storage_bytes";
 
 export interface UsageEvent {
   id: string;
@@ -169,7 +169,7 @@ export interface UsageEvent {
   metric_type: UsageMetricType;
   quantity: number;
   credit_cost?: number;
-  is_overage: boolean;          // true if beyond plan limit
+  is_overage: boolean; // true if beyond plan limit
   metadata?: Record<string, any>;
   created_at: string;
 }
@@ -186,25 +186,25 @@ export interface UsageSummary {
 // ─── Add-Ons ─────────────────────────────────────────────────────────────────
 
 export type AddOnType =
-  | 'credit_pack_100'
-  | 'credit_pack_500'
-  | 'credit_pack_1000'
-  | 'recording_pack_10'
-  | 'onboarding_package'
-  | 'migration_package'
-  | 'setup_package'
-  | 'custom_feature_sprint'
-  | 'priority_support_month'
-  | 'workspace_intelligence_upgrade';
+  | "credit_pack_100"
+  | "credit_pack_500"
+  | "credit_pack_1000"
+  | "recording_pack_10"
+  | "onboarding_package"
+  | "migration_package"
+  | "setup_package"
+  | "custom_feature_sprint"
+  | "priority_support_month"
+  | "workspace_intelligence_upgrade";
 
 export interface AddOnDefinition {
   id: AddOnType;
   name: string;
   description: string;
-  price: number;               // one-time USD cents
-  creditValue?: number;        // credits granted
+  price: number; // one-time USD cents
+  creditValue?: number; // credits granted
   recordingValue?: number;
-  category: 'credits' | 'recordings' | 'services' | 'support';
+  category: "credits" | "recordings" | "services" | "support";
   stripePriceId?: string;
 }
 
@@ -213,8 +213,8 @@ export interface AddOnPurchase {
   organization_id: string;
   addon_type: AddOnType;
   quantity: number;
-  unit_price: number;          // cents
-  total_paid: number;          // cents
+  unit_price: number; // cents
+  total_paid: number; // cents
   stripe_payment_intent_id?: string;
   provisioned: boolean;
   provisioned_at?: string;
@@ -224,21 +224,21 @@ export interface AddOnPurchase {
 // ─── Service Packages ─────────────────────────────────────────────────────────
 
 export type ServicePackageType =
-  | 'onboarding'
-  | 'migration'
-  | 'setup'
-  | 'custom_sprint'
-  | 'integration_setup'
-  | 'optimization'
-  | 'ai_workflow_tuning'
-  | 'managed_service';
+  | "onboarding"
+  | "migration"
+  | "setup"
+  | "custom_sprint"
+  | "integration_setup"
+  | "optimization"
+  | "ai_workflow_tuning"
+  | "managed_service";
 
 export type ServiceOrderStatus =
-  | 'proposed'
-  | 'approved'
-  | 'in_progress'
-  | 'completed'
-  | 'cancelled';
+  | "proposed"
+  | "approved"
+  | "in_progress"
+  | "completed"
+  | "cancelled";
 
 export interface ServicePackage {
   id: string;
@@ -276,7 +276,7 @@ export interface Subscription {
   plan_id: string;
   stripe_subscription_id?: string;
   stripe_customer_id?: string;
-  status: 'active' | 'past_due' | 'cancelled' | 'paused' | 'trialing';
+  status: "active" | "past_due" | "cancelled" | "paused" | "trialing";
   billing_cycle: BillingInterval;
   current_period_start: string;
   current_period_end: string;
@@ -296,7 +296,7 @@ export interface Invoice {
   project_id?: string;
   stripe_invoice_id?: string;
   invoice_number: string;
-  status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled';
+  status: "draft" | "sent" | "paid" | "overdue" | "cancelled";
   issue_date: string;
   due_date: string;
   paid_date?: string;
@@ -349,7 +349,12 @@ export interface AddOnCheckoutRequest {
 export interface UpgradeRecommendation {
   id: string;
   organization_id: string;
-  trigger: 'low_credits' | 'locked_feature' | 'recording_limit' | 'workspace_limit' | 'high_activity';
+  trigger:
+    | "low_credits"
+    | "locked_feature"
+    | "recording_limit"
+    | "workspace_limit"
+    | "high_activity";
   feature_attempted?: FeatureKey;
   recommended_plan: PlanTier;
   dismissed: boolean;

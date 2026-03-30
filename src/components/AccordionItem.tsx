@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { useState, ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Video as LucideIcon } from 'lucide-react';
+import { useState, ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, Video as LucideIcon } from "lucide-react";
 
 interface AccordionItemProps {
   icon: LucideIcon;
@@ -32,7 +32,7 @@ export default function AccordionItem({
     >
       <motion.div
         className={`bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden transition-all duration-300 ${
-          isOpen ? 'border-white/20' : ''
+          isOpen ? "border-white/20" : ""
         }`}
         whileHover={{ scale: 1.01 }}
       >
@@ -45,7 +45,7 @@ export default function AccordionItem({
             style={{
               backgroundColor: `${color}20`,
               borderColor: `${color}40`,
-              borderWidth: '1px',
+              borderWidth: "1px",
             }}
             whileHover={{ rotate: 360 }}
             transition={{ duration: 0.6 }}
@@ -73,7 +73,7 @@ export default function AccordionItem({
           {isOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
+              animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden"
@@ -101,7 +101,9 @@ export default function AccordionItem({
                           delay: index * 0.2,
                         }}
                       />
-                      <p className="text-sm text-slate-300 leading-relaxed">{detail}</p>
+                      <p className="text-sm text-slate-300 leading-relaxed">
+                        {detail}
+                      </p>
                     </motion.div>
                   ))}
                 </div>

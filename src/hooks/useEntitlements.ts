@@ -2,8 +2,8 @@
 // useEntitlements — React hook for feature gating throughout the app
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useMemo } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useMemo } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import {
   hasFeature,
   getEntitlements,
@@ -15,8 +15,8 @@ import {
   getIntegrationLimit,
   getUserLimit,
   isUnlimited,
-} from '../lib/entitlements';
-import type { FeatureKey, EntitlementMap } from '../types/billing';
+} from "../lib/entitlements";
+import type { FeatureKey, EntitlementMap } from "../types/billing";
 
 export interface EntitlementState {
   /** Full entitlement map for the current plan */
@@ -37,12 +37,12 @@ export interface EntitlementState {
   credits: {
     balance: number;
     used: number;
-    total: number;           // monthly allowance
+    total: number; // monthly allowance
     remaining: number;
-    pct: number;             // 0-100
-    isLow: boolean;          // < 20%
-    isCritical: boolean;     // < 5%
-    isUnlimited: boolean;    // enterprise
+    pct: number; // 0-100
+    isLow: boolean; // < 20%
+    isCritical: boolean; // < 5%
+    isUnlimited: boolean; // enterprise
   };
 
   /** Plan info */
@@ -70,13 +70,17 @@ export interface EntitlementState {
  * const { can, upgradeRequired } = useEntitlements();
  * if (!can('screen_recording_analysis')) { ... }
  */
-export function useEntitlements(creditBalance = 0, creditsUsed = 0): EntitlementState {
+export function useEntitlements(
+  creditBalance = 0,
+  creditsUsed = 0,
+): EntitlementState {
   const { currentOrganization } = useAuth();
 
-  const planTier = (currentOrganization as any)?.billing_plan ?? 'starter';
+  const planTier = (currentOrganization as any)?.billing_plan ?? "starter";
   const planName = planTier.charAt(0).toUpperCase() + planTier.slice(1);
-  const isEnterprise = (currentOrganization as any)?.is_enterprise_client === true
-    || planTier === 'enterprise';
+  const isEnterprise =
+    (currentOrganization as any)?.is_enterprise_client === true ||
+    planTier === "enterprise";
 
   const entitlements = useMemo(() => getEntitlements(planTier), [planTier]);
   const monthlyAllowance = getCreditAllowance(planTier);
@@ -85,7 +89,11 @@ export function useEntitlements(creditBalance = 0, creditsUsed = 0): Entitlement
   const balance = creditBalance;
   const total = unlimited ? 9999 : monthlyAllowance;
   const remaining = unlimited ? 9999 : Math.max(0, balance);
-  const pct = unlimited ? 0 : total > 0 ? Math.round((remaining / total) * 100) : 0;
+  const pct = unlimited
+    ? 0
+    : total > 0
+      ? Math.round((remaining / total) * 100)
+      : 0;
 
   const credits = {
     balance,
@@ -108,7 +116,8 @@ export function useEntitlements(creditBalance = 0, creditsUsed = 0): Entitlement
   return {
     entitlements,
     can: (feature: FeatureKey) => isEnterprise || hasFeature(planTier, feature),
-    upgradeRequired: (feature: FeatureKey) => getUpgradeContext(feature, planTier),
+    upgradeRequired: (feature: FeatureKey) =>
+      getUpgradeContext(feature, planTier),
     credits,
     planTier,
     planName,

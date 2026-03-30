@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   BookOpen,
   Search,
@@ -12,29 +12,33 @@ import {
   FileText,
   TrendingUp,
   Sparkles,
-} from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import EmptyState from '../../components/EmptyState';
-import DocumentCategoryBadge from '../../components/knowledge/DocumentCategoryBadge';
-import DocumentVisibilityBadge from '../../components/knowledge/DocumentVisibilityBadge';
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import EmptyState from "../../components/EmptyState";
+import DocumentCategoryBadge from "../../components/knowledge/DocumentCategoryBadge";
+import DocumentVisibilityBadge from "../../components/knowledge/DocumentVisibilityBadge";
 import {
   knowledgeService,
   CATEGORY_LABELS,
   type KnowledgeDocument,
   type DocumentCategory,
   type DocumentVisibility,
-} from '../../lib/db/knowledge';
+} from "../../lib/db/knowledge";
 
 export default function Knowledge() {
   const [documents, setDocuments] = useState<KnowledgeDocument[]>([]);
   const [featuredDocs, setFeaturedDocs] = useState<KnowledgeDocument[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<DocumentCategory | ''>('');
-  const [selectedVisibility, setSelectedVisibility] = useState<DocumentVisibility | ''>('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<
+    DocumentCategory | ""
+  >("");
+  const [selectedVisibility, setSelectedVisibility] = useState<
+    DocumentVisibility | ""
+  >("");
   const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
@@ -55,7 +59,7 @@ export default function Knowledge() {
       setDocuments(docsData);
       setFeaturedDocs(featuredData);
     } catch (error) {
-      console.error('Failed to load knowledge base:', error);
+      console.error("Failed to load knowledge base:", error);
     } finally {
       setLoading(false);
     }
@@ -66,10 +70,10 @@ export default function Knowledge() {
   };
 
   const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
   };
 
@@ -104,7 +108,7 @@ export default function Knowledge() {
             <Button
               variant="secondary"
               onClick={() => setShowFilters(!showFilters)}
-              className={showFilters ? 'ring-2 ring-blue-500' : ''}
+              className={showFilters ? "ring-2 ring-blue-500" : ""}
             >
               <Filter className="w-5 h-5" />
               Filters
@@ -114,15 +118,19 @@ export default function Knowledge() {
           {showFilters && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6 border-b border-white/10 mb-6"
             >
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Category</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Category
+                </label>
                 <select
                   value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value as DocumentCategory | '')}
+                  onChange={(e) =>
+                    setSelectedCategory(e.target.value as DocumentCategory | "")
+                  }
                   className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">All Categories</option>
@@ -135,10 +143,16 @@ export default function Knowledge() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Visibility</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Visibility
+                </label>
                 <select
                   value={selectedVisibility}
-                  onChange={(e) => setSelectedVisibility(e.target.value as DocumentVisibility | '')}
+                  onChange={(e) =>
+                    setSelectedVisibility(
+                      e.target.value as DocumentVisibility | "",
+                    )
+                  }
                   className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">All Visibility</option>
@@ -151,56 +165,69 @@ export default function Knowledge() {
           )}
         </Card>
 
-        {featuredDocs.length > 0 && !searchQuery && !selectedCategory && !selectedVisibility && (
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="w-5 h-5 text-amber-400" />
-              <h2 className="text-xl font-semibold text-white">Featured Documentation</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredDocs.map((doc) => (
-                <Link key={doc.id} to={`/app/knowledge/${doc.id}`}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    whileHover={{ y: -4 }}
-                    className="h-full"
-                  >
-                    <Card className="h-full hover:border-blue-500/50 transition-colors">
-                      <div className="flex items-start gap-3 mb-3">
-                        <div className="p-2 bg-amber-500/10 rounded-lg">
-                          <Star className="w-5 h-5 text-amber-400" />
+        {featuredDocs.length > 0 &&
+          !searchQuery &&
+          !selectedCategory &&
+          !selectedVisibility && (
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Sparkles className="w-5 h-5 text-amber-400" />
+                <h2 className="text-xl font-semibold text-white">
+                  Featured Documentation
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {featuredDocs.map((doc) => (
+                  <Link key={doc.id} to={`/app/knowledge/${doc.id}`}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      whileHover={{ y: -4 }}
+                      className="h-full"
+                    >
+                      <Card className="h-full hover:border-blue-500/50 transition-colors">
+                        <div className="flex items-start gap-3 mb-3">
+                          <div className="p-2 bg-amber-500/10 rounded-lg">
+                            <Star className="w-5 h-5 text-amber-400" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-white mb-1 line-clamp-2">
+                              {doc.title}
+                            </h3>
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-white mb-1 line-clamp-2">{doc.title}</h3>
-                        </div>
-                      </div>
 
-                      {doc.excerpt && (
-                        <p className="text-sm text-slate-400 mb-4 line-clamp-2">{doc.excerpt}</p>
-                      )}
+                        {doc.excerpt && (
+                          <p className="text-sm text-slate-400 mb-4 line-clamp-2">
+                            {doc.excerpt}
+                          </p>
+                        )}
 
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <DocumentCategoryBadge category={doc.category} />
-                        <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                          <Eye className="w-3.5 h-3.5" />
-                          {doc.view_count}
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <DocumentCategoryBadge category={doc.category} />
+                          <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                            <Eye className="w-3.5 h-3.5" />
+                            {doc.view_count}
+                          </div>
                         </div>
-                      </div>
-                    </Card>
-                  </motion.div>
-                </Link>
-              ))}
+                      </Card>
+                    </motion.div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold text-white">
-              {searchQuery || selectedCategory || selectedVisibility ? 'Search Results' : 'All Documentation'}
+              {searchQuery || selectedCategory || selectedVisibility
+                ? "Search Results"
+                : "All Documentation"}
             </h2>
-            <span className="text-sm text-slate-400">{documents.length} documents</span>
+            <span className="text-sm text-slate-400">
+              {documents.length} documents
+            </span>
           </div>
 
           {documents.length === 0 ? (
@@ -210,8 +237,8 @@ export default function Knowledge() {
                 title="No documents found"
                 description={
                   searchQuery || selectedCategory || selectedVisibility
-                    ? 'Try adjusting your search or filters'
-                    : 'Knowledge base is empty'
+                    ? "Try adjusting your search or filters"
+                    : "Knowledge base is empty"
                 }
               />
             </Card>
@@ -233,20 +260,26 @@ export default function Knowledge() {
                             </div>
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-1">
-                                <h3 className="text-lg font-semibold text-white">{doc.title}</h3>
+                                <h3 className="text-lg font-semibold text-white">
+                                  {doc.title}
+                                </h3>
                                 {doc.is_featured && (
                                   <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                                 )}
                               </div>
                               {doc.excerpt && (
-                                <p className="text-sm text-slate-400 mb-3 line-clamp-2">{doc.excerpt}</p>
+                                <p className="text-sm text-slate-400 mb-3 line-clamp-2">
+                                  {doc.excerpt}
+                                </p>
                               )}
                             </div>
                           </div>
 
                           <div className="flex items-center gap-3 flex-wrap">
                             <DocumentCategoryBadge category={doc.category} />
-                            <DocumentVisibilityBadge visibility={doc.visibility} />
+                            <DocumentVisibilityBadge
+                              visibility={doc.visibility}
+                            />
                             {(doc.tags || []).length > 0 && (
                               <div className="flex items-center gap-1.5">
                                 {(doc.tags || []).slice(0, 3).map((tag) => (

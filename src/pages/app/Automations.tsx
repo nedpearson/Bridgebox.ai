@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   Zap,
   Plus,
@@ -11,20 +11,20 @@ import {
   CheckCircle2,
   XCircle,
   TrendingUp,
-} from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import EmptyState from '../../components/EmptyState';
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import EmptyState from "../../components/EmptyState";
 import {
   automationService,
   TRIGGER_CONFIGS,
   ACTION_CONFIGS,
   type AutomationRule,
-} from '../../lib/db/automations';
-import { useAuth } from '../../contexts/AuthContext';
-import UpgradeModal from '../../components/app/UpgradeModal';
+} from "../../lib/db/automations";
+import { useAuth } from "../../contexts/AuthContext";
+import UpgradeModal from "../../components/app/UpgradeModal";
 
 export default function Automations() {
   const [rules, setRules] = useState<AutomationRule[]>([]);
@@ -39,11 +39,15 @@ export default function Automations() {
   const { currentOrganization, profile } = useAuth();
 
   useEffect(() => {
-    const isStarter = currentOrganization?.billing_plan === 'Starter';
-    if (isStarter && profile?.role !== 'super_admin' && profile?.role !== 'internal_staff') {
-       setIsUpgradeModalOpen(true);
-       setLoading(false);
-       return;
+    const isStarter = currentOrganization?.billing_plan === "Starter";
+    if (
+      isStarter &&
+      profile?.role !== "super_admin" &&
+      profile?.role !== "internal_staff"
+    ) {
+      setIsUpgradeModalOpen(true);
+      setLoading(false);
+      return;
     }
     loadData();
   }, [currentOrganization, profile]);
@@ -58,7 +62,7 @@ export default function Automations() {
       setRules(rulesData);
       setStats(statsData);
     } catch (error) {
-      console.error('Failed to load automations:', error);
+      console.error("Failed to load automations:", error);
     } finally {
       setLoading(false);
     }
@@ -69,18 +73,19 @@ export default function Automations() {
       await automationService.toggleRule(ruleId, !currentState);
       await loadData();
     } catch (error) {
-      console.error('Failed to toggle rule:', error);
+      console.error("Failed to toggle rule:", error);
     }
   };
 
   const handleDelete = async (ruleId: string) => {
-    if (!confirm('Are you sure you want to delete this automation rule?')) return;
+    if (!confirm("Are you sure you want to delete this automation rule?"))
+      return;
 
     try {
       await automationService.deleteRule(ruleId);
       await loadData();
     } catch (error) {
-      console.error('Failed to delete rule:', error);
+      console.error("Failed to delete rule:", error);
     }
   };
 
@@ -105,32 +110,32 @@ export default function Automations() {
 
   const statCards = [
     {
-      label: 'Total Rules',
+      label: "Total Rules",
       value: stats.total_rules,
       icon: Zap,
-      color: 'text-blue-400',
-      bgColor: 'bg-blue-500/10',
+      color: "text-blue-400",
+      bgColor: "bg-blue-500/10",
     },
     {
-      label: 'Active Rules',
+      label: "Active Rules",
       value: stats.active_rules,
       icon: TrendingUp,
-      color: 'text-green-400',
-      bgColor: 'bg-green-500/10',
+      color: "text-green-400",
+      bgColor: "bg-green-500/10",
     },
     {
-      label: 'Recent Success',
+      label: "Recent Success",
       value: stats.recent_success,
       icon: CheckCircle2,
-      color: 'text-emerald-400',
-      bgColor: 'bg-emerald-500/10',
+      color: "text-emerald-400",
+      bgColor: "bg-emerald-500/10",
     },
     {
-      label: 'Recent Failures',
+      label: "Recent Failures",
       value: stats.recent_failed,
       icon: XCircle,
-      color: 'text-red-400',
-      bgColor: 'bg-red-500/10',
+      color: "text-red-400",
+      bgColor: "bg-red-500/10",
     },
   ];
 
@@ -157,7 +162,9 @@ export default function Automations() {
                   <stat.icon className={`w-6 h-6 ${stat.color}`} />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-white">{stat.value}</div>
+                  <div className="text-2xl font-bold text-white">
+                    {stat.value}
+                  </div>
                   <div className="text-sm text-slate-400">{stat.label}</div>
                 </div>
               </div>
@@ -168,7 +175,9 @@ export default function Automations() {
         <Card>
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-xl font-semibold text-white mb-1">Automation Rules</h2>
+              <h2 className="text-xl font-semibold text-white mb-1">
+                Automation Rules
+              </h2>
               <p className="text-sm text-slate-400">
                 Automate workflows and triggers across Bridgebox operations
               </p>
@@ -201,31 +210,39 @@ export default function Automations() {
                   <div className="flex items-start justify-between gap-6">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold text-white">{rule.name}</h3>
+                        <h3 className="text-lg font-semibold text-white">
+                          {rule.name}
+                        </h3>
                         <span
                           className={`px-2.5 py-1 rounded-full text-xs font-medium ${
                             rule.is_active
-                              ? 'bg-green-500/10 text-green-400 border border-green-500/20'
-                              : 'bg-slate-500/10 text-slate-400 border border-slate-500/20'
+                              ? "bg-green-500/10 text-green-400 border border-green-500/20"
+                              : "bg-slate-500/10 text-slate-400 border border-slate-500/20"
                           }`}
                         >
-                          {rule.is_active ? 'Active' : 'Inactive'}
+                          {rule.is_active ? "Active" : "Inactive"}
                         </span>
                       </div>
 
                       {rule.description && (
-                        <p className="text-sm text-slate-400 mb-4">{rule.description}</p>
+                        <p className="text-sm text-slate-400 mb-4">
+                          {rule.description}
+                        </p>
                       )}
 
                       <div className="flex items-center gap-4 text-sm">
                         <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-lg">
                           <Clock className="w-4 h-4 text-blue-400" />
-                          <span className="text-blue-300">{getTriggerLabel(rule.trigger_type)}</span>
+                          <span className="text-blue-300">
+                            {getTriggerLabel(rule.trigger_type)}
+                          </span>
                         </div>
                         <span className="text-slate-500">→</span>
                         <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/20 rounded-lg">
                           <Zap className="w-4 h-4 text-green-400" />
-                          <span className="text-green-300">{getActionLabel(rule.action_type)}</span>
+                          <span className="text-green-300">
+                            {getActionLabel(rule.action_type)}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -234,7 +251,7 @@ export default function Automations() {
                       <button
                         onClick={() => handleToggle(rule.id, rule.is_active)}
                         className="p-2 hover:bg-white/5 rounded-lg transition-colors"
-                        title={rule.is_active ? 'Disable rule' : 'Enable rule'}
+                        title={rule.is_active ? "Disable rule" : "Enable rule"}
                       >
                         {rule.is_active ? (
                           <ToggleRight className="w-6 h-6 text-green-400" />

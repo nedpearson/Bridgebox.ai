@@ -1,4 +1,8 @@
-import type { OpportunityScore, OpportunityReason, OpportunityLevel } from './types';
+import type {
+  OpportunityScore,
+  OpportunityReason,
+  OpportunityLevel,
+} from "./types";
 
 export interface ScoreInputData {
   revenue_current?: number;
@@ -19,7 +23,10 @@ export function calculateDemandMomentum(input: ScoreInputData): number {
   let score = 50;
 
   if (input.lead_count_current && input.lead_count_previous) {
-    const growth = ((input.lead_count_current - input.lead_count_previous) / input.lead_count_previous) * 100;
+    const growth =
+      ((input.lead_count_current - input.lead_count_previous) /
+        input.lead_count_previous) *
+      100;
 
     if (growth > 50) score = 95;
     else if (growth > 25) score = 85;
@@ -28,11 +35,11 @@ export function calculateDemandMomentum(input: ScoreInputData): number {
     else if (growth > -10) score = 55;
     else score = 40;
   } else if (input.lead_count_current) {
-    score = Math.min(90, 50 + (input.lead_count_current * 5));
+    score = Math.min(90, 50 + input.lead_count_current * 5);
   }
 
   if (input.market_signal_count && input.market_signal_count > 0) {
-    score = Math.min(100, score + (input.market_signal_count * 2));
+    score = Math.min(100, score + input.market_signal_count * 2);
   }
 
   return Math.round(Math.max(0, Math.min(100, score)));
@@ -55,7 +62,8 @@ export function calculateRevenuePotential(input: ScoreInputData): number {
   }
 
   if (input.lead_count_current && input.avg_deal_size) {
-    const pipeline_value = input.lead_count_current * input.avg_deal_size * (input.win_rate || 0.3);
+    const pipeline_value =
+      input.lead_count_current * input.avg_deal_size * (input.win_rate || 0.3);
     const potential_bonus = Math.min(15, (pipeline_value / 100000) * 5);
     score += potential_bonus;
   }
@@ -84,7 +92,9 @@ export function calculateImplementationFit(input: ScoreInputData): number {
 
 export function calculateCapabilityFit(input: ScoreInputData): number {
   if (input.internal_capability_score !== undefined) {
-    return Math.round(Math.max(0, Math.min(100, input.internal_capability_score)));
+    return Math.round(
+      Math.max(0, Math.min(100, input.internal_capability_score)),
+    );
   }
 
   let score = 60;
@@ -98,7 +108,9 @@ export function calculateCapabilityFit(input: ScoreInputData): number {
 
 export function calculateDemandFrequency(input: ScoreInputData): number {
   if (input.client_demand_frequency !== undefined) {
-    return Math.round(Math.max(0, Math.min(100, input.client_demand_frequency)));
+    return Math.round(
+      Math.max(0, Math.min(100, input.client_demand_frequency)),
+    );
   }
 
   let score = 50;
@@ -114,10 +126,11 @@ export function calculateMarketSignalConfidence(input: ScoreInputData): number {
   let score = 50;
 
   if (input.market_signal_count && input.market_signal_strength) {
-    const signal_score = (input.market_signal_count * 5) + (input.market_signal_strength * 0.5);
+    const signal_score =
+      input.market_signal_count * 5 + input.market_signal_strength * 0.5;
     score = Math.min(100, signal_score);
   } else if (input.market_signal_count) {
-    score = Math.min(90, 50 + (input.market_signal_count * 8));
+    score = Math.min(90, 50 + input.market_signal_count * 8);
   } else if (input.market_signal_strength) {
     score = input.market_signal_strength;
   }
@@ -134,25 +147,30 @@ export function calculateStrategicAlignment(input: ScoreInputData): number {
 
   const has_revenue = (input.revenue_current || 0) > 0;
   const has_projects = (input.project_count || 0) > 0;
-  const has_momentum = input.lead_count_current && input.lead_count_previous
-    && input.lead_count_current > input.lead_count_previous;
+  const has_momentum =
+    input.lead_count_current &&
+    input.lead_count_previous &&
+    input.lead_count_current > input.lead_count_previous;
 
   if (has_revenue && has_projects && has_momentum) score = 90;
-  else if ((has_revenue && has_projects) || (has_revenue && has_momentum)) score = 80;
+  else if ((has_revenue && has_projects) || (has_revenue && has_momentum))
+    score = 80;
   else if (has_revenue || has_projects) score = 70;
 
   return Math.round(Math.max(0, Math.min(100, score)));
 }
 
-export function calculateOpportunityScore(input: ScoreInputData): OpportunityScore {
+export function calculateOpportunityScore(
+  input: ScoreInputData,
+): OpportunityScore {
   const weights = {
-    demand_momentum: 0.20,
-    revenue_potential: 0.20,
+    demand_momentum: 0.2,
+    revenue_potential: 0.2,
     implementation_fit: 0.15,
     capability_fit: 0.15,
-    demand_frequency: 0.10,
-    market_signal_confidence: 0.10,
-    strategic_alignment: 0.10,
+    demand_frequency: 0.1,
+    market_signal_confidence: 0.1,
+    strategic_alignment: 0.1,
   };
 
   const score: OpportunityScore = {
@@ -168,12 +186,12 @@ export function calculateOpportunityScore(input: ScoreInputData): OpportunitySco
 
   score.total_score = Math.round(
     score.demand_momentum * weights.demand_momentum +
-    score.revenue_potential * weights.revenue_potential +
-    score.implementation_fit * weights.implementation_fit +
-    score.capability_fit * weights.capability_fit +
-    score.demand_frequency * weights.demand_frequency +
-    score.market_signal_confidence * weights.market_signal_confidence +
-    score.strategic_alignment * weights.strategic_alignment
+      score.revenue_potential * weights.revenue_potential +
+      score.implementation_fit * weights.implementation_fit +
+      score.capability_fit * weights.capability_fit +
+      score.demand_frequency * weights.demand_frequency +
+      score.market_signal_confidence * weights.market_signal_confidence +
+      score.strategic_alignment * weights.strategic_alignment,
   );
 
   return score;
@@ -181,99 +199,107 @@ export function calculateOpportunityScore(input: ScoreInputData): OpportunitySco
 
 export function generateOpportunityReasons(
   score: OpportunityScore,
-  input: ScoreInputData
+  input: ScoreInputData,
 ): OpportunityReason[] {
   const reasons: OpportunityReason[] = [];
 
   if (score.demand_momentum >= 80) {
     reasons.push({
-      category: 'strength',
-      message: 'Strong demand momentum',
-      impact: 'high',
+      category: "strength",
+      message: "Strong demand momentum",
+      impact: "high",
     });
   } else if (score.demand_momentum < 40) {
     reasons.push({
-      category: 'risk',
-      message: 'Limited demand momentum',
-      impact: 'medium',
+      category: "risk",
+      message: "Limited demand momentum",
+      impact: "medium",
     });
   }
 
   if (score.revenue_potential >= 80) {
     reasons.push({
-      category: 'strength',
-      message: 'High revenue potential',
-      impact: 'high',
+      category: "strength",
+      message: "High revenue potential",
+      impact: "high",
     });
   }
 
   if (score.implementation_fit >= 75) {
     reasons.push({
-      category: 'strength',
-      message: 'Strong implementation fit',
-      impact: 'high',
+      category: "strength",
+      message: "Strong implementation fit",
+      impact: "high",
     });
   } else if (score.implementation_fit < 50) {
     reasons.push({
-      category: 'risk',
-      message: 'Limited implementation experience',
-      impact: 'high',
+      category: "risk",
+      message: "Limited implementation experience",
+      impact: "high",
     });
   }
 
   if (score.capability_fit < 60) {
     reasons.push({
-      category: 'risk',
-      message: 'Capability gap may require investment',
-      impact: 'medium',
+      category: "risk",
+      message: "Capability gap may require investment",
+      impact: "medium",
     });
   }
 
   if (score.market_signal_confidence >= 70) {
     reasons.push({
-      category: 'strength',
-      message: 'Supported by market signals',
-      impact: 'medium',
+      category: "strength",
+      message: "Supported by market signals",
+      impact: "medium",
     });
   }
 
   if (input.lead_count_current && input.lead_count_previous) {
-    const growth = ((input.lead_count_current - input.lead_count_previous) / input.lead_count_previous) * 100;
+    const growth =
+      ((input.lead_count_current - input.lead_count_previous) /
+        input.lead_count_previous) *
+      100;
     if (growth > 25) {
       reasons.push({
-        category: 'insight',
+        category: "insight",
         message: `${Math.round(growth)}% growth in lead volume`,
-        impact: 'high',
+        impact: "high",
       });
     }
   }
 
   if (input.win_rate && input.win_rate > 0.5) {
     reasons.push({
-      category: 'strength',
-      message: 'High win rate',
-      impact: 'medium',
+      category: "strength",
+      message: "High win rate",
+      impact: "medium",
     });
   }
 
   if (input.avg_deal_size && input.avg_deal_size > 50000) {
     reasons.push({
-      category: 'strength',
-      message: 'Large average deal size',
-      impact: 'medium',
+      category: "strength",
+      message: "Large average deal size",
+      impact: "medium",
     });
   }
 
   return reasons;
 }
 
-export function determineOpportunityLevel(totalScore: number): OpportunityLevel {
-  if (totalScore >= 75) return 'high';
-  if (totalScore >= 55) return 'medium';
-  return 'low';
+export function determineOpportunityLevel(
+  totalScore: number,
+): OpportunityLevel {
+  if (totalScore >= 75) return "high";
+  if (totalScore >= 55) return "medium";
+  return "low";
 }
 
-export function calculateConfidenceLevel(input: ScoreInputData, score: OpportunityScore): number {
+export function calculateConfidenceLevel(
+  input: ScoreInputData,
+  score: OpportunityScore,
+): number {
   let confidence = 50;
 
   const dataPoints = [
@@ -285,7 +311,7 @@ export function calculateConfidenceLevel(input: ScoreInputData, score: Opportuni
     input.avg_deal_size !== undefined,
   ].filter(Boolean).length;
 
-  confidence = 40 + (dataPoints * 10);
+  confidence = 40 + dataPoints * 10;
 
   if (input.revenue_current && input.revenue_current > 0) {
     confidence += 5;
@@ -305,31 +331,33 @@ export function calculateConfidenceLevel(input: ScoreInputData, score: Opportuni
 export function generateRecommendedAction(
   score: OpportunityScore,
   level: OpportunityLevel,
-  reasons: OpportunityReason[]
+  reasons: OpportunityReason[],
 ): string {
-  const hasHighRisk = reasons.some(r => r.category === 'risk' && r.impact === 'high');
+  const hasHighRisk = reasons.some(
+    (r) => r.category === "risk" && r.impact === "high",
+  );
   const hasStrongMomentum = score.demand_momentum >= 75;
   const hasRevenuePotential = score.revenue_potential >= 75;
 
-  if (level === 'high') {
+  if (level === "high") {
     if (hasStrongMomentum && hasRevenuePotential) {
-      return 'Prioritize investment and resource allocation';
+      return "Prioritize investment and resource allocation";
     }
     if (hasHighRisk) {
-      return 'Address capability gaps while pursuing opportunities';
+      return "Address capability gaps while pursuing opportunities";
     }
-    return 'Actively pursue with focused resources';
+    return "Actively pursue with focused resources";
   }
 
-  if (level === 'medium') {
+  if (level === "medium") {
     if (hasStrongMomentum) {
-      return 'Monitor closely and consider strategic investment';
+      return "Monitor closely and consider strategic investment";
     }
     if (hasHighRisk) {
-      return 'Develop capabilities before scaling';
+      return "Develop capabilities before scaling";
     }
-    return 'Evaluate for selective engagement';
+    return "Evaluate for selective engagement";
   }
 
-  return 'Monitor for emerging signals';
+  return "Monitor for emerging signals";
 }

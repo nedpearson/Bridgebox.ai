@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { metricsEngine, type MetricsFilters } from '../lib/metricsEngine';
+import { useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { metricsEngine, type MetricsFilters } from "../lib/metricsEngine";
 
-export type TimeFilter = '7d' | '30d' | '90d' | 'all';
+export type TimeFilter = "7d" | "30d" | "90d" | "all";
 
-export function useMetrics(timeFilter: TimeFilter = '30d') {
+export function useMetrics(timeFilter: TimeFilter = "30d") {
   const { currentOrganization } = useAuth();
   const [loading, setLoading] = useState(true);
   const [metrics, setMetrics] = useState<any>(null);
@@ -19,17 +19,17 @@ export function useMetrics(timeFilter: TimeFilter = '30d') {
     let startDate = new Date();
 
     switch (filter) {
-      case '7d':
+      case "7d":
         startDate.setDate(startDate.getDate() - 7);
         break;
-      case '30d':
+      case "30d":
         startDate.setDate(startDate.getDate() - 30);
         break;
-      case '90d':
+      case "90d":
         startDate.setDate(startDate.getDate() - 90);
         break;
-      case 'all':
-        startDate = new Date('2020-01-01');
+      case "all":
+        startDate = new Date("2020-01-01");
         break;
     }
 
@@ -50,8 +50,8 @@ export function useMetrics(timeFilter: TimeFilter = '30d') {
       const data = await metricsEngine.aggregateAllMetrics(filters);
       setMetrics(data);
     } catch (err) {
-      console.error('Failed to load metrics:', err);
-      setError('Failed to load metrics');
+      console.error("Failed to load metrics:", err);
+      setError("Failed to load metrics");
     } finally {
       setLoading(false);
     }
@@ -69,7 +69,7 @@ export function useMetrics(timeFilter: TimeFilter = '30d') {
   };
 }
 
-export function useConversionMetrics(timeFilter: TimeFilter = '30d') {
+export function useConversionMetrics(timeFilter: TimeFilter = "30d") {
   const { currentOrganization } = useAuth();
   const [loading, setLoading] = useState(true);
   const [metrics, setMetrics] = useState<any>(null);
@@ -83,17 +83,17 @@ export function useConversionMetrics(timeFilter: TimeFilter = '30d') {
     let startDate = new Date();
 
     switch (filter) {
-      case '7d':
+      case "7d":
         startDate.setDate(startDate.getDate() - 7);
         break;
-      case '30d':
+      case "30d":
         startDate.setDate(startDate.getDate() - 30);
         break;
-      case '90d':
+      case "90d":
         startDate.setDate(startDate.getDate() - 90);
         break;
-      case 'all':
-        startDate = new Date('2020-01-01');
+      case "all":
+        startDate = new Date("2020-01-01");
         break;
     }
 
@@ -113,7 +113,7 @@ export function useConversionMetrics(timeFilter: TimeFilter = '30d') {
       const data = await metricsEngine.calculateConversionRate(filters);
       setMetrics(data);
     } catch (err) {
-      console.error('Failed to load conversion metrics:', err);
+      console.error("Failed to load conversion metrics:", err);
     } finally {
       setLoading(false);
     }
@@ -142,7 +142,7 @@ export function useRevenueMetrics() {
       const data = await metricsEngine.calculateMRR(filters);
       setMetrics(data);
     } catch (err) {
-      console.error('Failed to load revenue metrics:', err);
+      console.error("Failed to load revenue metrics:", err);
     } finally {
       setLoading(false);
     }
@@ -151,7 +151,7 @@ export function useRevenueMetrics() {
   return { loading, metrics };
 }
 
-export function useProjectMetrics(timeFilter: TimeFilter = '30d') {
+export function useProjectMetrics(timeFilter: TimeFilter = "30d") {
   const { currentOrganization } = useAuth();
   const [loading, setLoading] = useState(true);
   const [metrics, setMetrics] = useState<any>(null);
@@ -165,17 +165,17 @@ export function useProjectMetrics(timeFilter: TimeFilter = '30d') {
     let startDate = new Date();
 
     switch (filter) {
-      case '7d':
+      case "7d":
         startDate.setDate(startDate.getDate() - 7);
         break;
-      case '30d':
+      case "30d":
         startDate.setDate(startDate.getDate() - 30);
         break;
-      case '90d':
+      case "90d":
         startDate.setDate(startDate.getDate() - 90);
         break;
-      case 'all':
-        startDate = new Date('2020-01-01');
+      case "all":
+        startDate = new Date("2020-01-01");
         break;
     }
 
@@ -195,7 +195,7 @@ export function useProjectMetrics(timeFilter: TimeFilter = '30d') {
       const data = await metricsEngine.calculateProjectVelocity(filters);
       setMetrics(data);
     } catch (err) {
-      console.error('Failed to load project metrics:', err);
+      console.error("Failed to load project metrics:", err);
     } finally {
       setLoading(false);
     }

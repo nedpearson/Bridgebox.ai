@@ -1,4 +1,4 @@
-import { supabase } from '../supabase';
+import { supabase } from "../supabase";
 
 export interface OrganizationBranding {
   id: string;
@@ -58,11 +58,13 @@ export interface PlanFeature {
 }
 
 export const whiteLabelService = {
-  async getBranding(organizationId: string): Promise<OrganizationBranding | null> {
+  async getBranding(
+    organizationId: string,
+  ): Promise<OrganizationBranding | null> {
     const { data, error } = await supabase
-      .from('bb_organization_branding')
-      .select('*')
-      .eq('organization_id', organizationId)
+      .from("bb_organization_branding")
+      .select("*")
+      .eq("organization_id", organizationId)
       .maybeSingle();
 
     if (error) throw error;
@@ -71,10 +73,10 @@ export const whiteLabelService = {
 
   async upsertBranding(
     organizationId: string,
-    branding: Partial<OrganizationBranding>
+    branding: Partial<OrganizationBranding>,
   ): Promise<OrganizationBranding> {
     const { data, error } = await supabase
-      .from('bb_organization_branding')
+      .from("bb_organization_branding")
       .upsert({
         organization_id: organizationId,
         ...branding,
@@ -88,10 +90,10 @@ export const whiteLabelService = {
 
   async getFeatureFlags(organizationId: string): Promise<FeatureFlag[]> {
     const { data, error } = await supabase
-      .from('bb_organization_feature_flags')
-      .select('*')
-      .eq('organization_id', organizationId)
-      .order('feature_key');
+      .from("bb_organization_feature_flags")
+      .select("*")
+      .eq("organization_id", organizationId)
+      .order("feature_key");
 
     if (error) throw error;
     return data || [];
@@ -99,13 +101,13 @@ export const whiteLabelService = {
 
   async getFeatureFlag(
     organizationId: string,
-    featureKey: string
+    featureKey: string,
   ): Promise<FeatureFlag | null> {
     const { data, error } = await supabase
-      .from('bb_organization_feature_flags')
-      .select('*')
-      .eq('organization_id', organizationId)
-      .eq('feature_key', featureKey)
+      .from("bb_organization_feature_flags")
+      .select("*")
+      .eq("organization_id", organizationId)
+      .eq("feature_key", featureKey)
       .maybeSingle();
 
     if (error) throw error;
@@ -116,10 +118,10 @@ export const whiteLabelService = {
     organizationId: string,
     featureKey: string,
     enabled: boolean,
-    userId: string
+    userId: string,
   ): Promise<FeatureFlag> {
     const { data, error } = await supabase
-      .from('bb_organization_feature_flags')
+      .from("bb_organization_feature_flags")
       .upsert({
         organization_id: organizationId,
         feature_key: featureKey,
@@ -137,13 +139,13 @@ export const whiteLabelService = {
   async updateFeatureConfig(
     organizationId: string,
     featureKey: string,
-    config: Record<string, any>
+    config: Record<string, any>,
   ): Promise<FeatureFlag> {
     const { data, error } = await supabase
-      .from('bb_organization_feature_flags')
+      .from("bb_organization_feature_flags")
       .update({ config })
-      .eq('organization_id', organizationId)
-      .eq('feature_key', featureKey)
+      .eq("organization_id", organizationId)
+      .eq("feature_key", featureKey)
       .select()
       .single();
 
@@ -153,11 +155,11 @@ export const whiteLabelService = {
 
   async getCustomRoles(organizationId: string): Promise<CustomRole[]> {
     const { data, error } = await supabase
-      .from('bb_custom_roles')
-      .select('*')
-      .eq('organization_id', organizationId)
-      .eq('is_active', true)
-      .order('display_name');
+      .from("bb_custom_roles")
+      .select("*")
+      .eq("organization_id", organizationId)
+      .eq("is_active", true)
+      .order("display_name");
 
     if (error) throw error;
     return data || [];
@@ -165,11 +167,14 @@ export const whiteLabelService = {
 
   async createCustomRole(
     organizationId: string,
-    role: Omit<CustomRole, 'id' | 'created_at' | 'updated_at' | 'organization_id'>,
-    userId: string
+    role: Omit<
+      CustomRole,
+      "id" | "created_at" | "updated_at" | "organization_id"
+    >,
+    userId: string,
   ): Promise<CustomRole> {
     const { data, error } = await supabase
-      .from('bb_custom_roles')
+      .from("bb_custom_roles")
       .insert({
         organization_id: organizationId,
         created_by: userId,
@@ -184,12 +189,12 @@ export const whiteLabelService = {
 
   async updateCustomRole(
     roleId: string,
-    updates: Partial<CustomRole>
+    updates: Partial<CustomRole>,
   ): Promise<CustomRole> {
     const { data, error } = await supabase
-      .from('bb_custom_roles')
+      .from("bb_custom_roles")
       .update(updates)
-      .eq('id', roleId)
+      .eq("id", roleId)
       .select()
       .single();
 
@@ -199,19 +204,19 @@ export const whiteLabelService = {
 
   async deleteCustomRole(roleId: string): Promise<void> {
     const { error } = await supabase
-      .from('bb_custom_roles')
+      .from("bb_custom_roles")
       .update({ is_active: false })
-      .eq('id', roleId);
+      .eq("id", roleId);
 
     if (error) throw error;
   },
 
   async getPlanFeatures(planId: string): Promise<PlanFeature[]> {
     const { data, error } = await supabase
-      .from('bb_plan_features')
-      .select('*')
-      .eq('plan_id', planId)
-      .eq('included', true);
+      .from("bb_plan_features")
+      .select("*")
+      .eq("plan_id", planId)
+      .eq("included", true);
 
     if (error) throw error;
     return data || [];
@@ -220,20 +225,20 @@ export const whiteLabelService = {
   async checkFeatureAccess(
     organizationId: string,
     planId: string,
-    featureKey: string
+    featureKey: string,
   ): Promise<boolean> {
     const [planFeature, orgFlag] = await Promise.all([
       supabase
-        .from('bb_plan_features')
-        .select('*')
-        .eq('plan_id', planId)
-        .eq('feature_key', featureKey)
+        .from("bb_plan_features")
+        .select("*")
+        .eq("plan_id", planId)
+        .eq("feature_key", featureKey)
         .maybeSingle(),
       supabase
-        .from('bb_organization_feature_flags')
-        .select('*')
-        .eq('organization_id', organizationId)
-        .eq('feature_key', featureKey)
+        .from("bb_organization_feature_flags")
+        .select("*")
+        .eq("organization_id", organizationId)
+        .eq("feature_key", featureKey)
         .maybeSingle(),
     ]);
 
@@ -251,112 +256,112 @@ export const whiteLabelService = {
 
 export const AVAILABLE_FEATURES = [
   {
-    key: 'crm',
-    name: 'CRM',
-    description: 'Lead management and pipeline tracking',
-    category: 'core',
+    key: "crm",
+    name: "CRM",
+    description: "Lead management and pipeline tracking",
+    category: "core",
   },
   {
-    key: 'analytics',
-    name: 'Analytics',
-    description: 'Advanced analytics and reporting',
-    category: 'core',
+    key: "analytics",
+    name: "Analytics",
+    description: "Advanced analytics and reporting",
+    category: "core",
   },
   {
-    key: 'support',
-    name: 'Support',
-    description: 'Customer support ticketing system',
-    category: 'core',
+    key: "support",
+    name: "Support",
+    description: "Customer support ticketing system",
+    category: "core",
   },
   {
-    key: 'automation',
-    name: 'Automation',
-    description: 'Workflow automation and rules engine',
-    category: 'advanced',
+    key: "automation",
+    name: "Automation",
+    description: "Workflow automation and rules engine",
+    category: "advanced",
   },
   {
-    key: 'ai_copilot',
-    name: 'AI Copilot',
-    description: 'AI-powered assistance and insights',
-    category: 'advanced',
+    key: "ai_copilot",
+    name: "AI Copilot",
+    description: "AI-powered assistance and insights",
+    category: "advanced",
   },
   {
-    key: 'custom_branding',
-    name: 'Custom Branding',
-    description: 'White-label branding customization',
-    category: 'enterprise',
+    key: "custom_branding",
+    name: "Custom Branding",
+    description: "White-label branding customization",
+    category: "enterprise",
   },
   {
-    key: 'custom_domain',
-    name: 'Custom Domain',
-    description: 'Use your own domain name',
-    category: 'enterprise',
+    key: "custom_domain",
+    name: "Custom Domain",
+    description: "Use your own domain name",
+    category: "enterprise",
   },
   {
-    key: 'sso',
-    name: 'SSO',
-    description: 'Single sign-on integration',
-    category: 'enterprise',
+    key: "sso",
+    name: "SSO",
+    description: "Single sign-on integration",
+    category: "enterprise",
   },
   {
-    key: 'custom_roles',
-    name: 'Custom Roles',
-    description: 'Define custom user roles and permissions',
-    category: 'enterprise',
+    key: "custom_roles",
+    name: "Custom Roles",
+    description: "Define custom user roles and permissions",
+    category: "enterprise",
   },
   {
-    key: 'clio',
-    name: 'Clio Integration',
-    description: 'Sync matters, contacts, and calendar with Clio',
-    category: 'integrations',
+    key: "clio",
+    name: "Clio Integration",
+    description: "Sync matters, contacts, and calendar with Clio",
+    category: "integrations",
   },
   {
-    key: 'financial_cents',
-    name: 'Financial Cents Integration',
-    description: 'Sync workflows, tasks, and deadlines',
-    category: 'integrations',
+    key: "financial_cents",
+    name: "Financial Cents Integration",
+    description: "Sync workflows, tasks, and deadlines",
+    category: "integrations",
   },
   {
-    key: 'commander_ne',
-    name: 'Commander NE Integration',
-    description: 'Import inventory, service orders, and customer records',
-    category: 'integrations',
+    key: "commander_ne",
+    name: "Commander NE Integration",
+    description: "Import inventory, service orders, and customer records",
+    category: "integrations",
   },
   {
-    key: 'ourfamilywizard',
-    name: 'OurFamilyWizard Integration',
-    description: 'Import evidence, messages, and custody calendar',
-    category: 'integrations',
+    key: "ourfamilywizard",
+    name: "OurFamilyWizard Integration",
+    description: "Import evidence, messages, and custody calendar",
+    category: "integrations",
   },
   {
-    key: 'soberlink',
-    name: 'Soberlink Integration',
-    description: 'Import sobriety compliance and incident records',
-    category: 'integrations',
+    key: "soberlink",
+    name: "Soberlink Integration",
+    description: "Import sobriety compliance and incident records",
+    category: "integrations",
   },
   {
-    key: 'trams_back_office',
-    name: 'TRAMS Back Office Integration',
-    description: 'Import travel ops and back-office accounting',
-    category: 'integrations',
+    key: "trams_back_office",
+    name: "TRAMS Back Office Integration",
+    description: "Import travel ops and back-office accounting",
+    category: "integrations",
   },
   {
-    key: 'clientbase_us',
-    name: 'ClientBase Integration',
-    description: 'Import CRM contacts, tasks, and travel opportunities',
-    category: 'integrations',
+    key: "clientbase_us",
+    name: "ClientBase Integration",
+    description: "Import CRM contacts, tasks, and travel opportunities",
+    category: "integrations",
   },
   {
-    key: 'helga',
-    name: 'HELGA Integration',
-    description: 'Logistics operations and courier manifest sync',
-    category: 'integrations',
+    key: "helga",
+    name: "HELGA Integration",
+    description: "Logistics operations and courier manifest sync",
+    category: "integrations",
   },
   {
-    key: 'chatwoot',
-    name: 'Chatwoot Integration',
-    description: 'Sync conversations, messages, and contacts via API & Webhooks',
-    category: 'integrations',
+    key: "chatwoot",
+    name: "Chatwoot Integration",
+    description:
+      "Sync conversations, messages, and contacts via API & Webhooks",
+    category: "integrations",
   },
 ] as const;
-

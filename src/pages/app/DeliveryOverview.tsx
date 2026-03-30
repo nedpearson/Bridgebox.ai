@@ -1,25 +1,40 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Rocket, Filter, TrendingUp, AlertTriangle, Package } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import KPICard from '../../components/admin/KPICard';
-import EmptyState from '../../components/EmptyState';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import DeliveryPhaseBadge from '../../components/delivery/DeliveryPhaseBadge';
-import HealthStatusIndicator from '../../components/delivery/HealthStatusIndicator';
-import RiskLevelBadge from '../../components/delivery/RiskLevelBadge';
-import { deliveryService, ProjectDeliveryWithDetails, DeliveryPhase, HealthStatus } from '../../lib/db/delivery';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  Rocket,
+  Filter,
+  TrendingUp,
+  AlertTriangle,
+  Package,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import KPICard from "../../components/admin/KPICard";
+import EmptyState from "../../components/EmptyState";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import DeliveryPhaseBadge from "../../components/delivery/DeliveryPhaseBadge";
+import HealthStatusIndicator from "../../components/delivery/HealthStatusIndicator";
+import RiskLevelBadge from "../../components/delivery/RiskLevelBadge";
+import {
+  deliveryService,
+  ProjectDeliveryWithDetails,
+  DeliveryPhase,
+  HealthStatus,
+} from "../../lib/db/delivery";
 
 export default function DeliveryOverview() {
-  const [deliveries, setDeliveries] = useState<ProjectDeliveryWithDetails[]>([]);
-  const [filteredDeliveries, setFilteredDeliveries] = useState<ProjectDeliveryWithDetails[]>([]);
+  const [deliveries, setDeliveries] = useState<ProjectDeliveryWithDetails[]>(
+    [],
+  );
+  const [filteredDeliveries, setFilteredDeliveries] = useState<
+    ProjectDeliveryWithDetails[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<any>(null);
-  const [phaseFilter, setPhaseFilter] = useState<string>('all');
-  const [healthFilter, setHealthFilter] = useState<string>('all');
+  const [phaseFilter, setPhaseFilter] = useState<string>("all");
+  const [healthFilter, setHealthFilter] = useState<string>("all");
 
   useEffect(() => {
     loadData();
@@ -39,7 +54,7 @@ export default function DeliveryOverview() {
       setDeliveries(deliveriesData);
       setStats(statsData);
     } catch (error) {
-      console.error('Failed to load delivery data:', error);
+      console.error("Failed to load delivery data:", error);
     } finally {
       setLoading(false);
     }
@@ -48,11 +63,11 @@ export default function DeliveryOverview() {
   const filterDeliveries = () => {
     let filtered = [...deliveries];
 
-    if (phaseFilter !== 'all') {
+    if (phaseFilter !== "all") {
       filtered = filtered.filter((d) => d.delivery_phase === phaseFilter);
     }
 
-    if (healthFilter !== 'all') {
+    if (healthFilter !== "all") {
       filtered = filtered.filter((d) => d.health_status === healthFilter);
     }
 
@@ -62,7 +77,10 @@ export default function DeliveryOverview() {
   if (loading) {
     return (
       <>
-        <AppHeader title="Delivery OS" subtitle="Manage project execution and delivery" />
+        <AppHeader
+          title="Delivery OS"
+          subtitle="Manage project execution and delivery"
+        />
         <div className="p-8 flex items-center justify-center">
           <LoadingSpinner size="lg" />
         </div>
@@ -72,7 +90,10 @@ export default function DeliveryOverview() {
 
   return (
     <>
-      <AppHeader title="Delivery OS" subtitle="Manage project execution and delivery" />
+      <AppHeader
+        title="Delivery OS"
+        subtitle="Manage project execution and delivery"
+      />
 
       <div className="p-8 space-y-6">
         {stats && (
@@ -143,11 +164,15 @@ export default function DeliveryOverview() {
             <Card glass className="p-12">
               <EmptyState
                 icon={Rocket}
-                title={phaseFilter !== 'all' || healthFilter !== 'all' ? 'No Projects Found' : 'No Active Deliveries'}
+                title={
+                  phaseFilter !== "all" || healthFilter !== "all"
+                    ? "No Projects Found"
+                    : "No Active Deliveries"
+                }
                 description={
-                  phaseFilter !== 'all' || healthFilter !== 'all'
-                    ? 'Try adjusting your filters'
-                    : 'Active project deliveries will appear here'
+                  phaseFilter !== "all" || healthFilter !== "all"
+                    ? "Try adjusting your filters"
+                    : "Active project deliveries will appear here"
                 }
               />
             </Card>
@@ -160,13 +185,16 @@ export default function DeliveryOverview() {
                 transition={{ duration: 0.3 }}
               >
                 <Link to={`/app/delivery/${delivery.project_id}`}>
-                  <Card glass className="p-6 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer group">
+                  <Card
+                    glass
+                    className="p-6 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer group"
+                  >
                     <div className="flex items-start justify-between gap-6">
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-3">
                           <div>
                             <h3 className="text-xl font-bold text-white group-hover:text-indigo-500 transition-colors mb-2">
-                              {delivery.project?.name || 'Unnamed Project'}
+                              {delivery.project?.name || "Unnamed Project"}
                             </h3>
                             {delivery.project?.organizations && (
                               <p className="text-slate-400 text-sm mb-3">
@@ -174,29 +202,42 @@ export default function DeliveryOverview() {
                               </p>
                             )}
                           </div>
-                          <HealthStatusIndicator status={delivery.health_status} size="lg" />
+                          <HealthStatusIndicator
+                            status={delivery.health_status}
+                            size="lg"
+                          />
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2 mb-4">
-                          <DeliveryPhaseBadge phase={delivery.delivery_phase} size="sm" />
-                          {delivery.risk_level !== 'none' && (
-                            <RiskLevelBadge level={delivery.risk_level} size="sm" />
+                          <DeliveryPhaseBadge
+                            phase={delivery.delivery_phase}
+                            size="sm"
+                          />
+                          {delivery.risk_level !== "none" && (
+                            <RiskLevelBadge
+                              level={delivery.risk_level}
+                              size="sm"
+                            />
                           )}
                           {delivery.project?.type && (
                             <span className="text-xs px-2 py-1 bg-slate-800/50 text-slate-300 border border-slate-700 rounded-full capitalize">
-                              {delivery.project.type.replace(/_/g, ' ')}
+                              {delivery.project.type.replace(/_/g, " ")}
                             </span>
                           )}
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                           <div>
-                            <p className="text-xs text-slate-500 mb-1">Progress</p>
+                            <p className="text-xs text-slate-500 mb-1">
+                              Progress
+                            </p>
                             <div className="flex items-center space-x-2">
                               <div className="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
                                 <div
                                   className="h-full bg-indigo-500 transition-all duration-500"
-                                  style={{ width: `${delivery.completion_percentage}%` }}
+                                  style={{
+                                    width: `${delivery.completion_percentage}%`,
+                                  }}
                                 />
                               </div>
                               <span className="text-sm font-medium text-white">
@@ -207,25 +248,36 @@ export default function DeliveryOverview() {
 
                           {delivery.current_milestone && (
                             <div>
-                              <p className="text-xs text-slate-500 mb-1">Current Milestone</p>
-                              <p className="text-sm text-white font-medium">{delivery.current_milestone}</p>
+                              <p className="text-xs text-slate-500 mb-1">
+                                Current Milestone
+                              </p>
+                              <p className="text-sm text-white font-medium">
+                                {delivery.current_milestone}
+                              </p>
                             </div>
                           )}
 
                           {delivery.team_lead && (
                             <div>
-                              <p className="text-xs text-slate-500 mb-1">Team Lead</p>
+                              <p className="text-xs text-slate-500 mb-1">
+                                Team Lead
+                              </p>
                               <p className="text-sm text-white font-medium">
-                                {delivery.team_lead.full_name || delivery.team_lead.email}
+                                {delivery.team_lead.full_name ||
+                                  delivery.team_lead.email}
                               </p>
                             </div>
                           )}
 
                           {delivery.target_completion_date && (
                             <div>
-                              <p className="text-xs text-slate-500 mb-1">Target Date</p>
+                              <p className="text-xs text-slate-500 mb-1">
+                                Target Date
+                              </p>
                               <p className="text-sm text-white font-medium">
-                                {new Date(delivery.target_completion_date).toLocaleDateString()}
+                                {new Date(
+                                  delivery.target_completion_date,
+                                ).toLocaleDateString()}
                               </p>
                             </div>
                           )}

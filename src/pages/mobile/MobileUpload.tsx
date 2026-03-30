@@ -1,22 +1,29 @@
 // @ts-nocheck
-import { useState, useRef } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Camera, Upload, File, X, Check, Image as ImageIcon } from 'lucide-react';
-import MobileLayout from '../../layouts/MobileLayout';
-import Button from '../../components/Button';
-import { useAuth } from '../../contexts/AuthContext';
-import { documentService } from '../../lib/db/documents';
-import { storageService } from '../../lib/storage';
+import { useState, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  Camera,
+  Upload,
+  File,
+  X,
+  Check,
+  Image as ImageIcon,
+} from "lucide-react";
+import MobileLayout from "../../layouts/MobileLayout";
+import Button from "../../components/Button";
+import { useAuth } from "../../contexts/AuthContext";
+import { documentService } from "../../lib/db/documents";
+import { storageService } from "../../lib/storage";
 
-type UploadMode = 'select' | 'camera' | 'file';
+type UploadMode = "select" | "camera" | "file";
 
 export default function MobileUpload() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { currentOrganization } = useAuth();
   const [mode, setMode] = useState<UploadMode>(
-    searchParams.get('camera') === 'true' ? 'camera' : 'select'
+    searchParams.get("camera") === "true" ? "camera" : "select",
   );
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -29,7 +36,7 @@ export default function MobileUpload() {
     if (file) {
       setSelectedFile(file);
 
-      if (file.type.startsWith('image/')) {
+      if (file.type.startsWith("image/")) {
         const reader = new FileReader();
         reader.onloadend = () => {
           setPreview(reader.result as string);
@@ -47,8 +54,11 @@ export default function MobileUpload() {
     try {
       setUploading(true);
 
-      const path = storageService.buildClientDocumentPath(currentOrganization.id, selectedFile.name);
-      await storageService.uploadFile('client_documents', path, selectedFile);
+      const path = storageService.buildClientDocumentPath(
+        currentOrganization.id,
+        selectedFile.name,
+      );
+      await storageService.uploadFile("client_documents", path, selectedFile);
 
       await documentService.createDocument({
         organization_id: currentOrganization.id,
@@ -56,17 +66,17 @@ export default function MobileUpload() {
         file_size: selectedFile.size,
         file_type: selectedFile.type,
         storage_path: path,
-        document_type: 'operational',
-        status: 'completed',
-        is_processed: false
+        document_type: "operational",
+        status: "completed",
+        is_processed: false,
       });
 
-      navigate('/app/documents', {
-        state: { message: 'Document uploaded successfully' }
+      navigate("/app/documents", {
+        state: { message: "Document uploaded successfully" },
       });
     } catch (error) {
-      console.error('Upload failed:', error);
-      alert('Failed to upload document. Please try again.');
+      console.error("Upload failed:", error);
+      alert("Failed to upload document. Please try again.");
     } finally {
       setUploading(false);
     }
@@ -75,10 +85,10 @@ export default function MobileUpload() {
   const handleCancel = () => {
     setSelectedFile(null);
     setPreview(null);
-    setMode('select');
+    setMode("select");
   };
 
-  if (mode === 'select' && !selectedFile) {
+  if (mode === "select" && !selectedFile) {
     return (
       <MobileLayout title="Upload">
         <div className="flex flex-col items-center justify-center h-full p-6">
@@ -87,7 +97,7 @@ export default function MobileUpload() {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                setMode('camera');
+                setMode("camera");
                 cameraInputRef.current?.click();
               }}
               className="w-full p-6 bg-slate-800/50 border-2 border-slate-700 rounded-2xl text-center hover:border-blue-500 transition-colors"
@@ -95,7 +105,9 @@ export default function MobileUpload() {
               <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Camera className="w-8 h-8 text-blue-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-1">Take Photo</h3>
+              <h3 className="text-lg font-semibold text-white mb-1">
+                Take Photo
+              </h3>
               <p className="text-sm text-slate-400">
                 Use your camera to capture a document
               </p>
@@ -105,7 +117,7 @@ export default function MobileUpload() {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                setMode('file');
+                setMode("file");
                 fileInputRef.current?.click();
               }}
               className="w-full p-6 bg-slate-800/50 border-2 border-slate-700 rounded-2xl text-center hover:border-blue-500 transition-colors"
@@ -113,7 +125,9 @@ export default function MobileUpload() {
               <div className="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Upload className="w-8 h-8 text-green-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-1">Choose File</h3>
+              <h3 className="text-lg font-semibold text-white mb-1">
+                Choose File
+              </h3>
               <p className="text-sm text-slate-400">
                 Select a document from your device
               </p>
@@ -148,11 +162,7 @@ export default function MobileUpload() {
         <div className="flex-1 overflow-y-auto p-4">
           {preview ? (
             <div className="rounded-lg overflow-hidden bg-slate-800 border border-slate-700">
-              <img
-                src={preview}
-                alt="Preview"
-                className="w-full h-auto"
-              />
+              <img src={preview} alt="Preview" className="w-full h-auto" />
             </div>
           ) : selectedFile ? (
             <div className="flex flex-col items-center justify-center p-8 bg-slate-800/50 border-2 border-dashed border-slate-700 rounded-lg">
@@ -167,7 +177,9 @@ export default function MobileUpload() {
           {/* File Info */}
           {selectedFile && (
             <div className="mt-4 p-4 bg-slate-800/50 rounded-lg border border-slate-700">
-              <h3 className="text-sm font-medium text-white mb-3">Document Details</h3>
+              <h3 className="text-sm font-medium text-white mb-3">
+                Document Details
+              </h3>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-400">Name:</span>
@@ -181,7 +193,9 @@ export default function MobileUpload() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-400">Type:</span>
-                  <span className="text-white">{selectedFile.type || 'Unknown'}</span>
+                  <span className="text-white">
+                    {selectedFile.type || "Unknown"}
+                  </span>
                 </div>
               </div>
             </div>

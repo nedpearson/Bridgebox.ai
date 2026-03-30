@@ -1,5 +1,5 @@
-import { supabase } from './supabase';
-import { getProjectTemplate, ProjectTemplateType } from './projectTemplates';
+import { supabase } from "./supabase";
+import { getProjectTemplate, ProjectTemplateType } from "./projectTemplates";
 
 export interface ConversionResult {
   success: boolean;
@@ -32,40 +32,44 @@ export interface ProposalApprovalData {
  * Convert an approved proposal into a project with delivery tracking
  */
 export async function convertProposalToProject(
-  data: ProposalToProjectData
+  data: ProposalToProjectData,
 ): Promise<ConversionResult> {
   try {
     // 1. Check if proposal already converted
     const { data: existingProject } = await supabase
-      .from('bb_projects')
-      .select('id')
-      .eq('proposal_id', data.proposalId)
+      .from("bb_projects")
+      .select("id")
+      .eq("proposal_id", data.proposalId)
       .maybeSingle();
 
     if (existingProject) {
       return {
         success: false,
-        error: 'Proposal already converted',
-        message: 'This proposal has already been converted to a project',
+        error: "Proposal already converted",
+        message: "This proposal has already been converted to a project",
       };
     }
 
     // 2. Determine project type and template
-    const projectType = determineProjectType(data.serviceTypes || [], data.projectType);
+    const projectType = determineProjectType(
+      data.serviceTypes || [],
+      data.projectType,
+    );
     const template = getProjectTemplate(projectType as ProjectTemplateType);
 
     // 3. Create project
     const { data: project, error: projectError } = await supabase
-      .from('bb_projects')
+      .from("bb_projects")
       .insert({
         organization_id: data.organizationId,
         proposal_id: data.proposalId,
         name: data.proposalTitle,
-        description: data.scopeSummary || 'Project created from approved proposal',
+        description:
+          data.scopeSummary || "Project created from approved proposal",
         type: mapTemplateTypeToProjectType(projectType),
-        status: 'planning',
+        status: "planning",
         contract_value: data.pricingAmount,
-        source: 'proposal_conversion',
+        source: "proposal_conversion",
         template_applied: !!template,
       })
       .select()
@@ -77,12 +81,12 @@ export async function convertProposalToProject(
 
     // 4. Mark proposal as converted
     await supabase
-      .from('bb_proposals')
+      .from("bb_proposals")
       .update({
         converted_to_project: true,
         converted_at: new Date().toISOString(),
       })
-      .eq('id', data.proposalId);
+      .eq("id", data.proposalId);
 
     // 5. Apply project template if available
     let deliveryId: string | undefined;
@@ -92,16 +96,16 @@ export async function convertProposalToProject(
 
     // 6. Update organization onboarding status if needed
     const { data: org } = await supabase
-      .from('bb_organizations')
-      .select('onboarding_status')
-      .eq('id', data.organizationId)
+      .from("bb_organizations")
+      .select("onboarding_status")
+      .eq("id", data.organizationId)
       .single();
 
-    if (org?.onboarding_status === 'not_started') {
+    if (org?.onboarding_status === "not_started") {
       await supabase
-        .from('bb_organizations')
-        .update({ onboarding_status: 'in_progress' })
-        .eq('id', data.organizationId);
+        .from("bb_organizations")
+        .update({ onboarding_status: "in_progress" })
+        .eq("id", data.organizationId);
     }
 
     return {
@@ -109,14 +113,14 @@ export async function convertProposalToProject(
       organizationId: data.organizationId,
       projectId: project.id,
       deliveryId,
-      message: 'Project created successfully from proposal',
+      message: "Project created successfully from proposal",
     };
   } catch (error) {
-    console.error('Proposal conversion error:', error);
+    console.error("Proposal conversion error:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
-      message: 'Failed to convert proposal to project',
+      error: error instanceof Error ? error.message : "Unknown error",
+      message: "Failed to convert proposal to project",
     };
   }
 }
@@ -126,55 +130,61 @@ export async function convertProposalToProject(
  */
 async function applyProjectTemplate(
   projectId: string,
-  template: any
+  template: any,
 ): Promise<string | undefined> {
   try {
     // Create project delivery record
     const { data: delivery, error: deliveryError } = await supabase
-      .from('bb_project_delivery')
+      .from("bb_project_delivery")
       .insert({
         project_id: projectId,
         delivery_phase: template.defaultPhase,
-        health_status: 'green',
-        risk_level: 'none',
+        health_status: "green",
+        risk_level: "none",
         completion_percentage: 0,
       })
       .select()
       .single();
 
     if (deliveryError || !delivery) {
-      console.error('Failed to create delivery:', deliveryError);
+      console.error("Failed to create delivery:", deliveryError);
       return undefined;
     }
 
     // Create suggested milestones
-    if (template.suggestedMilestones && template.suggestedMilestones.length > 0) {
+    if (
+      template.suggestedMilestones &&
+      template.suggestedMilestones.length > 0
+    ) {
       const milestones = template.suggestedMilestones.map((m: any) => ({
         project_id: projectId,
         title: m.title,
         description: m.description,
-        status: m.order_index === 1 ? 'in_progress' : 'not_started',
+        status: m.order_index === 1 ? "in_progress" : "not_started",
         order_index: m.order_index,
       }));
 
-      await supabase.from('bb_milestones').insert(milestones);
+      await supabase.from("bb_milestones").insert(milestones);
     }
 
     // Create default deliverables
-    if (template.defaultDeliverables && template.defaultDeliverables.length > 0) {
+    if (
+      template.defaultDeliverables &&
+      template.defaultDeliverables.length > 0
+    ) {
       const deliverables = template.defaultDeliverables.map((d: any) => ({
         project_id: projectId,
         title: d.title,
         description: d.description,
-        status: 'pending',
+        status: "pending",
       }));
 
-      await supabase.from('bb_deliverables').insert(deliverables);
+      await supabase.from("bb_deliverables").insert(deliverables);
     }
 
     return delivery.id;
   } catch (error) {
-    console.error('Failed to apply template:', error);
+    console.error("Failed to apply template:", error);
     return undefined;
   }
 }
@@ -182,17 +192,19 @@ async function applyProjectTemplate(
 /**
  * Convert a lead to a client organization
  */
-export async function convertLeadToClient(leadId: string): Promise<ConversionResult> {
+export async function convertLeadToClient(
+  leadId: string,
+): Promise<ConversionResult> {
   try {
     // 1. Get lead data
     const { data: lead, error: leadError } = await supabase
-      .from('bb_leads')
-      .select('*')
-      .eq('id', leadId)
+      .from("bb_leads")
+      .select("*")
+      .eq("id", leadId)
       .single();
 
     if (leadError || !lead) {
-      throw new Error('Lead not found');
+      throw new Error("Lead not found");
     }
 
     // 2. Check if lead already converted
@@ -200,7 +212,7 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
       return {
         success: true,
         organizationId: lead.organization_id,
-        message: 'Lead already converted to client',
+        message: "Lead already converted to client",
       };
     }
 
@@ -209,9 +221,9 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
 
     if (!organizationId && lead.company) {
       const { data: existingOrg } = await supabase
-        .from('bb_organizations')
-        .select('id')
-        .ilike('name', lead.company)
+        .from("bb_organizations")
+        .select("id")
+        .ilike("name", lead.company)
         .maybeSingle();
 
       organizationId = existingOrg?.id;
@@ -220,10 +232,10 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
     // 4. Create organization if needed
     if (!organizationId) {
       const { data: newOrg, error: orgError } = await supabase
-        .from('bb_organizations')
+        .from("bb_organizations")
         .insert({
           name: lead.company || lead.name,
-          onboarding_status: 'not_started',
+          onboarding_status: "not_started",
         })
         .select()
         .single();
@@ -237,25 +249,25 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
 
     // 5. Mark lead as converted
     await supabase
-      .from('bb_leads')
+      .from("bb_leads")
       .update({
         converted_to_client: true,
         converted_at: new Date().toISOString(),
         organization_id: organizationId,
       })
-      .eq('id', leadId);
+      .eq("id", leadId);
 
     return {
       success: true,
       organizationId,
-      message: 'Lead successfully converted to client',
+      message: "Lead successfully converted to client",
     };
   } catch (error) {
-    console.error('Lead conversion error:', error);
+    console.error("Lead conversion error:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
-      message: 'Failed to convert lead to client',
+      error: error instanceof Error ? error.message : "Unknown error",
+      message: "Failed to convert lead to client",
     };
   }
 }
@@ -263,19 +275,21 @@ export async function convertLeadToClient(leadId: string): Promise<ConversionRes
 /**
  * Mark onboarding as complete for an organization
  */
-export async function completeOnboarding(organizationId: string): Promise<boolean> {
+export async function completeOnboarding(
+  organizationId: string,
+): Promise<boolean> {
   try {
     const { error } = await supabase
-      .from('bb_organizations')
+      .from("bb_organizations")
       .update({
-        onboarding_status: 'completed',
+        onboarding_status: "completed",
         onboarding_completed_at: new Date().toISOString(),
       })
-      .eq('id', organizationId);
+      .eq("id", organizationId);
 
     return !error;
   } catch (error) {
-    console.error('Failed to complete onboarding:', error);
+    console.error("Failed to complete onboarding:", error);
     return false;
   }
 }
@@ -283,33 +297,36 @@ export async function completeOnboarding(organizationId: string): Promise<boolea
 /**
  * Determine project type from service types
  */
-function determineProjectType(serviceTypes: string[], explicitType?: string): ProjectTemplateType {
+function determineProjectType(
+  serviceTypes: string[],
+  explicitType?: string,
+): ProjectTemplateType {
   if (explicitType) {
-    const normalized = explicitType.toLowerCase().replace(/[_\s]/g, '_');
-    if (normalized.includes('mobile')) return 'mobile_app';
-    if (normalized.includes('dashboard') || normalized.includes('analytics'))
-      return 'dashboard';
-    if (normalized.includes('ai') || normalized.includes('automation'))
-      return 'ai_automation';
-    if (normalized.includes('integration')) return 'integration';
-    if (normalized.includes('retainer') || normalized.includes('support'))
-      return 'retainer';
+    const normalized = explicitType.toLowerCase().replace(/[_\s]/g, "_");
+    if (normalized.includes("mobile")) return "mobile_app";
+    if (normalized.includes("dashboard") || normalized.includes("analytics"))
+      return "dashboard";
+    if (normalized.includes("ai") || normalized.includes("automation"))
+      return "ai_automation";
+    if (normalized.includes("integration")) return "integration";
+    if (normalized.includes("retainer") || normalized.includes("support"))
+      return "retainer";
   }
 
   // Check service types
   for (const service of serviceTypes) {
     const normalized = service.toLowerCase();
-    if (normalized.includes('mobile')) return 'mobile_app';
-    if (normalized.includes('dashboard') || normalized.includes('analytics'))
-      return 'dashboard';
-    if (normalized.includes('ai') || normalized.includes('automation'))
-      return 'ai_automation';
-    if (normalized.includes('integration')) return 'integration';
-    if (normalized.includes('retainer') || normalized.includes('support'))
-      return 'retainer';
+    if (normalized.includes("mobile")) return "mobile_app";
+    if (normalized.includes("dashboard") || normalized.includes("analytics"))
+      return "dashboard";
+    if (normalized.includes("ai") || normalized.includes("automation"))
+      return "ai_automation";
+    if (normalized.includes("integration")) return "integration";
+    if (normalized.includes("retainer") || normalized.includes("support"))
+      return "retainer";
   }
 
-  return 'custom_software';
+  return "custom_software";
 }
 
 /**
@@ -317,13 +334,13 @@ function determineProjectType(serviceTypes: string[], explicitType?: string): Pr
  */
 function mapTemplateTypeToProjectType(templateType: string): string {
   const mapping: Record<string, string> = {
-    custom_software: 'web_app',
-    dashboard: 'dashboard',
-    mobile_app: 'mobile_app',
-    ai_automation: 'integration',
-    integration: 'integration',
-    retainer: 'web_app',
+    custom_software: "web_app",
+    dashboard: "dashboard",
+    mobile_app: "mobile_app",
+    ai_automation: "integration",
+    integration: "integration",
+    retainer: "web_app",
   };
 
-  return mapping[templateType] || 'web_app';
+  return mapping[templateType] || "web_app";
 }

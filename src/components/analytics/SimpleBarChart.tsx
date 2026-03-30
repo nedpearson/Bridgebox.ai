@@ -4,18 +4,22 @@ interface SimpleBarChartProps {
   height?: number;
 }
 
-export default function SimpleBarChart({ data, maxValue, height = 200 }: SimpleBarChartProps) {
-  const max = maxValue || Math.max(...data.map(d => d.value), 1);
+export default function SimpleBarChart({
+  data,
+  maxValue,
+  height = 200,
+}: SimpleBarChartProps) {
+  const max = maxValue || Math.max(...data.map((d) => d.value), 1);
 
   const defaultColors = [
-    '#3B82F6',
-    '#10B981',
-    '#F59E0B',
-    '#EF4444',
-    '#8B5CF6',
-    '#EC4899',
-    '#6366F1',
-    '#14B8A6',
+    "#3B82F6",
+    "#10B981",
+    "#F59E0B",
+    "#EF4444",
+    "#8B5CF6",
+    "#EC4899",
+    "#6366F1",
+    "#14B8A6",
   ];
 
   return (

@@ -1,4 +1,4 @@
-import { supabase } from '../supabase';
+import { supabase } from "../supabase";
 
 /**
  * BRIDGEBOX PRICING ENGINE
@@ -12,24 +12,24 @@ export interface PricingInputs {
 
   // AI Usage
   estimatedQueriesPerDay: number;
-  documentProcessingVolume: number;   // documents/month
-  workflowExecutionFrequency: 'low' | 'medium' | 'high' | 'enterprise';
+  documentProcessingVolume: number; // documents/month
+  workflowExecutionFrequency: "low" | "medium" | "high" | "enterprise";
   aiCopilotUsage: boolean;
   aiSearchUsage: boolean;
   aiGenerationUsage: boolean;
 
   // Integrations
   integrationCount: number;
-  integrationComplexity: 'simple' | 'moderate' | 'deep';
-  integrationSyncFrequency: 'realtime' | 'hourly' | 'daily' | 'weekly';
+  integrationComplexity: "simple" | "moderate" | "deep";
+  integrationSyncFrequency: "realtime" | "hourly" | "daily" | "weekly";
 
   // Workflows
   workflowCount: number;
-  automationDepth: 'basic' | 'moderate' | 'advanced' | 'fully_automated';
+  automationDepth: "basic" | "moderate" | "advanced" | "fully_automated";
 
   // Users
   userCount: number;
-  concurrencyLevel: 'low' | 'medium' | 'high';
+  concurrencyLevel: "low" | "medium" | "high";
 
   // Storage
   estimatedStorageGb: number;
@@ -38,7 +38,7 @@ export interface PricingInputs {
   customFeatureCount: number;
 
   // Support
-  supportAgentUsage: 'basic' | 'standard' | 'advanced' | 'enterprise';
+  supportAgentUsage: "basic" | "standard" | "advanced" | "enterprise";
 }
 
 export interface PricingBreakdown {
@@ -46,7 +46,7 @@ export interface PricingBreakdown {
 
   aiUsageCost: number;
   estimatedTokensPerMonth: number;
-  aiTier: 'low' | 'medium' | 'high' | 'enterprise';
+  aiTier: "low" | "medium" | "high" | "enterprise";
 
   workflowCost: number;
   integrationCost: number;
@@ -58,16 +58,16 @@ export interface PricingBreakdown {
   totalMonthly: number;
   totalYearly: number;
 
-  tier: 'low' | 'medium' | 'growth' | 'high' | 'enterprise';
+  tier: "low" | "medium" | "growth" | "high" | "enterprise";
   marginApplied: number;
   aiMarginFraction: number;
 
   // Source + accuracy metadata
-  source: 'ai_estimate' | 'calibrated' | 'admin_override';
-  confidenceScore: number;        // 0–100 (100 = calibrated from real data)
-  confidenceLabel: 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
-  calibratedAt?: string;          // ISO timestamp if calibrated
-  tokenDriftRatio?: number;       // actual / estimated (set after calibration)
+  source: "ai_estimate" | "calibrated" | "admin_override";
+  confidenceScore: number; // 0–100 (100 = calibrated from real data)
+  confidenceLabel: "very_low" | "low" | "moderate" | "high" | "very_high";
+  calibratedAt?: string; // ISO timestamp if calibrated
+  tokenDriftRatio?: number; // actual / estimated (set after calibration)
 
   // Cost optimization hints
   optimizationOpportunities: string[];
@@ -82,10 +82,10 @@ const RATE_CARD = {
     high: 8000,
     enterprise: 15000,
   },
-  costPer1kTokensUSD: 0.002,             // GPT-4o blended cost
-  aiMarginMultiplier: 1.4,               // 40% margin
+  costPer1kTokensUSD: 0.002, // GPT-4o blended cost
+  aiMarginMultiplier: 1.4, // 40% margin
 
-  workflowBaseCostPerMonth: 150,         // per workflow/month
+  workflowBaseCostPerMonth: 150, // per workflow/month
   workflowFrequencyMultiplier: {
     low: 0.6,
     medium: 1.0,
@@ -93,7 +93,7 @@ const RATE_CARD = {
     enterprise: 3.0,
   },
 
-  integrationBaseCostPerMonth: 200,      // per integration/month
+  integrationBaseCostPerMonth: 200, // per integration/month
   integrationComplexityMultiplier: {
     simple: 1.0,
     moderate: 1.75,
@@ -106,10 +106,10 @@ const RATE_CARD = {
     realtime: 4.0,
   },
 
-  storageCostPerGbPerMonth: 0.50,        // $0.50/GB
-  documentProcessingCostPer100: 25,      // $25 per 100 docs processed
+  storageCostPerGbPerMonth: 0.5, // $0.50/GB
+  documentProcessingCostPer100: 25, // $25 per 100 docs processed
 
-  featureCostPerCustomFeature: 500,      // per custom module/month
+  featureCostPerCustomFeature: 500, // per custom module/month
 
   supportCostByTier: {
     basic: 0,
@@ -127,12 +127,13 @@ function estimateMonthlyTokens(inputs: PricingInputs): number {
   let tokens = 0;
 
   // AI queries: avg 2K tokens/query, adjusted for automation depth
-  const automationLoadFactor = {
-    basic: 0.7,
-    moderate: 1.0,
-    advanced: 1.5,
-    fully_automated: 2.4,
-  }[inputs.automationDepth] ?? 1.0;
+  const automationLoadFactor =
+    {
+      basic: 0.7,
+      moderate: 1.0,
+      advanced: 1.5,
+      fully_automated: 2.4,
+    }[inputs.automationDepth] ?? 1.0;
 
   tokens += inputs.estimatedQueriesPerDay * 30 * 2000 * automationLoadFactor;
 
@@ -141,14 +142,18 @@ function estimateMonthlyTokens(inputs: PricingInputs): number {
   tokens += docsMonthly * 5000 + Math.min(docsMonthly * 0.3, 500) * 2000;
 
   // Workflow automation: tokens scale by execution frequency × step depth
-  const workflowTokensPerExec = {
-    basic: 300,
-    moderate: 600,
-    advanced: 1200,
-    fully_automated: 2500,
-  }[inputs.automationDepth] ?? 600;
-  const workflowFreqMultiplier = { low: 1, medium: 3, high: 8, enterprise: 20 }[inputs.workflowExecutionFrequency];
-  tokens += inputs.workflowCount * workflowFreqMultiplier * workflowTokensPerExec * 30;
+  const workflowTokensPerExec =
+    {
+      basic: 300,
+      moderate: 600,
+      advanced: 1200,
+      fully_automated: 2500,
+    }[inputs.automationDepth] ?? 600;
+  const workflowFreqMultiplier = { low: 1, medium: 3, high: 8, enterprise: 20 }[
+    inputs.workflowExecutionFrequency
+  ];
+  tokens +=
+    inputs.workflowCount * workflowFreqMultiplier * workflowTokensPerExec * 30;
 
   // AI Copilot: base 200K + 20K per active user above 5
   if (inputs.aiCopilotUsage) {
@@ -166,22 +171,26 @@ function estimateMonthlyTokens(inputs: PricingInputs): number {
   }
 
   // Integration sync events drive token usage for data mapping / transform
-  const integrationTokensPerSync = {
-    weekly: 500,
-    daily: 500,
-    hourly: 200,
-    realtime: 80, // lightweight per-event, but high volume
-  }[inputs.integrationSyncFrequency] ?? 300;
-  const syncEventsPerMonth = {
-    weekly: 4,
-    daily: 30,
-    hourly: 720,
-    realtime: 44_640, // every minute
-  }[inputs.integrationSyncFrequency] ?? 30;
-  tokens += inputs.integrationCount * syncEventsPerMonth * integrationTokensPerSync;
+  const integrationTokensPerSync =
+    {
+      weekly: 500,
+      daily: 500,
+      hourly: 200,
+      realtime: 80, // lightweight per-event, but high volume
+    }[inputs.integrationSyncFrequency] ?? 300;
+  const syncEventsPerMonth =
+    {
+      weekly: 4,
+      daily: 30,
+      hourly: 720,
+      realtime: 44_640, // every minute
+    }[inputs.integrationSyncFrequency] ?? 30;
+  tokens +=
+    inputs.integrationCount * syncEventsPerMonth * integrationTokensPerSync;
 
   // Concurrency multiplier: high concurrency means more parallel calls
-  const concurrencyMultiplier = { low: 0.85, medium: 1.0, high: 1.35 }[inputs.concurrencyLevel] ?? 1.0;
+  const concurrencyMultiplier =
+    { low: 0.85, medium: 1.0, high: 1.35 }[inputs.concurrencyLevel] ?? 1.0;
   tokens = Math.round(tokens * concurrencyMultiplier);
 
   return tokens;
@@ -190,12 +199,14 @@ function estimateMonthlyTokens(inputs: PricingInputs): number {
 /**
  * Determine the platform tier based on computed total usage.
  */
-function determineTier(totalMonthly: number): 'low' | 'medium' | 'growth' | 'high' | 'enterprise' {
-  if (totalMonthly < 2000) return 'low';
-  if (totalMonthly < 5000) return 'medium';
-  if (totalMonthly < 10000) return 'growth';
-  if (totalMonthly < 20000) return 'high';
-  return 'enterprise';
+function determineTier(
+  totalMonthly: number,
+): "low" | "medium" | "growth" | "high" | "enterprise" {
+  if (totalMonthly < 2000) return "low";
+  if (totalMonthly < 5000) return "medium";
+  if (totalMonthly < 10000) return "growth";
+  if (totalMonthly < 20000) return "high";
+  return "enterprise";
 }
 
 /**
@@ -207,14 +218,15 @@ export function calculatePricing(inputs: PricingInputs): PricingBreakdown {
 
   // ---- AI TOKEN COST ----
   const estimatedTokensPerMonth = estimateMonthlyTokens(inputs);
-  const rawAiCost = (estimatedTokensPerMonth / 1000) * RATE_CARD.costPer1kTokensUSD;
+  const rawAiCost =
+    (estimatedTokensPerMonth / 1000) * RATE_CARD.costPer1kTokensUSD;
   const aiUsageCost = rawAiCost * RATE_CARD.aiMarginMultiplier;
 
   // Determine AI tier
-  let aiTier: 'low' | 'medium' | 'high' | 'enterprise' = 'low';
-  if (estimatedTokensPerMonth > 5_000_000) aiTier = 'enterprise';
-  else if (estimatedTokensPerMonth > 2_000_000) aiTier = 'high';
-  else if (estimatedTokensPerMonth > 500_000) aiTier = 'medium';
+  let aiTier: "low" | "medium" | "high" | "enterprise" = "low";
+  if (estimatedTokensPerMonth > 5_000_000) aiTier = "enterprise";
+  else if (estimatedTokensPerMonth > 2_000_000) aiTier = "high";
+  else if (estimatedTokensPerMonth > 500_000) aiTier = "medium";
 
   // ---- WORKFLOW COST ----
   const workflowCost =
@@ -232,16 +244,24 @@ export function calculatePricing(inputs: PricingInputs): PricingBreakdown {
   // ---- STORAGE COST ----
   const storageCost =
     inputs.estimatedStorageGb * RATE_CARD.storageCostPerGbPerMonth +
-    (inputs.documentProcessingVolume / 100) * RATE_CARD.documentProcessingCostPer100;
+    (inputs.documentProcessingVolume / 100) *
+      RATE_CARD.documentProcessingCostPer100;
 
   // ---- FEATURE COST ----
-  const featureCost = inputs.customFeatureCount * RATE_CARD.featureCostPerCustomFeature;
+  const featureCost =
+    inputs.customFeatureCount * RATE_CARD.featureCostPerCustomFeature;
 
   // ---- SUPPORT COST ----
   const supportCost = RATE_CARD.supportCostByTier[inputs.supportAgentUsage];
 
   // ---- SUBTOTAL ----
-  const subtotal = aiUsageCost + workflowCost + integrationCost + storageCost + featureCost + supportCost;
+  const subtotal =
+    aiUsageCost +
+    workflowCost +
+    integrationCost +
+    storageCost +
+    featureCost +
+    supportCost;
 
   // ---- DETERMINE TIER & BASE FEE ----
   const tier = determineTier(subtotal);
@@ -251,24 +271,30 @@ export function calculatePricing(inputs: PricingInputs): PricingBreakdown {
   const totalYearly = totalMonthly * 10; // 2 months free for annual
 
   // ---- GENERATE OPTIMIZATION OPPORTUNITIES ----
-  if (inputs.integrationSyncFrequency === 'realtime' && inputs.integrationCount > 3) {
+  if (
+    inputs.integrationSyncFrequency === "realtime" &&
+    inputs.integrationCount > 3
+  ) {
     optimizationOpportunities.push(
-      `Switching ${inputs.integrationCount} real-time integrations to hourly sync could reduce integration costs by ~50%.`
+      `Switching ${inputs.integrationCount} real-time integrations to hourly sync could reduce integration costs by ~50%.`,
     );
   }
   if (estimatedTokensPerMonth > 2_000_000) {
     optimizationOpportunities.push(
-      'High token usage detected. Enabling AI response caching could reduce token consumption by 15–30%.'
+      "High token usage detected. Enabling AI response caching could reduce token consumption by 15–30%.",
     );
   }
-  if (inputs.workflowCount > 10 && inputs.workflowExecutionFrequency === 'high') {
+  if (
+    inputs.workflowCount > 10 &&
+    inputs.workflowExecutionFrequency === "high"
+  ) {
     optimizationOpportunities.push(
-      'Batching high-frequency workflow executions into scheduled batches could reduce workflow costs by ~25%.'
+      "Batching high-frequency workflow executions into scheduled batches could reduce workflow costs by ~25%.",
     );
   }
   if (inputs.documentProcessingVolume > 1000) {
     optimizationOpportunities.push(
-      'Large document volumes detected. Enabling chunked batch processing can reduce per-document AI cost by up to 40%.'
+      "Large document volumes detected. Enabling chunked batch processing can reduce per-document AI cost by up to 40%.",
     );
   }
 
@@ -289,9 +315,9 @@ export function calculatePricing(inputs: PricingInputs): PricingBreakdown {
     marginApplied: Math.round((RATE_CARD.aiMarginMultiplier - 1) * 100),
     aiMarginFraction: RATE_CARD.aiMarginMultiplier,
     // Default: AI estimate, confidence low until calibrated
-    source: 'ai_estimate' as const,
+    source: "ai_estimate" as const,
     confidenceScore: 20,
-    confidenceLabel: 'low' as const,
+    confidenceLabel: "low" as const,
     optimizationOpportunities,
   };
 }
@@ -301,15 +327,15 @@ export function calculatePricing(inputs: PricingInputs): PricingBreakdown {
  */
 export async function savePricingModel(
   inputs: PricingInputs,
-  breakdown: PricingBreakdown
+  breakdown: PricingBreakdown,
 ): Promise<string> {
   const { data, error } = await supabase
-    .from('bb_pricing_models')
+    .from("bb_pricing_models")
     .insert({
       organization_id: inputs.organizationId,
       session_id: inputs.sessionId || null,
       tier: breakdown.tier,
-      status: 'pending_review',
+      status: "pending_review",
       base_platform_fee: breakdown.basePlatformFee,
       estimated_tokens_per_month: breakdown.estimatedTokensPerMonth,
       cost_per_1k_tokens: RATE_CARD.costPer1kTokensUSD,
@@ -317,7 +343,10 @@ export async function savePricingModel(
       estimated_ai_monthly_cost: breakdown.aiUsageCost,
       workflow_count: inputs.workflowCount,
       workflow_execution_frequency: inputs.workflowExecutionFrequency,
-      workflow_complexity_weight: RATE_CARD.workflowFrequencyMultiplier[inputs.workflowExecutionFrequency],
+      workflow_complexity_weight:
+        RATE_CARD.workflowFrequencyMultiplier[
+          inputs.workflowExecutionFrequency
+        ],
       estimated_workflow_monthly_cost: breakdown.workflowCost,
       integration_count: inputs.integrationCount,
       integration_sync_frequency: inputs.integrationSyncFrequency,
@@ -333,7 +362,7 @@ export async function savePricingModel(
       estimated_total_monthly_cost: breakdown.totalMonthly,
       ai_inputs_snapshot: inputs,
     })
-    .select('id')
+    .select("id")
     .single();
 
   if (error) throw error;
@@ -345,11 +374,11 @@ export async function savePricingModel(
  */
 export async function getActivePricingModel(organizationId: string) {
   const { data, error } = await supabase
-    .from('bb_pricing_models')
-    .select('*')
-    .eq('organization_id', organizationId)
-    .in('status', ['approved', 'active'])
-    .order('created_at', { ascending: false })
+    .from("bb_pricing_models")
+    .select("*")
+    .eq("organization_id", organizationId)
+    .in("status", ["approved", "active"])
+    .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
 
@@ -361,9 +390,9 @@ export async function getActivePricingModel(organizationId: string) {
  * Format a dollar amount for display.
  */
 export function fmtCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);

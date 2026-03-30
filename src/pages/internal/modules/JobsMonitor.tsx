@@ -1,6 +1,13 @@
-import { useState, useEffect } from 'react';
-import { commandCenterApi, InternalJob } from '../../../lib/commandCenter';
-import { Activity, CheckCircle2, XCircle, Clock, RefreshCw, XSquare } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { commandCenterApi, InternalJob } from "../../../lib/commandCenter";
+import {
+  Activity,
+  CheckCircle2,
+  XCircle,
+  Clock,
+  RefreshCw,
+  XSquare,
+} from "lucide-react";
 
 export default function JobsMonitor() {
   const [jobs, setJobs] = useState<InternalJob[]>([]);
@@ -25,13 +32,44 @@ export default function JobsMonitor() {
 
   const getStatusDisplay = (status: string) => {
     switch (status) {
-      case 'completed': return <span className="flex items-center gap-1 text-emerald-400"><CheckCircle2 className="w-4 h-4" /> Completed</span>;
-      case 'failed': return <span className="flex items-center gap-1 text-red-400"><XCircle className="w-4 h-4" /> Failed</span>;
-      case 'running': return <span className="flex items-center gap-1 text-blue-400"><RefreshCw className="w-4 h-4 animate-spin" /> Running</span>;
-      case 'queued': return <span className="flex items-center gap-1 text-slate-400"><Clock className="w-4 h-4" /> Queued</span>;
-      case 'retrying': return <span className="flex items-center gap-1 text-amber-400"><RefreshCw className="w-4 h-4" /> Retrying</span>;
-      case 'cancelled': return <span className="flex items-center gap-1 text-slate-500"><XSquare className="w-4 h-4" /> Cancelled</span>;
-      default: return <span className="text-slate-400">{status}</span>;
+      case "completed":
+        return (
+          <span className="flex items-center gap-1 text-emerald-400">
+            <CheckCircle2 className="w-4 h-4" /> Completed
+          </span>
+        );
+      case "failed":
+        return (
+          <span className="flex items-center gap-1 text-red-400">
+            <XCircle className="w-4 h-4" /> Failed
+          </span>
+        );
+      case "running":
+        return (
+          <span className="flex items-center gap-1 text-blue-400">
+            <RefreshCw className="w-4 h-4 animate-spin" /> Running
+          </span>
+        );
+      case "queued":
+        return (
+          <span className="flex items-center gap-1 text-slate-400">
+            <Clock className="w-4 h-4" /> Queued
+          </span>
+        );
+      case "retrying":
+        return (
+          <span className="flex items-center gap-1 text-amber-400">
+            <RefreshCw className="w-4 h-4" /> Retrying
+          </span>
+        );
+      case "cancelled":
+        return (
+          <span className="flex items-center gap-1 text-slate-500">
+            <XSquare className="w-4 h-4" /> Cancelled
+          </span>
+        );
+      default:
+        return <span className="text-slate-400">{status}</span>;
     }
   };
 
@@ -43,9 +81,14 @@ export default function JobsMonitor() {
             <Activity className="w-6 h-6 text-purple-400" />
             Background Jobs
           </h2>
-          <p className="text-sm text-slate-400 mt-1">Monitor async processing, extractions, and background pipelines.</p>
+          <p className="text-sm text-slate-400 mt-1">
+            Monitor async processing, extractions, and background pipelines.
+          </p>
         </div>
-        <button onClick={loadJobs} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg transition-colors">
+        <button
+          onClick={loadJobs}
+          className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg transition-colors"
+        >
           Refresh
         </button>
       </div>
@@ -65,24 +108,46 @@ export default function JobsMonitor() {
             </thead>
             <tbody className="divide-y divide-slate-800/50">
               {jobs.map((job) => (
-                <tr key={job.id} className="hover:bg-slate-800/20 transition-colors">
-                  <td className="p-4 font-mono text-xs text-slate-500">{job.id.split('-')[0]}...</td>
-                  <td className="p-4 text-sm text-white font-medium">{job.job_type}</td>
-                  <td className="p-4 text-sm">{getStatusDisplay(job.status)}</td>
-                  <td className="p-4 text-sm text-slate-400 font-mono">
-                    {job.started_at ? new Date(job.started_at).toLocaleTimeString() : '-'}
+                <tr
+                  key={job.id}
+                  className="hover:bg-slate-800/20 transition-colors"
+                >
+                  <td className="p-4 font-mono text-xs text-slate-500">
+                    {job.id.split("-")[0]}...
+                  </td>
+                  <td className="p-4 text-sm text-white font-medium">
+                    {job.job_type}
+                  </td>
+                  <td className="p-4 text-sm">
+                    {getStatusDisplay(job.status)}
                   </td>
                   <td className="p-4 text-sm text-slate-400 font-mono">
-                    {job.completed_at ? new Date(job.completed_at).toLocaleTimeString() : '-'}
+                    {job.started_at
+                      ? new Date(job.started_at).toLocaleTimeString()
+                      : "-"}
                   </td>
                   <td className="p-4 text-sm text-slate-400 font-mono">
-                     {job.retry_count > 0 ? <span className="text-amber-400">{job.retry_count}</span> : '0'}
+                    {job.completed_at
+                      ? new Date(job.completed_at).toLocaleTimeString()
+                      : "-"}
+                  </td>
+                  <td className="p-4 text-sm text-slate-400 font-mono">
+                    {job.retry_count > 0 ? (
+                      <span className="text-amber-400">{job.retry_count}</span>
+                    ) : (
+                      "0"
+                    )}
                   </td>
                 </tr>
               ))}
               {jobs.length === 0 && !loading && (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-slate-500 font-mono">No background jobs found.</td>
+                  <td
+                    colSpan={6}
+                    className="p-8 text-center text-slate-500 font-mono"
+                  >
+                    No background jobs found.
+                  </td>
                 </tr>
               )}
             </tbody>

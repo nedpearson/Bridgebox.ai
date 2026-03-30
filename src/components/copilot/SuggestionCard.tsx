@@ -1,11 +1,18 @@
-import { motion } from 'framer-motion';
-import { Lightbulb, AlertTriangle, TrendingUp, Zap, CheckCircle2, X } from 'lucide-react';
-import Button from '../Button';
+import { motion } from "framer-motion";
+import {
+  Lightbulb,
+  AlertTriangle,
+  TrendingUp,
+  Zap,
+  CheckCircle2,
+  X,
+} from "lucide-react";
+import Button from "../Button";
 import {
   SUGGESTION_TYPE_LABELS,
   PRIORITY_COLORS,
   type CopilotSuggestion,
-} from '../../lib/db/copilot';
+} from "../../lib/db/copilot";
 
 interface SuggestionCardProps {
   suggestion: CopilotSuggestion;
@@ -21,7 +28,11 @@ const SUGGESTION_ICONS = {
   opportunity: TrendingUp,
 };
 
-export default function SuggestionCard({ suggestion, onAccept, onDismiss }: SuggestionCardProps) {
+export default function SuggestionCard({
+  suggestion,
+  onAccept,
+  onDismiss,
+}: SuggestionCardProps) {
   const Icon = SUGGESTION_ICONS[suggestion.suggestion_type];
   const colors = PRIORITY_COLORS[suggestion.priority];
 
@@ -47,15 +58,19 @@ export default function SuggestionCard({ suggestion, onAccept, onDismiss }: Sugg
                   {suggestion.priority}
                 </span>
               </div>
-              <p className="text-xs text-slate-400">{SUGGESTION_TYPE_LABELS[suggestion.suggestion_type]}</p>
+              <p className="text-xs text-slate-400">
+                {SUGGESTION_TYPE_LABELS[suggestion.suggestion_type]}
+              </p>
             </div>
           </div>
 
           {suggestion.description && (
-            <p className="text-sm text-slate-300 mb-3">{suggestion.description}</p>
+            <p className="text-sm text-slate-300 mb-3">
+              {suggestion.description}
+            </p>
           )}
 
-          {suggestion.status === 'pending' && (onAccept || onDismiss) && (
+          {suggestion.status === "pending" && (onAccept || onDismiss) && (
             <div className="flex items-center gap-2">
               {onAccept && (
                 <Button
@@ -79,14 +94,14 @@ export default function SuggestionCard({ suggestion, onAccept, onDismiss }: Sugg
             </div>
           )}
 
-          {suggestion.status === 'accepted' && (
+          {suggestion.status === "accepted" && (
             <span className="inline-flex items-center gap-1.5 text-xs text-green-400">
               <CheckCircle2 className="w-3.5 h-3.5" />
               Accepted
             </span>
           )}
 
-          {suggestion.status === 'dismissed' && (
+          {suggestion.status === "dismissed" && (
             <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
               <X className="w-3.5 h-3.5" />
               Dismissed

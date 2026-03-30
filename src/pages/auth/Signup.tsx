@@ -1,26 +1,33 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
-import BackgroundAtmosphere from '../../components/BackgroundAtmosphere';
-import { permissions } from '../../lib/permissions';
-import React from 'react';
+import { BridgeboxLogo } from "../../components/ui/BridgeboxLogo";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Mail, Lock, User, AlertCircle, CheckCircle } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import BackgroundAtmosphere from "../../components/BackgroundAtmosphere";
+import { permissions } from "../../lib/permissions";
+import React from "react";
 
 export default function Signup() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { user, profile, currentOrganization, signUp, loading: authLoading } = useAuth();
+  const {
+    user,
+    profile,
+    currentOrganization,
+    signUp,
+    loading: authLoading,
+  } = useAuth();
   const navigate = useNavigate();
 
   React.useEffect(() => {
     if (success && user && profile && !authLoading) {
       const timer = setTimeout(() => {
-        navigate('/ai-onboarding', { replace: true });
+        navigate("/ai-onboarding", { replace: true });
       }, 2000);
       return () => clearTimeout(timer);
     }
@@ -28,7 +35,7 @@ export default function Signup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -36,7 +43,7 @@ export default function Signup() {
       setSuccess(true);
       // navigation handled by useEffect when profile loads
     } catch (err: any) {
-      setError(err.message || 'Failed to create account');
+      setError(err.message || "Failed to create account");
     } finally {
       setLoading(false);
     }
@@ -53,7 +60,10 @@ export default function Signup() {
       >
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">
-            <h1 className="text-4xl font-bold text-white mb-2">Bridgebox</h1>
+            <div className="flex items-center justify-center gap-3">
+              <BridgeboxLogo className="w-10 h-10 text-indigo-500" />
+              <h1 className="text-4xl font-bold text-white mb-2">Bridgebox</h1>
+            </div>
           </Link>
           <p className="text-slate-400">Create your account</p>
         </div>
@@ -77,7 +87,9 @@ export default function Signup() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-slate-400 text-sm mb-2">Full Name</label>
+              <label className="block text-slate-400 text-sm mb-2">
+                Full Name
+              </label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
@@ -107,7 +119,9 @@ export default function Signup() {
             </div>
 
             <div>
-              <label className="block text-slate-400 text-sm mb-2">Password</label>
+              <label className="block text-slate-400 text-sm mb-2">
+                Password
+              </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
@@ -127,14 +141,17 @@ export default function Signup() {
               disabled={loading || success}
               className="w-full bg-indigo-500 hover:bg-indigo-600 disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors"
             >
-              {loading ? 'Creating account...' : 'Create Account'}
+              {loading ? "Creating account..." : "Create Account"}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-slate-400 text-sm">
-              Already have an account?{' '}
-              <Link to="/login" className="text-indigo-500 hover:text-indigo-600 font-medium">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-indigo-500 hover:text-indigo-600 font-medium"
+              >
                 Sign in
               </Link>
             </p>

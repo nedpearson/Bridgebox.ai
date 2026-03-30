@@ -1,10 +1,21 @@
-import { supabase } from '../supabase';
+import { supabase } from "../supabase";
 
-export type ContextType = 'general' | 'crm' | 'project' | 'support' | 'automation' | 'analytics';
-export type MessageRole = 'user' | 'assistant' | 'system';
-export type SuggestionType = 'workflow' | 'automation' | 'next_step' | 'risk_alert' | 'opportunity';
-export type Priority = 'low' | 'medium' | 'high' | 'urgent';
-export type SuggestionStatus = 'pending' | 'accepted' | 'dismissed';
+export type ContextType =
+  | "general"
+  | "crm"
+  | "project"
+  | "support"
+  | "automation"
+  | "analytics";
+export type MessageRole = "user" | "assistant" | "system";
+export type SuggestionType =
+  | "workflow"
+  | "automation"
+  | "next_step"
+  | "risk_alert"
+  | "opportunity";
+export type Priority = "low" | "medium" | "high" | "urgent";
+export type SuggestionStatus = "pending" | "accepted" | "dismissed";
 
 export interface CopilotConversation {
   id: string;
@@ -41,39 +52,61 @@ export interface CopilotSuggestion {
 }
 
 export const CONTEXT_TYPE_LABELS: Record<ContextType, string> = {
-  general: 'General',
-  crm: 'CRM & Leads',
-  project: 'Projects',
-  support: 'Support',
-  automation: 'Automation',
-  analytics: 'Analytics',
+  general: "General",
+  crm: "CRM & Leads",
+  project: "Projects",
+  support: "Support",
+  automation: "Automation",
+  analytics: "Analytics",
 };
 
 export const SUGGESTION_TYPE_LABELS: Record<SuggestionType, string> = {
-  workflow: 'Workflow Optimization',
-  automation: 'Automation Opportunity',
-  next_step: 'Suggested Next Step',
-  risk_alert: 'Risk Alert',
-  opportunity: 'Growth Opportunity',
+  workflow: "Workflow Optimization",
+  automation: "Automation Opportunity",
+  next_step: "Suggested Next Step",
+  risk_alert: "Risk Alert",
+  opportunity: "Growth Opportunity",
 };
 
-export const PRIORITY_COLORS: Record<Priority, { bg: string; text: string; border: string }> = {
-  low: { bg: 'bg-slate-500/10', text: 'text-slate-400', border: 'border-slate-500/20' },
-  medium: { bg: 'bg-blue-500/10', text: 'text-blue-400', border: 'border-blue-500/20' },
-  high: { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/20' },
-  urgent: { bg: 'bg-red-500/10', text: 'text-red-400', border: 'border-red-500/20' },
+export const PRIORITY_COLORS: Record<
+  Priority,
+  { bg: string; text: string; border: string }
+> = {
+  low: {
+    bg: "bg-slate-500/10",
+    text: "text-slate-400",
+    border: "border-slate-500/20",
+  },
+  medium: {
+    bg: "bg-blue-500/10",
+    text: "text-blue-400",
+    border: "border-blue-500/20",
+  },
+  high: {
+    bg: "bg-amber-500/10",
+    text: "text-amber-400",
+    border: "border-amber-500/20",
+  },
+  urgent: {
+    bg: "bg-red-500/10",
+    text: "text-red-400",
+    border: "border-red-500/20",
+  },
 };
 
 class CopilotService {
-  async getConversations(userId: string, includeArchived = false): Promise<CopilotConversation[]> {
+  async getConversations(
+    userId: string,
+    includeArchived = false,
+  ): Promise<CopilotConversation[]> {
     let query = supabase
-      .from('bb_copilot_conversations')
-      .select('*')
-      .eq('user_id', userId)
-      .order('updated_at', { ascending: false });
+      .from("bb_copilot_conversations")
+      .select("*")
+      .eq("user_id", userId)
+      .order("updated_at", { ascending: false });
 
     if (!includeArchived) {
-      query = query.eq('is_archived', false);
+      query = query.eq("is_archived", false);
     }
 
     const { data, error } = await query;
@@ -84,9 +117,9 @@ class CopilotService {
 
   async getConversationById(id: string): Promise<CopilotConversation | null> {
     const { data, error } = await supabase
-      .from('bb_copilot_conversations')
-      .select('*')
-      .eq('id', id)
+      .from("bb_copilot_conversations")
+      .select("*")
+      .eq("id", id)
       .maybeSingle();
 
     if (error) throw error;
@@ -96,10 +129,10 @@ class CopilotService {
   async createConversation(
     userId: string,
     organizationId: string | null,
-    contextType: ContextType = 'general'
+    contextType: ContextType = "general",
   ): Promise<CopilotConversation> {
     const { data, error } = await supabase
-      .from('bb_copilot_conversations')
+      .from("bb_copilot_conversations")
       .insert({
         user_id: userId,
         organization_id: organizationId,
@@ -114,12 +147,12 @@ class CopilotService {
 
   async updateConversation(
     id: string,
-    updates: Partial<CopilotConversation>
+    updates: Partial<CopilotConversation>,
   ): Promise<CopilotConversation> {
     const { data, error } = await supabase
-      .from('bb_copilot_conversations')
+      .from("bb_copilot_conversations")
       .update({ ...updates, updated_at: new Date().toISOString() })
-      .eq('id', id)
+      .eq("id", id)
       .select()
       .single();
 
@@ -129,28 +162,28 @@ class CopilotService {
 
   async archiveConversation(id: string): Promise<void> {
     const { error } = await supabase
-      .from('bb_copilot_conversations')
+      .from("bb_copilot_conversations")
       .update({ is_archived: true })
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) throw error;
   }
 
   async deleteConversation(id: string): Promise<void> {
     const { error } = await supabase
-      .from('bb_copilot_conversations')
+      .from("bb_copilot_conversations")
       .delete()
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) throw error;
   }
 
   async getMessages(conversationId: string): Promise<CopilotMessage[]> {
     const { data, error } = await supabase
-      .from('bb_copilot_messages')
-      .select('*')
-      .eq('conversation_id', conversationId)
-      .order('created_at', { ascending: true });
+      .from("bb_copilot_messages")
+      .select("*")
+      .eq("conversation_id", conversationId)
+      .order("created_at", { ascending: true });
 
     if (error) throw error;
     return data || [];
@@ -160,10 +193,10 @@ class CopilotService {
     conversationId: string,
     role: MessageRole,
     content: string,
-    metadata: Record<string, any> = {}
+    metadata: Record<string, any> = {},
   ): Promise<CopilotMessage> {
     const { data, error } = await supabase
-      .from('bb_copilot_messages')
+      .from("bb_copilot_messages")
       .insert({
         conversation_id: conversationId,
         role,
@@ -183,24 +216,24 @@ class CopilotService {
       status?: SuggestionStatus;
       type?: SuggestionType;
       priority?: Priority;
-    }
+    },
   ): Promise<CopilotSuggestion[]> {
     let query = supabase
-      .from('bb_copilot_suggestions')
-      .select('*')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false });
+      .from("bb_copilot_suggestions")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
 
     if (filters?.status) {
-      query = query.eq('status', filters.status);
+      query = query.eq("status", filters.status);
     }
 
     if (filters?.type) {
-      query = query.eq('suggestion_type', filters.type);
+      query = query.eq("suggestion_type", filters.type);
     }
 
     if (filters?.priority) {
-      query = query.eq('priority', filters.priority);
+      query = query.eq("priority", filters.priority);
     }
 
     const { data, error } = await query;
@@ -216,10 +249,10 @@ class CopilotService {
     title: string,
     description: string | null,
     context: Record<string, any> = {},
-    priority: Priority = 'medium'
+    priority: Priority = "medium",
   ): Promise<CopilotSuggestion> {
     const { data, error } = await supabase
-      .from('bb_copilot_suggestions')
+      .from("bb_copilot_suggestions")
       .insert({
         user_id: userId,
         organization_id: organizationId,
@@ -236,11 +269,14 @@ class CopilotService {
     return data;
   }
 
-  async updateSuggestionStatus(id: string, status: SuggestionStatus): Promise<void> {
+  async updateSuggestionStatus(
+    id: string,
+    status: SuggestionStatus,
+  ): Promise<void> {
     const { error } = await supabase
-      .from('bb_copilot_suggestions')
+      .from("bb_copilot_suggestions")
       .update({ status, updated_at: new Date().toISOString() })
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) throw error;
   }
@@ -249,35 +285,39 @@ class CopilotService {
     userMessage: string,
     conversationId: string,
     contextType: ContextType,
-    userId?: string
+    userId?: string,
   ): Promise<string> {
     const lowerMessage = userMessage.toLowerCase();
 
-    if (lowerMessage.includes('lead') || lowerMessage.includes('crm')) {
+    if (lowerMessage.includes("lead") || lowerMessage.includes("crm")) {
       return this.generateCRMResponse(lowerMessage);
     }
 
-    if (lowerMessage.includes('project') || lowerMessage.includes('delivery')) {
+    if (lowerMessage.includes("project") || lowerMessage.includes("delivery")) {
       return this.generateProjectResponse(lowerMessage);
     }
 
-    if (lowerMessage.includes('support') || lowerMessage.includes('ticket')) {
+    if (lowerMessage.includes("support") || lowerMessage.includes("ticket")) {
       return this.generateSupportResponse(lowerMessage);
     }
 
-    if (lowerMessage.includes('automat') || lowerMessage.includes('workflow')) {
+    if (lowerMessage.includes("automat") || lowerMessage.includes("workflow")) {
       return this.generateAutomationResponse(lowerMessage);
     }
 
-    if (lowerMessage.includes('invoice') || lowerMessage.includes('billing') || lowerMessage.includes('payment')) {
+    if (
+      lowerMessage.includes("invoice") ||
+      lowerMessage.includes("billing") ||
+      lowerMessage.includes("payment")
+    ) {
       return this.generateBillingResponse(lowerMessage);
     }
 
-    if (lowerMessage.includes('onboard')) {
+    if (lowerMessage.includes("onboard")) {
       return "I can help with onboarding! New clients should complete the onboarding flow to set up their organization, define goals, and connect systems. Would you like to see onboarding status or knowledge base articles?";
     }
 
-    if (lowerMessage.includes('help') || lowerMessage.includes('how')) {
+    if (lowerMessage.includes("help") || lowerMessage.includes("how")) {
       return "I'm here to help you navigate Bridgebox! You can ask me about:\n\n- Lead management and CRM\n- Project status and delivery\n- Support tickets and responses\n- Automation rules and workflows\n- Billing and invoices\n- Analytics and insights\n- Knowledge base articles\n\nWhat would you like to know more about?";
     }
 
@@ -310,21 +350,22 @@ class CopilotService {
     };
 
     const contextResponses = responses[contextType];
-    const randomResponse = contextResponses[Math.floor(Math.random() * contextResponses.length)];
+    const randomResponse =
+      contextResponses[Math.floor(Math.random() * contextResponses.length)];
 
     return randomResponse;
   }
 
   private generateCRMResponse(message: string): string {
-    if (message.includes('status') || message.includes('how many')) {
+    if (message.includes("status") || message.includes("how many")) {
       return "To check your lead status, navigate to the Leads page where you can see all leads organized by stage. I can help you filter by status, budget, or timeline. The Pipeline view shows your conversion funnel across stages.";
     }
 
-    if (message.includes('next step') || message.includes('follow up')) {
+    if (message.includes("next step") || message.includes("follow up")) {
       return "For effective lead follow-up:\n\n1. Review leads in 'contacted' stage that haven't been updated in 3+ days\n2. Send proposal to qualified leads in 'qualified' stage\n3. Schedule demos for interested prospects\n4. Set up automation rules for automatic lead assignment and follow-up reminders";
     }
 
-    if (message.includes('convert') || message.includes('close')) {
+    if (message.includes("convert") || message.includes("close")) {
       return "To improve lead conversion:\n\n- Focus on high-budget leads ($50K+) first\n- Ensure all qualified leads have proposals within 48 hours\n- Use the knowledge base to share case studies relevant to their industry\n- Set up automation to flag leads inactive for 5+ days";
     }
 
@@ -332,15 +373,19 @@ class CopilotService {
   }
 
   private generateProjectResponse(message: string): string {
-    if (message.includes('status') || message.includes('progress')) {
+    if (message.includes("status") || message.includes("progress")) {
       return "To view project status:\n\n1. Go to Projects page for overview of all active projects\n2. Use the Delivery view to see milestones and deliverables\n3. Check the Implementation Center for deployment tracking\n4. Review health indicators (green/yellow/red) for at-risk projects";
     }
 
-    if (message.includes('risk') || message.includes('delay') || message.includes('block')) {
+    if (
+      message.includes("risk") ||
+      message.includes("delay") ||
+      message.includes("block")
+    ) {
       return "To address project risks:\n\n- Review projects marked yellow or red in health status\n- Check for overdue deliverables in the Delivery view\n- Look at Implementation Center for deployment blockers\n- Client Success system tracks risks across all client touchpoints";
     }
 
-    if (message.includes('timeline') || message.includes('deadline')) {
+    if (message.includes("timeline") || message.includes("deadline")) {
       return "Project timelines are managed through:\n\n- Milestones in the Delivery system\n- Deployment phases in Implementation Center\n- Automatic risk flagging for overdue items\n- Client Success tracking for timeline impacts on health score";
     }
 
@@ -348,15 +393,15 @@ class CopilotService {
   }
 
   private generateSupportResponse(message: string): string {
-    if (message.includes('open') || message.includes('pending')) {
+    if (message.includes("open") || message.includes("pending")) {
       return "To manage open tickets:\n\n1. Go to Support Queue to see all active tickets\n2. Prioritize urgent and high-priority tickets first\n3. Use Knowledge Base to find solutions for common issues\n4. High-volume tickets automatically create risk alerts in Client Success";
     }
 
-    if (message.includes('response') || message.includes('reply')) {
+    if (message.includes("response") || message.includes("reply")) {
       return "For efficient ticket responses:\n\n- Check Knowledge Base for documented solutions\n- Review similar past tickets for effective responses\n- Urgent tickets automatically flag risks in Client Success system\n- Set up automation to notify team of high-priority tickets";
     }
 
-    if (message.includes('knowledge') || message.includes('documentation')) {
+    if (message.includes("knowledge") || message.includes("documentation")) {
       return "The Knowledge Base integrates with support:\n\n- Create articles from resolved tickets\n- Share relevant docs with clients during onboarding\n- Link articles in ticket responses\n- Track which articles are most helpful";
     }
 
@@ -364,11 +409,15 @@ class CopilotService {
   }
 
   private generateAutomationResponse(message: string): string {
-    if (message.includes('create') || message.includes('set up') || message.includes('add')) {
+    if (
+      message.includes("create") ||
+      message.includes("set up") ||
+      message.includes("add")
+    ) {
       return "To create automation rules:\n\n1. Go to Automations page\n2. Click 'New Rule'\n3. Select trigger (lead created, proposal approved, etc.)\n4. Define conditions (budget, type, priority)\n5. Choose action (assign member, create project, flag risk)\n\nPopular automations: auto-assign leads, create projects from approved proposals, flag risks for overdue invoices.";
     }
 
-    if (message.includes('recommend') || message.includes('suggest')) {
+    if (message.includes("recommend") || message.includes("suggest")) {
       return "Recommended automations based on common workflows:\n\n- Auto-assign new leads using round-robin distribution\n- Create projects automatically when proposals are approved\n- Flag client success risks for high-priority support tickets\n- Send notifications for overdue invoices\n- Create tasks when onboarding is completed";
     }
 
@@ -376,11 +425,11 @@ class CopilotService {
   }
 
   private generateBillingResponse(message: string): string {
-    if (message.includes('overdue') || message.includes('late')) {
+    if (message.includes("overdue") || message.includes("late")) {
       return "For overdue invoices:\n\n1. Check Billing page for payment status\n2. Automation can send automatic reminders\n3. Overdue invoices (30+ days) create risk alerts in Client Success\n4. Set up escalation rules for critical overdue amounts";
     }
 
-    if (message.includes('subscription') || message.includes('plan')) {
+    if (message.includes("subscription") || message.includes("plan")) {
       return "Subscription management:\n\n- View current plan and usage in Billing\n- Subscriptions sync with Stripe automatically\n- Plan changes affect feature access immediately\n- Client Success tracks billing health as part of overall score";
     }
 
@@ -388,13 +437,16 @@ class CopilotService {
   }
 
   async generateConversationTitle(messages: CopilotMessage[]): Promise<string> {
-    if (messages.length === 0) return 'New Conversation';
+    if (messages.length === 0) return "New Conversation";
 
-    const firstUserMessage = messages.find((m) => m.role === 'user');
-    if (!firstUserMessage) return 'New Conversation';
+    const firstUserMessage = messages.find((m) => m.role === "user");
+    if (!firstUserMessage) return "New Conversation";
 
-    const words = firstUserMessage.content.split(' ').slice(0, 6);
-    return words.join(' ') + (firstUserMessage.content.split(' ').length > 6 ? '...' : '');
+    const words = firstUserMessage.content.split(" ").slice(0, 6);
+    return (
+      words.join(" ") +
+      (firstUserMessage.content.split(" ").length > 6 ? "..." : "")
+    );
   }
 }
 

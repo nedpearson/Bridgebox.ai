@@ -1,32 +1,47 @@
-export type WorkflowCategory = 'lead' | 'project' | 'billing' | 'support' | 'custom';
+export type WorkflowCategory =
+  | "lead"
+  | "project"
+  | "billing"
+  | "support"
+  | "custom";
 
 export type WorkflowTriggerType =
-  | 'lead_created'
-  | 'proposal_approved'
-  | 'onboarding_completed'
-  | 'project_created'
-  | 'support_ticket_created'
-  | 'invoice_overdue'
-  | 'manual_trigger'
-  | 'scheduled_trigger';
+  | "lead_created"
+  | "proposal_approved"
+  | "onboarding_completed"
+  | "project_created"
+  | "support_ticket_created"
+  | "invoice_overdue"
+  | "manual_trigger"
+  | "scheduled_trigger";
 
-export type WorkflowStepType = 'action' | 'condition' | 'delay' | 'parallel';
+export type WorkflowStepType = "action" | "condition" | "delay" | "parallel";
 
 export type WorkflowActionType =
-  | 'create_project'
-  | 'assign_team_member'
-  | 'send_notification'
-  | 'update_status'
-  | 'create_task'
-  | 'flag_risk'
-  | 'send_email'
-  | 'create_proposal'
-  | 'update_field';
+  | "create_project"
+  | "assign_team_member"
+  | "send_notification"
+  | "update_status"
+  | "create_task"
+  | "flag_risk"
+  | "send_email"
+  | "create_proposal"
+  | "update_field";
 
-export type WorkflowExecutionStatus = 'running' | 'completed' | 'failed' | 'paused' | 'cancelled';
-export type WorkflowStepExecutionStatus = 'pending' | 'running' | 'completed' | 'failed' | 'skipped';
+export type WorkflowExecutionStatus =
+  | "running"
+  | "completed"
+  | "failed"
+  | "paused"
+  | "cancelled";
+export type WorkflowStepExecutionStatus =
+  | "pending"
+  | "running"
+  | "completed"
+  | "failed"
+  | "skipped";
 
-export type DelayUnit = 'minutes' | 'hours' | 'days';
+export type DelayUnit = "minutes" | "hours" | "days";
 
 export interface Workflow {
   id: string;

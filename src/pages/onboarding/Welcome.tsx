@@ -1,17 +1,17 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
-import Button from '../../components/Button';
-import Card from '../../components/Card';
-import { useOnboarding } from '../../contexts/OnboardingContext';
+import { motion } from "framer-motion";
+import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import Button from "../../components/Button";
+import Card from "../../components/Card";
+import { useOnboarding } from "../../contexts/OnboardingContext";
 
 export default function Welcome() {
   const { setCurrentStep } = useOnboarding();
 
   const benefits = [
-    'Personalized setup tailored to your business',
-    'Clear understanding of your goals and requirements',
-    'Strategic recommendations for optimal outcomes',
-    'Seamless transition to your dedicated team',
+    "Personalized setup tailored to your business",
+    "Clear understanding of your goals and requirements",
+    "Strategic recommendations for optimal outcomes",
+    "Seamless transition to your dedicated team",
   ];
 
   return (
@@ -20,7 +20,7 @@ export default function Welcome() {
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ type: 'spring', duration: 0.6 }}
+          transition={{ type: "spring", duration: 0.6 }}
           className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-2xl flex items-center justify-center mx-auto mb-8"
         >
           <Sparkles className="w-10 h-10 text-white" />
@@ -41,8 +41,9 @@ export default function Welcome() {
           transition={{ delay: 0.3 }}
           className="text-xl text-slate-300 mb-12 leading-relaxed"
         >
-          Let's get to know your business and set you up for success. This guided setup takes just 5
-          minutes and helps us deliver the perfect solution for your needs.
+          Let's get to know your business and set you up for success. This
+          guided setup takes just 5 minutes and helps us deliver the perfect
+          solution for your needs.
         </motion.p>
 
         <motion.div
@@ -51,7 +52,9 @@ export default function Welcome() {
           transition={{ delay: 0.4 }}
           className="bg-slate-800/50 border border-slate-700 rounded-xl p-8 mb-12"
         >
-          <h3 className="text-lg font-semibold text-white mb-6">What We'll Cover</h3>
+          <h3 className="text-lg font-semibold text-white mb-6">
+            What We'll Cover
+          </h3>
           <div className="space-y-4">
             {benefits.map((benefit, index) => (
               <motion.div

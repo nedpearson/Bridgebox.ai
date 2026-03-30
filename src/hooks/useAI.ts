@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
-import { aiService } from '../lib/ai/services/aiService';
-import type { AITaskResult } from '../lib/ai/types';
+import { useState, useCallback } from "react";
+import { aiService } from "../lib/ai/services/aiService";
+import type { AITaskResult } from "../lib/ai/types";
 
 export interface UseAIState<T> {
   data: T | null;
@@ -44,7 +44,7 @@ export function useAI<T>() {
           setState({
             data: null,
             loading: false,
-            error: result.error?.message || 'AI task failed',
+            error: result.error?.message || "AI task failed",
             isAIGenerated: false,
             fromCache: false,
           });
@@ -53,13 +53,13 @@ export function useAI<T>() {
         setState({
           data: null,
           loading: false,
-          error: error.message || 'Unknown error',
+          error: error.message || "Unknown error",
           isAIGenerated: false,
           fromCache: false,
         });
       }
     },
-    []
+    [],
   );
 
   const reset = useCallback(() => {
@@ -88,7 +88,7 @@ export function useLeadSummary() {
     (leadData: any, useCache = true) => {
       return ai.execute(() => aiService.summarizeLead(leadData, useCache));
     },
-    [ai]
+    [ai],
   );
 
   return { ...ai, summarize };
@@ -99,9 +99,11 @@ export function useProjectSummary() {
 
   const summarize = useCallback(
     (projectData: any, useCache = true) => {
-      return ai.execute(() => aiService.summarizeProject(projectData, useCache));
+      return ai.execute(() =>
+        aiService.summarizeProject(projectData, useCache),
+      );
     },
-    [ai]
+    [ai],
   );
 
   return { ...ai, summarize };
@@ -114,7 +116,7 @@ export function useTicketSummary() {
     (ticketData: any, useCache = true) => {
       return ai.execute(() => aiService.summarizeTicket(ticketData, useCache));
     },
-    [ai]
+    [ai],
   );
 
   return { ...ai, summarize };
@@ -125,9 +127,11 @@ export function useBusinessInsights() {
 
   const generate = useCallback(
     (metricsData: any, useCache = true) => {
-      return ai.execute(() => aiService.generateBusinessInsights(metricsData, useCache));
+      return ai.execute(() =>
+        aiService.generateBusinessInsights(metricsData, useCache),
+      );
     },
-    [ai]
+    [ai],
   );
 
   return { ...ai, generate };
@@ -140,7 +144,7 @@ export function useActionRecommendations() {
     (contextData: any) => {
       return ai.execute(() => aiService.recommendActions(contextData));
     },
-    [ai]
+    [ai],
   );
 
   return { ...ai, recommend };
@@ -153,7 +157,7 @@ export function useProposalDraft() {
     (proposalData: any) => {
       return ai.execute(() => aiService.draftProposal(proposalData));
     },
-    [ai]
+    [ai],
   );
 
   return { ...ai, draft };

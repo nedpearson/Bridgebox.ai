@@ -1,7 +1,10 @@
-import type { ConnectorProvider } from '../types';
-import { BaseConnector } from './BaseConnector';
+import type { ConnectorProvider } from "../types";
+import { BaseConnector } from "./BaseConnector";
 
-type ConnectorConstructor = new (connector: any, provider: ConnectorProvider) => BaseConnector;
+type ConnectorConstructor = new (
+  connector: any,
+  provider: ConnectorProvider,
+) => BaseConnector;
 
 export class ConnectorRegistry {
   private static providers: Map<string, ConnectorProvider> = new Map();
@@ -13,7 +16,7 @@ export class ConnectorRegistry {
 
   static registerImplementation(
     providerId: string,
-    implementation: ConnectorConstructor
+    implementation: ConnectorConstructor,
   ): void {
     this.implementations.set(providerId, implementation);
   }
@@ -28,7 +31,7 @@ export class ConnectorRegistry {
 
   static getProvidersByCategory(category: string): ConnectorProvider[] {
     return Array.from(this.providers.values()).filter(
-      (p) => p.category === category
+      (p) => p.category === category,
     );
   }
 
@@ -42,7 +45,7 @@ export class ConnectorRegistry {
 
   static createConnector(
     connector: any,
-    provider: ConnectorProvider
+    provider: ConnectorProvider,
   ): BaseConnector | null {
     const Implementation = this.implementations.get(provider.id);
     if (!Implementation) {
@@ -54,6 +57,6 @@ export class ConnectorRegistry {
 
   static isAvailable(providerId: string): boolean {
     const provider = this.providers.get(providerId);
-    return provider?.status === 'available';
+    return provider?.status === "available";
   }
 }

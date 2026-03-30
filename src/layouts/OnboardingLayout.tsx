@@ -1,20 +1,20 @@
-import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
-import { useOnboarding } from '../contexts/OnboardingContext';
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { Check } from "lucide-react";
+import { useOnboarding } from "../contexts/OnboardingContext";
 
 interface OnboardingLayoutProps {
   children: ReactNode;
 }
 
 const STEPS = [
-  { id: 0, name: 'Welcome' },
-  { id: 1, name: 'Company' },
-  { id: 2, name: 'Services' },
-  { id: 3, name: 'Systems' },
-  { id: 4, name: 'Goals' },
-  { id: 5, name: 'Timeline' },
-  { id: 6, name: 'Review' },
+  { id: 0, name: "Welcome" },
+  { id: 1, name: "Company" },
+  { id: 2, name: "Services" },
+  { id: 3, name: "Systems" },
+  { id: 4, name: "Goals" },
+  { id: 5, name: "Timeline" },
+  { id: 6, name: "Review" },
 ];
 
 export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
@@ -30,7 +30,9 @@ export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
             <h2 className="text-sm font-medium text-slate-400">
               Step {currentStep + 1} of {totalSteps}
             </h2>
-            <div className="text-sm font-medium text-indigo-500">{Math.round(progress)}% Complete</div>
+            <div className="text-sm font-medium text-indigo-500">
+              {Math.round(progress)}% Complete
+            </div>
           </div>
 
           <div className="relative">
@@ -39,7 +41,7 @@ export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
                 className="h-full bg-gradient-to-r from-indigo-500 to-[#10B981]"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
               />
             </div>
 
@@ -56,10 +58,10 @@ export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
                       transition={{ delay: step.id * 0.05 }}
                       className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${
                         isCompleted
-                          ? 'bg-[#10B981] border-[#10B981]'
+                          ? "bg-[#10B981] border-[#10B981]"
                           : isCurrent
-                          ? 'bg-indigo-500 border-indigo-500'
-                          : 'bg-slate-800 border-slate-700'
+                            ? "bg-indigo-500 border-indigo-500"
+                            : "bg-slate-800 border-slate-700"
                       }`}
                     >
                       {isCompleted ? (
@@ -67,7 +69,7 @@ export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
                       ) : (
                         <span
                           className={`text-sm font-semibold ${
-                            isCurrent ? 'text-white' : 'text-slate-500'
+                            isCurrent ? "text-white" : "text-slate-500"
                           }`}
                         >
                           {step.id + 1}
@@ -76,7 +78,9 @@ export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
                     </motion.div>
                     <span
                       className={`text-xs mt-2 font-medium ${
-                        isCompleted || isCurrent ? 'text-white' : 'text-slate-500'
+                        isCompleted || isCurrent
+                          ? "text-white"
+                          : "text-slate-500"
                       }`}
                     >
                       {step.name}

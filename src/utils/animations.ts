@@ -1,20 +1,20 @@
-import { Variants } from 'framer-motion';
+import { Variants } from "framer-motion";
 
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-  }
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.5, ease: 'easeOut' }
-  }
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
 };
 
 export const scaleIn: Variants = {
@@ -22,8 +22,8 @@ export const scaleIn: Variants = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
-  }
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 export const slideLeft: Variants = {
@@ -31,8 +31,8 @@ export const slideLeft: Variants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-  }
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 export const slideRight: Variants = {
@@ -40,8 +40,8 @@ export const slideRight: Variants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-  }
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 export const staggerContainer: Variants = {
@@ -50,9 +50,9 @@ export const staggerContainer: Variants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.08,
-      delayChildren: 0.05
-    }
-  }
+      delayChildren: 0.05,
+    },
+  },
 };
 
 export const staggerItem: Variants = {
@@ -60,8 +60,8 @@ export const staggerItem: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-  }
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 export const textReveal: Variants = {
@@ -72,9 +72,9 @@ export const textReveal: Variants = {
     transition: {
       duration: 0.6,
       ease: [0.22, 1, 0.36, 1],
-      delay: i * 0.05
-    }
-  })
+      delay: i * 0.05,
+    },
+  }),
 };
 
 export const hoverLift = {
@@ -82,8 +82,8 @@ export const hoverLift = {
   hover: {
     y: -4,
     scale: 1.02,
-    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
-  }
+    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 export const subtleFloat: Variants = {
@@ -92,9 +92,9 @@ export const subtleFloat: Variants = {
     transition: {
       duration: 6,
       repeat: Infinity,
-      ease: 'easeInOut'
-    }
-  }
+      ease: "easeInOut",
+    },
+  },
 };
 
 export const glowPulse: Variants = {
@@ -104,9 +104,9 @@ export const glowPulse: Variants = {
     transition: {
       duration: 3,
       repeat: Infinity,
-      ease: 'easeInOut'
-    }
-  }
+      ease: "easeInOut",
+    },
+  },
 };
 
 export const cardReveal: Variants = {
@@ -118,9 +118,9 @@ export const cardReveal: Variants = {
     transition: {
       duration: 0.6,
       ease: [0.22, 1, 0.36, 1],
-      delay: i * 0.1
-    }
-  })
+      delay: i * 0.1,
+    },
+  }),
 };
 
 export const navbarReveal: Variants = {
@@ -128,6 +128,6 @@ export const navbarReveal: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }
-  }
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 },
+  },
 };

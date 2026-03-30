@@ -1,24 +1,36 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FileText, Plus, DollarSign, Calendar, Building2, Filter, Search } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import EmptyState from '../../components/EmptyState';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ProposalStatusBadge from '../../components/proposals/ProposalStatusBadge';
-import PricingModelBadge from '../../components/proposals/PricingModelBadge';
-import { proposalsService, ProposalWithDetails } from '../../lib/db/proposals';
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  FileText,
+  Plus,
+  DollarSign,
+  Calendar,
+  Building2,
+  Filter,
+  Search,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import EmptyState from "../../components/EmptyState";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ProposalStatusBadge from "../../components/proposals/ProposalStatusBadge";
+import PricingModelBadge from "../../components/proposals/PricingModelBadge";
+import { proposalsService, ProposalWithDetails } from "../../lib/db/proposals";
 
 export default function ProposalsList() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [proposals, setProposals] = useState<ProposalWithDetails[]>([]);
-  const [filteredProposals, setFilteredProposals] = useState<ProposalWithDetails[]>([]);
+  const [filteredProposals, setFilteredProposals] = useState<
+    ProposalWithDetails[]
+  >([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>(searchParams.get('status') || 'all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>(
+    searchParams.get("status") || "all",
+  );
 
   useEffect(() => {
     loadProposals();
@@ -26,12 +38,15 @@ export default function ProposalsList() {
 
   useEffect(() => {
     filterProposals();
-    setSearchParams(prev => {
-      const newParams = new URLSearchParams(prev);
-      if (statusFilter !== 'all') newParams.set('status', statusFilter);
-      else newParams.delete('status');
-      return newParams;
-    }, { replace: true });
+    setSearchParams(
+      (prev) => {
+        const newParams = new URLSearchParams(prev);
+        if (statusFilter !== "all") newParams.set("status", statusFilter);
+        else newParams.delete("status");
+        return newParams;
+      },
+      { replace: true },
+    );
   }, [proposals, searchTerm, statusFilter, setSearchParams]);
 
   const loadProposals = async () => {
@@ -40,7 +55,7 @@ export default function ProposalsList() {
       const data = await proposalsService.getAllProposals();
       setProposals(data);
     } catch (error) {
-      console.error('Failed to load proposals:', error);
+      console.error("Failed to load proposals:", error);
     } finally {
       setLoading(false);
     }
@@ -53,11 +68,11 @@ export default function ProposalsList() {
       filtered = filtered.filter(
         (p) =>
           p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.client_name.toLowerCase().includes(searchTerm.toLowerCase())
+          p.client_name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
     }
 
-    if (statusFilter !== 'all') {
+    if (statusFilter !== "all") {
       filtered = filtered.filter((p) => p.status === statusFilter);
     }
 
@@ -65,10 +80,10 @@ export default function ProposalsList() {
   };
 
   const formatCurrency = (amount?: number) => {
-    if (!amount) return 'TBD';
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    if (!amount) return "TBD";
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -76,7 +91,10 @@ export default function ProposalsList() {
   if (loading) {
     return (
       <>
-        <AppHeader title="Proposals" subtitle="Manage client proposals and quotes" />
+        <AppHeader
+          title="Proposals"
+          subtitle="Manage client proposals and quotes"
+        />
         <div className="p-8 flex items-center justify-center">
           <LoadingSpinner size="lg" />
         </div>
@@ -90,7 +108,10 @@ export default function ProposalsList() {
         title="Proposals"
         subtitle="Manage client proposals and quotes"
         action={
-          <Button variant="primary" onClick={() => navigate('/app/proposals/new')}>
+          <Button
+            variant="primary"
+            onClick={() => navigate("/app/proposals/new")}
+          >
             <Plus className="w-5 h-5 mr-2" />
             New Proposal
           </Button>
@@ -136,11 +157,15 @@ export default function ProposalsList() {
             <Card glass className="p-12">
               <EmptyState
                 icon={FileText}
-                title={searchTerm || statusFilter !== 'all' ? 'No Proposals Found' : 'No Proposals Yet'}
+                title={
+                  searchTerm || statusFilter !== "all"
+                    ? "No Proposals Found"
+                    : "No Proposals Yet"
+                }
                 description={
-                  searchTerm || statusFilter !== 'all'
-                    ? 'Try adjusting your search or filters'
-                    : 'Create your first proposal to get started'
+                  searchTerm || statusFilter !== "all"
+                    ? "Try adjusting your search or filters"
+                    : "Create your first proposal to get started"
                 }
               />
             </Card>
@@ -172,41 +197,58 @@ export default function ProposalsList() {
                               {proposal.lead && (
                                 <div className="flex items-center space-x-2">
                                   <FileText className="w-4 h-4" />
-                                  <span>From: {proposal.lead.company_name}</span>
+                                  <span>
+                                    From: {proposal.lead.company_name}
+                                  </span>
                                 </div>
                               )}
                               <div className="flex items-center space-x-2">
                                 <Calendar className="w-4 h-4" />
-                                <span>{new Date(proposal.created_at).toLocaleDateString()}</span>
+                                <span>
+                                  {new Date(
+                                    proposal.created_at,
+                                  ).toLocaleDateString()}
+                                </span>
                               </div>
                             </div>
                           </div>
                         </div>
 
                         {proposal.scope_summary && (
-                          <p className="text-slate-300 text-sm line-clamp-2">{proposal.scope_summary}</p>
+                          <p className="text-slate-300 text-sm line-clamp-2">
+                            {proposal.scope_summary}
+                          </p>
                         )}
 
                         <div className="flex flex-wrap items-center gap-2">
-                          <ProposalStatusBadge status={proposal.status} size="sm" />
-                          <PricingModelBadge model={proposal.pricing_model} size="sm" />
-                          {proposal.service_types && proposal.service_types.length > 0 && (
-                            <>
-                              {proposal.service_types.slice(0, 3).map((service, idx) => (
-                                <span
-                                  key={idx}
-                                  className="text-xs px-2 py-1 bg-slate-800/50 text-slate-300 rounded-full border border-slate-700"
-                                >
-                                  {service}
-                                </span>
-                              ))}
-                              {proposal.service_types.length > 3 && (
-                                <span className="text-xs px-2 py-1 bg-slate-800/50 text-slate-400 rounded-full border border-slate-700">
-                                  +{proposal.service_types.length - 3} more
-                                </span>
-                              )}
-                            </>
-                          )}
+                          <ProposalStatusBadge
+                            status={proposal.status}
+                            size="sm"
+                          />
+                          <PricingModelBadge
+                            model={proposal.pricing_model}
+                            size="sm"
+                          />
+                          {proposal.service_types &&
+                            proposal.service_types.length > 0 && (
+                              <>
+                                {proposal.service_types
+                                  .slice(0, 3)
+                                  .map((service, idx) => (
+                                    <span
+                                      key={idx}
+                                      className="text-xs px-2 py-1 bg-slate-800/50 text-slate-300 rounded-full border border-slate-700"
+                                    >
+                                      {service}
+                                    </span>
+                                  ))}
+                                {proposal.service_types.length > 3 && (
+                                  <span className="text-xs px-2 py-1 bg-slate-800/50 text-slate-400 rounded-full border border-slate-700">
+                                    +{proposal.service_types.length - 3} more
+                                  </span>
+                                )}
+                              </>
+                            )}
                         </div>
                       </div>
 
@@ -214,10 +256,14 @@ export default function ProposalsList() {
                         <div className="text-right">
                           <div className="flex items-center space-x-2 text-2xl font-bold text-white">
                             <DollarSign className="w-6 h-6 text-[#10B981]" />
-                            <span>{formatCurrency(proposal.pricing_amount)}</span>
+                            <span>
+                              {formatCurrency(proposal.pricing_amount)}
+                            </span>
                           </div>
                           {proposal.timeline_estimate && (
-                            <p className="text-sm text-slate-400 mt-1">{proposal.timeline_estimate}</p>
+                            <p className="text-sm text-slate-400 mt-1">
+                              {proposal.timeline_estimate}
+                            </p>
                           )}
                         </div>
                       </div>

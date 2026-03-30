@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
   Code,
   BarChart3,
@@ -17,13 +17,13 @@ import {
   Calendar,
   Gauge,
   Users,
-} from 'lucide-react';
-import Section from '../components/Section';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import Heading from '../components/Heading';
-import GridPattern from '../components/GridPattern';
-import { useLeadModal } from '../hooks/useLeadModal';
+} from "lucide-react";
+import Section from "../components/Section";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import Heading from "../components/Heading";
+import GridPattern from "../components/GridPattern";
+import { useLeadModal } from "../hooks/useLeadModal";
 
 export default function Start() {
   const { openModal } = useLeadModal();
@@ -31,148 +31,156 @@ export default function Start() {
   const capabilities = [
     {
       icon: Code,
-      title: 'Custom Software',
-      description: 'End-to-end platforms built for your specific operational workflows',
+      title: "Custom Software",
+      description:
+        "End-to-end platforms built for your specific operational workflows",
     },
     {
       icon: BarChart3,
-      title: 'Dashboards',
-      description: 'Real-time operational dashboards with unified data from all systems',
+      title: "Dashboards",
+      description:
+        "Real-time operational dashboards with unified data from all systems",
     },
     {
       icon: Smartphone,
-      title: 'Mobile Apps',
-      description: 'Native iOS and Android apps for field teams and customers',
+      title: "Mobile Apps",
+      description: "Native iOS and Android apps for field teams and customers",
     },
     {
       icon: Link2,
-      title: 'Integrations',
-      description: 'Connect your existing tools into unified operational workflows',
+      title: "Integrations",
+      description:
+        "Connect your existing tools into unified operational workflows",
     },
     {
       icon: Zap,
-      title: 'Automation Systems',
-      description: 'AI-powered automation for repetitive workflows and data processing',
+      title: "Automation Systems",
+      description:
+        "AI-powered automation for repetitive workflows and data processing",
     },
   ];
 
   const process = [
     {
       icon: Search,
-      step: '1',
-      title: 'Discovery',
+      step: "1",
+      title: "Discovery",
       description:
-        'We analyze your current systems, workflows, and operational challenges. Identify pain points, integration needs, and automation opportunities.',
+        "We analyze your current systems, workflows, and operational challenges. Identify pain points, integration needs, and automation opportunities.",
     },
     {
       icon: Layers,
-      step: '2',
-      title: 'System Design',
+      step: "2",
+      title: "System Design",
       description:
-        'Design the technical architecture, integrations, and user experience. Create a detailed roadmap with milestones, timelines, and deliverables.',
+        "Design the technical architecture, integrations, and user experience. Create a detailed roadmap with milestones, timelines, and deliverables.",
     },
     {
       icon: Wrench,
-      step: '3',
-      title: 'Build & Integration',
+      step: "3",
+      title: "Build & Integration",
       description:
-        'Develop custom software, build integrations, and implement automation. Regular check-ins and demos ensure alignment throughout development.',
+        "Develop custom software, build integrations, and implement automation. Regular check-ins and demos ensure alignment throughout development.",
     },
     {
       icon: Rocket,
-      step: '4',
-      title: 'Deployment',
+      step: "4",
+      title: "Deployment",
       description:
-        'Deploy to production with comprehensive testing, training, and documentation. Ensure your team is ready to leverage the new system.',
+        "Deploy to production with comprehensive testing, training, and documentation. Ensure your team is ready to leverage the new system.",
     },
     {
       icon: Headphones,
-      step: '5',
-      title: 'Ongoing Support',
+      step: "5",
+      title: "Ongoing Support",
       description:
-        'Continuous monitoring, optimization, and enhancements. Your system evolves as your business grows with dedicated technical support.',
+        "Continuous monitoring, optimization, and enhancements. Your system evolves as your business grows with dedicated technical support.",
     },
   ];
 
   const expectations = [
     {
       icon: CheckCircle2,
-      title: 'Tailored Solution',
+      title: "Tailored Solution",
       description:
-        'No generic templates or off-the-shelf limitations. Every line of code engineered specifically for your operational needs.',
+        "No generic templates or off-the-shelf limitations. Every line of code engineered specifically for your operational needs.",
     },
     {
       icon: FileText,
-      title: 'Clear Roadmap',
+      title: "Clear Roadmap",
       description:
-        'Detailed project plan with phases, milestones, and timelines. You know exactly what to expect and when.',
+        "Detailed project plan with phases, milestones, and timelines. You know exactly what to expect and when.",
     },
     {
       icon: Gauge,
-      title: 'Scalable System',
+      title: "Scalable System",
       description:
-        'Architecture designed to grow with your business. Handle increasing data volume, users, and complexity without limitations.',
+        "Architecture designed to grow with your business. Handle increasing data volume, users, and complexity without limitations.",
     },
     {
       icon: Users,
-      title: 'Ongoing Support',
+      title: "Ongoing Support",
       description:
-        'Dedicated technical support, continuous optimization, and feature enhancements as your needs evolve.',
+        "Dedicated technical support, continuous optimization, and feature enhancements as your needs evolve.",
     },
   ];
 
   const projectTypes = [
     {
       icon: BarChart3,
-      title: 'Dashboard Builds',
-      description: 'Real-time operational dashboards consolidating data from multiple systems',
+      title: "Dashboard Builds",
+      description:
+        "Real-time operational dashboards consolidating data from multiple systems",
       features: [
-        'Unified data from all sources',
-        'Role-based views',
-        'Real-time updates',
-        'Custom metrics & KPIs',
+        "Unified data from all sources",
+        "Role-based views",
+        "Real-time updates",
+        "Custom metrics & KPIs",
       ],
-      timeline: '4-8 weeks',
-      price: 'Starting at $25K',
+      timeline: "4-8 weeks",
+      price: "Starting at $25K",
     },
     {
       icon: Smartphone,
-      title: 'Mobile Apps',
-      description: 'Native mobile applications for field teams and customer-facing operations',
+      title: "Mobile Apps",
+      description:
+        "Native mobile applications for field teams and customer-facing operations",
       features: [
-        'iOS & Android native',
-        'Offline capability',
-        'Real-time sync',
-        'Backend integration',
+        "iOS & Android native",
+        "Offline capability",
+        "Real-time sync",
+        "Backend integration",
       ],
-      timeline: '8-16 weeks',
-      price: 'Starting at $50K',
+      timeline: "8-16 weeks",
+      price: "Starting at $50K",
     },
     {
       icon: Code,
-      title: 'Full Custom Systems',
-      description: 'End-to-end platforms engineered for complex operational workflows',
+      title: "Full Custom Systems",
+      description:
+        "End-to-end platforms engineered for complex operational workflows",
       features: [
-        'Complete architecture',
-        'All integrations',
-        'Custom workflows',
-        'Scalable infrastructure',
+        "Complete architecture",
+        "All integrations",
+        "Custom workflows",
+        "Scalable infrastructure",
       ],
-      timeline: '3-6 months',
-      price: 'Starting at $100K',
+      timeline: "3-6 months",
+      price: "Starting at $100K",
     },
     {
       icon: Link2,
-      title: 'Integrations',
-      description: 'Connect existing tools into unified workflows with automation',
+      title: "Integrations",
+      description:
+        "Connect existing tools into unified workflows with automation",
       features: [
-        'API connections',
-        'Data synchronization',
-        'Workflow automation',
-        'Error handling',
+        "API connections",
+        "Data synchronization",
+        "Workflow automation",
+        "Error handling",
       ],
-      timeline: '2-6 weeks',
-      price: 'Starting at $15K',
+      timeline: "2-6 weeks",
+      price: "Starting at $15K",
     },
   ];
 
@@ -197,7 +205,7 @@ export default function Start() {
             transition={{ delay: 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
           >
-            Start Your Project with{' '}
+            Start Your Project with{" "}
             <span className="bg-gradient-to-r from-indigo-500 to-[#10B981] bg-clip-text text-transparent">
               Bridgebox
             </span>
@@ -209,9 +217,9 @@ export default function Start() {
             transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl text-slate-300 leading-relaxed mb-8"
           >
-            Custom software, dashboards, mobile apps, and integrations engineered specifically for
-            your operational needs. Let's design a solution that transforms how your business
-            operates.
+            Custom software, dashboards, mobile apps, and integrations
+            engineered specifically for your operational needs. Let's design a
+            solution that transforms how your business operates.
           </motion.p>
 
           <motion.div
@@ -245,13 +253,20 @@ export default function Start() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card glass className="h-full text-center hover:border-indigo-500/50 transition-all duration-300">
+              <Card
+                glass
+                className="h-full text-center hover:border-indigo-500/50 transition-all duration-300"
+              >
                 <div className="flex flex-col items-center">
                   <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500/20 to-[#10B981]/20 flex items-center justify-center mb-4">
                     <capability.icon className="w-7 h-7 text-indigo-500" />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">{capability.title}</h3>
-                  <p className="text-sm text-slate-400">{capability.description}</p>
+                  <h3 className="text-lg font-bold text-white mb-2">
+                    {capability.title}
+                  </h3>
+                  <p className="text-sm text-slate-400">
+                    {capability.description}
+                  </p>
                 </div>
               </Card>
             </motion.div>
@@ -291,9 +306,13 @@ export default function Start() {
                       <span className="text-sm font-bold text-[#10B981] bg-[#10B981]/10 px-3 py-1 rounded-full">
                         Step {step.step}
                       </span>
-                      <h3 className="text-2xl font-bold text-white">{step.title}</h3>
+                      <h3 className="text-2xl font-bold text-white">
+                        {step.title}
+                      </h3>
                     </div>
-                    <p className="text-slate-300 leading-relaxed">{step.description}</p>
+                    <p className="text-slate-300 leading-relaxed">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
               </Card>
@@ -327,8 +346,12 @@ export default function Start() {
                     <item.icon className="w-6 h-6 text-[#10B981]" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                    <p className="text-slate-300 leading-relaxed">{item.description}</p>
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-slate-300 leading-relaxed">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               </Card>
@@ -363,7 +386,9 @@ export default function Start() {
                       <project.icon className="w-7 h-7 text-indigo-500" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
+                      <h3 className="text-2xl font-bold text-white mb-2">
+                        {project.title}
+                      </h3>
                       <p className="text-slate-300">{project.description}</p>
                     </div>
                   </div>
@@ -380,15 +405,27 @@ export default function Start() {
                   <div className="pt-6 border-t border-white/5">
                     <div className="flex items-center justify-between mb-4">
                       <div>
-                        <div className="text-sm text-slate-400 mb-1">Timeline</div>
-                        <div className="font-semibold text-white">{project.timeline}</div>
+                        <div className="text-sm text-slate-400 mb-1">
+                          Timeline
+                        </div>
+                        <div className="font-semibold text-white">
+                          {project.timeline}
+                        </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-sm text-slate-400 mb-1">Investment</div>
-                        <div className="font-semibold text-[#10B981]">{project.price}</div>
+                        <div className="text-sm text-slate-400 mb-1">
+                          Investment
+                        </div>
+                        <div className="font-semibold text-[#10B981]">
+                          {project.price}
+                        </div>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full" onClick={openModal}>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={openModal}
+                    >
                       Get Started
                     </Button>
                   </div>
@@ -414,13 +451,15 @@ export default function Start() {
                 Ready to Start Your Project?
               </h2>
               <p className="text-lg text-slate-300 mb-8 leading-relaxed">
-                Share your operational challenges and goals. We'll design a custom solution that
-                transforms how your business operates. Most projects move from initial conversation
-                to kickoff within 2-3 weeks.
+                Share your operational challenges and goals. We'll design a
+                custom solution that transforms how your business operates. Most
+                projects move from initial conversation to kickoff within 2-3
+                weeks.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" onClick={openModal}>
-                  Request Your Custom Build <ArrowRight className="ml-2 w-5 h-5" />
+                  Request Your Custom Build{" "}
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 <Button size="lg" variant="outline" to="/case-studies">
                   View Success Stories

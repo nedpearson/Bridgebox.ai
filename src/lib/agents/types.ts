@@ -1,37 +1,50 @@
-export type ActionCategory = 'crm' | 'proposal' | 'project' | 'support' | 'strategy' | 'automation';
+export type ActionCategory =
+  | "crm"
+  | "proposal"
+  | "project"
+  | "support"
+  | "strategy"
+  | "automation";
 
 export type ActionType =
-  | 'follow_up_lead'
-  | 'draft_lead_summary'
-  | 'draft_outreach'
-  | 'flag_high_value_lead'
-  | 'suggest_proposal_creation'
-  | 'draft_scope_summary'
-  | 'recommend_pricing_model'
-  | 'flag_delivery_risk'
-  | 'suggest_milestone_update'
-  | 'summarize_blockers'
-  | 'classify_ticket'
-  | 'suggest_ticket_response'
-  | 'escalate_urgent_issue'
-  | 'recommend_focus_industry'
-  | 'recommend_service_emphasis'
-  | 'surface_market_opportunity'
-  | 'create_automation_rule'
-  | 'update_client_health';
+  | "follow_up_lead"
+  | "draft_lead_summary"
+  | "draft_outreach"
+  | "flag_high_value_lead"
+  | "suggest_proposal_creation"
+  | "draft_scope_summary"
+  | "recommend_pricing_model"
+  | "flag_delivery_risk"
+  | "suggest_milestone_update"
+  | "summarize_blockers"
+  | "classify_ticket"
+  | "suggest_ticket_response"
+  | "escalate_urgent_issue"
+  | "recommend_focus_industry"
+  | "recommend_service_emphasis"
+  | "surface_market_opportunity"
+  | "create_automation_rule"
+  | "update_client_health";
 
 export type ActionStatus =
-  | 'suggested'
-  | 'pending_review'
-  | 'approved'
-  | 'executed'
-  | 'dismissed'
-  | 'failed';
+  | "suggested"
+  | "pending_review"
+  | "approved"
+  | "executed"
+  | "dismissed"
+  | "failed";
 
-export type ActionPriority = 'high' | 'medium' | 'low';
+export type ActionPriority = "high" | "medium" | "low";
 
 export interface ActionContext {
-  entity_type: 'lead' | 'project' | 'proposal' | 'ticket' | 'client' | 'opportunity' | 'general';
+  entity_type:
+    | "lead"
+    | "project"
+    | "proposal"
+    | "ticket"
+    | "client"
+    | "opportunity"
+    | "general";
   entity_id?: string;
   entity_name?: string;
   related_data?: Record<string, any>;
@@ -85,7 +98,7 @@ export interface AgentAction {
 
 export interface ActionReviewDecision {
   action_id: string;
-  decision: 'approve' | 'dismiss' | 'defer';
+  decision: "approve" | "dismiss" | "defer";
   notes?: string;
   modifications?: Record<string, any>;
 }
@@ -116,9 +129,9 @@ export interface ActionStats {
 }
 
 export interface ActionRecommendation {
-  action: Omit<AgentAction, 'id' | 'created_at' | 'updated_at'>;
+  action: Omit<AgentAction, "id" | "created_at" | "updated_at">;
   relevance_score: number;
-  time_sensitivity: 'urgent' | 'soon' | 'normal';
+  time_sensitivity: "urgent" | "soon" | "normal";
 }
 
 export interface ActionExecutionContext {

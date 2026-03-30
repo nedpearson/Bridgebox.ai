@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Zap, TrendingUp, ArrowRight, Lock } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import type { FeatureKey } from '../../types/billing';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Zap, TrendingUp, ArrowRight, Lock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import type { FeatureKey } from "../../types/billing";
 
 type NudgeTrigger =
-  | 'low_credits'
-  | 'critical_credits'
-  | 'recording_limit'
-  | 'workspace_limit'
-  | 'locked_feature'
-  | 'high_activity';
+  | "low_credits"
+  | "critical_credits"
+  | "recording_limit"
+  | "workspace_limit"
+  | "locked_feature"
+  | "high_activity";
 
 interface UpgradeNudgeProps {
   trigger: NudgeTrigger;
@@ -22,60 +22,63 @@ interface UpgradeNudgeProps {
   onDismiss?: () => void;
 }
 
-const NUDGE_COPY: Record<NudgeTrigger, {
-  icon: typeof Zap;
-  title: string;
-  body: (props: UpgradeNudgeProps) => string;
-  cta: string;
-  color: string;
-}> = {
+const NUDGE_COPY: Record<
+  NudgeTrigger,
+  {
+    icon: typeof Zap;
+    title: string;
+    body: (props: UpgradeNudgeProps) => string;
+    cta: string;
+    color: string;
+  }
+> = {
   low_credits: {
     icon: Zap,
-    color: '#f59e0b',
-    title: 'AI Credits Running Low',
+    color: "#f59e0b",
+    title: "AI Credits Running Low",
     body: ({ creditsRemaining }) =>
       `You have ${creditsRemaining} credits remaining this month. Top up now to keep your discovery sessions and blueprint runs uninterrupted.`,
-    cta: 'Top Up Credits',
+    cta: "Top Up Credits",
   },
   critical_credits: {
     icon: Zap,
-    color: '#ef4444',
-    title: 'Almost Out of AI Credits',
+    color: "#ef4444",
+    title: "Almost Out of AI Credits",
     body: ({ creditsRemaining }) =>
       `Only ${creditsRemaining} credits left. Voice blueprints, recording analyses, and AI runs will stop working when you hit zero.`,
-    cta: 'Top Up or Upgrade',
+    cta: "Top Up or Upgrade",
   },
   recording_limit: {
     icon: TrendingUp,
-    color: '#06b6d4',
-    title: 'Recording Limit Reached',
+    color: "#06b6d4",
+    title: "Recording Limit Reached",
     body: ({ currentUsage, limit }) =>
-      `You've used ${currentUsage ?? 'all'} of your ${limit ?? '—'} monthly screen recording analyses. Upgrade your plan or add a recording pack.`,
-    cta: 'Expand Recordings',
+      `You've used ${currentUsage ?? "all"} of your ${limit ?? "—"} monthly screen recording analyses. Upgrade your plan or add a recording pack.`,
+    cta: "Expand Recordings",
   },
   workspace_limit: {
     icon: TrendingUp,
-    color: '#6366f1',
-    title: 'Workspace Limit Reached',
+    color: "#6366f1",
+    title: "Workspace Limit Reached",
     body: ({ currentUsage, limit }) =>
-      `You've created ${currentUsage ?? 'all'} of your ${limit ?? '—'} allowed workspaces. Upgrade to Pro to manage up to 10 workspaces.`,
-    cta: 'Upgrade to Pro',
+      `You've created ${currentUsage ?? "all"} of your ${limit ?? "—"} allowed workspaces. Upgrade to Pro to manage up to 10 workspaces.`,
+    cta: "Upgrade to Pro",
   },
   locked_feature: {
     icon: Lock,
-    color: '#f59e0b',
-    title: 'Feature Not Available on Your Plan',
+    color: "#f59e0b",
+    title: "Feature Not Available on Your Plan",
     body: ({ requiredPlan }) =>
-      `This feature requires the ${requiredPlan ?? 'Growth'} plan. Upgrade to unlock it and continue building.`,
-    cta: 'View Upgrade Options',
+      `This feature requires the ${requiredPlan ?? "Growth"} plan. Upgrade to unlock it and continue building.`,
+    cta: "View Upgrade Options",
   },
   high_activity: {
     icon: TrendingUp,
-    color: '#10b981',
-    title: 'You\'re Using Bridgebox Heavily',
+    color: "#10b981",
+    title: "You're Using Bridgebox Heavily",
     body: () =>
-      'Your team is getting a lot of value from Bridgebox. Upgrading to Growth unlocks workspace learning AI, more recordings, and priority support.',
-    cta: 'Explore Growth Plan',
+      "Your team is getting a lot of value from Bridgebox. Upgrading to Growth unlocks workspace learning AI, more recordings, and priority support.",
+    cta: "Explore Growth Plan",
   },
 };
 
@@ -99,10 +102,10 @@ export default function UpgradeNudge({
   };
 
   const handleCTA = () => {
-    if (trigger === 'low_credits' || trigger === 'critical_credits') {
-      navigate('/app/billing#addons');
+    if (trigger === "low_credits" || trigger === "critical_credits") {
+      navigate("/app/billing#addons");
     } else {
-      navigate('/app/billing');
+      navigate("/app/billing");
     }
     handleDismiss();
   };
@@ -124,16 +127,28 @@ export default function UpgradeNudge({
           {/* Icon */}
           <div
             className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
-            style={{ background: `${config.color}15`, border: `1px solid ${config.color}20` }}
+            style={{
+              background: `${config.color}15`,
+              border: `1px solid ${config.color}20`,
+            }}
           >
             <Icon className="w-4 h-4" style={{ color: config.color }} />
           </div>
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <p className="text-white text-sm font-semibold mb-0.5">{config.title}</p>
+            <p className="text-white text-sm font-semibold mb-0.5">
+              {config.title}
+            </p>
             <p className="text-slate-400 text-xs leading-relaxed mb-3">
-              {config.body({ trigger, featureAttempted, requiredPlan, currentUsage, limit, creditsRemaining })}
+              {config.body({
+                trigger,
+                featureAttempted,
+                requiredPlan,
+                currentUsage,
+                limit,
+                creditsRemaining,
+              })}
             </p>
             <button
               onClick={handleCTA}

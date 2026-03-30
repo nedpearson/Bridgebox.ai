@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion';
-import { RefreshCw, Trash2, Power, ExternalLink, Clock } from 'lucide-react';
-import Button from '../Button';
-import Card from '../Card';
-import ConnectorStatusBadge from './ConnectorStatusBadge';
-import type { Connector } from '../../lib/connectors/types';
+import { motion } from "framer-motion";
+import { RefreshCw, Trash2, Power, ExternalLink, Clock } from "lucide-react";
+import Button from "../Button";
+import Card from "../Card";
+import ConnectorStatusBadge from "./ConnectorStatusBadge";
+import type { Connector } from "../../lib/connectors/types";
 
 interface ConnectorCardProps {
   connector: Connector;
@@ -21,7 +21,7 @@ export default function ConnectorCard({
   isLoading = false,
 }: ConnectorCardProps) {
   const formatDate = (date?: string) => {
-    if (!date) return 'Never';
+    if (!date) return "Never";
     return new Date(date).toLocaleString();
   };
 
@@ -40,14 +40,14 @@ export default function ConnectorCard({
         <div className="flex items-center justify-between text-sm">
           <span className="text-slate-400">Type:</span>
           <span className="text-slate-300 capitalize">
-            {connector.type.replace('_', ' ')}
+            {connector.type.replace("_", " ")}
           </span>
         </div>
 
         <div className="flex items-center justify-between text-sm">
           <span className="text-slate-400">Category:</span>
           <span className="text-slate-300 capitalize">
-            {connector.category.replace('_', ' ')}
+            {connector.category.replace("_", " ")}
           </span>
         </div>
 
@@ -64,7 +64,9 @@ export default function ConnectorCard({
         {connector.recordCount > 0 && (
           <div className="flex items-center justify-between text-sm">
             <span className="text-slate-400">Records:</span>
-            <span className="text-slate-300">{connector.recordCount.toLocaleString()}</span>
+            <span className="text-slate-300">
+              {connector.recordCount.toLocaleString()}
+            </span>
           </div>
         )}
 
@@ -83,7 +85,7 @@ export default function ConnectorCard({
       </div>
 
       <div className="flex items-center gap-2">
-        {connector.status === 'connected' && onSync && (
+        {connector.status === "connected" && onSync && (
           <Button
             onClick={() => onSync(connector)}
             disabled={isLoading}
@@ -91,12 +93,14 @@ export default function ConnectorCard({
             size="sm"
             className="flex-1"
           >
-            <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+            <RefreshCw
+              className={`w-4 h-4 mr-2 ${isLoading ? "animate-spin" : ""}`}
+            />
             Sync Now
           </Button>
         )}
 
-        {connector.status === 'connected' && onDisconnect && (
+        {connector.status === "connected" && onDisconnect && (
           <Button
             onClick={() => onDisconnect(connector)}
             disabled={isLoading}

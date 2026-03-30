@@ -1,6 +1,12 @@
-import { Link } from 'react-router-dom';
-import { ChevronRight, FileText, Building2, FolderKanban, CheckCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Link } from "react-router-dom";
+import {
+  ChevronRight,
+  FileText,
+  Building2,
+  FolderKanban,
+  CheckCircle,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 interface ConversionStatusProps {
   leadId?: string;
@@ -44,7 +50,7 @@ export default function ConversionStatus({
                 className="flex items-center space-x-1.5 px-2.5 py-1 bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-md text-slate-300 hover:text-white transition-colors"
               >
                 <FileText className="w-3.5 h-3.5" />
-                <span className="font-medium">{leadName || 'Lead'}</span>
+                <span className="font-medium">{leadName || "Lead"}</span>
               </Link>
               {(proposalId || projectId) && (
                 <ChevronRight className="w-4 h-4 text-slate-600" />
@@ -59,11 +65,11 @@ export default function ConversionStatus({
                 className="flex items-center space-x-1.5 px-2.5 py-1 bg-slate-800/50 hover:bg-slate-800 border border-slate-700 rounded-md text-slate-300 hover:text-white transition-colors"
               >
                 <Building2 className="w-3.5 h-3.5" />
-                <span className="font-medium">{proposalTitle || 'Proposal'}</span>
+                <span className="font-medium">
+                  {proposalTitle || "Proposal"}
+                </span>
               </Link>
-              {projectId && (
-                <ChevronRight className="w-4 h-4 text-slate-600" />
-              )}
+              {projectId && <ChevronRight className="w-4 h-4 text-slate-600" />}
             </>
           )}
 
@@ -73,7 +79,9 @@ export default function ConversionStatus({
               className="flex items-center space-x-1.5 px-2.5 py-1 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 rounded-md text-indigo-500 hover:text-indigo-500 transition-colors"
             >
               <FolderKanban className="w-3.5 h-3.5" />
-              <span className="font-medium">{projectName || 'Active Project'}</span>
+              <span className="font-medium">
+                {projectName || "Active Project"}
+              </span>
             </Link>
           )}
 
@@ -85,10 +93,10 @@ export default function ConversionStatus({
           )}
         </div>
 
-        {onboardingStatus && onboardingStatus !== 'completed' && (
+        {onboardingStatus && onboardingStatus !== "completed" && (
           <div className="ml-auto">
             <span className="text-xs px-2 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-md">
-              Onboarding: {onboardingStatus.replace('_', ' ')}
+              Onboarding: {onboardingStatus.replace("_", " ")}
             </span>
           </div>
         )}

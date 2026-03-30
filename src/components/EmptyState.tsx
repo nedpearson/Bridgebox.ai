@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { LucideIcon } from "lucide-react";
 
 interface EmptyStateProps {
   icon: LucideIcon;
@@ -9,9 +9,14 @@ interface EmptyStateProps {
   action?: ReactNode;
 }
 
-export default function EmptyState({ icon: Icon, title, description, action }: EmptyStateProps) {
+export default function EmptyState({
+  icon: Icon,
+  title,
+  description,
+  action,
+}: EmptyStateProps) {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       className="flex flex-col items-center justify-center py-20 px-4 w-full border-2 border-dashed border-slate-800/80 rounded-2xl bg-slate-900/20"
@@ -20,7 +25,9 @@ export default function EmptyState({ icon: Icon, title, description, action }: E
         <Icon className="w-10 h-10 text-slate-400 opacity-80" />
       </div>
       <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-      <p className="text-slate-400 text-center max-w-md mb-8 text-sm leading-relaxed">{description}</p>
+      <p className="text-slate-400 text-center max-w-md mb-8 text-sm leading-relaxed">
+        {description}
+      </p>
       {action && <div>{action}</div>}
     </motion.div>
   );

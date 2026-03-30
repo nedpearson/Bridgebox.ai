@@ -1,11 +1,16 @@
 // @ts-nocheck
-import { supabase } from './supabase';
-import { trendDetection } from './trendDetection';
-import { predictiveAnalytics } from './predictiveAnalytics';
+import { supabase } from "./supabase";
+import { trendDetection } from "./trendDetection";
+import { predictiveAnalytics } from "./predictiveAnalytics";
 
-export type InsightType = 'sales' | 'project' | 'client' | 'automation' | 'strategic';
-export type InsightPriority = 'low' | 'medium' | 'high' | 'critical';
-export type InsightCategory = 'opportunity' | 'risk' | 'optimization' | 'alert';
+export type InsightType =
+  | "sales"
+  | "project"
+  | "client"
+  | "automation"
+  | "strategic";
+export type InsightPriority = "low" | "medium" | "high" | "critical";
+export type InsightCategory = "opportunity" | "risk" | "optimization" | "alert";
 
 export interface AIInsight {
   id: string;
@@ -19,7 +24,7 @@ export interface AIInsight {
   actionItems: string[];
   metadata: Record<string, any>;
   confidence: number;
-  impact: 'low' | 'medium' | 'high';
+  impact: "low" | "medium" | "high";
   createdAt: string;
 }
 
@@ -29,7 +34,7 @@ export interface SalesRecommendation {
   score: number;
   reason: string;
   suggestedAction: string;
-  urgency: 'low' | 'medium' | 'high';
+  urgency: "low" | "medium" | "high";
   estimatedValue: number;
   followUpDate?: string;
 }
@@ -39,7 +44,7 @@ export interface ProjectRecommendation {
   projectName: string;
   issue: string;
   recommendation: string;
-  riskLevel: 'low' | 'medium' | 'high';
+  riskLevel: "low" | "medium" | "high";
   suggestedResources?: string[];
   timeline?: string;
 }
@@ -47,7 +52,7 @@ export interface ProjectRecommendation {
 export interface ClientRecommendation {
   clientId: string;
   clientName: string;
-  type: 'upsell' | 'retention' | 'engagement';
+  type: "upsell" | "retention" | "engagement";
   recommendation: string;
   value: number;
   confidence: number;
@@ -57,7 +62,7 @@ export interface AutomationRecommendation {
   workflow: string;
   frequency: number;
   timeSaved: number;
-  complexity: 'low' | 'medium' | 'high';
+  complexity: "low" | "medium" | "high";
   roi: number;
   priority: number;
 }
@@ -66,7 +71,7 @@ export interface StrategicInsight {
   insight: string;
   evidence: string[];
   recommendation: string;
-  impact: 'low' | 'medium' | 'high';
+  impact: "low" | "medium" | "high";
   timeframe: string;
 }
 
@@ -75,12 +80,16 @@ class AIDecisionEngine {
     return `insight-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  async analyzeSalesOpportunities(organizationId?: string): Promise<SalesRecommendation[]> {
-    let query_leads = supabase.from('bb_leads')
-      .select('*')
-      .in('status', ['new', 'contacted', 'qualified', 'proposal_sent'])
-      .order('created_at', { ascending: false });
-    if (organizationId) query_leads = query_leads.eq('organization_id', organizationId);
+  async analyzeSalesOpportunities(
+    organizationId?: string,
+  ): Promise<SalesRecommendation[]> {
+    let query_leads = supabase
+      .from("bb_leads")
+      .select("*")
+      .in("status", ["new", "contacted", "qualified", "proposal_sent"])
+      .order("created_at", { ascending: false });
+    if (organizationId)
+      query_leads = query_leads.eq("organization_id", organizationId);
     const { data: leads } = await query_leads;
 
     if (!leads) return [];
@@ -90,73 +99,78 @@ class AIDecisionEngine {
     for (const lead of leads) {
       let score = 50;
       const reasons: string[] = [];
-      let urgency: 'low' | 'medium' | 'high' = 'low';
-      let suggestedAction = 'Review and prioritize';
+      let urgency: "low" | "medium" | "high" = "low";
+      let suggestedAction = "Review and prioritize";
 
-      const daysOld = (Date.now() - new Date(lead.created_at).getTime()) / (1000 * 60 * 60 * 24);
+      const daysOld =
+        (Date.now() - new Date(lead.created_at).getTime()) /
+        (1000 * 60 * 60 * 24);
       const lastContactDays = lead.last_contact_date
-        ? (Date.now() - new Date(lead.last_contact_date).getTime()) / (1000 * 60 * 60 * 24)
+        ? (Date.now() - new Date(lead.last_contact_date).getTime()) /
+          (1000 * 60 * 60 * 24)
         : daysOld;
 
       if (lead.estimated_budget > 50000) {
         score += 20;
-        reasons.push('High-value opportunity');
+        reasons.push("High-value opportunity");
       }
 
-      if (lead.status === 'qualified') {
+      if (lead.status === "qualified") {
         score += 15;
-        reasons.push('Already qualified');
-        suggestedAction = 'Send proposal immediately';
-        urgency = 'high';
+        reasons.push("Already qualified");
+        suggestedAction = "Send proposal immediately";
+        urgency = "high";
       }
 
-      if (lead.status === 'proposal_sent' && daysOld > 7) {
+      if (lead.status === "proposal_sent" && daysOld > 7) {
         score += 25;
-        reasons.push('Proposal pending for over a week');
-        suggestedAction = 'Follow up on proposal status';
-        urgency = 'critical' as any;
+        reasons.push("Proposal pending for over a week");
+        suggestedAction = "Follow up on proposal status";
+        urgency = "critical" as any;
       }
 
-      if (lastContactDays > 5 && lead.status !== 'new') {
+      if (lastContactDays > 5 && lead.status !== "new") {
         score += 10;
-        reasons.push('No recent contact');
-        suggestedAction = 'Schedule follow-up call';
-        urgency = urgency === 'low' ? 'medium' : urgency;
+        reasons.push("No recent contact");
+        suggestedAction = "Schedule follow-up call";
+        urgency = urgency === "low" ? "medium" : urgency;
       }
 
-      if (lead.urgency === 'urgent') {
+      if (lead.urgency === "urgent") {
         score += 20;
-        reasons.push('Client indicated urgency');
-        urgency = 'high';
+        reasons.push("Client indicated urgency");
+        urgency = "high";
       }
 
-      if (['healthcare', 'finance', 'logistics'].includes(lead.industry)) {
+      if (["healthcare", "finance", "logistics"].includes(lead.industry)) {
         score += 5;
-        reasons.push('High-converting industry');
+        reasons.push("High-converting industry");
       }
 
       if (daysOld < 2) {
         score += 10;
-        reasons.push('Fresh lead');
-        suggestedAction = 'Initial contact within 24 hours';
-        urgency = urgency === 'low' ? 'medium' : urgency;
+        reasons.push("Fresh lead");
+        suggestedAction = "Initial contact within 24 hours";
+        urgency = urgency === "low" ? "medium" : urgency;
       }
 
       let followUpDate: string | undefined;
-      if (urgency === 'high' || urgency === 'critical') {
+      if (urgency === "high" || urgency === "critical") {
         followUpDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-      } else if (urgency === 'medium') {
-        followUpDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
+      } else if (urgency === "medium") {
+        followUpDate = new Date(
+          Date.now() + 3 * 24 * 60 * 60 * 1000,
+        ).toISOString();
       }
 
       if (score >= 60) {
         recommendations.push({
           leadId: lead.id,
-          leadName: lead.company_name || lead.name || 'Unknown',
+          leadName: lead.company_name || lead.name || "Unknown",
           score: Math.min(score, 100),
-          reason: reasons.join('; '),
+          reason: reasons.join("; "),
           suggestedAction,
-          urgency: urgency === 'critical' ? 'high' : urgency,
+          urgency: urgency === "critical" ? "high" : urgency,
           estimatedValue: lead.estimated_budget || 0,
           followUpDate,
         });
@@ -166,11 +180,15 @@ class AIDecisionEngine {
     return recommendations.sort((a, b) => b.score - a.score).slice(0, 10);
   }
 
-  async analyzeProjectRisks(organizationId?: string): Promise<ProjectRecommendation[]> {
-    let query_projects = supabase.from('bb_projects')
-      .select('*, project_deliveries(*)')
-      .in('status', ['in_progress', 'planning']);
-    if (organizationId) query_projects = query_projects.eq('organization_id', organizationId);
+  async analyzeProjectRisks(
+    organizationId?: string,
+  ): Promise<ProjectRecommendation[]> {
+    let query_projects = supabase
+      .from("bb_projects")
+      .select("*, project_deliveries(*)")
+      .in("status", ["in_progress", "planning"]);
+    if (organizationId)
+      query_projects = query_projects.eq("organization_id", organizationId);
     const { data: projects } = await query_projects;
 
     if (!projects) return [];
@@ -181,24 +199,26 @@ class AIDecisionEngine {
       const startDate = new Date(project.start_date);
       const endDate = new Date(project.target_end_date);
       const now = new Date();
-      const totalDays = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
-      const elapsedDays = (now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+      const totalDays =
+        (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+      const elapsedDays =
+        (now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
       const percentComplete = (elapsedDays / totalDays) * 100;
 
-      if (percentComplete > 75 && project.status === 'planning') {
+      if (percentComplete > 75 && project.status === "planning") {
         recommendations.push({
           projectId: project.id,
           projectName: project.name,
-          issue: 'Project still in planning phase but nearing deadline',
-          recommendation: 'Move to execution immediately or revise timeline',
-          riskLevel: 'high',
-          timeline: 'Immediate action required',
+          issue: "Project still in planning phase but nearing deadline",
+          recommendation: "Move to execution immediately or revise timeline",
+          riskLevel: "high",
+          timeline: "Immediate action required",
         });
       }
 
       const deliveries = project.project_deliveries || [];
       const overdueCount = deliveries.filter((d: any) => {
-        return d.status !== 'completed' && new Date(d.due_date) < now;
+        return d.status !== "completed" && new Date(d.due_date) < now;
       }).length;
 
       if (overdueCount > 0) {
@@ -206,9 +226,12 @@ class AIDecisionEngine {
           projectId: project.id,
           projectName: project.name,
           issue: `${overdueCount} deliverable(s) overdue`,
-          recommendation: 'Review resource allocation and reassign tasks',
-          riskLevel: overdueCount > 2 ? 'high' : 'medium',
-          suggestedResources: ['Project manager review', 'Additional developer support'],
+          recommendation: "Review resource allocation and reassign tasks",
+          riskLevel: overdueCount > 2 ? "high" : "medium",
+          suggestedResources: [
+            "Project manager review",
+            "Additional developer support",
+          ],
         });
       }
 
@@ -216,20 +239,20 @@ class AIDecisionEngine {
         recommendations.push({
           projectId: project.id,
           projectName: project.name,
-          issue: 'Low budget for extended timeline',
-          recommendation: 'Reduce scope or negotiate budget increase',
-          riskLevel: 'medium',
+          issue: "Low budget for extended timeline",
+          recommendation: "Reduce scope or negotiate budget increase",
+          riskLevel: "medium",
         });
       }
 
-      if (elapsedDays > 30 && project.status === 'planning') {
+      if (elapsedDays > 30 && project.status === "planning") {
         recommendations.push({
           projectId: project.id,
           projectName: project.name,
-          issue: 'Extended planning phase',
-          recommendation: 'Accelerate planning or break into phases',
-          riskLevel: 'medium',
-          timeline: 'Within 1 week',
+          issue: "Extended planning phase",
+          recommendation: "Accelerate planning or break into phases",
+          riskLevel: "medium",
+          timeline: "Within 1 week",
         });
       }
     }
@@ -240,10 +263,17 @@ class AIDecisionEngine {
     });
   }
 
-  async analyzeClientOpportunities(organizationId?: string): Promise<ClientRecommendation[]> {
-    let query_organizations = supabase.from('bb_organizations')
-      .select('*, bb_projects(*), bb_subscriptions(*)');
-    if (organizationId) query_organizations = query_organizations.eq('organization_id', organizationId);
+  async analyzeClientOpportunities(
+    organizationId?: string,
+  ): Promise<ClientRecommendation[]> {
+    let query_organizations = supabase
+      .from("bb_organizations")
+      .select("*, bb_projects(*), bb_subscriptions(*)");
+    if (organizationId)
+      query_organizations = query_organizations.eq(
+        "organization_id",
+        organizationId,
+      );
     const { data: organizations } = await query_organizations;
 
     if (!organizations) return [];
@@ -252,35 +282,50 @@ class AIDecisionEngine {
 
     for (const org of organizations) {
       const projects = org.projects || [];
-      const completedProjects = projects.filter((p: any) => p.status === 'completed');
-      const activeProjects = projects.filter((p: any) => p.status === 'in_progress');
+      const completedProjects = projects.filter(
+        (p: any) => p.status === "completed",
+      );
+      const activeProjects = projects.filter(
+        (p: any) => p.status === "in_progress",
+      );
 
       if (completedProjects.length > 0 && activeProjects.length === 0) {
         const lastProjectDate = Math.max(
-          ...completedProjects.map((p: any) => new Date(p.updated_at).getTime())
+          ...completedProjects.map((p: any) =>
+            new Date(p.updated_at).getTime(),
+          ),
         );
-        const daysSinceLastProject = (Date.now() - lastProjectDate) / (1000 * 60 * 60 * 24);
+        const daysSinceLastProject =
+          (Date.now() - lastProjectDate) / (1000 * 60 * 60 * 24);
 
         if (daysSinceLastProject > 60 && daysSinceLastProject < 180) {
           recommendations.push({
             clientId: org.id,
             clientName: org.name,
-            type: 'engagement',
-            recommendation: 'Re-engage client with new service offering',
-            value: completedProjects.reduce((sum: number, p: any) => sum + (p.budget || 0), 0) * 0.5,
+            type: "engagement",
+            recommendation: "Re-engage client with new service offering",
+            value:
+              completedProjects.reduce(
+                (sum: number, p: any) => sum + (p.budget || 0),
+                0,
+              ) * 0.5,
             confidence: 0.7,
           });
         }
       }
 
       if (activeProjects.length >= 2) {
-        const totalValue = activeProjects.reduce((sum: number, p: any) => sum + (p.budget || 0), 0);
+        const totalValue = activeProjects.reduce(
+          (sum: number, p: any) => sum + (p.budget || 0),
+          0,
+        );
         if (totalValue > 50000) {
           recommendations.push({
             clientId: org.id,
             clientName: org.name,
-            type: 'upsell',
-            recommendation: 'Client is highly engaged - offer premium support or additional services',
+            type: "upsell",
+            recommendation:
+              "Client is highly engaged - offer premium support or additional services",
             value: totalValue * 0.3,
             confidence: 0.8,
           });
@@ -288,46 +333,63 @@ class AIDecisionEngine {
       }
 
       const subscription = org.subscriptions?.[0];
-      if (subscription && subscription.status === 'active') {
-        if (subscription.plan === 'starter' && projects.length > 3) {
+      if (subscription && subscription.status === "active") {
+        if (subscription.plan === "starter" && projects.length > 3) {
           recommendations.push({
             clientId: org.id,
             clientName: org.name,
-            type: 'upsell',
-            recommendation: 'Client activity suggests need for higher tier plan',
+            type: "upsell",
+            recommendation:
+              "Client activity suggests need for higher tier plan",
             value: 500 * 12,
             confidence: 0.75,
           });
         }
       }
 
-      if (projects.length === 0 && org.subscription_tier === 'premium') {
+      if (projects.length === 0 && org.subscription_tier === "premium") {
         recommendations.push({
           clientId: org.id,
           clientName: org.name,
-          type: 'retention',
-          recommendation: 'Premium client with no active projects - risk of churn',
+          type: "retention",
+          recommendation:
+            "Premium client with no active projects - risk of churn",
           value: 0,
           confidence: 0.6,
         });
       }
     }
 
-    return recommendations.sort((a, b) => (b.confidence * b.value) - (a.confidence * a.value));
+    return recommendations.sort(
+      (a, b) => b.confidence * b.value - a.confidence * a.value,
+    );
   }
 
-  async analyzeAutomationOpportunities(organizationId?: string): Promise<AutomationRecommendation[]> {
-    let query_activityLogs = supabase.from('bb_activity_logs')
-      .select('action, user_id, created_at')
-      .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
-    if (organizationId) query_activityLogs = query_activityLogs.eq('organization_id', organizationId);
+  async analyzeAutomationOpportunities(
+    organizationId?: string,
+  ): Promise<AutomationRecommendation[]> {
+    let query_activityLogs = supabase
+      .from("bb_activity_logs")
+      .select("action, user_id, created_at")
+      .gte(
+        "created_at",
+        new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+      );
+    if (organizationId)
+      query_activityLogs = query_activityLogs.eq(
+        "organization_id",
+        organizationId,
+      );
     const { data: activityLogs } = await query_activityLogs;
 
     if (!activityLogs) return [];
 
     const actionFrequency = new Map<string, number>();
-    activityLogs.forEach(log => {
-      actionFrequency.set(log.action, (actionFrequency.get(log.action) || 0) + 1);
+    activityLogs.forEach((log) => {
+      actionFrequency.set(
+        log.action,
+        (actionFrequency.get(log.action) || 0) + 1,
+      );
     });
 
     const recommendations: AutomationRecommendation[] = [];
@@ -335,39 +397,39 @@ class AIDecisionEngine {
     const automationRules = [
       {
         pattern: /lead.*created/i,
-        workflow: 'Auto-assign leads to sales team',
+        workflow: "Auto-assign leads to sales team",
         timeSaved: 15,
-        complexity: 'low' as const,
+        complexity: "low" as const,
       },
       {
         pattern: /proposal.*sent/i,
-        workflow: 'Auto-schedule follow-up reminders',
+        workflow: "Auto-schedule follow-up reminders",
         timeSaved: 30,
-        complexity: 'low' as const,
+        complexity: "low" as const,
       },
       {
         pattern: /project.*completed/i,
-        workflow: 'Auto-trigger satisfaction survey',
+        workflow: "Auto-trigger satisfaction survey",
         timeSaved: 20,
-        complexity: 'medium' as const,
+        complexity: "medium" as const,
       },
       {
         pattern: /invoice.*overdue/i,
-        workflow: 'Auto-send payment reminders',
+        workflow: "Auto-send payment reminders",
         timeSaved: 45,
-        complexity: 'low' as const,
+        complexity: "low" as const,
       },
       {
         pattern: /ticket.*created/i,
-        workflow: 'Auto-categorize and route support tickets',
+        workflow: "Auto-categorize and route support tickets",
         timeSaved: 10,
-        complexity: 'medium' as const,
+        complexity: "medium" as const,
       },
       {
         pattern: /milestone.*completed/i,
-        workflow: 'Auto-notify stakeholders and update status',
+        workflow: "Auto-notify stakeholders and update status",
         timeSaved: 25,
-        complexity: 'low' as const,
+        complexity: "low" as const,
       },
     ];
 
@@ -375,7 +437,12 @@ class AIDecisionEngine {
       for (const rule of automationRules) {
         if (rule.pattern.test(action) && frequency > 10) {
           const monthlyTimeSaved = frequency * rule.timeSaved;
-          const complexityFactor = rule.complexity === 'low' ? 1 : rule.complexity === 'medium' ? 0.7 : 0.4;
+          const complexityFactor =
+            rule.complexity === "low"
+              ? 1
+              : rule.complexity === "medium"
+                ? 0.7
+                : 0.4;
           const roi = (monthlyTimeSaved / 60) * 50 * complexityFactor;
 
           recommendations.push({
@@ -393,7 +460,9 @@ class AIDecisionEngine {
     return recommendations.sort((a, b) => b.priority - a.priority);
   }
 
-  async generateStrategicInsights(organizationId?: string): Promise<StrategicInsight[]> {
+  async generateStrategicInsights(
+    organizationId?: string,
+  ): Promise<StrategicInsight[]> {
     const [trends, serviceDemand, industryGrowth] = await Promise.all([
       trendDetection.getHotOpportunities(organizationId),
       trendDetection.detectTrendingServices(organizationId, 90),
@@ -406,15 +475,16 @@ class AIDecisionEngine {
       const topService = trends.hotServices[0];
       if (topService.growthRate > 50) {
         insights.push({
-          insight: `${topService.serviceType.replace('_', ' ')} demand surging by ${topService.growthRate.toFixed(0)}%`,
+          insight: `${topService.serviceType.replace("_", " ")} demand surging by ${topService.growthRate.toFixed(0)}%`,
           evidence: [
             `${topService.currentPeriodCount} leads in last 90 days`,
             `$${(topService.totalRevenue / 1000).toFixed(0)}K in potential revenue`,
             `${topService.strength} growth momentum`,
           ],
-          recommendation: 'Increase marketing spend and sales focus on this service line',
-          impact: 'high',
-          timeframe: 'Next 30-60 days',
+          recommendation:
+            "Increase marketing spend and sales focus on this service line",
+          impact: "high",
+          timeframe: "Next 30-60 days",
         });
       }
     }
@@ -429,41 +499,51 @@ class AIDecisionEngine {
             `${topIndustry.conversionRate.toFixed(0)}% conversion rate`,
             `${topIndustry.currentPeriodCount} active leads`,
           ],
-          recommendation: 'Develop industry-specific case studies and specialized service packages',
-          impact: 'high',
-          timeframe: 'Next 60-90 days',
+          recommendation:
+            "Develop industry-specific case studies and specialized service packages",
+          impact: "high",
+          timeframe: "Next 60-90 days",
         });
       }
     }
 
-    const decliningServices = serviceDemand.filter(s => s.direction === 'down' && s.growthRate < -30);
+    const decliningServices = serviceDemand.filter(
+      (s) => s.direction === "down" && s.growthRate < -30,
+    );
     if (decliningServices.length > 0) {
       const declining = decliningServices[0];
       insights.push({
-        insight: `${declining.serviceType.replace('_', ' ')} demand declining significantly`,
+        insight: `${declining.serviceType.replace("_", " ")} demand declining significantly`,
         evidence: [
           `${Math.abs(declining.growthRate).toFixed(0)}% decrease`,
           `Only ${declining.currentPeriodCount} leads vs ${declining.previousPeriodCount} prior`,
         ],
-        recommendation: 'Re-evaluate pricing, positioning, or consider phasing out',
-        impact: 'medium',
-        timeframe: 'Next 30 days',
+        recommendation:
+          "Re-evaluate pricing, positioning, or consider phasing out",
+        impact: "medium",
+        timeframe: "Next 30 days",
       });
     }
 
     if (trends.emergingKeywords.length > 3) {
-      const keywords = trends.emergingKeywords.slice(0, 3).map((k: any) => k.keyword).join(', ');
+      const keywords = trends.emergingKeywords
+        .slice(0, 3)
+        .map((k: any) => k.keyword)
+        .join(", ");
       insights.push({
         insight: `Multiple emerging demand signals detected: ${keywords}`,
-        evidence: trends.emergingKeywords.slice(0, 3).map((k: any) => `${k.keyword}: ${k.frequency} mentions`),
-        recommendation: 'Research market viability and consider service expansion',
-        impact: 'medium',
-        timeframe: 'Next 90 days',
+        evidence: trends.emergingKeywords
+          .slice(0, 3)
+          .map((k: any) => `${k.keyword}: ${k.frequency} mentions`),
+        recommendation:
+          "Research market viability and consider service expansion",
+        impact: "medium",
+        timeframe: "Next 90 days",
       });
     }
 
     const lowConversionIndustries = industryGrowth.filter(
-      i => i.currentPeriodCount > 5 && i.conversionRate < 20
+      (i) => i.currentPeriodCount > 5 && i.conversionRate < 20,
     );
     if (lowConversionIndustries.length > 0) {
       const industry = lowConversionIndustries[0];
@@ -473,9 +553,10 @@ class AIDecisionEngine {
           `${industry.currentPeriodCount} leads`,
           `Only ${industry.conversionRate.toFixed(0)}% conversion rate`,
         ],
-        recommendation: 'Improve qualification process or adjust targeting for this industry',
-        impact: 'medium',
-        timeframe: 'Next 30 days',
+        recommendation:
+          "Improve qualification process or adjust targeting for this industry",
+        impact: "medium",
+        timeframe: "Next 30 days",
       });
     }
 
@@ -499,19 +580,21 @@ class AIDecisionEngine {
 
     const insights: AIInsight[] = [];
 
-    salesRecs.slice(0, 3).forEach(rec => {
+    salesRecs.slice(0, 3).forEach((rec) => {
       insights.push({
         id: this.generateId(),
-        type: 'sales',
-        category: 'opportunity',
-        priority: rec.urgency === 'high' ? 'high' : 'medium',
+        type: "sales",
+        category: "opportunity",
+        priority: rec.urgency === "high" ? "high" : "medium",
         title: `Prioritize lead: ${rec.leadName}`,
         description: `Lead scored ${rec.score}/100 and requires attention`,
         reasoning: rec.reason,
         recommendation: rec.suggestedAction,
         actionItems: [
           rec.suggestedAction,
-          rec.followUpDate ? `Follow up by ${new Date(rec.followUpDate).toLocaleDateString()}` : 'Schedule follow-up',
+          rec.followUpDate
+            ? `Follow up by ${new Date(rec.followUpDate).toLocaleDateString()}`
+            : "Schedule follow-up",
         ],
         metadata: {
           leadId: rec.leadId,
@@ -519,48 +602,57 @@ class AIDecisionEngine {
           score: rec.score,
         },
         confidence: rec.score / 100,
-        impact: rec.estimatedValue > 50000 ? 'high' : rec.estimatedValue > 20000 ? 'medium' : 'low',
+        impact:
+          rec.estimatedValue > 50000
+            ? "high"
+            : rec.estimatedValue > 20000
+              ? "medium"
+              : "low",
         createdAt: new Date().toISOString(),
       });
     });
 
-    projectRecs.slice(0, 3).forEach(rec => {
+    projectRecs.slice(0, 3).forEach((rec) => {
       insights.push({
         id: this.generateId(),
-        type: 'project',
-        category: rec.riskLevel === 'high' ? 'risk' : 'optimization',
-        priority: rec.riskLevel === 'high' ? 'high' : 'medium',
+        type: "project",
+        category: rec.riskLevel === "high" ? "risk" : "optimization",
+        priority: rec.riskLevel === "high" ? "high" : "medium",
         title: `Project attention needed: ${rec.projectName}`,
         description: rec.issue,
         reasoning: `Risk level: ${rec.riskLevel}. ${rec.issue}`,
         recommendation: rec.recommendation,
-        actionItems: [
-          rec.recommendation,
-          ...(rec.suggestedResources || []),
-        ],
+        actionItems: [rec.recommendation, ...(rec.suggestedResources || [])],
         metadata: {
           projectId: rec.projectId,
           riskLevel: rec.riskLevel,
         },
-        confidence: rec.riskLevel === 'high' ? 0.9 : 0.7,
-        impact: rec.riskLevel === 'high' ? 'high' : 'medium',
+        confidence: rec.riskLevel === "high" ? 0.9 : 0.7,
+        impact: rec.riskLevel === "high" ? "high" : "medium",
         createdAt: new Date().toISOString(),
       });
     });
 
-    clientRecs.slice(0, 3).forEach(rec => {
+    clientRecs.slice(0, 3).forEach((rec) => {
       insights.push({
         id: this.generateId(),
-        type: 'client',
-        category: rec.type === 'retention' ? 'risk' : 'opportunity',
-        priority: rec.type === 'retention' ? 'high' : rec.confidence > 0.7 ? 'high' : 'medium',
+        type: "client",
+        category: rec.type === "retention" ? "risk" : "opportunity",
+        priority:
+          rec.type === "retention"
+            ? "high"
+            : rec.confidence > 0.7
+              ? "high"
+              : "medium",
         title: `Client ${rec.type}: ${rec.clientName}`,
         description: rec.recommendation,
         reasoning: `Confidence: ${(rec.confidence * 100).toFixed(0)}%. Potential value: $${(rec.value / 1000).toFixed(0)}K`,
         recommendation: rec.recommendation,
         actionItems: [
-          rec.type === 'upsell' ? 'Schedule expansion discussion' : 'Review client engagement',
-          'Prepare customized proposal',
+          rec.type === "upsell"
+            ? "Schedule expansion discussion"
+            : "Review client engagement",
+          "Prepare customized proposal",
         ],
         metadata: {
           clientId: rec.clientId,
@@ -568,25 +660,26 @@ class AIDecisionEngine {
           value: rec.value,
         },
         confidence: rec.confidence,
-        impact: rec.value > 50000 ? 'high' : rec.value > 20000 ? 'medium' : 'low',
+        impact:
+          rec.value > 50000 ? "high" : rec.value > 20000 ? "medium" : "low",
         createdAt: new Date().toISOString(),
       });
     });
 
-    automationRecs.slice(0, 2).forEach(rec => {
+    automationRecs.slice(0, 2).forEach((rec) => {
       insights.push({
         id: this.generateId(),
-        type: 'automation',
-        category: 'optimization',
-        priority: rec.priority > 75 ? 'high' : 'medium',
+        type: "automation",
+        category: "optimization",
+        priority: rec.priority > 75 ? "high" : "medium",
         title: `Automate: ${rec.workflow}`,
         description: `Save ${rec.timeSaved} minutes/month by automating this workflow`,
         reasoning: `Occurs ${rec.frequency} times/month. ROI: $${rec.roi.toFixed(0)}/month`,
         recommendation: `Implement automation for ${rec.workflow}`,
         actionItems: [
-          'Review automation requirements',
-          'Configure automation rules',
-          'Test and deploy',
+          "Review automation requirements",
+          "Configure automation rules",
+          "Test and deploy",
         ],
         metadata: {
           workflow: rec.workflow,
@@ -594,21 +687,21 @@ class AIDecisionEngine {
           timeSaved: rec.timeSaved,
           roi: rec.roi,
         },
-        confidence: rec.complexity === 'low' ? 0.9 : 0.7,
-        impact: rec.roi > 500 ? 'high' : 'medium',
+        confidence: rec.complexity === "low" ? 0.9 : 0.7,
+        impact: rec.roi > 500 ? "high" : "medium",
         createdAt: new Date().toISOString(),
       });
     });
 
-    strategicInsights.forEach(insight => {
+    strategicInsights.forEach((insight) => {
       insights.push({
         id: this.generateId(),
-        type: 'strategic',
-        category: insight.impact === 'high' ? 'opportunity' : 'optimization',
-        priority: insight.impact === 'high' ? 'high' : 'medium',
+        type: "strategic",
+        category: insight.impact === "high" ? "opportunity" : "optimization",
+        priority: insight.impact === "high" ? "high" : "medium",
         title: insight.insight,
         description: insight.recommendation,
-        reasoning: insight.evidence.join(' | '),
+        reasoning: insight.evidence.join(" | "),
         recommendation: insight.recommendation,
         actionItems: [
           insight.recommendation,
@@ -625,34 +718,42 @@ class AIDecisionEngine {
     });
 
     return insights.sort((a, b) => {
-      const priorityOrder: Record<InsightPriority, number> = { critical: 4, high: 3, medium: 2, low: 1 };
+      const priorityOrder: Record<InsightPriority, number> = {
+        critical: 4,
+        high: 3,
+        medium: 2,
+        low: 1,
+      };
       return priorityOrder[b.priority] - priorityOrder[a.priority];
     });
   }
 
   async getRecommendationsForContext(context: {
-    type: 'lead' | 'project' | 'client';
+    type: "lead" | "project" | "client";
     organizationId?: string;
     organizationId?: string;
     id: string;
   }): Promise<AIInsight[]> {
     const allInsights = await this.generateInsights(context.organizationId);
 
-    return allInsights.filter(insight => {
-      if (context.type === 'lead' && insight.type === 'sales') {
+    return allInsights.filter((insight) => {
+      if (context.type === "lead" && insight.type === "sales") {
         return insight.metadata.leadId === context.id;
       }
-      if (context.type === 'project' && insight.type === 'project') {
+      if (context.type === "project" && insight.type === "project") {
         return insight.metadata.projectId === context.id;
       }
-      if (context.type === 'client' && insight.type === 'client') {
+      if (context.type === "client" && insight.type === "client") {
         return insight.metadata.clientId === context.id;
       }
       return false;
     });
   }
 
-  async getDashboardInsights(organizationId?: string, limit: number = 5): Promise<AIInsight[]> {
+  async getDashboardInsights(
+    organizationId?: string,
+    limit: number = 5,
+  ): Promise<AIInsight[]> {
     const insights = await this.generateInsights(organizationId);
     return insights.slice(0, limit);
   }

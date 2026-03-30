@@ -1,17 +1,38 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, FileText, DollarSign, Calendar, Building2, User, Mail, CheckCircle2, XCircle, Send, Copy, MoreVertical, CreditCard as Edit, Trash2, Rocket, Link2 } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ProposalStatusBadge from '../../components/proposals/ProposalStatusBadge';
-import PricingModelBadge from '../../components/proposals/PricingModelBadge';
-import ConversionStatus from '../../components/ConversionStatus';
-import { proposalsService, ProposalWithDetails, ProposalStatus } from '../../lib/db/proposals';
-import { convertProposalToProject } from '../../lib/workflowAutomation';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  FileText,
+  DollarSign,
+  Calendar,
+  Building2,
+  User,
+  Mail,
+  CheckCircle2,
+  XCircle,
+  Send,
+  Copy,
+  MoreVertical,
+  CreditCard as Edit,
+  Trash2,
+  Rocket,
+  Link2,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ProposalStatusBadge from "../../components/proposals/ProposalStatusBadge";
+import PricingModelBadge from "../../components/proposals/PricingModelBadge";
+import ConversionStatus from "../../components/ConversionStatus";
+import {
+  proposalsService,
+  ProposalWithDetails,
+  ProposalStatus,
+} from "../../lib/db/proposals";
+import { convertProposalToProject } from "../../lib/workflowAutomation";
 
 export default function ProposalDetail() {
   const { id } = useParams<{ id: string }>();
@@ -33,7 +54,7 @@ export default function ProposalDetail() {
       const data = await proposalsService.getProposalById(id);
       setProposal(data);
     } catch (error) {
-      console.error('Failed to load proposal:', error);
+      console.error("Failed to load proposal:", error);
     } finally {
       setLoading(false);
     }
@@ -46,7 +67,7 @@ export default function ProposalDetail() {
       await proposalsService.updateProposalStatus(id, status);
       loadProposal();
     } catch (error) {
-      console.error('Failed to update status:', error);
+      console.error("Failed to update status:", error);
     }
   };
 
@@ -57,25 +78,30 @@ export default function ProposalDetail() {
       const newProposal = await proposalsService.duplicateProposal(id);
       navigate(`/app/proposals/${newProposal.id}`);
     } catch (error) {
-      console.error('Failed to duplicate proposal:', error);
+      console.error("Failed to duplicate proposal:", error);
     }
   };
 
   const handleDelete = async () => {
-    if (!id || !confirm('Are you sure you want to delete this proposal?')) return;
+    if (!id || !confirm("Are you sure you want to delete this proposal?"))
+      return;
 
     try {
       await proposalsService.deleteProposal(id);
-      navigate('/app/proposals');
+      navigate("/app/proposals");
     } catch (error) {
-      console.error('Failed to delete proposal:', error);
+      console.error("Failed to delete proposal:", error);
     }
   };
 
   const handleConvertToProject = async () => {
     if (!id || !proposal) return;
 
-    if (!confirm('Convert this proposal to an active project? This will create a project and apply templates based on service types.')) {
+    if (
+      !confirm(
+        "Convert this proposal to an active project? This will create a project and apply templates based on service types.",
+      )
+    ) {
       return;
     }
 
@@ -95,11 +121,11 @@ export default function ProposalDetail() {
         alert(result.message);
         navigate(`/app/projects/${result.projectId}`);
       } else {
-        alert(result.message || 'Failed to convert proposal');
+        alert(result.message || "Failed to convert proposal");
       }
     } catch (error) {
-      console.error('Failed to convert proposal:', error);
-      alert('An error occurred while converting the proposal');
+      console.error("Failed to convert proposal:", error);
+      alert("An error occurred while converting the proposal");
     } finally {
       setConverting(false);
     }
@@ -110,14 +136,14 @@ export default function ProposalDetail() {
 
     const shareUrl = `${window.location.origin}/proposal/${proposal.share_token}`;
     navigator.clipboard.writeText(shareUrl);
-    alert('Share link copied to clipboard!');
+    alert("Share link copied to clipboard!");
   };
 
   const formatCurrency = (amount?: number) => {
-    if (!amount) return 'TBD';
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    if (!amount) return "TBD";
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -140,9 +166,16 @@ export default function ProposalDetail() {
         <div className="p-8">
           <Card glass className="p-12 text-center">
             <FileText className="w-16 h-16 text-slate-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-2">Proposal Not Found</h2>
-            <p className="text-slate-400 mb-6">The proposal you're looking for doesn't exist.</p>
-            <Button variant="primary" onClick={() => navigate('/app/proposals')}>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              Proposal Not Found
+            </h2>
+            <p className="text-slate-400 mb-6">
+              The proposal you're looking for doesn't exist.
+            </p>
+            <Button
+              variant="primary"
+              onClick={() => navigate("/app/proposals")}
+            >
               Back to Proposals
             </Button>
           </Card>
@@ -166,33 +199,42 @@ export default function ProposalDetail() {
           </Link>
 
           <div className="flex items-center space-x-3">
-            {(proposal.status === 'approved' && !proposal.converted_to_project) && (
-              <Button
-                variant="primary"
-                onClick={handleConvertToProject}
-                disabled={converting}
-              >
-                <Rocket className="w-4 h-4 mr-2" />
-                {converting ? 'Converting...' : 'Convert to Project'}
-              </Button>
-            )}
+            {proposal.status === "approved" &&
+              !proposal.converted_to_project && (
+                <Button
+                  variant="primary"
+                  onClick={handleConvertToProject}
+                  disabled={converting}
+                >
+                  <Rocket className="w-4 h-4 mr-2" />
+                  {converting ? "Converting..." : "Convert to Project"}
+                </Button>
+              )}
 
-            {['sent', 'viewed', 'internal_review'].includes(proposal.status) && (
+            {["sent", "viewed", "internal_review"].includes(
+              proposal.status,
+            ) && (
               <Button variant="outline" onClick={handleCopyShareLink}>
                 <Link2 className="w-4 h-4 mr-2" />
                 Copy Share Link
               </Button>
             )}
 
-            {proposal.status === 'draft' && (
-              <Button variant="outline" onClick={() => handleStatusChange('sent')}>
+            {proposal.status === "draft" && (
+              <Button
+                variant="outline"
+                onClick={() => handleStatusChange("sent")}
+              >
                 <Send className="w-4 h-4 mr-2" />
                 Send to Client
               </Button>
             )}
 
             <div className="relative">
-              <Button variant="outline" onClick={() => setActionMenuOpen(!actionMenuOpen)}>
+              <Button
+                variant="outline"
+                onClick={() => setActionMenuOpen(!actionMenuOpen)}
+              >
                 <MoreVertical className="w-4 h-4" />
               </Button>
 
@@ -235,20 +277,25 @@ export default function ProposalDetail() {
                   <CheckCircle2 className="w-6 h-6 text-green-400" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-white mb-2">Proposal Approved</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    Proposal Approved
+                  </h3>
                   {proposal.approver_name && (
                     <p className="text-slate-300 mb-1">
                       Approved by <strong>{proposal.approver_name}</strong>
-                      {proposal.approver_title && ` (${proposal.approver_title})`}
+                      {proposal.approver_title &&
+                        ` (${proposal.approver_title})`}
                     </p>
                   )}
                   {proposal.approver_email && (
-                    <p className="text-slate-400 text-sm mb-1">{proposal.approver_email}</p>
+                    <p className="text-slate-400 text-sm mb-1">
+                      {proposal.approver_email}
+                    </p>
                   )}
                   <p className="text-slate-500 text-sm">
-                    {new Date(proposal.approved_at).toLocaleString('en-US', {
-                      dateStyle: 'long',
-                      timeStyle: 'short',
+                    {new Date(proposal.approved_at).toLocaleString("en-US", {
+                      dateStyle: "long",
+                      timeStyle: "short",
                     })}
                   </p>
                 </div>
@@ -260,16 +307,20 @@ export default function ProposalDetail() {
                   <XCircle className="w-6 h-6 text-red-400" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-white mb-2">Changes Requested</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    Changes Requested
+                  </h3>
                   <p className="text-slate-400 text-sm mb-2">
-                    {new Date(proposal.declined_at).toLocaleString('en-US', {
-                      dateStyle: 'long',
-                      timeStyle: 'short',
+                    {new Date(proposal.declined_at).toLocaleString("en-US", {
+                      dateStyle: "long",
+                      timeStyle: "short",
                     })}
                   </p>
                   {proposal.declined_reason && (
                     <div className="mt-3 p-3 bg-slate-800/50 border border-slate-700 rounded-lg">
-                      <p className="text-sm text-slate-300">{proposal.declined_reason}</p>
+                      <p className="text-sm text-slate-300">
+                        {proposal.declined_reason}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -285,28 +336,29 @@ export default function ProposalDetail() {
               <ProposalStatusBadge status={proposal.status} />
             </div>
             <div className="space-y-3">
-              {proposal.status !== 'approved' && proposal.status !== 'declined' && (
-                <div className="flex flex-col space-y-2">
-                  <Button
-                    variant="primary"
-                    className="bg-green-600 hover:bg-green-700 text-white border-green-600 hover:border-green-700"
-                    size="sm"
-                    onClick={() => handleStatusChange('approved')}
-                  >
-                    <CheckCircle2 className="w-4 h-4 mr-2" />
-                    Mark Approved
-                  </Button>
-                  <Button
-                    variant="primary"
-                    className="bg-red-600 hover:bg-red-700 text-white border-red-600 hover:border-red-700"
-                    size="sm"
-                    onClick={() => handleStatusChange('declined')}
-                  >
-                    <XCircle className="w-4 h-4 mr-2" />
-                    Mark Declined
-                  </Button>
-                </div>
-              )}
+              {proposal.status !== "approved" &&
+                proposal.status !== "declined" && (
+                  <div className="flex flex-col space-y-2">
+                    <Button
+                      variant="primary"
+                      className="bg-green-600 hover:bg-green-700 text-white border-green-600 hover:border-green-700"
+                      size="sm"
+                      onClick={() => handleStatusChange("approved")}
+                    >
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      Mark Approved
+                    </Button>
+                    <Button
+                      variant="primary"
+                      className="bg-red-600 hover:bg-red-700 text-white border-red-600 hover:border-red-700"
+                      size="sm"
+                      onClick={() => handleStatusChange("declined")}
+                    >
+                      <XCircle className="w-4 h-4 mr-2" />
+                      Mark Declined
+                    </Button>
+                  </div>
+                )}
             </div>
           </Card>
 
@@ -327,13 +379,15 @@ export default function ProposalDetail() {
               <Calendar className="w-5 h-5 text-indigo-500" />
             </div>
             <div className="text-2xl font-bold text-white">
-              {proposal.timeline_estimate || 'TBD'}
+              {proposal.timeline_estimate || "TBD"}
             </div>
           </Card>
         </div>
 
         <Card glass className="p-8">
-          <h2 className="text-2xl font-bold text-white mb-6">Client Information</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">
+            Client Information
+          </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="flex items-start space-x-3">
               <Building2 className="w-5 h-5 text-slate-400 mt-1" />
@@ -348,7 +402,9 @@ export default function ProposalDetail() {
                 <Mail className="w-5 h-5 text-slate-400 mt-1" />
                 <div>
                   <p className="text-sm text-slate-400">Email</p>
-                  <p className="text-white font-medium">{proposal.client_email}</p>
+                  <p className="text-white font-medium">
+                    {proposal.client_email}
+                  </p>
                 </div>
               </div>
             )}
@@ -373,7 +429,9 @@ export default function ProposalDetail() {
                 <User className="w-5 h-5 text-slate-400 mt-1" />
                 <div>
                   <p className="text-sm text-slate-400">Created By</p>
-                  <p className="text-white font-medium">{proposal.creator.full_name || proposal.creator.email}</p>
+                  <p className="text-white font-medium">
+                    {proposal.creator.full_name || proposal.creator.email}
+                  </p>
                 </div>
               </div>
             )}
@@ -382,8 +440,12 @@ export default function ProposalDetail() {
 
         {proposal.scope_summary && (
           <Card glass className="p-8">
-            <h2 className="text-2xl font-bold text-white mb-4">Executive Summary</h2>
-            <p className="text-slate-300 leading-relaxed">{proposal.scope_summary}</p>
+            <h2 className="text-2xl font-bold text-white mb-4">
+              Executive Summary
+            </h2>
+            <p className="text-slate-300 leading-relaxed">
+              {proposal.scope_summary}
+            </p>
           </Card>
         )}
 
@@ -418,10 +480,16 @@ export default function ProposalDetail() {
                   <div className="flex items-start space-x-3">
                     <CheckCircle2 className="w-5 h-5 text-[#10B981] flex-shrink-0 mt-1" />
                     <div className="flex-1">
-                      <h4 className="font-semibold text-white mb-1">{deliverable.title}</h4>
-                      <p className="text-slate-300 text-sm">{deliverable.description}</p>
+                      <h4 className="font-semibold text-white mb-1">
+                        {deliverable.title}
+                      </h4>
+                      <p className="text-slate-300 text-sm">
+                        {deliverable.description}
+                      </p>
                       {deliverable.timeline && (
-                        <p className="text-slate-400 text-xs mt-2">Timeline: {deliverable.timeline}</p>
+                        <p className="text-slate-400 text-xs mt-2">
+                          Timeline: {deliverable.timeline}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -433,7 +501,9 @@ export default function ProposalDetail() {
 
         {proposal.optional_addons && proposal.optional_addons.length > 0 && (
           <Card glass className="p-8">
-            <h2 className="text-2xl font-bold text-white mb-6">Optional Add-ons</h2>
+            <h2 className="text-2xl font-bold text-white mb-6">
+              Optional Add-ons
+            </h2>
             <div className="space-y-4">
               {proposal.optional_addons.map((addon, idx) => (
                 <div
@@ -441,8 +511,12 @@ export default function ProposalDetail() {
                   className="p-4 bg-slate-800/30 border border-slate-700 rounded-lg flex justify-between items-start"
                 >
                   <div className="flex-1">
-                    <h4 className="font-semibold text-white mb-1">{addon.title}</h4>
-                    <p className="text-slate-300 text-sm">{addon.description}</p>
+                    <h4 className="font-semibold text-white mb-1">
+                      {addon.title}
+                    </h4>
+                    <p className="text-slate-300 text-sm">
+                      {addon.description}
+                    </p>
                   </div>
                   <div className="text-right ml-4">
                     <p className="text-xl font-bold text-[#10B981]">
@@ -461,7 +535,9 @@ export default function ProposalDetail() {
               <FileText className="w-6 h-6 mr-3 text-yellow-500" />
               Internal Notes
             </h2>
-            <p className="text-slate-300 leading-relaxed">{proposal.internal_notes}</p>
+            <p className="text-slate-300 leading-relaxed">
+              {proposal.internal_notes}
+            </p>
           </Card>
         )}
 
@@ -469,24 +545,32 @@ export default function ProposalDetail() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
             <div>
               <p className="text-slate-400">Created</p>
-              <p className="text-white font-medium">{new Date(proposal.created_at).toLocaleDateString()}</p>
+              <p className="text-white font-medium">
+                {new Date(proposal.created_at).toLocaleDateString()}
+              </p>
             </div>
             {proposal.sent_at && (
               <div>
                 <p className="text-slate-400">Sent</p>
-                <p className="text-white font-medium">{new Date(proposal.sent_at).toLocaleDateString()}</p>
+                <p className="text-white font-medium">
+                  {new Date(proposal.sent_at).toLocaleDateString()}
+                </p>
               </div>
             )}
             {proposal.viewed_at && (
               <div>
                 <p className="text-slate-400">Viewed</p>
-                <p className="text-white font-medium">{new Date(proposal.viewed_at).toLocaleDateString()}</p>
+                <p className="text-white font-medium">
+                  {new Date(proposal.viewed_at).toLocaleDateString()}
+                </p>
               </div>
             )}
             {proposal.expires_at && (
               <div>
                 <p className="text-slate-400">Expires</p>
-                <p className="text-white font-medium">{new Date(proposal.expires_at).toLocaleDateString()}</p>
+                <p className="text-white font-medium">
+                  {new Date(proposal.expires_at).toLocaleDateString()}
+                </p>
               </div>
             )}
           </div>

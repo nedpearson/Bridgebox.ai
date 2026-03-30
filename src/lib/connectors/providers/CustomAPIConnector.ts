@@ -1,20 +1,24 @@
 // @ts-nocheck
-import { BaseConnector } from '../core/BaseConnector';
-import type { ConnectorConfig, SyncResult, ConnectorCapability } from '../types';
+import { BaseConnector } from "../core/BaseConnector";
+import type {
+  ConnectorConfig,
+  SyncResult,
+  ConnectorCapability,
+} from "../types";
 
 interface CustomAPIConfig {
   baseURL: string;
-  authType: 'bearer' | 'api_key' | 'basic' | 'none';
+  authType: "bearer" | "api_key" | "basic" | "none";
   authValue?: string;
   headers?: Record<string, string>;
 }
 
 interface EndpointMapping {
   path: string;
-  method: 'GET' | 'POST';
+  method: "GET" | "POST";
   dataPath?: string;
   idField: string;
-  dataType: 'event' | 'metric' | 'entity';
+  dataType: "event" | "metric" | "entity";
   fieldMappings: Record<string, string>;
 }
 
@@ -25,20 +29,22 @@ export class CustomAPIConnector extends BaseConnector {
   constructor(config: ConnectorConfig) {
     super(config);
     this.config = this.parseCredentials<CustomAPIConfig>(config.credentials);
-    this.mappings = (config.mapping_config as { endpoints?: EndpointMapping[] })?.endpoints || [];
+    this.mappings =
+      (config.mapping_config as { endpoints?: EndpointMapping[] })?.endpoints ||
+      [];
   }
 
   async connect(): Promise<boolean> {
     try {
       const headers = this.buildHeaders();
       const response = await fetch(this.config.baseURL, {
-        method: 'GET',
-        headers
+        method: "GET",
+        headers,
       });
 
       return response.ok || response.status === 404;
     } catch (error) {
-      console.error('Custom API connection failed:', error);
+      console.error("Custom API connection failed:", error);
       return false;
     }
   }
@@ -51,7 +57,7 @@ export class CustomAPIConnector extends BaseConnector {
       recordsCreated: 0,
       recordsUpdated: 0,
       recordsFailed: 0,
-      errors: []
+      errors: [],
     };
 
     try {
@@ -64,7 +70,9 @@ export class CustomAPIConnector extends BaseConnector {
       return results;
     } catch (error) {
       results.success = false;
-      results.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      results.errors.push(
+        error instanceof Error ? error.message : "Unknown error",
+      );
       results.duration = Date.now() - startTime.getTime();
       return results;
     }
@@ -79,29 +87,29 @@ export class CustomAPIConnector extends BaseConnector {
   }
 
   getCapabilities(): ConnectorCapability[] {
-    return ['read', 'sync'];
+    return ["read", "sync"];
   }
 
   private buildHeaders(): HeadersInit {
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-      ...this.config.headers
+      "Content-Type": "application/json",
+      ...this.config.headers,
     };
 
     switch (this.config.authType) {
-      case 'bearer':
+      case "bearer":
         if (this.config.authValue) {
-          headers['Authorization'] = `Bearer ${this.config.authValue}`;
+          headers["Authorization"] = `Bearer ${this.config.authValue}`;
         }
         break;
-      case 'api_key':
+      case "api_key":
         if (this.config.authValue) {
-          headers['X-API-Key'] = this.config.authValue;
+          headers["X-API-Key"] = this.config.authValue;
         }
         break;
-      case 'basic':
+      case "basic":
         if (this.config.authValue) {
-          headers['Authorization'] = `Basic ${btoa(this.config.authValue)}`;
+          headers["Authorization"] = `Basic ${btoa(this.config.authValue)}`;
         }
         break;
     }
@@ -116,7 +124,7 @@ export class CustomAPIConnector extends BaseConnector {
       recordsCreated: 0,
       recordsUpdated: 0,
       recordsFailed: 0,
-      errors: []
+      errors: [],
     };
 
     try {
@@ -125,18 +133,20 @@ export class CustomAPIConnector extends BaseConnector {
 
       const response = await fetch(url, {
         method: mapping.method,
-        headers
+        headers,
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch from ${mapping.path}: ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch from ${mapping.path}: ${response.statusText}`,
+        );
       }
 
       const data = await response.json();
       let records: any[] = [];
 
       if (mapping.dataPath) {
-        const pathParts = mapping.dataPath.split('.');
+        const pathParts = mapping.dataPath.split(".");
         let current = data;
         for (const part of pathParts) {
           current = current[part];
@@ -157,8 +167,13 @@ export class CustomAPIConnector extends BaseConnector {
           }
 
           const normalizedData: Record<string, any> = {};
-          for (const [targetField, sourceField] of Object.entries(mapping.fieldMappings)) {
-            normalizedData[targetField] = this.extractValue(record, sourceField);
+          for (const [targetField, sourceField] of Object.entries(
+            mapping.fieldMappings,
+          )) {
+            normalizedData[targetField] = this.extractValue(
+              record,
+              sourceField,
+            );
           }
 
           await this.normalizeAndStore({
@@ -167,27 +182,31 @@ export class CustomAPIConnector extends BaseConnector {
             sourceId: String(sourceId),
             data: normalizedData,
             rawData: record,
-            timestamp: new Date()
+            timestamp: new Date(),
           });
 
           results.recordsProcessed++;
           results.recordsCreated++;
         } catch (error) {
           results.recordsFailed++;
-          results.errors.push(`Failed to process record from ${mapping.path}: ${error}`);
+          results.errors.push(
+            `Failed to process record from ${mapping.path}: ${error}`,
+          );
         }
       }
 
       return results;
     } catch (error) {
       results.success = false;
-      results.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      results.errors.push(
+        error instanceof Error ? error.message : "Unknown error",
+      );
       return results;
     }
   }
 
   private extractValue(obj: any, path: string): any {
-    const parts = path.split('.');
+    const parts = path.split(".");
     let current = obj;
 
     for (const part of parts) {
@@ -210,7 +229,7 @@ export class CustomAPIConnector extends BaseConnector {
   }
 
   private async normalizeAndStore(data: {
-    type: 'event' | 'metric' | 'entity';
+    type: "event" | "metric" | "entity";
     source: string;
     sourceId: string;
     data: Record<string, any>;
@@ -225,7 +244,7 @@ export class CustomAPIConnector extends BaseConnector {
       raw_data: data.rawData,
       normalized_data: data.data,
       metadata: {},
-      synced_at: data.timestamp
+      synced_at: data.timestamp,
     });
   }
 
@@ -237,7 +256,8 @@ export class CustomAPIConnector extends BaseConnector {
     return [];
   }
 
-  async syncNow(): Promise<any> { // @ts-ignore
+  async syncNow(): Promise<any> {
+    // @ts-ignore
     return {
       success: true,
       recordsProcessed: 0,
@@ -248,7 +268,7 @@ export class CustomAPIConnector extends BaseConnector {
       errors: [],
       duration: 0,
       startedAt: new Date().toISOString(),
-      completedAt: new Date().toISOString()
+      completedAt: new Date().toISOString(),
     };
   }
 

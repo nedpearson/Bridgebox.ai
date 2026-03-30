@@ -1,9 +1,13 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mail, UserPlus, AlertCircle } from 'lucide-react';
-import Button from '../Button';
-import { teamService } from '../../lib/db/team';
-import { ROLE_LABELS, ROLE_DESCRIPTIONS, type UserRole } from '../../types/team';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Mail, UserPlus, AlertCircle } from "lucide-react";
+import Button from "../Button";
+import { teamService } from "../../lib/db/team";
+import {
+  ROLE_LABELS,
+  ROLE_DESCRIPTIONS,
+  type UserRole,
+} from "../../types/team";
 
 interface InviteMemberModalProps {
   isOpen: boolean;
@@ -18,35 +22,35 @@ export default function InviteMemberModal({
   onClose,
   organizationId,
   onSuccess,
-  allowedRoles = ['client_admin', 'client_member'],
+  allowedRoles = ["client_admin", "client_member"],
 }: InviteMemberModalProps) {
-  const [email, setEmail] = useState('');
-  const [role, setRole] = useState<UserRole>('client_member');
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState<UserRole>("client_member");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
       await teamService.createInvitation(email, organizationId, role);
       onSuccess();
-      setEmail('');
-      setRole('client_member');
+      setEmail("");
+      setRole("client_member");
       onClose();
     } catch (err: any) {
-      setError(err.message || 'Failed to send invitation');
+      setError(err.message || "Failed to send invitation");
     } finally {
       setLoading(false);
     }
   };
 
   const handleClose = () => {
-    setEmail('');
-    setRole('client_member');
-    setError('');
+    setEmail("");
+    setRole("client_member");
+    setError("");
     onClose();
   };
 
@@ -82,8 +86,12 @@ export default function InviteMemberModal({
                   <UserPlus className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Invite Team Member</h2>
-                  <p className="text-slate-400 text-sm">Send an invitation to join your organization</p>
+                  <h2 className="text-2xl font-bold text-white">
+                    Invite Team Member
+                  </h2>
+                  <p className="text-slate-400 text-sm">
+                    Send an invitation to join your organization
+                  </p>
                 </div>
               </div>
 
@@ -96,7 +104,10 @@ export default function InviteMemberModal({
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-slate-300 mb-2"
+                  >
                     Email Address
                   </label>
                   <div className="relative">
@@ -114,7 +125,10 @@ export default function InviteMemberModal({
                 </div>
 
                 <div>
-                  <label htmlFor="role" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label
+                    htmlFor="role"
+                    className="block text-sm font-medium text-slate-300 mb-2"
+                  >
                     Role
                   </label>
                   <select
@@ -136,7 +150,11 @@ export default function InviteMemberModal({
 
                 <div className="bg-slate-800/30 border border-slate-700 rounded-lg p-4">
                   <p className="text-sm text-slate-300">
-                    An invitation email will be sent to <span className="text-white font-medium">{email || 'the user'}</span> with instructions to join your organization.
+                    An invitation email will be sent to{" "}
+                    <span className="text-white font-medium">
+                      {email || "the user"}
+                    </span>{" "}
+                    with instructions to join your organization.
                   </p>
                 </div>
 
@@ -155,7 +173,7 @@ export default function InviteMemberModal({
                     disabled={loading || !email}
                     className="flex-1"
                   >
-                    {loading ? 'Sending...' : 'Send Invitation'}
+                    {loading ? "Sending..." : "Send Invitation"}
                   </Button>
                 </div>
               </form>

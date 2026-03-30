@@ -1,22 +1,33 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Mic, Type, Video, GitMerge, Wand2, ChevronRight, Clock, Zap } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
-import { enhancementRequestsService } from '../../lib/db/enhancementRequests';
-import { StatusBadgeWES } from './StatusBadgeWES';
-import SpeakYourAppModal from './SpeakYourAppModal';
-import TypeFeatureModal from './TypeFeatureModal';
-import UploadRecordingModal from './UploadRecordingModal';
-import type { EnhancementRequest } from '../../types/enhancement';
-import { formatRelativeTime } from '../../lib/dateUtils';
-import { RecentEnhancement } from '../../lib/db/enhancementRequests';
+import { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  Mic,
+  Type,
+  Video,
+  GitMerge,
+  Wand2,
+  ChevronRight,
+  Clock,
+  Zap,
+} from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { enhancementRequestsService } from "../../lib/db/enhancementRequests";
+import { StatusBadgeWES } from "./StatusBadgeWES";
+import SpeakYourAppModal from "./SpeakYourAppModal";
+import TypeFeatureModal from "./TypeFeatureModal";
+import UploadRecordingModal from "./UploadRecordingModal";
+import type { EnhancementRequest } from "../../types/enhancement";
+import { formatRelativeTime } from "../../lib/dateUtils";
+import { RecentEnhancement } from "../../lib/db/enhancementRequests";
 
 interface WorkspaceEnhancementCardProps {
   onMergeClick?: () => void;
 }
 
-export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnhancementCardProps) {
+export default function WorkspaceEnhancementCard({
+  onMergeClick,
+}: WorkspaceEnhancementCardProps) {
   const { currentOrganization } = useAuth();
   const [recentRequests, setRecentRequests] = useState<RecentEnhancement[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +38,10 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
   const loadRecent = useCallback(async () => {
     if (!currentOrganization) return;
     try {
-      const data = await enhancementRequestsService.listRecent(currentOrganization.id, 4);
+      const data = await enhancementRequestsService.listRecent(
+        currentOrganization.id,
+        4,
+      );
       setRecentRequests(data);
     } catch {
       // non-critical
@@ -36,7 +50,9 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
     }
   }, [currentOrganization]);
 
-  useEffect(() => { loadRecent(); }, [loadRecent]);
+  useEffect(() => {
+    loadRecent();
+  }, [loadRecent]);
 
   const handleCreated = useCallback(() => {
     loadRecent();
@@ -46,10 +62,34 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
   }, [loadRecent]);
 
   const quickActions = [
-    { icon: Mic, label: 'Speak Feature', color: 'text-indigo-400', bg: 'bg-indigo-500/10 hover:bg-indigo-500/20 border-indigo-500/20', onClick: () => setShowVoice(true) },
-    { icon: Type, label: 'Write a Request', color: 'text-cyan-400', bg: 'bg-cyan-500/10 hover:bg-cyan-500/20 border-cyan-500/20', onClick: () => setShowType(true) },
-    { icon: Video, label: 'Upload Recording', color: 'text-violet-400', bg: 'bg-violet-500/10 hover:bg-violet-500/20 border-violet-500/20', onClick: () => setShowUpload(true) },
-    { icon: GitMerge, label: 'Import Feature Pack', color: 'text-amber-400', bg: 'bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/20', onClick: onMergeClick },
+    {
+      icon: Mic,
+      label: "Speak Feature",
+      color: "text-indigo-400",
+      bg: "bg-indigo-500/10 hover:bg-indigo-500/20 border-indigo-500/20",
+      onClick: () => setShowVoice(true),
+    },
+    {
+      icon: Type,
+      label: "Write a Request",
+      color: "text-cyan-400",
+      bg: "bg-cyan-500/10 hover:bg-cyan-500/20 border-cyan-500/20",
+      onClick: () => setShowType(true),
+    },
+    {
+      icon: Video,
+      label: "Upload Recording",
+      color: "text-violet-400",
+      bg: "bg-violet-500/10 hover:bg-violet-500/20 border-violet-500/20",
+      onClick: () => setShowUpload(true),
+    },
+    {
+      icon: GitMerge,
+      label: "Import Feature Pack",
+      color: "text-amber-400",
+      bg: "bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/20",
+      onClick: onMergeClick,
+    },
   ];
 
   return (
@@ -63,11 +103,18 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
                 <Wand2 className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-base">Voice-to-App Studio</h3>
-                <p className="text-slate-400 text-xs">Describe it. Record it. We build it.</p>
+                <h3 className="text-white font-bold text-base">
+                  Voice-to-App Studio
+                </h3>
+                <p className="text-slate-400 text-xs">
+                  Describe it. Record it. We build it.
+                </p>
               </div>
             </div>
-            <Link to="/app/enhancements" className="flex items-center gap-1.5 text-xs text-indigo-400 hover:text-indigo-300 transition-colors font-medium">
+            <Link
+              to="/app/enhancements"
+              className="flex items-center gap-1.5 text-xs text-indigo-400 hover:text-indigo-300 transition-colors font-medium"
+            >
               Review Queue <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -85,8 +132,12 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
               <Mic className="w-6 h-6 text-white" />
             </div>
             <div className="text-left">
-              <p className="text-white font-semibold">Speak Your Requirements</p>
-              <p className="text-slate-400 text-sm">Describe your software in your own words — we handle the rest</p>
+              <p className="text-white font-semibold">
+                Speak Your Requirements
+              </p>
+              <p className="text-slate-400 text-sm">
+                Describe your software in your own words — we handle the rest
+              </p>
             </div>
             <div className="ml-auto flex items-center gap-1.5 flex-shrink-0">
               <Zap className="w-4 h-4 text-indigo-400" />
@@ -95,14 +146,18 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
 
           {/* Quick actions */}
           <div className="grid grid-cols-2 gap-2">
-            {quickActions.slice(1).map(action => (
+            {quickActions.slice(1).map((action) => (
               <button
                 key={action.label}
                 onClick={action.onClick}
                 className={`flex items-center gap-2.5 p-3 ${action.bg} border rounded-xl transition-all text-left`}
               >
-                <action.icon className={`w-4 h-4 ${action.color} flex-shrink-0`} />
-                <span className="text-sm font-medium text-slate-300">{action.label}</span>
+                <action.icon
+                  className={`w-4 h-4 ${action.color} flex-shrink-0`}
+                />
+                <span className="text-sm font-medium text-slate-300">
+                  {action.label}
+                </span>
               </button>
             ))}
           </div>
@@ -112,14 +167,24 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
             <div className="pt-1">
               <div className="flex items-center gap-2 mb-3">
                 <Clock className="w-3.5 h-3.5 text-slate-500" />
-                <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Recent Requests</p>
+                <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">
+                  Recent Requests
+                </p>
               </div>
               <div className="space-y-2">
-                {recentRequests.map(req => (
-                  <Link key={req.id} to={`/app/enhancements/${req.id}`} className="flex items-center justify-between p-3 bg-slate-800/40 hover:bg-slate-800/70 border border-slate-700/40 rounded-xl transition-all group">
+                {recentRequests.map((req) => (
+                  <Link
+                    key={req.id}
+                    to={`/app/enhancements/${req.id}`}
+                    className="flex items-center justify-between p-3 bg-slate-800/40 hover:bg-slate-800/70 border border-slate-700/40 rounded-xl transition-all group"
+                  >
                     <div className="min-w-0 flex-1">
-                      <p className="text-white text-sm font-medium truncate group-hover:text-indigo-300 transition-colors">{req.title}</p>
-                      <p className="text-slate-500 text-xs mt-0.5">{formatRelativeTime(req.created_at)}</p>
+                      <p className="text-white text-sm font-medium truncate group-hover:text-indigo-300 transition-colors">
+                        {req.title}
+                      </p>
+                      <p className="text-slate-500 text-xs mt-0.5">
+                        {formatRelativeTime(req.created_at)}
+                      </p>
                     </div>
                     <StatusBadgeWES status={req.status} size="xs" />
                   </Link>
@@ -131,9 +196,12 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
           {!loading && recentRequests.length === 0 && (
             <div className="text-center py-6 border border-dashed border-slate-700/50 rounded-xl">
               <Wand2 className="w-8 h-8 text-indigo-500/40 mx-auto mb-3" />
-              <p className="text-slate-300 text-sm font-semibold">No requests yet — you're just getting started</p>
+              <p className="text-slate-300 text-sm font-semibold">
+                No requests yet — you're just getting started
+              </p>
               <p className="text-slate-500 text-xs mt-1.5 max-w-xs mx-auto">
-                Use any of the options above to describe your current software or what you'd like us to build.
+                Use any of the options above to describe your current software
+                or what you'd like us to build.
               </p>
             </div>
           )}
@@ -141,9 +209,21 @@ export default function WorkspaceEnhancementCard({ onMergeClick }: WorkspaceEnha
       </div>
 
       {/* Modals */}
-      <SpeakYourAppModal isOpen={showVoice} onClose={() => setShowVoice(false)} onCreated={handleCreated} />
-      <TypeFeatureModal isOpen={showType} onClose={() => setShowType(false)} onCreated={handleCreated} />
-      <UploadRecordingModal isOpen={showUpload} onClose={() => setShowUpload(false)} onCreated={handleCreated} />
+      <SpeakYourAppModal
+        isOpen={showVoice}
+        onClose={() => setShowVoice(false)}
+        onCreated={handleCreated}
+      />
+      <TypeFeatureModal
+        isOpen={showType}
+        onClose={() => setShowType(false)}
+        onCreated={handleCreated}
+      />
+      <UploadRecordingModal
+        isOpen={showUpload}
+        onClose={() => setShowUpload(false)}
+        onCreated={handleCreated}
+      />
     </>
   );
 }

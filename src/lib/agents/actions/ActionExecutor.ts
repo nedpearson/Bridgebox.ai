@@ -1,27 +1,31 @@
 // @ts-nocheck
-import { supabase } from '../../supabase';
+import { supabase } from "../../supabase";
 import type {
   AgentAction,
   ActionExecutionContext,
   ActionExecutionResult,
   ActionHandler,
   ActionType,
-} from '../types';
+} from "../types";
 
 class FlagHighValueLeadHandler implements ActionHandler {
   canHandle(actionType: ActionType): boolean {
-    return actionType === 'flag_high_value_lead';
+    return actionType === "flag_high_value_lead";
   }
 
-  async validate(action: AgentAction): Promise<{ valid: boolean; error?: string }> {
+  async validate(
+    action: AgentAction,
+  ): Promise<{ valid: boolean; error?: string }> {
     const leadId = action.payload.parameters?.lead_id;
     if (!leadId) {
-      return { valid: false, error: 'Lead ID is required' };
+      return { valid: false, error: "Lead ID is required" };
     }
     return { valid: true };
   }
 
-  async execute(context: ActionExecutionContext): Promise<ActionExecutionResult> {
+  async execute(
+    context: ActionExecutionContext,
+  ): Promise<ActionExecutionResult> {
     const leadId = context.action.payload.parameters?.lead_id;
 
     if (context.dry_run) {
@@ -34,18 +38,18 @@ class FlagHighValueLeadHandler implements ActionHandler {
 
     try {
       const { error } = await supabase
-        .from('bb_leads')
+        .from("bb_leads")
         .update({
-          priority: 'high',
-          tags: supabase.raw('array_append(tags, ?)', ['high-value']),
+          priority: "high",
+          tags: supabase.raw("array_append(tags, ?)", ["high-value"]),
         })
-        .eq('id', leadId);
+        .eq("id", leadId);
 
       if (error) throw error;
 
       return {
         success: true,
-        result: { lead_id: leadId, flag_added: 'high-value' },
+        result: { lead_id: leadId, flag_added: "high-value" },
         executed_at: new Date().toISOString(),
       };
     } catch (error: any) {
@@ -60,19 +64,24 @@ class FlagHighValueLeadHandler implements ActionHandler {
 
 class FlagDeliveryRiskHandler implements ActionHandler {
   canHandle(actionType: ActionType): boolean {
-    return actionType === 'flag_delivery_risk';
+    return actionType === "flag_delivery_risk";
   }
 
-  async validate(action: AgentAction): Promise<{ valid: boolean; error?: string }> {
+  async validate(
+    action: AgentAction,
+  ): Promise<{ valid: boolean; error?: string }> {
     const projectId = action.payload.parameters?.project_id;
     if (!projectId) {
-      return { valid: false, error: 'Project ID is required' };
+      return { valid: false, error: "Project ID is required" };
     }
     return { valid: true };
   }
 
-  async execute(context: ActionExecutionContext): Promise<ActionExecutionResult> {
-    const { project_id, risk_type, severity } = context.action.payload.parameters || {};
+  async execute(
+    context: ActionExecutionContext,
+  ): Promise<ActionExecutionResult> {
+    const { project_id, risk_type, severity } =
+      context.action.payload.parameters || {};
 
     if (context.dry_run) {
       return {
@@ -84,22 +93,20 @@ class FlagDeliveryRiskHandler implements ActionHandler {
 
     try {
       const { data: healthRecord, error: healthError } = await supabase
-        .from('bb_client_health_scores')
-        .select('id')
-        .eq('project_id', project_id)
+        .from("bb_client_health_scores")
+        .select("id")
+        .eq("project_id", project_id)
         .single();
 
       if (healthRecord) {
-        await supabase
-          .from('bb_client_risks')
-          .insert({
-            health_score_id: healthRecord.id,
-            risk_type: risk_type || 'delivery_delay',
-            severity: severity || 'medium',
-            description: `Flagged by AI: ${context.action.description}`,
-            identified_at: new Date().toISOString(),
-            status: 'open',
-          });
+        await supabase.from("bb_client_risks").insert({
+          health_score_id: healthRecord.id,
+          risk_type: risk_type || "delivery_delay",
+          severity: severity || "medium",
+          description: `Flagged by AI: ${context.action.description}`,
+          identified_at: new Date().toISOString(),
+          status: "open",
+        });
       }
 
       return {
@@ -119,18 +126,22 @@ class FlagDeliveryRiskHandler implements ActionHandler {
 
 class EscalateUrgentIssueHandler implements ActionHandler {
   canHandle(actionType: ActionType): boolean {
-    return actionType === 'escalate_urgent_issue';
+    return actionType === "escalate_urgent_issue";
   }
 
-  async validate(action: AgentAction): Promise<{ valid: boolean; error?: string }> {
+  async validate(
+    action: AgentAction,
+  ): Promise<{ valid: boolean; error?: string }> {
     const ticketId = action.payload.parameters?.ticket_id;
     if (!ticketId) {
-      return { valid: false, error: 'Ticket ID is required' };
+      return { valid: false, error: "Ticket ID is required" };
     }
     return { valid: true };
   }
 
-  async execute(context: ActionExecutionContext): Promise<ActionExecutionResult> {
+  async execute(
+    context: ActionExecutionContext,
+  ): Promise<ActionExecutionResult> {
     const ticketId = context.action.payload.parameters?.ticket_id;
 
     if (context.dry_run) {
@@ -143,13 +154,13 @@ class EscalateUrgentIssueHandler implements ActionHandler {
 
     try {
       const { error } = await supabase
-        .from('bb_support_tickets')
+        .from("bb_support_tickets")
         .update({
-          priority: 'urgent',
+          priority: "urgent",
           escalated: true,
           escalated_at: new Date().toISOString(),
         })
-        .eq('id', ticketId);
+        .eq("id", ticketId);
 
       if (error) throw error;
 
@@ -176,9 +187,11 @@ export class ActionExecutor {
   ];
 
   async executeAction(
-    context: ActionExecutionContext
+    context: ActionExecutionContext,
   ): Promise<ActionExecutionResult> {
-    const handler = this.handlers.find((h) => h.canHandle(context.action.action_type));
+    const handler = this.handlers.find((h) =>
+      h.canHandle(context.action.action_type),
+    );
 
     if (!handler) {
       return {
@@ -192,15 +205,18 @@ export class ActionExecutor {
     if (!validation.valid) {
       return {
         success: false,
-        error: validation.error || 'Validation failed',
+        error: validation.error || "Validation failed",
         executed_at: new Date().toISOString(),
       };
     }
 
-    if (context.action.requires_approval && context.action.status !== 'approved') {
+    if (
+      context.action.requires_approval &&
+      context.action.status !== "approved"
+    ) {
       return {
         success: false,
-        error: 'Action requires approval before execution',
+        error: "Action requires approval before execution",
         executed_at: new Date().toISOString(),
       };
     }

@@ -1,36 +1,44 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { TrendingUp, Flame, Activity, Users, MessageSquare } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ErrorState from '../../components/ErrorState';
-import { useAuth } from '../../contexts/AuthContext';
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  TrendingUp,
+  Flame,
+  Activity,
+  Users,
+  MessageSquare,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorState from "../../components/ErrorState";
+import { useAuth } from "../../contexts/AuthContext";
 import {
   ServiceTrendCard,
   IndustryTrendCard,
   DemandSpikeCard,
   TrendInsightCard,
-} from '../../components/trends/TrendCard';
-import { HotIndicator } from '../../components/trends/TrendBadge';
-import { trendDetection } from '../../lib/trendDetection';
+} from "../../components/trends/TrendCard";
+import { HotIndicator } from "../../components/trends/TrendBadge";
+import { trendDetection } from "../../lib/trendDetection";
 import type {
   ServiceTrend,
   IndustryTrend,
   DemandSpike,
   TrendInsight,
   ClientRequestPattern,
-} from '../../lib/trendDetection';
+} from "../../lib/trendDetection";
 
 export default function TrendsCenter() {
   const { currentOrganization } = useAuth();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const [serviceTrends, setServiceTrends] = useState<ServiceTrend[]>([]);
   const [industryTrends, setIndustryTrends] = useState<IndustryTrend[]>([]);
   const [demandSpikes, setDemandSpikes] = useState<DemandSpike[]>([]);
-  const [requestPatterns, setRequestPatterns] = useState<ClientRequestPattern[]>([]);
+  const [requestPatterns, setRequestPatterns] = useState<
+    ClientRequestPattern[]
+  >([]);
   const [insights, setInsights] = useState<TrendInsight[]>([]);
 
   useEffect(() => {
@@ -41,15 +49,19 @@ export default function TrendsCenter() {
     if (!currentOrganization) return;
     try {
       setLoading(true);
-      setError('');
+      setError("");
 
-      const [services, industries, spikes, patterns, trendInsights] = await Promise.all([
-        trendDetection.detectTrendingServices(currentOrganization.id, 90),
-        trendDetection.detectIndustryGrowth(currentOrganization.id, 90),
-        trendDetection.detectDemandSpikes(currentOrganization.id, 90),
-        trendDetection.detectClientRequestPatterns(currentOrganization.id, 90),
-        trendDetection.generateTrendInsights(currentOrganization.id),
-      ]);
+      const [services, industries, spikes, patterns, trendInsights] =
+        await Promise.all([
+          trendDetection.detectTrendingServices(currentOrganization.id, 90),
+          trendDetection.detectIndustryGrowth(currentOrganization.id, 90),
+          trendDetection.detectDemandSpikes(currentOrganization.id, 90),
+          trendDetection.detectClientRequestPatterns(
+            currentOrganization.id,
+            90,
+          ),
+          trendDetection.generateTrendInsights(currentOrganization.id),
+        ]);
 
       setServiceTrends(services);
       setIndustryTrends(industries);
@@ -57,7 +69,7 @@ export default function TrendsCenter() {
       setRequestPatterns(patterns);
       setInsights(trendInsights);
     } catch (err: any) {
-      setError(err.message || 'Failed to load trends');
+      setError(err.message || "Failed to load trends");
     } finally {
       setLoading(false);
     }
@@ -75,10 +87,14 @@ export default function TrendsCenter() {
     return <ErrorState message={error} />;
   }
 
-  const hotServices = serviceTrends.filter(s => s.direction === 'up' && s.growthRate > 50);
-  const hotIndustries = industryTrends.filter(i => i.direction === 'up' && i.growthRate > 60);
-  const emergingTrends = demandSpikes.filter(s => s.isEmergingTrend);
-  const growingPatterns = requestPatterns.filter(p => p.isGrowing);
+  const hotServices = serviceTrends.filter(
+    (s) => s.direction === "up" && s.growthRate > 50,
+  );
+  const hotIndustries = industryTrends.filter(
+    (i) => i.direction === "up" && i.growthRate > 60,
+  );
+  const emergingTrends = demandSpikes.filter((s) => s.isEmergingTrend);
+  const growingPatterns = requestPatterns.filter((p) => p.isGrowing);
 
   return (
     <>
@@ -125,8 +141,12 @@ export default function TrendsCenter() {
                 <Flame className="w-6 h-6 text-orange-400" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-white">Hot Opportunities</h2>
-                <p className="text-sm text-slate-400">High-growth areas with strong momentum</p>
+                <h2 className="text-2xl font-bold text-white">
+                  Hot Opportunities
+                </h2>
+                <p className="text-sm text-slate-400">
+                  High-growth areas with strong momentum
+                </p>
               </div>
             </div>
 
@@ -149,7 +169,9 @@ export default function TrendsCenter() {
         >
           <div className="flex items-center gap-3">
             <TrendingUp className="w-6 h-6 text-blue-400" />
-            <h2 className="text-2xl font-bold text-white">Service Demand Trends</h2>
+            <h2 className="text-2xl font-bold text-white">
+              Service Demand Trends
+            </h2>
           </div>
           {serviceTrends.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -196,7 +218,9 @@ export default function TrendsCenter() {
           >
             <div className="flex items-center gap-3">
               <Activity className="w-6 h-6 text-purple-400" />
-              <h2 className="text-2xl font-bold text-white">Emerging Demand Signals</h2>
+              <h2 className="text-2xl font-bold text-white">
+                Emerging Demand Signals
+              </h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {emergingTrends.map((spike, index) => (
@@ -215,7 +239,9 @@ export default function TrendsCenter() {
           >
             <div className="flex items-center gap-3">
               <MessageSquare className="w-6 h-6 text-cyan-400" />
-              <h2 className="text-2xl font-bold text-white">Growing Client Request Patterns</h2>
+              <h2 className="text-2xl font-bold text-white">
+                Growing Client Request Patterns
+              </h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {growingPatterns.map((pattern, index) => (
@@ -232,11 +258,15 @@ export default function TrendsCenter() {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-slate-400">Requests</span>
-                      <span className="text-white font-medium">{pattern.frequency}</span>
+                      <span className="text-white font-medium">
+                        {pattern.frequency}
+                      </span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-slate-400">Clients</span>
-                      <span className="text-white font-medium">{pattern.clients}</span>
+                      <span className="text-white font-medium">
+                        {pattern.clients}
+                      </span>
                     </div>
                     {pattern.averageValue > 0 && (
                       <div className="flex items-center justify-between text-sm">
@@ -250,16 +280,20 @@ export default function TrendsCenter() {
 
                   {pattern.relatedServices.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-slate-700">
-                      <p className="text-xs text-slate-400 mb-2">Related Services</p>
+                      <p className="text-xs text-slate-400 mb-2">
+                        Related Services
+                      </p>
                       <div className="flex flex-wrap gap-2">
-                        {pattern.relatedServices.slice(0, 2).map((service, i) => (
-                          <span
-                            key={i}
-                            className="px-2 py-1 bg-slate-800/50 text-slate-300 text-xs rounded-md"
-                          >
-                            {service.replace('_', ' ')}
-                          </span>
-                        ))}
+                        {pattern.relatedServices
+                          .slice(0, 2)
+                          .map((service, i) => (
+                            <span
+                              key={i}
+                              className="px-2 py-1 bg-slate-800/50 text-slate-300 text-xs rounded-md"
+                            >
+                              {service.replace("_", " ")}
+                            </span>
+                          ))}
                       </div>
                     </div>
                   )}
@@ -278,7 +312,9 @@ export default function TrendsCenter() {
           >
             <div className="flex items-center gap-3">
               <Activity className="w-6 h-6 text-slate-400" />
-              <h2 className="text-2xl font-bold text-white">All Demand Signals</h2>
+              <h2 className="text-2xl font-bold text-white">
+                All Demand Signals
+              </h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {demandSpikes.slice(0, 12).map((spike, index) => (

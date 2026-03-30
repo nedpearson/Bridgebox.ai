@@ -1,8 +1,15 @@
-import { createContext, useContext, useEffect, useState, ReactNode, useMemo } from 'react';
-import { Session, User } from '@supabase/supabase-js';
-import { authService } from '../lib/auth';
-import { organizationsService } from '../lib/db/organizations';
-import { permissions, PermissionContext, UserRole } from '../lib/permissions';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+  useMemo,
+} from "react";
+import { Session, User } from "@supabase/supabase-js";
+import { authService } from "../lib/auth";
+import { organizationsService } from "../lib/db/organizations";
+import { permissions, PermissionContext, UserRole } from "../lib/permissions";
 
 interface Profile {
   id: string;
@@ -15,8 +22,8 @@ interface Profile {
 interface Organization {
   id: string;
   name: string;
-  type: 'internal' | 'client';
-  organization_type?: 'internal' | 'client';
+  type: "internal" | "client";
+  organization_type?: "internal" | "client";
   is_enterprise_client?: boolean;
   billing_plan?: string;
   subscription_status?: string;
@@ -51,22 +58,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [organizations, setOrganizations] = useState<Organization[]>([]);
-  const [currentOrganization, setCurrentOrganization] = useState<Organization | null>(null);
+  const [currentOrganization, setCurrentOrganization] =
+    useState<Organization | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLoadingOrg, setIsLoadingOrg] = useState(true);
 
   // Impersonation State
-  const [impersonatedProfile, setImpersonatedProfile] = useState<Profile | null>(null);
-  const [impersonatedOrg, setImpersonatedOrg] = useState<Organization | null>(null);
-  
+  const [impersonatedProfile, setImpersonatedProfile] =
+    useState<Profile | null>(null);
+  const [impersonatedOrg, setImpersonatedOrg] = useState<Organization | null>(
+    null,
+  );
+
   const activeProfile = impersonatedProfile || profile;
   const activeBaseOrg = impersonatedOrg || currentOrganization;
 
   const handleSetCurrentOrganization = (org: Organization | null) => {
     if (org) {
-      localStorage.setItem('bridgebox_active_org', org.id);
+      localStorage.setItem("bridgebox_active_org", org.id);
     } else {
-      localStorage.removeItem('bridgebox_active_org');
+      localStorage.removeItem("bridgebox_active_org");
     }
     setCurrentOrganization(org);
   };
@@ -80,7 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (!mounted) return;
         setSession(session);
         setUser(session?.user ?? null);
-        
+
         if (session?.user) {
           await loadUserData();
         } else {
@@ -90,22 +101,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // If the session refresh fails (e.g. stale token from a previous deployment),
         // silently clear all local auth state and let the user log in fresh.
         // This prevents "Database error querying schema" from showing on the login page.
-        const msg = err?.message || '';
+        const msg = err?.message || "";
         if (
-          msg.includes('Database error') ||
-          msg.includes('schema') ||
-          msg.includes('Invalid Refresh Token') ||
-          msg.includes('refresh_token_not_found') ||
-          msg.includes('JWT')
+          msg.includes("Database error") ||
+          msg.includes("schema") ||
+          msg.includes("Invalid Refresh Token") ||
+          msg.includes("refresh_token_not_found") ||
+          msg.includes("JWT")
         ) {
-          console.warn('Stale session detected — clearing local auth state.', msg);
+          console.warn(
+            "Stale session detected — clearing local auth state.",
+            msg,
+          );
           try {
             localStorage.clear();
             sessionStorage.clear();
             await authService.signOut().catch(() => {});
-          } catch (_) { /* ignore */ }
+          } catch (_) {
+            /* ignore */
+          }
         } else {
-          console.error('Initial session fetch error:', err);
+          console.error("Initial session fetch error:", err);
         }
         if (mounted) setLoading(false);
       }
@@ -113,16 +129,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     initialize();
 
-    const { data: { subscription } } = authService.onAuthStateChange(async (event, session) => {
+    const {
+      data: { subscription },
+    } = authService.onAuthStateChange(async (event, session) => {
       if (!mounted) return;
-      
+
       setSession(session);
       setUser(session?.user ?? null);
-      
+
       if (session?.user) {
         // Prevent duplicate loads on INITIAL_SESSION (handled by initialize())
         // and TOKEN_REFRESHED (no profile reload needed on silent refresh)
-        if (event !== 'INITIAL_SESSION' && event !== 'TOKEN_REFRESHED') {
+        if (event !== "INITIAL_SESSION" && event !== "TOKEN_REFRESHED") {
           await loadUserData();
         }
       } else {
@@ -150,12 +168,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setOrganizations(orgsData || []);
 
       if (orgsData && orgsData.length > 0 && !currentOrganization) {
-        const storedOrgId = localStorage.getItem('bridgebox_active_org');
-        const defaultOrg = orgsData.find(o => o.id === storedOrgId) || orgsData[0];
+        const storedOrgId = localStorage.getItem("bridgebox_active_org");
+        const defaultOrg =
+          orgsData.find((o) => o.id === storedOrgId) || orgsData[0];
         handleSetCurrentOrganization(defaultOrg);
       }
     } catch (error) {
-      console.error('Error loading user data:', error);
+      console.error("Error loading user data:", error);
     } finally {
       setLoading(false);
       setIsLoadingOrg(false);
@@ -206,33 +225,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const isInternalStaff = useMemo(() => {
-    return activeProfile ? permissions.isInternalStaff(activeProfile.role) : false;
+    return activeProfile
+      ? permissions.isInternalStaff(activeProfile.role)
+      : false;
   }, [activeProfile]);
 
   const isClientUser = useMemo(() => {
     return activeProfile ? permissions.isClientUser(activeProfile.role) : false;
   }, [activeProfile]);
 
-  // Safely inject Enterprise plan entitlements for super admin's internal workspaces 
+  // Safely inject Enterprise plan entitlements for super admin's internal workspaces
   // while preserving explicit plan layouts for downstream client organizations
   const activeOrganization = useMemo(() => {
     if (!activeBaseOrg) return null;
-    
+
     // Check if nedpearson@gmail.com is operating in an internal host organization
     if (
       !impersonatedProfile &&
-      profile?.role === 'super_admin' && 
-      profile.email?.toLowerCase() === 'nedpearson@gmail.com' &&
-      activeBaseOrg.type === 'internal'
+      profile?.role === "super_admin" &&
+      profile.email?.toLowerCase() === "nedpearson@gmail.com" &&
+      activeBaseOrg.type === "internal"
     ) {
       return {
         ...activeBaseOrg,
         is_enterprise_client: true,
-        billing_plan: 'enterprise',
-        subscription_status: 'active'
+        billing_plan: "enterprise",
+        subscription_status: "active",
       };
     }
-    
+
     return activeBaseOrg;
   }, [activeBaseOrg, profile, impersonatedProfile]);
 
@@ -261,7 +282,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     stopImpersonating: () => {
       setImpersonatedProfile(null);
       setImpersonatedOrg(null);
-    }
+    },
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -270,7 +291,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }

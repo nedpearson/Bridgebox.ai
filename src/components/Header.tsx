@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Box } from 'lucide-react';
-import { motion, AnimatePresence, useScroll } from 'framer-motion';
-import { navbarReveal } from '../utils/animations';
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, Box } from "lucide-react";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
+import { navbarReveal } from "../utils/animations";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,18 +11,18 @@ export default function Header() {
   const { scrollY } = useScroll();
 
   useEffect(() => {
-    return scrollY.on('change', (latest) => {
+    return scrollY.on("change", (latest) => {
       setScrolled(latest > 50);
     });
   }, [scrollY]);
 
   const navLinks = [
-    { name: 'Platform', path: '/platform' },
-    { name: 'Solutions', path: '/solutions' },
-    { name: 'Services', path: '/services' },
-    { name: 'Industries', path: '/industries' },
-    { name: 'Case Studies', path: '/case-studies' },
-    { name: 'About', path: '/about' },
+    { name: "Platform", path: "/platform" },
+    { name: "Solutions", path: "/solutions" },
+    { name: "Services", path: "/services" },
+    { name: "Industries", path: "/industries" },
+    { name: "Case Studies", path: "/case-studies" },
+    { name: "About", path: "/about" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -34,19 +34,21 @@ export default function Header() {
       animate="visible"
       className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         scrolled
-          ? 'bg-[#0B0F1A]/95 backdrop-blur-xl border-white/10 shadow-lg shadow-black/20'
-          : 'bg-[#0B0F1A]/80 backdrop-blur-lg border-white/5'
+          ? "bg-[#0B0F1A]/95 backdrop-blur-xl border-white/10 shadow-lg shadow-black/20"
+          : "bg-[#0B0F1A]/80 backdrop-blur-lg border-white/5"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative">
-              <Box className="w-8 h-8 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
+              <BridgeboxLogo className="w-8 h-8 text-indigo-500 group-hover:text-[#10B981] transition-colors duration-300" />
               <div className="absolute inset-0 bg-indigo-500/20 blur-xl group-hover:bg-[#10B981]/20 transition-colors duration-300" />
             </div>
             <span className="text-2xl font-bold text-white">Bridgebox</span>
-            <span className="text-sm font-medium text-indigo-500 bg-indigo-500/10 px-2 py-1 rounded">AI</span>
+            <span className="text-sm font-medium text-indigo-500 bg-indigo-500/10 px-2 py-1 rounded">
+              AI
+            </span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -55,7 +57,9 @@ export default function Header() {
                 key={link.path}
                 to={link.path}
                 className={`relative text-sm font-medium transition-colors duration-300 group ${
-                  isActive(link.path) ? 'text-white' : 'text-slate-300 hover:text-white'
+                  isActive(link.path)
+                    ? "text-white"
+                    : "text-slate-300 hover:text-white"
                 }`}
               >
                 {link.name}
@@ -79,10 +83,7 @@ export default function Header() {
             >
               Sign In
             </Link>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to="/sales-onboarding"
                 className="px-6 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/50 inline-block"
@@ -106,7 +107,7 @@ export default function Header() {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
             className="md:hidden bg-[#0B0F1A]/95 backdrop-blur-lg border-t border-white/5"
@@ -118,7 +119,9 @@ export default function Header() {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={`block text-base font-medium transition-colors duration-200 ${
-                    isActive(link.path) ? 'text-indigo-500' : 'text-slate-300 hover:text-white'
+                    isActive(link.path)
+                      ? "text-indigo-500"
+                      : "text-slate-300 hover:text-white"
                   }`}
                 >
                   {link.name}

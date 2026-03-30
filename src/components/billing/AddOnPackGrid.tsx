@@ -1,7 +1,15 @@
-import { motion } from 'framer-motion';
-import { ShoppingBag, Zap, Video, Headphones, Wrench, ArrowRight, Star } from 'lucide-react';
-import { ADD_ONS, formatAddOnPrice } from '../../lib/plans';
-import type { AddOnDefinition } from '../../types/billing';
+import { motion } from "framer-motion";
+import {
+  ShoppingBag,
+  Zap,
+  Video,
+  Headphones,
+  Wrench,
+  ArrowRight,
+  Star,
+} from "lucide-react";
+import { ADD_ONS, formatAddOnPrice } from "../../lib/plans";
+import type { AddOnDefinition } from "../../types/billing";
 
 interface AddOnPackGridProps {
   onPurchase?: (addonId: string) => void;
@@ -10,32 +18,36 @@ interface AddOnPackGridProps {
 
 const CATEGORY_CONFIG = {
   credits: {
-    label: 'AI Credits',
+    label: "AI Credits",
     icon: Zap,
-    color: '#6366f1',
-    description: 'Top up your AI credit balance',
+    color: "#6366f1",
+    description: "Top up your AI credit balance",
   },
   recordings: {
-    label: 'Recording Packs',
+    label: "Recording Packs",
     icon: Video,
-    color: '#06b6d4',
-    description: 'Analyze more screen recordings',
+    color: "#06b6d4",
+    description: "Analyze more screen recordings",
   },
   services: {
-    label: 'Implementation Services',
+    label: "Implementation Services",
     icon: Wrench,
-    color: '#10b981',
-    description: 'Done-for-you setup and builds',
+    color: "#10b981",
+    description: "Done-for-you setup and builds",
   },
   support: {
-    label: 'Support Upgrades',
+    label: "Support Upgrades",
     icon: Headphones,
-    color: '#f59e0b',
-    description: 'Priority access and faster response',
+    color: "#f59e0b",
+    description: "Priority access and faster response",
   },
 };
 
-function AddOnCard({ addon, onPurchase, isHighlighted }: {
+function AddOnCard({
+  addon,
+  onPurchase,
+  isHighlighted,
+}: {
   addon: AddOnDefinition;
   onPurchase?: (id: string) => void;
   isHighlighted?: boolean;
@@ -50,9 +62,9 @@ function AddOnCard({ addon, onPurchase, isHighlighted }: {
       style={{
         background: isHighlighted
           ? `linear-gradient(135deg, ${cat.color}15, ${cat.color}08)`
-          : 'rgba(15,15,30,0.7)',
-        border: `1px solid ${isHighlighted ? `${cat.color}40` : 'rgba(255,255,255,0.06)'}`,
-        transition: 'all 0.2s ease',
+          : "rgba(15,15,30,0.7)",
+        border: `1px solid ${isHighlighted ? `${cat.color}40` : "rgba(255,255,255,0.06)"}`,
+        transition: "all 0.2s ease",
       }}
     >
       {isHighlighted && (
@@ -68,14 +80,19 @@ function AddOnCard({ addon, onPurchase, isHighlighted }: {
       {/* Icon */}
       <div
         className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-        style={{ background: `${cat.color}15`, border: `1px solid ${cat.color}25` }}
+        style={{
+          background: `${cat.color}15`,
+          border: `1px solid ${cat.color}25`,
+        }}
       >
         <Icon className="w-5 h-5" style={{ color: cat.color }} />
       </div>
 
       {/* Content */}
       <h4 className="text-white font-bold text-sm mb-1">{addon.name}</h4>
-      <p className="text-slate-400 text-xs leading-relaxed flex-1 mb-4">{addon.description}</p>
+      <p className="text-slate-400 text-xs leading-relaxed flex-1 mb-4">
+        {addon.description}
+      </p>
 
       {/* Credit value badge */}
       {addon.creditValue && (
@@ -83,8 +100,8 @@ function AddOnCard({ addon, onPurchase, isHighlighted }: {
           className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold mb-3 w-fit"
           style={{ background: `${cat.color}15`, color: cat.color }}
         >
-          <Zap className="w-3 h-3" />
-          +{addon.creditValue.toLocaleString()} credits
+          <Zap className="w-3 h-3" />+{addon.creditValue.toLocaleString()}{" "}
+          credits
         </div>
       )}
       {addon.recordingValue && (
@@ -92,15 +109,16 @@ function AddOnCard({ addon, onPurchase, isHighlighted }: {
           className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold mb-3 w-fit"
           style={{ background: `${cat.color}15`, color: cat.color }}
         >
-          <Video className="w-3 h-3" />
-          +{addon.recordingValue} recordings
+          <Video className="w-3 h-3" />+{addon.recordingValue} recordings
         </div>
       )}
 
       {/* Price + CTA */}
       <div className="flex items-center justify-between mt-auto">
         <div>
-          <p className="text-white font-black text-lg">{formatAddOnPrice(addon)}</p>
+          <p className="text-white font-black text-lg">
+            {formatAddOnPrice(addon)}
+          </p>
           <p className="text-slate-600 text-xs">one-time</p>
         </div>
         <button
@@ -111,8 +129,12 @@ function AddOnCard({ addon, onPurchase, isHighlighted }: {
             border: `1px solid ${cat.color}30`,
             color: cat.color,
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = `${cat.color}35`)}
-          onMouseLeave={(e) => (e.currentTarget.style.background = `${cat.color}20`)}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.background = `${cat.color}35`)
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.background = `${cat.color}20`)
+          }
         >
           Add <ArrowRight className="w-3 h-3" />
         </button>
@@ -121,8 +143,13 @@ function AddOnCard({ addon, onPurchase, isHighlighted }: {
   );
 }
 
-export default function AddOnPackGrid({ onPurchase, highlighted = ['credit_pack_500'] }: AddOnPackGridProps) {
-  const categories = Object.keys(CATEGORY_CONFIG) as Array<keyof typeof CATEGORY_CONFIG>;
+export default function AddOnPackGrid({
+  onPurchase,
+  highlighted = ["credit_pack_500"],
+}: AddOnPackGridProps) {
+  const categories = Object.keys(CATEGORY_CONFIG) as Array<
+    keyof typeof CATEGORY_CONFIG
+  >;
 
   return (
     <div className="space-y-8">
@@ -164,8 +191,9 @@ export default function AddOnPackGrid({ onPurchase, highlighted = ['credit_pack_
       <div
         className="rounded-2xl p-6 flex items-center justify-between"
         style={{
-          background: 'linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,212,0.05))',
-          border: '1px solid rgba(99,102,241,0.2)',
+          background:
+            "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,212,0.05))",
+          border: "1px solid rgba(99,102,241,0.2)",
         }}
       >
         <div className="flex items-center gap-4">
@@ -173,9 +201,12 @@ export default function AddOnPackGrid({ onPurchase, highlighted = ['credit_pack_
             <ShoppingBag className="w-5 h-5 text-indigo-400" />
           </div>
           <div>
-            <p className="text-white font-bold text-sm">Need a custom package?</p>
+            <p className="text-white font-bold text-sm">
+              Need a custom package?
+            </p>
             <p className="text-slate-400 text-xs">
-              Enterprise clients get custom credit allocations, implementation bundles, and dedicated support.
+              Enterprise clients get custom credit allocations, implementation
+              bundles, and dedicated support.
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
-export type OpportunityType = 'industry' | 'service' | 'segment' | 'hybrid';
+export type OpportunityType = "industry" | "service" | "segment" | "hybrid";
 
-export type OpportunityLevel = 'high' | 'medium' | 'low';
+export type OpportunityLevel = "high" | "medium" | "low";
 
 export interface OpportunityScore {
   total_score: number;
@@ -14,9 +14,9 @@ export interface OpportunityScore {
 }
 
 export interface OpportunityReason {
-  category: 'strength' | 'risk' | 'insight';
+  category: "strength" | "risk" | "insight";
   message: string;
-  impact: 'high' | 'medium' | 'low';
+  impact: "high" | "medium" | "low";
 }
 
 export interface ScoredOpportunity {
@@ -51,7 +51,7 @@ export interface ScoredOpportunity {
 }
 
 export interface IndustryOpportunity extends ScoredOpportunity {
-  type: 'industry';
+  type: "industry";
   industry: string;
   top_services: string[];
   client_count: number;
@@ -59,7 +59,7 @@ export interface IndustryOpportunity extends ScoredOpportunity {
 }
 
 export interface ServiceOpportunity extends ScoredOpportunity {
-  type: 'service';
+  type: "service";
   service_type: string;
   top_industries: string[];
   delivery_count: number;
@@ -87,7 +87,7 @@ export interface OpportunityInsight {
   title: string;
   description: string;
   opportunity_ids: string[];
-  priority: 'high' | 'medium' | 'low';
+  priority: "high" | "medium" | "low";
   action_items: string[];
 }
 

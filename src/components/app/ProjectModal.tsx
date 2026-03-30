@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Loader2 } from 'lucide-react';
-import Button from '../Button';
-import { projectsService } from '../../lib/db/projects';
-import { organizationsService } from '../../lib/db/organizations';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Loader2 } from "lucide-react";
+import Button from "../Button";
+import { projectsService } from "../../lib/db/projects";
+import { organizationsService } from "../../lib/db/organizations";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -13,17 +13,22 @@ interface ProjectModalProps {
   onSuccess?: () => void;
 }
 
-export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModalProps) {
+export default function ProjectModal({
+  isOpen,
+  onClose,
+  onSuccess,
+}: ProjectModalProps) {
   const { currentOrganization } = useAuth();
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    type: 'web_app',
-    organization_id: currentOrganization?.type === 'client' ? currentOrganization.id : '',
-    start_date: '',
-    target_launch_date: '',
+    name: "",
+    description: "",
+    type: "web_app",
+    organization_id:
+      currentOrganization?.type === "client" ? currentOrganization.id : "",
+    start_date: "",
+    target_launch_date: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,21 +38,21 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      if (currentOrganization?.type === 'internal') {
+      document.body.style.overflow = "hidden";
+      if (currentOrganization?.type === "internal") {
         loadOrganizations();
       } else {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          organization_id: currentOrganization?.id || ''
+          organization_id: currentOrganization?.id || "",
         }));
       }
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen, currentOrganization]);
 
@@ -57,10 +62,10 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
       const orgs = await organizationsService.getAllClientOrganizations();
       setOrganizations(orgs || []);
       if (orgs && orgs.length > 0 && !formData.organization_id) {
-        setFormData(prev => ({ ...prev, organization_id: orgs[0].id }));
+        setFormData((prev) => ({ ...prev, organization_id: orgs[0].id }));
       }
     } catch (err) {
-      console.error('Failed to load organizations', err);
+      console.error("Failed to load organizations", err);
     } finally {
       setLoadingOrgs(false);
     }
@@ -77,12 +82,12 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
     if (isSubmitting) return;
 
     if (!formData.name.trim()) {
-      setError('Project name is required');
+      setError("Project name is required");
       return;
     }
 
     if (!formData.organization_id) {
-      setError('Client organization is required');
+      setError("Client organization is required");
       return;
     }
 
@@ -94,7 +99,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
         name: formData.name.trim(),
         description: formData.description.trim() || undefined,
         type: formData.type,
-        status: 'planning',
+        status: "planning",
         organization_id: formData.organization_id,
         start_date: formData.start_date || undefined,
         target_launch_date: formData.target_launch_date || undefined,
@@ -106,7 +111,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
       onClose();
       navigate(`/app/projects/${project.id}`);
     } catch (err: any) {
-      setError(err.message || 'Failed to create project');
+      setError(err.message || "Failed to create project");
       setIsSubmitting(false);
     }
   };
@@ -130,8 +135,12 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
           >
             <div className="sticky top-0 z-10 flex items-center justify-between p-6 bg-[#0F1419]/95 backdrop-blur-xl border-b border-white/10">
               <div>
-                <h2 className="text-xl font-bold text-white mb-1">Create New Project</h2>
-                <p className="text-sm text-slate-400">Set up a new workspace for delivery</p>
+                <h2 className="text-xl font-bold text-white mb-1">
+                  Create New Project
+                </h2>
+                <p className="text-sm text-slate-400">
+                  Set up a new workspace for delivery
+                </p>
               </div>
               <button
                 onClick={onClose}
@@ -144,7 +153,7 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
             <div className="p-6">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-4">
-                  {currentOrganization?.type === 'internal' && (
+                  {currentOrganization?.type === "internal" && (
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
                         Client Organization
@@ -152,13 +161,20 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                       <select
                         required
                         value={formData.organization_id}
-                        onChange={(e) => setFormData({ ...formData, organization_id: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            organization_id: e.target.value,
+                          })
+                        }
                         disabled={loadingOrgs}
                         className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                       >
                         <option value="">Select a client...</option>
-                        {organizations.map(org => (
-                          <option key={org.id} value={org.id}>{org.name}</option>
+                        {organizations.map((org) => (
+                          <option key={org.id} value={org.id}>
+                            {org.name}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -172,7 +188,9 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                       type="text"
                       required
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                       placeholder="e.g. Q3 Analytics Dashboard"
                     />
@@ -184,7 +202,9 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                     </label>
                     <select
                       value={formData.type}
-                      onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, type: e.target.value })
+                      }
                       className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                     >
                       <option value="web_app">Web Application</option>
@@ -203,7 +223,12 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                     <textarea
                       rows={3}
                       value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          description: e.target.value,
+                        })
+                      }
                       className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
                       placeholder="High-level project goals and requirements..."
                     />
@@ -217,7 +242,12 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                       <input
                         type="date"
                         value={formData.start_date}
-                        onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            start_date: e.target.value,
+                          })
+                        }
                         className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       />
                     </div>
@@ -228,7 +258,12 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                       <input
                         type="date"
                         value={formData.target_launch_date}
-                        onChange={(e) => setFormData({ ...formData, target_launch_date: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            target_launch_date: e.target.value,
+                          })
+                        }
                         className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       />
                     </div>
@@ -242,17 +277,26 @@ export default function ProjectModal({ isOpen, onClose, onSuccess }: ProjectModa
                 )}
 
                 <div className="flex items-center justify-end space-x-4 pt-4 border-t border-white/10">
-                  <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={onClose}
+                    disabled={isSubmitting}
+                  >
                     Cancel
                   </Button>
-                  <Button type="submit" variant="primary" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         Creating...
                       </>
                     ) : (
-                      'Create Project'
+                      "Create Project"
                     )}
                   </Button>
                 </div>

@@ -1,35 +1,35 @@
 export type SignalCategory =
-  | 'industry_demand'
-  | 'service_demand'
-  | 'search_trend'
-  | 'business_activity'
-  | 'internal_crossover'
-  | 'opportunity_flag';
+  | "industry_demand"
+  | "service_demand"
+  | "search_trend"
+  | "business_activity"
+  | "internal_crossover"
+  | "opportunity_flag";
 
 export type GrowthDirection =
-  | 'rising'
-  | 'stable'
-  | 'declining'
-  | 'emerging'
-  | 'volatile';
+  | "rising"
+  | "stable"
+  | "declining"
+  | "emerging"
+  | "volatile";
 
 export type SignalSource =
-  | 'search_trends'
-  | 'industry_reports'
-  | 'internal_data'
-  | 'market_research'
-  | 'competitor_analysis'
-  | 'customer_feedback'
-  | 'business_intelligence'
-  | 'manual_entry';
+  | "search_trends"
+  | "industry_reports"
+  | "internal_data"
+  | "market_research"
+  | "competitor_analysis"
+  | "customer_feedback"
+  | "business_intelligence"
+  | "manual_entry";
 
 export type OpportunityStatus =
-  | 'identified'
-  | 'investigating'
-  | 'pursuing'
-  | 'won'
-  | 'lost'
-  | 'archived';
+  | "identified"
+  | "investigating"
+  | "pursuing"
+  | "won"
+  | "lost"
+  | "archived";
 
 export interface MarketSignal {
   id: string;
@@ -79,8 +79,8 @@ export interface KeySignal {
 }
 
 export interface Recommendation {
-  type: 'action' | 'insight' | 'warning';
-  priority: 'high' | 'medium' | 'low';
+  type: "action" | "insight" | "warning";
+  priority: "high" | "medium" | "low";
   message: string;
   context?: string;
 }
@@ -164,10 +164,10 @@ export interface EmergingTrend {
 }
 
 export interface MarketInsight {
-  type: 'opportunity' | 'risk' | 'trend' | 'demand_shift';
+  type: "opportunity" | "risk" | "trend" | "demand_shift";
   title: string;
   description: string;
-  impact: 'high' | 'medium' | 'low';
+  impact: "high" | "medium" | "low";
   confidence: number;
   related_signals: string[];
   actionable: boolean;

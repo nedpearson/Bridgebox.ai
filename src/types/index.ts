@@ -1,19 +1,56 @@
-export type UserRole = 'super_admin' | 'team_member' | 'client_admin' | 'client_user';
+export type UserRole =
+  | "super_admin"
+  | "team_member"
+  | "client_admin"
+  | "client_user";
 
-export type ProjectType = 'custom_software' | 'dashboard' | 'mobile_app' | 'ai_automation' | 'integration' | 'retainer';
+export type ProjectType =
+  | "custom_software"
+  | "dashboard"
+  | "mobile_app"
+  | "ai_automation"
+  | "integration"
+  | "retainer";
 
-export type ProjectStatus = 'lead' | 'proposal' | 'planning' | 'in_progress' | 'testing' | 'deployed' | 'maintenance' | 'completed' | 'on_hold' | 'cancelled';
+export type ProjectStatus =
+  | "lead"
+  | "proposal"
+  | "planning"
+  | "in_progress"
+  | "testing"
+  | "deployed"
+  | "maintenance"
+  | "completed"
+  | "on_hold"
+  | "cancelled";
 
-export type SubscriptionStatus = 'active' | 'past_due' | 'cancelled' | 'trialing' | 'paused';
+export type SubscriptionStatus =
+  | "active"
+  | "past_due"
+  | "cancelled"
+  | "trialing"
+  | "paused";
 
-export type TicketStatus = 'open' | 'in_progress' | 'waiting_on_client' | 'resolved' | 'closed';
+export type TicketStatus =
+  | "open"
+  | "in_progress"
+  | "waiting_on_client"
+  | "resolved"
+  | "closed";
 
-export type TicketPriority = 'low' | 'medium' | 'high' | 'urgent';
+export type TicketPriority = "low" | "medium" | "high" | "urgent";
 
-export type InvoiceStatus = 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled';
+export type InvoiceStatus = "draft" | "sent" | "paid" | "overdue" | "cancelled";
 
-export type ContactMethodLabel = 'work' | 'personal' | 'billing' | 'mobile' | 'office' | 'home' | 'other';
-export type AddressLabel = 'home' | 'office' | 'shipping' | 'billing' | 'other';
+export type ContactMethodLabel =
+  | "work"
+  | "personal"
+  | "billing"
+  | "mobile"
+  | "office"
+  | "home"
+  | "other";
+export type AddressLabel = "home" | "office" | "shipping" | "billing" | "other";
 
 export interface ContactMethod {
   id: string;
@@ -45,7 +82,7 @@ export interface CRMAddress {
 }
 
 export interface OrganizationMetadata {
-  client_type?: 'individual' | 'business';
+  client_type?: "individual" | "business";
   contacts?: CRMContact[];
   addresses?: CRMAddress[];
   custom_fields?: Record<string, string | number | boolean>;
@@ -56,7 +93,12 @@ export interface OrganizationMetadata {
   phone?: string;
   aliases?: string[];
   competitors?: string[];
-  properties?: { name: string; url: string; category: string; location: string }[];
+  properties?: {
+    name: string;
+    url: string;
+    category: string;
+    location: string;
+  }[];
   [key: string]: any;
 }
 
@@ -88,11 +130,32 @@ export interface User {
   updated_at: string;
 }
 
-export type LeadStage = 'new' | 'contacted' | 'qualified' | 'discovery' | 'proposal_sent' | 'negotiation' | 'won' | 'lost';
+export type LeadStage =
+  | "new"
+  | "contacted"
+  | "qualified"
+  | "discovery"
+  | "proposal_sent"
+  | "negotiation"
+  | "won"
+  | "lost";
 
-export type LeadSource = 'website' | 'referral' | 'linkedin' | 'cold_outreach' | 'conference' | 'partner' | 'other';
+export type LeadSource =
+  | "website"
+  | "referral"
+  | "linkedin"
+  | "cold_outreach"
+  | "conference"
+  | "partner"
+  | "other";
 
-export type BudgetRange = 'under_50k' | '50k_100k' | '100k_250k' | '250k_500k' | '500k_plus' | 'not_disclosed';
+export type BudgetRange =
+  | "under_50k"
+  | "50k_100k"
+  | "100k_250k"
+  | "250k_500k"
+  | "500k_plus"
+  | "not_disclosed";
 
 export interface Lead {
   id: string;
@@ -130,7 +193,7 @@ export interface Client {
   primary_contact?: User;
   account_manager_id?: string;
   account_manager?: User;
-  status: 'active' | 'inactive' | 'churned';
+  status: "active" | "inactive" | "churned";
   onboarded_at: string;
   lifetime_value: number;
   health_score?: number;
@@ -143,7 +206,7 @@ export interface SubscriptionPlan {
   id: string;
   name: string;
   description?: string;
-  tier: 'starter' | 'professional' | 'enterprise' | 'custom';
+  tier: "starter" | "professional" | "enterprise" | "custom";
   price_monthly: number;
   price_yearly?: number;
   features: string[];
@@ -159,7 +222,7 @@ export interface Subscription {
   plan_id: string;
   plan?: SubscriptionPlan;
   status: SubscriptionStatus;
-  billing_cycle: 'monthly' | 'yearly';
+  billing_cycle: "monthly" | "yearly";
   current_period_start: string;
   current_period_end: string;
   mrr: number;
@@ -200,8 +263,14 @@ export interface DashboardModule {
   project?: Project;
   name: string;
   description?: string;
-  module_type: 'analytics' | 'reporting' | 'data_viz' | 'admin' | 'client_portal' | 'custom';
-  status: 'planned' | 'in_development' | 'testing' | 'deployed';
+  module_type:
+    | "analytics"
+    | "reporting"
+    | "data_viz"
+    | "admin"
+    | "client_portal"
+    | "custom";
+  status: "planned" | "in_development" | "testing" | "deployed";
   deployed_at?: string;
   created_at: string;
   updated_at: string;
@@ -212,7 +281,7 @@ export interface MobileAppProject {
   project_id: string;
   project?: Project;
   app_name: string;
-  platforms: ('ios' | 'android' | 'cross_platform')[];
+  platforms: ("ios" | "android" | "cross_platform")[];
   framework?: string;
   app_store_url?: string;
   play_store_url?: string;
@@ -231,8 +300,14 @@ export interface Integration {
   project?: Project;
   name: string;
   provider: string;
-  integration_type: 'api' | 'webhook' | 'oauth' | 'database' | 'file_sync' | 'custom';
-  status: 'active' | 'inactive' | 'error' | 'pending_setup';
+  integration_type:
+    | "api"
+    | "webhook"
+    | "oauth"
+    | "database"
+    | "file_sync"
+    | "custom";
+  status: "active" | "inactive" | "error" | "pending_setup";
   credentials_configured: boolean;
   last_sync_at?: string;
   sync_frequency?: string;
@@ -305,14 +380,27 @@ export interface ActivityLog {
   id: string;
   user_id: string;
   user?: User;
-  entity_type: 'project' | 'client' | 'ticket' | 'invoice' | 'integration' | 'lead' | 'proposal';
+  entity_type:
+    | "project"
+    | "client"
+    | "ticket"
+    | "invoice"
+    | "integration"
+    | "lead"
+    | "proposal";
   entity_id: string;
   action: string;
   details?: string;
   created_at: string;
 }
 
-export type ProposalStatus = 'draft' | 'sent' | 'viewed' | 'accepted' | 'declined' | 'expired';
+export type ProposalStatus =
+  | "draft"
+  | "sent"
+  | "viewed"
+  | "accepted"
+  | "declined"
+  | "expired";
 
 export interface Proposal {
   id: string;
@@ -365,7 +453,7 @@ export interface Milestone {
   description?: string;
   target_date?: string;
   completion_date?: string;
-  status: 'pending' | 'in_progress' | 'completed' | 'delayed';
+  status: "pending" | "in_progress" | "completed" | "delayed";
   order: number;
   created_at: string;
   updated_at: string;
@@ -377,8 +465,15 @@ export interface Deliverable {
   project?: Project;
   name: string;
   description?: string;
-  deliverable_type: 'dashboard' | 'mobile_app' | 'documentation' | 'integration' | 'api' | 'design' | 'other';
-  status: 'pending' | 'in_progress' | 'review' | 'delivered' | 'approved';
+  deliverable_type:
+    | "dashboard"
+    | "mobile_app"
+    | "documentation"
+    | "integration"
+    | "api"
+    | "design"
+    | "other";
+  status: "pending" | "in_progress" | "review" | "delivered" | "approved";
   url?: string;
   file_path?: string;
   delivered_date?: string;
@@ -391,7 +486,7 @@ export interface Deliverable {
 export interface ClientPortalAccess {
   client_id: string;
   user_id: string;
-  role: 'admin' | 'member';
+  role: "admin" | "member";
   last_login?: string;
   created_at: string;
 }

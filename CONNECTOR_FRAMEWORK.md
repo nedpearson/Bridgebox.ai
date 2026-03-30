@@ -62,6 +62,7 @@ Connector Framework
 ## Connector Categories
 
 ### Business Systems
+
 - CRM (Salesforce, HubSpot, Pipedrive)
 - Accounting (QuickBooks, Xero)
 - Spreadsheets (Google Sheets)
@@ -69,16 +70,19 @@ Connector Framework
 - Helpdesk (Zendesk)
 
 ### Commerce / Financial
+
 - Payments (Stripe, PayPal, Square)
 - Invoices
 - Subscriptions
 
 ### Communication
+
 - Email (Gmail, Outlook)
 - Calendar (Google Calendar)
 - Messaging (Slack)
 
 ### Market Data
+
 - Trend Sources (Google Trends)
 - Public Datasets (US Census Data)
 - Industry Signals
@@ -88,21 +92,21 @@ Connector Framework
 ### 1. Extend BaseConnector
 
 ```typescript
-import { BaseConnector } from '../core/BaseConnector';
-import type { SyncResult, ExternalData, NormalizedRecord } from '../types';
+import { BaseConnector } from "../core/BaseConnector";
+import type { SyncResult, ExternalData, NormalizedRecord } from "../types";
 
 export class MyConnector extends BaseConnector {
   async connect(credentials?: Record<string, any>): Promise<boolean> {
     // Implement connection logic
     // Verify credentials
     // Store auth state
-    await this.logEvent('connected', 'Connected successfully');
+    await this.logEvent("connected", "Connected successfully");
     return true;
   }
 
   async disconnect(): Promise<boolean> {
     // Implement disconnection logic
-    await this.logEvent('disconnected', 'Disconnected');
+    await this.logEvent("disconnected", "Disconnected");
     return true;
   }
 
@@ -111,7 +115,9 @@ export class MyConnector extends BaseConnector {
     return true;
   }
 
-  async fetchExternalData(options?: Record<string, any>): Promise<ExternalData[]> {
+  async fetchExternalData(
+    options?: Record<string, any>,
+  ): Promise<ExternalData[]> {
     // Fetch data from external API
     // Return raw data with metadata
     return [];
@@ -163,11 +169,11 @@ export class MyConnector extends BaseConnector {
 ### 2. Register the Connector
 
 ```typescript
-import { ConnectorRegistry } from './core/ConnectorRegistry';
-import { MyConnector } from './providers/MyConnector';
+import { ConnectorRegistry } from "./core/ConnectorRegistry";
+import { MyConnector } from "./providers/MyConnector";
 
 // In ConnectorService.initialize()
-ConnectorRegistry.registerImplementation('my_provider_id', MyConnector);
+ConnectorRegistry.registerImplementation("my_provider_id", MyConnector);
 ```
 
 ### 3. Add Provider to Database
@@ -196,7 +202,7 @@ INSERT INTO connector_providers (
 ### Get All Providers
 
 ```typescript
-import { connectorService } from './lib/connectors';
+import { connectorService } from "./lib/connectors";
 
 const providers = await connectorService.getAllProviders();
 ```
@@ -206,7 +212,7 @@ const providers = await connectorService.getAllProviders();
 ```typescript
 const connector = await connectorService.createConnector(
   organizationId,
-  providerId
+  providerId,
 );
 ```
 
@@ -227,7 +233,9 @@ console.log(`Synced ${result.recordsProcessed} records`);
 
 ```typescript
 const health = await connectorService.getConnectorHealth(connectorId);
-console.log(`Health: ${health.isHealthy}, Success Rate: ${health.successRate}%`);
+console.log(
+  `Health: ${health.isHealthy}, Success Rate: ${health.successRate}%`,
+);
 ```
 
 ### Get Stats
@@ -249,6 +257,7 @@ console.log(`${stats.activeConnectors} active connectors`);
 ### Row Level Security
 
 All connector tables enforce organization-scoped RLS:
+
 - Users can only see connectors in their organization
 - Only admins can create/update/delete connectors
 - Sync logs and events are organization-scoped
@@ -256,6 +265,7 @@ All connector tables enforce organization-scoped RLS:
 ### Audit Trail
 
 All connector activities are logged:
+
 - Connection/disconnection events
 - Sync start/complete/fail events
 - Error events with details
@@ -266,6 +276,7 @@ All connector activities are logged:
 ### ConnectorCard
 
 Displays a connected integration with:
+
 - Provider name and status
 - Last sync time
 - Record count
@@ -274,6 +285,7 @@ Displays a connected integration with:
 ### ProviderCard
 
 Displays an available integration with:
+
 - Provider info and description
 - Features list
 - Connect button
@@ -282,6 +294,7 @@ Displays an available integration with:
 ### ConnectorStatusBadge
 
 Visual status indicator:
+
 - Not Connected (gray)
 - Connected (green)
 - Syncing (blue)
@@ -291,6 +304,7 @@ Visual status indicator:
 ## Integration Page
 
 Located at `/app/integrations`:
+
 - Two views: Connected and Available
 - Category filtering
 - Search functionality
@@ -386,6 +400,7 @@ See type definitions in `src/lib/connectors/types.ts` for complete API documenta
 ## Support
 
 For issues or questions about the connector framework:
+
 1. Check this documentation
 2. Review existing connector implementations
 3. Check database schema and RLS policies

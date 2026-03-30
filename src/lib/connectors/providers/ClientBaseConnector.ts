@@ -1,11 +1,15 @@
-import { BaseConnector } from '../core/BaseConnector';
-import { SyncResult, ExternalData, NormalizedRecord } from '../types';
+import { BaseConnector } from "../core/BaseConnector";
+import { SyncResult, ExternalData, NormalizedRecord } from "../types";
 
 export class ClientBaseConnector extends BaseConnector {
-  protected providerName = 'ClientBase.us';
+  protected providerName = "ClientBase.us";
 
-  async connect(credentials?: Record<string, any>): Promise<boolean> { return true; }
-  async disconnect(): Promise<boolean> { return true; }
+  async connect(credentials?: Record<string, any>): Promise<boolean> {
+    return true;
+  }
+  async disconnect(): Promise<boolean> {
+    return true;
+  }
 
   async testConnection(): Promise<boolean> {
     return true; // Scaffold CRM adapter
@@ -27,7 +31,7 @@ export class ClientBaseConnector extends BaseConnector {
       errors: [],
       duration: 0,
       startedAt: new Date().toISOString(),
-      completedAt: new Date().toISOString()
+      completedAt: new Date().toISOString(),
     };
   }
 

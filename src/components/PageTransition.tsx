@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from "framer-motion";
+import { ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 
 interface PageTransitionProps {
   children: ReactNode;

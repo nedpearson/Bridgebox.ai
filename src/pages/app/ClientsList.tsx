@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Plus, Building2, TrendingUp, Clock } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import StatusBadge from '../../components/admin/StatusBadge';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ErrorState from '../../components/ErrorState';
-import EmptyState from '../../components/EmptyState';
-import ClientModal from '../../components/app/ClientModal';
-import { organizationsService } from '../../lib/db/organizations';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Search, Plus, Building2, TrendingUp, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import StatusBadge from "../../components/admin/StatusBadge";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorState from "../../components/ErrorState";
+import EmptyState from "../../components/EmptyState";
+import ClientModal from "../../components/app/ClientModal";
+import { organizationsService } from "../../lib/db/organizations";
 
 interface ClientWithStats {
   id: string;
@@ -25,8 +25,8 @@ interface ClientWithStats {
 export default function ClientsList() {
   const [clients, setClients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -40,14 +40,16 @@ export default function ClientsList() {
 
       const clientsWithStats = await Promise.all(
         (data || []).map(async (org: any) => {
-          const stats = await organizationsService.getOrganizationWithStats(org.id);
+          const stats = await organizationsService.getOrganizationWithStats(
+            org.id,
+          );
           return stats;
-        })
+        }),
       );
 
       setClients(clientsWithStats.filter(Boolean));
     } catch (err: any) {
-      setError(err.message || 'Failed to load clients');
+      setError(err.message || "Failed to load clients");
     } finally {
       setLoading(false);
     }
@@ -60,7 +62,7 @@ export default function ClientsList() {
         const data = await organizationsService.searchOrganizations(query);
         setClients(data || []);
       } catch (err) {
-        console.error('Search failed:', err);
+        console.error("Search failed:", err);
       }
     } else {
       loadClients();
@@ -99,7 +101,7 @@ export default function ClientsList() {
             />
           </div>
 
-          <button 
+          <button
             onClick={() => setIsModalOpen(true)}
             className="flex items-center space-x-2 px-6 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg transition-all active:scale-[0.98] shadow-sm shadow-indigo-500/10"
           >
@@ -124,7 +126,10 @@ export default function ClientsList() {
                 transition={{ delay: index * 0.1 }}
               >
                 <Link to={`/app/clients/${client.id}`}>
-                  <Card glass className="p-6 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer">
+                  <Card
+                    glass
+                    className="p-6 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer"
+                  >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start space-x-4 flex-1">
                         <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-inner">
@@ -136,21 +141,26 @@ export default function ClientsList() {
                           </h3>
                           <div className="flex flex-wrap items-center gap-2">
                             {client.industry && (
-                              <span className="text-slate-400 text-sm">{client.industry}</span>
+                              <span className="text-slate-400 text-sm">
+                                {client.industry}
+                              </span>
                             )}
                             {client.projectCount !== undefined && (
                               <span className="text-slate-400 text-sm">
                                 • {client.projectCount} total projects
                               </span>
                             )}
-                            {client.activeProjectCount !== undefined && client.activeProjectCount > 0 && (
-                              <span className="text-[#10B981] text-sm">
-                                • {client.activeProjectCount} active
-                              </span>
-                            )}
+                            {client.activeProjectCount !== undefined &&
+                              client.activeProjectCount > 0 && (
+                                <span className="text-[#10B981] text-sm">
+                                  • {client.activeProjectCount} active
+                                </span>
+                              )}
                           </div>
                           {client.website && (
-                            <p className="text-slate-500 text-sm mt-1">{client.website}</p>
+                            <p className="text-slate-500 text-sm mt-1">
+                              {client.website}
+                            </p>
                           )}
                         </div>
                       </div>
@@ -160,14 +170,23 @@ export default function ClientsList() {
                       <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-800">
                         {client.size && (
                           <div>
-                            <p className="text-slate-500 text-xs mb-1">Company Size</p>
-                            <p className="text-white text-sm font-medium">{client.size}</p>
+                            <p className="text-slate-500 text-xs mb-1">
+                              Company Size
+                            </p>
+                            <p className="text-white text-sm font-medium">
+                              {client.size}
+                            </p>
                           </div>
                         )}
                         <div>
-                          <p className="text-slate-500 text-xs mb-1">Client Since</p>
+                          <p className="text-slate-500 text-xs mb-1">
+                            Client Since
+                          </p>
                           <p className="text-white text-sm font-medium">
-                            {new Date(client.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                            {new Date(client.created_at).toLocaleDateString(
+                              "en-US",
+                              { month: "short", year: "numeric" },
+                            )}
                           </p>
                         </div>
                       </div>
@@ -180,7 +199,7 @@ export default function ClientsList() {
         )}
       </div>
 
-      <ClientModal 
+      <ClientModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSuccess={() => {

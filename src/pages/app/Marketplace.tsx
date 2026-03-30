@@ -1,27 +1,39 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Search, ShoppingBag, Star, Download, TrendingUp, Zap, Building2, Package, LayoutTemplate } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import { supabase } from '../../lib/supabase';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import TemplateDetailView from '../../components/marketplace/TemplateDetailView';
-import AgentDetailView from '../../components/marketplace/AgentDetailView';
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  Search,
+  ShoppingBag,
+  Star,
+  Download,
+  TrendingUp,
+  Zap,
+  Building2,
+  Package,
+  LayoutTemplate,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import { supabase } from "../../lib/supabase";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import TemplateDetailView from "../../components/marketplace/TemplateDetailView";
+import AgentDetailView from "../../components/marketplace/AgentDetailView";
 
 export default function Marketplace() {
   const location = useLocation();
-  const [activeCategory, setActiveCategory] = useState<string>(location.state?.category || 'all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState<string>(
+    location.state?.category || "all",
+  );
+  const [searchQuery, setSearchQuery] = useState("");
   const [templates, setTemplates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
 
   const categories = [
-    { id: 'all', label: 'All Templates', icon: Package },
-    { id: 'industry_pack', label: 'Industry Packs', icon: Building2 },
-    { id: 'workflow', label: 'Workflows', icon: TrendingUp },
-    { id: 'ai_agent', label: 'AI Agents', icon: Zap },
-    { id: 'premium_addon', label: 'Premium Add-ons', icon: ShoppingBag },
+    { id: "all", label: "All Templates", icon: Package },
+    { id: "industry_pack", label: "Industry Packs", icon: Building2 },
+    { id: "workflow", label: "Workflows", icon: TrendingUp },
+    { id: "ai_agent", label: "AI Agents", icon: Zap },
+    { id: "premium_addon", label: "Premium Add-ons", icon: ShoppingBag },
   ];
 
   useEffect(() => {
@@ -30,74 +42,78 @@ export default function Marketplace() {
 
   const loadMarketplace = async () => {
     setLoading(true);
-    
+
     try {
-       if (activeCategory === 'ai_agent') {
-         // Fetch AI Workers
-         const { data, error } = await supabase
-           .from('bb_agents')
-           .select('*')
-           .order('created_at', { ascending: false });
-           
-         if (error) throw error;
-         
-         // Normalize shape to match template grid
-         const normalized = (data || []).map(agent => ({
-             id: agent.id,
-             category: agent.category,
-             is_premium: true, // Agent packs are implicitly premium
-             is_agent: true,
-             install_count: Math.floor(Math.random() * 500) + 50, // Mock discovery installs
-             average_rating: 4.9,
-             bb_templates: {
-                name: agent.name,
-                description: agent.description,
-                thumbnail_url: null
-             }
-         }));
-         setTemplates(normalized);
-       } else {
-         // Fetch Workflows
-         let query = supabase
-           .from('bb_marketplace_templates')
-           .select(`
+      if (activeCategory === "ai_agent") {
+        // Fetch AI Workers
+        const { data, error } = await supabase
+          .from("bb_agents")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        // Normalize shape to match template grid
+        const normalized = (data || []).map((agent) => ({
+          id: agent.id,
+          category: agent.category,
+          is_premium: true, // Agent packs are implicitly premium
+          is_agent: true,
+          install_count: Math.floor(Math.random() * 500) + 50, // Mock discovery installs
+          average_rating: 4.9,
+          bb_templates: {
+            name: agent.name,
+            description: agent.description,
+            thumbnail_url: null,
+          },
+        }));
+        setTemplates(normalized);
+      } else {
+        // Fetch Workflows
+        let query = supabase
+          .from("bb_marketplace_templates")
+          .select(
+            `
              *,
              bb_templates(name, description, thumbnail_url),
              bb_organizations(name)
-           `)
-           .eq('is_published', true);
+           `,
+          )
+          .eq("is_published", true);
 
-         if (activeCategory !== 'all') {
-           query = query.eq('category', activeCategory);
-         }
+        if (activeCategory !== "all") {
+          query = query.eq("category", activeCategory);
+        }
 
-         const { data, error } = await query;
-         if (error) throw error;
-         
-         const normalized = (data || []).map(t => ({ ...t, is_agent: false }));
-         setTemplates(normalized);
-       }
+        const { data, error } = await query;
+        if (error) throw error;
+
+        const normalized = (data || []).map((t) => ({ ...t, is_agent: false }));
+        setTemplates(normalized);
+      }
     } catch (err) {
-       console.error("Failed to load marketplace data:", err);
+      console.error("Failed to load marketplace data:", err);
     } finally {
-       setLoading(false);
+      setLoading(false);
     }
   };
 
-  const filteredTemplates = templates.filter(t => 
-    t.bb_templates?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    t.bb_templates?.description?.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredTemplates = templates.filter(
+    (t) =>
+      t.bb_templates?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.bb_templates?.description
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase()),
   );
 
   return (
     <>
-      <AppHeader 
+      <AppHeader
         title="Template Marketplace"
         subtitle="Discover, install, and share high-performing ecosystem workflows."
       />
 
       <div className="p-8 space-y-8">
-        
         {/* Marketplace Nav */}
         <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
           <div className="flex bg-slate-800/50 p-1 rounded-xl w-full md:w-auto overflow-x-auto">
@@ -107,8 +123,8 @@ export default function Marketplace() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
                   activeCategory === cat.id
-                    ? 'bg-indigo-500 text-white shadow-lg'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+                    ? "bg-indigo-500 text-white shadow-lg"
+                    : "text-slate-400 hover:text-white hover:bg-slate-700/50"
                 }`}
               >
                 <cat.icon className="w-4 h-4" />
@@ -147,26 +163,33 @@ export default function Marketplace() {
               >
                 <div className="aspect-video bg-gradient-to-br from-slate-800 to-slate-900 border-b border-slate-700/50 p-6 flex flex-col justify-between">
                   {template.is_premium ? (
-                    <div className="self-end bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider relative z-10 shadow-lg">Premium</div>
+                    <div className="self-end bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider relative z-10 shadow-lg">
+                      Premium
+                    </div>
                   ) : (
-                    <div className="self-end bg-slate-800 text-slate-300 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider border border-slate-600 relative z-10">Free</div>
+                    <div className="self-end bg-slate-800 text-slate-300 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider border border-slate-600 relative z-10">
+                      Free
+                    </div>
                   )}
                   {template.is_agent ? (
-                     <Zap className="w-12 h-12 text-indigo-500/70 group-hover:text-indigo-500 transition-colors mx-auto" />
+                    <Zap className="w-12 h-12 text-indigo-500/70 group-hover:text-indigo-500 transition-colors mx-auto" />
                   ) : (
-                     <LayoutTemplate className="w-12 h-12 text-slate-500/50 group-hover:text-indigo-500/50 transition-colors mx-auto" />
+                    <LayoutTemplate className="w-12 h-12 text-slate-500/50 group-hover:text-indigo-500/50 transition-colors mx-auto" />
                   )}
                 </div>
-                
+
                 <div className="p-5 flex flex-col flex-grow">
                   <div className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1">
-                    {template.category.replace('_', ' ')}
+                    {template.category.replace("_", " ")}
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 line-clamp-1">{template.bb_templates?.name}</h3>
+                  <h3 className="text-lg font-bold text-white mb-2 line-clamp-1">
+                    {template.bb_templates?.name}
+                  </h3>
                   <p className="text-slate-400 text-sm line-clamp-2 mb-4 flex-grow">
-                    {template.bb_templates?.description || template.best_use_case}
+                    {template.bb_templates?.description ||
+                      template.best_use_case}
                   </p>
-                  
+
                   <div className="flex items-center justify-between text-xs text-slate-500">
                     <div className="flex items-center space-x-1">
                       <Download className="w-3.5 h-3.5" />
@@ -183,9 +206,11 @@ export default function Marketplace() {
 
                 {/* Hover overlay actions */}
                 <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none group-hover:pointer-events-auto">
-                   <button className={`px-6 py-2 text-white font-medium rounded-lg shadow-lg ${template.is_agent ? 'bg-indigo-500 hover:bg-indigo-600' : 'bg-slate-700 hover:bg-slate-600'}`}>
-                      {template.is_agent ? 'Deploy Assistant' : 'View Details'}
-                   </button>
+                  <button
+                    className={`px-6 py-2 text-white font-medium rounded-lg shadow-lg ${template.is_agent ? "bg-indigo-500 hover:bg-indigo-600" : "bg-slate-700 hover:bg-slate-600"}`}
+                  >
+                    {template.is_agent ? "Deploy Assistant" : "View Details"}
+                  </button>
                 </div>
               </motion.div>
             ))}
@@ -193,19 +218,18 @@ export default function Marketplace() {
         )}
       </div>
 
-      {selectedTemplate && (
-        activeCategory === 'ai_agent' ? (
-           <AgentDetailView 
-             agentId={selectedTemplate} 
-             onClose={() => setSelectedTemplate(null)} 
-           />
+      {selectedTemplate &&
+        (activeCategory === "ai_agent" ? (
+          <AgentDetailView
+            agentId={selectedTemplate}
+            onClose={() => setSelectedTemplate(null)}
+          />
         ) : (
-           <TemplateDetailView 
-             templateId={selectedTemplate} 
-             onClose={() => setSelectedTemplate(null)} 
-           />
-        )
-      )}
+          <TemplateDetailView
+            templateId={selectedTemplate}
+            onClose={() => setSelectedTemplate(null)}
+          />
+        ))}
     </>
   );
 }

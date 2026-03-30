@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { motion } from 'framer-motion';
-import { Briefcase, ChevronRight, TrendingUp } from 'lucide-react';
-import Badge from '../Badge';
+import { motion } from "framer-motion";
+import { Briefcase, ChevronRight, TrendingUp } from "lucide-react";
+import Badge from "../Badge";
 
 interface MobileProjectCardProps {
   id: string;
@@ -13,11 +13,11 @@ interface MobileProjectCardProps {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  planning: 'slate',
-  active: 'blue',
-  on_hold: 'amber',
-  completed: 'green',
-  cancelled: 'red',
+  planning: "slate",
+  active: "blue",
+  on_hold: "amber",
+  completed: "green",
+  cancelled: "red",
 };
 
 export default function MobileProjectCard({
@@ -45,8 +45,13 @@ export default function MobileProjectCard({
         {/* Content */}
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 mb-2">
-            <h3 className="text-base font-medium text-white truncate">{name}</h3>
-            <Badge color={STATUS_COLORS[status] || 'slate'} className="text-xs flex-shrink-0">
+            <h3 className="text-base font-medium text-white truncate">
+              {name}
+            </h3>
+            <Badge
+              color={STATUS_COLORS[status] || "slate"}
+              className="text-xs flex-shrink-0"
+            >
               {status}
             </Badge>
           </div>
@@ -55,7 +60,9 @@ export default function MobileProjectCard({
           <div className="mb-2">
             <div className="flex items-center justify-between mb-1">
               <span className="text-xs text-slate-400">Progress</span>
-              <span className="text-xs font-medium text-white">{progress}%</span>
+              <span className="text-xs font-medium text-white">
+                {progress}%
+              </span>
             </div>
             <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
               <motion.div

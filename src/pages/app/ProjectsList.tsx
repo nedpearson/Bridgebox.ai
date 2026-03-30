@@ -1,36 +1,43 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Plus, FolderKanban, Sparkles } from 'lucide-react';
-import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import StatusBadge from '../../components/admin/StatusBadge';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ErrorState from '../../components/ErrorState';
-import EmptyState from '../../components/EmptyState';
-import { useAuth } from '../../contexts/AuthContext';
-import { projectsService } from '../../lib/db/projects';
-import ProjectModal from '../../components/app/ProjectModal';
-import UpgradeModal from '../../components/app/UpgradeModal';
-import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
-import { useSmartUI } from '../../hooks/useSmartUI';
-import { useCopilotContext } from '../../contexts/CopilotContext';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Search, Plus, FolderKanban, Sparkles } from "lucide-react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import StatusBadge from "../../components/admin/StatusBadge";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorState from "../../components/ErrorState";
+import EmptyState from "../../components/EmptyState";
+import { useAuth } from "../../contexts/AuthContext";
+import { projectsService } from "../../lib/db/projects";
+import ProjectModal from "../../components/app/ProjectModal";
+import UpgradeModal from "../../components/app/UpgradeModal";
+import { usePlatformIntelligence } from "../../hooks/usePlatformIntelligence";
+import { useSmartUI } from "../../hooks/useSmartUI";
+import { useCopilotContext } from "../../contexts/CopilotContext";
 
 export default function ProjectsList() {
   const { currentOrganization, profile } = useAuth();
-  const { registerActionHandler, unregisterActionHandler } = useCopilotContext();
+  const { registerActionHandler, unregisterActionHandler } =
+    useCopilotContext();
   const navigate = useNavigate();
 
   usePlatformIntelligence({
-    id: 'page:projects_list',
-    name: 'Project Delivery List',
-    type: 'page',
-    description: 'Grid view of all active implementation projects, their start/target dates, and current deployment progress percent.',
-    relatedNodes: ['module:delivery', 'entity:project'],
-    visibility: { roles: ['super_admin', 'tenant_admin', 'manager', 'agent'] },
+    id: "page:projects_list",
+    name: "Project Delivery List",
+    type: "page",
+    description:
+      "Grid view of all active implementation projects, their start/target dates, and current deployment progress percent.",
+    relatedNodes: ["module:delivery", "entity:project"],
+    visibility: { roles: ["super_admin", "tenant_admin", "manager", "agent"] },
     actions: [
-      { id: 'add_project', name: 'New Project', type: 'modal', description: 'Create a new implementation project.' }
-    ]
+      {
+        id: "add_project",
+        name: "New Project",
+        type: "modal",
+        description: "Create a new implementation project.",
+      },
+    ],
   });
 
   const { showAdvancedUi } = useSmartUI();
@@ -38,40 +45,51 @@ export default function ProjectsList() {
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState(searchParams.get('status') || 'all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState(
+    searchParams.get("status") || "all",
+  );
 
   useEffect(() => {
-    registerActionHandler('add_project', handleNewProject);
-    return () => unregisterActionHandler('add_project');
-  }, [registerActionHandler, unregisterActionHandler, projects.length, currentOrganization]);
+    registerActionHandler("add_project", handleNewProject);
+    return () => unregisterActionHandler("add_project");
+  }, [
+    registerActionHandler,
+    unregisterActionHandler,
+    projects.length,
+    currentOrganization,
+  ]);
 
   useEffect(() => {
     loadProjects();
-    setSearchParams(prev => {
-      const newParams = new URLSearchParams(prev);
-      if (statusFilter !== 'all') {
-        newParams.set('status', statusFilter);
-      } else {
-        newParams.delete('status');
-      }
-      return newParams;
-    }, { replace: true });
+    setSearchParams(
+      (prev) => {
+        const newParams = new URLSearchParams(prev);
+        if (statusFilter !== "all") {
+          newParams.set("status", statusFilter);
+        } else {
+          newParams.delete("status");
+        }
+        return newParams;
+      },
+      { replace: true },
+    );
   }, [statusFilter, setSearchParams]);
 
   const loadProjects = async () => {
     try {
       setLoading(true);
       const filters: any = {};
-      if (statusFilter !== 'all') filters.status = statusFilter;
-      if (currentOrganization?.id) filters.organization_id = currentOrganization.id;
-      
+      if (statusFilter !== "all") filters.status = statusFilter;
+      if (currentOrganization?.id)
+        filters.organization_id = currentOrganization.id;
+
       const data = await projectsService.getAllProjects(filters);
       setProjects(data || []);
     } catch (err: any) {
-      setError(err.message || 'Failed to load projects');
+      setError(err.message || "Failed to load projects");
     } finally {
       setLoading(false);
     }
@@ -81,10 +99,13 @@ export default function ProjectsList() {
     setSearchQuery(query);
     if (query.trim()) {
       try {
-        const data = await projectsService.searchProjects(query, currentOrganization?.id);
+        const data = await projectsService.searchProjects(
+          query,
+          currentOrganization?.id,
+        );
         setProjects(data || []);
       } catch (err) {
-        console.error('Search failed:', err);
+        console.error("Search failed:", err);
       }
     } else {
       loadProjects();
@@ -92,45 +113,50 @@ export default function ProjectsList() {
   };
 
   const checkProjectLimit = () => {
-     // Dynamic limit logic: max 5 projects for starter
-     const plan = currentOrganization?.billing_plan || 'Starter';
-     if (plan === 'Starter' && projects.length >= 5 && profile?.role !== 'super_admin' && profile?.role !== 'internal_staff') {
-        setIsUpgradeModalOpen(true);
-        return false;
-     }
-     return true;
+    // Dynamic limit logic: max 5 projects for starter
+    const plan = currentOrganization?.billing_plan || "Starter";
+    if (
+      plan === "Starter" &&
+      projects.length >= 5 &&
+      profile?.role !== "super_admin" &&
+      profile?.role !== "internal_staff"
+    ) {
+      setIsUpgradeModalOpen(true);
+      return false;
+    }
+    return true;
   };
 
   const handleNewProject = () => {
-     if (checkProjectLimit()) setIsProjectModalOpen(true);
+    if (checkProjectLimit()) setIsProjectModalOpen(true);
   };
 
   const handleAiProject = () => {
-     if (checkProjectLimit()) navigate('/ai-onboarding?type=project');
+    if (checkProjectLimit()) navigate("/ai-onboarding?type=project");
   };
 
   const getStatusVariant = (status: string) => {
     switch (status) {
-      case 'deployed':
-      case 'completed':
-        return 'success';
-      case 'testing':
-        return 'warning';
-      case 'in_progress':
-        return 'info';
+      case "deployed":
+      case "completed":
+        return "success";
+      case "testing":
+        return "warning";
+      case "in_progress":
+        return "info";
       default:
-        return 'default';
+        return "default";
     }
   };
 
   const getTypeLabel = (type: string) => {
     const map: Record<string, string> = {
-      dashboard: 'Dashboard',
-      mobile_app: 'Mobile App',
-      web_app: 'Web App',
-      integration: 'Integration',
-      consulting: 'Consulting',
-      other: 'Other',
+      dashboard: "Dashboard",
+      mobile_app: "Mobile App",
+      web_app: "Web App",
+      integration: "Integration",
+      consulting: "Consulting",
+      other: "Other",
     };
     return map[type] || type;
   };
@@ -183,16 +209,17 @@ export default function ProjectsList() {
           )}
 
           <div className="flex items-center space-x-3">
-            <button 
+            <button
               onClick={handleAiProject}
               className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white font-medium rounded-lg transition-colors border border-indigo-400/50 shadow-lg shadow-indigo-500/20"
             >
               <Sparkles className="w-4 h-4" />
               <span>Generate with AI</span>
             </button>
-            <button 
+            <button
               onClick={handleNewProject}
-              className="flex items-center space-x-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg transition-colors">
+              className="flex items-center space-x-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg transition-colors"
+            >
               <Plus className="w-5 h-5" />
               <span>Manual Project</span>
             </button>
@@ -215,7 +242,10 @@ export default function ProjectsList() {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link to={`/app/projects/${project.id}`}>
-                  <Card glass className="p-6 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer h-full">
+                  <Card
+                    glass
+                    className="p-6 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer h-full"
+                  >
                     <div className="flex items-start space-x-4 mb-4">
                       <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
                         <FolderKanban className="w-6 h-6 text-white" />
@@ -224,34 +254,56 @@ export default function ProjectsList() {
                         <h3 className="text-lg font-semibold text-white mb-1 line-clamp-2">
                           {project.name}
                         </h3>
-                        <p className="text-slate-400 text-sm">{project.organizations?.name || 'No client'}</p>
+                        <p className="text-slate-400 text-sm">
+                          {project.organizations?.name || "No client"}
+                        </p>
                       </div>
                     </div>
 
                     <div className="flex items-center space-x-2 mb-4">
-                      <StatusBadge status={getTypeLabel(project.type)} variant="info" />
-                      <StatusBadge status={project.status} variant={getStatusVariant(project.status)} />
+                      <StatusBadge
+                        status={getTypeLabel(project.type)}
+                        variant="info"
+                      />
+                      <StatusBadge
+                        status={project.status}
+                        variant={getStatusVariant(project.status)}
+                      />
                     </div>
 
                     <div className="space-y-3 pt-3 border-t border-slate-800">
                       {project.description && (
-                        <p className="text-slate-400 text-sm line-clamp-2">{project.description}</p>
+                        <p className="text-slate-400 text-sm line-clamp-2">
+                          {project.description}
+                        </p>
                       )}
 
                       <div className="grid grid-cols-2 gap-3">
                         {project.start_date && (
                           <div>
-                            <p className="text-slate-500 text-xs mb-1">Start Date</p>
+                            <p className="text-slate-500 text-xs mb-1">
+                              Start Date
+                            </p>
                             <p className="text-white text-sm">
-                              {new Date(project.start_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                              {new Date(project.start_date).toLocaleDateString(
+                                "en-US",
+                                { month: "short", day: "numeric" },
+                              )}
                             </p>
                           </div>
                         )}
                         {project.target_completion_date && (
                           <div>
-                            <p className="text-slate-500 text-xs mb-1">Target Date</p>
+                            <p className="text-slate-500 text-xs mb-1">
+                              Target Date
+                            </p>
                             <p className="text-white text-sm">
-                              {new Date(project.target_completion_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                              {new Date(
+                                project.target_completion_date,
+                              ).toLocaleDateString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                              })}
                             </p>
                           </div>
                         )}
@@ -259,8 +311,12 @@ export default function ProjectsList() {
 
                       {project.profiles && (
                         <div>
-                          <p className="text-slate-500 text-xs mb-1">Project Manager</p>
-                          <p className="text-white text-sm">{project.profiles.full_name || 'Unassigned'}</p>
+                          <p className="text-slate-500 text-xs mb-1">
+                            Project Manager
+                          </p>
+                          <p className="text-white text-sm">
+                            {project.profiles.full_name || "Unassigned"}
+                          </p>
                         </div>
                       )}
                     </div>
@@ -272,13 +328,13 @@ export default function ProjectsList() {
         )}
       </div>
 
-      <ProjectModal 
+      <ProjectModal
         isOpen={isProjectModalOpen}
         onClose={() => setIsProjectModalOpen(false)}
         onSuccess={loadProjects}
       />
 
-      <UpgradeModal 
+      <UpgradeModal
         isOpen={isUpgradeModalOpen}
         onClose={() => setIsUpgradeModalOpen(false)}
         featureName="Unlimited Active Projects"

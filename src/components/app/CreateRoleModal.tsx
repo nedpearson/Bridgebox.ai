@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Shield } from 'lucide-react';
-import Button from '../Button';
-import { whiteLabelService } from '../../lib/db/whiteLabel';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Shield } from "lucide-react";
+import Button from "../Button";
+import { whiteLabelService } from "../../lib/db/whiteLabel";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface CreateRoleModalProps {
   isOpen: boolean;
@@ -11,30 +11,36 @@ interface CreateRoleModalProps {
   onSuccess: () => void;
 }
 
-export default function CreateRoleModal({ isOpen, onClose, onSuccess }: CreateRoleModalProps) {
+export default function CreateRoleModal({
+  isOpen,
+  onClose,
+  onSuccess,
+}: CreateRoleModalProps) {
   const { user, currentOrganization } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  
+  const [error, setError] = useState("");
+
   const [formData, setFormData] = useState({
-    display_name: '',
-    description: '',
+    display_name: "",
+    description: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.display_name.trim()) {
-      setError('Role name is required');
+      setError("Role name is required");
       return;
     }
     if (!currentOrganization || !user) return;
 
     try {
       setLoading(true);
-      setError('');
-      
-      const roleName = formData.display_name.toLowerCase().replace(/[^a-z0-9]/g, '_');
-      
+      setError("");
+
+      const roleName = formData.display_name
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "_");
+
       await whiteLabelService.createCustomRole(
         currentOrganization.id,
         {
@@ -44,16 +50,16 @@ export default function CreateRoleModal({ isOpen, onClose, onSuccess }: CreateRo
           permissions: {
             settings: { view: true },
           },
-          is_active: true
+          is_active: true,
         },
-        user.id
+        user.id,
       );
-      
+
       onSuccess();
-      setFormData({ display_name: '', description: '' });
+      setFormData({ display_name: "", description: "" });
       onClose();
     } catch (err: any) {
-      setError(err.message || 'Failed to create role');
+      setError(err.message || "Failed to create role");
     } finally {
       setLoading(false);
     }
@@ -71,7 +77,7 @@ export default function CreateRoleModal({ isOpen, onClose, onSuccess }: CreateRo
           className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
           onClick={onClose}
         />
-        
+
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -106,7 +112,9 @@ export default function CreateRoleModal({ isOpen, onClose, onSuccess }: CreateRo
                 type="text"
                 required
                 value={formData.display_name}
-                onChange={e => setFormData({ ...formData, display_name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, display_name: e.target.value })
+                }
                 className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
                 placeholder="e.g. Marketing Manager"
               />
@@ -118,18 +126,25 @@ export default function CreateRoleModal({ isOpen, onClose, onSuccess }: CreateRo
               </label>
               <textarea
                 value={formData.description}
-                onChange={e => setFormData({ ...formData, description: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
                 className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500 h-24 resize-none"
                 placeholder="Describe the permissions and access level for this role..."
               />
             </div>
 
             <div className="pt-4 flex justify-end gap-3 border-t border-slate-800">
-              <Button type="button" variant="ghost" onClick={onClose} disabled={loading}>
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={onClose}
+                disabled={loading}
+              >
                 Cancel
               </Button>
               <Button type="submit" disabled={loading}>
-                {loading ? 'Creating...' : 'Create Role'}
+                {loading ? "Creating..." : "Create Role"}
               </Button>
             </div>
           </form>

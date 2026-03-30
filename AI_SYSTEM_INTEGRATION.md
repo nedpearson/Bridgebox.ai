@@ -35,6 +35,7 @@ Execution & Tracking
 **Purpose**: Central hub that coordinates all AI systems
 
 **Key Features**:
+
 - Aggregates data from metrics, predictions, trends, market signals, and opportunities
 - Generates comprehensive intelligence snapshots
 - Assesses data quality and confidence levels
@@ -42,6 +43,7 @@ Execution & Tracking
 - Calculates business health scores
 
 **Data Quality Assessment**:
+
 - Excellent: All data sources available
 - Good: 3 out of 4 data sources
 - Fair: 2 data sources
@@ -52,6 +54,7 @@ Execution & Tracking
 **Purpose**: Capture and analyze external market intelligence
 
 **Signal Types**:
+
 - Industry trends
 - Technology shifts
 - Service demand changes
@@ -61,6 +64,7 @@ Execution & Tracking
 - Emerging trends
 
 **Signal Strength**:
+
 - Strong: High confidence, multiple data points
 - Moderate: Good indicators, some validation
 - Weak: Early signals, limited data
@@ -70,6 +74,7 @@ Execution & Tracking
 **Purpose**: Score and rank business opportunities
 
 **Scoring Factors**:
+
 - Market demand momentum (30%)
 - Revenue potential (25%)
 - Strategic fit alignment (20%)
@@ -77,6 +82,7 @@ Execution & Tracking
 - Resource availability (10%)
 
 **Opportunity Levels**:
+
 - High: Score 80+
 - Medium: Score 60-79
 - Low: Score below 60
@@ -86,6 +92,7 @@ Execution & Tracking
 **Purpose**: Generate safe, reviewable action recommendations
 
 **Action Categories**:
+
 - CRM: Lead prioritization, follow-ups, summaries
 - Project: Risk detection, milestone updates, blocker identification
 - Support: Escalation, classification, response suggestions
@@ -94,6 +101,7 @@ Execution & Tracking
 - Automation: Rule creation, health updates
 
 **Safety Features**:
+
 - Human-in-the-loop required for all actions
 - Approval workflow before execution
 - Destructive actions flagged and restricted
@@ -101,6 +109,7 @@ Execution & Tracking
 - Full audit trail and reasoning
 
 **Action Workflow**:
+
 1. Suggested: AI generates recommendation
 2. Pending Review: Awaits human approval
 3. Approved: Human validates and approves
@@ -112,6 +121,7 @@ Execution & Tracking
 **Purpose**: Integrate external data sources safely
 
 **Architecture**:
+
 - Base connector interface
 - Provider-specific implementations
 - Centralized registry
@@ -125,17 +135,20 @@ Execution & Tracking
 ### Intelligence Displays
 
 #### Confidence Badges
+
 - Visual indicators of AI certainty
 - Color-coded by confidence level
 - Shows percentage scores
 - Contextual tooltips
 
 #### Data Quality Badges
+
 - Indicates completeness of data
 - Four levels: Excellent, Good, Fair, Limited
 - Helps users understand reliability
 
 #### Uncertainty Notices
+
 - Clear disclaimers on AI-generated content
 - Context-specific messaging
 - Prevents over-reliance on AI
@@ -144,6 +157,7 @@ Execution & Tracking
 ### Key Pages
 
 #### Executive Command Center (`/app/executive`)
+
 - Comprehensive business overview
 - AI strategic insights
 - Predictions and forecasts
@@ -152,6 +166,7 @@ Execution & Tracking
 - Includes uncertainty notice
 
 #### Market Signals (`/app/market-signals`)
+
 - External market intelligence
 - Signal strength visualization
 - Emerging trends
@@ -159,12 +174,14 @@ Execution & Tracking
 - Includes data source disclaimer
 
 #### Opportunities (`/app/opportunities`)
+
 - Scored business opportunities
 - Prioritized rankings
 - Action recommendations
 - Confidence scores
 
 #### Agent Actions (`/app/agent-actions`)
+
 - Action review queue
 - Approval interface
 - Execution tracking
@@ -172,6 +189,7 @@ Execution & Tracking
 - Strong safety messaging
 
 #### AI Copilot (`/app/copilot`)
+
 - Conversational AI interface
 - Contextual insights
 - Pending actions sidebar
@@ -182,6 +200,7 @@ Execution & Tracking
 ### Uncertainty Expression
 
 **All AI-generated content includes clear disclaimers**:
+
 - Predictions are directional guidance, not guarantees
 - Recommendations require human validation
 - Insights depend on data quality
@@ -190,6 +209,7 @@ Execution & Tracking
 ### Human-in-the-Loop
 
 **No automated destructive actions**:
+
 - All high-impact actions require approval
 - Review notes capture human reasoning
 - Execution tracked with full audit trail
@@ -198,6 +218,7 @@ Execution & Tracking
 ### Data Quality Transparency
 
 **Users always know data reliability**:
+
 - Quality badges on dashboards
 - Data source indicators
 - Missing data warnings
@@ -208,12 +229,14 @@ Execution & Tracking
 ### Role-Based Protection
 
 **All intelligence features protected**:
+
 - Requires `internal_staff` role minimum
 - Admin panel access checked
 - Route-level guards
 - Component-level permissions
 
 **Protected Routes**:
+
 - `/app/executive`
 - `/app/analytics`
 - `/app/trends`
@@ -260,27 +283,29 @@ Execution & Tracking
 ### API Integration
 
 **IntelligenceOrchestrator Methods**:
+
 ```typescript
 // Get comprehensive intelligence snapshot
 const snapshot = await intelligenceOrchestrator.generateFullIntelligence(orgId);
 
 // Generate executive briefing
-const briefing = await intelligenceOrchestrator.generateExecutiveBriefing(orgId);
+const briefing =
+  await intelligenceOrchestrator.generateExecutiveBriefing(orgId);
 
 // Get business health score
 const health = await intelligenceOrchestrator.getBusinessHealth(orgId);
 
 // Get contextual insights
 const insights = await intelligenceOrchestrator.getContextualInsights({
-  type: 'lead',
-  id: leadId
+  type: "lead",
+  id: leadId,
 });
 
 // Generate action recommendations
 const actions = await intelligenceOrchestrator.generateActionRecommendations(
   orgId,
-  'lead',
-  leadId
+  "lead",
+  leadId,
 );
 ```
 
@@ -289,6 +314,7 @@ const actions = await intelligenceOrchestrator.generateActionRecommendations(
 ### Visual Language
 
 **Color Palette**:
+
 - Blue: Intelligence, insights, neutral information
 - Emerald/Green: Opportunities, growth, positive trends
 - Amber/Yellow: Warnings, medium priority, caution
@@ -297,6 +323,7 @@ const actions = await intelligenceOrchestrator.generateActionRecommendations(
 - Gray: Supporting information, dismissed items
 
 **Component Patterns**:
+
 - Consistent card layouts
 - Uniform badge styling
 - Standardized icons
@@ -304,6 +331,7 @@ const actions = await intelligenceOrchestrator.generateActionRecommendations(
 - Responsive grid systems
 
 **Typography**:
+
 - Clear hierarchy
 - Readable font sizes
 - Appropriate line height
@@ -312,6 +340,7 @@ const actions = await intelligenceOrchestrator.generateActionRecommendations(
 ### Premium Feel
 
 **Achieved through**:
+
 - Thoughtful animations
 - Smooth transitions
 - Subtle hover effects
@@ -372,6 +401,7 @@ const actions = await intelligenceOrchestrator.generateActionRecommendations(
 ## Summary
 
 Bridgebox now operates as an intelligent business platform that:
+
 - Analyzes external market signals
 - Identifies growth opportunities
 - Generates actionable insights

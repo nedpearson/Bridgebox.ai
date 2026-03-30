@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, X, Minimize2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import Button from '../Button';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Sparkles, X, Minimize2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Button from "../Button";
 
 export default function FloatingAssistant() {
   const [isVisible, setIsVisible] = useState(true);
@@ -18,12 +18,9 @@ export default function FloatingAssistant() {
         exit={{ opacity: 0, y: 20, scale: 0.9 }}
         className="fixed bottom-6 right-6 z-50"
       >
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="relative group"
-        >
+        <motion.div whileHover={{ scale: 1.05 }} className="relative group">
           <button
-            onClick={() => navigate('/app/copilot')}
+            onClick={() => navigate("/app/copilot")}
             className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-lg shadow-purple-500/50 flex items-center justify-center hover:shadow-xl hover:shadow-purple-500/60 transition-all"
           >
             <Sparkles className="w-6 h-6 text-white" />

@@ -1,17 +1,19 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Play, Pause, RotateCcw, Activity } from 'lucide-react';
-import Card from '../Card';
-import Button from '../Button';
-import Badge from '../Badge';
-import { documentProcessor } from '../../lib/documents/DocumentProcessor';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Play, Pause, RotateCcw, Activity } from "lucide-react";
+import Card from "../Card";
+import Button from "../Button";
+import Badge from "../Badge";
+import { documentProcessor } from "../../lib/documents/DocumentProcessor";
 
 interface BatchProcessorProps {
   organizationId: string;
 }
 
-export default function BatchProcessor({ organizationId }: BatchProcessorProps) {
+export default function BatchProcessor({
+  organizationId,
+}: BatchProcessorProps) {
   const [stats, setStats] = useState({
     pending: 0,
     processing: 0,
@@ -32,7 +34,7 @@ export default function BatchProcessor({ organizationId }: BatchProcessorProps) 
       const data = await documentProcessor.getQueueStats(organizationId);
       setStats(data);
     } catch (err) {
-      console.error('Failed to load queue stats:', err);
+      console.error("Failed to load queue stats:", err);
     } finally {
       setLoading(false);
     }
@@ -46,9 +48,7 @@ export default function BatchProcessor({ organizationId }: BatchProcessorProps) 
     return null;
   }
 
-  const progress = stats.total > 0
-    ? ((stats.completed / stats.total) * 100)
-    : 0;
+  const progress = stats.total > 0 ? (stats.completed / stats.total) * 100 : 0;
 
   return (
     <motion.div

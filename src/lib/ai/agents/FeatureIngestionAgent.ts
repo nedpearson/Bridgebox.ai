@@ -1,12 +1,12 @@
-import { AIProviderFactory } from '../providers';
-import { AgentRegistry, AgentPayload } from './AgentRegistry';
+import { AIProviderFactory } from "../providers";
+import { AgentRegistry, AgentPayload } from "./AgentRegistry";
 
 export interface AntigravityPrompt {
   feature_name: string;
   ui_components_needed: string[];
   database_tables_needed: string[];
   compiled_prompt: string;
-  complexity: 'low' | 'medium' | 'high';
+  complexity: "low" | "medium" | "high";
 }
 
 export const FeatureIngestionAgent = {
@@ -15,11 +15,15 @@ export const FeatureIngestionAgent = {
    * completely drafting an explicit Antigravity system prompt to safely code the new feature into the Repository.
    */
   async draftCodePrompt(payload: AgentPayload) {
-    return AgentRegistry.execute<AntigravityPrompt>('FeatureIngestionAgent', payload, async () => {
-      const provider = AIProviderFactory.getProvider();
-      if (!provider.isConfigured()) throw new Error("AI Provider unavailable.");
+    return AgentRegistry.execute<AntigravityPrompt>(
+      "FeatureIngestionAgent",
+      payload,
+      async () => {
+        const provider = AIProviderFactory.getProvider();
+        if (!provider.isConfigured())
+          throw new Error("AI Provider unavailable.");
 
-      const prompt = `
+        const prompt = `
 You are the Bridgebox Chief Technical Officer bridging the gap between client requirements and the Antigravity Code Assistant.
 The client has requested a feature that Bridgebox cannot accomplish merely through configuration:
 "${payload.intent}"
@@ -39,17 +43,22 @@ Output strictly this JSON format:
 Ensure the compiled_prompt explicitly reminds the code AI to adhere to Bridgebox styling (Tailwind, Lucide) and strict multi-tenant Row Level Security (organization_id).
       `.trim();
 
-      const response = await provider.complete({
-        messages: [
-          { role: 'system', content: 'You are a Senior Staff Engineer drafting explicit architectural code prompts.' },
-          { role: 'user', content: prompt }
-        ],
-        temperature: 0.2, // Slightly higher temperature allowed for creative prompt writing
-        ...({ responseFormat: "json_object" } as any)
-      });
+        const response = await provider.complete({
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are a Senior Staff Engineer drafting explicit architectural code prompts.",
+            },
+            { role: "user", content: prompt },
+          ],
+          temperature: 0.2, // Slightly higher temperature allowed for creative prompt writing
+          ...({ responseFormat: "json_object" } as any),
+        });
 
-      if (!response.content) throw new Error("Empty AI Response");
-      return JSON.parse(response.content) as AntigravityPrompt;
-    });
-  }
+        if (!response.content) throw new Error("Empty AI Response");
+        return JSON.parse(response.content) as AntigravityPrompt;
+      },
+    );
+  },
 };

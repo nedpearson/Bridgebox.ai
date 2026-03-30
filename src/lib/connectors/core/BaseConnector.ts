@@ -1,4 +1,4 @@
-import { Logger } from '../../logger';
+import { Logger } from "../../logger";
 import type {
   Connector,
   ConnectorProvider,
@@ -6,7 +6,7 @@ import type {
   ExternalData,
   NormalizedRecord,
   ConnectorHealth,
-} from '../types';
+} from "../types";
 
 export abstract class BaseConnector {
   protected connector: Connector;
@@ -23,7 +23,9 @@ export abstract class BaseConnector {
 
   abstract testConnection(): Promise<boolean>;
 
-  abstract fetchExternalData(options?: Record<string, any>): Promise<ExternalData[]>;
+  abstract fetchExternalData(
+    options?: Record<string, any>,
+  ): Promise<ExternalData[]>;
 
   abstract syncNow(): Promise<SyncResult>;
 
@@ -42,7 +44,10 @@ export abstract class BaseConnector {
   }
 
   isConnected(): boolean {
-    return this.connector.status === 'connected' && this.connector.auth.isAuthenticated;
+    return (
+      this.connector.status === "connected" &&
+      this.connector.auth.isAuthenticated
+    );
   }
 
   getLastSyncTime(): string | undefined {
@@ -52,17 +57,20 @@ export abstract class BaseConnector {
   protected async logEvent(
     eventType: string,
     message: string,
-    severity: string = 'info',
-    data?: any
+    severity: string = "info",
+    data?: any,
   ): Promise<void> {
-    Logger.info(`[${this.provider.displayName}] ${eventType}: ${message}`, data);
+    Logger.info(
+      `[${this.provider.displayName}] ${eventType}: ${message}`,
+      data,
+    );
   }
 
   protected createSyncResult(
     success: boolean,
     recordsProcessed: number = 0,
     startedAt: string,
-    error?: string
+    error?: string,
   ): SyncResult {
     const completedAt = new Date().toISOString();
     const duration =

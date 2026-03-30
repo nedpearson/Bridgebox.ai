@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp, BarChart2 } from 'lucide-react';
-import { USAGE_METRIC_LABELS, USAGE_METRIC_ICONS } from '../../lib/db/usageEvents';
-import type { UsageMetricType } from '../../types/billing';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, ChevronUp, BarChart2 } from "lucide-react";
+import {
+  USAGE_METRIC_LABELS,
+  USAGE_METRIC_ICONS,
+} from "../../lib/db/usageEvents";
+import type { UsageMetricType } from "../../types/billing";
 
 interface UsageBreakdownCardProps {
   breakdown: Partial<Record<UsageMetricType, number>>;
@@ -11,23 +14,26 @@ interface UsageBreakdownCardProps {
 }
 
 const KEY_METRICS: UsageMetricType[] = [
-  'voice_request',
-  'recording_analyzed',
-  'screenshot_analyzed',
-  'blueprint_generated',
-  'refinement_processed',
-  'integration_connected',
+  "voice_request",
+  "recording_analyzed",
+  "screenshot_analyzed",
+  "blueprint_generated",
+  "refinement_processed",
+  "integration_connected",
 ];
 
 export default function UsageBreakdownCard({
   breakdown,
-  periodLabel = 'This Month',
+  periodLabel = "This Month",
   totalCreditsConsumed = 0,
 }: UsageBreakdownCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   const relevantMetrics = KEY_METRICS.filter((k) => (breakdown[k] ?? 0) > 0);
-  const maxValue = Math.max(...relevantMetrics.map((k) => breakdown[k] ?? 0), 1);
+  const maxValue = Math.max(
+    ...relevantMetrics.map((k) => breakdown[k] ?? 0),
+    1,
+  );
 
   const isEmpty = relevantMetrics.length === 0;
 
@@ -51,7 +57,9 @@ export default function UsageBreakdownCard({
         </div>
         <div className="flex items-center gap-2">
           {isEmpty && (
-            <span className="text-xs text-slate-600 italic">No activity recorded</span>
+            <span className="text-xs text-slate-600 italic">
+              No activity recorded
+            </span>
           )}
           {expanded ? (
             <ChevronUp className="w-4 h-4 text-slate-500" />
@@ -65,7 +73,7 @@ export default function UsageBreakdownCard({
         {expanded && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
+            animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden border-t border-slate-800"
           >
@@ -73,9 +81,12 @@ export default function UsageBreakdownCard({
               {isEmpty ? (
                 <div className="text-center py-8">
                   <p className="text-5xl mb-2">📊</p>
-                  <p className="text-slate-400 text-sm">No AI activity recorded yet this period.</p>
+                  <p className="text-slate-400 text-sm">
+                    No AI activity recorded yet this period.
+                  </p>
                   <p className="text-slate-600 text-xs mt-1">
-                    Start a voice discovery session or upload a recording to begin.
+                    Start a voice discovery session or upload a recording to
+                    begin.
                   </p>
                 </div>
               ) : (
@@ -83,7 +94,7 @@ export default function UsageBreakdownCard({
                   const value = breakdown[metric] ?? 0;
                   const pct = Math.round((value / maxValue) * 100);
                   const label = USAGE_METRIC_LABELS[metric] ?? metric;
-                  const icon = USAGE_METRIC_ICONS[metric] ?? '⚡';
+                  const icon = USAGE_METRIC_ICONS[metric] ?? "⚡";
 
                   return (
                     <div key={metric}>
@@ -100,7 +111,7 @@ export default function UsageBreakdownCard({
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${pct}%` }}
-                          transition={{ duration: 0.5, ease: 'easeOut' }}
+                          transition={{ duration: 0.5, ease: "easeOut" }}
                           className="h-full rounded-full bg-indigo-500/70"
                         />
                       </div>
@@ -112,16 +123,21 @@ export default function UsageBreakdownCard({
               {/* All metrics with zero value */}
               {!isEmpty && relevantMetrics.length < KEY_METRICS.length && (
                 <div className="pt-2 border-t border-slate-800/50">
-                  <p className="text-slate-600 text-xs mb-2">Not used this period:</p>
+                  <p className="text-slate-600 text-xs mb-2">
+                    Not used this period:
+                  </p>
                   <div className="flex flex-wrap gap-2">
-                    {KEY_METRICS.filter((k) => (breakdown[k] ?? 0) === 0).map((metric) => (
-                      <span
-                        key={metric}
-                        className="text-xs text-slate-600 bg-slate-800/40 px-2 py-1 rounded-lg"
-                      >
-                        {USAGE_METRIC_ICONS[metric]} {USAGE_METRIC_LABELS[metric] ?? metric}
-                      </span>
-                    ))}
+                    {KEY_METRICS.filter((k) => (breakdown[k] ?? 0) === 0).map(
+                      (metric) => (
+                        <span
+                          key={metric}
+                          className="text-xs text-slate-600 bg-slate-800/40 px-2 py-1 rounded-lg"
+                        >
+                          {USAGE_METRIC_ICONS[metric]}{" "}
+                          {USAGE_METRIC_LABELS[metric] ?? metric}
+                        </span>
+                      ),
+                    )}
                   </div>
                 </div>
               )}

@@ -1,13 +1,17 @@
-import { ReactNode } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { permissions } from '../../lib/permissions';
-import LoadingSpinner from '../LoadingSpinner';
+import { ReactNode } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { permissions } from "../../lib/permissions";
+import LoadingSpinner from "../LoadingSpinner";
 
 interface ProtectedRouteProps {
   children: ReactNode;
   requireAuth?: boolean;
-  requireRole?: 'super_admin' | 'internal_staff' | 'client_admin' | 'client_member';
+  requireRole?:
+    | "super_admin"
+    | "internal_staff"
+    | "client_admin"
+    | "client_member";
   requireAdminAccess?: boolean;
   requireClientAccess?: boolean;
 }
@@ -32,7 +36,13 @@ export default function ProtectedRoute({
 
   // Phase 8: Global Forced Onboarding Guard
   // Redirect authenticated, orphaned users accessing /app/* securely into the AI setup wizard.
-  if (requireAuth && user && profile && !currentOrganization && location.pathname.startsWith('/app')) {
+  if (
+    requireAuth &&
+    user &&
+    profile &&
+    !currentOrganization &&
+    location.pathname.startsWith("/app")
+  ) {
     return <Navigate to="/ai-onboarding" replace />;
   }
 
@@ -42,10 +52,15 @@ export default function ProtectedRoute({
     return (
       <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4">
         <div className="bg-slate-900 border border-red-500/30 p-8 rounded-xl max-w-md w-full text-center">
-          <h2 className="text-xl font-bold text-white mb-2">Profile Incomplete</h2>
-          <p className="text-slate-400 mb-6">Your user profile could not be loaded. This may happen if your account creation was interrupted.</p>
-          <button 
-            onClick={() => window.location.href = '/login'} 
+          <h2 className="text-xl font-bold text-white mb-2">
+            Profile Incomplete
+          </h2>
+          <p className="text-slate-400 mb-6">
+            Your user profile could not be loaded. This may happen if your
+            account creation was interrupted.
+          </p>
+          <button
+            onClick={() => (window.location.href = "/login")}
             className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-lg transition-colors"
           >
             Return to Login

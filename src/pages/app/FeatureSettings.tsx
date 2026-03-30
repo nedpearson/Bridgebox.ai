@@ -1,25 +1,25 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Zap, Shield, Check, X } from 'lucide-react';
-import Card from '../../components/Card';
-import Heading from '../../components/Heading';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Zap, Shield, Check, X } from "lucide-react";
+import Card from "../../components/Card";
+import Heading from "../../components/Heading";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { useAuth } from "../../contexts/AuthContext";
 import {
   whiteLabelService,
   FeatureFlag,
   AVAILABLE_FEATURES,
-} from '../../lib/db/whiteLabel';
-import { hasPermission } from '../../lib/permissions';
+} from "../../lib/db/whiteLabel";
+import { hasPermission } from "../../lib/permissions";
 
 export default function FeatureSettings() {
   const { user, currentOrganization, profile } = useAuth();
   const [features, setFeatures] = useState<FeatureFlag[]>([]);
   const [loading, setLoading] = useState(true);
-  const [planId] = useState('professional');
+  const [planId] = useState("professional");
 
-  const canEdit = hasPermission(profile?.role, 'settings', 'update');
+  const canEdit = hasPermission(profile?.role, "settings", "update");
 
   useEffect(() => {
     if (currentOrganization) {
@@ -32,10 +32,12 @@ export default function FeatureSettings() {
 
     try {
       setLoading(true);
-      const data = await whiteLabelService.getFeatureFlags(currentOrganization.id);
+      const data = await whiteLabelService.getFeatureFlags(
+        currentOrganization.id,
+      );
       setFeatures(data);
     } catch (error) {
-      console.error('Failed to load features:', error);
+      console.error("Failed to load features:", error);
     } finally {
       setLoading(false);
     }
@@ -49,12 +51,12 @@ export default function FeatureSettings() {
         currentOrganization.id,
         featureKey,
         enabled,
-        user.id
+        user.id,
       );
       await loadFeatures();
     } catch (error) {
-      console.error('Failed to toggle feature:', error);
-      alert('Failed to update feature. Please try again.');
+      console.error("Failed to toggle feature:", error);
+      alert("Failed to update feature. Please try again.");
     }
   };
 
@@ -63,13 +65,16 @@ export default function FeatureSettings() {
     return flag?.enabled ?? true;
   };
 
-  const featuresByCategory = AVAILABLE_FEATURES.reduce((acc, feature) => {
-    if (!acc[feature.category]) {
-      acc[feature.category] = [];
-    }
-    acc[feature.category].push(feature);
-    return acc;
-  }, {} as Record<string, typeof AVAILABLE_FEATURES>);
+  const featuresByCategory = AVAILABLE_FEATURES.reduce(
+    (acc, feature) => {
+      if (!acc[feature.category]) {
+        acc[feature.category] = [];
+      }
+      acc[feature.category].push(feature);
+      return acc;
+    },
+    {} as Record<string, typeof AVAILABLE_FEATURES>,
+  );
 
   if (loading) {
     return (
@@ -87,45 +92,50 @@ export default function FeatureSettings() {
           subtitle="Enable or disable features for your organization"
           icon={Zap}
         />
-        <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">{planId} Plan</span>
+        <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+          {planId} Plan
+        </span>
       </div>
 
       {!canEdit && (
         <Card className="bg-amber-500/10 border-amber-500/20">
           <p className="text-sm text-amber-300">
-            You do not have permission to modify feature settings. Contact your administrator.
+            You do not have permission to modify feature settings. Contact your
+            administrator.
           </p>
         </Card>
       )}
 
       <div className="space-y-6">
-        {Object.entries(featuresByCategory).map(([category, categoryFeatures]) => (
-          <Card key={category}>
-            <div className="flex items-center gap-2 mb-4">
-              <h3 className="text-lg font-semibold text-white capitalize">
-                {category} Features
-              </h3>
-              <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">
-                {categoryFeatures.length}
-              </span>
-            </div>
+        {Object.entries(featuresByCategory).map(
+          ([category, categoryFeatures]) => (
+            <Card key={category}>
+              <div className="flex items-center gap-2 mb-4">
+                <h3 className="text-lg font-semibold text-white capitalize">
+                  {category} Features
+                </h3>
+                <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">
+                  {categoryFeatures.length}
+                </span>
+              </div>
 
-            <div className="space-y-3">
-              {categoryFeatures.map((feature) => {
-                const enabled = getFeatureState(feature.key);
-                return (
-                  <FeatureRow
-                    key={feature.key}
-                    feature={feature}
-                    enabled={enabled}
-                    onToggle={handleToggle}
-                    disabled={!canEdit}
-                  />
-                );
-              })}
-            </div>
-          </Card>
-        ))}
+              <div className="space-y-3">
+                {categoryFeatures.map((feature) => {
+                  const enabled = getFeatureState(feature.key);
+                  return (
+                    <FeatureRow
+                      key={feature.key}
+                      feature={feature}
+                      enabled={enabled}
+                      onToggle={handleToggle}
+                      disabled={!canEdit}
+                    />
+                  );
+                })}
+              </div>
+            </Card>
+          ),
+        )}
       </div>
 
       {/* Plan Limits Info */}
@@ -137,7 +147,8 @@ export default function FeatureSettings() {
               Feature Availability
             </h4>
             <p className="text-sm text-blue-200">
-              Features are controlled by your subscription plan. Upgrade to access more features.
+              Features are controlled by your subscription plan. Upgrade to
+              access more features.
             </p>
           </div>
         </div>
@@ -187,12 +198,12 @@ function FeatureRow({ feature, enabled, onToggle, disabled }: FeatureRowProps) {
         onClick={() => onToggle(feature.key, !enabled)}
         disabled={disabled}
         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed ${
-          enabled ? 'bg-blue-500' : 'bg-slate-700'
+          enabled ? "bg-blue-500" : "bg-slate-700"
         }`}
       >
         <span
           className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-            enabled ? 'translate-x-6' : 'translate-x-1'
+            enabled ? "translate-x-6" : "translate-x-1"
           }`}
         />
       </button>

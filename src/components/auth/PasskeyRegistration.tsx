@@ -1,18 +1,24 @@
-import { useState } from 'react';
-import { Fingerprint, MonitorSmartphone, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
-import Card from '../Card';
+import { useState } from "react";
+import {
+  Fingerprint,
+  MonitorSmartphone,
+  CheckCircle,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
+import Card from "../Card";
 
 export default function PasskeyRegistration() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const registerPasskey = async () => {
     setLoading(true);
-    setError('');
+    setError("");
     try {
       if (!window.PublicKeyCredential) {
-        throw new Error('WebAuthn is not supported by this browser or OS.');
+        throw new Error("WebAuthn is not supported by this browser or OS.");
       }
 
       const challenge = new Uint8Array(32);
@@ -27,36 +33,39 @@ export default function PasskeyRegistration() {
           challenge,
           rp: {
             name: "Bridgebox Enterprise",
-            id: window.location.hostname === 'localhost' ? 'localhost' : window.location.hostname
+            id:
+              window.location.hostname === "localhost"
+                ? "localhost"
+                : window.location.hostname,
           },
           user: {
             id: userId,
             name: "user@bridgebox.ai",
-            displayName: "Bridgebox User"
+            displayName: "Bridgebox User",
           },
           pubKeyCredParams: [
             { type: "public-key", alg: -7 },
-            { type: "public-key", alg: -257 }
+            { type: "public-key", alg: -257 },
           ],
           authenticatorSelection: {
             authenticatorAttachment: "platform", // requires TouchID / FaceID / Windows Hello
-            userVerification: "required"
+            userVerification: "required",
           },
           timeout: 60000,
-          attestation: "none"
-        }
+          attestation: "none",
+        },
       });
 
       if (credential) {
-        // Store visual verification 
-        localStorage.setItem('has_passkey_enabled', 'true');
+        // Store visual verification
+        localStorage.setItem("has_passkey_enabled", "true");
         setSuccess(true);
       }
     } catch (err: any) {
-      if (err.name === 'NotAllowedError') {
-        setError('Passkey registration cancelled or biometric scan failed.');
+      if (err.name === "NotAllowedError") {
+        setError("Passkey registration cancelled or biometric scan failed.");
       } else {
-        setError(err.message || 'Failed to register Biometric Passkey');
+        setError(err.message || "Failed to register Biometric Passkey");
       }
     } finally {
       setLoading(false);
@@ -70,9 +79,12 @@ export default function PasskeyRegistration() {
           <Fingerprint className="w-6 h-6 text-indigo-400" />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-white mb-1">Biometric WebAuthn (Passkeys)</h3>
+          <h3 className="text-lg font-bold text-white mb-1">
+            Biometric WebAuthn (Passkeys)
+          </h3>
           <p className="text-sm text-slate-400">
-            Register your device's native fingerprint or face scanner to log in instantly without passwords.
+            Register your device's native fingerprint or face scanner to log in
+            instantly without passwords.
           </p>
         </div>
       </div>
@@ -82,10 +94,12 @@ export default function PasskeyRegistration() {
           <MonitorSmartphone className="w-5 h-5 text-slate-400" />
           <div>
             <p className="text-sm font-medium text-white">This Device</p>
-            <p className="text-xs text-slate-500">Supports TouchID / Windows Hello</p>
+            <p className="text-xs text-slate-500">
+              Supports TouchID / Windows Hello
+            </p>
           </div>
         </div>
-        
+
         {success ? (
           <div className="flex items-center gap-2 text-emerald-400 text-sm font-medium">
             <CheckCircle className="w-4 h-4" />
@@ -97,7 +111,11 @@ export default function PasskeyRegistration() {
             disabled={loading}
             className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded text-sm font-medium text-white transition-colors disabled:opacity-50 flex items-center gap-2"
           >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Fingerprint className="w-4 h-4" />}
+            {loading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Fingerprint className="w-4 h-4" />
+            )}
             Register Device
           </button>
         )}

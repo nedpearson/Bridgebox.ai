@@ -1,5 +1,11 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import { useLocation } from "react-router-dom";
 
 interface MobileNavContextType {
   isOpen: boolean;
@@ -19,7 +25,9 @@ export function MobileNavProvider({ children }: { children: ReactNode }) {
   }, [location.pathname]);
 
   return (
-    <MobileNavContext.Provider value={{ isOpen, setIsOpen, toggle: () => setIsOpen((o) => !o) }}>
+    <MobileNavContext.Provider
+      value={{ isOpen, setIsOpen, toggle: () => setIsOpen((o) => !o) }}
+    >
       {children}
     </MobileNavContext.Provider>
   );
@@ -28,7 +36,7 @@ export function MobileNavProvider({ children }: { children: ReactNode }) {
 export function useMobileNav() {
   const context = useContext(MobileNavContext);
   if (!context) {
-    throw new Error('useMobileNav must be used within a MobileNavProvider');
+    throw new Error("useMobileNav must be used within a MobileNavProvider");
   }
   return context;
 }

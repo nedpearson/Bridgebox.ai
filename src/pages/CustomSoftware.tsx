@@ -1,81 +1,111 @@
-import { motion } from 'framer-motion';
-import { Code2, Zap, Database, Shield, CheckCircle2, ArrowRight, Layers, Cpu, Network } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Section from '../components/Section';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import GridPattern from '../components/GridPattern';
-import FinalCTA from '../components/FinalCTA';
-import { staggerContainer, staggerItem } from '../utils/animations';
+import { motion } from "framer-motion";
+import {
+  Code2,
+  Zap,
+  Database,
+  Shield,
+  CheckCircle2,
+  ArrowRight,
+  Layers,
+  Cpu,
+  Network,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import Section from "../components/Section";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import GridPattern from "../components/GridPattern";
+import FinalCTA from "../components/FinalCTA";
+import { staggerContainer, staggerItem } from "../utils/animations";
 
 export default function CustomSoftware() {
   const capabilities = [
     {
       icon: Layers,
-      title: 'Enterprise Applications',
-      description: 'Full-stack systems designed for complex operations, high transaction volumes, and multi-team workflows.',
+      title: "Enterprise Applications",
+      description:
+        "Full-stack systems designed for complex operations, high transaction volumes, and multi-team workflows.",
     },
     {
       icon: Database,
-      title: 'Legacy System Integration',
-      description: 'Connect and modernize existing systems without disruption, creating unified data flows across your infrastructure.',
+      title: "Legacy System Integration",
+      description:
+        "Connect and modernize existing systems without disruption, creating unified data flows across your infrastructure.",
     },
     {
       icon: Network,
-      title: 'API & Microservices',
-      description: 'Scalable backend architectures that power your operations and enable seamless third-party integrations.',
+      title: "API & Microservices",
+      description:
+        "Scalable backend architectures that power your operations and enable seamless third-party integrations.",
     },
     {
       icon: Shield,
-      title: 'Enterprise Security',
-      description: 'Bank-grade security, compliance frameworks, and audit trails built into every layer of the system.',
+      title: "Enterprise Security",
+      description:
+        "Bank-grade security, compliance frameworks, and audit trails built into every layer of the system.",
     },
   ];
 
   const features = [
-    'Built around your exact workflows',
-    'No generic templates or frameworks',
-    'Full source code ownership',
-    'Scalable cloud infrastructure',
-    'Real-time data synchronization',
-    'Advanced access controls',
-    'Custom reporting & analytics',
-    'Comprehensive API documentation',
-    'Automated testing & deployment',
-    'Ongoing support & maintenance',
+    "Built around your exact workflows",
+    "No generic templates or frameworks",
+    "Full source code ownership",
+    "Scalable cloud infrastructure",
+    "Real-time data synchronization",
+    "Advanced access controls",
+    "Custom reporting & analytics",
+    "Comprehensive API documentation",
+    "Automated testing & deployment",
+    "Ongoing support & maintenance",
   ];
 
   const useCases = [
     {
-      title: 'Operational Management Systems',
-      description: 'End-to-end platforms for coordinating teams, tracking processes, and managing resources in real-time.',
-      examples: ['Warehouse management', 'Fleet operations', 'Field service management'],
+      title: "Operational Management Systems",
+      description:
+        "End-to-end platforms for coordinating teams, tracking processes, and managing resources in real-time.",
+      examples: [
+        "Warehouse management",
+        "Fleet operations",
+        "Field service management",
+      ],
     },
     {
-      title: 'Business Intelligence Platforms',
-      description: 'Custom analytics engines that transform raw data into actionable insights for decision-makers.',
-      examples: ['Executive dashboards', 'Performance tracking', 'Predictive modeling'],
+      title: "Business Intelligence Platforms",
+      description:
+        "Custom analytics engines that transform raw data into actionable insights for decision-makers.",
+      examples: [
+        "Executive dashboards",
+        "Performance tracking",
+        "Predictive modeling",
+      ],
     },
     {
-      title: 'Customer-Facing Portals',
-      description: 'Secure self-service platforms that extend your operations directly to clients and partners.',
-      examples: ['Order management', 'Support ticketing', 'Document sharing'],
+      title: "Customer-Facing Portals",
+      description:
+        "Secure self-service platforms that extend your operations directly to clients and partners.",
+      examples: ["Order management", "Support ticketing", "Document sharing"],
     },
     {
-      title: 'Internal Workflow Tools',
-      description: 'Purpose-built applications that eliminate manual work and streamline internal processes.',
-      examples: ['Approval workflows', 'Resource scheduling', 'Compliance tracking'],
+      title: "Internal Workflow Tools",
+      description:
+        "Purpose-built applications that eliminate manual work and streamline internal processes.",
+      examples: [
+        "Approval workflows",
+        "Resource scheduling",
+        "Compliance tracking",
+      ],
     },
   ];
 
   const process = [
-    'Requirements analysis & system design',
-    'Prototype development & user testing',
-    'Iterative development with weekly reviews',
-    'Integration with existing systems',
-    'Security audit & performance testing',
-    'Deployment & team training',
-    'Ongoing support & enhancements',
+    "Requirements analysis & system design",
+    "Prototype development & user testing",
+    "Iterative development with weekly reviews",
+    "Integration with existing systems",
+    "Security audit & performance testing",
+    "Deployment & team training",
+    "Ongoing support & enhancements",
   ];
 
   return (
@@ -89,7 +119,9 @@ export default function CustomSoftware() {
             animate={{ opacity: 1, y: 0 }}
             className="inline-block px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6"
           >
-            <span className="text-indigo-500 font-medium text-sm">Custom Development</span>
+            <span className="text-indigo-500 font-medium text-sm">
+              Custom Development
+            </span>
           </motion.div>
 
           <motion.h1
@@ -107,7 +139,9 @@ export default function CustomSoftware() {
             transition={{ delay: 0.2 }}
             className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-8"
           >
-            No compromises. No workarounds. No forcing your operations into someone else's vision. We build enterprise software specifically for your workflows.
+            No compromises. No workarounds. No forcing your operations into
+            someone else's vision. We build enterprise software specifically for
+            your workflows.
           </motion.p>
 
           <motion.div
@@ -142,7 +176,8 @@ export default function CustomSoftware() {
             transition={{ delay: 0.1 }}
             className="text-xl text-slate-400 max-w-3xl mx-auto"
           >
-            From concept to deployment, we handle every aspect of enterprise software development
+            From concept to deployment, we handle every aspect of enterprise
+            software development
           </motion.p>
         </div>
 
@@ -191,10 +226,13 @@ export default function CustomSoftware() {
                 Why Custom Software?
               </h2>
               <p className="text-xl text-slate-400 mb-8 leading-relaxed">
-                Off-the-shelf solutions are built for the average business. Your operations aren't average.
+                Off-the-shelf solutions are built for the average business. Your
+                operations aren't average.
               </p>
               <p className="text-lg text-slate-400 mb-8 leading-relaxed">
-                Custom software gives you competitive advantages that generic tools never can: perfect workflow alignment, unlimited scalability, and complete control over your technology stack.
+                Custom software gives you competitive advantages that generic
+                tools never can: perfect workflow alignment, unlimited
+                scalability, and complete control over your technology stack.
               </p>
               <Link to="/contact">
                 <Button variant="primary" size="lg">
@@ -210,7 +248,9 @@ export default function CustomSoftware() {
               viewport={{ once: true }}
             >
               <Card className="p-8">
-                <h3 className="text-xl font-bold text-white mb-6">What You Get</h3>
+                <h3 className="text-xl font-bold text-white mb-6">
+                  What You Get
+                </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {features.map((feature) => (
                     <div key={feature} className="flex items-start gap-2">
@@ -239,7 +279,8 @@ export default function CustomSoftware() {
               transition={{ delay: 0.1 }}
               className="text-xl text-slate-400 max-w-3xl mx-auto"
             >
-              Custom software solutions designed for complex operational requirements
+              Custom software solutions designed for complex operational
+              requirements
             </motion.p>
           </div>
 
@@ -298,7 +339,8 @@ export default function CustomSoftware() {
               transition={{ delay: 0.1 }}
               className="text-xl text-slate-400 max-w-3xl mx-auto"
             >
-              Transparent, collaborative, and focused on delivering value at every stage
+              Transparent, collaborative, and focused on delivering value at
+              every stage
             </motion.p>
           </div>
 
@@ -320,7 +362,9 @@ export default function CustomSoftware() {
                     className="flex items-start gap-4"
                   >
                     <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-[#10B981] rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold text-sm">{index + 1}</span>
+                      <span className="text-white font-bold text-sm">
+                        {index + 1}
+                      </span>
                     </div>
                     <span className="text-slate-300 text-lg pt-1">{step}</span>
                   </motion.li>

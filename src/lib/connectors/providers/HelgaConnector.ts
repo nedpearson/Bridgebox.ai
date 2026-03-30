@@ -1,10 +1,14 @@
-import { BaseConnector } from '../core/BaseConnector';
+import { BaseConnector } from "../core/BaseConnector";
 
 export class HelgaConnector extends BaseConnector {
-  protected providerName = 'HELGA Integration';
+  protected providerName = "HELGA Integration";
 
-  async connect(credentials?: Record<string, any>): Promise<boolean> { return true; }
-  async disconnect(): Promise<boolean> { return true; }
+  async connect(credentials?: Record<string, any>): Promise<boolean> {
+    return true;
+  }
+  async disconnect(): Promise<boolean> {
+    return true;
+  }
 
   async testConnection(): Promise<boolean> {
     return true; // Scaffold import-first logistics operations adapter
@@ -27,7 +31,7 @@ export class HelgaConnector extends BaseConnector {
       errors: [],
       duration: 0,
       startedAt: new Date().toISOString(),
-      completedAt: new Date().toISOString()
+      completedAt: new Date().toISOString(),
     };
   }
 

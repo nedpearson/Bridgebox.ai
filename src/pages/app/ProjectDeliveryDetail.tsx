@@ -1,16 +1,24 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, Users, Target, Package, MessageSquare, Plus } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import DeliveryPhaseBadge from '../../components/delivery/DeliveryPhaseBadge';
-import HealthStatusIndicator from '../../components/delivery/HealthStatusIndicator';
-import RiskLevelBadge from '../../components/delivery/RiskLevelBadge';
-import MilestoneStatusBadge from '../../components/delivery/MilestoneStatusBadge';
-import DeliverableStatusBadge from '../../components/delivery/DeliverableStatusBadge';
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  Calendar,
+  Users,
+  Target,
+  Package,
+  MessageSquare,
+  Plus,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import DeliveryPhaseBadge from "../../components/delivery/DeliveryPhaseBadge";
+import HealthStatusIndicator from "../../components/delivery/HealthStatusIndicator";
+import RiskLevelBadge from "../../components/delivery/RiskLevelBadge";
+import MilestoneStatusBadge from "../../components/delivery/MilestoneStatusBadge";
+import DeliverableStatusBadge from "../../components/delivery/DeliverableStatusBadge";
 import {
   deliveryService,
   ProjectDeliveryWithDetails,
@@ -19,11 +27,13 @@ import {
   DeliveryNoteWithAuthor,
   DeliveryPhase,
   HealthStatus,
-} from '../../lib/db/delivery';
+} from "../../lib/db/delivery";
 
 export default function ProjectDeliveryDetail() {
   const { projectId } = useParams<{ projectId: string }>();
-  const [delivery, setDelivery] = useState<ProjectDeliveryWithDetails | null>(null);
+  const [delivery, setDelivery] = useState<ProjectDeliveryWithDetails | null>(
+    null,
+  );
   const [milestones, setMilestones] = useState<MilestoneWithDetails[]>([]);
   const [deliverables, setDeliverables] = useState<Deliverable[]>([]);
   const [notes, setNotes] = useState<DeliveryNoteWithAuthor[]>([]);
@@ -38,18 +48,19 @@ export default function ProjectDeliveryDetail() {
 
     try {
       setLoading(true);
-      const [deliveryData, milestonesData, deliverablesData, notesData] = await Promise.all([
-        deliveryService.getProjectDelivery(projectId),
-        deliveryService.getProjectMilestones(projectId),
-        deliveryService.getProjectDeliverables(projectId),
-        deliveryService.getProjectNotes(projectId),
-      ]);
+      const [deliveryData, milestonesData, deliverablesData, notesData] =
+        await Promise.all([
+          deliveryService.getProjectDelivery(projectId),
+          deliveryService.getProjectMilestones(projectId),
+          deliveryService.getProjectDeliverables(projectId),
+          deliveryService.getProjectNotes(projectId),
+        ]);
       setDelivery(deliveryData);
       setMilestones(milestonesData);
       setDeliverables(deliverablesData);
       setNotes(notesData);
     } catch (error) {
-      console.error('Failed to load delivery data:', error);
+      console.error("Failed to load delivery data:", error);
     } finally {
       setLoading(false);
     }
@@ -58,20 +69,24 @@ export default function ProjectDeliveryDetail() {
   const handlePhaseChange = async (phase: DeliveryPhase) => {
     if (!projectId) return;
     try {
-      await deliveryService.updateProjectDelivery(projectId, { delivery_phase: phase });
+      await deliveryService.updateProjectDelivery(projectId, {
+        delivery_phase: phase,
+      });
       loadData();
     } catch (error) {
-      console.error('Failed to update phase:', error);
+      console.error("Failed to update phase:", error);
     }
   };
 
   const handleHealthChange = async (health: HealthStatus) => {
     if (!projectId) return;
     try {
-      await deliveryService.updateProjectDelivery(projectId, { health_status: health });
+      await deliveryService.updateProjectDelivery(projectId, {
+        health_status: health,
+      });
       loadData();
     } catch (error) {
-      console.error('Failed to update health:', error);
+      console.error("Failed to update health:", error);
     }
   };
 
@@ -92,7 +107,9 @@ export default function ProjectDeliveryDetail() {
         <AppHeader title="Delivery Not Found" />
         <div className="p-8">
           <Card glass className="p-12 text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">Delivery Record Not Found</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">
+              Delivery Record Not Found
+            </h2>
             <Button variant="primary" onClick={() => window.history.back()}>
               Back to Delivery OS
             </Button>
@@ -104,7 +121,7 @@ export default function ProjectDeliveryDetail() {
 
   return (
     <>
-      <AppHeader title={delivery.project?.name || 'Project Delivery'} />
+      <AppHeader title={delivery.project?.name || "Project Delivery"} />
 
       <div className="p-8 space-y-6 max-w-7xl">
         <Link
@@ -117,11 +134,15 @@ export default function ProjectDeliveryDetail() {
 
         <div className="grid lg:grid-cols-4 gap-6">
           <Card glass className="p-6">
-            <h3 className="text-sm font-medium text-slate-400 mb-3">Delivery Phase</h3>
+            <h3 className="text-sm font-medium text-slate-400 mb-3">
+              Delivery Phase
+            </h3>
             <DeliveryPhaseBadge phase={delivery.delivery_phase} />
             <select
               value={delivery.delivery_phase}
-              onChange={(e) => handlePhaseChange(e.target.value as DeliveryPhase)}
+              onChange={(e) =>
+                handlePhaseChange(e.target.value as DeliveryPhase)
+              }
               className="mt-3 w-full bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="discovery">Discovery</option>
@@ -136,11 +157,15 @@ export default function ProjectDeliveryDetail() {
           </Card>
 
           <Card glass className="p-6">
-            <h3 className="text-sm font-medium text-slate-400 mb-3">Health Status</h3>
+            <h3 className="text-sm font-medium text-slate-400 mb-3">
+              Health Status
+            </h3>
             <HealthStatusIndicator status={delivery.health_status} size="md" />
             <select
               value={delivery.health_status}
-              onChange={(e) => handleHealthChange(e.target.value as HealthStatus)}
+              onChange={(e) =>
+                handleHealthChange(e.target.value as HealthStatus)
+              }
               className="mt-3 w-full bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="green">Healthy</option>
@@ -150,12 +175,16 @@ export default function ProjectDeliveryDetail() {
           </Card>
 
           <Card glass className="p-6">
-            <h3 className="text-sm font-medium text-slate-400 mb-3">Risk Level</h3>
+            <h3 className="text-sm font-medium text-slate-400 mb-3">
+              Risk Level
+            </h3>
             <RiskLevelBadge level={delivery.risk_level} />
           </Card>
 
           <Card glass className="p-6">
-            <h3 className="text-sm font-medium text-slate-400 mb-3">Completion</h3>
+            <h3 className="text-sm font-medium text-slate-400 mb-3">
+              Completion
+            </h3>
             <div className="flex items-center space-x-3">
               <div className="flex-1 h-3 bg-slate-800 rounded-full overflow-hidden">
                 <div
@@ -163,7 +192,9 @@ export default function ProjectDeliveryDetail() {
                   style={{ width: `${delivery.completion_percentage}%` }}
                 />
               </div>
-              <span className="text-lg font-bold text-white">{delivery.completion_percentage}%</span>
+              <span className="text-lg font-bold text-white">
+                {delivery.completion_percentage}%
+              </span>
             </div>
           </Card>
         </div>
@@ -184,7 +215,9 @@ export default function ProjectDeliveryDetail() {
                 <Users className="w-5 h-5 text-slate-400 mt-1" />
                 <div>
                   <p className="text-sm text-slate-400">Client</p>
-                  <p className="text-white font-medium">{delivery.project.organizations.name}</p>
+                  <p className="text-white font-medium">
+                    {delivery.project.organizations.name}
+                  </p>
                 </div>
               </div>
             )}
@@ -194,7 +227,9 @@ export default function ProjectDeliveryDetail() {
                 <Package className="w-5 h-5 text-slate-400 mt-1" />
                 <div>
                   <p className="text-sm text-slate-400">Project Type</p>
-                  <p className="text-white font-medium capitalize">{delivery.project.type.replace(/_/g, ' ')}</p>
+                  <p className="text-white font-medium capitalize">
+                    {delivery.project.type.replace(/_/g, " ")}
+                  </p>
                 </div>
               </div>
             )}
@@ -229,7 +264,9 @@ export default function ProjectDeliveryDetail() {
                 <div>
                   <p className="text-sm text-slate-400">Target Completion</p>
                   <p className="text-white font-medium">
-                    {new Date(delivery.target_completion_date).toLocaleDateString()}
+                    {new Date(
+                      delivery.target_completion_date,
+                    ).toLocaleDateString()}
                   </p>
                 </div>
               </div>
@@ -240,7 +277,9 @@ export default function ProjectDeliveryDetail() {
                 <Target className="w-5 h-5 text-slate-400 mt-1" />
                 <div>
                   <p className="text-sm text-slate-400">Current Milestone</p>
-                  <p className="text-white font-medium">{delivery.current_milestone}</p>
+                  <p className="text-white font-medium">
+                    {delivery.current_milestone}
+                  </p>
                 </div>
               </div>
             )}
@@ -252,7 +291,9 @@ export default function ProjectDeliveryDetail() {
             <h2 className="text-2xl font-bold text-white">Milestones</h2>
           </div>
           {milestones.length === 0 ? (
-            <p className="text-slate-400 text-center py-8">No milestones defined yet</p>
+            <p className="text-slate-400 text-center py-8">
+              No milestones defined yet
+            </p>
           ) : (
             <div className="space-y-4">
               {milestones.map((milestone) => (
@@ -264,19 +305,28 @@ export default function ProjectDeliveryDetail() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-white mb-1">{milestone.title}</h3>
+                      <h3 className="text-lg font-semibold text-white mb-1">
+                        {milestone.title}
+                      </h3>
                       {milestone.description && (
-                        <p className="text-slate-400 text-sm mb-2">{milestone.description}</p>
+                        <p className="text-slate-400 text-sm mb-2">
+                          {milestone.description}
+                        </p>
                       )}
                     </div>
                     <MilestoneStatusBadge status={milestone.status} size="sm" />
                   </div>
                   <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400">
                     {milestone.due_date && (
-                      <span>Due: {new Date(milestone.due_date).toLocaleDateString()}</span>
+                      <span>
+                        Due: {new Date(milestone.due_date).toLocaleDateString()}
+                      </span>
                     )}
                     {milestone.owner && (
-                      <span>Owner: {milestone.owner.full_name || milestone.owner.email}</span>
+                      <span>
+                        Owner:{" "}
+                        {milestone.owner.full_name || milestone.owner.email}
+                      </span>
                     )}
                   </div>
                 </motion.div>
@@ -290,7 +340,9 @@ export default function ProjectDeliveryDetail() {
             <h2 className="text-2xl font-bold text-white">Deliverables</h2>
           </div>
           {deliverables.length === 0 ? (
-            <p className="text-slate-400 text-center py-8">No deliverables tracked yet</p>
+            <p className="text-slate-400 text-center py-8">
+              No deliverables tracked yet
+            </p>
           ) : (
             <div className="space-y-3">
               {deliverables.map((deliverable) => (
@@ -300,12 +352,19 @@ export default function ProjectDeliveryDetail() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h4 className="text-white font-medium mb-1">{deliverable.title}</h4>
+                      <h4 className="text-white font-medium mb-1">
+                        {deliverable.title}
+                      </h4>
                       {deliverable.description && (
-                        <p className="text-slate-400 text-sm">{deliverable.description}</p>
+                        <p className="text-slate-400 text-sm">
+                          {deliverable.description}
+                        </p>
                       )}
                     </div>
-                    <DeliverableStatusBadge status={deliverable.status} size="sm" />
+                    <DeliverableStatusBadge
+                      status={deliverable.status}
+                      size="sm"
+                    />
                   </div>
                 </div>
               ))}
@@ -327,8 +386,8 @@ export default function ProjectDeliveryDetail() {
                   key={note.id}
                   className={`p-4 rounded-lg ${
                     note.is_critical
-                      ? 'bg-red-500/5 border border-red-500/30'
-                      : 'bg-slate-800/30 border border-slate-700'
+                      ? "bg-red-500/5 border border-red-500/30"
+                      : "bg-slate-800/30 border border-slate-700"
                   }`}
                 >
                   <div className="flex items-start justify-between mb-2">

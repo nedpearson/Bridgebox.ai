@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export default function GridPattern() {
   return (
@@ -19,9 +19,15 @@ export default function GridPattern() {
             />
           </pattern>
           <linearGradient id="gridFade" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style={{ stopColor: 'white', stopOpacity: 0 }} />
-            <stop offset="50%" style={{ stopColor: 'white', stopOpacity: 0.5 }} />
-            <stop offset="100%" style={{ stopColor: 'white', stopOpacity: 0 }} />
+            <stop offset="0%" style={{ stopColor: "white", stopOpacity: 0 }} />
+            <stop
+              offset="50%"
+              style={{ stopColor: "white", stopOpacity: 0.5 }}
+            />
+            <stop
+              offset="100%"
+              style={{ stopColor: "white", stopOpacity: 0 }}
+            />
           </linearGradient>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
@@ -35,7 +41,7 @@ export default function GridPattern() {
         transition={{
           duration: 8,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
       />
     </div>

@@ -1,11 +1,17 @@
-import { supabase } from '../supabase';
-import type { Invitation, TeamMember, UserRole, InvitationWithDetails } from '../../types/team';
+import { supabase } from "../supabase";
+import type {
+  Invitation,
+  TeamMember,
+  UserRole,
+  InvitationWithDetails,
+} from "../../types/team";
 
 export const teamService = {
   async getOrganizationMembers(organizationId: string) {
     const { data, error } = await supabase
-      .from('bb_organization_memberships')
-      .select(`
+      .from("bb_organization_memberships")
+      .select(
+        `
         id,
         role,
         created_at,
@@ -21,9 +27,10 @@ export const teamService = {
         organization:bb_organizations!organization_memberships_organization_id_fkey (
           name
         )
-      `)
-      .eq('organization_id', organizationId)
-      .order('created_at', { ascending: false });
+      `,
+      )
+      .eq("organization_id", organizationId)
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
 
@@ -42,8 +49,9 @@ export const teamService = {
 
   async getAllMembers() {
     const { data, error } = await supabase
-      .from('bb_organization_memberships')
-      .select(`
+      .from("bb_organization_memberships")
+      .select(
+        `
         id,
         role,
         created_at,
@@ -59,8 +67,9 @@ export const teamService = {
         organization:bb_organizations!organization_memberships_organization_id_fkey (
           name
         )
-      `)
-      .order('created_at', { ascending: false });
+      `,
+      )
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
 
@@ -77,40 +86,48 @@ export const teamService = {
     })) as TeamMember[];
   },
 
-  async updateMemberRole(userId: string, organizationId: string, newRole: UserRole) {
+  async updateMemberRole(
+    userId: string,
+    organizationId: string,
+    newRole: UserRole,
+  ) {
     const { data, error } = await supabase
-      .from('bb_organization_memberships')
+      .from("bb_organization_memberships")
       .update({ role: newRole, updated_at: new Date().toISOString() })
-      .eq('user_id', userId)
-      .eq('organization_id', organizationId)
+      .eq("user_id", userId)
+      .eq("organization_id", organizationId)
       .select()
       .maybeSingle();
 
     if (error) throw error;
 
     await supabase
-      .from('bb_profiles')
+      .from("bb_profiles")
       .update({ role: newRole, updated_at: new Date().toISOString() })
-      .eq('id', userId);
+      .eq("id", userId);
 
     return data;
   },
 
   async removeMember(userId: string, organizationId: string) {
     const { error } = await supabase
-      .from('bb_organization_memberships')
+      .from("bb_organization_memberships")
       .delete()
-      .eq('user_id', userId)
-      .eq('organization_id', organizationId);
+      .eq("user_id", userId)
+      .eq("organization_id", organizationId);
 
     if (error) throw error;
   },
 
-  async createInvitation(email: string, organizationId: string, role: UserRole) {
+  async createInvitation(
+    email: string,
+    organizationId: string,
+    role: UserRole,
+  ) {
     const { data: user } = await supabase.auth.getUser();
 
     const { data, error } = await supabase
-      .from('bb_invitations')
+      .from("bb_invitations")
       .insert([
         {
           email,
@@ -128,8 +145,9 @@ export const teamService = {
 
   async getOrganizationInvitations(organizationId: string) {
     const { data, error } = await supabase
-      .from('bb_invitations')
-      .select(`
+      .from("bb_invitations")
+      .select(
+        `
         *,
         organization:bb_organizations!invitations_organization_id_fkey (
           name
@@ -138,9 +156,10 @@ export const teamService = {
           full_name,
           email
         )
-      `)
-      .eq('organization_id', organizationId)
-      .order('created_at', { ascending: false });
+      `,
+      )
+      .eq("organization_id", organizationId)
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
 
@@ -154,8 +173,9 @@ export const teamService = {
 
   async getAllInvitations() {
     const { data, error } = await supabase
-      .from('bb_invitations')
-      .select(`
+      .from("bb_invitations")
+      .select(
+        `
         *,
         organization:bb_organizations!invitations_organization_id_fkey (
           name
@@ -164,8 +184,9 @@ export const teamService = {
           full_name,
           email
         )
-      `)
-      .order('created_at', { ascending: false });
+      `,
+      )
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
 
@@ -179,13 +200,15 @@ export const teamService = {
 
   async resendInvitation(invitationId: string) {
     const { data, error } = await supabase
-      .from('bb_invitations')
+      .from("bb_invitations")
       .update({
-        expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+        expires_at: new Date(
+          Date.now() + 7 * 24 * 60 * 60 * 1000,
+        ).toISOString(),
         updated_at: new Date().toISOString(),
       })
-      .eq('id', invitationId)
-      .eq('status', 'pending')
+      .eq("id", invitationId)
+      .eq("status", "pending")
       .select()
       .maybeSingle();
 
@@ -195,12 +218,12 @@ export const teamService = {
 
   async revokeInvitation(invitationId: string) {
     const { data, error } = await supabase
-      .from('bb_invitations')
+      .from("bb_invitations")
       .update({
-        status: 'revoked',
+        status: "revoked",
         updated_at: new Date().toISOString(),
       })
-      .eq('id', invitationId)
+      .eq("id", invitationId)
       .select()
       .maybeSingle();
 
@@ -210,14 +233,16 @@ export const teamService = {
 
   async getInvitationByToken(token: string) {
     const { data, error } = await supabase
-      .from('bb_invitations')
-      .select(`
+      .from("bb_invitations")
+      .select(
+        `
         *,
         organization:bb_organizations!invitations_organization_id_fkey (
           name
         )
-      `)
-      .eq('token', token)
+      `,
+      )
+      .eq("token", token)
       .maybeSingle();
 
     if (error) throw error;
@@ -234,16 +259,16 @@ export const teamService = {
 
   async acceptInvitation(invitationId: string, userId: string) {
     const { data: invitation, error: invError } = await supabase
-      .from('bb_invitations')
-      .select('*')
-      .eq('id', invitationId)
+      .from("bb_invitations")
+      .select("*")
+      .eq("id", invitationId)
       .maybeSingle();
 
     if (invError) throw invError;
-    if (!invitation) throw new Error('Invitation not found');
+    if (!invitation) throw new Error("Invitation not found");
 
     const { error: membershipError } = await supabase
-      .from('bb_organization_memberships')
+      .from("bb_organization_memberships")
       .insert([
         {
           user_id: userId,
@@ -255,18 +280,18 @@ export const teamService = {
     if (membershipError) throw membershipError;
 
     await supabase
-      .from('bb_profiles')
+      .from("bb_profiles")
       .update({ role: invitation.role })
-      .eq('id', userId);
+      .eq("id", userId);
 
     const { data, error } = await supabase
-      .from('bb_invitations')
+      .from("bb_invitations")
       .update({
-        status: 'accepted',
+        status: "accepted",
         accepted_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       })
-      .eq('id', invitationId)
+      .eq("id", invitationId)
       .select()
       .maybeSingle();
 
@@ -276,17 +301,19 @@ export const teamService = {
 
   async getUserPendingInvitations(email: string) {
     const { data, error } = await supabase
-      .from('bb_invitations')
-      .select(`
+      .from("bb_invitations")
+      .select(
+        `
         *,
         organization:bb_organizations!invitations_organization_id_fkey (
           name
         )
-      `)
-      .eq('email', email)
-      .eq('status', 'pending')
-      .gt('expires_at', new Date().toISOString())
-      .order('created_at', { ascending: false });
+      `,
+      )
+      .eq("email", email)
+      .eq("status", "pending")
+      .gt("expires_at", new Date().toISOString())
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
 

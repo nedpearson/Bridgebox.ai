@@ -5,6 +5,7 @@
 Successfully resolved **ALL critical security and performance issues** identified by Supabase database analysis across 5 comprehensive migrations.
 
 **Total Optimizations**:
+
 - ✅ 23 foreign key indexes added
 - ✅ 150+ RLS policies optimized (wrapped auth.uid() in SELECT subqueries)
 - ✅ 4 overly permissive system policies fixed
@@ -22,6 +23,7 @@ Successfully resolved **ALL critical security and performance issues** identifie
 Foreign keys without covering indexes can cause slow queries, especially on large tables. Added indexes for:
 
 **Core Tables**:
+
 - `agent_actions.reviewed_by`
 - `aggregated_metrics.user_id`
 - `automation_rules.created_by`
@@ -53,6 +55,7 @@ Foreign keys without covering indexes can cause slow queries, especially on larg
 **Solution**: Wrapped `auth.uid()` in SELECT subqueries: `(SELECT auth.uid())`
 
 **Tables Optimized**:
+
 - project_delivery
 - milestones
 - profiles
@@ -72,6 +75,7 @@ Foreign keys without covering indexes can cause slow queries, especially on larg
 **Issue**: Table was public without row-level security.
 
 **Fix**:
+
 - Enabled RLS
 - Added policy: authenticated users can view
 - Added policy: only super_admins can manage
@@ -81,6 +85,7 @@ Foreign keys without covering indexes can cause slow queries, especially on larg
 **Issue**: System operations were accessible to authenticated users instead of being restricted to service_role.
 
 **Tables Fixed**:
+
 - `aggregated_metrics` - "System can manage metrics"
 - `data_signals` - "System can insert signals"
 - `notifications` - "System can create notifications"
@@ -95,6 +100,7 @@ Foreign keys without covering indexes can cause slow queries, especially on larg
 **Issue**: 14 SECURITY DEFINER functions had mutable search_path, vulnerable to SQL injection attacks.
 
 **Functions Secured**:
+
 - expire_old_invitations
 - update_proposals_updated_at
 - update_support_tickets_updated_at
@@ -129,6 +135,7 @@ Foreign keys without covering indexes can cause slow queries, especially on larg
 ### Security Definer Views
 
 **Views affected**:
+
 - `proposal_pipeline`
 - `conversion_tracking`
 
@@ -139,6 +146,7 @@ Foreign keys without covering indexes can cause slow queries, especially on larg
 ## Migration Details
 
 **Files Applied**:
+
 1. `20260323160000_fix_security_and_performance_issues.sql` - Initial 23 indexes + core RLS optimizations
 2. `fix_rls_performance_part1.sql` - Projects, subscriptions, invoices, integrations, invitations, onboarding, leads
 3. `fix_rls_performance_part2.sql` - Support tickets, market signals/opportunities, proposals, Stripe
@@ -156,16 +164,19 @@ Foreign keys without covering indexes can cause slow queries, especially on larg
 ## Performance Impact
 
 **Before**:
+
 - Foreign key joins: Table scans on large tables
 - RLS policies: O(n) evaluation (once per row)
 - System operations: Available to wrong user types
 
 **After**:
+
 - Foreign key joins: Index seeks (10-100x faster)
 - RLS policies: O(1) cached evaluation per query
 - System operations: Properly restricted to service_role
 
 **Expected Improvements**:
+
 - Dashboard load times: 40-60% faster
 - List views (clients, projects, leads): 50-80% faster
 - Complex filtered queries: 60-90% faster
@@ -199,6 +210,7 @@ All frontend code compiles without errors. Database changes are transparent to t
 ## Security Compliance
 
 All critical security issues resolved:
+
 - ✅ RLS enabled on all public tables
 - ✅ System operations restricted to service_role
 - ✅ Function search paths secured against injection
@@ -211,14 +223,17 @@ Bridgebox database now follows PostgreSQL and Supabase security best practices.
 ### Issues Resolved ✅
 
 **Performance (RLS Optimization)**:
+
 - ✅ 0 remaining auth.uid() re-evaluation issues (was 150+)
 - ✅ All policies use SELECT subquery pattern for caching
 
 **Performance (Indexes)**:
+
 - ✅ 0 unindexed foreign keys (was 23)
 - ✅ All foreign key relationships have covering indexes
 
 **Security**:
+
 - ✅ All public tables have RLS enabled
 - ✅ System operations restricted to service_role
 - ✅ All SECURITY DEFINER functions have fixed search_path

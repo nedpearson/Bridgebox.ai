@@ -1,20 +1,20 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, Briefcase, TrendingUp, Award } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Section from '../components/Section';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import Badge from '../components/Badge';
-import GridPattern from '../components/GridPattern';
-import FinalCTA from '../components/FinalCTA';
-import { staggerContainer, staggerItem } from '../utils/animations';
-import { caseStudies } from '../data/caseStudies';
+import { motion } from "framer-motion";
+import { ArrowRight, Briefcase, TrendingUp, Award } from "lucide-react";
+import { Link } from "react-router-dom";
+import Section from "../components/Section";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import Badge from "../components/Badge";
+import GridPattern from "../components/GridPattern";
+import FinalCTA from "../components/FinalCTA";
+import { staggerContainer, staggerItem } from "../utils/animations";
+import { caseStudies } from "../data/caseStudies";
 
 export default function CaseStudies() {
   const stats = [
-    { icon: Award, label: 'Average Efficiency Gain', value: '65%' },
-    { icon: TrendingUp, label: 'Average ROI Timeline', value: '6-8 months' },
-    { icon: Briefcase, label: 'Client Success Rate', value: '100%' },
+    { icon: Award, label: "Average Efficiency Gain", value: "65%" },
+    { icon: TrendingUp, label: "Average ROI Timeline", value: "6-8 months" },
+    { icon: Briefcase, label: "Client Success Rate", value: "100%" },
   ];
 
   return (
@@ -47,7 +47,9 @@ export default function CaseStudies() {
             transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl text-slate-300 leading-relaxed mb-4"
           >
-            See how Bridgebox transforms operations through custom software, operational dashboards, mobile applications, and intelligent automation.
+            See how Bridgebox transforms operations through custom software,
+            operational dashboards, mobile applications, and intelligent
+            automation.
           </motion.p>
 
           <motion.p
@@ -56,7 +58,8 @@ export default function CaseStudies() {
             transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg text-slate-400 leading-relaxed"
           >
-            Enterprise-grade engineering delivering measurable operational advantages.
+            Enterprise-grade engineering delivering measurable operational
+            advantages.
           </motion.p>
         </div>
       </Section>
@@ -75,7 +78,9 @@ export default function CaseStudies() {
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[#10B981]/10 mb-4">
                   <stat.icon className="w-7 h-7 text-[#10B981]" />
                 </div>
-                <div className="text-4xl font-bold text-white mb-2">{stat.value}</div>
+                <div className="text-4xl font-bold text-white mb-2">
+                  {stat.value}
+                </div>
                 <div className="text-slate-400">{stat.label}</div>
               </Card>
             </motion.div>
@@ -98,7 +103,8 @@ export default function CaseStudies() {
             transition={{ delay: 0.1 }}
             className="text-xl text-slate-400 max-w-3xl mx-auto"
           >
-            Deep-dive into how we engineer custom systems that deliver measurable results
+            Deep-dive into how we engineer custom systems that deliver
+            measurable results
           </motion.p>
         </div>
 
@@ -126,15 +132,23 @@ export default function CaseStudies() {
                     {study.title}
                   </h3>
 
-                  <p className="text-slate-400 mb-6 leading-relaxed">{study.tagline}</p>
+                  <p className="text-slate-400 mb-6 leading-relaxed">
+                    {study.tagline}
+                  </p>
 
                   <div className="mb-6">
-                    <div className="text-sm font-medium text-slate-500 mb-3">Key Results</div>
+                    <div className="text-sm font-medium text-slate-500 mb-3">
+                      Key Results
+                    </div>
                     <div className="grid grid-cols-2 gap-4">
                       {study.results.metrics.slice(0, 2).map((metric) => (
                         <div key={metric.label}>
-                          <div className="text-2xl font-bold text-[#10B981] mb-1">{metric.value}</div>
-                          <div className="text-xs text-slate-400">{metric.label}</div>
+                          <div className="text-2xl font-bold text-[#10B981] mb-1">
+                            {metric.value}
+                          </div>
+                          <div className="text-xs text-slate-400">
+                            {metric.label}
+                          </div>
                         </div>
                       ))}
                     </div>

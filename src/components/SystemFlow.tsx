@@ -1,31 +1,31 @@
-import { motion } from 'framer-motion';
-import { Database, Cpu, Zap, TrendingUp, ArrowRight } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Database, Cpu, Zap, TrendingUp, ArrowRight } from "lucide-react";
 
 export default function SystemFlow() {
   const stages = [
     {
       icon: Database,
-      title: 'Data Sources',
-      description: 'Connect all systems',
-      color: '#3B82F6',
+      title: "Data Sources",
+      description: "Connect all systems",
+      color: "#3B82F6",
     },
     {
       icon: Cpu,
-      title: 'AI Engine',
-      description: 'Intelligent processing',
-      color: '#10B981',
+      title: "AI Engine",
+      description: "Intelligent processing",
+      color: "#10B981",
     },
     {
       icon: Zap,
-      title: 'Automation',
-      description: 'Execute workflows',
-      color: '#F59E0B',
+      title: "Automation",
+      description: "Execute workflows",
+      color: "#F59E0B",
     },
     {
       icon: TrendingUp,
-      title: 'Intelligence',
-      description: 'Predictive insights',
-      color: '#8B5CF6',
+      title: "Intelligence",
+      description: "Predictive insights",
+      color: "#8B5CF6",
     },
   ];
 
@@ -33,7 +33,10 @@ export default function SystemFlow() {
     <div className="relative py-12">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-4">
         {stages.map((stage, index) => (
-          <div key={stage.title} className="flex items-center flex-1 w-full lg:w-auto">
+          <div
+            key={stage.title}
+            className="flex items-center flex-1 w-full lg:w-auto"
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -51,12 +54,15 @@ export default function SystemFlow() {
                     style={{
                       backgroundColor: `${stage.color}20`,
                       borderColor: `${stage.color}40`,
-                      borderWidth: '1px',
+                      borderWidth: "1px",
                     }}
                     whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
                   >
-                    <stage.icon className="w-8 h-8" style={{ color: stage.color }} />
+                    <stage.icon
+                      className="w-8 h-8"
+                      style={{ color: stage.color }}
+                    />
                   </motion.div>
 
                   <motion.div
@@ -99,7 +105,7 @@ export default function SystemFlow() {
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: 'easeInOut',
+                    ease: "easeInOut",
                   }}
                 >
                   <ArrowRight className="w-8 h-8 text-indigo-500" />
@@ -118,7 +124,7 @@ export default function SystemFlow() {
         transition={{
           duration: 4,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
       />
     </div>

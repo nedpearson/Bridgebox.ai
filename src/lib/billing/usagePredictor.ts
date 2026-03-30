@@ -1,4 +1,4 @@
-import { supabase } from '../supabase';
+import { supabase } from "../supabase";
 
 /**
  * BRIDGEBOX USAGE PREDICTOR
@@ -11,16 +11,16 @@ import { supabase } from '../supabase';
  */
 
 export interface DailyBucket {
-  date: string;           // YYYY-MM-DD
+  date: string; // YYYY-MM-DD
   tokens: number;
   costUsd: number;
   events: number;
 }
 
 export interface TrendLine {
-  slope: number;          // tokens per day (positive = growing)
-  intercept: number;      // tokens on day 0
-  r2: number;             // 0–1, how well the line fits (1 = perfect)
+  slope: number; // tokens per day (positive = growing)
+  intercept: number; // tokens on day 0
+  r2: number; // 0–1, how well the line fits (1 = perfect)
 }
 
 export interface UsagePrediction {
@@ -32,20 +32,20 @@ export interface UsagePrediction {
 
   // Trend
   trend: TrendLine;
-  growthRatePercent: number;      // % change per 30 days based on slope
-  accelerating: boolean;          // slope is positive
+  growthRatePercent: number; // % change per 30 days based on slope
+  accelerating: boolean; // slope is positive
 
   // 30-day projection
   projectedTokens30d: number;
   projectedCost30d: number;
-  lowerBound30d: number;          // 80% confidence lower
-  upperBound30d: number;          // 80% confidence upper
+  lowerBound30d: number; // 80% confidence lower
+  upperBound30d: number; // 80% confidence upper
 
   // Confidence
-  confidenceScore: number;        // 0–100 (higher = more data, better fit)
-  confidenceLabel: 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
-  confidenceReason: string;       // Plain-English explanation
-  dataSampleSize: number;         // Number of log events used
+  confidenceScore: number; // 0–100 (higher = more data, better fit)
+  confidenceLabel: "very_low" | "low" | "moderate" | "high" | "very_high";
+  confidenceReason: string; // Plain-English explanation
+  dataSampleSize: number; // Number of log events used
 }
 
 export interface WorkflowUsageStat {
@@ -78,7 +78,8 @@ function linearRegression(xs: number[], ys: number[]): TrendLine {
 
   const meanX = xs.reduce((a, b) => a + b, 0) / n;
   const meanY = ys.reduce((a, b) => a + b, 0) / n;
-  let ssXY = 0, ssXX = 0;
+  let ssXY = 0,
+    ssXX = 0;
   for (let i = 0; i < n; i++) {
     ssXY += (xs[i] - meanX) * (ys[i] - meanY);
     ssXX += (xs[i] - meanX) ** 2;
@@ -87,7 +88,10 @@ function linearRegression(xs: number[], ys: number[]): TrendLine {
   const intercept = meanY - slope * meanX;
 
   // R² calculation
-  const ssRes = ys.reduce((acc, y, i) => acc + (y - (slope * xs[i] + intercept)) ** 2, 0);
+  const ssRes = ys.reduce(
+    (acc, y, i) => acc + (y - (slope * xs[i] + intercept)) ** 2,
+    0,
+  );
   const ssTot = ys.reduce((acc, y) => acc + (y - meanY) ** 2, 0);
   const r2 = ssTot === 0 ? 1 : Math.max(0, 1 - ssRes / ssTot);
 
@@ -102,17 +106,18 @@ function buildConfidence(
   sampleSize: number,
   r2: number,
   windowDays: number,
-): Pick<UsagePrediction, 'confidenceLabel' | 'confidenceReason'> {
-  let label: UsagePrediction['confidenceLabel'];
-  if (score >= 80) label = 'very_high';
-  else if (score >= 65) label = 'high';
-  else if (score >= 45) label = 'moderate';
-  else if (score >= 25) label = 'low';
-  else label = 'very_low';
+): Pick<UsagePrediction, "confidenceLabel" | "confidenceReason"> {
+  let label: UsagePrediction["confidenceLabel"];
+  if (score >= 80) label = "very_high";
+  else if (score >= 65) label = "high";
+  else if (score >= 45) label = "moderate";
+  else if (score >= 25) label = "low";
+  else label = "very_low";
 
   let reason: string;
   if (sampleSize === 0) {
-    reason = 'No usage data yet — pricing is based on your onboarding estimates.';
+    reason =
+      "No usage data yet — pricing is based on your onboarding estimates.";
   } else if (windowDays < 7) {
     reason = `Only ${windowDays} day(s) of usage data. Predictions will improve significantly after 14+ days.`;
   } else if (r2 < 0.4) {
@@ -137,11 +142,11 @@ export async function predictUsage(
   const since = new Date(Date.now() - windowDays * 86_400_000).toISOString();
 
   const { data, error } = await supabase
-    .from('bb_token_usage_logs')
-    .select('total_tokens, cost_usd, created_at')
-    .eq('organization_id', organizationId)
-    .gte('created_at', since)
-    .order('created_at', { ascending: true });
+    .from("bb_token_usage_logs")
+    .select("total_tokens, cost_usd, created_at")
+    .eq("organization_id", organizationId)
+    .gte("created_at", since)
+    .order("created_at", { ascending: true });
 
   if (error) throw error;
 
@@ -152,15 +157,22 @@ export async function predictUsage(
 
   for (const row of rows) {
     const date = row.created_at.slice(0, 10);
-    const existing = bucketMap.get(date) ?? { date, tokens: 0, costUsd: 0, events: 0 };
+    const existing = bucketMap.get(date) ?? {
+      date,
+      tokens: 0,
+      costUsd: 0,
+      events: 0,
+    };
     existing.tokens += row.total_tokens || 0;
-    existing.costUsd += parseFloat(row.cost_usd || '0');
+    existing.costUsd += parseFloat(row.cost_usd || "0");
     existing.events += 1;
     bucketMap.set(date, existing);
   }
 
   // Fill in zero-token days (ensures trend doesn't assume "missing = zero")
-  const dailyBuckets = Array.from(bucketMap.values()).sort((a, b) => a.date.localeCompare(b.date));
+  const dailyBuckets = Array.from(bucketMap.values()).sort((a, b) =>
+    a.date.localeCompare(b.date),
+  );
 
   const n = dailyBuckets.length;
   const totalTokens = dailyBuckets.reduce((s, b) => s + b.tokens, 0);
@@ -170,24 +182,30 @@ export async function predictUsage(
 
   // ── Trend line ─────────────────────────────────────────────────────────────
   const xs = dailyBuckets.map((_, i) => i);
-  const ys = dailyBuckets.map(b => b.tokens);
+  const ys = dailyBuckets.map((b) => b.tokens);
   const trend = linearRegression(xs, ys);
 
-  const growthRatePercent = averageDailyTokens > 0
-    ? Math.round((trend.slope * 30 / averageDailyTokens) * 100)
-    : 0;
+  const growthRatePercent =
+    averageDailyTokens > 0
+      ? Math.round(((trend.slope * 30) / averageDailyTokens) * 100)
+      : 0;
 
   // ── 30-day projection ──────────────────────────────────────────────────────
-  const projectedDailyTokens = Math.max(0, trend.intercept + trend.slope * (n + 15));
+  const projectedDailyTokens = Math.max(
+    0,
+    trend.intercept + trend.slope * (n + 15),
+  );
   const projectedTokens30d = Math.round(projectedDailyTokens * 30);
-  const projectedCost30d = projectedTokens30d * (averageDailyCost / Math.max(averageDailyTokens, 1));
+  const projectedCost30d =
+    projectedTokens30d * (averageDailyCost / Math.max(averageDailyTokens, 1));
 
   // Residual standard deviation for confidence interval
   let residualSumSq = 0;
   for (let i = 0; i < n; i++) {
     residualSumSq += (ys[i] - (trend.slope * xs[i] + trend.intercept)) ** 2;
   }
-  const stdDev = n > 2 ? Math.sqrt(residualSumSq / (n - 2)) : projectedDailyTokens * 0.4;
+  const stdDev =
+    n > 2 ? Math.sqrt(residualSumSq / (n - 2)) : projectedDailyTokens * 0.4;
   // 80% CI ≈ ±1.28 standard deviations of daily * 30
   const marginTokens = Math.round(stdDev * 1.28 * Math.sqrt(30));
   const lowerBound30d = Math.max(0, projectedTokens30d - marginTokens);
@@ -207,13 +225,16 @@ export async function predictUsage(
   score += Math.round(trend.r2 * 30);
 
   // Consistency bonus: max 15 pts (if usage > 0 for > 60% of days in window)
-  const activeDays = dailyBuckets.filter(b => b.tokens > 0).length;
+  const activeDays = dailyBuckets.filter((b) => b.tokens > 0).length;
   const activeFraction = n > 0 ? activeDays / n : 0;
   score += Math.round(activeFraction * 15);
 
   const confidenceScore = Math.min(100, Math.round(score));
   const { confidenceLabel, confidenceReason } = buildConfidence(
-    confidenceScore, rows.length, trend.r2, actualWindowDays,
+    confidenceScore,
+    rows.length,
+    trend.r2,
+    actualWindowDays,
   );
 
   return {
@@ -246,29 +267,37 @@ export async function getWorkflowUsageStats(
   const since = new Date(Date.now() - daysBack * 86_400_000).toISOString();
 
   const { data } = await supabase
-    .from('bb_token_usage_logs')
-    .select('workflow_id, total_tokens, cost_usd, created_at')
-    .eq('organization_id', organizationId)
-    .not('workflow_id', 'is', null)
-    .gte('created_at', since);
+    .from("bb_token_usage_logs")
+    .select("workflow_id, total_tokens, cost_usd, created_at")
+    .eq("organization_id", organizationId)
+    .not("workflow_id", "is", null)
+    .gte("created_at", since);
 
   const map: Map<string, WorkflowUsageStat> = new Map();
   for (const row of data || []) {
     const id = row.workflow_id;
     const existing = map.get(id) ?? {
-      workflowId: id, executionCount: 0, totalTokens: 0,
-      avgTokensPerRun: 0, totalCost: 0, lastExecuted: row.created_at,
+      workflowId: id,
+      executionCount: 0,
+      totalTokens: 0,
+      avgTokensPerRun: 0,
+      totalCost: 0,
+      lastExecuted: row.created_at,
     };
     existing.executionCount += 1;
     existing.totalTokens += row.total_tokens || 0;
-    existing.totalCost += parseFloat(row.cost_usd || '0');
-    existing.lastExecuted = row.created_at > existing.lastExecuted ? row.created_at : existing.lastExecuted;
+    existing.totalCost += parseFloat(row.cost_usd || "0");
+    existing.lastExecuted =
+      row.created_at > existing.lastExecuted
+        ? row.created_at
+        : existing.lastExecuted;
     map.set(id, existing);
   }
 
-  return Array.from(map.values()).map(w => ({
+  return Array.from(map.values()).map((w) => ({
     ...w,
-    avgTokensPerRun: w.executionCount > 0 ? Math.round(w.totalTokens / w.executionCount) : 0,
+    avgTokensPerRun:
+      w.executionCount > 0 ? Math.round(w.totalTokens / w.executionCount) : 0,
   }));
 }
 
@@ -283,23 +312,30 @@ export async function getIntegrationLoadStats(
   const since = new Date(Date.now() - daysBack * 86_400_000).toISOString();
 
   const { data } = await supabase
-    .from('bb_token_usage_logs')
-    .select('integration_id, total_tokens, cost_usd, created_at')
-    .eq('organization_id', organizationId)
-    .not('integration_id', 'is', null)
-    .gte('created_at', since);
+    .from("bb_token_usage_logs")
+    .select("integration_id, total_tokens, cost_usd, created_at")
+    .eq("organization_id", organizationId)
+    .not("integration_id", "is", null)
+    .gte("created_at", since);
 
   const map: Map<string, IntegrationLoadStat> = new Map();
   for (const row of data || []) {
     const id = row.integration_id;
     const existing = map.get(id) ?? {
-      integrationId: id, syncCount: 0, avgTokensPerSync: 0,
-      totalCost: 0, lastSync: row.created_at,
+      integrationId: id,
+      syncCount: 0,
+      avgTokensPerSync: 0,
+      totalCost: 0,
+      lastSync: row.created_at,
     };
     existing.syncCount += 1;
-    existing.avgTokensPerSync = (existing.avgTokensPerSync * (existing.syncCount - 1) + (row.total_tokens || 0)) / existing.syncCount;
-    existing.totalCost += parseFloat(row.cost_usd || '0');
-    existing.lastSync = row.created_at > existing.lastSync ? row.created_at : existing.lastSync;
+    existing.avgTokensPerSync =
+      (existing.avgTokensPerSync * (existing.syncCount - 1) +
+        (row.total_tokens || 0)) /
+      existing.syncCount;
+    existing.totalCost += parseFloat(row.cost_usd || "0");
+    existing.lastSync =
+      row.created_at > existing.lastSync ? row.created_at : existing.lastSync;
     map.set(id, existing);
   }
 

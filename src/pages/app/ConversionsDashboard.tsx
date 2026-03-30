@@ -1,12 +1,20 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { TrendingUp, Users, FileText, FolderKanban, CheckCircle, Clock, AlertCircle } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import StatusBadge from '../../components/admin/StatusBadge';
-import { analyticsService } from '../../lib/db/analytics';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  TrendingUp,
+  Users,
+  FileText,
+  FolderKanban,
+  CheckCircle,
+  Clock,
+  AlertCircle,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import StatusBadge from "../../components/admin/StatusBadge";
+import { analyticsService } from "../../lib/db/analytics";
 
 interface ConversionMetrics {
   totalLeads: number;
@@ -49,20 +57,20 @@ export default function ConversionsDashboard() {
 
       const [metricsData, trackingData] = await Promise.all([
         analyticsService.getConversionMetrics(),
-        analyticsService.getConversionTracking(50)
+        analyticsService.getConversionTracking(50),
       ]);
 
       setMetrics(metricsData);
       setConversions((trackingData as ConversionRecord[]) || []);
     } catch (error) {
-      console.error('Failed to load conversion data:', error);
+      console.error("Failed to load conversion data:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const getConversionRate = (converted: number, total: number) => {
-    if (total === 0) return '0%';
+    if (total === 0) return "0%";
     return `${Math.round((converted / total) * 100)}%`;
   };
 
@@ -90,48 +98,82 @@ export default function ConversionsDashboard() {
       <div className="p-8 space-y-6">
         {/* Metrics Overview */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Link to="/app/leads" className="block transition-transform hover:-translate-y-1">
-            <Card glass className="p-6 hover:border-indigo-500/50 transition-colors h-full">
+          <Link
+            to="/app/leads"
+            className="block transition-transform hover:-translate-y-1"
+          >
+            <Card
+              glass
+              className="p-6 hover:border-indigo-500/50 transition-colors h-full"
+            >
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-slate-400">Lead Conversion</h3>
+                <h3 className="text-sm font-medium text-slate-400">
+                  Lead Conversion
+                </h3>
                 <Users className="w-5 h-5 text-indigo-500" />
               </div>
               <div className="flex items-baseline space-x-2">
                 <p className="text-3xl font-bold text-white">
-                  {getConversionRate(metrics?.convertedLeads || 0, metrics?.totalLeads || 0)}
+                  {getConversionRate(
+                    metrics?.convertedLeads || 0,
+                    metrics?.totalLeads || 0,
+                  )}
                 </p>
               </div>
               <p className="text-xs text-slate-500 mt-1">
-                {metrics?.convertedLeads} of {metrics?.totalLeads} leads converted
+                {metrics?.convertedLeads} of {metrics?.totalLeads} leads
+                converted
               </p>
             </Card>
           </Link>
 
-          <Link to="/app/proposals" className="block transition-transform hover:-translate-y-1">
-            <Card glass className="p-6 hover:border-[#10B981]/50 transition-colors h-full">
+          <Link
+            to="/app/proposals"
+            className="block transition-transform hover:-translate-y-1"
+          >
+            <Card
+              glass
+              className="p-6 hover:border-[#10B981]/50 transition-colors h-full"
+            >
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-slate-400">Proposal Success</h3>
+                <h3 className="text-sm font-medium text-slate-400">
+                  Proposal Success
+                </h3>
                 <FileText className="w-5 h-5 text-[#10B981]" />
               </div>
               <div className="flex items-baseline space-x-2">
                 <p className="text-3xl font-bold text-white">
-                  {getConversionRate(metrics?.approvedProposals || 0, metrics?.totalProposals || 0)}
+                  {getConversionRate(
+                    metrics?.approvedProposals || 0,
+                    metrics?.totalProposals || 0,
+                  )}
                 </p>
               </div>
               <p className="text-xs text-slate-500 mt-1">
-                {metrics?.approvedProposals} of {metrics?.totalProposals} proposals approved
+                {metrics?.approvedProposals} of {metrics?.totalProposals}{" "}
+                proposals approved
               </p>
             </Card>
           </Link>
 
-          <Link to="/app/projects" className="block transition-transform hover:-translate-y-1">
-            <Card glass className="p-6 hover:border-indigo-500/50 transition-colors h-full">
+          <Link
+            to="/app/projects"
+            className="block transition-transform hover:-translate-y-1"
+          >
+            <Card
+              glass
+              className="p-6 hover:border-indigo-500/50 transition-colors h-full"
+            >
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-slate-400">Projects Created</h3>
+                <h3 className="text-sm font-medium text-slate-400">
+                  Projects Created
+                </h3>
                 <FolderKanban className="w-5 h-5 text-indigo-500" />
               </div>
               <div className="flex items-baseline space-x-2">
-                <p className="text-3xl font-bold text-white">{metrics?.totalProjects || 0}</p>
+                <p className="text-3xl font-bold text-white">
+                  {metrics?.totalProjects || 0}
+                </p>
               </div>
               <p className="text-xs text-slate-500 mt-1">
                 {metrics?.convertedProposals} from proposals
@@ -139,23 +181,37 @@ export default function ConversionsDashboard() {
             </Card>
           </Link>
 
-          <Link to="/app/clients" className="block transition-transform hover:-translate-y-1">
-            <Card glass className="p-6 hover:border-yellow-500/50 transition-colors h-full">
+          <Link
+            to="/app/clients"
+            className="block transition-transform hover:-translate-y-1"
+          >
+            <Card
+              glass
+              className="p-6 hover:border-yellow-500/50 transition-colors h-full"
+            >
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-slate-400">Pending Onboarding</h3>
+                <h3 className="text-sm font-medium text-slate-400">
+                  Pending Onboarding
+                </h3>
                 <Clock className="w-5 h-5 text-yellow-500" />
               </div>
               <div className="flex items-baseline space-x-2">
-                <p className="text-3xl font-bold text-white">{metrics?.pendingOnboarding || 0}</p>
+                <p className="text-3xl font-bold text-white">
+                  {metrics?.pendingOnboarding || 0}
+                </p>
               </div>
-              <p className="text-xs text-slate-500 mt-1">Organizations in progress</p>
+              <p className="text-xs text-slate-500 mt-1">
+                Organizations in progress
+              </p>
             </Card>
           </Link>
         </div>
 
         {/* Conversion Timeline */}
         <Card glass className="p-6">
-          <h2 className="text-xl font-bold text-white mb-6">Conversion Pipeline</h2>
+          <h2 className="text-xl font-bold text-white mb-6">
+            Conversion Pipeline
+          </h2>
 
           {conversions.length === 0 ? (
             <div className="text-center py-12">
@@ -183,7 +239,9 @@ export default function ConversionsDashboard() {
                         {record.organization_name && (
                           <>
                             <span className="text-slate-600">→</span>
-                            <span className="text-slate-300">{record.organization_name}</span>
+                            <span className="text-slate-300">
+                              {record.organization_name}
+                            </span>
                           </>
                         )}
                       </div>
@@ -195,7 +253,7 @@ export default function ConversionsDashboard() {
                             className="flex items-center space-x-1.5 text-slate-400 hover:text-white transition-colors"
                           >
                             <FileText className="w-3.5 h-3.5" />
-                            <span>{record.proposal_title || 'Proposal'}</span>
+                            <span>{record.proposal_title || "Proposal"}</span>
                           </Link>
                         )}
 
@@ -205,7 +263,7 @@ export default function ConversionsDashboard() {
                             className="flex items-center space-x-1.5 text-indigo-500 hover:text-[#10B981] transition-colors"
                           >
                             <FolderKanban className="w-3.5 h-3.5" />
-                            <span>{record.project_name || 'Project'}</span>
+                            <span>{record.project_name || "Project"}</span>
                             <CheckCircle className="w-3.5 h-3.5 text-[#10B981]" />
                           </Link>
                         )}
@@ -213,15 +271,28 @@ export default function ConversionsDashboard() {
                     </div>
 
                     <div className="flex items-center space-x-2">
-                      {record.onboarding_status === 'in_progress' && (
-                        <StatusBadge status="Onboarding" variant="warning" compact />
+                      {record.onboarding_status === "in_progress" && (
+                        <StatusBadge
+                          status="Onboarding"
+                          variant="warning"
+                          compact
+                        />
                       )}
-                      {record.onboarding_status === 'completed' && (
-                        <StatusBadge status="Onboarded" variant="success" compact />
+                      {record.onboarding_status === "completed" && (
+                        <StatusBadge
+                          status="Onboarded"
+                          variant="success"
+                          compact
+                        />
                       )}
-                      {record.onboarding_status === 'not_started' && record.project_id && (
-                        <StatusBadge status="Needs Onboarding" variant="danger" compact />
-                      )}
+                      {record.onboarding_status === "not_started" &&
+                        record.project_id && (
+                          <StatusBadge
+                            status="Needs Onboarding"
+                            variant="danger"
+                            compact
+                          />
+                        )}
                     </div>
                   </div>
                 </motion.div>

@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { motion } from 'framer-motion';
-import { Database, Check, X, AlertCircle } from 'lucide-react';
-import Badge from '../Badge';
-import Button from '../Button';
-import type { ExtractedData } from '../../lib/documents/DocumentProcessor';
+import { motion } from "framer-motion";
+import { Database, Check, X, AlertCircle } from "lucide-react";
+import Badge from "../Badge";
+import Button from "../Button";
+import type { ExtractedData } from "../../lib/documents/DocumentProcessor";
 
 interface ExtractedDataPanelProps {
   data: ExtractedData[];
@@ -11,27 +11,32 @@ interface ExtractedDataPanelProps {
 }
 
 const DATA_TYPE_COLORS: Record<string, string> = {
-  invoice: 'green',
-  contract: 'purple',
-  receipt: 'blue',
-  form: 'amber',
-  table: 'slate',
-  other: 'slate',
+  invoice: "green",
+  contract: "purple",
+  receipt: "blue",
+  form: "amber",
+  table: "slate",
+  other: "slate",
 };
 
 const VALIDATION_COLORS: Record<string, string> = {
-  pending: 'amber',
-  valid: 'green',
-  invalid: 'red',
-  needs_review: 'amber',
+  pending: "amber",
+  valid: "green",
+  invalid: "red",
+  needs_review: "amber",
 };
 
-export default function ExtractedDataPanel({ data, onValidate }: ExtractedDataPanelProps) {
+export default function ExtractedDataPanel({
+  data,
+  onValidate,
+}: ExtractedDataPanelProps) {
   if (data.length === 0) {
     return (
       <div className="text-center py-8">
         <Database className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-        <p className="text-slate-400 text-sm">No structured data extracted yet</p>
+        <p className="text-slate-400 text-sm">
+          No structured data extracted yet
+        </p>
       </div>
     );
   }
@@ -69,13 +74,17 @@ export default function ExtractedDataPanel({ data, onValidate }: ExtractedDataPa
           <div className="space-y-2">
             {Object.entries(item.extracted_fields).map(([key, value]) => (
               <div key={key} className="flex items-start gap-2 text-sm">
-                <span className="text-slate-400 min-w-[120px]">{formatFieldName(key)}:</span>
-                <span className="text-white flex-1">{formatFieldValue(value)}</span>
+                <span className="text-slate-400 min-w-[120px]">
+                  {formatFieldName(key)}:
+                </span>
+                <span className="text-white flex-1">
+                  {formatFieldValue(value)}
+                </span>
               </div>
             ))}
           </div>
 
-          {onValidate && item.validation_status === 'needs_review' && (
+          {onValidate && item.validation_status === "needs_review" && (
             <div className="flex gap-2 mt-4 pt-4 border-t border-slate-700">
               <Button
                 size="sm"
@@ -97,10 +106,12 @@ export default function ExtractedDataPanel({ data, onValidate }: ExtractedDataPa
             </div>
           )}
 
-          {item.validation_status === 'invalid' && (
+          {item.validation_status === "invalid" && (
             <div className="flex items-center gap-2 mt-3 pt-3 border-t border-slate-700">
               <AlertCircle className="w-4 h-4 text-red-400" />
-              <span className="text-xs text-red-400">This data has been marked as invalid</span>
+              <span className="text-xs text-red-400">
+                This data has been marked as invalid
+              </span>
             </div>
           )}
         </motion.div>
@@ -111,16 +122,16 @@ export default function ExtractedDataPanel({ data, onValidate }: ExtractedDataPa
 
 function formatFieldName(key: string): string {
   return key
-    .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 function formatFieldValue(value: any): string {
   if (Array.isArray(value)) {
-    return value.join(', ');
+    return value.join(", ");
   }
-  if (typeof value === 'object') {
+  if (typeof value === "object") {
     return JSON.stringify(value);
   }
   return String(value);

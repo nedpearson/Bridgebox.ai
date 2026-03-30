@@ -1,9 +1,17 @@
-import { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Type, Sparkles, Loader2, CheckCircle2, AlertCircle, ChevronRight } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
-import { enhancementRequestsService } from '../../lib/db/enhancementRequests';
-import { buildEnhancementRecommendations } from '../../lib/enhancement/analysisEngine';
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  X,
+  Type,
+  Sparkles,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+  ChevronRight,
+} from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { enhancementRequestsService } from "../../lib/db/enhancementRequests";
+import { buildEnhancementRecommendations } from "../../lib/enhancement/analysisEngine";
 
 interface TypeFeatureModalProps {
   isOpen: boolean;
@@ -11,19 +19,23 @@ interface TypeFeatureModalProps {
   onCreated?: (requestId: string) => void;
 }
 
-export default function TypeFeatureModal({ isOpen, onClose, onCreated }: TypeFeatureModalProps) {
+export default function TypeFeatureModal({
+  isOpen,
+  onClose,
+  onCreated,
+}: TypeFeatureModalProps) {
   const { currentOrganization } = useAuth();
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [done, setDone] = useState(false);
-  const [createdId, setCreatedId] = useState('');
+  const [createdId, setCreatedId] = useState("");
 
   const handleClose = useCallback(() => {
-    setText('');
-    setError('');
+    setText("");
+    setError("");
     setDone(false);
-    setCreatedId('');
+    setCreatedId("");
     setIsSubmitting(false);
     onClose();
   }, [onClose]);
@@ -31,29 +43,33 @@ export default function TypeFeatureModal({ isOpen, onClose, onCreated }: TypeFea
   const handleSubmit = useCallback(async () => {
     if (!currentOrganization || !text.trim()) return;
     setIsSubmitting(true);
-    setError('');
+    setError("");
 
     try {
       const request = await enhancementRequestsService.create({
         workspaceId: currentOrganization.id,
-        title: text.trim().slice(0, 80) + (text.length > 80 ? '...' : ''),
-        inputMethod: 'text',
+        title: text.trim().slice(0, 80) + (text.length > 80 ? "..." : ""),
+        inputMethod: "text",
         originalPrompt: text.trim(),
       });
 
       const recommendations = buildEnhancementRecommendations(text, 0);
-      await enhancementRequestsService.submitForAnalysis(request.id, currentOrganization.id, {
-        analysis_summary: recommendations.business_summary,
-        recommendations_json: recommendations,
-        request_type: recommendations.request_classification,
-        normalized_prompt: text.trim(),
-      });
+      await enhancementRequestsService.submitForAnalysis(
+        request.id,
+        currentOrganization.id,
+        {
+          analysis_summary: recommendations.business_summary,
+          recommendations_json: recommendations,
+          request_type: recommendations.request_classification,
+          normalized_prompt: text.trim(),
+        },
+      );
 
       setCreatedId(request.id);
       setDone(true);
       onCreated?.(request.id);
     } catch (err: any) {
-      setError(err.message || 'Failed to submit. Please try again.');
+      setError(err.message || "Failed to submit. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -78,7 +94,7 @@ export default function TypeFeatureModal({ isOpen, onClose, onCreated }: TypeFea
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.22 }}
             className="relative w-full max-w-xl bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
               <div className="flex items-center gap-3">
@@ -86,11 +102,18 @@ export default function TypeFeatureModal({ isOpen, onClose, onCreated }: TypeFea
                   <Type className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-white font-bold text-lg">Type a Feature Request</h2>
-                  <p className="text-slate-400 text-xs">{currentOrganization?.name}</p>
+                  <h2 className="text-white font-bold text-lg">
+                    Type a Feature Request
+                  </h2>
+                  <p className="text-slate-400 text-xs">
+                    {currentOrganization?.name}
+                  </p>
                 </div>
               </div>
-              <button onClick={handleClose} className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+              <button
+                onClick={handleClose}
+                className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -99,10 +122,14 @@ export default function TypeFeatureModal({ isOpen, onClose, onCreated }: TypeFea
               {!done ? (
                 <div className="space-y-4">
                   <div>
-                    <p className="text-slate-400 text-sm mb-3">Describe the feature, workflow, or change you want. Be as detailed as you like — the more context, the better the analysis.</p>
+                    <p className="text-slate-400 text-sm mb-3">
+                      Describe the feature, workflow, or change you want. Be as
+                      detailed as you like — the more context, the better the
+                      analysis.
+                    </p>
                     <textarea
                       value={text}
-                      onChange={e => setText(e.target.value)}
+                      onChange={(e) => setText(e.target.value)}
                       placeholder="e.g. I want an automated invoice generation system that triggers when a project milestone is marked complete. It should pull the client billing rate, generate a PDF, and email it to the billing contact..."
                       className="w-full bg-slate-800/60 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm resize-none h-48 focus:outline-none focus:border-indigo-500 leading-relaxed placeholder:text-slate-600"
                       autoFocus
@@ -111,7 +138,9 @@ export default function TypeFeatureModal({ isOpen, onClose, onCreated }: TypeFea
                       <p className="text-xs text-slate-500">
                         {text.trim().split(/\s+/).filter(Boolean).length} words
                       </p>
-                      <p className="text-xs text-slate-600">Minimum 10 words recommended</p>
+                      <p className="text-xs text-slate-600">
+                        Minimum 10 words recommended
+                      </p>
                     </div>
                   </div>
 
@@ -124,13 +153,20 @@ export default function TypeFeatureModal({ isOpen, onClose, onCreated }: TypeFea
 
                   <button
                     onClick={handleSubmit}
-                    disabled={isSubmitting || text.trim().split(/\s+/).length < 3}
+                    disabled={
+                      isSubmitting || text.trim().split(/\s+/).length < 3
+                    }
                     className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 disabled:from-slate-700 disabled:to-slate-700 disabled:text-slate-500 text-white rounded-xl font-semibold transition-all"
                   >
                     {isSubmitting ? (
-                      <><Loader2 className="w-4 h-4 animate-spin" /> Analyzing...</>
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />{" "}
+                        Analyzing...
+                      </>
                     ) : (
-                      <><Sparkles className="w-4 h-4" /> Submit & Analyze</>
+                      <>
+                        <Sparkles className="w-4 h-4" /> Submit & Analyze
+                      </>
                     )}
                   </button>
                 </div>
@@ -140,14 +176,28 @@ export default function TypeFeatureModal({ isOpen, onClose, onCreated }: TypeFea
                     <CheckCircle2 className="w-8 h-8 text-emerald-400" />
                   </div>
                   <div>
-                    <h3 className="text-white font-bold text-xl">Request Submitted</h3>
-                    <p className="text-slate-400 text-sm mt-2">Your feature request has been analyzed and attached to <strong className="text-white">{currentOrganization?.name}</strong>.</p>
+                    <h3 className="text-white font-bold text-xl">
+                      Request Submitted
+                    </h3>
+                    <p className="text-slate-400 text-sm mt-2">
+                      Your feature request has been analyzed and attached to{" "}
+                      <strong className="text-white">
+                        {currentOrganization?.name}
+                      </strong>
+                      .
+                    </p>
                   </div>
                   <div className="flex gap-3 justify-center">
-                    <button onClick={handleClose} className="px-5 py-2.5 border border-slate-700 text-slate-300 hover:text-white rounded-xl text-sm font-medium transition-all">
+                    <button
+                      onClick={handleClose}
+                      className="px-5 py-2.5 border border-slate-700 text-slate-300 hover:text-white rounded-xl text-sm font-medium transition-all"
+                    >
                       Close
                     </button>
-                    <a href={`/app/enhancements/${createdId}`} className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold transition-all">
+                    <a
+                      href={`/app/enhancements/${createdId}`}
+                      className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold transition-all"
+                    >
                       <ChevronRight className="w-4 h-4" /> View Enhancement
                     </a>
                   </div>

@@ -1,43 +1,70 @@
 // Enhancement status lifecycle
 export type EnhancementStatus =
-  | 'draft'
-  | 'submitted'
-  | 'analyzing'
-  | 'ready_for_review'
-  | 'approved'
-  | 'rejected'
-  | 'ready_to_apply'
-  | 'applied'
-  | 'failed';
+  | "draft"
+  | "submitted"
+  | "analyzing"
+  | "ready_for_review"
+  | "approved"
+  | "rejected"
+  | "ready_to_apply"
+  | "applied"
+  | "failed";
 
 export type EnhancementRequestType =
-  | 'new_feature'
-  | 'feature_modification'
-  | 'ui_enhancement'
-  | 'workflow_enhancement'
-  | 'integration_enhancement'
-  | 'reusable_transplant'
-  | 'workspace_merge'
-  | 'full_software_blueprint';
+  | "new_feature"
+  | "feature_modification"
+  | "ui_enhancement"
+  | "workflow_enhancement"
+  | "integration_enhancement"
+  | "reusable_transplant"
+  | "workspace_merge"
+  | "full_software_blueprint";
 
-export type InputMethod = 'voice' | 'text' | 'recording' | 'screenshot' | 'mixed';
+export type InputMethod =
+  | "voice"
+  | "text"
+  | "recording"
+  | "screenshot"
+  | "mixed";
 
-export type MediaProcessingStatus = 'pending' | 'processing' | 'analyzed' | 'failed' | 'needs_correction';
+export type MediaProcessingStatus =
+  | "pending"
+  | "processing"
+  | "analyzed"
+  | "failed"
+  | "needs_correction";
 
-export type TransferBatchStatus = 'draft' | 'previewed' | 'conflict_detected' | 'approved' | 'applying' | 'applied' | 'rolled_back' | 'failed';
+export type TransferBatchStatus =
+  | "draft"
+  | "previewed"
+  | "conflict_detected"
+  | "approved"
+  | "applying"
+  | "applied"
+  | "rolled_back"
+  | "failed";
 
-export type TransferItemStatus = 'pending' | 'applied' | 'skipped' | 'conflict' | 'failed';
+export type TransferItemStatus =
+  | "pending"
+  | "applied"
+  | "skipped"
+  | "conflict"
+  | "failed";
 
-export type TransferConflictResolution = 'skip' | 'rename' | 'overwrite' | 'unresolved';
+export type TransferConflictResolution =
+  | "skip"
+  | "rename"
+  | "overwrite"
+  | "unresolved";
 
 export type VoiceContextMode =
-  | 'describe_current_software'
-  | 'describe_feature'
-  | 'describe_workflow'
-  | 'describe_final_vision'
-  | 'describe_changes'
-  | 'describe_pain_points'
-  | 'free_form';
+  | "describe_current_software"
+  | "describe_feature"
+  | "describe_workflow"
+  | "describe_final_vision"
+  | "describe_changes"
+  | "describe_pain_points"
+  | "free_form";
 
 export interface EnhancementRequest {
   id: string;
@@ -57,7 +84,7 @@ export interface EnhancementRequest {
   recommendations_json?: EnhancementRecommendations;
   dependency_summary?: string;
   conflict_summary?: string;
-  approval_status?: 'pending' | 'approved' | 'rejected';
+  approval_status?: "pending" | "approved" | "rejected";
   applied_at?: string;
   created_at: string;
   updated_at: string;
@@ -84,9 +111,9 @@ export interface FeatureItem {
   id: string;
   name: string;
   description: string;
-  priority: 'critical' | 'high' | 'medium' | 'low';
+  priority: "critical" | "high" | "medium" | "low";
   category: string;
-  source: 'voice' | 'recording' | 'screenshot' | 'inferred' | 'profile';
+  source: "voice" | "recording" | "screenshot" | "inferred" | "profile";
   confidence: number;
 }
 
@@ -101,7 +128,7 @@ export interface WorkflowItem {
 
 export interface UIStructureItem {
   screen_name: string;
-  layout_type?: 'dashboard' | 'kanban' | 'detail' | 'table' | 'generic';
+  layout_type?: "dashboard" | "kanban" | "detail" | "table" | "generic";
   components: string[];
   interactions: string[];
   data_displayed: string[];
@@ -117,7 +144,7 @@ export interface IntegrationItem {
   system: string;
   type: string;
   data_flow: string;
-  priority: 'required' | 'recommended' | 'optional';
+  priority: "required" | "recommended" | "optional";
 }
 
 export interface AutomationItem {
@@ -129,7 +156,7 @@ export interface AutomationItem {
 export interface RiskItem {
   area: string;
   description: string;
-  severity: 'high' | 'medium' | 'low';
+  severity: "high" | "medium" | "low";
   mitigation: string;
 }
 
@@ -152,7 +179,7 @@ export interface VoiceSession {
   duration_seconds: number;
   word_count: number;
   language: string;
-  status: 'recording' | 'draft' | 'submitted' | 'processed';
+  status: "recording" | "draft" | "submitted" | "processed";
   created_at: string;
   updated_at: string;
 }
@@ -163,7 +190,7 @@ export interface EnhancementMedia {
   workspace_id: string;
   uploaded_by: string;
   file_name: string;
-  file_type: 'video' | 'screenshot' | 'audio' | 'document';
+  file_type: "video" | "screenshot" | "audio" | "document";
   mime_type: string;
   file_size_bytes: number;
   storage_path: string;
@@ -196,7 +223,17 @@ export interface SceneSegment {
 }
 
 export interface ExtractedUIElement {
-  type: 'button' | 'form' | 'table' | 'modal' | 'nav' | 'filter' | 'chart' | 'list' | 'card' | 'other';
+  type:
+    | "button"
+    | "form"
+    | "table"
+    | "modal"
+    | "nav"
+    | "filter"
+    | "chart"
+    | "list"
+    | "card"
+    | "other";
   label?: string;
   context: string;
   confidence: number;
@@ -261,7 +298,7 @@ export interface TransferConflict {
   asset_type: string;
   source_name: string;
   target_name: string;
-  conflict_type: 'name_collision' | 'dependency' | 'incompatible';
+  conflict_type: "name_collision" | "dependency" | "incompatible";
   resolution: TransferConflictResolution;
   rename_to?: string;
 }
@@ -285,34 +322,34 @@ export interface TransferItem {
 
 // Status display helpers
 export const ENHANCEMENT_STATUS_LABELS: Record<EnhancementStatus, string> = {
-  draft:            'Draft',
-  submitted:        'Submitted',
-  analyzing:        'In Analysis',
-  ready_for_review: 'Needs Review',
-  approved:         'Approved',
-  rejected:         'Not Approved',
-  ready_to_apply:   'Blueprint Ready',
-  applied:          'Added to Build Plan',
-  failed:           'Processing Failed',
+  draft: "Draft",
+  submitted: "Submitted",
+  analyzing: "In Analysis",
+  ready_for_review: "Needs Review",
+  approved: "Approved",
+  rejected: "Not Approved",
+  ready_to_apply: "Blueprint Ready",
+  applied: "Added to Build Plan",
+  failed: "Processing Failed",
 };
 
 export const VOICE_CONTEXT_LABELS: Record<VoiceContextMode, string> = {
-  describe_current_software: 'Describe Current Software',
-  describe_feature: 'Describe a Feature',
-  describe_workflow: 'Describe a Workflow',
-  describe_final_vision: 'Describe Final Product Vision',
-  describe_changes: 'Describe Changes',
-  describe_pain_points: 'Describe Pain Points',
-  free_form: 'Free Form',
+  describe_current_software: "Describe Current Software",
+  describe_feature: "Describe a Feature",
+  describe_workflow: "Describe a Workflow",
+  describe_final_vision: "Describe Final Product Vision",
+  describe_changes: "Describe Changes",
+  describe_pain_points: "Describe Pain Points",
+  free_form: "Free Form",
 };
 
 export const REQUEST_TYPE_LABELS: Record<EnhancementRequestType, string> = {
-  new_feature: 'New Feature',
-  feature_modification: 'Feature Modification',
-  ui_enhancement: 'UI Enhancement',
-  workflow_enhancement: 'Workflow Enhancement',
-  integration_enhancement: 'Integration',
-  reusable_transplant: 'Reusable Transplant',
-  workspace_merge: 'Workspace Merge',
-  full_software_blueprint: 'Full Blueprint',
+  new_feature: "New Feature",
+  feature_modification: "Feature Modification",
+  ui_enhancement: "UI Enhancement",
+  workflow_enhancement: "Workflow Enhancement",
+  integration_enhancement: "Integration",
+  reusable_transplant: "Reusable Transplant",
+  workspace_merge: "Workspace Merge",
+  full_software_blueprint: "Full Blueprint",
 };

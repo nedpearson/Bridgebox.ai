@@ -1,12 +1,25 @@
-import { useState, useEffect } from 'react';
-import { Zap, Filter, CheckCircle, XCircle, Clock, TrendingUp } from 'lucide-react';
-import Card from '../../components/Card';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import { ActionCard } from '../../components/agents/ActionCard';
-import { UncertaintyNotice } from '../../components/intelligence/ConfidenceBadge';
-import { useAuth } from '../../contexts/AuthContext';
-import { actionReviewer, actionExecutor } from '../../lib/agents';
-import type { AgentAction, ActionCategory, ActionStatus, ActionPriority, ActionStats } from '../../lib/agents/types';
+import { useState, useEffect } from "react";
+import {
+  Zap,
+  Filter,
+  CheckCircle,
+  XCircle,
+  Clock,
+  TrendingUp,
+} from "lucide-react";
+import Card from "../../components/Card";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { ActionCard } from "../../components/agents/ActionCard";
+import { UncertaintyNotice } from "../../components/intelligence/ConfidenceBadge";
+import { useAuth } from "../../contexts/AuthContext";
+import { actionReviewer, actionExecutor } from "../../lib/agents";
+import type {
+  AgentAction,
+  ActionCategory,
+  ActionStatus,
+  ActionPriority,
+  ActionStats,
+} from "../../lib/agents/types";
 
 export default function AgentActions() {
   const { currentOrganization, user } = useAuth();
@@ -34,14 +47,14 @@ export default function AgentActions() {
     try {
       const { actions: data, error } = await actionReviewer.getActions(
         currentOrganization.id,
-        filter
+        filter,
       );
 
       if (!error && data) {
         setActions(data);
       }
     } catch (error) {
-      console.error('Error loading actions:', error);
+      console.error("Error loading actions:", error);
     } finally {
       setLoading(false);
     }
@@ -51,13 +64,15 @@ export default function AgentActions() {
     if (!currentOrganization?.id) return;
 
     try {
-      const { stats: data, error } = await actionReviewer.getActionStats(currentOrganization.id);
+      const { stats: data, error } = await actionReviewer.getActionStats(
+        currentOrganization.id,
+      );
 
       if (!error && data) {
         setStats(data);
       }
     } catch (error) {
-      console.error('Error loading stats:', error);
+      console.error("Error loading stats:", error);
     }
   }
 
@@ -66,14 +81,18 @@ export default function AgentActions() {
 
     setActionLoading(actionId);
     try {
-      const { action, error } = await actionReviewer.approveAction(actionId, user.id, notes);
+      const { action, error } = await actionReviewer.approveAction(
+        actionId,
+        user.id,
+        notes,
+      );
 
       if (!error && action) {
         setActions(actions.map((a) => (a.id === actionId ? action : a)));
         loadStats();
       }
     } catch (error) {
-      console.error('Error approving action:', error);
+      console.error("Error approving action:", error);
     } finally {
       setActionLoading(null);
     }
@@ -84,14 +103,18 @@ export default function AgentActions() {
 
     setActionLoading(actionId);
     try {
-      const { action, error } = await actionReviewer.dismissAction(actionId, user.id, notes);
+      const { action, error } = await actionReviewer.dismissAction(
+        actionId,
+        user.id,
+        notes,
+      );
 
       if (!error && action) {
         setActions(actions.map((a) => (a.id === actionId ? action : a)));
         loadStats();
       }
     } catch (error) {
-      console.error('Error dismissing action:', error);
+      console.error("Error dismissing action:", error);
     } finally {
       setActionLoading(null);
     }
@@ -102,14 +125,18 @@ export default function AgentActions() {
 
     setActionLoading(actionId);
     try {
-      const { action, error } = await actionReviewer.deferAction(actionId, user.id, notes);
+      const { action, error } = await actionReviewer.deferAction(
+        actionId,
+        user.id,
+        notes,
+      );
 
       if (!error && action) {
         setActions(actions.map((a) => (a.id === actionId ? action : a)));
         loadStats();
       }
     } catch (error) {
-      console.error('Error deferring action:', error);
+      console.error("Error deferring action:", error);
     } finally {
       setActionLoading(null);
     }
@@ -134,11 +161,14 @@ export default function AgentActions() {
         loadActions();
         loadStats();
       } else {
-        await actionReviewer.markActionFailed(actionId, result.error || 'Execution failed');
+        await actionReviewer.markActionFailed(
+          actionId,
+          result.error || "Execution failed",
+        );
         loadActions();
       }
     } catch (error: any) {
-      console.error('Error executing action:', error);
+      console.error("Error executing action:", error);
       await actionReviewer.markActionFailed(actionId, error.message);
       loadActions();
     } finally {
@@ -162,8 +192,12 @@ export default function AgentActions() {
             <Zap className="text-white" size={24} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">AI Agent Actions</h1>
-            <p className="text-gray-600">Review and manage AI-suggested actions</p>
+            <h1 className="text-2xl font-bold text-gray-900">
+              AI Agent Actions
+            </h1>
+            <p className="text-gray-600">
+              Review and manage AI-suggested actions
+            </p>
           </div>
         </div>
       </div>
@@ -180,7 +214,9 @@ export default function AgentActions() {
               <p className="text-sm text-gray-600">Pending Review</p>
               <Clock className="text-amber-600" size={18} />
             </div>
-            <p className="text-3xl font-bold text-gray-900">{stats.pending_review}</p>
+            <p className="text-3xl font-bold text-gray-900">
+              {stats.pending_review}
+            </p>
             <p className="text-xs text-gray-500 mt-1">Require your attention</p>
           </Card>
 
@@ -189,7 +225,9 @@ export default function AgentActions() {
               <p className="text-sm text-gray-600">Approved</p>
               <CheckCircle className="text-emerald-600" size={18} />
             </div>
-            <p className="text-3xl font-bold text-emerald-600">{stats.approved}</p>
+            <p className="text-3xl font-bold text-emerald-600">
+              {stats.approved}
+            </p>
             <p className="text-xs text-gray-500 mt-1">Ready for execution</p>
           </Card>
 
@@ -207,7 +245,9 @@ export default function AgentActions() {
               <p className="text-sm text-gray-600">Avg Confidence</p>
               <Zap className="text-purple-600" size={18} />
             </div>
-            <p className="text-3xl font-bold text-purple-600">{stats.avg_confidence}%</p>
+            <p className="text-3xl font-bold text-purple-600">
+              {stats.avg_confidence}%
+            </p>
             <p className="text-xs text-gray-500 mt-1">Action confidence</p>
           </Card>
         </div>
@@ -221,11 +261,16 @@ export default function AgentActions() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Category
+            </label>
             <select
-              value={filter.category || ''}
+              value={filter.category || ""}
               onChange={(e) =>
-                setFilter({ ...filter, category: (e.target.value as ActionCategory) || undefined })
+                setFilter({
+                  ...filter,
+                  category: (e.target.value as ActionCategory) || undefined,
+                })
               }
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -240,11 +285,16 @@ export default function AgentActions() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Status
+            </label>
             <select
-              value={filter.status || ''}
+              value={filter.status || ""}
               onChange={(e) =>
-                setFilter({ ...filter, status: (e.target.value as ActionStatus) || undefined })
+                setFilter({
+                  ...filter,
+                  status: (e.target.value as ActionStatus) || undefined,
+                })
               }
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -259,11 +309,16 @@ export default function AgentActions() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Priority
+            </label>
             <select
-              value={filter.priority || ''}
+              value={filter.priority || ""}
               onChange={(e) =>
-                setFilter({ ...filter, priority: (e.target.value as ActionPriority) || undefined })
+                setFilter({
+                  ...filter,
+                  priority: (e.target.value as ActionPriority) || undefined,
+                })
               }
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -278,11 +333,11 @@ export default function AgentActions() {
 
       <div>
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
-          {filter.status === 'pending_review'
-            ? 'Actions Pending Review'
-            : filter.status === 'approved'
-            ? 'Approved Actions'
-            : 'All Actions'}
+          {filter.status === "pending_review"
+            ? "Actions Pending Review"
+            : filter.status === "approved"
+              ? "Approved Actions"
+              : "All Actions"}
         </h2>
 
         <div className="space-y-4">
@@ -301,7 +356,9 @@ export default function AgentActions() {
 
         {actions.length === 0 && (
           <Card>
-            <p className="text-center text-gray-500 py-8">No actions match your filters</p>
+            <p className="text-center text-gray-500 py-8">
+              No actions match your filters
+            </p>
           </Card>
         )}
       </div>

@@ -1,28 +1,35 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Download, AlertTriangle, CheckCircle2, FileJson, Loader2, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import { useAuth } from '../../contexts/AuthContext';
-import { auditService } from '../../lib/db/audit';
-import { teamService } from '../../lib/db/team';
-import { projectsService } from '../../lib/db/projects';
-import { supabase } from '../../lib/supabase';
-import JSZip from 'jszip';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Download,
+  AlertTriangle,
+  CheckCircle2,
+  FileJson,
+  Loader2,
+  ArrowLeft,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import { useAuth } from "../../contexts/AuthContext";
+import { auditService } from "../../lib/db/audit";
+import { teamService } from "../../lib/db/team";
+import { projectsService } from "../../lib/db/projects";
+import { supabase } from "../../lib/supabase";
+import JSZip from "jszip";
 
 export default function ExportHub() {
   const { profile, currentOrganization } = useAuth();
   const [isExporting, setIsExporting] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [exportComplete, setExportComplete] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleExportData = async () => {
     if (!currentOrganization) return;
     setIsExporting(true);
     setDownloadProgress(0);
-    setError('');
+    setError("");
     setExportComplete(false);
 
     try {
@@ -30,8 +37,14 @@ export default function ExportHub() {
       const [members, projects, tasks, documents] = await Promise.all([
         teamService.getOrganizationMembers(currentOrganization.id),
         projectsService.getProjectsByOrganization(currentOrganization.id),
-        supabase.from('bb_global_tasks').select('*').eq('tenant_id', currentOrganization.id),
-        supabase.from('bb_documents').select('*').eq('organization_id', currentOrganization.id)
+        supabase
+          .from("bb_global_tasks")
+          .select("*")
+          .eq("tenant_id", currentOrganization.id),
+        supabase
+          .from("bb_documents")
+          .select("*")
+          .eq("organization_id", currentOrganization.id),
       ]);
 
       const exportPayload = {
@@ -39,7 +52,7 @@ export default function ExportHub() {
           timestamp: new Date().toISOString(),
           requested_by: profile?.email,
           organization: currentOrganization.name,
-          organization_id: currentOrganization.id
+          organization_id: currentOrganization.id,
         },
         data: {
           profile,
@@ -47,13 +60,13 @@ export default function ExportHub() {
           members,
           projects,
           tasks: tasks.data || [],
-          documents: documents.data || []
-        }
+          documents: documents.data || [],
+        },
       };
 
       // Construct ZIP locally (simulating the Server-Side generateSignedUrl heuristics requirement purely via seamless JSON packaging natively)
       const zip = new JSZip();
-      
+
       const payloadString = JSON.stringify(exportPayload, null, 2);
       zip.file("GDPR_Data_Export.json", payloadString);
 
@@ -63,35 +76,35 @@ Generated: ${exportPayload.meta.timestamp}
 Organization: ${exportPayload.meta.organization}
 
 This archive contains a structured JSON payload encapsulating ${members.length} member profiles, ${projects.length} connected projects, and aggregate records across Tasks and Documents associated directly with your tenant footprint.`;
-      
+
       zip.file("README_GDPR.txt", summaryText);
 
       const blob = await zip.generateAsync({ type: "blob" }, (metadata) => {
         setDownloadProgress(metadata.percent);
       });
       const url = URL.createObjectURL(blob);
-      
+
       const a = document.createElement("a");
       a.href = url;
-      a.download = `bridgebox_export_${currentOrganization.name.replace(/\\s+/g, '_')}_${Date.now()}.zip`;
+      a.download = `bridgebox_export_${currentOrganization.name.replace(/\\s+/g, "_")}_${Date.now()}.zip`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
+
       // Log extraction
       await auditService.logEvent({
         organizationId: currentOrganization.id,
-        actionType: 'export',
-        resourceType: 'system',
+        actionType: "export",
+        resourceType: "system",
         resourceId: currentOrganization.id,
-        deltaJson: { type: 'gdpr_compliance_export' }
+        deltaJson: { type: "gdpr_compliance_export" },
       });
 
       setExportComplete(true);
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'Failed to aggregate and package export data.');
+      setError(err.message || "Failed to aggregate and package export data.");
     } finally {
       setIsExporting(false);
     }
@@ -99,8 +112,11 @@ This archive contains a structured JSON payload encapsulating ${members.length} 
 
   return (
     <>
-      <AppHeader title="Data Export Hub" subtitle="GDPR & CCPA Data Portability" />
-      
+      <AppHeader
+        title="Data Export Hub"
+        subtitle="GDPR & CCPA Data Portability"
+      />
+
       <div className="p-8 max-w-4xl space-y-8">
         <Link
           to="/app/settings"
@@ -115,9 +131,16 @@ This archive contains a structured JSON payload encapsulating ${members.length} 
               <Download className="w-8 h-8 text-emerald-400" />
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-white mb-2">Request Data Archive</h2>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Request Data Archive
+              </h2>
               <p className="text-slate-400 leading-relaxed max-w-2xl mb-6">
-                Under GDPR and CCPA compliance frameworks, you have the fundamental right to download a readable copy of your aggregated organization footprint securely. Generating this archive extracts all assigned tasks, project payloads, active profiles, and core settings into a structured JSON `.zip` payload natively.
+                Under GDPR and CCPA compliance frameworks, you have the
+                fundamental right to download a readable copy of your aggregated
+                organization footprint securely. Generating this archive
+                extracts all assigned tasks, project payloads, active profiles,
+                and core settings into a structured JSON `.zip` payload
+                natively.
               </p>
 
               {error && (
@@ -130,7 +153,10 @@ This archive contains a structured JSON payload encapsulating ${members.length} 
               {exportComplete && (
                 <div className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center space-x-3 text-emerald-400">
                   <CheckCircle2 className="w-5 h-5 shrink-0" />
-                  <p className="text-sm font-medium">Export completed successfully. Your ZIP compilation should have automatically downloaded.</p>
+                  <p className="text-sm font-medium">
+                    Export completed successfully. Your ZIP compilation should
+                    have automatically downloaded.
+                  </p>
                 </div>
               )}
 
@@ -176,11 +202,14 @@ This archive contains a structured JSON payload encapsulating ${members.length} 
                       <div className="flex flex-col items-center">
                         <div className="flex items-center gap-2 mb-2">
                           <Loader2 className="w-5 h-5 animate-spin" />
-                          <span>Aggregating Payloads... {Math.round(downloadProgress)}%</span>
+                          <span>
+                            Aggregating Payloads...{" "}
+                            {Math.round(downloadProgress)}%
+                          </span>
                         </div>
                         {/* Compression Progression Bar */}
                         <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden mt-1 max-w-[200px]">
-                          <div 
+                          <div
                             className="h-full bg-emerald-400 transition-all duration-300"
                             style={{ width: `${downloadProgress}%` }}
                           />
@@ -194,7 +223,8 @@ This archive contains a structured JSON payload encapsulating ${members.length} 
                     )}
                   </button>
                   <p className="text-xs text-slate-500 mt-3 inline-block">
-                    This action is irreversibly tracked in your global Audit Trail.
+                    This action is irreversibly tracked in your global Audit
+                    Trail.
                   </p>
                 </div>
               </div>

@@ -1,7 +1,16 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { Mic, MicOff, Square, Play, Pause, Edit3, Check, RefreshCw } from 'lucide-react';
-import type { VoiceContextMode } from '../../types/enhancement';
-import { VOICE_CONTEXT_LABELS } from '../../types/enhancement';
+import { useState, useEffect, useRef, useCallback } from "react";
+import {
+  Mic,
+  MicOff,
+  Square,
+  Play,
+  Pause,
+  Edit3,
+  Check,
+  RefreshCw,
+} from "lucide-react";
+import type { VoiceContextMode } from "../../types/enhancement";
+import { VOICE_CONTEXT_LABELS } from "../../types/enhancement";
 
 interface VoiceCapturePanelProps {
   contextMode: VoiceContextMode;
@@ -22,10 +31,10 @@ export default function VoiceCapturePanel({
 }: VoiceCapturePanelProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [transcript, setTranscript] = useState('');
-  const [interimText, setInterimText] = useState('');
+  const [transcript, setTranscript] = useState("");
+  const [interimText, setInterimText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState('');
+  const [editValue, setEditValue] = useState("");
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [isSupported, setIsSupported] = useState(true);
@@ -33,7 +42,7 @@ export default function VoiceCapturePanel({
   const recognitionRef = useRef<any>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startTimeRef = useRef<number>(0);
-  const accumulatedRef = useRef('');
+  const accumulatedRef = useRef("");
 
   useEffect(() => {
     if (!SpeechRecognitionAPI) {
@@ -50,7 +59,7 @@ export default function VoiceCapturePanel({
 
   const startTimer = useCallback(() => {
     timerRef.current = setInterval(() => {
-      setElapsedSeconds(prev => prev + 1);
+      setElapsedSeconds((prev) => prev + 1);
     }, 1000);
   }, []);
 
@@ -58,7 +67,11 @@ export default function VoiceCapturePanel({
     return () => {
       stopTimer();
       if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
+        try {
+          recognitionRef.current.stop();
+        } catch (_e) {
+          /* SpeechRecognition race — safe to ignore */
+        }
       }
     };
   }, [stopTimer]);
@@ -70,16 +83,16 @@ export default function VoiceCapturePanel({
     const recognition = new SpeechRecognitionAPI();
     recognition.continuous = true;
     recognition.interimResults = true;
-    recognition.lang = 'en-US';
+    recognition.lang = "en-US";
 
     recognition.onresult = (event: any) => {
-      let interim = '';
-      let finalPart = '';
+      let interim = "";
+      let finalPart = "";
 
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
         if (result.isFinal) {
-          finalPart += result[0].transcript + ' ';
+          finalPart += result[0].transcript + " ";
         } else {
           interim += result[0].transcript;
         }
@@ -94,8 +107,10 @@ export default function VoiceCapturePanel({
     };
 
     recognition.onerror = (event: any) => {
-      if (event.error !== 'aborted') {
-        setError(`Microphone error: ${event.error}. Please check browser permissions.`);
+      if (event.error !== "aborted") {
+        setError(
+          `Microphone error: ${event.error}. Please check browser permissions.`,
+        );
       }
       setIsRecording(false);
       setIsPaused(false);
@@ -105,7 +120,11 @@ export default function VoiceCapturePanel({
     recognition.onend = () => {
       // Auto-restart if still supposed to be recording (handles Chrome 60s limit)
       if (isRecording && !isPaused) {
-        try { recognition.start(); } catch (_e) { /* Chrome 60s auto-restart — safe to ignore */ }
+        try {
+          recognition.start();
+        } catch (_e) {
+          /* Chrome 60s auto-restart — safe to ignore */
+        }
       }
     };
 
@@ -119,7 +138,11 @@ export default function VoiceCapturePanel({
 
   const pauseRecording = useCallback(() => {
     if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
+      try {
+        recognitionRef.current.stop();
+      } catch (_e) {
+        /* SpeechRecognition race — safe to ignore */
+      }
     }
     setIsPaused(true);
     stopTimer();
@@ -128,19 +151,27 @@ export default function VoiceCapturePanel({
   const resumeRecording = useCallback(() => {
     if (!recognitionRef.current) return;
     setIsPaused(false);
-    try { recognitionRef.current.start(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
+    try {
+      recognitionRef.current.start();
+    } catch (_e) {
+      /* SpeechRecognition race — safe to ignore */
+    }
     startTimer();
   }, [startTimer]);
 
   const stopRecording = useCallback(() => {
     if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
+      try {
+        recognitionRef.current.stop();
+      } catch (_e) {
+        /* SpeechRecognition race — safe to ignore */
+      }
       recognitionRef.current = null;
     }
     stopTimer();
     setIsRecording(false);
     setIsPaused(false);
-    setInterimText('');
+    setInterimText("");
     const finalTranscript = accumulatedRef.current.trim();
     setTranscript(finalTranscript);
     onTranscriptReady(finalTranscript, elapsedSeconds);
@@ -149,12 +180,16 @@ export default function VoiceCapturePanel({
   const handleReset = useCallback(() => {
     stopTimer();
     if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch (_e) { /* SpeechRecognition race — safe to ignore */ }
+      try {
+        recognitionRef.current.stop();
+      } catch (_e) {
+        /* SpeechRecognition race — safe to ignore */
+      }
       recognitionRef.current = null;
     }
-    accumulatedRef.current = '';
-    setTranscript('');
-    setInterimText('');
+    accumulatedRef.current = "";
+    setTranscript("");
+    setInterimText("");
     setIsRecording(false);
     setIsPaused(false);
     setElapsedSeconds(0);
@@ -170,16 +205,22 @@ export default function VoiceCapturePanel({
   }, [editValue, onTranscriptChange]);
 
   const formatTime = (secs: number) => {
-    const m = Math.floor(secs / 60).toString().padStart(2, '0');
-    const s = (secs % 60).toString().padStart(2, '0');
+    const m = Math.floor(secs / 60)
+      .toString()
+      .padStart(2, "0");
+    const s = (secs % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
   };
 
   if (!isSupported) {
     return (
       <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
-        <p className="text-yellow-300 text-sm font-medium">Voice recording not supported in this browser.</p>
-        <p className="text-yellow-400/70 text-xs mt-1">Please use Chrome or Edge, or type your request below.</p>
+        <p className="text-yellow-300 text-sm font-medium">
+          Voice recording not supported in this browser.
+        </p>
+        <p className="text-yellow-400/70 text-xs mt-1">
+          Please use Chrome or Edge, or type your request below.
+        </p>
       </div>
     );
   }
@@ -189,7 +230,10 @@ export default function VoiceCapturePanel({
       {/* Context label */}
       <div className="flex items-center justify-between">
         <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">
-          Mode: <span className="text-indigo-400">{VOICE_CONTEXT_LABELS[contextMode]}</span>
+          Mode:{" "}
+          <span className="text-indigo-400">
+            {VOICE_CONTEXT_LABELS[contextMode]}
+          </span>
         </p>
         {transcript && !isRecording && (
           <button
@@ -250,8 +294,12 @@ export default function VoiceCapturePanel({
 
         {isRecording && (
           <div className="flex items-center gap-2 ml-auto">
-            <div className={`w-2.5 h-2.5 rounded-full ${isPaused ? 'bg-yellow-400' : 'bg-red-500 animate-pulse'}`} />
-            <span className="text-white font-mono text-sm">{formatTime(elapsedSeconds)}</span>
+            <div
+              className={`w-2.5 h-2.5 rounded-full ${isPaused ? "bg-yellow-400" : "bg-red-500 animate-pulse"}`}
+            />
+            <span className="text-white font-mono text-sm">
+              {formatTime(elapsedSeconds)}
+            </span>
           </div>
         )}
       </div>
@@ -263,7 +311,7 @@ export default function VoiceCapturePanel({
             <div className="space-y-3">
               <textarea
                 value={editValue}
-                onChange={e => setEditValue(e.target.value)}
+                onChange={(e) => setEditValue(e.target.value)}
                 className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm resize-none min-h-[80px] focus:outline-none focus:border-indigo-500"
                 autoFocus
               />
@@ -295,7 +343,10 @@ export default function VoiceCapturePanel({
               </p>
               {transcript && !isRecording && (
                 <button
-                  onClick={() => { setEditValue(transcript); setIsEditing(true); }}
+                  onClick={() => {
+                    setEditValue(transcript);
+                    setIsEditing(true);
+                  }}
                   className="absolute top-0 right-0 p-1.5 text-slate-500 hover:text-indigo-400 transition-colors"
                   title="Edit transcript"
                 >

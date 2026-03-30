@@ -1,10 +1,16 @@
-import { CATEGORY_LABELS, CATEGORY_COLORS, type DocumentCategory } from '../../lib/db/knowledge';
+import {
+  CATEGORY_LABELS,
+  CATEGORY_COLORS,
+  type DocumentCategory,
+} from "../../lib/db/knowledge";
 
 interface DocumentCategoryBadgeProps {
   category: DocumentCategory;
 }
 
-export default function DocumentCategoryBadge({ category }: DocumentCategoryBadgeProps) {
+export default function DocumentCategoryBadge({
+  category,
+}: DocumentCategoryBadgeProps) {
   const colors = CATEGORY_COLORS[category];
   const label = CATEGORY_LABELS[category];
 

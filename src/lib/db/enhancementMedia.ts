@@ -1,6 +1,9 @@
-import * as tus from 'tus-js-client';
-import { supabase } from '../supabase';
-import type { EnhancementMedia, MediaProcessingStatus } from '../../types/enhancement';
+import * as tus from "tus-js-client";
+import { supabase } from "../supabase";
+import type {
+  EnhancementMedia,
+  MediaProcessingStatus,
+} from "../../types/enhancement";
 
 export const enhancementMediaService = {
   async upload(params: {
@@ -11,23 +14,25 @@ export const enhancementMediaService = {
     onProgress?: (progress: number) => void;
   }): Promise<EnhancementMedia> {
     const { data: sessionData } = await supabase.auth.getSession();
-    if (!sessionData.session) throw new Error('Not authenticated');
-    
-    const { data: userData } = await supabase.auth.getUser();
-    if (!userData.user) throw new Error('Not authenticated');
+    if (!sessionData.session) throw new Error("Not authenticated");
 
-    const fileType: EnhancementMedia['file_type'] = params.file.type.startsWith('image/')
-      ? 'screenshot'
-      : params.file.type.startsWith('video/')
-      ? 'video'
-      : params.file.type.startsWith('audio/')
-      ? 'audio'
-      : 'document';
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData.user) throw new Error("Not authenticated");
+
+    const fileType: EnhancementMedia["file_type"] = params.file.type.startsWith(
+      "image/",
+    )
+      ? "screenshot"
+      : params.file.type.startsWith("video/")
+        ? "video"
+        : params.file.type.startsWith("audio/")
+          ? "audio"
+          : "document";
 
     // Sanitize filename
     const timestamp = Date.now();
-    const ext = params.file.name.split('.').pop() || 'bin';
-    const safeName = params.file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const ext = params.file.name.split(".").pop() || "bin";
+    const safeName = params.file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
     const storagePath = `${params.workspaceId}/${params.enhancementRequestId}/${timestamp}_${safeName}`;
 
     // Upload — try enhancement_media bucket, fall back to internal_assets
@@ -41,15 +46,15 @@ export const enhancementMediaService = {
         retryDelays: [0, 1000, 3000, 5000],
         headers: {
           authorization: `Bearer ${sessionData.session?.access_token}`,
-          'x-upsert': 'true',
+          "x-upsert": "true",
         },
         uploadDataDuringCreation: false,
         removeFingerprintOnSuccess: true,
         metadata: {
-          bucketName: 'enhancement_media',
+          bucketName: "enhancement_media",
           objectName: storagePath,
-          contentType: params.file.type || 'application/octet-stream',
-          cacheControl: '3600',
+          contentType: params.file.type || "application/octet-stream",
+          cacheControl: "3600",
         },
         chunkSize: 6 * 1024 * 1024,
         onError: reject,
@@ -66,13 +71,12 @@ export const enhancementMediaService = {
     });
 
     const { data: urlData } = await supabase.storage
-      .from('enhancement_media')
+      .from("enhancement_media")
       .createSignedUrl(finalPath, 3600);
     storageUrl = urlData?.signedUrl;
 
-
     const { data, error } = await supabase
-      .from('bb_enhancement_media')
+      .from("bb_enhancement_media")
       .insert({
         enhancement_request_id: params.enhancementRequestId,
         workspace_id: params.workspaceId,
@@ -84,7 +88,7 @@ export const enhancementMediaService = {
         storage_path: finalPath,
         storage_url: storageUrl || null,
         annotation: params.annotation || null,
-        processing_status: 'pending',
+        processing_status: "pending",
       })
       .select()
       .single();
@@ -96,22 +100,25 @@ export const enhancementMediaService = {
   async updateStatus(
     id: string,
     status: MediaProcessingStatus,
-    analysisJson?: any
+    analysisJson?: any,
   ): Promise<void> {
     const { error } = await supabase
-      .from('bb_enhancement_media')
-      .update({ processing_status: status, analysis_json: analysisJson || null })
-      .eq('id', id);
+      .from("bb_enhancement_media")
+      .update({
+        processing_status: status,
+        analysis_json: analysisJson || null,
+      })
+      .eq("id", id);
 
     if (error) throw error;
   },
 
   async listByRequest(requestId: string): Promise<EnhancementMedia[]> {
     const { data, error } = await supabase
-      .from('bb_enhancement_media')
-      .select('*')
-      .eq('enhancement_request_id', requestId)
-      .order('created_at', { ascending: true });
+      .from("bb_enhancement_media")
+      .select("*")
+      .eq("enhancement_request_id", requestId)
+      .order("created_at", { ascending: true });
 
     if (error) throw error;
     return data || [];
@@ -120,16 +127,21 @@ export const enhancementMediaService = {
   async delete(id: string, storagePath: string): Promise<void> {
     // Best-effort storage cleanup
     try {
-      await supabase.storage.from('enhancement_media').remove([storagePath]);
+      await supabase.storage.from("enhancement_media").remove([storagePath]);
     } catch {
       try {
-        await supabase.storage.from('internal_assets').remove([storagePath]);
+        await supabase.storage.from("internal_assets").remove([storagePath]);
       } catch {
-        console.warn('Storage cleanup failed — DB record will still be removed');
+        console.warn(
+          "Storage cleanup failed — DB record will still be removed",
+        );
       }
     }
 
-    const { error } = await supabase.from('bb_enhancement_media').delete().eq('id', id);
+    const { error } = await supabase
+      .from("bb_enhancement_media")
+      .delete()
+      .eq("id", id);
     if (error) throw error;
   },
 };

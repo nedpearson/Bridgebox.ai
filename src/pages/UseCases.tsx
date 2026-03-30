@@ -1,72 +1,65 @@
-import { motion } from 'framer-motion';
-import { Target, DollarSign, Database, Zap, TrendingUp, ArrowRight } from 'lucide-react';
-import Section from '../components/Section';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import GridPattern from '../components/GridPattern';
-import { staggerContainer, staggerItem } from '../utils/animations';
+import { motion } from "framer-motion";
+import {
+  Target,
+  DollarSign,
+  Database,
+  Zap,
+  TrendingUp,
+  ArrowRight,
+} from "lucide-react";
+import Section from "../components/Section";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import GridPattern from "../components/GridPattern";
+import { staggerContainer, staggerItem } from "../utils/animations";
 
 export default function UseCases() {
   const useCases = [
     {
       icon: Target,
-      title: 'Operational Efficiency',
-      description: 'Automate repetitive workflows',
-      benefits: [
-        'Reduce manual workload',
-        'Improve speed',
-      ],
-      outcome: 'Teams save 25+ hours per week and process 3x more work',
-      color: '#3B82F6',
-      gradient: 'from-blue-500/20 to-blue-600/20',
+      title: "Operational Efficiency",
+      description: "Automate repetitive workflows",
+      benefits: ["Reduce manual workload", "Improve speed"],
+      outcome: "Teams save 25+ hours per week and process 3x more work",
+      color: "#3B82F6",
+      gradient: "from-blue-500/20 to-blue-600/20",
     },
     {
       icon: DollarSign,
-      title: 'Cost Reduction',
-      description: 'Eliminate inefficiencies',
-      benefits: [
-        'Reduce labor dependency',
-        'Optimize resources',
-      ],
-      outcome: 'Companies cut operational costs by 40-60% within 6 months',
-      color: '#10B981',
-      gradient: 'from-emerald-500/20 to-emerald-600/20',
+      title: "Cost Reduction",
+      description: "Eliminate inefficiencies",
+      benefits: ["Reduce labor dependency", "Optimize resources"],
+      outcome: "Companies cut operational costs by 40-60% within 6 months",
+      color: "#10B981",
+      gradient: "from-emerald-500/20 to-emerald-600/20",
     },
     {
       icon: Database,
-      title: 'Data Unification',
-      description: 'Merge multiple systems',
-      benefits: [
-        'Centralized visibility',
-        'Real-time updates',
-      ],
-      outcome: 'Single source of truth with 99.9% data accuracy across platforms',
-      color: '#F59E0B',
-      gradient: 'from-amber-500/20 to-amber-600/20',
+      title: "Data Unification",
+      description: "Merge multiple systems",
+      benefits: ["Centralized visibility", "Real-time updates"],
+      outcome:
+        "Single source of truth with 99.9% data accuracy across platforms",
+      color: "#F59E0B",
+      gradient: "from-amber-500/20 to-amber-600/20",
     },
     {
       icon: Zap,
-      title: 'Automation',
-      description: 'Remove manual tasks',
-      benefits: [
-        'Standardize processes',
-        'Improve reliability',
-      ],
-      outcome: '80% of repetitive tasks automated with zero-touch processing',
-      color: '#8B5CF6',
-      gradient: 'from-violet-500/20 to-violet-600/20',
+      title: "Automation",
+      description: "Remove manual tasks",
+      benefits: ["Standardize processes", "Improve reliability"],
+      outcome: "80% of repetitive tasks automated with zero-touch processing",
+      color: "#8B5CF6",
+      gradient: "from-violet-500/20 to-violet-600/20",
     },
     {
       icon: TrendingUp,
-      title: 'Predictive Analytics',
-      description: 'Forecast trends',
-      benefits: [
-        'Identify issues early',
-        'Enable smarter decisions',
-      ],
-      outcome: 'Predict problems 2-4 weeks in advance with 94% accuracy',
-      color: '#EC4899',
-      gradient: 'from-pink-500/20 to-pink-600/20',
+      title: "Predictive Analytics",
+      description: "Forecast trends",
+      benefits: ["Identify issues early", "Enable smarter decisions"],
+      outcome: "Predict problems 2-4 weeks in advance with 94% accuracy",
+      color: "#EC4899",
+      gradient: "from-pink-500/20 to-pink-600/20",
     },
   ];
 
@@ -98,7 +91,8 @@ export default function UseCases() {
             transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl text-slate-300 leading-relaxed"
           >
-            Discover how businesses transform operations, reduce costs, and drive measurable results with intelligent automation.
+            Discover how businesses transform operations, reduce costs, and
+            drive measurable results with intelligent automation.
           </motion.p>
         </div>
       </Section>
@@ -117,7 +111,11 @@ export default function UseCases() {
               variants={staggerItem}
               custom={index}
             >
-              <Card hover glass className="h-full group relative overflow-hidden">
+              <Card
+                hover
+                glass
+                className="h-full group relative overflow-hidden"
+              >
                 <motion.div
                   className={`absolute inset-0 bg-gradient-to-br ${useCase.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10`}
                 />
@@ -128,12 +126,15 @@ export default function UseCases() {
                     style={{
                       backgroundColor: `${useCase.color}15`,
                       borderColor: `${useCase.color}30`,
-                      borderWidth: '1px',
+                      borderWidth: "1px",
                     }}
                     whileHover={{ scale: 1.05, rotate: -5 }}
-                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                   >
-                    <useCase.icon className="w-10 h-10" style={{ color: useCase.color }} />
+                    <useCase.icon
+                      className="w-10 h-10"
+                      style={{ color: useCase.color }}
+                    />
                     <motion.div
                       className="absolute inset-0 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                       style={{ backgroundColor: `${useCase.color}30` }}
@@ -204,7 +205,8 @@ export default function UseCases() {
             Ready to Transform Your Operations?
           </h2>
           <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-            Join companies achieving measurable results with Bridgebox. Let's discuss your specific use case.
+            Join companies achieving measurable results with Bridgebox. Let's
+            discuss your specific use case.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" to="/contact">

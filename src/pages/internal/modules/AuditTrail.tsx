@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { auditService, AuditLog } from '../../../lib/db/audit';
-import { Shield, Search, Filter } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { auditService, AuditLog } from "../../../lib/db/audit";
+import { Shield, Search, Filter } from "lucide-react";
 
 export default function AuditTrail() {
   const [events, setEvents] = useState<AuditLog[]>([]);
@@ -30,9 +30,15 @@ export default function AuditTrail() {
             <Shield className="w-6 h-6 text-indigo-400" />
             Global Audit Ledger
           </h2>
-          <p className="text-sm text-slate-400 mt-1">Immutable ledger of all client events across the multi-tenant landscape.</p>
+          <p className="text-sm text-slate-400 mt-1">
+            Immutable ledger of all client events across the multi-tenant
+            landscape.
+          </p>
         </div>
-        <button onClick={loadEvents} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg transition-colors">
+        <button
+          onClick={loadEvents}
+          className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg transition-colors"
+        >
           Refresh Ledger
         </button>
       </div>
@@ -51,27 +57,38 @@ export default function AuditTrail() {
             </thead>
             <tbody className="divide-y divide-slate-800/50">
               {events.map((ev) => (
-                <tr key={ev.id} className="hover:bg-slate-800/20 transition-colors">
+                <tr
+                  key={ev.id}
+                  className="hover:bg-slate-800/20 transition-colors"
+                >
                   <td className="p-4 text-sm text-slate-400 font-mono whitespace-nowrap">
-                     {new Date(ev.created_at).toLocaleString()}
+                    {new Date(ev.created_at).toLocaleString()}
                   </td>
                   <td className="p-4 text-sm text-indigo-400 font-medium">
-                    {ev.org_name || ev.organization_id.split('-')[0] + '...'}
+                    {ev.org_name || ev.organization_id.split("-")[0] + "..."}
                   </td>
                   <td className="p-4 text-sm text-white font-mono uppercase">
                     {ev.action_type}
                   </td>
-                   <td className="p-4 text-sm text-slate-300">
-                    {ev.resource_type} {ev.resource_id ? `(${ev.resource_id.split('-')[0]}...)` : ''}
+                  <td className="p-4 text-sm text-slate-300">
+                    {ev.resource_type}{" "}
+                    {ev.resource_id
+                      ? `(${ev.resource_id.split("-")[0]}...)`
+                      : ""}
                   </td>
                   <td className="p-4 text-sm text-slate-500">
-                    {ev.user_email || ev.user_name || 'System / Auto'}
+                    {ev.user_email || ev.user_name || "System / Auto"}
                   </td>
                 </tr>
               ))}
               {events.length === 0 && !loading && (
                 <tr>
-                  <td colSpan={5} className="p-8 text-center text-slate-500 font-mono">No internal audit trails recorded yet.</td>
+                  <td
+                    colSpan={5}
+                    className="p-8 text-center text-slate-500 font-mono"
+                  >
+                    No internal audit trails recorded yet.
+                  </td>
                 </tr>
               )}
             </tbody>

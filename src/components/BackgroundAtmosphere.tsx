@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export default function BackgroundAtmosphere() {
   return (
@@ -14,7 +14,7 @@ export default function BackgroundAtmosphere() {
         transition={{
           duration: 20,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
       />
 
@@ -29,7 +29,7 @@ export default function BackgroundAtmosphere() {
         transition={{
           duration: 25,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
           delay: 2,
         }}
       />
@@ -45,7 +45,7 @@ export default function BackgroundAtmosphere() {
         transition={{
           duration: 30,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
           delay: 5,
         }}
       />

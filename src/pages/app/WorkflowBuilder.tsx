@@ -1,38 +1,53 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Save, Play, ArrowLeft, Plus, Trash2, Sparkles, Bot, Loader2 } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import RelationalCommandCenter from '../../components/app/RelationalCommandCenter';
-import RelationalMetricsCard from '../../components/app/RelationalMetricsCard';
-import NextBestActionPanel from '../../components/app/NextBestActionPanel';
-import BlockersPanel from '../../components/app/BlockersPanel';
-import TimelineActivity from '../../components/app/TimelineActivity';
-import EcosystemRecommendationsPanel from '../../components/intelligence/EcosystemRecommendationsPanel';
-import { workflowService } from '../../lib/db/workflows';
-import { aiService } from '../../lib/ai/services/aiService';
-import type { Workflow, WorkflowStep, WorkflowCategory, WorkflowTriggerType, WorkflowStepType } from '../../types/workflow';
-import { useAuth } from '../../contexts/AuthContext';
-import UpgradeModal from '../../components/app/UpgradeModal';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  Save,
+  Play,
+  ArrowLeft,
+  Plus,
+  Trash2,
+  Sparkles,
+  Bot,
+  Loader2,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import RelationalCommandCenter from "../../components/app/RelationalCommandCenter";
+import RelationalMetricsCard from "../../components/app/RelationalMetricsCard";
+import NextBestActionPanel from "../../components/app/NextBestActionPanel";
+import BlockersPanel from "../../components/app/BlockersPanel";
+import TimelineActivity from "../../components/app/TimelineActivity";
+import EcosystemRecommendationsPanel from "../../components/intelligence/EcosystemRecommendationsPanel";
+import { workflowService } from "../../lib/db/workflows";
+import { aiService } from "../../lib/ai/services/aiService";
+import type {
+  Workflow,
+  WorkflowStep,
+  WorkflowCategory,
+  WorkflowTriggerType,
+  WorkflowStepType,
+} from "../../types/workflow";
+import { useAuth } from "../../contexts/AuthContext";
+import UpgradeModal from "../../components/app/UpgradeModal";
 
 const TRIGGER_OPTIONS: { value: WorkflowTriggerType; label: string }[] = [
-  { value: 'lead_created', label: 'Lead Created' },
-  { value: 'proposal_approved', label: 'Proposal Approved' },
-  { value: 'onboarding_completed', label: 'Onboarding Completed' },
-  { value: 'project_created', label: 'Project Created' },
-  { value: 'support_ticket_created', label: 'Support Ticket Created' },
-  { value: 'invoice_overdue', label: 'Invoice Overdue' },
+  { value: "lead_created", label: "Lead Created" },
+  { value: "proposal_approved", label: "Proposal Approved" },
+  { value: "onboarding_completed", label: "Onboarding Completed" },
+  { value: "project_created", label: "Project Created" },
+  { value: "support_ticket_created", label: "Support Ticket Created" },
+  { value: "invoice_overdue", label: "Invoice Overdue" },
 ];
 
 const CATEGORY_OPTIONS: { value: WorkflowCategory; label: string }[] = [
-  { value: 'lead', label: 'Lead' },
-  { value: 'project', label: 'Project' },
-  { value: 'billing', label: 'Billing' },
-  { value: 'support', label: 'Support' },
-  { value: 'custom', label: 'Custom' },
+  { value: "lead", label: "Lead" },
+  { value: "project", label: "Project" },
+  { value: "billing", label: "Billing" },
+  { value: "support", label: "Support" },
+  { value: "custom", label: "Custom" },
 ];
 
 export function WorkflowBuilder() {
@@ -41,12 +56,13 @@ export function WorkflowBuilder() {
   const { currentOrganization } = useAuth();
   const [loading, setLoading] = useState(!!id);
   const [saving, setSaving] = useState(false);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState<WorkflowCategory>('custom');
-  const [triggerType, setTriggerType] = useState<WorkflowTriggerType>('lead_created');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState<WorkflowCategory>("custom");
+  const [triggerType, setTriggerType] =
+    useState<WorkflowTriggerType>("lead_created");
   const [steps, setSteps] = useState<WorkflowStep[]>([]);
-  const [aiPrompt, setAiPrompt] = useState('');
+  const [aiPrompt, setAiPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   const { profile } = useAuth();
@@ -59,23 +75,31 @@ export function WorkflowBuilder() {
       if (response.success && response.data) {
         setSteps(response.data);
       } else {
-        throw new Error(response.error?.message || 'Failed to generate workflow');
+        throw new Error(
+          response.error?.message || "Failed to generate workflow",
+        );
       }
     } catch (err) {
-      console.error('AI Generation Failed:', err);
-      alert('Failed to interpret workflow constraints. Please modify your prompt and retry.');
+      console.error("AI Generation Failed:", err);
+      alert(
+        "Failed to interpret workflow constraints. Please modify your prompt and retry.",
+      );
     } finally {
       setIsGenerating(false);
-      setAiPrompt('');
+      setAiPrompt("");
     }
   };
 
   useEffect(() => {
-    const isStarter = currentOrganization?.billing_plan === 'Starter';
-    if (isStarter && profile?.role !== 'super_admin' && profile?.role !== 'internal_staff') {
-       setIsUpgradeModalOpen(true);
-       setLoading(false);
-       return;
+    const isStarter = currentOrganization?.billing_plan === "Starter";
+    if (
+      isStarter &&
+      profile?.role !== "super_admin" &&
+      profile?.role !== "internal_staff"
+    ) {
+      setIsUpgradeModalOpen(true);
+      setLoading(false);
+      return;
     }
     if (id) {
       loadWorkflow();
@@ -90,13 +114,13 @@ export function WorkflowBuilder() {
       const workflow = await workflowService.getWorkflowWithSteps(id);
       if (workflow) {
         setName(workflow.name);
-        setDescription(workflow.description || '');
+        setDescription(workflow.description || "");
         setCategory(workflow.category);
         setTriggerType(workflow.trigger_type);
         setSteps(workflow.steps);
       }
     } catch (err) {
-      console.error('Failed to load workflow:', err);
+      console.error("Failed to load workflow:", err);
     } finally {
       setLoading(false);
     }
@@ -105,7 +129,7 @@ export function WorkflowBuilder() {
   const handleSave = async () => {
     if (!currentOrganization?.id) return;
     if (!name.trim()) {
-      alert('Please enter a workflow name');
+      alert("Please enter a workflow name");
       return;
     }
 
@@ -132,8 +156,8 @@ export function WorkflowBuilder() {
         navigate(`/app/workflows/${workflow.id}`);
       }
     } catch (err) {
-      console.error('Failed to save workflow:', err);
-      alert('Failed to save workflow');
+      console.error("Failed to save workflow:", err);
+      alert("Failed to save workflow");
     } finally {
       setSaving(false);
     }
@@ -150,7 +174,9 @@ export function WorkflowBuilder() {
   const renderEditor = () => (
     <div className="space-y-6">
       <Card className="p-6 bg-slate-900/50 border-slate-800">
-        <h2 className="text-lg font-semibold text-white mb-4">Basic Information</h2>
+        <h2 className="text-lg font-semibold text-white mb-4">
+          Basic Information
+        </h2>
 
         <div className="space-y-4">
           <div>
@@ -186,7 +212,9 @@ export function WorkflowBuilder() {
               </label>
               <select
                 value={category}
-                onChange={(e) => setCategory(e.target.value as WorkflowCategory)}
+                onChange={(e) =>
+                  setCategory(e.target.value as WorkflowCategory)
+                }
                 className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
               >
                 {CATEGORY_OPTIONS.map((option) => (
@@ -203,7 +231,9 @@ export function WorkflowBuilder() {
               </label>
               <select
                 value={triggerType}
-                onChange={(e) => setTriggerType(e.target.value as WorkflowTriggerType)}
+                onChange={(e) =>
+                  setTriggerType(e.target.value as WorkflowTriggerType)
+                }
                 className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
               >
                 {TRIGGER_OPTIONS.map((option) => (
@@ -241,7 +271,11 @@ export function WorkflowBuilder() {
             ) : (
               <Sparkles className="w-5 h-5" />
             )}
-            <span>Generate<br/>Graph</span>
+            <span>
+              Generate
+              <br />
+              Graph
+            </span>
           </button>
         </div>
       </Card>
@@ -290,13 +324,15 @@ export function WorkflowBuilder() {
 
   const renderContent = () => (
     <div className="max-w-7xl mx-auto px-6 py-8">
-
       {id ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             <BlockersPanel entityType="workflow" entityId={id} />
             <RelationalMetricsCard entityType="workflow" entityId={id} />
-            <NextBestActionPanel entityType="workflow" entityData={{ id, name, category, status: 'active', triggerType }} />
+            <NextBestActionPanel
+              entityType="workflow"
+              entityData={{ id, name, category, status: "active", triggerType }}
+            />
             {renderEditor()}
           </div>
           <div className="space-y-6">
@@ -313,16 +349,19 @@ export function WorkflowBuilder() {
   return (
     <div className="min-h-screen bg-slate-950">
       <AppHeader
-        title={id ? 'Edit Workflow' : 'New Workflow'}
+        title={id ? "Edit Workflow" : "New Workflow"}
         backTo="/app/workflows"
         backLabel="Workflows"
         action={
           <div className="flex items-center space-x-3">
-            <button onClick={() => navigate('/app/workflows')} className="text-sm font-medium text-slate-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-slate-800/50">
+            <button
+              onClick={() => navigate("/app/workflows")}
+              className="text-sm font-medium text-slate-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-slate-800/50"
+            >
               Discard
             </button>
             <Button onClick={handleSave} disabled={saving} size="sm">
-               {saving ? 'Saving...' : 'Save'}
+              {saving ? "Saving..." : "Save"}
             </Button>
           </div>
         }

@@ -1,22 +1,22 @@
-import { supabase } from '../supabase';
+import { supabase } from "../supabase";
 
 export type TriggerType =
-  | 'lead_created'
-  | 'proposal_approved'
-  | 'onboarding_completed'
-  | 'project_created'
-  | 'support_ticket_created'
-  | 'invoice_overdue';
+  | "lead_created"
+  | "proposal_approved"
+  | "onboarding_completed"
+  | "project_created"
+  | "support_ticket_created"
+  | "invoice_overdue";
 
 export type ActionType =
-  | 'create_project'
-  | 'assign_team_member'
-  | 'send_notification'
-  | 'update_status'
-  | 'create_task'
-  | 'flag_risk';
+  | "create_project"
+  | "assign_team_member"
+  | "send_notification"
+  | "update_status"
+  | "create_task"
+  | "flag_risk";
 
-export type ExecutionStatus = 'pending' | 'success' | 'failed';
+export type ExecutionStatus = "pending" | "success" | "failed";
 
 export interface AutomationRule {
   id: string;
@@ -50,7 +50,7 @@ export interface TriggerConfig {
   conditions: {
     field: string;
     label: string;
-    type: 'text' | 'select' | 'number';
+    type: "text" | "select" | "number";
     options?: { value: string; label: string }[];
   }[];
 }
@@ -62,7 +62,7 @@ export interface ActionConfig {
   fields: {
     key: string;
     label: string;
-    type: 'text' | 'select' | 'textarea' | 'number';
+    type: "text" | "select" | "textarea" | "number";
     required?: boolean;
     options?: { value: string; label: string }[];
   }[];
@@ -70,111 +70,111 @@ export interface ActionConfig {
 
 export const TRIGGER_CONFIGS: TriggerConfig[] = [
   {
-    type: 'lead_created',
-    label: 'New Lead Created',
-    description: 'Triggered when a new lead is added to the system',
+    type: "lead_created",
+    label: "New Lead Created",
+    description: "Triggered when a new lead is added to the system",
     conditions: [
       {
-        field: 'lead_type',
-        label: 'Lead Type',
-        type: 'select',
+        field: "lead_type",
+        label: "Lead Type",
+        type: "select",
         options: [
-          { value: 'any', label: 'Any' },
-          { value: 'custom_software', label: 'Custom Software' },
-          { value: 'automation', label: 'Automation' },
-          { value: 'dashboards', label: 'Dashboards' },
-          { value: 'mobile_app', label: 'Mobile App' },
+          { value: "any", label: "Any" },
+          { value: "custom_software", label: "Custom Software" },
+          { value: "automation", label: "Automation" },
+          { value: "dashboards", label: "Dashboards" },
+          { value: "mobile_app", label: "Mobile App" },
         ],
       },
       {
-        field: 'budget_min',
-        label: 'Minimum Budget',
-        type: 'number',
+        field: "budget_min",
+        label: "Minimum Budget",
+        type: "number",
       },
     ],
   },
   {
-    type: 'proposal_approved',
-    label: 'Proposal Approved',
-    description: 'Triggered when a client approves a proposal',
+    type: "proposal_approved",
+    label: "Proposal Approved",
+    description: "Triggered when a client approves a proposal",
     conditions: [
       {
-        field: 'pricing_model',
-        label: 'Pricing Model',
-        type: 'select',
+        field: "pricing_model",
+        label: "Pricing Model",
+        type: "select",
         options: [
-          { value: 'any', label: 'Any' },
-          { value: 'fixed_project', label: 'Fixed Project' },
-          { value: 'milestone_based', label: 'Milestone Based' },
-          { value: 'monthly_retainer', label: 'Monthly Retainer' },
+          { value: "any", label: "Any" },
+          { value: "fixed_project", label: "Fixed Project" },
+          { value: "milestone_based", label: "Milestone Based" },
+          { value: "monthly_retainer", label: "Monthly Retainer" },
         ],
       },
     ],
   },
   {
-    type: 'onboarding_completed',
-    label: 'Onboarding Completed',
-    description: 'Triggered when a client completes onboarding',
+    type: "onboarding_completed",
+    label: "Onboarding Completed",
+    description: "Triggered when a client completes onboarding",
     conditions: [],
   },
   {
-    type: 'project_created',
-    label: 'Project Created',
-    description: 'Triggered when a new project is created',
+    type: "project_created",
+    label: "Project Created",
+    description: "Triggered when a new project is created",
     conditions: [
       {
-        field: 'project_type',
-        label: 'Project Type',
-        type: 'select',
+        field: "project_type",
+        label: "Project Type",
+        type: "select",
         options: [
-          { value: 'any', label: 'Any' },
-          { value: 'dashboard', label: 'Dashboard' },
-          { value: 'mobile_app', label: 'Mobile App' },
-          { value: 'web_app', label: 'Web App' },
-          { value: 'integration', label: 'Integration' },
+          { value: "any", label: "Any" },
+          { value: "dashboard", label: "Dashboard" },
+          { value: "mobile_app", label: "Mobile App" },
+          { value: "web_app", label: "Web App" },
+          { value: "integration", label: "Integration" },
         ],
       },
     ],
   },
   {
-    type: 'support_ticket_created',
-    label: 'Support Ticket Created',
-    description: 'Triggered when a support ticket is created',
+    type: "support_ticket_created",
+    label: "Support Ticket Created",
+    description: "Triggered when a support ticket is created",
     conditions: [
       {
-        field: 'priority',
-        label: 'Priority',
-        type: 'select',
+        field: "priority",
+        label: "Priority",
+        type: "select",
         options: [
-          { value: 'any', label: 'Any' },
-          { value: 'urgent', label: 'Urgent' },
-          { value: 'high', label: 'High' },
-          { value: 'medium', label: 'Medium' },
-          { value: 'low', label: 'Low' },
+          { value: "any", label: "Any" },
+          { value: "urgent", label: "Urgent" },
+          { value: "high", label: "High" },
+          { value: "medium", label: "Medium" },
+          { value: "low", label: "Low" },
         ],
       },
       {
-        field: 'category',
-        label: 'Category',
-        type: 'select',
+        field: "category",
+        label: "Category",
+        type: "select",
         options: [
-          { value: 'any', label: 'Any' },
-          { value: 'bug', label: 'Bug' },
-          { value: 'feature_request', label: 'Feature Request' },
-          { value: 'integration_issue', label: 'Integration Issue' },
+          { value: "any", label: "Any" },
+          { value: "bug", label: "Bug" },
+          { value: "feature_request", label: "Feature Request" },
+          { value: "integration_issue", label: "Integration Issue" },
         ],
       },
     ],
   },
   {
-    type: 'invoice_overdue',
-    label: 'Invoice Overdue',
-    description: 'Triggered when an invoice becomes overdue',
+    type: "invoice_overdue",
+    label: "Invoice Overdue",
+    description: "Triggered when an invoice becomes overdue",
     conditions: [
       {
-        field: 'days_overdue',
-        label: 'Days Overdue',
-        type: 'number',
+        field: "days_overdue",
+        label: "Days Overdue",
+        type: "number",
       },
     ],
   },
@@ -182,166 +182,166 @@ export const TRIGGER_CONFIGS: TriggerConfig[] = [
 
 export const ACTION_CONFIGS: ActionConfig[] = [
   {
-    type: 'create_project',
-    label: 'Create Project',
-    description: 'Automatically create a project from approved proposal',
+    type: "create_project",
+    label: "Create Project",
+    description: "Automatically create a project from approved proposal",
     fields: [
       {
-        key: 'project_template',
-        label: 'Project Template',
-        type: 'select',
+        key: "project_template",
+        label: "Project Template",
+        type: "select",
         required: true,
         options: [
-          { value: 'dashboard', label: 'Dashboard Project' },
-          { value: 'mobile_app', label: 'Mobile App Project' },
-          { value: 'web_app', label: 'Web App Project' },
-          { value: 'integration', label: 'Integration Project' },
+          { value: "dashboard", label: "Dashboard Project" },
+          { value: "mobile_app", label: "Mobile App Project" },
+          { value: "web_app", label: "Web App Project" },
+          { value: "integration", label: "Integration Project" },
         ],
       },
       {
-        key: 'auto_assign_pm',
-        label: 'Auto-assign Project Manager',
-        type: 'select',
+        key: "auto_assign_pm",
+        label: "Auto-assign Project Manager",
+        type: "select",
         options: [
-          { value: 'yes', label: 'Yes' },
-          { value: 'no', label: 'No' },
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
         ],
       },
     ],
   },
   {
-    type: 'assign_team_member',
-    label: 'Assign Team Member',
-    description: 'Automatically assign a team member',
+    type: "assign_team_member",
+    label: "Assign Team Member",
+    description: "Automatically assign a team member",
     fields: [
       {
-        key: 'assignment_type',
-        label: 'Assignment Type',
-        type: 'select',
+        key: "assignment_type",
+        label: "Assignment Type",
+        type: "select",
         required: true,
         options: [
-          { value: 'round_robin', label: 'Round Robin' },
-          { value: 'least_loaded', label: 'Least Loaded' },
-          { value: 'specific', label: 'Specific Person' },
+          { value: "round_robin", label: "Round Robin" },
+          { value: "least_loaded", label: "Least Loaded" },
+          { value: "specific", label: "Specific Person" },
         ],
       },
       {
-        key: 'role_filter',
-        label: 'Role Filter',
-        type: 'select',
+        key: "role_filter",
+        label: "Role Filter",
+        type: "select",
         options: [
-          { value: 'any', label: 'Any' },
-          { value: 'manager', label: 'Manager' },
-          { value: 'developer', label: 'Developer' },
-          { value: 'support', label: 'Support' },
+          { value: "any", label: "Any" },
+          { value: "manager", label: "Manager" },
+          { value: "developer", label: "Developer" },
+          { value: "support", label: "Support" },
         ],
       },
     ],
   },
   {
-    type: 'send_notification',
-    label: 'Send Notification',
-    description: 'Send notification to team members (scaffold)',
+    type: "send_notification",
+    label: "Send Notification",
+    description: "Send notification to team members (scaffold)",
     fields: [
       {
-        key: 'notification_type',
-        label: 'Notification Type',
-        type: 'select',
+        key: "notification_type",
+        label: "Notification Type",
+        type: "select",
         required: true,
         options: [
-          { value: 'email', label: 'Email' },
-          { value: 'slack', label: 'Slack' },
-          { value: 'in_app', label: 'In-App' },
+          { value: "email", label: "Email" },
+          { value: "slack", label: "Slack" },
+          { value: "in_app", label: "In-App" },
         ],
       },
       {
-        key: 'recipients',
-        label: 'Recipients',
-        type: 'text',
+        key: "recipients",
+        label: "Recipients",
+        type: "text",
         required: true,
       },
       {
-        key: 'message_template',
-        label: 'Message Template',
-        type: 'textarea',
+        key: "message_template",
+        label: "Message Template",
+        type: "textarea",
       },
     ],
   },
   {
-    type: 'update_status',
-    label: 'Update Status',
-    description: 'Update the status of an entity',
+    type: "update_status",
+    label: "Update Status",
+    description: "Update the status of an entity",
     fields: [
       {
-        key: 'new_status',
-        label: 'New Status',
-        type: 'text',
+        key: "new_status",
+        label: "New Status",
+        type: "text",
         required: true,
       },
     ],
   },
   {
-    type: 'create_task',
-    label: 'Create Task',
-    description: 'Create a task in the system (scaffold)',
+    type: "create_task",
+    label: "Create Task",
+    description: "Create a task in the system (scaffold)",
     fields: [
       {
-        key: 'task_title',
-        label: 'Task Title',
-        type: 'text',
+        key: "task_title",
+        label: "Task Title",
+        type: "text",
         required: true,
       },
       {
-        key: 'task_description',
-        label: 'Task Description',
-        type: 'textarea',
+        key: "task_description",
+        label: "Task Description",
+        type: "textarea",
       },
       {
-        key: 'assign_to',
-        label: 'Assign To',
-        type: 'select',
+        key: "assign_to",
+        label: "Assign To",
+        type: "select",
         options: [
-          { value: 'account_owner', label: 'Account Owner' },
-          { value: 'project_manager', label: 'Project Manager' },
-          { value: 'team_lead', label: 'Team Lead' },
+          { value: "account_owner", label: "Account Owner" },
+          { value: "project_manager", label: "Project Manager" },
+          { value: "team_lead", label: "Team Lead" },
         ],
       },
     ],
   },
   {
-    type: 'flag_risk',
-    label: 'Flag Risk',
-    description: 'Create a risk flag for client success tracking',
+    type: "flag_risk",
+    label: "Flag Risk",
+    description: "Create a risk flag for client success tracking",
     fields: [
       {
-        key: 'risk_type',
-        label: 'Risk Type',
-        type: 'select',
+        key: "risk_type",
+        label: "Risk Type",
+        type: "select",
         required: true,
         options: [
-          { value: 'delayed_onboarding', label: 'Delayed Onboarding' },
-          { value: 'overdue_invoice', label: 'Overdue Invoice' },
-          { value: 'high_support_volume', label: 'High Support Volume' },
-          { value: 'low_engagement', label: 'Low Engagement' },
-          { value: 'churn_risk', label: 'Churn Risk' },
+          { value: "delayed_onboarding", label: "Delayed Onboarding" },
+          { value: "overdue_invoice", label: "Overdue Invoice" },
+          { value: "high_support_volume", label: "High Support Volume" },
+          { value: "low_engagement", label: "Low Engagement" },
+          { value: "churn_risk", label: "Churn Risk" },
         ],
       },
       {
-        key: 'severity',
-        label: 'Severity',
-        type: 'select',
+        key: "severity",
+        label: "Severity",
+        type: "select",
         required: true,
         options: [
-          { value: 'low', label: 'Low' },
-          { value: 'medium', label: 'Medium' },
-          { value: 'high', label: 'High' },
-          { value: 'critical', label: 'Critical' },
+          { value: "low", label: "Low" },
+          { value: "medium", label: "Medium" },
+          { value: "high", label: "High" },
+          { value: "critical", label: "Critical" },
         ],
       },
       {
-        key: 'description',
-        label: 'Description',
-        type: 'textarea',
+        key: "description",
+        label: "Description",
+        type: "textarea",
         required: true,
       },
     ],
@@ -351,9 +351,9 @@ export const ACTION_CONFIGS: ActionConfig[] = [
 class AutomationService {
   async getAllRules(): Promise<AutomationRule[]> {
     const { data, error } = await supabase
-      .from('bb_automation_rules')
-      .select('*')
-      .order('created_at', { ascending: false });
+      .from("bb_automation_rules")
+      .select("*")
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
     return data || [];
@@ -361,18 +361,20 @@ class AutomationService {
 
   async getRuleById(id: string): Promise<AutomationRule | null> {
     const { data, error } = await supabase
-      .from('bb_automation_rules')
-      .select('*')
-      .eq('id', id)
+      .from("bb_automation_rules")
+      .select("*")
+      .eq("id", id)
       .maybeSingle();
 
     if (error) throw error;
     return data;
   }
 
-  async createRule(rule: Omit<AutomationRule, 'id' | 'created_at' | 'updated_at'>): Promise<AutomationRule> {
+  async createRule(
+    rule: Omit<AutomationRule, "id" | "created_at" | "updated_at">,
+  ): Promise<AutomationRule> {
     const { data, error } = await supabase
-      .from('bb_automation_rules')
+      .from("bb_automation_rules")
       .insert(rule)
       .select()
       .single();
@@ -381,11 +383,14 @@ class AutomationService {
     return data;
   }
 
-  async updateRule(id: string, updates: Partial<AutomationRule>): Promise<AutomationRule> {
+  async updateRule(
+    id: string,
+    updates: Partial<AutomationRule>,
+  ): Promise<AutomationRule> {
     const { data, error } = await supabase
-      .from('bb_automation_rules')
+      .from("bb_automation_rules")
       .update({ ...updates, updated_at: new Date().toISOString() })
-      .eq('id', id)
+      .eq("id", id)
       .select()
       .single();
 
@@ -395,31 +400,34 @@ class AutomationService {
 
   async toggleRule(id: string, isActive: boolean): Promise<void> {
     const { error } = await supabase
-      .from('bb_automation_rules')
+      .from("bb_automation_rules")
       .update({ is_active: isActive, updated_at: new Date().toISOString() })
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) throw error;
   }
 
   async deleteRule(id: string): Promise<void> {
     const { error } = await supabase
-      .from('bb_automation_rules')
+      .from("bb_automation_rules")
       .delete()
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) throw error;
   }
 
-  async getExecutions(ruleId?: string, limit = 50): Promise<AutomationExecution[]> {
+  async getExecutions(
+    ruleId?: string,
+    limit = 50,
+  ): Promise<AutomationExecution[]> {
     let query = supabase
-      .from('bb_automation_executions')
-      .select('*')
-      .order('executed_at', { ascending: false })
+      .from("bb_automation_executions")
+      .select("*")
+      .order("executed_at", { ascending: false })
       .limit(limit);
 
     if (ruleId) {
-      query = query.eq('rule_id', ruleId);
+      query = query.eq("rule_id", ruleId);
     }
 
     const { data, error } = await query;
@@ -428,9 +436,11 @@ class AutomationService {
     return data || [];
   }
 
-  async logExecution(execution: Omit<AutomationExecution, 'id' | 'created_at'>): Promise<AutomationExecution> {
+  async logExecution(
+    execution: Omit<AutomationExecution, "id" | "created_at">,
+  ): Promise<AutomationExecution> {
     const { data, error } = await supabase
-      .from('bb_automation_executions')
+      .from("bb_automation_executions")
       .insert(execution)
       .select()
       .single();
@@ -439,12 +449,14 @@ class AutomationService {
     return data;
   }
 
-  async getActiveRulesByTrigger(triggerType: TriggerType): Promise<AutomationRule[]> {
+  async getActiveRulesByTrigger(
+    triggerType: TriggerType,
+  ): Promise<AutomationRule[]> {
     const { data, error } = await supabase
-      .from('bb_automation_rules')
-      .select('*')
-      .eq('trigger_type', triggerType)
-      .eq('is_active', true);
+      .from("bb_automation_rules")
+      .select("*")
+      .eq("trigger_type", triggerType)
+      .eq("is_active", true);
 
     if (error) throw error;
     return data || [];
@@ -460,14 +472,26 @@ class AutomationService {
 
   async getStats() {
     const [totalRules, activeRules, executions] = await Promise.all([
-      supabase.from('bb_automation_rules').select('id', { count: 'exact', head: true }),
-      supabase.from('bb_automation_rules').select('id', { count: 'exact', head: true }).eq('is_active', true),
-      supabase.from('bb_automation_executions').select('id, status', { count: 'exact', head: false }).limit(100),
+      supabase
+        .from("bb_automation_rules")
+        .select("id", { count: "exact", head: true }),
+      supabase
+        .from("bb_automation_rules")
+        .select("id", { count: "exact", head: true })
+        .eq("is_active", true),
+      supabase
+        .from("bb_automation_executions")
+        .select("id, status", { count: "exact", head: false })
+        .limit(100),
     ]);
 
     const recentExecutions = executions.data || [];
-    const successCount = recentExecutions.filter((e) => e.status === 'success').length;
-    const failedCount = recentExecutions.filter((e) => e.status === 'failed').length;
+    const successCount = recentExecutions.filter(
+      (e) => e.status === "success",
+    ).length;
+    const failedCount = recentExecutions.filter(
+      (e) => e.status === "failed",
+    ).length;
 
     return {
       total_rules: totalRules.count || 0,

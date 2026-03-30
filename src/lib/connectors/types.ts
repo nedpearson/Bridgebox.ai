@@ -1,40 +1,40 @@
 export type ConnectorType =
-  | 'crm'
-  | 'accounting'
-  | 'spreadsheet'
-  | 'helpdesk'
-  | 'database'
-  | 'payment'
-  | 'invoice'
-  | 'subscription'
-  | 'email'
-  | 'calendar'
-  | 'messaging'
-  | 'market_data'
-  | 'trend_source'
-  | 'public_dataset'
-  | 'demand_signal'
-  | 'industry_signal';
+  | "crm"
+  | "accounting"
+  | "spreadsheet"
+  | "helpdesk"
+  | "database"
+  | "payment"
+  | "invoice"
+  | "subscription"
+  | "email"
+  | "calendar"
+  | "messaging"
+  | "market_data"
+  | "trend_source"
+  | "public_dataset"
+  | "demand_signal"
+  | "industry_signal";
 
 export type ConnectorCategory =
-  | 'business_systems'
-  | 'commerce_financial'
-  | 'communication'
-  | 'market_data';
+  | "business_systems"
+  | "commerce_financial"
+  | "communication"
+  | "market_data";
 
 export type ConnectorStatus =
-  | 'not_connected'
-  | 'connected'
-  | 'syncing'
-  | 'error'
-  | 'paused';
+  | "not_connected"
+  | "connected"
+  | "syncing"
+  | "error"
+  | "paused";
 
 export type SyncFrequency =
-  | 'realtime'
-  | 'hourly'
-  | 'daily'
-  | 'weekly'
-  | 'manual';
+  | "realtime"
+  | "hourly"
+  | "daily"
+  | "weekly"
+  | "manual";
 
 export interface ConnectorMetadata {
   version?: string;
@@ -63,7 +63,7 @@ export interface ConnectorConfig {
 }
 
 export interface ConnectorAuth {
-  type: 'oauth2' | 'api_key' | 'basic' | 'bearer' | 'none';
+  type: "oauth2" | "api_key" | "basic" | "bearer" | "none";
   isAuthenticated: boolean;
   expiresAt?: string;
   scopes?: string[];
@@ -81,7 +81,7 @@ export interface Connector {
   config: ConnectorConfig;
   metadata: ConnectorMetadata;
   lastSyncAt?: string;
-  lastSyncStatus?: 'success' | 'error' | 'partial';
+  lastSyncStatus?: "success" | "error" | "partial";
   lastSyncError?: string;
   nextSyncAt?: string;
   syncCount?: number;
@@ -102,12 +102,12 @@ export interface ConnectorProvider {
   documentationUrl?: string;
   icon_url?: string;
   config_schema?: Record<string, any>;
-  authType: ConnectorAuth['type'];
+  authType: ConnectorAuth["type"];
   requiredScopes?: string[];
   features: string[];
   isPopular?: boolean;
   isEnterprise?: boolean;
-  status: 'available' | 'beta' | 'coming_soon' | 'import_only';
+  status: "available" | "beta" | "coming_soon" | "import_only";
 }
 
 export interface SyncResult {
@@ -162,13 +162,20 @@ export interface ConnectorCapability {
   name: string;
   description: string;
   requiredAuth?: string[];
-  supportedOperations: Array<'read' | 'write' | 'update' | 'delete'>;
+  supportedOperations: Array<"read" | "write" | "update" | "delete">;
 }
 
 export interface ConnectorEvent {
   id: string;
   connectorId: string;
-  type: 'connected' | 'disconnected' | 'sync_started' | 'sync_completed' | 'sync_failed' | 'error' | 'warning';
+  type:
+    | "connected"
+    | "disconnected"
+    | "sync_started"
+    | "sync_completed"
+    | "sync_failed"
+    | "error"
+    | "warning";
   message: string;
   data?: any;
   createdAt: string;

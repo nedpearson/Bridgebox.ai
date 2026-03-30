@@ -1,7 +1,21 @@
 // @ts-nocheck
-import { motion } from 'framer-motion';
-import { LayoutDashboard, Users, Briefcase, FolderKanban, Code, BarChart3, Smartphone, Network, Headphones as HeadphonesIcon, CreditCard, CircleUser as UserCircle, Settings, Video as LucideIcon } from 'lucide-react';
-import { useState } from 'react';
+import { motion } from "framer-motion";
+import {
+  LayoutDashboard,
+  Users,
+  Briefcase,
+  FolderKanban,
+  Code,
+  BarChart3,
+  Smartphone,
+  Network,
+  Headphones as HeadphonesIcon,
+  CreditCard,
+  CircleUser as UserCircle,
+  Settings,
+  Video as LucideIcon,
+} from "lucide-react";
+import { useState } from "react";
 
 interface NavItem {
   icon: LucideIcon;
@@ -14,20 +28,23 @@ interface AdminSidebarProps {
   onSectionChange: (section: string) => void;
 }
 
-export default function AdminSidebar({ activeSection, onSectionChange }: AdminSidebarProps) {
+export default function AdminSidebar({
+  activeSection,
+  onSectionChange,
+}: AdminSidebarProps) {
   const navItems: NavItem[] = [
-    { icon: LayoutDashboard, label: 'Overview' },
-    { icon: Users, label: 'Leads' },
-    { icon: Briefcase, label: 'Clients' },
-    { icon: FolderKanban, label: 'Projects' },
-    { icon: Code, label: 'Custom Software' },
-    { icon: BarChart3, label: 'Dashboards' },
-    { icon: Smartphone, label: 'Mobile Apps' },
-    { icon: Network, label: 'Integrations' },
-    { icon: HeadphonesIcon, label: 'Support' },
-    { icon: CreditCard, label: 'Billing' },
-    { icon: UserCircle, label: 'Team' },
-    { icon: Settings, label: 'Settings' },
+    { icon: LayoutDashboard, label: "Overview" },
+    { icon: Users, label: "Leads" },
+    { icon: Briefcase, label: "Clients" },
+    { icon: FolderKanban, label: "Projects" },
+    { icon: Code, label: "Custom Software" },
+    { icon: BarChart3, label: "Dashboards" },
+    { icon: Smartphone, label: "Mobile Apps" },
+    { icon: Network, label: "Integrations" },
+    { icon: HeadphonesIcon, label: "Support" },
+    { icon: CreditCard, label: "Billing" },
+    { icon: UserCircle, label: "Team" },
+    { icon: Settings, label: "Settings" },
   ];
 
   return (
@@ -49,8 +66,8 @@ export default function AdminSidebar({ activeSection, onSectionChange }: AdminSi
               whileHover={{ x: 4 }}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                 isActive
-                  ? 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/30'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                  ? "bg-indigo-500/10 text-indigo-500 border border-indigo-500/30"
+                  : "text-slate-400 hover:text-white hover:bg-slate-800/50"
               }`}
             >
               <Icon className="w-5 h-5" />

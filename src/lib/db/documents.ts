@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { supabase } from '../supabase';
-import { aiService } from '../ai/services/aiService';
+import { supabase } from "../supabase";
+import { aiService } from "../ai/services/aiService";
 import type {
   Document,
   DocumentAnalysis,
@@ -9,63 +9,72 @@ import type {
   DocumentStats,
   DocumentType,
   DocumentStatus,
-} from '../../types/document';
+} from "../../types/document";
 
 class DocumentService {
   async getDocuments(organizationId: string): Promise<Document[]> {
     const { data, error } = await supabase
-      .from('bb_documents')
-      .select('*')
-      .eq('organization_id', organizationId)
-      .order('created_at', { ascending: false });
+      .from("bb_documents")
+      .select("*")
+      .eq("organization_id", organizationId)
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
     return data || [];
   }
 
-  async getLinkedDocuments(entityType: string, entityId: string): Promise<Document[]> {
-    const { entityLinkService } = await import('./entityLinks');
-    const links = await entityLinkService.getLinkedEntities(entityType as any, entityId, 'document');
-    
-    const docIds = links.map(link => 
-      link.source_type === 'document' ? link.source_id : link.target_id
+  async getLinkedDocuments(
+    entityType: string,
+    entityId: string,
+  ): Promise<Document[]> {
+    const { entityLinkService } = await import("./entityLinks");
+    const links = await entityLinkService.getLinkedEntities(
+      entityType as any,
+      entityId,
+      "document",
+    );
+
+    const docIds = links.map((link) =>
+      link.source_type === "document" ? link.source_id : link.target_id,
     );
 
     if (docIds.length === 0) return [];
 
     const { data, error } = await supabase
-      .from('bb_documents')
-      .select('*')
-      .in('id', docIds)
-      .order('created_at', { ascending: false });
+      .from("bb_documents")
+      .select("*")
+      .in("id", docIds)
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
     return data || [];
   }
 
-  async getDocumentById(documentId: string): Promise<DocumentWithAnalysis | null> {
+  async getDocumentById(
+    documentId: string,
+  ): Promise<DocumentWithAnalysis | null> {
     const { data: document, error: docError } = await supabase
-      .from('bb_documents')
-      .select('*')
-      .eq('id', documentId)
+      .from("bb_documents")
+      .select("*")
+      .eq("id", documentId)
       .maybeSingle();
 
     if (docError) throw docError;
     if (!document) return null;
 
     const { data: analysis, error: analysisError } = await supabase
-      .from('bb_document_analysis')
-      .select('*')
-      .eq('document_id', documentId)
+      .from("bb_document_analysis")
+      .select("*")
+      .eq("document_id", documentId)
       .maybeSingle();
 
     if (analysisError) throw analysisError;
 
     const { data: versions, error: versionsError } = await supabase
-      .from('bb_document_versions')
-      .select('*')
-      .eq('document_id', documentId)
-      .order('version_number', { ascending: false });
+      .from("bb_document_versions")
+      .select("*")
+      .eq("document_id", documentId)
+      .order("version_number", { ascending: false });
 
     if (versionsError) throw versionsError;
 
@@ -78,7 +87,7 @@ class DocumentService {
 
   async createDocument(document: Partial<Document>): Promise<Document> {
     const { data, error } = await supabase
-      .from('bb_documents')
+      .from("bb_documents")
       .insert({
         ...document,
         uploaded_by: (await supabase.auth.getUser()).data.user?.id,
@@ -90,11 +99,14 @@ class DocumentService {
     return data;
   }
 
-  async updateDocument(documentId: string, updates: Partial<Document>): Promise<Document> {
+  async updateDocument(
+    documentId: string,
+    updates: Partial<Document>,
+  ): Promise<Document> {
     const { data, error } = await supabase
-      .from('bb_documents')
+      .from("bb_documents")
       .update(updates)
-      .eq('id', documentId)
+      .eq("id", documentId)
       .select()
       .single();
 
@@ -104,14 +116,17 @@ class DocumentService {
 
   async deleteDocument(documentId: string): Promise<void> {
     const { error } = await supabase
-      .from('bb_documents')
+      .from("bb_documents")
       .delete()
-      .eq('id', documentId);
+      .eq("id", documentId);
 
     if (error) throw error;
   }
 
-  async analyzeDocument(documentId: string, extractedText: string): Promise<DocumentAnalysis> {
+  async analyzeDocument(
+    documentId: string,
+    extractedText: string,
+  ): Promise<DocumentAnalysis> {
     const startTime = Date.now();
 
     try {
@@ -133,7 +148,7 @@ ${extractedText.substring(0, 4000)}`;
       const processingTime = Date.now() - startTime;
 
       const { data, error } = await supabase
-        .from('bb_document_analysis')
+        .from("bb_document_analysis")
         .upsert({
           document_id: documentId,
           summary,
@@ -142,7 +157,7 @@ ${extractedText.substring(0, 4000)}`;
           sentiment,
           confidence_score: 0.8,
           processing_time_ms: processingTime,
-          model_used: 'mock-ai-model',
+          model_used: "mock-ai-model",
           analysis_date: new Date().toISOString(),
         })
         .select()
@@ -151,19 +166,19 @@ ${extractedText.substring(0, 4000)}`;
       if (error) throw error;
       return data;
     } catch (error) {
-      console.error('Document analysis failed:', error);
+      console.error("Document analysis failed:", error);
 
       const processingTime = Date.now() - startTime;
 
       const { data, error: fallbackError } = await supabase
-        .from('bb_document_analysis')
+        .from("bb_document_analysis")
         .upsert({
           document_id: documentId,
-          summary: 'Analysis pending. Document uploaded successfully.',
+          summary: "Analysis pending. Document uploaded successfully.",
           key_entities: {},
           key_values: {},
           processing_time_ms: processingTime,
-          model_used: 'fallback',
+          model_used: "fallback",
           analysis_date: new Date().toISOString(),
         })
         .select()
@@ -175,12 +190,12 @@ ${extractedText.substring(0, 4000)}`;
   }
 
   private extractSummary(aiResponse: string): string {
-    const lines = aiResponse.split('\n');
-    const summaryLines = lines.filter(line =>
-      !line.toLowerCase().includes('summary:') &&
-      line.trim().length > 20
+    const lines = aiResponse.split("\n");
+    const summaryLines = lines.filter(
+      (line) =>
+        !line.toLowerCase().includes("summary:") && line.trim().length > 20,
     );
-    return summaryLines.slice(0, 3).join(' ').substring(0, 500);
+    return summaryLines.slice(0, 3).join(" ").substring(0, 500);
   }
 
   private extractEntities(text: string): Record<string, any> {
@@ -195,9 +210,9 @@ ${extractedText.substring(0, 4000)}`;
     const amountRegex = /\$\s*[\d,]+(?:\.\d{2})?/g;
     const amounts = text.match(amountRegex);
     if (amounts) {
-      entities.amounts = amounts.slice(0, 10).map(amount => ({
-        value: parseFloat(amount.replace(/[$,]/g, '')),
-        currency: 'USD',
+      entities.amounts = amounts.slice(0, 10).map((amount) => ({
+        value: parseFloat(amount.replace(/[$,]/g, "")),
+        currency: "USD",
       }));
     }
 
@@ -210,25 +225,38 @@ ${extractedText.substring(0, 4000)}`;
     return entities;
   }
 
-  private detectSentiment(text: string): 'positive' | 'negative' | 'neutral' | 'mixed' {
+  private detectSentiment(
+    text: string,
+  ): "positive" | "negative" | "neutral" | "mixed" {
     const lowerText = text.toLowerCase();
-    const positiveWords = ['excellent', 'great', 'good', 'success', 'approved', 'profitable'];
-    const negativeWords = ['poor', 'bad', 'fail', 'loss', 'denied', 'rejected'];
+    const positiveWords = [
+      "excellent",
+      "great",
+      "good",
+      "success",
+      "approved",
+      "profitable",
+    ];
+    const negativeWords = ["poor", "bad", "fail", "loss", "denied", "rejected"];
 
-    const positiveCount = positiveWords.filter(word => lowerText.includes(word)).length;
-    const negativeCount = negativeWords.filter(word => lowerText.includes(word)).length;
+    const positiveCount = positiveWords.filter((word) =>
+      lowerText.includes(word),
+    ).length;
+    const negativeCount = negativeWords.filter((word) =>
+      lowerText.includes(word),
+    ).length;
 
-    if (positiveCount > negativeCount) return 'positive';
-    if (negativeCount > positiveCount) return 'negative';
-    if (positiveCount > 0 && negativeCount > 0) return 'mixed';
-    return 'neutral';
+    if (positiveCount > negativeCount) return "positive";
+    if (negativeCount > positiveCount) return "negative";
+    if (positiveCount > 0 && negativeCount > 0) return "mixed";
+    return "neutral";
   }
 
   async getDocumentStats(organizationId: string): Promise<DocumentStats> {
     const { data: documents, error } = await supabase
-      .from('bb_documents')
-      .select('document_type, status, file_size, is_processed')
-      .eq('organization_id', organizationId);
+      .from("bb_documents")
+      .select("document_type, status, file_size, is_processed")
+      .eq("organization_id", organizationId);
 
     if (error) throw error;
 
@@ -269,14 +297,14 @@ ${extractedText.substring(0, 4000)}`;
 
   async searchDocuments(
     organizationId: string,
-    query: string
+    query: string,
   ): Promise<Document[]> {
     const { data, error } = await supabase
-      .from('bb_documents')
-      .select('*')
-      .eq('organization_id', organizationId)
+      .from("bb_documents")
+      .select("*")
+      .eq("organization_id", organizationId)
       .or(`file_name.ilike.%${query}%,extracted_text.ilike.%${query}%`)
-      .order('created_at', { ascending: false })
+      .order("created_at", { ascending: false })
       .limit(50);
 
     if (error) throw error;
@@ -285,23 +313,24 @@ ${extractedText.substring(0, 4000)}`;
 
   async addDocumentVersion(
     documentId: string,
-    versionData: Partial<DocumentVersion>
+    versionData: Partial<DocumentVersion>,
   ): Promise<DocumentVersion> {
     const { data: existingVersions, error: countError } = await supabase
-      .from('bb_document_versions')
-      .select('version_number')
-      .eq('document_id', documentId)
-      .order('version_number', { ascending: false })
+      .from("bb_document_versions")
+      .select("version_number")
+      .eq("document_id", documentId)
+      .order("version_number", { ascending: false })
       .limit(1);
 
     if (countError) throw countError;
 
-    const nextVersion = existingVersions && existingVersions.length > 0
-      ? existingVersions[0].version_number + 1
-      : 1;
+    const nextVersion =
+      existingVersions && existingVersions.length > 0
+        ? existingVersions[0].version_number + 1
+        : 1;
 
     const { data, error } = await supabase
-      .from('bb_document_versions')
+      .from("bb_document_versions")
       .insert({
         ...versionData,
         document_id: documentId,
@@ -316,11 +345,11 @@ ${extractedText.substring(0, 4000)}`;
   }
 
   formatFileSize(bytes: number): string {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
   }
 }
 

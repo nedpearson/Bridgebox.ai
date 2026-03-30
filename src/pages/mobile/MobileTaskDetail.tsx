@@ -1,39 +1,47 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { CheckCircle2, Clock, Calendar, AlertCircle, User, MessageSquare, CreditCard as Edit3 } from 'lucide-react';
-import MobileLayout from '../../layouts/MobileLayout';
-import Button from '../../components/Button';
-import Badge from '../../components/Badge';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  CheckCircle2,
+  Clock,
+  Calendar,
+  AlertCircle,
+  User,
+  MessageSquare,
+  CreditCard as Edit3,
+} from "lucide-react";
+import MobileLayout from "../../layouts/MobileLayout";
+import Button from "../../components/Button";
+import Badge from "../../components/Badge";
 
 interface Task {
   id: string;
   title: string;
   description?: string;
-  status: 'pending' | 'in_progress' | 'completed';
-  priority?: 'low' | 'medium' | 'high';
+  status: "pending" | "in_progress" | "completed";
+  priority?: "low" | "medium" | "high";
   due_date?: string;
   assigned_to?: string;
   notes?: string[];
 }
 
 const STATUS_CONFIG = {
-  pending: { color: 'slate', icon: Clock, label: 'Pending' },
-  in_progress: { color: 'blue', icon: Clock, label: 'In Progress' },
-  completed: { color: 'green', icon: CheckCircle2, label: 'Completed' },
+  pending: { color: "slate", icon: Clock, label: "Pending" },
+  in_progress: { color: "blue", icon: Clock, label: "In Progress" },
+  completed: { color: "green", icon: CheckCircle2, label: "Completed" },
 };
 
 const PRIORITY_COLORS = {
-  low: 'slate',
-  medium: 'amber',
-  high: 'red',
+  low: "slate",
+  medium: "amber",
+  high: "red",
 };
 
 export default function MobileTaskDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [task, setTask] = useState<Task | null>(null);
-  const [newNote, setNewNote] = useState('');
+  const [newNote, setNewNote] = useState("");
 
   useEffect(() => {
     loadTask();
@@ -57,7 +65,7 @@ export default function MobileTaskDetail() {
         ...task,
         notes: [...(task.notes || []), newNote],
       });
-      setNewNote('');
+      setNewNote("");
     }
   };
 
@@ -83,16 +91,24 @@ export default function MobileTaskDetail() {
           <div className="p-4 bg-slate-900/50 border-b border-slate-800">
             <div className="flex items-start gap-3 mb-3">
               <div className={`p-2 rounded-lg bg-${statusConfig.color}-500/10`}>
-                <StatusIcon className={`w-5 h-5 text-${statusConfig.color}-400`} />
+                <StatusIcon
+                  className={`w-5 h-5 text-${statusConfig.color}-400`}
+                />
               </div>
               <div className="flex-1">
-                <h1 className="text-lg font-semibold text-white mb-2">{task.title}</h1>
+                <h1 className="text-lg font-semibold text-white mb-2">
+                  {task.title}
+                </h1>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium bg-${statusConfig.color}-500/10 text-${statusConfig.color}-400 border border-${statusConfig.color}-500/20`}>
+                  <span
+                    className={`px-2.5 py-1 rounded-full text-xs font-medium bg-${statusConfig.color}-500/10 text-${statusConfig.color}-400 border border-${statusConfig.color}-500/20`}
+                  >
                     {statusConfig.label}
                   </span>
                   {task.priority && (
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium bg-${PRIORITY_COLORS[task.priority]}-500/10 text-${PRIORITY_COLORS[task.priority]}-400 border border-${PRIORITY_COLORS[task.priority]}-500/20`}>
+                    <span
+                      className={`px-2.5 py-1 rounded-full text-xs font-medium bg-${PRIORITY_COLORS[task.priority]}-500/10 text-${PRIORITY_COLORS[task.priority]}-400 border border-${PRIORITY_COLORS[task.priority]}-500/20`}
+                    >
                       {task.priority} priority
                     </span>
                   )}
@@ -113,16 +129,20 @@ export default function MobileTaskDetail() {
               <DetailRow
                 icon={Calendar}
                 label="Due Date"
-                value={new Date(task.due_date).toLocaleDateString('en-US', {
-                  weekday: 'short',
-                  month: 'short',
-                  day: 'numeric',
+                value={new Date(task.due_date).toLocaleDateString("en-US", {
+                  weekday: "short",
+                  month: "short",
+                  day: "numeric",
                 })}
               />
             )}
 
             {task.assigned_to && (
-              <DetailRow icon={User} label="Assigned To" value={task.assigned_to} />
+              <DetailRow
+                icon={User}
+                label="Assigned To"
+                value={task.assigned_to}
+              />
             )}
           </div>
 
@@ -171,9 +191,9 @@ export default function MobileTaskDetail() {
 
         {/* Action Buttons */}
         <div className="p-4 bg-slate-900 border-t border-slate-800 space-y-2">
-          {task.status !== 'completed' && (
+          {task.status !== "completed" && (
             <Button
-              onClick={() => handleStatusChange('completed')}
+              onClick={() => handleStatusChange("completed")}
               className="w-full py-3"
             >
               <CheckCircle2 className="w-5 h-5 mr-2" />
@@ -181,9 +201,9 @@ export default function MobileTaskDetail() {
             </Button>
           )}
 
-          {task.status === 'pending' && (
+          {task.status === "pending" && (
             <Button
-              onClick={() => handleStatusChange('in_progress')}
+              onClick={() => handleStatusChange("in_progress")}
               variant="secondary"
               className="w-full py-3"
             >
@@ -192,9 +212,9 @@ export default function MobileTaskDetail() {
             </Button>
           )}
 
-          {task.status === 'completed' && (
+          {task.status === "completed" && (
             <Button
-              onClick={() => handleStatusChange('in_progress')}
+              onClick={() => handleStatusChange("in_progress")}
               variant="secondary"
               className="w-full py-3"
             >

@@ -14,14 +14,14 @@ export default function DonutChart({
   const total = data.reduce((sum, item) => sum + item.value, 0);
 
   const defaultColors = [
-    '#3B82F6',
-    '#10B981',
-    '#F59E0B',
-    '#EF4444',
-    '#8B5CF6',
-    '#EC4899',
-    '#6366F1',
-    '#14B8A6',
+    "#3B82F6",
+    "#10B981",
+    "#F59E0B",
+    "#EF4444",
+    "#8B5CF6",
+    "#EC4899",
+    "#6366F1",
+    "#14B8A6",
   ];
 
   let cumulativePercentage = 0;
@@ -33,7 +33,7 @@ export default function DonutChart({
     const start = polarToCartesian(50, 50, 40, endAngle);
     const end = polarToCartesian(50, 50, 40, startAngle);
 
-    const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
+    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
 
     return `M ${start.x} ${start.y} A 40 40 0 ${largeArcFlag} 0 ${end.x} ${end.y}`;
   };
@@ -42,7 +42,7 @@ export default function DonutChart({
     centerX: number,
     centerY: number,
     radius: number,
-    angleInDegrees: number
+    angleInDegrees: number,
   ) => {
     const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180;
     return {
@@ -66,7 +66,8 @@ export default function DonutChart({
           {data.map((item, index) => {
             const percentage = item.value / total;
             const path = createArc(percentage, cumulativePercentage);
-            const color = item.color || defaultColors[index % defaultColors.length];
+            const color =
+              item.color || defaultColors[index % defaultColors.length];
 
             cumulativePercentage += percentage;
 
@@ -96,8 +97,10 @@ export default function DonutChart({
 
       <div className="flex-1 space-y-2">
         {data.map((item, index) => {
-          const percentage = total > 0 ? ((item.value / total) * 100).toFixed(1) : '0';
-          const color = item.color || defaultColors[index % defaultColors.length];
+          const percentage =
+            total > 0 ? ((item.value / total) * 100).toFixed(1) : "0";
+          const color =
+            item.color || defaultColors[index % defaultColors.length];
 
           return (
             <div key={item.label} className="flex items-center justify-between">
@@ -110,7 +113,9 @@ export default function DonutChart({
               </div>
               <div className="flex items-center space-x-3">
                 <span className="text-sm text-slate-400">{percentage}%</span>
-                <span className="text-sm font-medium text-white">{item.value}</span>
+                <span className="text-sm font-medium text-white">
+                  {item.value}
+                </span>
               </div>
             </div>
           );

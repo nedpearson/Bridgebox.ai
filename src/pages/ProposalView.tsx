@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FileText,
   CheckCircle2,
@@ -13,11 +13,11 @@ import {
   Building2,
   Shield,
   AlertCircle,
-} from 'lucide-react';
-import Button from '../components/Button';
-import Card from '../components/Card';
-import LoadingSpinner from '../components/LoadingSpinner';
-import { supabase } from '../lib/supabase';
+} from "lucide-react";
+import Button from "../components/Button";
+import Card from "../components/Card";
+import LoadingSpinner from "../components/LoadingSpinner";
+import { supabase } from "../lib/supabase";
 
 interface Proposal {
   id: string;
@@ -54,11 +54,11 @@ export default function ProposalView() {
   const [declining, setDeclining] = useState(false);
   const [showApprovalForm, setShowApprovalForm] = useState(false);
   const [showDeclineForm, setShowDeclineForm] = useState(false);
-  const [approverName, setApproverName] = useState('');
-  const [approverTitle, setApproverTitle] = useState('');
-  const [approverEmail, setApproverEmail] = useState('');
+  const [approverName, setApproverName] = useState("");
+  const [approverTitle, setApproverTitle] = useState("");
+  const [approverEmail, setApproverEmail] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [declineReason, setDeclineReason] = useState('');
+  const [declineReason, setDeclineReason] = useState("");
 
   useEffect(() => {
     if (token) {
@@ -74,30 +74,30 @@ export default function ProposalView() {
       setError(null);
 
       const { data, error: fetchError } = await supabase
-        .from('bb_proposals')
-        .select('*')
-        .eq('share_token', token)
+        .from("bb_proposals")
+        .select("*")
+        .eq("share_token", token)
         .maybeSingle();
 
       if (fetchError) throw fetchError;
 
       if (!data) {
-        setError('Proposal not found');
+        setError("Proposal not found");
         return;
       }
 
       setProposal(data as Proposal);
 
       // Mark as viewed if not already
-      if (data.status === 'sent') {
+      if (data.status === "sent") {
         await supabase
-          .from('bb_proposals')
-          .update({ status: 'viewed' })
-          .eq('share_token', token);
+          .from("bb_proposals")
+          .update({ status: "viewed" })
+          .eq("share_token", token);
       }
     } catch (err: any) {
-      console.error('Failed to load proposal:', err);
-      setError(err.message || 'Failed to load proposal');
+      console.error("Failed to load proposal:", err);
+      setError(err.message || "Failed to load proposal");
     } finally {
       setLoading(false);
     }
@@ -107,7 +107,7 @@ export default function ProposalView() {
     if (!token || !proposal) return;
 
     if (!approverName || !approverEmail || !agreedToTerms) {
-      alert('Please fill in all required fields and accept the terms');
+      alert("Please fill in all required fields and accept the terms");
       return;
     }
 
@@ -115,24 +115,24 @@ export default function ProposalView() {
       setApproving(true);
 
       const { error: updateError } = await supabase
-        .from('bb_proposals')
+        .from("bb_proposals")
         .update({
-          status: 'approved',
+          status: "approved",
           approved_at: new Date().toISOString(),
           approver_name: approverName,
           approver_title: approverTitle,
           approver_email: approverEmail,
           agreement_accepted: agreedToTerms,
         })
-        .eq('share_token', token);
+        .eq("share_token", token);
 
       if (updateError) throw updateError;
 
       await loadProposal();
       setShowApprovalForm(false);
     } catch (err: any) {
-      console.error('Failed to approve proposal:', err);
-      alert('Failed to approve proposal. Please try again.');
+      console.error("Failed to approve proposal:", err);
+      alert("Failed to approve proposal. Please try again.");
     } finally {
       setApproving(false);
     }
@@ -145,50 +145,51 @@ export default function ProposalView() {
       setDeclining(true);
 
       const { error: updateError } = await supabase
-        .from('bb_proposals')
+        .from("bb_proposals")
         .update({
-          status: 'declined',
+          status: "declined",
           declined_at: new Date().toISOString(),
-          declined_reason: declineReason || 'No reason provided',
+          declined_reason: declineReason || "No reason provided",
         })
-        .eq('share_token', token);
+        .eq("share_token", token);
 
       if (updateError) throw updateError;
 
       await loadProposal();
       setShowDeclineForm(false);
     } catch (err: any) {
-      console.error('Failed to decline proposal:', err);
-      alert('Failed to decline proposal. Please try again.');
+      console.error("Failed to decline proposal:", err);
+      alert("Failed to decline proposal. Please try again.");
     } finally {
       setDeclining(false);
     }
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
     }).format(amount);
   };
 
   const formatDate = (dateString: string) => {
     if (!dateString) return null;
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
-  const isExpired = proposal?.expires_at && new Date(proposal.expires_at) < new Date();
+  const isExpired =
+    proposal?.expires_at && new Date(proposal.expires_at) < new Date();
   const canTakeAction =
     proposal &&
     !proposal.approved_at &&
     !proposal.declined_at &&
     !isExpired &&
-    ['sent', 'viewed'].includes(proposal.status);
+    ["sent", "viewed"].includes(proposal.status);
 
   if (loading) {
     return (
@@ -203,9 +204,12 @@ export default function ProposalView() {
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-6">
         <Card glass className="max-w-md w-full p-8 text-center">
           <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-white mb-2">Proposal Not Found</h1>
+          <h1 className="text-2xl font-bold text-white mb-2">
+            Proposal Not Found
+          </h1>
           <p className="text-slate-400 mb-6">
-            {error || 'The proposal you are looking for does not exist or has been removed.'}
+            {error ||
+              "The proposal you are looking for does not exist or has been removed."}
           </p>
         </Card>
       </div>
@@ -223,10 +227,16 @@ export default function ProposalView() {
         >
           <div className="inline-flex items-center space-x-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/30 rounded-full mb-6">
             <FileText className="w-4 h-4 text-indigo-500" />
-            <span className="text-sm font-medium text-indigo-500">Proposal</span>
+            <span className="text-sm font-medium text-indigo-500">
+              Proposal
+            </span>
           </div>
-          <h1 className="text-4xl font-bold text-white mb-4">{proposal.title}</h1>
-          <p className="text-lg text-slate-400">Prepared for {proposal.client_name}</p>
+          <h1 className="text-4xl font-bold text-white mb-4">
+            {proposal.title}
+          </h1>
+          <p className="text-lg text-slate-400">
+            Prepared for {proposal.client_name}
+          </p>
         </motion.div>
 
         {/* Status Banner */}
@@ -240,7 +250,9 @@ export default function ProposalView() {
               <div className="flex items-center space-x-3">
                 <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-green-400">Proposal Approved</h3>
+                  <h3 className="text-lg font-semibold text-green-400">
+                    Proposal Approved
+                  </h3>
                   <p className="text-sm text-green-300/80">
                     Approved on {formatDate(proposal.approved_at)}
                   </p>
@@ -260,7 +272,9 @@ export default function ProposalView() {
               <div className="flex items-center space-x-3">
                 <XCircle className="w-6 h-6 text-red-400 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-red-400">Proposal Declined</h3>
+                  <h3 className="text-lg font-semibold text-red-400">
+                    Proposal Declined
+                  </h3>
                   <p className="text-sm text-red-300/80">
                     Declined on {formatDate(proposal.declined_at)}
                   </p>
@@ -280,10 +294,12 @@ export default function ProposalView() {
               <div className="flex items-center space-x-3">
                 <AlertCircle className="w-6 h-6 text-yellow-400 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg font-semibold text-yellow-400">Proposal Expired</h3>
+                  <h3 className="text-lg font-semibold text-yellow-400">
+                    Proposal Expired
+                  </h3>
                   <p className="text-sm text-yellow-300/80">
-                    This proposal expired on {formatDate(proposal.expires_at)}. Please contact us
-                    to request an updated proposal.
+                    This proposal expired on {formatDate(proposal.expires_at)}.
+                    Please contact us to request an updated proposal.
                   </p>
                 </div>
               </div>
@@ -298,10 +314,12 @@ export default function ProposalView() {
           transition={{ delay: 0.1 }}
         >
           <Card glass className="p-8 mb-8">
-            <h2 className="text-2xl font-bold text-white mb-4">Executive Summary</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">
+              Executive Summary
+            </h2>
             <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">
               {proposal.scope_summary ||
-                'Thank you for considering our proposal. We look forward to working with you.'}
+                "Thank you for considering our proposal. We look forward to working with you."}
             </p>
           </Card>
         </motion.div>
@@ -327,7 +345,9 @@ export default function ProposalView() {
                     <h3 className="text-lg font-semibold text-white mb-2">
                       {deliverable.name}
                     </h3>
-                    <p className="text-slate-400 text-sm">{deliverable.description}</p>
+                    <p className="text-slate-400 text-sm">
+                      {deliverable.description}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -347,8 +367,12 @@ export default function ProposalView() {
               <Clock className="w-6 h-6 text-indigo-500" />
               <h3 className="text-xl font-bold text-white">Timeline</h3>
             </div>
-            <p className="text-2xl font-bold text-white">{proposal.timeline_estimate}</p>
-            <p className="text-sm text-slate-400 mt-2">Estimated project duration</p>
+            <p className="text-2xl font-bold text-white">
+              {proposal.timeline_estimate}
+            </p>
+            <p className="text-sm text-slate-400 mt-2">
+              Estimated project duration
+            </p>
           </Card>
 
           <Card glass className="p-8">
@@ -360,7 +384,7 @@ export default function ProposalView() {
               {formatCurrency(proposal.pricing_amount)}
             </p>
             <p className="text-sm text-slate-400 mt-2 capitalize">
-              {proposal.pricing_model.replace('_', ' ')}
+              {proposal.pricing_model.replace("_", " ")}
             </p>
           </Card>
         </motion.div>
@@ -373,7 +397,9 @@ export default function ProposalView() {
             transition={{ delay: 0.4 }}
           >
             <Card glass className="p-8 mb-8">
-              <h2 className="text-2xl font-bold text-white mb-6">Optional Add-ons</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">
+                Optional Add-ons
+              </h2>
               <div className="space-y-3">
                 {proposal.optional_addons.map((addon, index) => (
                   <div
@@ -382,7 +408,9 @@ export default function ProposalView() {
                   >
                     <div className="flex-1">
                       <h3 className="text-white font-semibold">{addon.name}</h3>
-                      <p className="text-slate-400 text-sm">{addon.description}</p>
+                      <p className="text-slate-400 text-sm">
+                        {addon.description}
+                      </p>
                     </div>
                     <div className="text-right ml-4">
                       <p className="text-lg font-bold text-white">
@@ -452,7 +480,9 @@ export default function ProposalView() {
                 <Card glass className="p-8">
                   <div className="flex items-center space-x-3 mb-6">
                     <Shield className="w-6 h-6 text-[#10B981]" />
-                    <h3 className="text-2xl font-bold text-white">Approve Proposal</h3>
+                    <h3 className="text-2xl font-bold text-white">
+                      Approve Proposal
+                    </h3>
                   </div>
 
                   <div className="space-y-4 mb-6">
@@ -506,8 +536,9 @@ export default function ProposalView() {
                           className="mt-1 w-4 h-4 rounded border-slate-700 bg-slate-800 text-indigo-500 focus:ring-indigo-500"
                         />
                         <span className="text-sm text-slate-300">
-                          I have reviewed this proposal and approve moving forward with the scope,
-                          timeline, and pricing outlined above. *
+                          I have reviewed this proposal and approve moving
+                          forward with the scope, timeline, and pricing outlined
+                          above. *
                         </span>
                       </label>
                     </div>
@@ -517,10 +548,15 @@ export default function ProposalView() {
                     <Button
                       variant="primary"
                       onClick={handleApprove}
-                      disabled={approving || !approverName || !approverEmail || !agreedToTerms}
+                      disabled={
+                        approving ||
+                        !approverName ||
+                        !approverEmail ||
+                        !agreedToTerms
+                      }
                       className="flex-1"
                     >
-                      {approving ? 'Approving...' : 'Confirm Approval'}
+                      {approving ? "Approving..." : "Confirm Approval"}
                     </Button>
                     <Button
                       variant="outline"
@@ -549,11 +585,14 @@ export default function ProposalView() {
                 <Card glass className="p-8">
                   <div className="flex items-center space-x-3 mb-6">
                     <Mail className="w-6 h-6 text-indigo-500" />
-                    <h3 className="text-2xl font-bold text-white">Request Changes</h3>
+                    <h3 className="text-2xl font-bold text-white">
+                      Request Changes
+                    </h3>
                   </div>
 
                   <p className="text-slate-300 mb-6">
-                    Let us know what you'd like to discuss or change about this proposal.
+                    Let us know what you'd like to discuss or change about this
+                    proposal.
                   </p>
 
                   <div className="mb-6">
@@ -575,7 +614,7 @@ export default function ProposalView() {
                       disabled={declining}
                       className="flex-1"
                     >
-                      {declining ? 'Submitting...' : 'Submit Feedback'}
+                      {declining ? "Submitting..." : "Submit Feedback"}
                     </Button>
                     <Button
                       variant="outline"

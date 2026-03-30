@@ -1,14 +1,14 @@
-import HeroSection from '../components/marketing/HeroSection';
-import HowItWorksSection from '../components/marketing/HowItWorksSection';
-import IndustrySelectorSection from '../components/marketing/IndustrySelectorSection';
-import ProductShowcaseSection from '../components/marketing/ProductShowcaseSection';
-import MobileExperienceSection from '../components/marketing/MobileExperienceSection';
-import AICapabilitiesSection from '../components/marketing/AICapabilitiesSection';
-import TemplateAssemblySection from '../components/marketing/TemplateAssemblySection';
-import CompetitiveMatrixSection from '../components/marketing/CompetitiveMatrixSection';
-import InstantDemoSection from '../components/marketing/InstantDemoSection';
-import PricingClaritySection from '../components/marketing/PricingClaritySection';
-import SocialProofCTASection from '../components/marketing/SocialProofCTASection';
+import HeroSection from "../components/marketing/HeroSection";
+import HowItWorksSection from "../components/marketing/HowItWorksSection";
+import IndustrySelectorSection from "../components/marketing/IndustrySelectorSection";
+import ProductShowcaseSection from "../components/marketing/ProductShowcaseSection";
+import MobileExperienceSection from "../components/marketing/MobileExperienceSection";
+import AICapabilitiesSection from "../components/marketing/AICapabilitiesSection";
+import TemplateAssemblySection from "../components/marketing/TemplateAssemblySection";
+import CompetitiveMatrixSection from "../components/marketing/CompetitiveMatrixSection";
+import InstantDemoSection from "../components/marketing/InstantDemoSection";
+import PricingClaritySection from "../components/marketing/PricingClaritySection";
+import SocialProofCTASection from "../components/marketing/SocialProofCTASection";
 
 export default function Home() {
   return (

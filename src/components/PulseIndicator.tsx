@@ -1,22 +1,22 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 interface PulseIndicatorProps {
   color?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   label?: string;
   delay?: number;
 }
 
 export default function PulseIndicator({
-  color = '#10B981',
-  size = 'sm',
+  color = "#10B981",
+  size = "sm",
   label,
   delay = 0,
 }: PulseIndicatorProps) {
   const sizes = {
-    sm: 'w-2 h-2',
-    md: 'w-3 h-3',
-    lg: 'w-4 h-4',
+    sm: "w-2 h-2",
+    md: "w-3 h-3",
+    lg: "w-4 h-4",
   };
 
   return (
@@ -41,7 +41,7 @@ export default function PulseIndicator({
             delay,
             repeat: Infinity,
             repeatDelay: 0.5,
-            ease: 'easeOut',
+            ease: "easeOut",
           }}
         />
       </div>

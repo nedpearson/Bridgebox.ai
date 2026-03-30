@@ -1,5 +1,5 @@
-import { AIProviderFactory } from '../providers';
-import { PromptBuilder } from '../prompts';
+import { AIProviderFactory } from "../providers";
+import { PromptBuilder } from "../prompts";
 import type {
   AITaskResult,
   LeadSummary,
@@ -8,14 +8,14 @@ import type {
   BusinessInsights,
   ActionRecommendation,
   ProposalDraft,
-} from '../types';
+} from "../types";
 
 class AIService {
   private cache = new Map<string, { data: any; timestamp: number }>();
   private cacheTimeout = 5 * 60 * 1000;
 
   private getCacheKey(type: string, id?: string): string {
-    return `${type}:${id || 'global'}`;
+    return `${type}:${id || "global"}`;
   }
 
   private getFromCache<T>(key: string): T | null {
@@ -38,7 +38,7 @@ class AIService {
   public async executeAITask<T>(
     messages: any[],
     useCache: boolean = true,
-    cacheKey?: string
+    cacheKey?: string,
   ): Promise<AITaskResult<T>> {
     if (useCache && cacheKey) {
       const cached = this.getFromCache<T>(cacheKey);
@@ -58,8 +58,8 @@ class AIService {
         return {
           success: false,
           error: {
-            code: 'NOT_CONFIGURED',
-            message: 'AI provider is not configured. Using fallback data.',
+            code: "NOT_CONFIGURED",
+            message: "AI provider is not configured. Using fallback data.",
             provider: provider.provider,
             retryable: false,
           },
@@ -74,7 +74,10 @@ class AIService {
 
       let data: T;
       try {
-        let clean = response.content.replace(/```(?:json)?\n?/gi, '').replace(/```\n?/g, '').trim();
+        let clean = response.content
+          .replace(/```(?:json)?\n?/gi, "")
+          .replace(/```\n?/g, "")
+          .trim();
         const jsonMatch = clean.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
         if (jsonMatch) {
           data = JSON.parse(jsonMatch[0]);
@@ -82,8 +85,8 @@ class AIService {
           data = JSON.parse(clean);
         }
       } catch (err) {
-        console.error('JSON Parse Failure. Raw Payload:', response.content);
-        throw new Error('Invalid JSON response from AI');
+        console.error("JSON Parse Failure. Raw Payload:", response.content);
+        throw new Error("Invalid JSON response from AI");
       }
 
       if (useCache && cacheKey) {
@@ -96,55 +99,58 @@ class AIService {
         generatedBy: provider.provider,
       };
     } catch (error: any) {
-      console.error('AI task error:', error);
+      console.error("AI task error:", error);
       return {
         success: false,
         error: {
-          code: error.code || 'UNKNOWN_ERROR',
-          message: error.message || 'Failed to complete AI task',
-          provider: error.provider || 'unknown',
+          code: error.code || "UNKNOWN_ERROR",
+          message: error.message || "Failed to complete AI task",
+          provider: error.provider || "unknown",
           retryable: error.retryable ?? true,
         },
       };
     }
   }
 
-  async summarizeLead(leadData: any, useCache = true): Promise<AITaskResult<LeadSummary>> {
+  async summarizeLead(
+    leadData: any,
+    useCache = true,
+  ): Promise<AITaskResult<LeadSummary>> {
     const messages = PromptBuilder.summarizeLead(leadData);
-    const cacheKey = this.getCacheKey('lead_summary', leadData.id);
+    const cacheKey = this.getCacheKey("lead_summary", leadData.id);
     return this.executeAITask<LeadSummary>(messages, useCache, cacheKey);
   }
 
   async summarizeProject(
     projectData: any,
-    useCache = true
+    useCache = true,
   ): Promise<AITaskResult<ProjectSummary>> {
     const messages = PromptBuilder.summarizeProject(projectData);
-    const cacheKey = this.getCacheKey('project_summary', projectData.id);
+    const cacheKey = this.getCacheKey("project_summary", projectData.id);
     return this.executeAITask<ProjectSummary>(messages, useCache, cacheKey);
   }
 
   async summarizeTicket(
     ticketData: any,
-    useCache = true
+    useCache = true,
   ): Promise<AITaskResult<TicketSummary>> {
     const messages = PromptBuilder.summarizeTicket(ticketData);
-    const cacheKey = this.getCacheKey('ticket_summary', ticketData.id);
+    const cacheKey = this.getCacheKey("ticket_summary", ticketData.id);
     return this.executeAITask<TicketSummary>(messages, useCache, cacheKey);
   }
 
   async generateBusinessInsights(
     metricsData: any,
-    useCache = true
+    useCache = true,
   ): Promise<AITaskResult<BusinessInsights>> {
     const messages = PromptBuilder.generateBusinessInsights(metricsData);
-    const cacheKey = this.getCacheKey('business_insights');
+    const cacheKey = this.getCacheKey("business_insights");
     return this.executeAITask<BusinessInsights>(messages, useCache, cacheKey);
   }
 
   async recommendActions(
     contextData: any,
-    useCache = false
+    useCache = false,
   ): Promise<AITaskResult<ActionRecommendation[]>> {
     const messages = PromptBuilder.recommendActions(contextData);
     return this.executeAITask<ActionRecommendation[]>(messages, useCache);
@@ -152,7 +158,7 @@ class AIService {
 
   async draftProposal(
     proposalData: any,
-    useCache = false
+    useCache = false,
   ): Promise<AITaskResult<ProposalDraft>> {
     const messages = PromptBuilder.draftProposal(proposalData);
     return this.executeAITask<ProposalDraft>(messages, useCache);
@@ -171,7 +177,7 @@ class AIService {
   async generateWorkflow(promptText: string): Promise<AITaskResult<any[]>> {
     const messages = [
       {
-        role: 'system',
+        role: "system",
         content: `You are an expert automation engineer configuring Bridgebox DAG macros.
         Convert the natural language workflow prompt into a structured JSON array of workflow steps.
         Output Rules:
@@ -182,27 +188,30 @@ class AIService {
            - step_name (string, concise verb-first title)
            - step_type (enum: 'action', 'condition', 'delay', 'notification')
            - order_index (number, sequential starting at 0)
-           - config (object with arbitrary key/values relevant to the step, e.g. { "to": "client", "subject": "Welcome", "template": "onboarding" })`
+           - config (object with arbitrary key/values relevant to the step, e.g. { "to": "client", "subject": "Welcome", "template": "onboarding" })`,
       },
       {
-        role: 'user',
-        content: promptText
-      }
+        role: "user",
+        content: promptText,
+      },
     ];
     return this.executeAITask<any[]>(messages, false);
   }
 
-  async enrichLeadData(domain: string, websiteContent: string): Promise<AITaskResult<any>> {
+  async enrichLeadData(
+    domain: string,
+    websiteContent: string,
+  ): Promise<AITaskResult<any>> {
     const messages = [
       {
-        role: 'system',
+        role: "system",
         content: `You are an expert lead enrichment AI. Extract business intelligence based on this website text snippet.
-        Return exactly a JSON object: { "company_overview": "...", "target_market": "..." }`
+        Return exactly a JSON object: { "company_overview": "...", "target_market": "..." }`,
       },
       {
-        role: 'user',
-        content: `Website: ${domain}\nContent Array: ${websiteContent.slice(0, 3000)}`
-      }
+        role: "user",
+        content: `Website: ${domain}\nContent Array: ${websiteContent.slice(0, 3000)}`,
+      },
     ];
     return this.executeAITask<any>(messages, false);
   }
@@ -210,7 +219,7 @@ class AIService {
   async processVoiceCommand(transcript: string): Promise<AITaskResult<any>> {
     const messages = [
       {
-        role: 'system',
+        role: "system",
         content: `You are an autonomous CRM voice agent. The user is dictating instructions via a microphone.
         Parse the transcript and extract structured Entities to create.
         Return exactly a JSON object matching this schema:
@@ -218,20 +227,22 @@ class AIService {
           "projects": [ { "name": "...", "description": "..." } ],
           "tasks": [ { "title": "...", "description": "...", "priority": "high" } ]
         }
-        Only include entities explicitly requested.`
+        Only include entities explicitly requested.`,
       },
       {
-        role: 'user',
-        content: transcript
-      }
+        role: "user",
+        content: transcript,
+      },
     ];
     return this.executeAITask<any>(messages, false);
   }
 
-  async generateOnboardingIntelligence(context: string): Promise<AITaskResult<any>> {
+  async generateOnboardingIntelligence(
+    context: string,
+  ): Promise<AITaskResult<any>> {
     const messages = [
       {
-        role: 'system',
+        role: "system",
         content: `You are an elite Business Architect and Solutions Engineer onboarding a new tenant into Bridgebox.
         Parse the user's raw operational description and extract a highly structured systemic blueprint.
         Return strictly valid JSON matching this schema:
@@ -241,20 +252,23 @@ class AIService {
           "suggested_features": [{ "name": "...", "status": "Proposed" }],
           "missing_gaps": [{ "name": "...", "description": "..." }]
         }
-        Only Output JSON array without markdown formatting.`
+        Only Output JSON array without markdown formatting.`,
       },
       {
-        role: 'user',
-        content: context
-      }
+        role: "user",
+        content: context,
+      },
     ];
     return this.executeAITask<any>(messages, false);
   }
 
-  async analyzeCompetitorDomain(url: string, currentContext: string): Promise<AITaskResult<any>> {
+  async analyzeCompetitorDomain(
+    url: string,
+    currentContext: string,
+  ): Promise<AITaskResult<any>> {
     const messages = [
       {
-        role: 'system',
+        role: "system",
         content: `You are an elite competitive intelligence AI. The user has provided a competitor's URL (${url}).
         Analyze this domain based on your training data regarding market positioning and infer their operational structure.
         Compare it against the client's current context: ${currentContext.slice(0, 1000)}
@@ -263,12 +277,12 @@ class AIService {
           "inferred_competitor_model": "...",
           "identified_gaps": ["..."],
           "recommended_bridgebox_features": ["..."]
-        }`
+        }`,
       },
       {
-        role: 'user',
-        content: `Provide competitive analysis for: ${url}`
-      }
+        role: "user",
+        content: `Provide competitive analysis for: ${url}`,
+      },
     ];
     return this.executeAITask<any>(messages, false);
   }

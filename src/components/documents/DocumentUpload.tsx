@@ -1,8 +1,15 @@
-import { useState, useCallback } from 'react';
-import { Upload, X, FileText, Image, FileSpreadsheet, File } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Button from '../Button';
-import type { DocumentType } from '../../types/document';
+import { useState, useCallback } from "react";
+import {
+  Upload,
+  X,
+  FileText,
+  Image,
+  FileSpreadsheet,
+  File,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Button from "../Button";
+import type { DocumentType } from "../../types/document";
 
 interface DocumentUploadProps {
   onUpload: (file: File, documentType: DocumentType) => Promise<void>;
@@ -10,10 +17,10 @@ interface DocumentUploadProps {
 }
 
 const FILE_TYPE_ICONS: Record<string, any> = {
-  'application/pdf': FileText,
-  'image/': Image,
-  'application/vnd.': FileSpreadsheet,
-  'text/': FileText,
+  "application/pdf": FileText,
+  "image/": Image,
+  "application/vnd.": FileSpreadsheet,
+  "text/": FileText,
 };
 
 const getFileIcon = (fileType: string) => {
@@ -23,18 +30,21 @@ const getFileIcon = (fileType: string) => {
   return File;
 };
 
-export default function DocumentUpload({ onUpload, onCancel }: DocumentUploadProps) {
+export default function DocumentUpload({
+  onUpload,
+  onCancel,
+}: DocumentUploadProps) {
   const [file, setFile] = useState<File | null>(null);
-  const [documentType, setDocumentType] = useState<DocumentType>('other');
+  const [documentType, setDocumentType] = useState<DocumentType>("other");
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (e.type === 'dragenter' || e.type === 'dragover') {
+    if (e.type === "dragenter" || e.type === "dragover") {
       setDragActive(true);
-    } else if (e.type === 'dragleave') {
+    } else if (e.type === "dragleave") {
       setDragActive(false);
     }
   }, []);
@@ -63,18 +73,18 @@ export default function DocumentUpload({ onUpload, onCancel }: DocumentUploadPro
       await onUpload(file, documentType);
       setFile(null);
     } catch (error) {
-      console.error('Upload failed:', error);
+      console.error("Upload failed:", error);
     } finally {
       setUploading(false);
     }
   };
 
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
   };
 
   return (
@@ -86,9 +96,10 @@ export default function DocumentUpload({ onUpload, onCancel }: DocumentUploadPro
         onDrop={handleDrop}
         className={`
           relative border-2 border-dashed rounded-xl p-12 text-center transition-colors
-          ${dragActive
-            ? 'border-blue-500 bg-blue-500/10'
-            : 'border-slate-700 hover:border-slate-600'
+          ${
+            dragActive
+              ? "border-blue-500 bg-blue-500/10"
+              : "border-slate-700 hover:border-slate-600"
           }
         `}
       >
@@ -114,8 +125,11 @@ export default function DocumentUpload({ onUpload, onCancel }: DocumentUploadPro
               </div>
               <div>
                 <p className="text-lg text-white mb-2">
-                  Drop your file here, or{' '}
-                  <label htmlFor="file-upload" className="text-blue-400 hover:text-blue-300 cursor-pointer">
+                  Drop your file here, or{" "}
+                  <label
+                    htmlFor="file-upload"
+                    className="text-blue-400 hover:text-blue-300 cursor-pointer"
+                  >
                     browse
                   </label>
                 </p>
@@ -139,7 +153,9 @@ export default function DocumentUpload({ onUpload, onCancel }: DocumentUploadPro
                 })()}
                 <div className="flex-1 text-left">
                   <p className="text-white font-medium truncate">{file.name}</p>
-                  <p className="text-sm text-slate-400">{formatFileSize(file.size)}</p>
+                  <p className="text-sm text-slate-400">
+                    {formatFileSize(file.size)}
+                  </p>
                 </div>
                 <button
                   onClick={() => setFile(null)}
@@ -184,7 +200,7 @@ export default function DocumentUpload({ onUpload, onCancel }: DocumentUploadPro
               </Button>
             )}
             <Button onClick={handleUpload} disabled={uploading}>
-              {uploading ? 'Uploading...' : 'Upload Document'}
+              {uploading ? "Uploading..." : "Upload Document"}
             </Button>
           </div>
         </motion.div>

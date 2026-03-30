@@ -1,13 +1,13 @@
 // @ts-nocheck
-import { motion } from 'framer-motion';
-import { CheckCircle2, Circle, Clock, ChevronRight } from 'lucide-react';
-import Badge from '../Badge';
+import { motion } from "framer-motion";
+import { CheckCircle2, Circle, Clock, ChevronRight } from "lucide-react";
+import Badge from "../Badge";
 
 interface MobileTaskCardProps {
   id: string;
   title: string;
-  status: 'pending' | 'in_progress' | 'completed';
-  priority?: 'low' | 'medium' | 'high';
+  status: "pending" | "in_progress" | "completed";
+  priority?: "low" | "medium" | "high";
   dueDate?: string;
   onClick: () => void;
   onStatusToggle: (id: string, newStatus: string) => void;
@@ -20,9 +20,9 @@ const STATUS_ICONS = {
 };
 
 const PRIORITY_COLORS = {
-  low: 'slate',
-  medium: 'amber',
-  high: 'red',
+  low: "slate",
+  medium: "amber",
+  high: "red",
 };
 
 export default function MobileTaskCard({
@@ -38,7 +38,7 @@ export default function MobileTaskCard({
 
   const handleStatusClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const nextStatus = status === 'completed' ? 'pending' : 'completed';
+    const nextStatus = status === "completed" ? "pending" : "completed";
     onStatusToggle(id, nextStatus);
   };
 
@@ -52,17 +52,14 @@ export default function MobileTaskCard({
     >
       <div className="flex items-start gap-3">
         {/* Status Toggle */}
-        <button
-          onClick={handleStatusClick}
-          className="flex-shrink-0 pt-0.5"
-        >
+        <button onClick={handleStatusClick} className="flex-shrink-0 pt-0.5">
           <StatusIcon
             className={`w-6 h-6 transition-colors ${
-              status === 'completed'
-                ? 'text-green-400'
-                : status === 'in_progress'
-                ? 'text-blue-400'
-                : 'text-slate-500'
+              status === "completed"
+                ? "text-green-400"
+                : status === "in_progress"
+                  ? "text-blue-400"
+                  : "text-slate-500"
             }`}
           />
         </button>
@@ -71,9 +68,9 @@ export default function MobileTaskCard({
         <div className="flex-1 min-w-0">
           <h3
             className={`text-base font-medium mb-2 ${
-              status === 'completed'
-                ? 'text-slate-400 line-through'
-                : 'text-white'
+              status === "completed"
+                ? "text-slate-400 line-through"
+                : "text-white"
             }`}
           >
             {title}

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   TrendingUp,
   Calendar,
@@ -8,19 +8,17 @@ import {
   CheckCircle2,
   Circle,
   MessageSquare,
-} from 'lucide-react';
-import MobileLayout from '../../layouts/MobileLayout';
-import StatusBadge from '../../components/admin/StatusBadge';
-import Button from '../../components/Button';
-import { projectsService } from '../../lib/db/projects';
-
-
+} from "lucide-react";
+import MobileLayout from "../../layouts/MobileLayout";
+import StatusBadge from "../../components/admin/StatusBadge";
+import Button from "../../components/Button";
+import { projectsService } from "../../lib/db/projects";
 
 export default function MobileProjectDetail() {
   const { id } = useParams();
   const [project, setProject] = useState<any>(null);
   const [milestones, setMilestones] = useState<any[]>([]);
-  const [newUpdate, setNewUpdate] = useState('');
+  const [newUpdate, setNewUpdate] = useState("");
 
   useEffect(() => {
     loadProject();
@@ -34,7 +32,7 @@ export default function MobileProjectDetail() {
       const mData = await projectsService.getProjectMilestones(id);
       setMilestones(mData || []);
     } catch (error) {
-      console.error('Failed to resolve project', error);
+      console.error("Failed to resolve project", error);
     }
   };
 
@@ -44,7 +42,7 @@ export default function MobileProjectDetail() {
         ...project,
         updates: [newUpdate, ...project.updates],
       });
-      setNewUpdate('');
+      setNewUpdate("");
     }
   };
 
@@ -58,7 +56,9 @@ export default function MobileProjectDetail() {
           {/* Header Section */}
           <div className="p-4 bg-slate-900/50 border-b border-slate-800">
             <div className="flex items-start justify-between mb-3">
-              <h1 className="text-lg font-semibold text-white">{project.name}</h1>
+              <h1 className="text-lg font-semibold text-white">
+                {project.name}
+              </h1>
               <StatusBadge status={project.status} />
             </div>
 
@@ -72,7 +72,9 @@ export default function MobileProjectDetail() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-slate-400">Overall Progress</span>
-                <span className="text-sm font-medium text-white">{project.progress_percentage || 0}%</span>
+                <span className="text-sm font-medium text-white">
+                  {project.progress_percentage || 0}%
+                </span>
               </div>
               <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
                 <motion.div
@@ -90,22 +92,31 @@ export default function MobileProjectDetail() {
               <StatItem
                 icon={Calendar}
                 label="Started"
-                value={new Date(project.start_date).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                })}
+                value={new Date(project.start_date).toLocaleDateString(
+                  "en-US",
+                  {
+                    month: "short",
+                    day: "numeric",
+                  },
+                )}
               />
             )}
             {project.team_size && (
-              <StatItem icon={Users} label="Team" value={`${project.team_size}`} />
+              <StatItem
+                icon={Users}
+                label="Team"
+                value={`${project.team_size}`}
+              />
             )}
             {project.target_completion_date && (
               <StatItem
                 icon={TrendingUp}
                 label="Due"
-                value={new Date(project.target_completion_date).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
+                value={new Date(
+                  project.target_completion_date,
+                ).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
                 })}
               />
             )}
@@ -119,10 +130,16 @@ export default function MobileProjectDetail() {
             </h3>
             <div className="space-y-2">
               {milestones.length === 0 ? (
-                <div className="text-center py-4 text-slate-400 text-sm">No milestones</div>
+                <div className="text-center py-4 text-slate-400 text-sm">
+                  No milestones
+                </div>
               ) : (
                 milestones.map((milestone: any, index: number) => (
-                  <MilestoneItem key={milestone.id} milestone={milestone} index={index} />
+                  <MilestoneItem
+                    key={milestone.id}
+                    milestone={milestone}
+                    index={index}
+                  />
                 ))
               )}
             </div>
@@ -137,7 +154,9 @@ export default function MobileProjectDetail() {
 
             <div className="space-y-2 mb-4">
               {(project.updates || []).length === 0 ? (
-                <div className="text-center py-4 text-slate-400 text-sm">No updates yet</div>
+                <div className="text-center py-4 text-slate-400 text-sm">
+                  No updates yet
+                </div>
               ) : (
                 (project.updates || []).map((update: any, index: number) => (
                   <div
@@ -201,7 +220,7 @@ interface MilestoneItemProps {
 }
 
 function MilestoneItem({ milestone, index }: MilestoneItemProps) {
-  const Icon = milestone.status === 'completed' ? CheckCircle2 : Circle;
+  const Icon = milestone.status === "completed" ? CheckCircle2 : Circle;
 
   return (
     <motion.div
@@ -212,17 +231,19 @@ function MilestoneItem({ milestone, index }: MilestoneItemProps) {
     >
       <Icon
         className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
-          milestone.status === 'completed'
-            ? 'text-green-400'
-            : milestone.status === 'in_progress'
-            ? 'text-blue-400'
-            : 'text-slate-500'
+          milestone.status === "completed"
+            ? "text-green-400"
+            : milestone.status === "in_progress"
+              ? "text-blue-400"
+              : "text-slate-500"
         }`}
       />
       <div className="flex-1 min-w-0">
         <h4
           className={`text-sm font-medium mb-1 ${
-            milestone.status === 'completed' ? 'text-slate-400 line-through' : 'text-white'
+            milestone.status === "completed"
+              ? "text-slate-400 line-through"
+              : "text-white"
           }`}
         >
           {milestone.title}

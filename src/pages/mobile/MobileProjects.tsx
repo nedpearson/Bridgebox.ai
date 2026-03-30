@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Search, Plus, FolderKanban } from 'lucide-react';
-import MobileLayout from '../../layouts/MobileLayout';
-import MobileProjectCard from '../../components/mobile/MobileProjectCard';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import EmptyState from '../../components/EmptyState';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Search, Plus, FolderKanban } from "lucide-react";
+import MobileLayout from "../../layouts/MobileLayout";
+import MobileProjectCard from "../../components/mobile/MobileProjectCard";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import EmptyState from "../../components/EmptyState";
+import { useAuth } from "../../contexts/AuthContext";
 
-import { projectsService } from '../../lib/db/projects';
+import { projectsService } from "../../lib/db/projects";
 
 export default function MobileProjects() {
   const navigate = useNavigate();
   const { currentOrganization } = useAuth();
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     loadProjects();
@@ -25,17 +25,19 @@ export default function MobileProjects() {
     if (!currentOrganization) return;
     try {
       setLoading(true);
-      const data = await projectsService.getProjectsByOrganization(currentOrganization.id);
+      const data = await projectsService.getProjectsByOrganization(
+        currentOrganization.id,
+      );
       setProjects(data || []);
     } catch (error) {
-      console.error('Failed to load mobile projects:', error);
+      console.error("Failed to load mobile projects:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const filteredProjects = projects.filter(project =>
-    project.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredProjects = projects.filter((project) =>
+    project.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -79,7 +81,9 @@ export default function MobileProjects() {
                   <MobileProjectCard
                     {...project}
                     progress={project.progress_percentage || 0}
-                    onClick={() => navigate(`/app/mobile/projects/${project.id}`)}
+                    onClick={() =>
+                      navigate(`/app/mobile/projects/${project.id}`)
+                    }
                   />
                 </motion.div>
               ))}
@@ -90,7 +94,7 @@ export default function MobileProjects() {
         {/* Floating Action Button */}
         <motion.button
           whileTap={{ scale: 0.9 }}
-          onClick={() => navigate('/app/projects/new')}
+          onClick={() => navigate("/app/projects/new")}
           className="fixed bottom-20 right-4 w-14 h-14 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center z-40"
         >
           <Plus className="w-6 h-6" />

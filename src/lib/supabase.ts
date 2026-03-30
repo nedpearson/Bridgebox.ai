@@ -1,15 +1,19 @@
-import { createClient } from '@supabase/supabase-js';
-import { config, validateConfig } from './config';
+import { createClient } from "@supabase/supabase-js";
+import { config, validateConfig } from "./config";
 
 validateConfig();
 
-export const supabase = createClient(config.supabase.url, config.supabase.anonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
+export const supabase = createClient(
+  config.supabase.url,
+  config.supabase.anonKey,
+  {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+    },
   },
-});
+);
 
 export interface Lead {
   id?: string;
@@ -18,16 +22,16 @@ export interface Lead {
   company?: string;
   project_description: string;
   budget_range?: string;
-  lead_type: 'custom_software' | 'automation' | 'dashboards' | 'mobile_app';
-  form_type: 'demo' | 'custom_build';
+  lead_type: "custom_software" | "automation" | "dashboards" | "mobile_app";
+  form_type: "demo" | "custom_build";
   created_at?: string;
   updated_at?: string;
-  status?: 'new' | 'contacted' | 'qualified' | 'converted';
+  status?: "new" | "contacted" | "qualified" | "converted";
 }
 
 export async function submitLead(lead: Lead) {
   const { data, error } = await supabase
-    .from('bb_leads')
+    .from("bb_leads")
     .insert([lead])
     .select()
     .maybeSingle();

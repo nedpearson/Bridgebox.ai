@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Upload, File as FileIcon, Loader2, AlertCircle } from 'lucide-react';
-import Button from '../Button';
-import { useAuth } from '../../contexts/AuthContext';
-import { documentService } from '../../lib/db/documents';
-import { storageService } from '../../lib/storage';
-import { entityLinkService, EntityType } from '../../lib/db/entityLinks';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  X,
+  Upload,
+  File as FileIcon,
+  Loader2,
+  AlertCircle,
+} from "lucide-react";
+import Button from "../Button";
+import { useAuth } from "../../contexts/AuthContext";
+import { documentService } from "../../lib/db/documents";
+import { storageService } from "../../lib/storage";
+import { entityLinkService, EntityType } from "../../lib/db/entityLinks";
 
 interface DocumentUploadModalProps {
   isOpen: boolean;
@@ -15,7 +21,13 @@ interface DocumentUploadModalProps {
   onUploadComplete: () => void;
 }
 
-export default function DocumentUploadModal({ isOpen, onClose, entityType, entityId, onUploadComplete }: DocumentUploadModalProps) {
+export default function DocumentUploadModal({
+  isOpen,
+  onClose,
+  entityType,
+  entityId,
+  onUploadComplete,
+}: DocumentUploadModalProps) {
   const { currentOrganization } = useAuth();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -26,8 +38,9 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 50 * 1024 * 1024) { // 50MB limit
-        setError('File size must be less than 50MB');
+      if (file.size > 50 * 1024 * 1024) {
+        // 50MB limit
+        setError("File size must be less than 50MB");
         return;
       }
       setSelectedFile(file);
@@ -42,14 +55,17 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
 
   const handleUpload = async () => {
     if (!selectedFile || !currentOrganization?.id) return;
-    
+
     try {
       setUploading(true);
       setError(null);
-      
+
       // 1. Upload the physical document to Supabase storage
-      const path = storageService.buildClientDocumentPath(currentOrganization.id, selectedFile.name);
-      await storageService.uploadFile('client_documents', path, selectedFile);
+      const path = storageService.buildClientDocumentPath(
+        currentOrganization.id,
+        selectedFile.name,
+      );
+      await storageService.uploadFile("client_documents", path, selectedFile);
 
       // 2. Create system record
       const doc = await documentService.createDocument({
@@ -58,9 +74,9 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
         file_size: selectedFile.size,
         file_type: selectedFile.type,
         storage_path: path,
-        document_type: 'operational',
-        status: 'completed',
-        is_processed: false
+        document_type: "operational",
+        status: "completed",
+        is_processed: false,
       });
 
       // 3. Bind the document implicitly to the originating node context
@@ -69,9 +85,9 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
           tenant_id: currentOrganization.id,
           source_type: entityType,
           source_id: entityId,
-          target_type: 'document',
+          target_type: "document",
           target_id: doc.id,
-          relationship_type: 'attached_to'
+          relationship_type: "attached_to",
         });
       }
 
@@ -79,8 +95,8 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
       onClose();
       clearSelection();
     } catch (err: any) {
-      console.error('Document upload error:', err);
-      setError(err.message || 'Failed to upload document. Please try again.');
+      console.error("Document upload error:", err);
+      setError(err.message || "Failed to upload document. Please try again.");
     } finally {
       setUploading(false);
     }
@@ -98,7 +114,9 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
           <div className="flex items-center justify-between p-6 border-b border-slate-800">
             <div>
               <h2 className="text-xl font-bold text-white">Upload Document</h2>
-              <p className="text-sm text-slate-400 mt-1 capitalize">Binding to {entityType} Record</p>
+              <p className="text-sm text-slate-400 mt-1 capitalize">
+                Binding to {entityType} Record
+              </p>
             </div>
             <button
               onClick={onClose}
@@ -119,9 +137,15 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
                 />
                 <div className="border-2 border-dashed border-slate-700 rounded-xl p-12 text-center bg-slate-800/50 hover:bg-slate-800 transition-colors pointer-events-none">
                   <Upload className="w-12 h-12 text-slate-500 mx-auto mb-4" />
-                  <p className="text-white font-medium mb-1">Drag and drop your file here</p>
-                  <p className="text-sm text-slate-400">or click to browse from your computer</p>
-                  <p className="text-xs text-slate-500 mt-4">Max file size 50MB. PDF, Word, Excel, Images, CSV.</p>
+                  <p className="text-white font-medium mb-1">
+                    Drag and drop your file here
+                  </p>
+                  <p className="text-sm text-slate-400">
+                    or click to browse from your computer
+                  </p>
+                  <p className="text-xs text-slate-500 mt-4">
+                    Max file size 50MB. PDF, Word, Excel, Images, CSV.
+                  </p>
                 </div>
               </div>
             ) : (
@@ -150,11 +174,11 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
                 </div>
               </div>
             )}
-            
+
             {error && (
               <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-start space-x-3 text-red-400">
-                 <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                 <p className="text-sm">{error}</p>
+                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <p className="text-sm">{error}</p>
               </div>
             )}
           </div>
@@ -174,7 +198,7 @@ export default function DocumentUploadModal({ isOpen, onClose, entityType, entit
                   Uploading
                 </>
               ) : (
-                'Upload & Bind'
+                "Upload & Bind"
               )}
             </Button>
           </div>

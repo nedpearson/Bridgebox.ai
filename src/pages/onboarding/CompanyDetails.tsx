@@ -1,31 +1,36 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Building2 } from 'lucide-react';
-import Button from '../../components/Button';
-import Card from '../../components/Card';
-import { useOnboarding } from '../../contexts/OnboardingContext';
-import { COMPANY_SIZE_OPTIONS } from '../../types/onboarding';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowLeft, Building2 } from "lucide-react";
+import Button from "../../components/Button";
+import Card from "../../components/Card";
+import { useOnboarding } from "../../contexts/OnboardingContext";
+import { COMPANY_SIZE_OPTIONS } from "../../types/onboarding";
 
 export default function CompanyDetails() {
-  const { onboardingData, updateOnboardingData, saveOnboarding, setCurrentStep } = useOnboarding();
+  const {
+    onboardingData,
+    updateOnboardingData,
+    saveOnboarding,
+    setCurrentStep,
+  } = useOnboarding();
   const [formData, setFormData] = useState({
-    company_name: onboardingData.company_name || '',
-    company_size: onboardingData.company_size || '',
-    industry: onboardingData.industry || '',
-    website: onboardingData.website || '',
-    primary_contact_name: onboardingData.primary_contact_name || '',
-    primary_contact_email: onboardingData.primary_contact_email || '',
+    company_name: onboardingData.company_name || "",
+    company_size: onboardingData.company_size || "",
+    industry: onboardingData.industry || "",
+    website: onboardingData.website || "",
+    primary_contact_name: onboardingData.primary_contact_name || "",
+    primary_contact_email: onboardingData.primary_contact_email || "",
   });
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     setFormData({
-      company_name: onboardingData.company_name || '',
-      company_size: onboardingData.company_size || '',
-      industry: onboardingData.industry || '',
-      website: onboardingData.website || '',
-      primary_contact_name: onboardingData.primary_contact_name || '',
-      primary_contact_email: onboardingData.primary_contact_email || '',
+      company_name: onboardingData.company_name || "",
+      company_size: onboardingData.company_size || "",
+      industry: onboardingData.industry || "",
+      website: onboardingData.website || "",
+      primary_contact_name: onboardingData.primary_contact_name || "",
+      primary_contact_email: onboardingData.primary_contact_email || "",
     });
   }, [onboardingData]);
 
@@ -36,7 +41,7 @@ export default function CompanyDetails() {
       await saveOnboarding();
       setCurrentStep(2);
     } catch (error) {
-      console.error('Failed to save:', error);
+      console.error("Failed to save:", error);
     } finally {
       setIsSaving(false);
     }
@@ -58,13 +63,18 @@ export default function CompanyDetails() {
           </div>
           <div>
             <h2 className="text-3xl font-bold text-white">Company Details</h2>
-            <p className="text-slate-400 mt-1">Tell us about your organization</p>
+            <p className="text-slate-400 mt-1">
+              Tell us about your organization
+            </p>
           </div>
         </div>
 
         <div className="space-y-6">
           <div>
-            <label htmlFor="company_name" className="block text-sm font-medium text-slate-300 mb-2">
+            <label
+              htmlFor="company_name"
+              className="block text-sm font-medium text-slate-300 mb-2"
+            >
               Company Name <span className="text-red-400">*</span>
             </label>
             <input
@@ -72,7 +82,9 @@ export default function CompanyDetails() {
               id="company_name"
               required
               value={formData.company_name}
-              onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, company_name: e.target.value })
+              }
               className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               placeholder="Acme Inc."
             />
@@ -80,14 +92,19 @@ export default function CompanyDetails() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="company_size" className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                htmlFor="company_size"
+                className="block text-sm font-medium text-slate-300 mb-2"
+              >
                 Company Size <span className="text-red-400">*</span>
               </label>
               <select
                 id="company_size"
                 required
                 value={formData.company_size}
-                onChange={(e) => setFormData({ ...formData, company_size: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, company_size: e.target.value })
+                }
                 className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               >
                 <option value="">Select size</option>
@@ -100,7 +117,10 @@ export default function CompanyDetails() {
             </div>
 
             <div>
-              <label htmlFor="industry" className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                htmlFor="industry"
+                className="block text-sm font-medium text-slate-300 mb-2"
+              >
                 Industry <span className="text-red-400">*</span>
               </label>
               <input
@@ -108,7 +128,9 @@ export default function CompanyDetails() {
                 id="industry"
                 required
                 value={formData.industry}
-                onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, industry: e.target.value })
+                }
                 className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 placeholder="e.g., Healthcare, Finance"
               />
@@ -116,25 +138,35 @@ export default function CompanyDetails() {
           </div>
 
           <div>
-            <label htmlFor="website" className="block text-sm font-medium text-slate-300 mb-2">
+            <label
+              htmlFor="website"
+              className="block text-sm font-medium text-slate-300 mb-2"
+            >
               Company Website (Optional)
             </label>
             <input
               type="url"
               id="website"
               value={formData.website}
-              onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, website: e.target.value })
+              }
               className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               placeholder="https://example.com"
             />
           </div>
 
           <div className="border-t border-slate-700 pt-6 mt-8">
-            <h3 className="text-lg font-semibold text-white mb-4">Primary Contact</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Primary Contact
+            </h3>
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="primary_contact_name" className="block text-sm font-medium text-slate-300 mb-2">
+                <label
+                  htmlFor="primary_contact_name"
+                  className="block text-sm font-medium text-slate-300 mb-2"
+                >
                   Full Name <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -142,14 +174,22 @@ export default function CompanyDetails() {
                   id="primary_contact_name"
                   required
                   value={formData.primary_contact_name}
-                  onChange={(e) => setFormData({ ...formData, primary_contact_name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      primary_contact_name: e.target.value,
+                    })
+                  }
                   className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   placeholder="John Smith"
                 />
               </div>
 
               <div>
-                <label htmlFor="primary_contact_email" className="block text-sm font-medium text-slate-300 mb-2">
+                <label
+                  htmlFor="primary_contact_email"
+                  className="block text-sm font-medium text-slate-300 mb-2"
+                >
                   Email Address <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -157,7 +197,12 @@ export default function CompanyDetails() {
                   id="primary_contact_email"
                   required
                   value={formData.primary_contact_email}
-                  onChange={(e) => setFormData({ ...formData, primary_contact_email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      primary_contact_email: e.target.value,
+                    })
+                  }
                   className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   placeholder="john@company.com"
                 />
@@ -167,10 +212,7 @@ export default function CompanyDetails() {
         </div>
 
         <div className="flex items-center justify-between mt-10 pt-6 border-t border-slate-700">
-          <Button
-            variant="outline"
-            onClick={() => setCurrentStep(0)}
-          >
+          <Button variant="outline" onClick={() => setCurrentStep(0)}>
             <ArrowLeft className="mr-2 w-5 h-5" /> Back
           </Button>
 
@@ -179,7 +221,8 @@ export default function CompanyDetails() {
             onClick={handleNext}
             disabled={!isValid || isSaving}
           >
-            {isSaving ? 'Saving...' : 'Continue'} <ArrowRight className="ml-2 w-5 h-5" />
+            {isSaving ? "Saving..." : "Continue"}{" "}
+            <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </div>
       </Card>

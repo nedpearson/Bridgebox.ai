@@ -1,21 +1,25 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Send, Clock, MessageSquare } from 'lucide-react';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import TicketStatusBadge from '../../components/support/TicketStatusBadge';
-import TicketPriorityBadge from '../../components/support/TicketPriorityBadge';
-import TicketCategoryBadge from '../../components/support/TicketCategoryBadge';
-import { supportService, TicketWithDetails, CommentWithAuthor } from '../../lib/db/support';
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, Send, Clock, MessageSquare } from "lucide-react";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import TicketStatusBadge from "../../components/support/TicketStatusBadge";
+import TicketPriorityBadge from "../../components/support/TicketPriorityBadge";
+import TicketCategoryBadge from "../../components/support/TicketCategoryBadge";
+import {
+  supportService,
+  TicketWithDetails,
+  CommentWithAuthor,
+} from "../../lib/db/support";
 
 export default function ClientSupportDetail() {
   const { id } = useParams<{ id: string }>();
   const [ticket, setTicket] = useState<TicketWithDetails | null>(null);
   const [comments, setComments] = useState<CommentWithAuthor[]>([]);
   const [loading, setLoading] = useState(true);
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -34,7 +38,7 @@ export default function ClientSupportDetail() {
       setTicket(ticketData);
       setComments(commentsData.filter((c) => !c.is_internal));
     } catch (error) {
-      console.error('Failed to load ticket:', error);
+      console.error("Failed to load ticket:", error);
     } finally {
       setLoading(false);
     }
@@ -50,10 +54,10 @@ export default function ClientSupportDetail() {
         content: newComment.trim(),
         is_internal: false,
       });
-      setNewComment('');
+      setNewComment("");
       loadData();
     } catch (error) {
-      console.error('Failed to create comment:', error);
+      console.error("Failed to create comment:", error);
     } finally {
       setSubmitting(false);
     }
@@ -99,17 +103,24 @@ export default function ClientSupportDetail() {
           <div className="flex items-center space-x-4 text-sm text-slate-400">
             <span className="flex items-center space-x-1">
               <Clock className="w-4 h-4" />
-              <span>Created {new Date(ticket.created_at).toLocaleString()}</span>
+              <span>
+                Created {new Date(ticket.created_at).toLocaleString()}
+              </span>
             </span>
             {ticket.assigned_user && (
-              <span>Assigned to: {ticket.assigned_user.full_name || ticket.assigned_user.email}</span>
+              <span>
+                Assigned to:{" "}
+                {ticket.assigned_user.full_name || ticket.assigned_user.email}
+              </span>
             )}
           </div>
         </div>
 
         <div className="mb-6 pb-6 border-b border-slate-800">
           <h3 className="text-lg font-semibold text-white mb-3">Description</h3>
-          <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{ticket.description}</p>
+          <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">
+            {ticket.description}
+          </p>
         </div>
 
         <div>
@@ -131,19 +142,23 @@ export default function ClientSupportDetail() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <span className="font-medium text-white">
-                      {comment.author?.full_name || comment.author?.email || 'Team Member'}
+                      {comment.author?.full_name ||
+                        comment.author?.email ||
+                        "Team Member"}
                     </span>
                     <span className="text-sm text-slate-400">
                       {new Date(comment.created_at).toLocaleString()}
                     </span>
                   </div>
-                  <p className="text-slate-300 whitespace-pre-wrap">{comment.content}</p>
+                  <p className="text-slate-300 whitespace-pre-wrap">
+                    {comment.content}
+                  </p>
                 </motion.div>
               ))
             )}
           </div>
 
-          {ticket.status !== 'closed' && (
+          {ticket.status !== "closed" && (
             <div className="border-t border-slate-800 pt-6">
               <div className="space-y-4">
                 <textarea
@@ -161,7 +176,7 @@ export default function ClientSupportDetail() {
                     disabled={!newComment.trim() || submitting}
                   >
                     <Send className="w-4 h-4 mr-2" />
-                    {submitting ? 'Sending...' : 'Send Comment'}
+                    {submitting ? "Sending..." : "Send Comment"}
                   </Button>
                 </div>
               </div>

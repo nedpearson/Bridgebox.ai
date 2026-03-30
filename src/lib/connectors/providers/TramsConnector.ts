@@ -1,11 +1,15 @@
-import { BaseConnector } from '../core/BaseConnector';
-import { SyncResult, ExternalData, NormalizedRecord } from '../types';
+import { BaseConnector } from "../core/BaseConnector";
+import { SyncResult, ExternalData, NormalizedRecord } from "../types";
 
 export class TramsConnector extends BaseConnector {
-  protected providerName = 'TRAMS Back Office';
+  protected providerName = "TRAMS Back Office";
 
-  async connect(credentials?: Record<string, any>): Promise<boolean> { return true; }
-  async disconnect(): Promise<boolean> { return true; }
+  async connect(credentials?: Record<string, any>): Promise<boolean> {
+    return true;
+  }
+  async disconnect(): Promise<boolean> {
+    return true;
+  }
 
   async testConnection(): Promise<boolean> {
     return true; // Scaffold import-first adapter
@@ -28,7 +32,7 @@ export class TramsConnector extends BaseConnector {
       errors: [],
       duration: 0,
       startedAt: new Date().toISOString(),
-      completedAt: new Date().toISOString()
+      completedAt: new Date().toISOString(),
     };
   }
 

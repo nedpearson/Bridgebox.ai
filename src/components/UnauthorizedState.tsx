@@ -1,7 +1,7 @@
-import { ShieldAlert, Home, ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import Button from './Button';
-import Card from './Card';
+import { ShieldAlert, Home, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Button from "./Button";
+import Card from "./Card";
 
 interface UnauthorizedStateProps {
   title?: string;
@@ -11,8 +11,8 @@ interface UnauthorizedStateProps {
 }
 
 export default function UnauthorizedState({
-  title = 'Access Denied',
-  message = 'You do not have permission to access this resource. Please contact your administrator if you believe this is an error.',
+  title = "Access Denied",
+  message = "You do not have permission to access this resource. Please contact your administrator if you believe this is an error.",
   showHomeButton = true,
   showBackButton = true,
 }: UnauthorizedStateProps) {
@@ -44,7 +44,7 @@ export default function UnauthorizedState({
           {showHomeButton && (
             <Button
               variant="primary"
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
               className="flex items-center space-x-2"
             >
               <Home className="w-4 h-4" />

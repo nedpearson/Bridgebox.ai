@@ -1,9 +1,20 @@
-import { useState } from 'react';
-import { useScreenRecorder } from '../../hooks/useScreenRecorder';
-import { internalRecordingsApi } from '../../lib/internalRecordings';
-import { Play, Square, Pause, Save, X, Upload, Sparkles, Video, Mic, Monitor } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
-import { copilotEngine } from '../../lib/ai/services/copilotEngine';
+import { useState } from "react";
+import { useScreenRecorder } from "../../hooks/useScreenRecorder";
+import { internalRecordingsApi } from "../../lib/internalRecordings";
+import {
+  Play,
+  Square,
+  Pause,
+  Save,
+  X,
+  Upload,
+  Sparkles,
+  Video,
+  Mic,
+  Monitor,
+} from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { copilotEngine } from "../../lib/ai/services/copilotEngine";
 
 export default function RecorderUI() {
   const { user } = useAuth();
@@ -16,29 +27,33 @@ export default function RecorderUI() {
     pauseRecording,
     resumeRecording,
     stopRecording,
-    clearBlob
+    clearBlob,
   } = useScreenRecorder();
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('bug');
-  const [notes, setNotes] = useState('');
-  const [recordingMode, setRecordingMode] = useState<'standard' | 'development'>('standard');
-  const [buildNotes, setBuildNotes] = useState('');
-  const [featureNotes, setFeatureNotes] = useState('');
-  const [intendedUse, setIntendedUse] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("bug");
+  const [notes, setNotes] = useState("");
+  const [recordingMode, setRecordingMode] = useState<
+    "standard" | "development"
+  >("standard");
+  const [buildNotes, setBuildNotes] = useState("");
+  const [featureNotes, setFeatureNotes] = useState("");
+  const [intendedUse, setIntendedUse] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [isInterpreting, setIsInterpreting] = useState(false);
 
   const handleInterpretVideo = async () => {
     if (!title.trim()) {
-      alert('Please provide a basic title first so the AI has context to interpret the recording.');
+      alert(
+        "Please provide a basic title first so the AI has context to interpret the recording.",
+      );
       return;
     }
     try {
       setIsInterpreting(true);
-      const isDev = recordingMode === 'development';
+      const isDev = recordingMode === "development";
 
       const prompt = isDev
         ? `Act as an expert level Prompt Engineer and Software Architect. The user recorded a screen session titled "${title}" in the category "${category}" intended to instruct an advanced AI coding agent named "Antigravity" to build a feature or entire program.
@@ -60,39 +75,51 @@ export default function RecorderUI() {
            Format your response exactly as:
            DESCRIPTION: [Your description here]
            NOTES: [Your notes here]`;
-      
+
       const result = await copilotEngine.generateReasonedResponse(
         prompt,
-        { role: 'super_admin', organizationId: null, userId: user?.id || 'system' },
-        { activeModule: 'recording_center' }
+        {
+          role: "super_admin",
+          organizationId: null,
+          userId: user?.id || "system",
+        },
+        { activeModule: "recording_center" },
       );
-      
-      const text = result.text || '';
-      
+
+      const text = result.text || "";
+
       const extract = (key: string, nextKeyPatt: string) => {
-        const regex = new RegExp(`${key}:\\s*(.*?)(?=${nextKeyPatt}|$)`, 's');
+        const regex = new RegExp(`${key}:\\s*(.*?)(?=${nextKeyPatt}|$)`, "s");
         const match = text.match(regex);
-        return match && match[1] ? match[1].trim() : '';
+        return match && match[1] ? match[1].trim() : "";
       };
 
-      const parsedDesc = extract('DESCRIPTION', 'NOTES:|PROMPT:|ARCHITECTURE:|CLARIFICATIONS:');
-      const parsedNotes = extract('NOTES', 'PROMPT:|ARCHITECTURE:|CLARIFICATIONS:');
-      
+      const parsedDesc = extract(
+        "DESCRIPTION",
+        "NOTES:|PROMPT:|ARCHITECTURE:|CLARIFICATIONS:",
+      );
+      const parsedNotes = extract(
+        "NOTES",
+        "PROMPT:|ARCHITECTURE:|CLARIFICATIONS:",
+      );
+
       if (parsedDesc) setDescription(parsedDesc);
       if (parsedNotes) setNotes(parsedNotes);
 
       if (isDev) {
-        const parsedPrompt = extract('PROMPT', 'ARCHITECTURE:|CLARIFICATIONS:');
-        const parsedArch = extract('ARCHITECTURE', 'CLARIFICATIONS:');
-        const parsedClarifications = extract('CLARIFICATIONS', 'END_OF_RESPONSE');
+        const parsedPrompt = extract("PROMPT", "ARCHITECTURE:|CLARIFICATIONS:");
+        const parsedArch = extract("ARCHITECTURE", "CLARIFICATIONS:");
+        const parsedClarifications = extract(
+          "CLARIFICATIONS",
+          "END_OF_RESPONSE",
+        );
 
         if (parsedPrompt) setIntendedUse(parsedPrompt);
         if (parsedArch) setBuildNotes(parsedArch);
         if (parsedClarifications) setFeatureNotes(parsedClarifications);
       }
-      
     } catch (err: any) {
-      alert('AI interpretation failed: ' + err.message);
+      alert("AI interpretation failed: " + err.message);
     } finally {
       setIsInterpreting(false);
     }
@@ -101,24 +128,24 @@ export default function RecorderUI() {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   const handleUpload = async () => {
     if (!mediaBlob || !user) return;
     if (!title.trim()) {
-      alert('Please enter a title');
+      alert("Please enter a title");
       return;
     }
 
     try {
       setUploading(true);
-      
-      const fileName = `${Date.now()}_${title.replace(/\s+/g, '-')}.webm`;
+
+      const fileName = `${Date.now()}_${title.replace(/\s+/g, "-")}.webm`;
       const path = await internalRecordingsApi.uploadRecordingFile(
         fileName,
         mediaBlob,
-        'video/webm'
+        "video/webm",
       );
 
       await internalRecordingsApi.createRecording({
@@ -128,31 +155,31 @@ export default function RecorderUI() {
         category,
         notes,
         recording_mode: recordingMode,
-        build_notes: recordingMode === 'development' ? buildNotes : null,
-        feature_request_notes: recordingMode === 'development' ? featureNotes : null,
-        intended_use: recordingMode === 'development' ? intendedUse : null,
-        tags: ['internal_tools'],
+        build_notes: recordingMode === "development" ? buildNotes : null,
+        feature_request_notes:
+          recordingMode === "development" ? featureNotes : null,
+        intended_use: recordingMode === "development" ? intendedUse : null,
+        tags: ["internal_tools"],
         duration: elapsedTime,
         size: mediaBlob.size,
-        mime_type: 'video/webm',
+        mime_type: "video/webm",
         storage_path: path,
-        status: 'saved'
+        status: "saved",
       });
 
       setUploadSuccess(true);
       setTimeout(() => {
         setUploadSuccess(false);
         clearBlob();
-        setTitle('');
-        setDescription('');
-        setNotes('');
-        setBuildNotes('');
-        setFeatureNotes('');
-        setIntendedUse('');
+        setTitle("");
+        setDescription("");
+        setNotes("");
+        setBuildNotes("");
+        setFeatureNotes("");
+        setIntendedUse("");
       }, 3000);
-
     } catch (err: any) {
-      alert(err.message || 'Upload failed');
+      alert(err.message || "Upload failed");
     } finally {
       setUploading(false);
     }
@@ -161,8 +188,12 @@ export default function RecorderUI() {
   if (uploadSuccess) {
     return (
       <div className="p-6 bg-green-500/10 border border-green-500/30 rounded-xl text-center">
-        <h3 className="text-xl font-bold text-green-400 mb-2">Upload Complete!</h3>
-        <p className="text-slate-400">Recording has been safely stored in the internal bucket.</p>
+        <h3 className="text-xl font-bold text-green-400 mb-2">
+          Upload Complete!
+        </h3>
+        <p className="text-slate-400">
+          Recording has been safely stored in the internal bucket.
+        </p>
       </div>
     );
   }
@@ -170,23 +201,27 @@ export default function RecorderUI() {
   return (
     <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 overflow-hidden relative">
       <div className="absolute top-0 right-0 p-2 opacity-50 pointer-events-none">
-        <span className="text-xs font-mono text-purple-400 tracking-widest uppercase">Internal Use Only</span>
+        <span className="text-xs font-mono text-purple-400 tracking-widest uppercase">
+          Internal Use Only
+        </span>
       </div>
 
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-white">Capture Session</h2>
-          <p className="text-sm text-slate-400">Record screens, walkthroughs, or bugs for internal review.</p>
+          <p className="text-sm text-slate-400">
+            Record screens, walkthroughs, or bugs for internal review.
+          </p>
         </div>
         <div className="flex items-center gap-4">
           <div className="text-2xl font-mono text-white">
             {formatTime(elapsedTime)}
           </div>
           <div className="flex gap-2">
-            {status === 'idle' && !mediaBlob && (
+            {status === "idle" && !mediaBlob && (
               <div className="flex bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
                 <button
-                  onClick={() => startRecording('screen')}
+                  onClick={() => startRecording("screen")}
                   className="flex items-center gap-2 hover:bg-slate-700/80 text-white px-3 py-2 text-sm transition-colors border-r border-slate-700"
                   title="Record Screen"
                 >
@@ -194,7 +229,7 @@ export default function RecorderUI() {
                   Screen
                 </button>
                 <button
-                  onClick={() => startRecording('camera')}
+                  onClick={() => startRecording("camera")}
                   className="flex items-center gap-2 hover:bg-slate-700/80 text-white px-3 py-2 text-sm transition-colors border-r border-slate-700"
                   title="Record Camera"
                 >
@@ -202,7 +237,7 @@ export default function RecorderUI() {
                   Camera
                 </button>
                 <button
-                  onClick={() => startRecording('audio')}
+                  onClick={() => startRecording("audio")}
                   className="flex items-center gap-2 hover:bg-slate-700/80 text-white px-3 py-2 text-sm transition-colors"
                   title="Record Audio"
                 >
@@ -212,7 +247,7 @@ export default function RecorderUI() {
               </div>
             )}
 
-            {status === 'recording' && (
+            {status === "recording" && (
               <>
                 <button
                   onClick={pauseRecording}
@@ -230,7 +265,7 @@ export default function RecorderUI() {
               </>
             )}
 
-            {status === 'paused' && (
+            {status === "paused" && (
               <button
                 onClick={resumeRecording}
                 className="p-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
@@ -260,30 +295,38 @@ export default function RecorderUI() {
 
           <div className="bg-slate-900 border border-slate-700/50 p-1 rounded-lg inline-flex mb-2">
             <button
-               onClick={() => setRecordingMode('standard')}
-               className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${recordingMode === 'standard' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
-            >Standard Recording</button>
+              onClick={() => setRecordingMode("standard")}
+              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${recordingMode === "standard" ? "bg-slate-800 text-white shadow-sm" : "text-slate-400 hover:text-white"}`}
+            >
+              Standard Recording
+            </button>
             <button
-               onClick={() => setRecordingMode('development')}
-               className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${recordingMode === 'development' ? 'bg-indigo-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
-            >Record for App Development</button>
+              onClick={() => setRecordingMode("development")}
+              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${recordingMode === "development" ? "bg-indigo-500 text-white shadow-sm" : "text-slate-400 hover:text-white"}`}
+            >
+              Record for App Development
+            </button>
           </div>
 
           <div className="flex justify-between items-end mb-1">
-             <h3 className="text-lg font-semibold text-white">Recording Details</h3>
-             <button
-               onClick={handleInterpretVideo}
-               disabled={isInterpreting || !title.trim()}
-               className="flex items-center gap-2 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-lg text-sm transition-colors disabled:opacity-50"
-             >
-               <Sparkles className="w-4 h-4" />
-               {isInterpreting ? 'Interpreting Video...' : 'Interpret with AI'}
-             </button>
+            <h3 className="text-lg font-semibold text-white">
+              Recording Details
+            </h3>
+            <button
+              onClick={handleInterpretVideo}
+              disabled={isInterpreting || !title.trim()}
+              className="flex items-center gap-2 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-lg text-sm transition-colors disabled:opacity-50"
+            >
+              <Sparkles className="w-4 h-4" />
+              {isInterpreting ? "Interpreting Video..." : "Interpret with AI"}
+            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-400 mb-1">Recording Title</label>
+              <label className="block text-sm font-medium text-slate-400 mb-1">
+                Recording Title
+              </label>
               <input
                 type="text"
                 value={title}
@@ -293,7 +336,9 @@ export default function RecorderUI() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-400 mb-1">Category</label>
+              <label className="block text-sm font-medium text-slate-400 mb-1">
+                Category
+              </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -308,10 +353,12 @@ export default function RecorderUI() {
               </select>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-400 mb-1">Description (Optional)</label>
+              <label className="block text-sm font-medium text-slate-400 mb-1">
+                Description (Optional)
+              </label>
               <input
                 type="text"
                 value={description}
@@ -320,8 +367,10 @@ export default function RecorderUI() {
                 placeholder="Short summary of this recording"
               />
             </div>
-             <div>
-              <label className="block text-sm font-medium text-slate-400 mb-1">Internal Notes</label>
+            <div>
+              <label className="block text-sm font-medium text-slate-400 mb-1">
+                Internal Notes
+              </label>
               <input
                 type="text"
                 value={notes}
@@ -332,36 +381,42 @@ export default function RecorderUI() {
             </div>
           </div>
 
-          {recordingMode === 'development' && (
+          {recordingMode === "development" && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 border border-indigo-500/30 bg-indigo-500/5 rounded-lg border-dashed">
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-indigo-500 mb-1">Intended Outcome / Goal</label>
-                <input 
-                  type="text" 
-                  value={intendedUse} 
-                  onChange={e => setIntendedUse(e.target.value)} 
-                  placeholder="e.g. Provide the AI with workflow steps so it can automate this." 
-                  className="w-full bg-slate-950/80 border border-indigo-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500" 
+                <label className="block text-sm font-medium text-indigo-500 mb-1">
+                  Intended Outcome / Goal
+                </label>
+                <input
+                  type="text"
+                  value={intendedUse}
+                  onChange={(e) => setIntendedUse(e.target.value)}
+                  placeholder="e.g. Provide the AI with workflow steps so it can automate this."
+                  className="w-full bg-slate-950/80 border border-indigo-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-indigo-500 mb-1">Architecture / Build Notes</label>
-                <textarea 
-                  value={buildNotes} 
-                  onChange={e => setBuildNotes(e.target.value)} 
-                  rows={3} 
-                  placeholder="Technical details, file paths, or architectural constraints..." 
-                  className="w-full bg-slate-950/80 border border-indigo-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 resize-none" 
+                <label className="block text-sm font-medium text-indigo-500 mb-1">
+                  Architecture / Build Notes
+                </label>
+                <textarea
+                  value={buildNotes}
+                  onChange={(e) => setBuildNotes(e.target.value)}
+                  rows={3}
+                  placeholder="Technical details, file paths, or architectural constraints..."
+                  className="w-full bg-slate-950/80 border border-indigo-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 resize-none"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-indigo-500 mb-1">Feature Request Clarifications</label>
-                <textarea 
-                  value={featureNotes} 
-                  onChange={e => setFeatureNotes(e.target.value)} 
-                  rows={3} 
-                  placeholder="What specifically needs to happen instead of current behavior?" 
-                  className="w-full bg-slate-950/80 border border-indigo-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 resize-none" 
+                <label className="block text-sm font-medium text-indigo-500 mb-1">
+                  Feature Request Clarifications
+                </label>
+                <textarea
+                  value={featureNotes}
+                  onChange={(e) => setFeatureNotes(e.target.value)}
+                  rows={3}
+                  placeholder="What specifically needs to happen instead of current behavior?"
+                  className="w-full bg-slate-950/80 border border-indigo-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 resize-none"
                 />
               </div>
             </div>
@@ -374,7 +429,7 @@ export default function RecorderUI() {
               className="flex-1 flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors"
             >
               <Upload className="w-5 h-5" />
-              {uploading ? 'Uploading...' : 'Save Recording'}
+              {uploading ? "Uploading..." : "Save Recording"}
             </button>
             <button
               onClick={clearBlob}

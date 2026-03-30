@@ -1,37 +1,37 @@
-import { motion } from 'framer-motion';
-import { Mail, MapPin, Zap, Shield, TrendingUp } from 'lucide-react';
-import Section from '../components/Section';
-import Card from '../components/Card';
-import GridPattern from '../components/GridPattern';
-import LeadForm from '../components/LeadForm';
+import { motion } from "framer-motion";
+import { Mail, MapPin, Zap, Shield, TrendingUp } from "lucide-react";
+import Section from "../components/Section";
+import Card from "../components/Card";
+import GridPattern from "../components/GridPattern";
+import LeadForm from "../components/LeadForm";
 
 export default function Contact() {
   const benefits = [
     {
       icon: Zap,
-      text: 'Connect your systems',
+      text: "Connect your systems",
     },
     {
       icon: TrendingUp,
-      text: 'Automate your workflows',
+      text: "Automate your workflows",
     },
     {
       icon: Shield,
-      text: 'Scale intelligently with Bridgebox',
+      text: "Scale intelligently with Bridgebox",
     },
   ];
 
   const contactInfo = [
     {
       icon: Mail,
-      title: 'Email',
-      value: 'hello@bridgebox.ai',
-      link: 'mailto:hello@bridgebox.ai',
+      title: "Email",
+      value: "hello@bridgebox.ai",
+      link: "mailto:hello@bridgebox.ai",
     },
     {
       icon: MapPin,
-      title: 'Office',
-      value: 'San Francisco, CA',
+      title: "Office",
+      value: "San Francisco, CA",
       link: null,
     },
   ];
@@ -69,9 +69,12 @@ export default function Contact() {
               transition={{ delay: 0.1 }}
             >
               <Card glass>
-                <h2 className="text-3xl font-bold text-white mb-4">Book a Demo</h2>
+                <h2 className="text-3xl font-bold text-white mb-4">
+                  Book a Demo
+                </h2>
                 <p className="text-slate-400 mb-8">
-                  Schedule a personalized demo to see how our solutions can transform your operations.
+                  Schedule a personalized demo to see how our solutions can
+                  transform your operations.
                 </p>
                 <LeadForm formType="demo" />
               </Card>
@@ -83,9 +86,12 @@ export default function Contact() {
               transition={{ delay: 0.2 }}
             >
               <Card glass>
-                <h2 className="text-3xl font-bold text-white mb-4">Request Custom Build</h2>
+                <h2 className="text-3xl font-bold text-white mb-4">
+                  Request Custom Build
+                </h2>
                 <p className="text-slate-400 mb-8">
-                  Tell us about your project and receive a custom proposal tailored to your needs.
+                  Tell us about your project and receive a custom proposal
+                  tailored to your needs.
                 </p>
                 <LeadForm formType="custom_build" />
               </Card>
@@ -100,7 +106,8 @@ export default function Contact() {
             >
               <Card glass className="h-full">
                 <h3 className="text-3xl font-bold text-white mb-8 leading-tight">
-                  Connect your systems. Automate your workflows. Scale intelligently with Bridgebox.
+                  Connect your systems. Automate your workflows. Scale
+                  intelligently with Bridgebox.
                 </h3>
 
                 <div className="space-y-6">
@@ -115,7 +122,9 @@ export default function Contact() {
                       <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-indigo-500/20">
                         <benefit.icon className="w-6 h-6 text-indigo-500" />
                       </div>
-                      <span className="text-lg text-slate-300">{benefit.text}</span>
+                      <span className="text-lg text-slate-300">
+                        {benefit.text}
+                      </span>
                     </motion.div>
                   ))}
                 </div>
@@ -128,15 +137,22 @@ export default function Contact() {
               transition={{ delay: 0.4 }}
             >
               <Card glass className="h-full">
-                <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
+                <h3 className="text-2xl font-bold text-white mb-6">
+                  Contact Information
+                </h3>
                 <div className="space-y-6">
                   {contactInfo.map((info) => (
-                    <div key={info.title} className="flex items-center space-x-4">
+                    <div
+                      key={info.title}
+                      className="flex items-center space-x-4"
+                    >
                       <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center flex-shrink-0">
                         <info.icon className="w-6 h-6 text-slate-400" />
                       </div>
                       <div>
-                        <div className="text-sm text-slate-500 mb-1">{info.title}</div>
+                        <div className="text-sm text-slate-500 mb-1">
+                          {info.title}
+                        </div>
                         {info.link ? (
                           <a
                             href={info.link}
@@ -145,7 +161,9 @@ export default function Contact() {
                             {info.value}
                           </a>
                         ) : (
-                          <div className="text-white font-medium text-lg">{info.value}</div>
+                          <div className="text-white font-medium text-lg">
+                            {info.value}
+                          </div>
                         )}
                       </div>
                     </div>
@@ -154,7 +172,8 @@ export default function Contact() {
 
                 <div className="mt-8 pt-8 border-t border-white/10">
                   <p className="text-slate-400 leading-relaxed">
-                    Our team typically responds within 24 hours. For urgent inquiries, please email us directly.
+                    Our team typically responds within 24 hours. For urgent
+                    inquiries, please email us directly.
                   </p>
                 </div>
               </Card>

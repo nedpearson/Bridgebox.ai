@@ -1,19 +1,19 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Plus, Filter, Search } from 'lucide-react';
-import MobileLayout from '../../layouts/MobileLayout';
-import MobileTaskCard from '../../components/mobile/MobileTaskCard';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import EmptyState from '../../components/EmptyState';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Plus, Filter, Search } from "lucide-react";
+import MobileLayout from "../../layouts/MobileLayout";
+import MobileTaskCard from "../../components/mobile/MobileTaskCard";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import EmptyState from "../../components/EmptyState";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface Task {
   id: string;
   title: string;
-  status: 'pending' | 'in_progress' | 'completed';
-  priority?: 'low' | 'medium' | 'high';
+  status: "pending" | "in_progress" | "completed";
+  priority?: "low" | "medium" | "high";
   due_date?: string;
 }
 
@@ -22,8 +22,8 @@ export default function MobileTasks() {
   const { currentOrganization } = useAuth();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     loadTasks();
@@ -42,15 +42,20 @@ export default function MobileTasks() {
   };
 
   const handleStatusToggle = (id: string, newStatus: string) => {
-    setTasks(tasks.map(task =>
-      task.id === id ? { ...task, status: newStatus as any } : task
-    ));
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, status: newStatus as any } : task,
+      ),
+    );
   };
 
-  const filteredTasks = tasks.filter(task => {
-    if (filter === 'active' && task.status === 'completed') return false;
-    if (filter === 'completed' && task.status !== 'completed') return false;
-    if (searchQuery && !task.title.toLowerCase().includes(searchQuery.toLowerCase())) {
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active" && task.status === "completed") return false;
+    if (filter === "completed" && task.status !== "completed") return false;
+    if (
+      searchQuery &&
+      !task.title.toLowerCase().includes(searchQuery.toLowerCase())
+    ) {
       return false;
     }
     return true;
@@ -76,18 +81,18 @@ export default function MobileTasks() {
           {/* Filter Tabs */}
           <div className="flex gap-2">
             <FilterButton
-              active={filter === 'all'}
-              onClick={() => setFilter('all')}
+              active={filter === "all"}
+              onClick={() => setFilter("all")}
               label="All"
             />
             <FilterButton
-              active={filter === 'active'}
-              onClick={() => setFilter('active')}
+              active={filter === "active"}
+              onClick={() => setFilter("active")}
               label="Active"
             />
             <FilterButton
-              active={filter === 'completed'}
-              onClick={() => setFilter('completed')}
+              active={filter === "completed"}
+              onClick={() => setFilter("completed")}
               label="Completed"
             />
           </div>
@@ -127,7 +132,7 @@ export default function MobileTasks() {
         {/* Floating Action Button */}
         <motion.button
           whileTap={{ scale: 0.9 }}
-          onClick={() => navigate('/app/mobile/tasks/new')}
+          onClick={() => navigate("/app/mobile/tasks/new")}
           className="fixed bottom-20 right-4 w-14 h-14 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center z-40"
         >
           <Plus className="w-6 h-6" />
@@ -149,8 +154,8 @@ function FilterButton({ active, onClick, label }: FilterButtonProps) {
       onClick={onClick}
       className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
         active
-          ? 'bg-blue-500 text-white'
-          : 'bg-slate-800/50 text-slate-400 border border-slate-700'
+          ? "bg-blue-500 text-white"
+          : "bg-slate-800/50 text-slate-400 border border-slate-700"
       }`}
     >
       {label}

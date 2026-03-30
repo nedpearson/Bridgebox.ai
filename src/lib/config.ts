@@ -10,16 +10,20 @@ export const config = {
     publishableKey: import.meta.env.VITE_AUTUMN_PUBLISHABLE_KEY,
   },
   app: {
-    name: 'Bridgebox',
-    url: import.meta.env.VITE_APP_URL || (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173'),
+    name: "Bridgebox",
+    url:
+      import.meta.env.VITE_APP_URL ||
+      (typeof window !== "undefined"
+        ? window.location.origin
+        : "http://localhost:5173"),
     environment: import.meta.env.MODE,
   },
 } as const;
 
 export function validateConfig() {
   const required = {
-    'VITE_SUPABASE_URL': config.supabase.url,
-    'VITE_SUPABASE_ANON_KEY': config.supabase.anonKey,
+    VITE_SUPABASE_URL: config.supabase.url,
+    VITE_SUPABASE_ANON_KEY: config.supabase.anonKey,
   };
 
   const missing = Object.entries(required)
@@ -27,6 +31,8 @@ export function validateConfig() {
     .map(([key]) => key);
 
   if (missing.length > 0) {
-    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+    throw new Error(
+      `Missing required environment variables: ${missing.join(", ")}`,
+    );
   }
 }

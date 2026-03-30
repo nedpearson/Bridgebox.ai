@@ -1,15 +1,18 @@
-import { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { useOnboarding, OnboardingProvider } from '../../contexts/OnboardingContext';
-import OnboardingLayout from '../../layouts/OnboardingLayout';
-import Welcome from './Welcome';
-import CompanyDetails from './CompanyDetails';
-import ServicesNeeded from './ServicesNeeded';
-import CurrentSystems from './CurrentSystems';
-import BusinessGoals from './BusinessGoals';
-import Timeline from './Timeline';
-import Review from './Review';
+import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import {
+  useOnboarding,
+  OnboardingProvider,
+} from "../../contexts/OnboardingContext";
+import OnboardingLayout from "../../layouts/OnboardingLayout";
+import Welcome from "./Welcome";
+import CompanyDetails from "./CompanyDetails";
+import ServicesNeeded from "./ServicesNeeded";
+import CurrentSystems from "./CurrentSystems";
+import BusinessGoals from "./BusinessGoals";
+import Timeline from "./Timeline";
+import Review from "./Review";
 
 function OnboardingContent() {
   const { currentStep } = useOnboarding();

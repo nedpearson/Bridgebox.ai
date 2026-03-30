@@ -1,4 +1,4 @@
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle } from "lucide-react";
 
 interface ErrorStateProps {
   title?: string;
@@ -8,10 +8,10 @@ interface ErrorStateProps {
 }
 
 export default function ErrorState({
-  title = 'Something went wrong',
+  title = "Something went wrong",
   message,
   action,
-  actionLabel = 'Try again',
+  actionLabel = "Try again",
 }: ErrorStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-20 px-4 w-full border-2 border-dashed border-red-500/20 bg-red-500/5 rounded-2xl">
@@ -19,7 +19,9 @@ export default function ErrorState({
         <AlertCircle className="w-8 h-8 text-red-400 opacity-90" />
       </div>
       <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-      <p className="text-slate-400 text-center max-w-md mb-8 text-sm leading-relaxed">{message}</p>
+      <p className="text-slate-400 text-center max-w-md mb-8 text-sm leading-relaxed">
+        {message}
+      </p>
       <div className="flex items-center gap-4">
         {action && (
           <button
@@ -29,7 +31,10 @@ export default function ErrorState({
             {actionLabel}
           </button>
         )}
-        <a href="mailto:support@bridgebox.ai" className="px-6 py-2.5 bg-transparent hover:bg-white/5 text-slate-400 hover:text-white font-medium rounded-lg transition-colors text-sm">
+        <a
+          href="mailto:support@bridgebox.ai"
+          className="px-6 py-2.5 bg-transparent hover:bg-white/5 text-slate-400 hover:text-white font-medium rounded-lg transition-colors text-sm"
+        >
           Contact Support
         </a>
       </div>

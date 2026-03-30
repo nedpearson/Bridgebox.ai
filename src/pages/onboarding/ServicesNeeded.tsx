@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Briefcase, Check } from 'lucide-react';
-import Button from '../../components/Button';
-import Card from '../../components/Card';
-import { useOnboarding } from '../../contexts/OnboardingContext';
-import { SERVICE_OPTIONS } from '../../types/onboarding';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowLeft, Briefcase, Check } from "lucide-react";
+import Button from "../../components/Button";
+import Card from "../../components/Card";
+import { useOnboarding } from "../../contexts/OnboardingContext";
+import { SERVICE_OPTIONS } from "../../types/onboarding";
 
 export default function ServicesNeeded() {
-  const { onboardingData, updateOnboardingData, saveOnboarding, setCurrentStep } = useOnboarding();
+  const {
+    onboardingData,
+    updateOnboardingData,
+    saveOnboarding,
+    setCurrentStep,
+  } = useOnboarding();
   const [selectedServices, setSelectedServices] = useState<string[]>(
-    onboardingData.services_needed || []
+    onboardingData.services_needed || [],
   );
   const [isSaving, setIsSaving] = useState(false);
 
@@ -19,7 +24,7 @@ export default function ServicesNeeded() {
 
   const toggleService = (value: string) => {
     setSelectedServices((prev) =>
-      prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]
+      prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value],
     );
   };
 
@@ -30,7 +35,7 @@ export default function ServicesNeeded() {
       await saveOnboarding();
       setCurrentStep(3);
     } catch (error) {
-      console.error('Failed to save:', error);
+      console.error("Failed to save:", error);
     } finally {
       setIsSaving(false);
     }
@@ -47,7 +52,9 @@ export default function ServicesNeeded() {
           </div>
           <div>
             <h2 className="text-3xl font-bold text-white">Services Needed</h2>
-            <p className="text-slate-400 mt-1">Select all services you're interested in</p>
+            <p className="text-slate-400 mt-1">
+              Select all services you're interested in
+            </p>
           </div>
         </div>
 
@@ -64,19 +71,21 @@ export default function ServicesNeeded() {
                 onClick={() => toggleService(service.value)}
                 className={`relative p-6 rounded-xl border-2 transition-all text-left ${
                   isSelected
-                    ? 'border-indigo-500 bg-indigo-500/10'
-                    : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
+                    ? "border-indigo-500 bg-indigo-500/10"
+                    : "border-slate-700 bg-slate-800/30 hover:border-slate-600"
                 }`}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white mb-2">{service.label}</h3>
+                    <h3 className="text-lg font-semibold text-white mb-2">
+                      {service.label}
+                    </h3>
                   </div>
                   <div
                     className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
                       isSelected
-                        ? 'border-indigo-500 bg-indigo-500'
-                        : 'border-slate-600 bg-slate-800'
+                        ? "border-indigo-500 bg-indigo-500"
+                        : "border-slate-600 bg-slate-800"
                     }`}
                   >
                     {isSelected && <Check className="w-4 h-4 text-white" />}
@@ -90,11 +99,12 @@ export default function ServicesNeeded() {
         {selectedServices.length > 0 && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-4 mb-6"
           >
             <p className="text-sm text-indigo-500 font-medium">
-              {selectedServices.length} service{selectedServices.length > 1 ? 's' : ''} selected
+              {selectedServices.length} service
+              {selectedServices.length > 1 ? "s" : ""} selected
             </p>
           </motion.div>
         )}
@@ -104,8 +114,13 @@ export default function ServicesNeeded() {
             <ArrowLeft className="mr-2 w-5 h-5" /> Back
           </Button>
 
-          <Button variant="primary" onClick={handleNext} disabled={!isValid || isSaving}>
-            {isSaving ? 'Saving...' : 'Continue'} <ArrowRight className="ml-2 w-5 h-5" />
+          <Button
+            variant="primary"
+            onClick={handleNext}
+            disabled={!isValid || isSaving}
+          >
+            {isSaving ? "Saving..." : "Continue"}{" "}
+            <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </div>
       </Card>

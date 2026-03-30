@@ -1,112 +1,159 @@
-import { motion } from 'framer-motion';
-import { Smartphone, Zap, Cloud, Shield, CheckCircle2, ArrowRight, Wifi, Battery, Lock } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Section from '../components/Section';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import GridPattern from '../components/GridPattern';
-import FinalCTA from '../components/FinalCTA';
-import { staggerContainer, staggerItem } from '../utils/animations';
+import { motion } from "framer-motion";
+import {
+  Smartphone,
+  Zap,
+  Cloud,
+  Shield,
+  CheckCircle2,
+  ArrowRight,
+  Wifi,
+  Battery,
+  Lock,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import Section from "../components/Section";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import GridPattern from "../components/GridPattern";
+import FinalCTA from "../components/FinalCTA";
+import { staggerContainer, staggerItem } from "../utils/animations";
 
 export default function MobileApps() {
   const features = [
     {
       icon: Zap,
-      title: 'Native Performance',
-      description: 'Built with native technologies for iOS and Android, ensuring smooth, fast experiences.',
+      title: "Native Performance",
+      description:
+        "Built with native technologies for iOS and Android, ensuring smooth, fast experiences.",
     },
     {
       icon: Wifi,
-      title: 'Offline Capability',
-      description: 'Work without connectivity. Data syncs automatically when connection is restored.',
+      title: "Offline Capability",
+      description:
+        "Work without connectivity. Data syncs automatically when connection is restored.",
     },
     {
       icon: Cloud,
-      title: 'Real-Time Sync',
-      description: 'Instant synchronization with backend systems and other team members.',
+      title: "Real-Time Sync",
+      description:
+        "Instant synchronization with backend systems and other team members.",
     },
     {
       icon: Shield,
-      title: 'Enterprise Security',
-      description: 'Biometric authentication, encrypted data storage, and secure API communication.',
+      title: "Enterprise Security",
+      description:
+        "Biometric authentication, encrypted data storage, and secure API communication.",
     },
   ];
 
   const appTypes = [
     {
-      title: 'Field Operations Apps',
-      description: 'Equip field teams with tools to complete work, update status, and access information from anywhere.',
-      useCases: ['Service ticket management', 'Equipment inspections', 'Time tracking', 'Photo documentation'],
+      title: "Field Operations Apps",
+      description:
+        "Equip field teams with tools to complete work, update status, and access information from anywhere.",
+      useCases: [
+        "Service ticket management",
+        "Equipment inspections",
+        "Time tracking",
+        "Photo documentation",
+      ],
     },
     {
-      title: 'Inventory & Warehouse Apps',
-      description: 'Real-time inventory tracking, barcode scanning, and warehouse operations management.',
-      useCases: ['Stock counting', 'Receiving & shipping', 'Location tracking', 'Order picking'],
+      title: "Inventory & Warehouse Apps",
+      description:
+        "Real-time inventory tracking, barcode scanning, and warehouse operations management.",
+      useCases: [
+        "Stock counting",
+        "Receiving & shipping",
+        "Location tracking",
+        "Order picking",
+      ],
     },
     {
-      title: 'Sales & CRM Apps',
-      description: 'Give your sales team instant access to customer data, order history, and pipeline management.',
-      useCases: ['Customer profiles', 'Order entry', 'Quote generation', 'Activity logging'],
+      title: "Sales & CRM Apps",
+      description:
+        "Give your sales team instant access to customer data, order history, and pipeline management.",
+      useCases: [
+        "Customer profiles",
+        "Order entry",
+        "Quote generation",
+        "Activity logging",
+      ],
     },
     {
-      title: 'Operational Dashboards',
-      description: 'Mobile command centers for monitoring business operations and making decisions on the go.',
-      useCases: ['Real-time KPIs', 'Alert management', 'Team oversight', 'Approval workflows'],
+      title: "Operational Dashboards",
+      description:
+        "Mobile command centers for monitoring business operations and making decisions on the go.",
+      useCases: [
+        "Real-time KPIs",
+        "Alert management",
+        "Team oversight",
+        "Approval workflows",
+      ],
     },
   ];
 
   const capabilities = [
-    'iOS and Android native development',
-    'Biometric authentication (Face ID, Touch ID)',
-    'Offline data storage and queueing',
-    'Camera integration and image processing',
-    'GPS and location services',
-    'Barcode and QR code scanning',
-    'Push notifications and alerts',
-    'Background sync and updates',
-    'Device hardware integration',
-    'Enterprise app distribution',
+    "iOS and Android native development",
+    "Biometric authentication (Face ID, Touch ID)",
+    "Offline data storage and queueing",
+    "Camera integration and image processing",
+    "GPS and location services",
+    "Barcode and QR code scanning",
+    "Push notifications and alerts",
+    "Background sync and updates",
+    "Device hardware integration",
+    "Enterprise app distribution",
   ];
 
   const benefits = [
     {
-      title: 'Empower Field Teams',
-      description: 'Give your mobile workforce the same capabilities as office staff, regardless of location.',
+      title: "Empower Field Teams",
+      description:
+        "Give your mobile workforce the same capabilities as office staff, regardless of location.",
     },
     {
-      title: 'Eliminate Paper',
-      description: 'Replace clipboards, forms, and manual data entry with digital workflows.',
+      title: "Eliminate Paper",
+      description:
+        "Replace clipboards, forms, and manual data entry with digital workflows.",
     },
     {
-      title: 'Real-Time Updates',
-      description: 'See what is happening in the field instantly instead of waiting for end-of-day reports.',
+      title: "Real-Time Updates",
+      description:
+        "See what is happening in the field instantly instead of waiting for end-of-day reports.",
     },
     {
-      title: 'Increase Accuracy',
-      description: 'Reduce errors with structured data entry, validation, and photo documentation.',
+      title: "Increase Accuracy",
+      description:
+        "Reduce errors with structured data entry, validation, and photo documentation.",
     },
   ];
 
   const process = [
     {
-      step: 'Discovery',
-      description: 'Analyze field workflows, user needs, and integration requirements',
+      step: "Discovery",
+      description:
+        "Analyze field workflows, user needs, and integration requirements",
     },
     {
-      step: 'Design',
-      description: 'Create intuitive interfaces optimized for mobile use and various conditions',
+      step: "Design",
+      description:
+        "Create intuitive interfaces optimized for mobile use and various conditions",
     },
     {
-      step: 'Development',
-      description: 'Build native apps with offline support and seamless backend integration',
+      step: "Development",
+      description:
+        "Build native apps with offline support and seamless backend integration",
     },
     {
-      step: 'Testing',
-      description: 'Rigorous testing across devices, network conditions, and real-world scenarios',
+      step: "Testing",
+      description:
+        "Rigorous testing across devices, network conditions, and real-world scenarios",
     },
     {
-      step: 'Deployment',
-      description: 'Enterprise distribution, team training, and ongoing support',
+      step: "Deployment",
+      description:
+        "Enterprise distribution, team training, and ongoing support",
     },
   ];
 
@@ -121,7 +168,9 @@ export default function MobileApps() {
             animate={{ opacity: 1, y: 0 }}
             className="inline-block px-4 py-2 bg-[#F59E0B]/10 border border-[#F59E0B]/20 rounded-full mb-6"
           >
-            <span className="text-[#F59E0B] font-medium text-sm">Mobile Solutions</span>
+            <span className="text-[#F59E0B] font-medium text-sm">
+              Mobile Solutions
+            </span>
           </motion.div>
 
           <motion.h1
@@ -139,7 +188,9 @@ export default function MobileApps() {
             transition={{ delay: 0.2 }}
             className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-8"
           >
-            Native iOS and Android apps that extend your operational systems to field teams, enabling real-time collaboration and decision-making from anywhere.
+            Native iOS and Android apps that extend your operational systems to
+            field teams, enabling real-time collaboration and decision-making
+            from anywhere.
           </motion.p>
 
           <motion.div
@@ -174,7 +225,8 @@ export default function MobileApps() {
             transition={{ delay: 0.1 }}
             className="text-xl text-slate-400 max-w-3xl mx-auto"
           >
-            Enterprise-grade mobile applications built for performance and reliability
+            Enterprise-grade mobile applications built for performance and
+            reliability
           </motion.p>
         </div>
 
@@ -212,7 +264,9 @@ export default function MobileApps() {
 
         <div className="max-w-4xl mx-auto">
           <Card className="p-8">
-            <h3 className="text-xl font-bold text-white mb-6 text-center">Mobile Capabilities</h3>
+            <h3 className="text-xl font-bold text-white mb-6 text-center">
+              Mobile Capabilities
+            </h3>
             <div className="grid md:grid-cols-2 gap-4">
               {capabilities.map((capability) => (
                 <div key={capability} className="flex items-start gap-3">
@@ -254,11 +308,7 @@ export default function MobileApps() {
           className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
         >
           {appTypes.map((type, index) => (
-            <motion.div
-              key={type.title}
-              variants={staggerItem}
-              custom={index}
-            >
+            <motion.div key={type.title} variants={staggerItem} custom={index}>
               <Card className="h-full group hover:border-[#F59E0B]/50">
                 <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-[#F59E0B] transition-colors">
                   {type.title}
@@ -292,10 +342,12 @@ export default function MobileApps() {
                 Why Mobile Apps?
               </h2>
               <p className="text-xl text-slate-400 mb-6 leading-relaxed">
-                Your field teams need the same real-time access to data and systems that office workers take for granted.
+                Your field teams need the same real-time access to data and
+                systems that office workers take for granted.
               </p>
               <p className="text-lg text-slate-400 mb-8 leading-relaxed">
-                Custom mobile apps eliminate delays, reduce errors, and give your entire team operational visibility regardless of location.
+                Custom mobile apps eliminate delays, reduce errors, and give
+                your entire team operational visibility regardless of location.
               </p>
               <Link to="/contact">
                 <Button variant="primary" size="lg">
@@ -325,7 +377,7 @@ export default function MobileApps() {
                   >
                     <Card className="h-full text-center group hover:border-[#F59E0B]/50">
                       <div className="text-4xl font-bold bg-gradient-to-r from-[#F59E0B] to-indigo-500 bg-clip-text text-transparent mb-3">
-                        {String(index + 1).padStart(2, '0')}
+                        {String(index + 1).padStart(2, "0")}
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#F59E0B] transition-colors">
                         {benefit.title}
@@ -379,10 +431,16 @@ export default function MobileApps() {
                     whileHover={{ scale: 1.1 }}
                     className="w-16 h-16 bg-gradient-to-br from-[#F59E0B] to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-4"
                   >
-                    <span className="text-white font-bold text-lg">{index + 1}</span>
+                    <span className="text-white font-bold text-lg">
+                      {index + 1}
+                    </span>
                   </motion.div>
-                  <h3 className="text-lg font-bold text-white mb-2">{step.step}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{step.description}</p>
+                  <h3 className="text-lg font-bold text-white mb-2">
+                    {step.step}
+                  </h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
 
                 {index < process.length - 1 && (

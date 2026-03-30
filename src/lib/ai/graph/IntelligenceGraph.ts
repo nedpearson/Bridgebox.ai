@@ -1,11 +1,11 @@
-import { IntelligenceState, GraphNode, NodeType } from './types';
-import { bridgeboxOntology } from './ontology';
+import { IntelligenceState, GraphNode, NodeType } from "./types";
+import { bridgeboxOntology } from "./ontology";
 
 class IntelligenceGraph {
   private state: IntelligenceState = {
     nodes: {},
     lastScanTimestamp: Date.now(),
-    scanErrors: []
+    scanErrors: [],
   };
 
   private listeners: Set<(state: IntelligenceState) => void> = new Set();
@@ -27,7 +27,7 @@ class IntelligenceGraph {
   }
 
   public batchUpsertNodes(nodes: GraphNode[]) {
-    nodes.forEach(n => {
+    nodes.forEach((n) => {
       this.state.nodes[n.id] = n;
     });
     this.state.lastScanTimestamp = Date.now();
@@ -39,11 +39,11 @@ class IntelligenceGraph {
   }
 
   public getNodesByType(type: NodeType): GraphNode[] {
-    return Object.values(this.state.nodes).filter(n => n.type === type);
+    return Object.values(this.state.nodes).filter((n) => n.type === type);
   }
 
   public getNodesByRoleScope(role: string): GraphNode[] {
-    return Object.values(this.state.nodes).filter(n => {
+    return Object.values(this.state.nodes).filter((n) => {
       if (!n.visibility.roles) return true; // public / unrestricted
       return n.visibility.roles.includes(role as any);
     });
@@ -64,7 +64,7 @@ class IntelligenceGraph {
   }
 
   private notifyListeners() {
-    this.listeners.forEach(l => l(this.state));
+    this.listeners.forEach((l) => l(this.state));
   }
 }
 

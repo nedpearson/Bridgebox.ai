@@ -1,4 +1,4 @@
-import { supabase } from '../supabase';
+import { supabase } from "../supabase";
 
 export interface StripeCustomerData {
   stripeCustomerId: string;
@@ -44,15 +44,15 @@ export interface StripeInvoiceData {
  */
 export async function linkCustomerToOrganization(
   organizationId: string,
-  customerData: StripeCustomerData
+  customerData: StripeCustomerData,
 ): Promise<{ success: boolean; error?: string }> {
   try {
     // Check if customer already linked to another organization
     const { data: existing } = await supabase
-      .from('bb_organizations')
-      .select('id, name')
-      .eq('stripe_customer_id', customerData.stripeCustomerId)
-      .neq('id', organizationId)
+      .from("bb_organizations")
+      .select("id, name")
+      .eq("stripe_customer_id", customerData.stripeCustomerId)
+      .neq("id", organizationId)
       .maybeSingle();
 
     if (existing) {
@@ -64,22 +64,22 @@ export async function linkCustomerToOrganization(
 
     // Link customer to organization
     const { error: updateError } = await supabase
-      .from('bb_organizations')
+      .from("bb_organizations")
       .update({
         stripe_customer_id: customerData.stripeCustomerId,
         billing_email: customerData.email,
         billing_synced_at: new Date().toISOString(),
       })
-      .eq('id', organizationId);
+      .eq("id", organizationId);
 
     if (updateError) throw updateError;
 
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to link customer to organization:', error);
+    console.error("Failed to link customer to organization:", error);
     return {
       success: false,
-      error: error.message || 'Failed to link customer',
+      error: error.message || "Failed to link customer",
     };
   }
 }
@@ -88,21 +88,21 @@ export async function linkCustomerToOrganization(
  * Get or create Stripe customer ID for an organization
  */
 export async function getOrganizationStripeCustomer(
-  organizationId: string
+  organizationId: string,
 ): Promise<{ customerId?: string; error?: string }> {
   try {
     const { data: org, error } = await supabase
-      .from('bb_organizations')
-      .select('stripe_customer_id, name, billing_email')
-      .eq('id', organizationId)
+      .from("bb_organizations")
+      .select("stripe_customer_id, name, billing_email")
+      .eq("id", organizationId)
       .single();
 
     if (error) throw error;
 
     return { customerId: org.stripe_customer_id || undefined };
   } catch (error: any) {
-    console.error('Failed to get organization stripe customer:', error);
-    return { error: error.message || 'Failed to get customer' };
+    console.error("Failed to get organization stripe customer:", error);
+    return { error: error.message || "Failed to get customer" };
   }
 }
 
@@ -112,12 +112,12 @@ export async function getOrganizationStripeCustomer(
  */
 export async function syncSubscription(
   organizationId: string,
-  subscriptionData: StripeSubscriptionData
+  subscriptionData: StripeSubscriptionData,
 ): Promise<{ success: boolean; error?: string }> {
   try {
     // Upsert to stripe_subscriptions table
     const { error: upsertError } = await supabase
-      .from('stripe_subscriptions')
+      .from("stripe_subscriptions")
       .upsert(
         {
           organization_id: organizationId,
@@ -125,7 +125,8 @@ export async function syncSubscription(
           stripe_customer_id: subscriptionData.stripeCustomerId,
           status: subscriptionData.status,
           plan: subscriptionData.plan,
-          current_period_start: subscriptionData.currentPeriodStart.toISOString(),
+          current_period_start:
+            subscriptionData.currentPeriodStart.toISOString(),
           current_period_end: subscriptionData.currentPeriodEnd.toISOString(),
           cancel_at_period_end: subscriptionData.cancelAtPeriodEnd,
           canceled_at: subscriptionData.canceledAt?.toISOString() || null,
@@ -135,8 +136,8 @@ export async function syncSubscription(
           updated_at: new Date().toISOString(),
         },
         {
-          onConflict: 'stripe_subscription_id',
-        }
+          onConflict: "stripe_subscription_id",
+        },
       );
 
     if (upsertError) throw upsertError;
@@ -145,10 +146,10 @@ export async function syncSubscription(
 
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to sync subscription:', error);
+    console.error("Failed to sync subscription:", error);
     return {
       success: false,
-      error: error.message || 'Failed to sync subscription',
+      error: error.message || "Failed to sync subscription",
     };
   }
 }
@@ -158,11 +159,11 @@ export async function syncSubscription(
  */
 export async function syncInvoice(
   organizationId: string,
-  invoiceData: StripeInvoiceData
+  invoiceData: StripeInvoiceData,
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const { error: upsertError } = await supabase
-      .from('stripe_invoices')
+      .from("stripe_invoices")
       .upsert(
         {
           organization_id: organizationId,
@@ -182,18 +183,18 @@ export async function syncInvoice(
           paid_at: invoiceData.paidAt?.toISOString() || null,
         },
         {
-          onConflict: 'stripe_invoice_id',
-        }
+          onConflict: "stripe_invoice_id",
+        },
       );
 
     if (upsertError) throw upsertError;
 
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to sync invoice:', error);
+    console.error("Failed to sync invoice:", error);
     return {
       success: false,
-      error: error.message || 'Failed to sync invoice',
+      error: error.message || "Failed to sync invoice",
     };
   }
 }
@@ -204,10 +205,10 @@ export async function syncInvoice(
 export async function getOrganizationSubscription(organizationId: string) {
   try {
     const { data, error } = await supabase
-      .from('stripe_subscriptions')
-      .select('*')
-      .eq('organization_id', organizationId)
-      .order('created_at', { ascending: false })
+      .from("stripe_subscriptions")
+      .select("*")
+      .eq("organization_id", organizationId)
+      .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
 
@@ -215,10 +216,10 @@ export async function getOrganizationSubscription(organizationId: string) {
 
     return { subscription: data, error: null };
   } catch (error: any) {
-    console.error('Failed to get organization subscription:', error);
+    console.error("Failed to get organization subscription:", error);
     return {
       subscription: null,
-      error: error.message || 'Failed to get subscription',
+      error: error.message || "Failed to get subscription",
     };
   }
 }
@@ -229,19 +230,19 @@ export async function getOrganizationSubscription(organizationId: string) {
 export async function getOrganizationInvoices(organizationId: string) {
   try {
     const { data, error } = await supabase
-      .from('stripe_invoices')
-      .select('*')
-      .eq('organization_id', organizationId)
-      .order('created_at', { ascending: false });
+      .from("stripe_invoices")
+      .select("*")
+      .eq("organization_id", organizationId)
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
 
     return { invoices: data || [], error: null };
   } catch (error: any) {
-    console.error('Failed to get organization invoices:', error);
+    console.error("Failed to get organization invoices:", error);
     return {
       invoices: [],
-      error: error.message || 'Failed to get invoices',
+      error: error.message || "Failed to get invoices",
     };
   }
 }
@@ -249,12 +250,14 @@ export async function getOrganizationInvoices(organizationId: string) {
 /**
  * Check if organization has active subscription
  */
-export async function hasActiveSubscription(organizationId: string): Promise<boolean> {
+export async function hasActiveSubscription(
+  organizationId: string,
+): Promise<boolean> {
   try {
     const { data: org } = await supabase
-      .from('bb_organizations')
-      .select('subscription_status, is_enterprise_client')
-      .eq('id', organizationId)
+      .from("bb_organizations")
+      .select("subscription_status, is_enterprise_client")
+      .eq("id", organizationId)
       .single();
 
     if (!org) return false;
@@ -263,9 +266,12 @@ export async function hasActiveSubscription(organizationId: string): Promise<boo
     if (org.is_enterprise_client) return true;
 
     // Check for active subscription status
-    return org.subscription_status === 'active' || org.subscription_status === 'trialing';
+    return (
+      org.subscription_status === "active" ||
+      org.subscription_status === "trialing"
+    );
   } catch (error) {
-    console.error('Failed to check subscription status:', error);
+    console.error("Failed to check subscription status:", error);
     return false;
   }
 }
@@ -274,14 +280,14 @@ export async function hasActiveSubscription(organizationId: string): Promise<boo
  * Get billing plan name for display
  */
 export function getBillingPlanDisplay(plan: string | null): string {
-  if (!plan) return 'Free';
+  if (!plan) return "Free";
 
   const planMap: Record<string, string> = {
-    free: 'Free',
-    starter: 'Starter',
-    professional: 'Professional',
-    enterprise: 'Enterprise',
-    custom: 'Custom',
+    free: "Free",
+    starter: "Starter",
+    professional: "Professional",
+    enterprise: "Enterprise",
+    custom: "Custom",
   };
 
   return planMap[plan] || plan;
@@ -297,9 +303,9 @@ export function getSubscriptionStatusInfo(status: string | null): {
 } {
   if (!status) {
     return {
-      label: 'No Subscription',
-      color: 'gray',
-      description: 'Not subscribed to any plan',
+      label: "No Subscription",
+      color: "gray",
+      description: "Not subscribed to any plan",
     };
   }
 
@@ -308,52 +314,52 @@ export function getSubscriptionStatusInfo(status: string | null): {
     { label: string; color: string; description: string }
   > = {
     active: {
-      label: 'Active',
-      color: 'green',
-      description: 'Subscription is active and current',
+      label: "Active",
+      color: "green",
+      description: "Subscription is active and current",
     },
     trialing: {
-      label: 'Trial',
-      color: 'blue',
-      description: 'In trial period',
+      label: "Trial",
+      color: "blue",
+      description: "In trial period",
     },
     past_due: {
-      label: 'Past Due',
-      color: 'yellow',
-      description: 'Payment failed, retrying',
+      label: "Past Due",
+      color: "yellow",
+      description: "Payment failed, retrying",
     },
     canceled: {
-      label: 'Canceled',
-      color: 'red',
-      description: 'Subscription has been canceled',
+      label: "Canceled",
+      color: "red",
+      description: "Subscription has been canceled",
     },
     incomplete: {
-      label: 'Incomplete',
-      color: 'yellow',
-      description: 'Awaiting payment confirmation',
+      label: "Incomplete",
+      color: "yellow",
+      description: "Awaiting payment confirmation",
     },
     incomplete_expired: {
-      label: 'Expired',
-      color: 'gray',
-      description: 'Payment not completed in time',
+      label: "Expired",
+      color: "gray",
+      description: "Payment not completed in time",
     },
     unpaid: {
-      label: 'Unpaid',
-      color: 'red',
-      description: 'Payment failed after retries',
+      label: "Unpaid",
+      color: "red",
+      description: "Payment failed after retries",
     },
     paused: {
-      label: 'Paused',
-      color: 'gray',
-      description: 'Subscription is temporarily paused',
+      label: "Paused",
+      color: "gray",
+      description: "Subscription is temporarily paused",
     },
   };
 
   return (
     statusMap[status] || {
       label: status,
-      color: 'gray',
-      description: 'Unknown status',
+      color: "gray",
+      description: "Unknown status",
     }
   );
 }

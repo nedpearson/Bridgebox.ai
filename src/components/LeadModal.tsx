@@ -1,24 +1,28 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
-import { useEffect } from 'react';
-import LeadForm from './LeadForm';
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
+import { useEffect } from "react";
+import LeadForm from "./LeadForm";
 
 interface LeadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  formType?: 'demo' | 'custom_build';
+  formType?: "demo" | "custom_build";
 }
 
-export default function LeadModal({ isOpen, onClose, formType = 'custom_build' }: LeadModalProps) {
+export default function LeadModal({
+  isOpen,
+  onClose,
+  formType = "custom_build",
+}: LeadModalProps) {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
@@ -48,12 +52,14 @@ export default function LeadModal({ isOpen, onClose, formType = 'custom_build' }
             <div className="sticky top-0 z-10 flex items-center justify-between p-6 bg-[#0F1419]/95 backdrop-blur-xl border-b border-white/10">
               <div>
                 <h2 className="text-3xl font-bold text-white mb-2">
-                  {formType === 'demo' ? 'Book a Demo' : 'Let\'s Build Your System'}
+                  {formType === "demo"
+                    ? "Book a Demo"
+                    : "Let's Build Your System"}
                 </h2>
                 <p className="text-slate-400">
-                  {formType === 'demo'
-                    ? 'Schedule a personalized demo with our team'
-                    : 'Tell us about your project and we\'ll create a custom proposal'}
+                  {formType === "demo"
+                    ? "Schedule a personalized demo with our team"
+                    : "Tell us about your project and we'll create a custom proposal"}
                 </p>
               </div>
               <button

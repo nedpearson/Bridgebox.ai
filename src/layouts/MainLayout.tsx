@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import FinalCTA from '../components/FinalCTA';
-import BackgroundAtmosphere from '../components/BackgroundAtmosphere';
-import PageTransition from '../components/PageTransition';
-import LeadModal from '../components/LeadModal';
-import { useLeadModal } from '../hooks/useLeadModal';
+import { ReactNode } from "react";
+import { useLocation } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import FinalCTA from "../components/FinalCTA";
+import BackgroundAtmosphere from "../components/BackgroundAtmosphere";
+import PageTransition from "../components/PageTransition";
+import LeadModal from "../components/LeadModal";
+import { useLeadModal } from "../hooks/useLeadModal";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -14,7 +14,8 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   const location = useLocation();
-  const showFinalCTA = location.pathname !== '/' && location.pathname !== '/contact';
+  const showFinalCTA =
+    location.pathname !== "/" && location.pathname !== "/contact";
   const { isOpen, formType, closeModal } = useLeadModal();
 
   return (

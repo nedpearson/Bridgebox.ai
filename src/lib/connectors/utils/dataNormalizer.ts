@@ -1,5 +1,5 @@
 export interface NormalizedEvent {
-  type: 'event';
+  type: "event";
   source: string;
   sourceId: string;
   title: string;
@@ -10,7 +10,7 @@ export interface NormalizedEvent {
 }
 
 export interface NormalizedMetric {
-  type: 'metric';
+  type: "metric";
   source: string;
   sourceId: string;
   name: string;
@@ -22,7 +22,7 @@ export interface NormalizedMetric {
 }
 
 export interface NormalizedEntity {
-  type: 'entity';
+  type: "entity";
   source: string;
   sourceId: string;
   entityType: string;
@@ -33,7 +33,10 @@ export interface NormalizedEntity {
   metadata: Record<string, any>;
 }
 
-export type NormalizedData = NormalizedEvent | NormalizedMetric | NormalizedEntity;
+export type NormalizedData =
+  | NormalizedEvent
+  | NormalizedMetric
+  | NormalizedEntity;
 
 export class DataNormalizer {
   static normalizeEvent(data: {
@@ -46,14 +49,17 @@ export class DataNormalizer {
     metadata?: Record<string, any>;
   }): NormalizedEvent {
     return {
-      type: 'event',
+      type: "event",
       source: data.source,
       sourceId: data.sourceId,
       title: data.title,
       description: data.description,
-      timestamp: typeof data.timestamp === 'string' ? new Date(data.timestamp) : data.timestamp,
+      timestamp:
+        typeof data.timestamp === "string"
+          ? new Date(data.timestamp)
+          : data.timestamp,
       participants: data.participants || [],
-      metadata: data.metadata || {}
+      metadata: data.metadata || {},
     };
   }
 
@@ -68,15 +74,19 @@ export class DataNormalizer {
     metadata?: Record<string, any>;
   }): NormalizedMetric {
     return {
-      type: 'metric',
+      type: "metric",
       source: data.source,
       sourceId: data.sourceId,
       name: data.name,
-      value: typeof data.value === 'string' ? parseFloat(data.value) : data.value,
+      value:
+        typeof data.value === "string" ? parseFloat(data.value) : data.value,
       unit: data.unit,
-      timestamp: typeof data.timestamp === 'string' ? new Date(data.timestamp) : data.timestamp,
+      timestamp:
+        typeof data.timestamp === "string"
+          ? new Date(data.timestamp)
+          : data.timestamp,
       dimensions: data.dimensions || {},
-      metadata: data.metadata || {}
+      metadata: data.metadata || {},
     };
   }
 
@@ -91,82 +101,105 @@ export class DataNormalizer {
     metadata?: Record<string, any>;
   }): NormalizedEntity {
     return {
-      type: 'entity',
+      type: "entity",
       source: data.source,
       sourceId: data.sourceId,
       entityType: data.entityType,
       name: data.name,
       properties: data.properties,
       createdAt: data.createdAt
-        ? (typeof data.createdAt === 'string' ? new Date(data.createdAt) : data.createdAt)
+        ? typeof data.createdAt === "string"
+          ? new Date(data.createdAt)
+          : data.createdAt
         : undefined,
       updatedAt: data.updatedAt
-        ? (typeof data.updatedAt === 'string' ? new Date(data.updatedAt) : data.updatedAt)
+        ? typeof data.updatedAt === "string"
+          ? new Date(data.updatedAt)
+          : data.updatedAt
         : undefined,
-      metadata: data.metadata || {}
+      metadata: data.metadata || {},
     };
   }
 
-  static inferType(data: any): 'event' | 'metric' | 'entity' {
+  static inferType(data: any): "event" | "metric" | "entity" {
     if (data.participants || data.attendees || data.start || data.end) {
-      return 'event';
+      return "event";
     }
 
-    if (typeof data.value === 'number' || data.amount !== undefined || data.count !== undefined) {
-      return 'metric';
+    if (
+      typeof data.value === "number" ||
+      data.amount !== undefined ||
+      data.count !== undefined
+    ) {
+      return "metric";
     }
 
-    return 'entity';
+    return "entity";
   }
 
   static autoNormalize(
     source: string,
     sourceId: string,
-    rawData: any
+    rawData: any,
   ): NormalizedData {
     const type = this.inferType(rawData);
 
     switch (type) {
-      case 'event':
+      case "event":
         return this.normalizeEvent({
           source,
           sourceId,
-          title: rawData.title || rawData.summary || rawData.name || 'Untitled Event',
+          title:
+            rawData.title ||
+            rawData.summary ||
+            rawData.name ||
+            "Untitled Event",
           description: rawData.description || rawData.body,
-          timestamp: rawData.timestamp || rawData.start || rawData.createdAt || new Date(),
+          timestamp:
+            rawData.timestamp ||
+            rawData.start ||
+            rawData.createdAt ||
+            new Date(),
           participants: rawData.participants || rawData.attendees,
-          metadata: rawData
+          metadata: rawData,
         });
 
-      case 'metric':
+      case "metric":
         return this.normalizeMetric({
           source,
           sourceId,
-          name: rawData.name || rawData.metric || 'Unnamed Metric',
+          name: rawData.name || rawData.metric || "Unnamed Metric",
           value: rawData.value || rawData.amount || rawData.count || 0,
           unit: rawData.unit || rawData.currency,
           timestamp: rawData.timestamp || rawData.date || new Date(),
           dimensions: this.extractDimensions(rawData),
-          metadata: rawData
+          metadata: rawData,
         });
 
-      case 'entity':
+      case "entity":
         return this.normalizeEntity({
           source,
           sourceId,
-          entityType: rawData.type || rawData.entityType || 'unknown',
+          entityType: rawData.type || rawData.entityType || "unknown",
           name: rawData.name || rawData.title || `Entity ${sourceId}`,
           properties: this.extractProperties(rawData),
           createdAt: rawData.createdAt || rawData.created_at || rawData.created,
           updatedAt: rawData.updatedAt || rawData.updated_at || rawData.updated,
-          metadata: rawData
+          metadata: rawData,
         });
     }
   }
 
   private static extractDimensions(data: any): Record<string, any> {
     const dimensions: Record<string, any> = {};
-    const dimensionFields = ['category', 'type', 'status', 'source', 'region', 'segment'];
+    const dimensionFields = [
+      "category",
+      "type",
+      "status",
+      "source",
+      "region",
+      "segment",
+    ];
 
     for (const field of dimensionFields) {
       if (data[field] !== undefined) {
@@ -179,7 +212,17 @@ export class DataNormalizer {
 
   private static extractProperties(data: any): Record<string, any> {
     const properties: Record<string, any> = {};
-    const excludedFields = ['id', 'type', 'entityType', 'name', 'title', 'createdAt', 'updatedAt', 'created_at', 'updated_at'];
+    const excludedFields = [
+      "id",
+      "type",
+      "entityType",
+      "name",
+      "title",
+      "createdAt",
+      "updatedAt",
+      "created_at",
+      "updated_at",
+    ];
 
     for (const [key, value] of Object.entries(data)) {
       if (!excludedFields.includes(key)) {
@@ -199,11 +242,12 @@ export class DataNormalizer {
       data_type: normalized.type,
       normalized_data: {
         ...normalized,
-        timestamp: normalized.type === 'event' || normalized.type === 'metric'
-          ? normalized.timestamp.toISOString()
-          : undefined
+        timestamp:
+          normalized.type === "event" || normalized.type === "metric"
+            ? normalized.timestamp.toISOString()
+            : undefined,
       },
-      metadata: normalized.metadata
+      metadata: normalized.metadata,
     };
   }
 }

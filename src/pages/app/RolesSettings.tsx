@@ -1,16 +1,16 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Shield, Plus, CreditCard as Edit3, Trash2 } from 'lucide-react';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import Heading from '../../components/Heading';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import { useAuth } from '../../contexts/AuthContext';
-import { whiteLabelService, CustomRole } from '../../lib/db/whiteLabel';
-import { hasPermission } from '../../lib/permissions';
-import CreateRoleModal from '../../components/app/CreateRoleModal';
-import EditRoleModal from '../../components/app/EditRoleModal';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Shield, Plus, CreditCard as Edit3, Trash2 } from "lucide-react";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import Heading from "../../components/Heading";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { useAuth } from "../../contexts/AuthContext";
+import { whiteLabelService, CustomRole } from "../../lib/db/whiteLabel";
+import { hasPermission } from "../../lib/permissions";
+import CreateRoleModal from "../../components/app/CreateRoleModal";
+import EditRoleModal from "../../components/app/EditRoleModal";
 
 export default function RolesSettings() {
   const { user, currentOrganization, profile } = useAuth();
@@ -19,7 +19,7 @@ export default function RolesSettings() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingRole, setEditingRole] = useState<CustomRole | null>(null);
 
-  const canManage = profile?.role === 'super_admin';
+  const canManage = profile?.role === "super_admin";
 
   useEffect(() => {
     if (currentOrganization) {
@@ -32,24 +32,26 @@ export default function RolesSettings() {
 
     try {
       setLoading(true);
-      const data = await whiteLabelService.getCustomRoles(currentOrganization.id);
+      const data = await whiteLabelService.getCustomRoles(
+        currentOrganization.id,
+      );
       setRoles(data);
     } catch (error) {
-      console.error('Failed to load roles:', error);
+      console.error("Failed to load roles:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (roleId: string) => {
-    if (!confirm('Are you sure you want to delete this role?')) return;
+    if (!confirm("Are you sure you want to delete this role?")) return;
 
     try {
       await whiteLabelService.deleteCustomRole(roleId);
       await loadRoles();
     } catch (error) {
-      console.error('Failed to delete role:', error);
-      alert('Failed to delete role. Please try again.');
+      console.error("Failed to delete role:", error);
+      alert("Failed to delete role. Please try again.");
     }
   };
 
@@ -74,7 +76,8 @@ export default function RolesSettings() {
       {!canManage && (
         <Card className="bg-amber-500/10 border-amber-500/20">
           <p className="text-sm text-amber-300">
-            Only super administrators can manage custom roles. Contact your administrator.
+            Only super administrators can manage custom roles. Contact your
+            administrator.
           </p>
         </Card>
       )}
@@ -86,22 +89,22 @@ export default function RolesSettings() {
           <SystemRoleCard
             name="Super Admin"
             description="Full system access with all permissions"
-            permissions={['All permissions']}
+            permissions={["All permissions"]}
           />
           <SystemRoleCard
             name="Internal Staff"
             description="Access to internal tools and client management"
-            permissions={['Manage leads', 'Manage projects', 'View analytics']}
+            permissions={["Manage leads", "Manage projects", "View analytics"]}
           />
           <SystemRoleCard
             name="Client Admin"
             description="Manage client organization and members"
-            permissions={['View projects', 'Manage team', 'View billing']}
+            permissions={["View projects", "Manage team", "View billing"]}
           />
           <SystemRoleCard
             name="Client Member"
             description="Basic client portal access"
-            permissions={['View projects', 'Submit tickets']}
+            permissions={["View projects", "Submit tickets"]}
           />
         </div>
       </Card>
@@ -111,7 +114,9 @@ export default function RolesSettings() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <h3 className="text-lg font-semibold text-white">Custom Roles</h3>
-            <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">{roles.length} roles</span>
+            <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20">
+              {roles.length} roles
+            </span>
           </div>
           {canManage && (
             <Button size="sm" onClick={() => setShowCreateModal(true)}>
@@ -144,7 +149,6 @@ export default function RolesSettings() {
         )}
       </Card>
 
-
       <CreateRoleModal
         isOpen={showCreateModal}
         onClose={() => setShowCreateModal(false)}
@@ -171,7 +175,11 @@ interface SystemRoleCardProps {
   permissions: string[];
 }
 
-function SystemRoleCard({ name, description, permissions }: SystemRoleCardProps) {
+function SystemRoleCard({
+  name,
+  description,
+  permissions,
+}: SystemRoleCardProps) {
   return (
     <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-700">
       <div className="flex items-start justify-between mb-2">
@@ -204,7 +212,12 @@ interface CustomRoleCardProps {
   canManage: boolean;
 }
 
-function CustomRoleCard({ role, onEdit, onDelete, canManage }: CustomRoleCardProps) {
+function CustomRoleCard({
+  role,
+  onEdit,
+  onDelete,
+  canManage,
+}: CustomRoleCardProps) {
   const permissionCount = Object.keys(role.permissions).length;
 
   return (
@@ -216,7 +229,9 @@ function CustomRoleCard({ role, onEdit, onDelete, canManage }: CustomRoleCardPro
       <div className="flex items-start justify-between mb-2">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <h4 className="text-base font-medium text-white">{role.display_name}</h4>
+            <h4 className="text-base font-medium text-white">
+              {role.display_name}
+            </h4>
             <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
               Custom
             </span>
@@ -233,7 +248,7 @@ function CustomRoleCard({ role, onEdit, onDelete, canManage }: CustomRoleCardPro
 
         {canManage && (
           <div className="flex gap-2">
-            <button 
+            <button
               onClick={onEdit}
               className="p-2 text-slate-400 hover:text-white transition-colors"
             >

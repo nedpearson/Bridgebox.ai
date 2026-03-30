@@ -1,7 +1,7 @@
-import { BaseConnector } from '../core/BaseConnector';
+import { BaseConnector } from "../core/BaseConnector";
 
 export class ChatwootConnector extends BaseConnector {
-  protected providerName = 'Chatwoot Integration';
+  protected providerName = "Chatwoot Integration";
 
   async connect(credentials?: Record<string, any>): Promise<boolean> {
     const accountUrl = credentials?.accountUrl;
@@ -9,45 +9,53 @@ export class ChatwootConnector extends BaseConnector {
     const accountId = credentials?.accountId;
 
     if (!accountUrl || !apiToken || !accountId) {
-      throw new Error('Chatwoot URL, API Token, and Account ID are required.');
+      throw new Error("Chatwoot URL, API Token, and Account ID are required.");
     }
 
     try {
-      const response = await fetch(`${accountUrl.replace(/\/$/, '')}/api/v1/accounts/${accountId}/agents`, {
-        headers: {
-          'api_access_token': apiToken,
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await fetch(
+        `${accountUrl.replace(/\/$/, "")}/api/v1/accounts/${accountId}/agents`,
+        {
+          headers: {
+            api_access_token: apiToken,
+            "Content-Type": "application/json",
+          },
+        },
+      );
       return response.ok;
     } catch (e) {
       return false;
     }
   }
 
-  async disconnect(): Promise<boolean> { 
-    return true; 
+  async disconnect(): Promise<boolean> {
+    return true;
   }
 
   async testConnection(): Promise<boolean> {
     const config = this.connector?.config as any;
-    if (!config?.apiToken || !config?.accountUrl || !config?.accountId) return false;
+    if (!config?.apiToken || !config?.accountUrl || !config?.accountId)
+      return false;
     return this.connect(config);
   }
 
   async fetchExternalData(options?: Record<string, any>): Promise<any[]> {
     const config = this.connector?.config as any;
-    if (!config?.apiToken || !config?.accountUrl || !config?.accountId) return [];
-    
-    const accountUrl = config.accountUrl.replace(/\/$/, '');
+    if (!config?.apiToken || !config?.accountUrl || !config?.accountId)
+      return [];
+
+    const accountUrl = config.accountUrl.replace(/\/$/, "");
     const apiToken = config.apiToken;
     const accountId = config.accountId;
-    
+
     // In a real implementation this would fetch all paginated conversations/contacts
     try {
-      const response = await fetch(`${accountUrl}/api/v1/accounts/${accountId}/conversations`, {
-        headers: { 'api_access_token': apiToken }
-      });
+      const response = await fetch(
+        `${accountUrl}/api/v1/accounts/${accountId}/conversations`,
+        {
+          headers: { api_access_token: apiToken },
+        },
+      );
       if (response.ok) {
         const json = await response.json();
         return json.payload || [];
@@ -73,7 +81,7 @@ export class ChatwootConnector extends BaseConnector {
         errors: [],
         duration: Date.now() - new Date(startedAt).getTime(),
         startedAt,
-        completedAt: new Date().toISOString()
+        completedAt: new Date().toISOString(),
       };
     } catch (e: any) {
       return {
@@ -86,7 +94,7 @@ export class ChatwootConnector extends BaseConnector {
         errors: [{ error: e.message }],
         duration: Date.now() - new Date(startedAt).getTime(),
         startedAt,
-        completedAt: new Date().toISOString()
+        completedAt: new Date().toISOString(),
       };
     }
   }

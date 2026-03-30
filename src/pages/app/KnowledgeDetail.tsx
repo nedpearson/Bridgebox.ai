@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Clock,
@@ -12,16 +12,19 @@ import {
   BookOpen,
   Share2,
   Bookmark,
-} from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ErrorState from '../../components/ErrorState';
-import DocumentCategoryBadge from '../../components/knowledge/DocumentCategoryBadge';
-import DocumentVisibilityBadge from '../../components/knowledge/DocumentVisibilityBadge';
-import { knowledgeService, type KnowledgeDocument } from '../../lib/db/knowledge';
-import { useAuth } from '../../contexts/AuthContext';
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorState from "../../components/ErrorState";
+import DocumentCategoryBadge from "../../components/knowledge/DocumentCategoryBadge";
+import DocumentVisibilityBadge from "../../components/knowledge/DocumentVisibilityBadge";
+import {
+  knowledgeService,
+  type KnowledgeDocument,
+} from "../../lib/db/knowledge";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function KnowledgeDetail() {
   const { docId } = useParams<{ docId: string }>();
@@ -30,7 +33,7 @@ export default function KnowledgeDetail() {
   const [document, setDocument] = useState<KnowledgeDocument | null>(null);
   const [relatedDocs, setRelatedDocs] = useState<KnowledgeDocument[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (docId) {
@@ -43,12 +46,12 @@ export default function KnowledgeDetail() {
 
     try {
       setLoading(true);
-      setError('');
+      setError("");
 
       const doc = await knowledgeService.getDocumentById(docId);
 
       if (!doc) {
-        setError('Document not found');
+        setError("Document not found");
         return;
       }
 
@@ -63,18 +66,18 @@ export default function KnowledgeDetail() {
       });
       setRelatedDocs(related.filter((d) => d.id !== doc.id).slice(0, 5));
     } catch (err) {
-      console.error('Failed to load document:', err);
-      setError('Failed to load document');
+      console.error("Failed to load document:", err);
+      setError("Failed to load document");
     } finally {
       setLoading(false);
     }
   };
 
   const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
     });
   };
 
@@ -98,7 +101,10 @@ export default function KnowledgeDetail() {
             title="Document not found"
             message="The document you're looking for doesn't exist or you don't have access to it."
             action={
-              <Button variant="primary" onClick={() => navigate('/app/knowledge')}>
+              <Button
+                variant="primary"
+                onClick={() => navigate("/app/knowledge")}
+              >
                 <ArrowLeft className="w-5 h-5" />
                 Back to Knowledge Base
               </Button>
@@ -116,7 +122,11 @@ export default function KnowledgeDetail() {
       <div className="p-8">
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="flex items-center gap-4">
-            <Button variant="secondary" size="sm" onClick={() => navigate('/app/knowledge')}>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => navigate("/app/knowledge")}
+            >
               <ArrowLeft className="w-4 h-4" />
               Back
             </Button>
@@ -131,10 +141,14 @@ export default function KnowledgeDetail() {
                       {document.is_featured && (
                         <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
                       )}
-                      <h1 className="text-3xl font-bold text-white">{document.title}</h1>
+                      <h1 className="text-3xl font-bold text-white">
+                        {document.title}
+                      </h1>
                     </div>
                     {document.excerpt && (
-                      <p className="text-lg text-slate-300">{document.excerpt}</p>
+                      <p className="text-lg text-slate-300">
+                        {document.excerpt}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -177,7 +191,9 @@ export default function KnowledgeDetail() {
 
           {relatedDocs.length > 0 && (
             <Card>
-              <h2 className="text-xl font-semibold text-white mb-4">Related Documentation</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">
+                Related Documentation
+              </h2>
               <div className="space-y-3">
                 {relatedDocs.map((doc) => (
                   <Link key={doc.id} to={`/app/knowledge/${doc.id}`}>
@@ -190,9 +206,13 @@ export default function KnowledgeDetail() {
                           <BookOpen className="w-4 h-4 text-blue-400" />
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-white mb-1">{doc.title}</h3>
+                          <h3 className="font-semibold text-white mb-1">
+                            {doc.title}
+                          </h3>
                           {doc.excerpt && (
-                            <p className="text-sm text-slate-400 line-clamp-2">{doc.excerpt}</p>
+                            <p className="text-sm text-slate-400 line-clamp-2">
+                              {doc.excerpt}
+                            </p>
                           )}
                         </div>
                         <div className="flex items-center gap-1.5 text-xs text-slate-400">

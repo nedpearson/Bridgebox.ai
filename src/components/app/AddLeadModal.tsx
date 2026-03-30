@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Loader2 } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
-import type { LeadRecord } from '../../types/database';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Loader2 } from "lucide-react";
+import { supabase } from "../../lib/supabase";
+import type { LeadRecord } from "../../types/database";
 
 interface AddLeadModalProps {
   isOpen: boolean;
@@ -10,18 +10,22 @@ interface AddLeadModalProps {
   onSuccess: () => void;
 }
 
-export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModalProps) {
+export default function AddLeadModal({
+  isOpen,
+  onClose,
+  onSuccess,
+}: AddLeadModalProps) {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    lead_type: 'custom_software',
-    status: 'new',
-    priority: 'medium',
-    budget_range: '',
-    source: 'manual',
-    project_description: ''
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    lead_type: "custom_software",
+    status: "new",
+    priority: "medium",
+    budget_range: "",
+    source: "manual",
+    project_description: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,36 +52,36 @@ export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModa
         priority: formData.priority,
         budget_range: formData.budget_range || null,
         source: formData.source,
-        form_type: 'manual_entry',
+        form_type: "manual_entry",
         project_description: formData.project_description?.trim() || null,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
 
       const { error: dbError } = await supabase
-        .from('bb_leads')
+        .from("bb_leads")
         .insert([leadData]);
 
       if (dbError) throw dbError;
 
       onSuccess();
       onClose();
-      
+
       // Reset form
       setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        lead_type: 'custom_software',
-        status: 'new',
-        priority: 'medium',
-        budget_range: '',
-        source: 'manual',
-        project_description: ''
+        name: "",
+        email: "",
+        company: "",
+        phone: "",
+        lead_type: "custom_software",
+        status: "new",
+        priority: "medium",
+        budget_range: "",
+        source: "manual",
+        project_description: "",
       });
     } catch (err: any) {
-      setError(err.message || 'Failed to create lead');
+      setError(err.message || "Failed to create lead");
     } finally {
       setIsSubmitting(false);
     }
@@ -96,8 +100,12 @@ export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModa
         >
           <div className="sticky top-0 z-10 flex items-center justify-between p-6 bg-slate-900/95 backdrop-blur-xl border-b border-slate-800">
             <div>
-              <h2 className="text-2xl font-bold text-white mb-1">Add New Lead</h2>
-              <p className="text-slate-400 text-sm">Create a lead entry manually in the CRM.</p>
+              <h2 className="text-2xl font-bold text-white mb-1">
+                Add New Lead
+              </h2>
+              <p className="text-slate-400 text-sm">
+                Create a lead entry manually in the CRM.
+              </p>
             </div>
             <button
               onClick={onClose}
@@ -111,56 +119,78 @@ export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModa
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Name *</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    Name *
+                  </label>
                   <input
                     type="text"
                     required
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                     placeholder="John Doe"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Email *</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    Email *
+                  </label>
                   <input
                     type="email"
                     required
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                     placeholder="john@example.com"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Company</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    Company
+                  </label>
                   <input
                     type="text"
                     value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, company: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                     placeholder="Acme Corp"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Phone</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    Phone
+                  </label>
                   <input
                     type="tel"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                     placeholder="+1 (555) 000-0000"
                   />
                 </div>
-                
+
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Lead Type *</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    Lead Type *
+                  </label>
                   <select
                     value={formData.lead_type}
-                    onChange={(e) => setFormData({ ...formData, lead_type: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, lead_type: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                   >
-                    <option value="platform_subscription">Platform Subscription</option>
+                    <option value="platform_subscription">
+                      Platform Subscription
+                    </option>
                     <option value="custom_software">Custom Software</option>
                     <option value="dashboard_analytics">Dashboards</option>
                     <option value="mobile_app">Mobile App</option>
@@ -172,10 +202,14 @@ export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModa
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Status *</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    Status *
+                  </label>
                   <select
                     value={formData.status}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, status: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                   >
                     <option value="new">New</option>
@@ -187,10 +221,14 @@ export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModa
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Priority *</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    Priority *
+                  </label>
                   <select
                     value={formData.priority}
-                    onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, priority: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                   >
                     <option value="low">Low</option>
@@ -201,10 +239,14 @@ export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModa
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Lead Source</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    Lead Source
+                  </label>
                   <select
                     value={formData.source}
-                    onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, source: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
                   >
                     <option value="manual">Manual Entry</option>
@@ -216,11 +258,18 @@ export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModa
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Project Notes / Description</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Project Notes / Description
+                </label>
                 <textarea
                   rows={3}
                   value={formData.project_description}
-                  onChange={(e) => setFormData({ ...formData, project_description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      project_description: e.target.value,
+                    })
+                  }
                   className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500 resize-none"
                   placeholder="Internal notes or project requirements..."
                 />
@@ -251,7 +300,7 @@ export default function AddLeadModal({ isOpen, onClose, onSuccess }: AddLeadModa
                       Creating...
                     </>
                   ) : (
-                    'Create Lead'
+                    "Create Lead"
                   )}
                 </button>
               </div>

@@ -1,14 +1,17 @@
-import { useState } from 'react';
-import { usePresence } from '../../hooks/usePresence';
-import { PhoneCall } from 'lucide-react';
-import HuddleRoom from './HuddleRoom';
+import { useState } from "react";
+import { usePresence } from "../../hooks/usePresence";
+import { PhoneCall } from "lucide-react";
+import HuddleRoom from "./HuddleRoom";
 
 interface AvatarStackProps {
   roomName: string;
   maxDisplay?: number;
 }
 
-export default function AvatarStack({ roomName, maxDisplay = 4 }: AvatarStackProps) {
+export default function AvatarStack({
+  roomName,
+  maxDisplay = 4,
+}: AvatarStackProps) {
   const { activeUsers } = usePresence(roomName);
   const [isHuddleActive, setIsHuddleActive] = useState(false);
 
@@ -33,9 +36,10 @@ export default function AvatarStack({ roomName, maxDisplay = 4 }: AvatarStackPro
                 className="h-full w-full rounded-full object-cover"
               />
             ) : (
-              user.full_name?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase()
+              user.full_name?.charAt(0).toUpperCase() ||
+              user.email?.charAt(0).toUpperCase()
             )}
-            
+
             {/* Online Indicator Dot */}
             <span className="absolute bottom-0 right-0 block h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-slate-900 shadow-sm" />
           </div>
@@ -46,7 +50,7 @@ export default function AvatarStack({ roomName, maxDisplay = 4 }: AvatarStackPro
           </div>
         )}
       </div>
-      
+
       {activeUsers.length > 0 && (
         <span className="ml-3 text-xs font-medium text-slate-400 animate-pulse flex items-center gap-1.5">
           <span className="relative flex h-2 w-2">
@@ -56,7 +60,7 @@ export default function AvatarStack({ roomName, maxDisplay = 4 }: AvatarStackPro
           {activeUsers.length} viewing natively
         </span>
       )}
-      
+
       {activeUsers.length > 1 && !isHuddleActive && (
         <button
           onClick={() => setIsHuddleActive(true)}
@@ -68,7 +72,10 @@ export default function AvatarStack({ roomName, maxDisplay = 4 }: AvatarStackPro
       )}
 
       {isHuddleActive && (
-        <HuddleRoom roomName={roomName} onClose={() => setIsHuddleActive(false)} />
+        <HuddleRoom
+          roomName={roomName}
+          onClose={() => setIsHuddleActive(false)}
+        />
       )}
     </div>
   );

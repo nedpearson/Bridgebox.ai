@@ -1,6 +1,16 @@
-export type DocumentType = 'financial' | 'legal' | 'operational' | 'contract' | 'report' | 'other';
-export type DocumentStatus = 'uploading' | 'processing' | 'completed' | 'failed';
-export type DocumentSentiment = 'positive' | 'negative' | 'neutral' | 'mixed';
+export type DocumentType =
+  | "financial"
+  | "legal"
+  | "operational"
+  | "contract"
+  | "report"
+  | "other";
+export type DocumentStatus =
+  | "uploading"
+  | "processing"
+  | "completed"
+  | "failed";
+export type DocumentSentiment = "positive" | "negative" | "neutral" | "mixed";
 
 export interface Document {
   id: string;

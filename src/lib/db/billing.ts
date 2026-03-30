@@ -1,13 +1,13 @@
-import { supabase } from '../supabase';
-import type { BillingInterval } from '../../types/billing';
+import { supabase } from "../supabase";
+import type { BillingInterval } from "../../types/billing";
 
 export const billingService = {
   async getSubscriptionPlans() {
     const { data, error } = await supabase
-      .from('bb_subscription_plans')
-      .select('*')
-      .eq('is_active', true)
-      .order('price_monthly');
+      .from("bb_subscription_plans")
+      .select("*")
+      .eq("is_active", true)
+      .order("price_monthly");
 
     if (error) throw error;
     return data || [];
@@ -15,10 +15,10 @@ export const billingService = {
 
   async getOrganizationSubscription(organizationId: string) {
     const { data, error } = await supabase
-      .from('bb_subscriptions')
-      .select('*, bb_subscription_plans(*)')
-      .eq('organization_id', organizationId)
-      .eq('status', 'active')
+      .from("bb_subscriptions")
+      .select("*, bb_subscription_plans(*)")
+      .eq("organization_id", organizationId)
+      .eq("status", "active")
       .maybeSingle();
 
     if (error) throw error;
@@ -27,10 +27,10 @@ export const billingService = {
 
   async getAllActiveSubscriptions() {
     const { data, error } = await supabase
-      .from('bb_subscriptions')
-      .select('*, bb_organizations(name), bb_subscription_plans(name, tier)')
-      .eq('status', 'active')
-      .order('created_at', { ascending: false });
+      .from("bb_subscriptions")
+      .select("*, bb_organizations(name), bb_subscription_plans(name, tier)")
+      .eq("status", "active")
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
     return data || [];
@@ -38,10 +38,10 @@ export const billingService = {
 
   async getOrganizationInvoices(organizationId: string) {
     const { data, error } = await supabase
-      .from('bb_invoices')
-      .select('*, bb_projects(name)')
-      .eq('organization_id', organizationId)
-      .order('issue_date', { ascending: false });
+      .from("bb_invoices")
+      .select("*, bb_projects(name)")
+      .eq("organization_id", organizationId)
+      .order("issue_date", { ascending: false });
 
     if (error) throw error;
     return data || [];
@@ -49,9 +49,9 @@ export const billingService = {
 
   async getInvoiceById(id: string) {
     const { data, error } = await supabase
-      .from('bb_invoices')
-      .select('*, bb_organizations(name), bb_projects(name)')
-      .eq('id', id)
+      .from("bb_invoices")
+      .select("*, bb_organizations(name), bb_projects(name)")
+      .eq("id", id)
       .maybeSingle();
 
     if (error) throw error;
@@ -60,9 +60,9 @@ export const billingService = {
 
   async getAllInvoices() {
     const { data, error } = await supabase
-      .from('bb_invoices')
-      .select('*, bb_organizations(name)')
-      .order('issue_date', { ascending: false });
+      .from("bb_invoices")
+      .select("*, bb_organizations(name)")
+      .order("issue_date", { ascending: false });
 
     if (error) throw error;
     return data || [];
@@ -76,36 +76,37 @@ export const billingService = {
     stripe_customer_id?: string;
   }) {
     const { data: plan, error: planError } = await supabase
-      .from('bb_subscription_plans')
-      .select('*')
-      .eq('id', params.plan_id)
+      .from("bb_subscription_plans")
+      .select("*")
+      .eq("id", params.plan_id)
       .maybeSingle();
 
     if (planError) throw planError;
-    if (!plan) throw new Error('Plan not found');
+    if (!plan) throw new Error("Plan not found");
 
     const currentDate = new Date();
     const endDate = new Date(currentDate);
 
-    if (params.billing_cycle === 'monthly') {
+    if (params.billing_cycle === "monthly") {
       endDate.setMonth(endDate.getMonth() + 1);
     } else {
       endDate.setFullYear(endDate.getFullYear() + 1);
     }
 
-    const mrr = params.billing_cycle === 'monthly'
-      ? plan.price_monthly
-      : plan.price_yearly / 12;
+    const mrr =
+      params.billing_cycle === "monthly"
+        ? plan.price_monthly
+        : plan.price_yearly / 12;
 
     const { data, error } = await supabase
-      .from('bb_subscriptions')
+      .from("bb_subscriptions")
       .insert({
         organization_id: params.organization_id,
         plan_id: params.plan_id,
         billing_cycle: params.billing_cycle,
-        status: 'active',
-        current_period_start: currentDate.toISOString().split('T')[0],
-        current_period_end: endDate.toISOString().split('T')[0],
+        status: "active",
+        current_period_start: currentDate.toISOString().split("T")[0],
+        current_period_end: endDate.toISOString().split("T")[0],
         mrr,
       })
       .select()
@@ -117,18 +118,18 @@ export const billingService = {
 
   async updateSubscriptionStatus(
     subscriptionId: string,
-    status: 'active' | 'past_due' | 'cancelled' | 'paused'
+    status: "active" | "past_due" | "cancelled" | "paused",
   ) {
     const updates: any = { status };
 
-    if (status === 'cancelled') {
+    if (status === "cancelled") {
       updates.cancelled_at = new Date().toISOString();
     }
 
     const { data, error } = await supabase
-      .from('bb_subscriptions')
+      .from("bb_subscriptions")
       .update(updates)
-      .eq('id', subscriptionId)
+      .eq("id", subscriptionId)
       .select()
       .single();
 
@@ -148,10 +149,10 @@ export const billingService = {
     notes?: string;
   }) {
     const { data, error } = await supabase
-      .from('bb_invoices')
+      .from("bb_invoices")
       .insert({
         ...params,
-        status: 'draft',
+        status: "draft",
       })
       .select()
       .single();
@@ -162,18 +163,18 @@ export const billingService = {
 
   async updateInvoiceStatus(
     invoiceId: string,
-    status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
+    status: "draft" | "sent" | "paid" | "overdue" | "cancelled",
   ) {
     const updates: any = { status };
 
-    if (status === 'paid') {
-      updates.paid_date = new Date().toISOString().split('T')[0];
+    if (status === "paid") {
+      updates.paid_date = new Date().toISOString().split("T")[0];
     }
 
     const { data, error } = await supabase
-      .from('bb_invoices')
+      .from("bb_invoices")
       .update(updates)
-      .eq('id', invoiceId)
+      .eq("id", invoiceId)
       .select()
       .single();
 
@@ -183,9 +184,9 @@ export const billingService = {
 
   async calculateMRR() {
     const { data, error } = await supabase
-      .from('bb_subscriptions')
-      .select('mrr')
-      .eq('status', 'active');
+      .from("bb_subscriptions")
+      .select("mrr")
+      .eq("status", "active");
 
     if (error) throw error;
 
@@ -194,9 +195,9 @@ export const billingService = {
 
   async getOutstandingInvoicesTotal() {
     const { data, error } = await supabase
-      .from('bb_invoices')
-      .select('total')
-      .in('status', ['sent', 'overdue']);
+      .from("bb_invoices")
+      .select("total")
+      .in("status", ["sent", "overdue"]);
 
     if (error) throw error;
 

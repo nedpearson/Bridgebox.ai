@@ -13,6 +13,7 @@ Lead → Proposal → Project → Delivery → Support → Billing
 ## System Architecture
 
 ### 1. Sales & Marketing
+
 - **Pipeline Management** (`/app/pipeline`)
   - Visual Kanban board for lead stages
   - Lead qualification and tracking
@@ -40,6 +41,7 @@ Lead → Proposal → Project → Delivery → Support → Billing
   - Full traceability from lead to delivery
 
 ### 2. Client Management
+
 - **Client Organizations** (`/app/clients`)
   - Organization profiles
   - Industry tracking
@@ -53,6 +55,7 @@ Lead → Proposal → Project → Delivery → Support → Billing
   - Invitation status tracking
 
 ### 3. Project & Delivery
+
 - **Projects** (`/app/projects`)
   - Project creation and management
   - Progress tracking
@@ -79,6 +82,7 @@ Lead → Proposal → Project → Delivery → Support → Billing
   - Team lead assignments
 
 ### 4. Support & Service
+
 - **Support Queue** (`/app/support`)
   - Ticket management system
   - Priority levels (low, medium, high, critical)
@@ -92,6 +96,7 @@ Lead → Proposal → Project → Delivery → Support → Billing
   - Communication thread
 
 ### 5. Financial Management
+
 - **Billing Overview** (`/app/billing`)
   - Invoice tracking
   - Payment status
@@ -104,6 +109,7 @@ Lead → Proposal → Project → Delivery → Support → Billing
   - Account balance
 
 ### 6. Integration & Operations
+
 - **Integrations** (`/app/integrations`)
   - Third-party service connections
   - API management
@@ -148,6 +154,7 @@ New client onboarding process:
 ## Database Schema
 
 ### Core Tables
+
 - `profiles` - User profiles and roles
 - `organizations` - Client organizations
 - `organization_members` - Team memberships
@@ -165,6 +172,7 @@ New client onboarding process:
 - `onboarding_data` - Client onboarding
 
 ### Enums
+
 - `user_role` - super_admin, internal_staff, client_admin, client_member
 - `project_type` - web_app, mobile_app, dashboard, api, integration
 - `project_status` - planning, in_progress, on_hold, completed, cancelled
@@ -174,6 +182,7 @@ New client onboarding process:
 ## Design System
 
 ### Colors
+
 - Primary: #3B82F6 (Blue)
 - Success: #10B981 (Green)
 - Warning: Yellow
@@ -181,6 +190,7 @@ New client onboarding process:
 - Neutral: Slate grays
 
 ### Components
+
 - Glass morphism cards
 - Status badges with variants
 - Phase indicators
@@ -192,6 +202,7 @@ New client onboarding process:
 ## Navigation Structure
 
 ### Internal Portal (Staff)
+
 ```
 Sales
 ├── Pipeline
@@ -213,6 +224,7 @@ Management
 ```
 
 ### Client Portal
+
 ```
 ├── Home
 ├── Projects
@@ -225,6 +237,7 @@ Management
 ## Key Features
 
 ### Operational Excellence
+
 - Complete lead-to-delivery lifecycle management
 - **Automated proposal-to-project conversion**
 - **Project templates with pre-configured milestones**
@@ -235,6 +248,7 @@ Management
 - **Full conversion tracking and analytics**
 
 ### Client Experience
+
 - Dedicated client portal
 - Self-service support ticketing
 - Project visibility
@@ -242,6 +256,7 @@ Management
 - Streamlined onboarding
 
 ### Scalability
+
 - Multi-tenant architecture
 - Organization-based isolation
 - Role-based access control

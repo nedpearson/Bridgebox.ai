@@ -1,61 +1,87 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Plus, Play, Pause, Trash2, Copy, CreditCard as Edit, TrendingUp, Zap, CheckCircle, XCircle, Activity } from 'lucide-react';
-import AppHeader from '../../components/app/AppHeader';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import Badge from '../../components/Badge';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import EmptyState from '../../components/EmptyState';
-import ErrorState from '../../components/ErrorState';
-import { workflowService } from '../../lib/db/workflows';
-import { entityLinkService, EntityType } from '../../lib/db/entityLinks';
-import type { Workflow, WorkflowStats, WorkflowCategory } from '../../types/workflow';
-import { useAuth } from '../../contexts/AuthContext';
-import { usePlatformIntelligence } from '../../hooks/usePlatformIntelligence';
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  Plus,
+  Play,
+  Pause,
+  Trash2,
+  Copy,
+  CreditCard as Edit,
+  TrendingUp,
+  Zap,
+  CheckCircle,
+  XCircle,
+  Activity,
+} from "lucide-react";
+import AppHeader from "../../components/app/AppHeader";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import Badge from "../../components/Badge";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import EmptyState from "../../components/EmptyState";
+import ErrorState from "../../components/ErrorState";
+import { workflowService } from "../../lib/db/workflows";
+import { entityLinkService, EntityType } from "../../lib/db/entityLinks";
+import type {
+  Workflow,
+  WorkflowStats,
+  WorkflowCategory,
+} from "../../types/workflow";
+import { useAuth } from "../../contexts/AuthContext";
+import { usePlatformIntelligence } from "../../hooks/usePlatformIntelligence";
 
 const CATEGORY_COLORS: Record<WorkflowCategory, string> = {
-  lead: 'blue',
-  project: 'green',
-  billing: 'amber',
-  support: 'red',
-  custom: 'slate',
+  lead: "blue",
+  project: "green",
+  billing: "amber",
+  support: "red",
+  custom: "slate",
 };
 
 const CATEGORY_LABELS: Record<WorkflowCategory, string> = {
-  lead: 'Lead',
-  project: 'Project',
-  billing: 'Billing',
-  support: 'Support',
-  custom: 'Custom',
+  lead: "Lead",
+  project: "Project",
+  billing: "Billing",
+  support: "Support",
+  custom: "Custom",
 };
 
 export function Workflows() {
   const { currentOrganization } = useAuth();
   const [searchParams] = useSearchParams();
-  const contextId = searchParams.get('context');
-  const contextType = searchParams.get('contextType') as EntityType | null;
+  const contextId = searchParams.get("context");
+  const contextType = searchParams.get("contextType") as EntityType | null;
 
   usePlatformIntelligence({
-    id: 'page:workflows_list',
-    name: 'Automations & Workflows List',
-    type: 'page',
-    description: 'Displays all logic chains executing across the platform, including current stats on lead engagement automations and project triggers.',
-    relatedNodes: ['module:automations', 'entity:workflow'],
-    visibility: { roles: ['super_admin', 'tenant_admin', 'manager'] },
+    id: "page:workflows_list",
+    name: "Automations & Workflows List",
+    type: "page",
+    description:
+      "Displays all logic chains executing across the platform, including current stats on lead engagement automations and project triggers.",
+    relatedNodes: ["module:automations", "entity:workflow"],
+    visibility: { roles: ["super_admin", "tenant_admin", "manager"] },
     actions: [
-      { id: 'create_workflow', name: 'Create Workflow', type: 'navigation', description: 'Opens the node-based workflow builder.' }
-    ]
+      {
+        id: "create_workflow",
+        name: "Create Workflow",
+        type: "navigation",
+        description: "Opens the node-based workflow builder.",
+      },
+    ],
   });
 
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [stats, setStats] = useState<WorkflowStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [filterCategory, setFilterCategory] = useState<WorkflowCategory | 'all'>('all');
-  const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'inactive'>('all');
+  const [filterCategory, setFilterCategory] = useState<
+    WorkflowCategory | "all"
+  >("all");
+  const [filterStatus, setFilterStatus] = useState<
+    "all" | "active" | "inactive"
+  >("all");
 
   useEffect(() => {
     loadWorkflows();
@@ -71,46 +97,60 @@ export function Workflows() {
         workflowService.getWorkflows(currentOrganization.id),
         workflowService.getWorkflowStats(currentOrganization.id),
       ]);
-      
+
       if (contextId && contextType) {
-        const links = await entityLinkService.getLinkedEntities(contextType, contextId, 'workflow');
-        const validWorkflowIds = new Set(links.map(link => link.target_id === contextId ? link.source_id : link.target_id));
-        setWorkflows(workflowsData?.filter(w => validWorkflowIds.has(w.id)) || []);
+        const links = await entityLinkService.getLinkedEntities(
+          contextType,
+          contextId,
+          "workflow",
+        );
+        const validWorkflowIds = new Set(
+          links.map((link) =>
+            link.target_id === contextId ? link.source_id : link.target_id,
+          ),
+        );
+        setWorkflows(
+          workflowsData?.filter((w) => validWorkflowIds.has(w.id)) || [],
+        );
       } else {
         setWorkflows(workflowsData || []);
       }
       setStats(statsData);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load workflows');
+      setError(err instanceof Error ? err.message : "Failed to load workflows");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleToggleStatus = async (workflowId: string, currentStatus: boolean) => {
+  const handleToggleStatus = async (
+    workflowId: string,
+    currentStatus: boolean,
+  ) => {
     try {
       await workflowService.toggleWorkflowStatus(workflowId, !currentStatus);
       loadWorkflows();
     } catch (err) {
-      console.error('Failed to toggle workflow status:', err);
+      console.error("Failed to toggle workflow status:", err);
     }
   };
 
   const handleDelete = async (workflowId: string) => {
-    if (!confirm('Are you sure you want to delete this workflow?')) return;
+    if (!confirm("Are you sure you want to delete this workflow?")) return;
 
     try {
       await workflowService.deleteWorkflow(workflowId);
       loadWorkflows();
     } catch (err) {
-      console.error('Failed to delete workflow:', err);
+      console.error("Failed to delete workflow:", err);
     }
   };
 
   const filteredWorkflows = workflows.filter((workflow) => {
-    if (filterCategory !== 'all' && workflow.category !== filterCategory) return false;
-    if (filterStatus === 'active' && !workflow.is_active) return false;
-    if (filterStatus === 'inactive' && workflow.is_active) return false;
+    if (filterCategory !== "all" && workflow.category !== filterCategory)
+      return false;
+    if (filterStatus === "active" && !workflow.is_active) return false;
+    if (filterStatus === "inactive" && workflow.is_active) return false;
     return true;
   });
 
@@ -128,7 +168,7 @@ export function Workflows() {
         <ErrorState
           title="Failed to load workflows"
           message={error}
-          action={{ label: 'Try Again', onClick: loadWorkflows }}
+          action={{ label: "Try Again", onClick: loadWorkflows }}
         />
       </div>
     );
@@ -150,10 +190,14 @@ export function Workflows() {
             >
               <Card className="p-6 bg-slate-900/50 border-slate-800">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-slate-400">Total Workflows</span>
+                  <span className="text-sm text-slate-400">
+                    Total Workflows
+                  </span>
                   <Activity className="w-5 h-5 text-blue-400" />
                 </div>
-                <div className="text-3xl font-bold text-white">{stats.total}</div>
+                <div className="text-3xl font-bold text-white">
+                  {stats.total}
+                </div>
                 <div className="text-xs text-slate-500 mt-1">
                   {stats.active} active
                 </div>
@@ -167,13 +211,15 @@ export function Workflows() {
             >
               <Card className="p-6 bg-slate-900/50 border-slate-800">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-slate-400">Executions (24h)</span>
+                  <span className="text-sm text-slate-400">
+                    Executions (24h)
+                  </span>
                   <Zap className="w-5 h-5 text-amber-400" />
                 </div>
-                <div className="text-3xl font-bold text-white">{stats.executions_24h}</div>
-                <div className="text-xs text-slate-500 mt-1">
-                  Last 24 hours
+                <div className="text-3xl font-bold text-white">
+                  {stats.executions_24h}
                 </div>
+                <div className="text-xs text-slate-500 mt-1">Last 24 hours</div>
               </Card>
             </motion.div>
 
@@ -187,7 +233,9 @@ export function Workflows() {
                   <span className="text-sm text-slate-400">Success Rate</span>
                   <TrendingUp className="w-5 h-5 text-green-400" />
                 </div>
-                <div className="text-3xl font-bold text-white">{stats.success_rate}%</div>
+                <div className="text-3xl font-bold text-white">
+                  {stats.success_rate}%
+                </div>
                 <div className="text-xs text-slate-500 mt-1">
                   Overall performance
                 </div>
@@ -204,7 +252,9 @@ export function Workflows() {
                   <span className="text-sm text-slate-400">Active Now</span>
                   <CheckCircle className="w-5 h-5 text-green-400" />
                 </div>
-                <div className="text-3xl font-bold text-white">{stats.active}</div>
+                <div className="text-3xl font-bold text-white">
+                  {stats.active}
+                </div>
                 <div className="text-xs text-slate-500 mt-1">
                   Running workflows
                 </div>
@@ -241,9 +291,7 @@ export function Workflows() {
 
           <div className="flex gap-3">
             <Link to="/app/workflows/templates">
-              <Button variant="secondary">
-                Browse Templates
-              </Button>
+              <Button variant="secondary">Browse Templates</Button>
             </Link>
             <Link to="/app/workflows/new">
               <Button>
@@ -260,17 +308,17 @@ export function Workflows() {
             title="No workflows found"
             description={
               workflows.length === 0
-                ? 'Create your first workflow to automate your business processes'
-                : 'No workflows match the selected filters'
+                ? "Create your first workflow to automate your business processes"
+                : "No workflows match the selected filters"
             }
             action={
-              workflows.length === 0
-                ? (
-                    <Button onClick={() => (window.location.href = '/app/workflows/new')}>
-                      Create Workflow
-                    </Button>
-                  )
-                : undefined
+              workflows.length === 0 ? (
+                <Button
+                  onClick={() => (window.location.href = "/app/workflows/new")}
+                >
+                  Create Workflow
+                </Button>
+              ) : undefined
             }
           />
         ) : (
@@ -312,11 +360,16 @@ export function Workflows() {
                       )}
 
                       <div className="flex items-center gap-6 text-sm text-slate-500">
-                        <span>Trigger: {workflow.trigger_type.replace(/_/g, ' ')}</span>
+                        <span>
+                          Trigger: {workflow.trigger_type.replace(/_/g, " ")}
+                        </span>
                         <span>Executions: {workflow.execution_count}</span>
                         {workflow.last_executed_at && (
                           <span>
-                            Last run: {new Date(workflow.last_executed_at).toLocaleDateString()}
+                            Last run:{" "}
+                            {new Date(
+                              workflow.last_executed_at,
+                            ).toLocaleDateString()}
                           </span>
                         )}
                       </div>
@@ -324,9 +377,15 @@ export function Workflows() {
 
                     <div className="flex items-center gap-2">
                       <button
-                        onClick={() => handleToggleStatus(workflow.id, workflow.is_active)}
+                        onClick={() =>
+                          handleToggleStatus(workflow.id, workflow.is_active)
+                        }
                         className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-                        title={workflow.is_active ? 'Pause workflow' : 'Activate workflow'}
+                        title={
+                          workflow.is_active
+                            ? "Pause workflow"
+                            : "Activate workflow"
+                        }
                       >
                         {workflow.is_active ? (
                           <Pause className="w-4 h-4 text-amber-400" />

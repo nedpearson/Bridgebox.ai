@@ -1,14 +1,14 @@
-export type AIProvider = 'anthropic' | 'openai' | 'mock';
+export type AIProvider = "anthropic" | "openai" | "mock";
 
 export type AIModel =
-  | 'claude-3-5-sonnet-20241022'
-  | 'claude-3-5-haiku-20241022'
-  | 'gpt-4-turbo'
-  | 'gpt-3.5-turbo'
-  | 'mock';
+  | "claude-3-5-sonnet-20241022"
+  | "claude-3-5-haiku-20241022"
+  | "gpt-4-turbo"
+  | "gpt-3.5-turbo"
+  | "mock";
 
 export interface AIMessage {
-  role: 'system' | 'user' | 'assistant' | 'tool';
+  role: "system" | "user" | "assistant" | "tool";
   content: string | null;
   name?: string;
   tool_calls?: any[];
@@ -22,7 +22,7 @@ export interface AIRequest {
   maxTokens?: number;
   stream?: boolean;
   tools?: any[];
-  tool_choice?: 'auto' | 'none' | Record<string, any>;
+  tool_choice?: "auto" | "none" | Record<string, any>;
 }
 
 export interface AIResponse {
@@ -61,16 +61,16 @@ export interface AITaskResult<T = any> {
 }
 
 export type AITaskType =
-  | 'summarize_lead'
-  | 'summarize_project'
-  | 'summarize_ticket'
-  | 'classify_request'
-  | 'generate_insights'
-  | 'recommend_actions'
-  | 'draft_proposal'
-  | 'detect_priority'
-  | 'analyze_sentiment'
-  | 'extract_requirements';
+  | "summarize_lead"
+  | "summarize_project"
+  | "summarize_ticket"
+  | "classify_request"
+  | "generate_insights"
+  | "recommend_actions"
+  | "draft_proposal"
+  | "detect_priority"
+  | "analyze_sentiment"
+  | "extract_requirements";
 
 export interface AITaskContext {
   type: AITaskType;
@@ -88,7 +88,7 @@ export interface LeadSummary {
   suggestedServices: string[];
   estimatedValue: string;
   nextActions: string[];
-  priority: 'urgent' | 'high' | 'medium' | 'low';
+  priority: "urgent" | "high" | "medium" | "low";
   confidence: number;
 }
 
@@ -103,7 +103,7 @@ export interface ProjectSummary {
 
 export interface TicketSummary {
   issue: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | "high" | "medium" | "low";
   category: string;
   suggestedResolution: string;
   estimatedTime: string;
@@ -115,13 +115,13 @@ export interface BusinessInsights {
   opportunities: Array<{
     title: string;
     description: string;
-    impact: 'high' | 'medium' | 'low';
-    effort: 'high' | 'medium' | 'low';
+    impact: "high" | "medium" | "low";
+    effort: "high" | "medium" | "low";
   }>;
   risks: Array<{
     title: string;
     description: string;
-    severity: 'high' | 'medium' | 'low';
+    severity: "high" | "medium" | "low";
     mitigation: string;
   }>;
   recommendations: string[];
@@ -129,10 +129,10 @@ export interface BusinessInsights {
 
 export interface ActionRecommendation {
   action: string;
-  priority: 'critical' | 'high' | 'medium' | 'low';
+  priority: "critical" | "high" | "medium" | "low";
   reasoning: string;
   expectedOutcome: string;
-  effort: 'quick' | 'medium' | 'complex';
+  effort: "quick" | "medium" | "complex";
 }
 
 export interface ProposalDraft {

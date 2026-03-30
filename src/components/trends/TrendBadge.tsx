@@ -1,5 +1,12 @@
-import { TrendingUp, TrendingDown, Minus, Flame, Zap, Activity } from 'lucide-react';
-import type { TrendDirection, TrendStrength } from '../../lib/trendDetection';
+import {
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  Flame,
+  Zap,
+  Activity,
+} from "lucide-react";
+import type { TrendDirection, TrendStrength } from "../../lib/trendDetection";
 
 interface TrendBadgeProps {
   direction: TrendDirection;
@@ -10,21 +17,21 @@ interface TrendBadgeProps {
 export function TrendBadge({ direction, strength, label }: TrendBadgeProps) {
   const directionConfig = {
     up: {
-      bg: 'bg-green-500/10',
-      text: 'text-green-400',
-      border: 'border-green-500/20',
+      bg: "bg-green-500/10",
+      text: "text-green-400",
+      border: "border-green-500/20",
       icon: TrendingUp,
     },
     down: {
-      bg: 'bg-red-500/10',
-      text: 'text-red-400',
-      border: 'border-red-500/20',
+      bg: "bg-red-500/10",
+      text: "text-red-400",
+      border: "border-red-500/20",
       icon: TrendingDown,
     },
     stable: {
-      bg: 'bg-slate-500/10',
-      text: 'text-slate-400',
-      border: 'border-slate-500/20',
+      bg: "bg-slate-500/10",
+      text: "text-slate-400",
+      border: "border-slate-500/20",
       icon: Minus,
     },
   };
@@ -49,32 +56,32 @@ interface TrendStrengthBadgeProps {
 export function TrendStrengthBadge({ strength }: TrendStrengthBadgeProps) {
   const config = {
     weak: {
-      bg: 'bg-slate-500/10',
-      text: 'text-slate-400',
-      border: 'border-slate-500/20',
+      bg: "bg-slate-500/10",
+      text: "text-slate-400",
+      border: "border-slate-500/20",
       icon: Activity,
-      label: 'Weak',
+      label: "Weak",
     },
     moderate: {
-      bg: 'bg-blue-500/10',
-      text: 'text-blue-400',
-      border: 'border-blue-500/20',
+      bg: "bg-blue-500/10",
+      text: "text-blue-400",
+      border: "border-blue-500/20",
       icon: Activity,
-      label: 'Moderate',
+      label: "Moderate",
     },
     strong: {
-      bg: 'bg-orange-500/10',
-      text: 'text-orange-400',
-      border: 'border-orange-500/20',
+      bg: "bg-orange-500/10",
+      text: "text-orange-400",
+      border: "border-orange-500/20",
       icon: Zap,
-      label: 'Strong',
+      label: "Strong",
     },
     explosive: {
-      bg: 'bg-red-500/10',
-      text: 'text-red-400',
-      border: 'border-red-500/20',
+      bg: "bg-red-500/10",
+      text: "text-red-400",
+      border: "border-red-500/20",
       icon: Flame,
-      label: 'Explosive',
+      label: "Explosive",
     },
   };
 
@@ -96,7 +103,10 @@ interface HotIndicatorProps {
   label?: string;
 }
 
-export function HotIndicator({ isHot = true, label = 'HOT' }: HotIndicatorProps) {
+export function HotIndicator({
+  isHot = true,
+  label = "HOT",
+}: HotIndicatorProps) {
   if (!isHot) return null;
 
   return (
@@ -127,18 +137,25 @@ interface GrowthRateDisplayProps {
   showSign?: boolean;
 }
 
-export function GrowthRateDisplay({ rate, showSign = true }: GrowthRateDisplayProps) {
+export function GrowthRateDisplay({
+  rate,
+  showSign = true,
+}: GrowthRateDisplayProps) {
   const isPositive = rate > 0;
   const isNegative = rate < 0;
 
-  const color = isPositive ? 'text-green-400' : isNegative ? 'text-red-400' : 'text-slate-400';
+  const color = isPositive
+    ? "text-green-400"
+    : isNegative
+      ? "text-red-400"
+      : "text-slate-400";
   const Icon = isPositive ? TrendingUp : isNegative ? TrendingDown : Minus;
 
   return (
     <div className={`inline-flex items-center gap-1.5 ${color}`}>
       <Icon className="w-4 h-4" />
       <span className="text-sm font-semibold">
-        {showSign && isPositive && '+'}
+        {showSign && isPositive && "+"}
         {rate.toFixed(1)}%
       </span>
     </div>

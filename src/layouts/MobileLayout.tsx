@@ -1,7 +1,14 @@
-import { ReactNode } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Home, CheckSquare, Briefcase, Upload, Menu, ArrowLeft } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ReactNode } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  Home,
+  CheckSquare,
+  Briefcase,
+  Upload,
+  Menu,
+  ArrowLeft,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 interface MobileLayoutProps {
   children: ReactNode;
@@ -10,7 +17,12 @@ interface MobileLayoutProps {
   onBack?: () => void;
 }
 
-export default function MobileLayout({ children, title, showBack, onBack }: MobileLayoutProps) {
+export default function MobileLayout({
+  children,
+  title,
+  showBack,
+  onBack,
+}: MobileLayoutProps) {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -50,16 +62,22 @@ export default function MobileLayout({ children, title, showBack, onBack }: Mobi
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 overflow-y-auto">
-        {children}
-      </div>
+      <div className="flex-1 overflow-y-auto">{children}</div>
 
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 z-50">
         <div className="flex items-center justify-around">
           <MobileNavLink to="/app/mobile" icon={Home} label="Home" />
-          <MobileNavLink to="/app/mobile/tasks" icon={CheckSquare} label="Tasks" />
-          <MobileNavLink to="/app/mobile/projects" icon={Briefcase} label="Projects" />
+          <MobileNavLink
+            to="/app/mobile/tasks"
+            icon={CheckSquare}
+            label="Tasks"
+          />
+          <MobileNavLink
+            to="/app/mobile/projects"
+            icon={Briefcase}
+            label="Projects"
+          />
           <MobileNavLink to="/app/mobile/upload" icon={Upload} label="Upload" />
         </div>
       </nav>
@@ -79,7 +97,7 @@ function MobileNavLink({ to, icon: Icon, label }: MobileNavLinkProps) {
       to={to}
       className={({ isActive }) =>
         `flex flex-col items-center justify-center py-2 px-4 min-w-[64px] transition-colors ${
-          isActive ? 'text-blue-400' : 'text-slate-400'
+          isActive ? "text-blue-400" : "text-slate-400"
         }`
       }
     >

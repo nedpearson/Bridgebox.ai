@@ -8,7 +8,11 @@ export interface Profile {
   updated_at: string;
 }
 
-export type UserRole = 'super_admin' | 'internal_staff' | 'client_admin' | 'client_member';
+export type UserRole =
+  | "super_admin"
+  | "internal_staff"
+  | "client_admin"
+  | "client_member";
 
 export interface Organization {
   id: string;
@@ -25,7 +29,7 @@ export interface Organization {
   subscription_status?: string;
 }
 
-export type OrganizationType = 'internal' | 'client';
+export type OrganizationType = "internal" | "client";
 
 export interface OrganizationMembership {
   id: string;
@@ -53,7 +57,13 @@ export interface Proposal {
   updated_at: string;
 }
 
-export type ProposalStatus = 'draft' | 'sent' | 'viewed' | 'accepted' | 'rejected' | 'expired';
+export type ProposalStatus =
+  | "draft"
+  | "sent"
+  | "viewed"
+  | "accepted"
+  | "rejected"
+  | "expired";
 
 export interface Project {
   id: string;
@@ -77,8 +87,21 @@ export interface Project {
   updated_at: string;
 }
 
-export type ProjectType = 'dashboard' | 'mobile_app' | 'web_app' | 'integration' | 'consulting' | 'other';
-export type ProjectStatus = 'planning' | 'in_progress' | 'testing' | 'deployed' | 'on_hold' | 'completed' | 'cancelled';
+export type ProjectType =
+  | "dashboard"
+  | "mobile_app"
+  | "web_app"
+  | "integration"
+  | "consulting"
+  | "other";
+export type ProjectStatus =
+  | "planning"
+  | "in_progress"
+  | "testing"
+  | "deployed"
+  | "on_hold"
+  | "completed"
+  | "cancelled";
 
 export interface ProjectMilestone {
   id: string;
@@ -93,7 +116,11 @@ export interface ProjectMilestone {
   updated_at: string;
 }
 
-export type MilestoneStatus = 'pending' | 'in_progress' | 'completed' | 'delayed';
+export type MilestoneStatus =
+  | "pending"
+  | "in_progress"
+  | "completed"
+  | "delayed";
 
 export interface Deliverable {
   id: string;
@@ -111,8 +138,20 @@ export interface Deliverable {
   updated_at: string;
 }
 
-export type DeliverableType = 'dashboard' | 'mobile_app' | 'documentation' | 'integration' | 'api' | 'design' | 'other';
-export type DeliverableStatus = 'pending' | 'in_progress' | 'review' | 'delivered' | 'approved';
+export type DeliverableType =
+  | "dashboard"
+  | "mobile_app"
+  | "documentation"
+  | "integration"
+  | "api"
+  | "design"
+  | "other";
+export type DeliverableStatus =
+  | "pending"
+  | "in_progress"
+  | "review"
+  | "delivered"
+  | "approved";
 
 export interface SubscriptionPlan {
   id: string;
@@ -131,7 +170,7 @@ export interface Subscription {
   organization_id: string;
   plan_id: string;
   status: SubscriptionStatus;
-  billing_cycle: 'monthly' | 'yearly';
+  billing_cycle: "monthly" | "yearly";
   current_period_start: string;
   current_period_end: string;
   mrr: number;
@@ -141,7 +180,7 @@ export interface Subscription {
   updated_at: string;
 }
 
-export type SubscriptionStatus = 'active' | 'past_due' | 'cancelled' | 'paused';
+export type SubscriptionStatus = "active" | "past_due" | "cancelled" | "paused";
 
 export interface Invoice {
   id: string;
@@ -160,7 +199,7 @@ export interface Invoice {
   updated_at: string;
 }
 
-export type InvoiceStatus = 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled';
+export type InvoiceStatus = "draft" | "sent" | "paid" | "overdue" | "cancelled";
 
 export interface SupportTicket {
   id: string;
@@ -179,8 +218,13 @@ export interface SupportTicket {
   updated_at: string;
 }
 
-export type TicketStatus = 'open' | 'in_progress' | 'waiting_on_client' | 'resolved' | 'closed';
-export type TicketPriority = 'low' | 'medium' | 'high' | 'urgent';
+export type TicketStatus =
+  | "open"
+  | "in_progress"
+  | "waiting_on_client"
+  | "resolved"
+  | "closed";
+export type TicketPriority = "low" | "medium" | "high" | "urgent";
 
 export interface Integration {
   id: string;
@@ -202,9 +246,9 @@ export interface LeadRecord {
   company?: string;
   project_description: string;
   budget_range?: string;
-  lead_type: 'custom_software' | 'automation' | 'dashboards' | 'mobile_app';
-  form_type: 'demo' | 'custom_build';
-  status: 'new' | 'contacted' | 'qualified' | 'converted';
+  lead_type: "custom_software" | "automation" | "dashboards" | "mobile_app";
+  form_type: "demo" | "custom_build";
+  status: "new" | "contacted" | "qualified" | "converted";
   created_at: string;
   updated_at: string;
 }
