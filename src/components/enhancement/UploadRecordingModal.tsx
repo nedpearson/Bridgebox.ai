@@ -583,7 +583,7 @@ export default function UploadRecordingModal({
 
                   <div className="flex gap-3 pt-2">
                     <button
-                      onClick={() => setPendingCost(null)}
+                      onClick={() => { setPendingCost(null); setError(""); }}
                       disabled={isUploading}
                       className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2"
                     >
@@ -597,7 +597,7 @@ export default function UploadRecordingModal({
                       {isUploading ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin" />{" "}
-                          Committing Funds...
+                           Committing Funds...
                         </>
                       ) : (
                         <>
