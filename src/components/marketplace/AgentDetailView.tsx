@@ -13,6 +13,7 @@ import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner";
+import { MOCK_TEMPLATES } from "../../pages/app/Marketplace";
 
 export default function AgentDetailView({
   agentId,
@@ -35,6 +36,25 @@ export default function AgentDetailView({
   const loadAgent = async () => {
     try {
       setLoading(true);
+
+      if (agentId.startsWith("mock-")) {
+        const mockAgent = MOCK_TEMPLATES.find((t: any) => t.id === agentId);
+        if (mockAgent) {
+          setAgent({
+            id: mockAgent.id,
+            name: mockAgent.bb_templates?.name || mockAgent.name,
+            description: mockAgent.bb_templates?.description || mockAgent.description,
+            recommended_autonomy: "level_2",
+            capabilities_json: {
+              triggers: ["email_received", "form_submit", "schedule_sync"],
+              actions: ["extract_data", "send_reply", "update_ledger"]
+            }
+          });
+          setInstalled(false);
+        }
+        return;
+      }
+
       const { data, error } = await supabase
         .from("bb_agents")
         .select("*")
@@ -65,15 +85,20 @@ export default function AgentDetailView({
 
     try {
       setInstalling(true);
-      const { error } = await supabase.from("bb_tenant_agents").insert({
-        organization_id: currentOrganization.id,
-        agent_id: agent.id,
-        status: "active",
-        autonomy_level: agent.recommended_autonomy || "level_1",
-        memory_retention_days: 30,
-      });
 
-      if (error) throw error;
+      if (agent.id.startsWith("mock-")) {
+          await new Promise(r => setTimeout(r, 1500)); // Simulating AI model binding
+      } else {
+        const { error } = await supabase.from("bb_tenant_agents").insert({
+          organization_id: currentOrganization.id,
+          agent_id: agent.id,
+          status: "active",
+          autonomy_level: agent.recommended_autonomy || "level_1",
+          memory_retention_days: 30,
+        });
+
+        if (error) throw error;
+      }
 
       setInstalled(true);
       setTimeout(() => {

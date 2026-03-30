@@ -14,6 +14,7 @@ import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../contexts/AuthContext";
 import { templateCloningService } from "../../lib/intelligence/templateCloning";
 import { useMarketplaceCheckout } from "../../hooks/useMarketplaceCheckout";
+import { MOCK_TEMPLATES } from "../../pages/app/Marketplace";
 
 export default function TemplateDetailView({
   templateId,
@@ -35,6 +36,20 @@ export default function TemplateDetailView({
   }, [templateId]);
 
   const loadDetails = async () => {
+    // 0. Mock Fallback Support
+    if (templateId.startsWith("mock-")) {
+      const mockTmpl = MOCK_TEMPLATES.find((t: any) => t.id === templateId);
+      if (mockTmpl) {
+        setTemplate(mockTmpl);
+        setBenchmarks({
+          industry: "Professional Services",
+          efficiencyGain: "34%",
+          similarInstalls: mockTmpl.install_count,
+        });
+      }
+      return;
+    }
+
     // 1. Load Marketplace Meta
     const { data: tmpl } = await supabase
       .from("bb_marketplace_templates")
@@ -75,23 +90,28 @@ export default function TemplateDetailView({
 
     setIsInstalling(true);
     try {
-      // Execute Deep Cloning Architecture for Tenant Data Isolation
-      await templateCloningService.cloneTemplateToTenant(
-        template.template_id,
-        currentOrganization.id,
-      );
+      if (template.id.startsWith("mock-")) {
+         // Auto-resolve mock installation delays without hitting the unseeded DB FKEY constraints
+         await new Promise(r => setTimeout(r, 1500));
+      } else {
+        // Execute Deep Cloning Architecture for Tenant Data Isolation
+        await templateCloningService.cloneTemplateToTenant(
+          template.template_id,
+          currentOrganization.id,
+        );
 
-      // Log the usage to trigger the self-improvement loop
-      await supabase.from("bb_intelligence_events").insert({
-        organization_id: currentOrganization.id,
-        event_type: "marketplace_install",
-        metadata: { marketplace_template_id: template.id },
-      });
+        // Log the usage to trigger the self-improvement loop
+        await supabase.from("bb_intelligence_events").insert({
+          organization_id: currentOrganization.id,
+          event_type: "marketplace_install",
+          metadata: { marketplace_template_id: template.id },
+        });
 
-      // Increment install count for network effects ranking
-      await supabase.rpc("increment_template_install_count", {
-        tmpl_id: template.id,
-      });
+        // Increment install count for network effects ranking
+        await supabase.rpc("increment_template_install_count", {
+          tmpl_id: template.id,
+        });
+      }
 
       setInstallSuccess(true);
       setTimeout(() => onClose(), 2000);

@@ -18,7 +18,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import TemplateDetailView from "../../components/marketplace/TemplateDetailView";
 import AgentDetailView from "../../components/marketplace/AgentDetailView";
 
-const MOCK_TEMPLATES: any[] = [
+export const MOCK_TEMPLATES: any[] = [
   { id: "mock-1", category: "industry_pack", is_premium: true, is_agent: false, install_count: 1245, average_rating: 4.9, bb_templates: { name: "Forensic CPA Firm OS", description: "Complete ERP for forensic accounting with Client Portal, Document extraction, and secure audit logs." } },
   { id: "mock-2", category: "industry_pack", is_premium: true, is_agent: false, install_count: 854, average_rating: 4.8, bb_templates: { name: "Bridal Boutique Logistics OS", description: "Inventory management, POS, and scheduling tailored for luxury bridal boutiques." } },
   { id: "mock-3", category: "industry_pack", is_premium: false, is_agent: false, install_count: 5200, average_rating: 4.7, bb_templates: { name: "Real Estate Brokerage Core", description: "Property CRM, agent leaderboards, and basic transaction pipeline management." } },
