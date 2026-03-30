@@ -214,10 +214,10 @@ export default function TemplateDetailView({
                 {template.is_premium ? (
                   <>
                     <span className="text-3xl font-black text-white">
-                      ${template.price_amount}
+                      ${template.price_amount || 249}
                     </span>
                     <span className="text-sm text-slate-400 uppercase tracking-widest">
-                      {template.pricing_model.replace("_", " ")}
+                      {(template.pricing_model || "one_time").replace("_", " ")}
                     </span>
                   </>
                 ) : (
