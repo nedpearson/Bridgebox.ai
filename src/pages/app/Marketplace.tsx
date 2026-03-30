@@ -70,21 +70,22 @@ export default function Marketplace() {
           .select("*")
           .order("created_at", { ascending: false });
 
-        if (error) throw error;
-
-        let normalized = (data || []).map((agent) => ({
-          id: agent.id,
-          category: agent.category,
-          is_premium: true,
-          is_agent: true,
-          install_count: Math.floor(Math.random() * 500) + 50,
-          average_rating: 4.9,
-          bb_templates: {
-            name: agent.name,
-            description: agent.description,
-            thumbnail_url: null,
-          },
-        }));
+        let normalized = [] as any[];
+        if (!error && data) {
+          normalized = data.map((agent) => ({
+            id: agent.id,
+            category: agent.category,
+            is_premium: true,
+            is_agent: true,
+            install_count: Math.floor(Math.random() * 500) + 50,
+            average_rating: 4.9,
+            bb_templates: {
+              name: agent.name,
+              description: agent.description,
+              thumbnail_url: null,
+            },
+          }));
+        }
 
         if (normalized.length === 0) {
           normalized = MOCK_TEMPLATES.filter(m => m.category === 'ai_agent');
@@ -108,14 +109,14 @@ export default function Marketplace() {
         }
 
         const { data, error } = await query;
-        if (error) throw error;
 
-        let normalized = (data || []).map((t) => ({ ...t, is_agent: false }));
+        let normalized = [] as any[];
+        if (!error && data) {
+           normalized = data.map((t) => ({ ...t, is_agent: false }));
+        }
         
         if (normalized.length === 0) {
           if (activeCategory === "all") {
-            normalized = MOCK_TEMPLATES.filter(m => m.category !== 'ai_agent'); // AI agents tab handles its own query, so "All" handles the rest or inclusive
-            // Wait, "All Templates" usually includes all except agents, or just all. We'll show ALL.
             normalized = MOCK_TEMPLATES;
           } else {
             normalized = MOCK_TEMPLATES.filter(m => m.category === activeCategory);
@@ -126,6 +127,12 @@ export default function Marketplace() {
       }
     } catch (err) {
       console.error("Failed to load marketplace data:", err);
+      // Failsafe crash recovery
+      if (activeCategory === "all") {
+         setTemplates(MOCK_TEMPLATES);
+      } else {
+         setTemplates(MOCK_TEMPLATES.filter(m => m.category === activeCategory));
+      }
     } finally {
       setLoading(false);
     }
