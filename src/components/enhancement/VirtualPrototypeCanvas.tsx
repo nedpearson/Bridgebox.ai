@@ -29,6 +29,8 @@ interface VirtualPrototypeCanvasProps {
   screenName: string;
   onInteract?: () => void;
   isLastScreen?: boolean;
+  components?: string[];
+  interactions?: string[];
 }
 
 export default function VirtualPrototypeCanvas({
@@ -36,6 +38,8 @@ export default function VirtualPrototypeCanvas({
   screenName,
   onInteract,
   isLastScreen,
+  components = [],
+  interactions = [],
 }: VirtualPrototypeCanvasProps) {
   // Shared Header
   const Header = () => (
@@ -65,7 +69,7 @@ export default function VirtualPrototypeCanvas({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           {
-            label: "Active Shipments",
+            label: components[0] || "Active Master Metrics",
             value: "1,248",
             desc: "+12% this week",
             icon: Users,
@@ -73,7 +77,7 @@ export default function VirtualPrototypeCanvas({
             bg: "bg-blue-500/10",
           },
           {
-            label: "Global Revenue",
+            label: components[1] || "Global Revenue Track",
             value: "$84,290",
             desc: "Upward trend",
             icon: BarChart3,
@@ -81,7 +85,7 @@ export default function VirtualPrototypeCanvas({
             bg: "bg-emerald-500/10",
           },
           {
-            label: "Current Fleet",
+            label: components[2] || "Current System Status",
             value: "42 Active",
             desc: "3 maintenance",
             icon: LayoutDashboard,
@@ -89,7 +93,7 @@ export default function VirtualPrototypeCanvas({
             bg: "bg-purple-500/10",
           },
           {
-            label: "System Alerts",
+            label: interactions[0] || "Global Alerts",
             value: "2 Warnings",
             desc: "Check logs",
             icon: Bell,
@@ -160,17 +164,17 @@ export default function VirtualPrototypeCanvas({
           className="h-48 bg-slate-800/40 rounded-xl border border-slate-700/50 p-4 space-y-3 overflow-hidden"
         >
           <div className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 border-b border-slate-700 pb-2">
-            Recent Fleet Activity
+            Recent Global Activity
           </div>
           {[
-            { name: "Shipment #1042", stat: "Manifest Replicated", time: "2m" },
+            { name: components[0] || "Pipeline Entity", stat: "Manifest Replicated", time: "2m" },
             {
-              name: "Route Optimization",
+              name: interactions[0] || "Core Optimization",
               stat: "Calculation complete",
               time: "14m",
             },
-            { name: "Driver Portal", stat: "New login detected", time: "1h" },
-            { name: "API Sync", stat: "Legacy data mapped", time: "3h" },
+            { name: components[1] || "Access Portal", stat: "New login detected", time: "1h" },
+            { name: "API Sync Hub", stat: "Legacy data mapped", time: "3h" },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-3">
               <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex flex-shrink-0 items-center justify-center text-[10px] text-indigo-400 font-bold border border-indigo-500/30">
@@ -239,12 +243,11 @@ export default function VirtualPrototypeCanvas({
                   )}
                 </div>
                 <div className="text-xs text-white font-bold mb-1 relative z-10 leading-tight">
-                  Implement Servicargo Clone Protocol #{idx}
+                  Implement {components[cardIdx] || (interactions[cardIdx] || "System Core")} Protocol #{idx}
                   {cardIdx}
                 </div>
                 <div className="text-[10px] text-slate-400 mb-3 relative z-10 line-clamp-2">
-                  Ensure exactly replicated logic from original footage provided
-                  by client.
+                  Ensure dynamically generated business logic satisfies requested UI mockups directly matching visual parity.
                 </div>
 
                 <div className="flex items-center justify-between mt-auto relative z-10 border-t border-slate-700/50 pt-2">
@@ -277,7 +280,7 @@ export default function VirtualPrototypeCanvas({
         <div className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">
           Linked Schema Objects
         </div>
-        {["User Database", "Delivery Endpoints", "Payment Gateway"].map(
+        {[components[0] || "User Database", components[1] || "Workflow Actions", interactions[0] || "External Hook"].map(
           (label, i) => (
             <motion.div
               key={label}
