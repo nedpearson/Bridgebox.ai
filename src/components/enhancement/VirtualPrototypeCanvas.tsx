@@ -176,65 +176,10 @@ export default function VirtualPrototypeCanvas({ layoutType, screenName, onInter
   );
 
   const renderDetail = () => (
-    <div className="flex h-[400px]">
+    <div className="flex h-[400px] w-full">
        {/* Sidebar Sandbox */}
-       <div className="w-72 border-r border-slate-700/50 bg-slate-800/20 p-4 space-y-6 overflow-y-auto">
-         <div>
-           <div className="w-full h-40 bg-slate-900 border border-slate-700 rounded-xl flex flex-col mb-4 overflow-hidden relative shadow-[0_0_20px_rgba(99,102,241,0.15)] group">
-              {/* OSX Miniature Header */}
-              <div className="h-4 bg-slate-800 border-b border-slate-700/50 flex items-center px-2 gap-1 w-full relative z-20">
-                 <div className="w-1.5 h-1.5 rounded-full bg-red-500/80" />
-                 <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
-                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
-              </div>
-              
-              {/* Miniature Simulated UI Walkthrough */}
-              <div className="flex-1 relative overflow-hidden flex pt-2">
-                 {/* Mini Sidebar */}
-                 <div className="w-12 border-r border-slate-800 space-y-2 p-1.5">
-                    <div className="h-1.5 w-full bg-indigo-500/30 rounded" />
-                    <div className="h-1 w-2/3 bg-slate-600 rounded" />
-                    <div className="h-1 w-3/4 bg-slate-600 rounded" />
-                 </div>
-                 {/* Mini Main Content Area */}
-                 <div className="flex-1 p-2 space-y-2 relative">
-                    <div className="h-2 w-16 bg-slate-700 rounded" />
-                    <div className="flex gap-1">
-                       <div className="flex-1 h-8 border border-slate-700 rounded bg-slate-800/40 relative overflow-hidden">
-                          <motion.div animate={{ height: ['0%', '100%', '30%'] }} transition={{ duration: 4, repeat: Infinity }} className="absolute bottom-0 inset-x-0 bg-indigo-500/40" />
-                       </div>
-                       <div className="w-8 h-8 border border-slate-700 rounded bg-slate-800/40 p-1">
-                          <div className="w-full h-full rounded-full border border-emerald-500/50" />
-                       </div>
-                    </div>
-                    {/* Tiny animated cursor */}
-                    <motion.div
-                       animate={{ x: [0, 50, 20, 0], y: [0, 10, -10, 0] }}
-                       transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                       className="absolute left-4 top-4 z-50 drop-shadow-md"
-                    >
-                       <MousePointerClick className="w-3 h-3 text-white fill-slate-900" />
-                    </motion.div>
-                 </div>
-                 <div className="absolute inset-x-0 bottom-0 h-4 bg-black/60 backdrop-blur-[2px] border-t border-slate-700/50 flex items-center justify-between px-2">
-                    <div className="flex gap-1">
-                       <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-                       <div className="w-1.5 h-1.5 rounded-full bg-slate-600" />
-                    </div>
-                    <div className="w-12 h-0.5 bg-slate-700 rounded overflow-hidden">
-                       <motion.div animate={{ width: ['0%', '100%'] }} transition={{ duration: 5, repeat: Infinity }} className="h-full bg-indigo-500" />
-                    </div>
-                 </div>
-              </div>
-              
-              <div className="absolute top-1 right-2 bg-red-500 text-white text-[7px] font-bold px-1.5 py-[1px] rounded animate-pulse shadow-lg tracking-wider z-30">REC</div>
-           </div>
-           <div className="space-y-1 text-center border-b border-slate-700/50 pb-4">
-             <div className="text-sm text-white font-bold uppercase tracking-wide">Client UI Reference</div>
-             <div className="text-[10px] text-slate-400">Source: virtual_recording_engine.ai</div>
-           </div>
-         </div>
-           <div className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Linked Schema Objects</div>
+       <div className="w-56 border-r border-slate-700/50 bg-slate-800/20 p-4 space-y-6 overflow-y-auto shrink-0">
+           <div className="text-xs font-bold text-white uppercase tracking-wider mb-3">Linked Schema Objects</div>
            {['User Database', 'Delivery Endpoints', 'Payment Gateway'].map((label, i) => (
              <motion.div 
                 key={label} 
@@ -260,8 +205,77 @@ export default function VirtualPrototypeCanvas({ layoutType, screenName, onInter
            ))}
        </div>
        {/* Main content */}
-       <div className="flex-1 p-6 space-y-6 flex flex-col">
-         <div className="flex items-center gap-4 border-b border-slate-700/50 pb-4">
+       <div className="flex-1 p-6 flex flex-col overflow-hidden">
+         
+         {/* SIDE-BY-SIDE WALKTHROUGH COMPARISON */}
+         <div className="grid grid-cols-2 gap-4 mb-6 shrink-0">
+            {/* Player 1: Original Footage */}
+            <div className="border border-slate-700/60 rounded-xl bg-slate-900 overflow-hidden flex flex-col shadow-inner">
+               <div className="px-3 py-1.5 bg-black/40 border-b border-slate-700/60 flex items-center justify-between">
+                  <div className="uppercase tracking-widest text-[9px] font-bold text-white flex items-center gap-1.5">
+                     <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-[pulse_2s_ease-in-out_Infinity]" />
+                     Original Recorded Footage
+                  </div>
+                  <div className="text-[9px] text-slate-500 font-mono">0:14 / 1:22</div>
+               </div>
+               <div className="relative h-32 flex p-3 opacity-60 grayscale-[40%] bg-slate-950">
+                   {/* Mini Player Structure for Original Footage */}
+                   <div className="w-10 border-r border-slate-800 space-y-2 pr-2">
+                       <div className="h-1.5 w-full bg-slate-600 rounded" />
+                       <div className="h-1 w-2/3 bg-slate-700 rounded" />
+                   </div>
+                   <div className="flex-1 pl-3 space-y-2 relative">
+                       <div className="h-2 w-16 bg-slate-700 rounded" />
+                       <div className="flex gap-2">
+                          <div className="flex-1 h-12 bg-slate-800 rounded border border-slate-700 relative overflow-hidden">
+                             <motion.div animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 2, repeat: Infinity }} className="absolute bottom-2 left-2 right-2 h-1/2 bg-slate-600/50 rounded" />
+                          </div>
+                       </div>
+                   </div>
+               </div>
+            </div>
+
+            {/* Player 2: Replicated Synthesized App */}
+            <div className="border border-indigo-500/40 rounded-xl bg-slate-900 overflow-hidden flex flex-col shadow-[0_0_20px_rgba(99,102,241,0.2)] relative">
+               <div className="absolute inset-0 bg-indigo-500/5 pointer-events-none" />
+               <div className="px-3 py-1.5 bg-indigo-900/30 border-b border-indigo-500/30 flex items-center justify-between relative z-10">
+                  <div className="uppercase tracking-widest text-[9px] font-bold text-indigo-300 flex items-center gap-1.5">
+                     <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                     Bridgebox Replicated Feature
+                  </div>
+                  <div className="text-[9px] text-indigo-400 font-mono">LIVE RUNTIME</div>
+               </div>
+               <div className="relative h-32 flex p-3 bg-slate-950 relative z-10">
+                   {/* Enhanced Mini Player Structure for Replica */}
+                   <div className="w-12 border-r border-slate-800 space-y-2 pr-2">
+                       <div className="h-1.5 w-full bg-indigo-500 rounded shadow-[0_0_8px_rgba(99,102,241,0.8)]" />
+                       <div className="h-1 w-3/4 bg-slate-600 rounded" />
+                       <div className="h-1 w-2/3 bg-slate-600 rounded" />
+                   </div>
+                   <div className="flex-1 pl-3 space-y-2 relative">
+                       <div className="h-2 w-20 bg-indigo-400 rounded" />
+                       <div className="flex gap-2 h-14">
+                          <div className="flex-1 bg-slate-800 border-t border-indigo-500/50 rounded shadow-inner relative overflow-hidden">
+                             <motion.div animate={{ height: ['0%', '100%'] }} transition={{ duration: 3, repeat: Infinity }} className="absolute bottom-0 inset-x-0 bg-indigo-500/20" />
+                          </div>
+                          <div className="w-8 h-8 rounded-full border border-emerald-500/50 flex items-center justify-center bg-emerald-500/10 shrink-0 mt-1">
+                             <CheckSquare className="w-3 h-3 text-emerald-400" />
+                          </div>
+                       </div>
+                       {/* High Quality Cursor */}
+                       <motion.div
+                          animate={{ x: [0, 40, 10, 0], y: [0, 5, -5, 0] }}
+                          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                          className="absolute left-6 top-6 z-50 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+                       >
+                          <MousePointerClick className="w-4 h-4 text-white fill-slate-800" />
+                       </motion.div>
+                   </div>
+               </div>
+            </div>
+         </div>
+
+         <div className="flex items-center gap-4 border-b border-slate-700/50 pb-2 shrink-0">
            {['Overview', 'Activity Logs', 'Connections', 'Settings'].map((tab, i) => (
              <div key={tab} className={`text-sm px-2 py-1 font-medium ${i===0 ? 'text-indigo-400 border-b-2 border-indigo-500' : 'text-slate-400'}`}>
                {tab}
