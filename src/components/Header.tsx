@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Box } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { BridgeboxLogo } from "./ui/BridgeboxLogo";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { navbarReveal } from "../utils/animations";
 

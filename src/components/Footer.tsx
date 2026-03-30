@@ -1,3 +1,4 @@
+import { BridgeboxLogo } from "./ui/BridgeboxLogo";
 import { Link } from "react-router-dom";
 import { Box, Linkedin, Twitter, Github, Mail } from "lucide-react";
 import { motion } from "framer-motion";
