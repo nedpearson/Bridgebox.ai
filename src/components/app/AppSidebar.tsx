@@ -11,6 +11,7 @@ import {
   BarChart3,
   Zap,
   Sparkles,
+  Video,
   X,
   Smartphone,
   LayoutTemplate,
@@ -142,6 +143,12 @@ export default function AppSidebar() {
       requirePermission: permissions.canAccessAdminPanel,
     },
     {
+      icon: Video,
+      label: "Recording Center",
+      path: "/app/recording-center",
+      requirePermission: permissions.canAccessAdminPanel,
+    },
+    {
       icon: BarChart3,
       label: "Reporting",
       path: "/app/analytics",
@@ -219,7 +226,7 @@ export default function AppSidebar() {
             className="flex items-center space-x-3 group"
             onClick={() => setIsOpen(false)}
           >
-            <BridgeboxLogo className="w-7 h-7 text-indigo-500 group-hover:text-cyan-400 transition-colors duration-300" />
+            <Box className="w-7 h-7 text-indigo-500 group-hover:text-cyan-400 transition-colors duration-300" />
             <div>
               <h2 className="text-xl font-bold text-white">Bridgebox</h2>
               <p className="text-xs text-slate-400">Internal Portal</p>

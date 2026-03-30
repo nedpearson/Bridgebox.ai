@@ -112,6 +112,7 @@ const TrendsCenter = lazy(() => import("./pages/app/TrendsCenter"));
 const MarketSignals = lazy(() => import("./pages/app/MarketSignals"));
 const Opportunities = lazy(() => import("./pages/app/Opportunities"));
 const AgentActions = lazy(() => import("./pages/app/AgentActions"));
+const RecordingCenter = lazy(() => import("./pages/app/RecordingCenter"));
 const Workflows = lazy(() =>
   import("./pages/app/Workflows").then((module) => ({
     default: module.Workflows,
@@ -401,6 +402,22 @@ function App() {
                 <Route path="admin/*" element={<AdminCommandCenterLayout />}>
                   <Route index element={<AdminHubOverview />} />
                   <Route path="tasks" element={<TaskPlanBoard />} />
+                  <Route
+                    path="ai-assistants"
+                    element={<AgentActions />}
+                  />
+                  <Route
+                    path="recording-center"
+                    element={<RecordingCenter />}
+                  />
+                  <Route
+                    path="settings"
+                    element={<Settings />}
+                  />
+                  <Route
+                    path="dashboards"
+                    element={<DashboardPreferenceBuilder />}
+                  />
                   <Route
                     path="integrations"
                     element={<IntegrationMapBuilder />}
