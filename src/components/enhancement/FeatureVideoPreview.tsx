@@ -39,14 +39,26 @@ const MOCK_ROWS = [
 export default function FeatureVideoPreview({
   featureName,
   actualMediaUrl,
+  brandContext,
 }: {
   featureName: string;
   actualMediaUrl?: string;
+  brandContext?: {
+    target_url: string;
+    primary_color: string;
+    theme?: "light" | "dark";
+  };
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const cursorControls = useAnimationControls();
   const screenControls = useAnimationControls();
   const modalControls = useAnimationControls();
+
+  const primaryColor = brandContext?.primary_color || "#6366f1";
+  let hostName = "bridgebox.ai";
+  if (brandContext?.target_url) {
+     try { hostName = new URL(brandContext.target_url).hostname.replace('www.',''); } catch {}
+  }
 
   useEffect(() => {
     let active = true;
@@ -128,8 +140,8 @@ export default function FeatureVideoPreview({
 
         {/* RIGHT COMPONENT: Bridgebox Replicated Feature (Virtual Walkthrough) */}
         <div className="relative w-full lg:w-1/2 flex flex-col bg-slate-950 min-h-[300px] lg:min-h-[400px]">
-          <div className="absolute top-4 right-4 bg-indigo-500/90 text-white px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest z-30 shadow flex items-center gap-2">
-            <Sparkles className="w-3 h-3 text-indigo-100" />
+          <div className="absolute top-4 right-4 text-white px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest z-30 shadow flex items-center gap-2" style={{ backgroundColor: primaryColor }}>
+            <Sparkles className="w-3 h-3 text-white" />
             Autonomous Blueprint
           </div>
 
@@ -140,7 +152,7 @@ export default function FeatureVideoPreview({
                <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
             </div>
             <div className="text-[10px] font-mono text-slate-400 truncate flex-1 text-center bg-slate-800/50 rounded-md py-0.5 max-w-[200px]">
-               bridgebox.ai/app/demo
+               {hostName}/app/demo
             </div>
             <div className="flex-1" />
           </div>
@@ -149,7 +161,7 @@ export default function FeatureVideoPreview({
             {/* Sidebar Navigation */}
             <div className="w-16 sm:w-48 bg-slate-900 border-r border-slate-800 flex flex-col py-4 z-10">
                <div className="px-4 mb-6 hidden sm:flex items-center gap-2">
-                 <div className="w-6 h-6 rounded bg-indigo-500 flex items-center justify-center">
+                 <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: primaryColor }}>
                     <Database className="w-3 h-3 text-white" />
                  </div>
                  <span className="text-xs font-bold text-white tracking-wide">Nexus Data</span>
@@ -161,7 +173,7 @@ export default function FeatureVideoPreview({
                    { icon: Activity, label: "Analytics", active: false },
                    { icon: CreditCard, label: "Billing", active: false }
                  ].map((item, i) => (
-                   <div key={i} className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors ${item.active ? 'bg-indigo-500/10 text-indigo-400' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+                   <div key={i} className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors ${!item.active ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : ''}`} style={item.active ? { backgroundColor: `${primaryColor}1A`, color: primaryColor } : undefined}>
                       <item.icon className="w-4 h-4 shrink-0" />
                       <span className="text-[11px] font-medium hidden sm:block">{item.label}</span>
                    </div>
@@ -207,11 +219,11 @@ export default function FeatureVideoPreview({
                              <AreaChart data={MOCK_DATA}>
                                <defs>
                                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                   <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
-                                   <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                                   <stop offset="5%" stopColor={primaryColor} stopOpacity={0.3}/>
+                                   <stop offset="95%" stopColor={primaryColor} stopOpacity={0}/>
                                  </linearGradient>
                                </defs>
-                               <Area type="monotone" dataKey="value" stroke="#6366f1" strokeWidth={2} fillOpacity={1} fill="url(#colorValue)" />
+                               <Area type="monotone" dataKey="value" stroke={primaryColor} strokeWidth={2} fillOpacity={1} fill="url(#colorValue)" />
                              </AreaChart>
                            </ResponsiveContainer>
                          </div>
@@ -277,7 +289,7 @@ export default function FeatureVideoPreview({
                   <div className="flex flex-col gap-3">
                      <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
                         <div className="text-[9px] text-slate-500 uppercase tracking-widest font-bold mb-2">Raw JSON Output</div>
-                        <div className="font-mono text-[9px] text-indigo-300 leading-relaxed bg-black p-2 rounded border border-slate-800">
+                        <div className="font-mono text-[9px] leading-relaxed bg-black p-2 rounded border border-slate-800" style={{ color: primaryColor }}>
                            {`{\n  "id": "${MOCK_ROWS[0].id}",\n  "entity": "${MOCK_ROWS[0].user}",\n  "type": "enterprise_tier",\n  "status": "verified_active",\n  "metadata": {\n    "auth_token": "valid=true",\n    "last_sync": "2ms ago"\n  }\n}`}
                         </div>
                      </div>
@@ -305,7 +317,7 @@ export default function FeatureVideoPreview({
                 {/* Play Overlay if Not Active */}
                 {!isPlaying && (
                   <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px] z-50 flex items-center justify-center cursor-pointer group/play" onClick={() => setIsPlaying(true)}>
-                    <div className="w-14 h-14 rounded-full bg-indigo-500/90 flex items-center justify-center text-white shadow-[0_0_30px_rgba(99,102,241,0.6)] group-hover/play:scale-110 group-hover/play:bg-indigo-500 transition-all">
+                    <div className="w-14 h-14 rounded-full flex items-center justify-center text-white transition-all group-hover/play:scale-110" style={{ backgroundColor: primaryColor, boxShadow: `0 0 30px ${primaryColor}99` }}>
                        <Play className="w-6 h-6 ml-1" />
                     </div>
                   </div>

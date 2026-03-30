@@ -110,6 +110,11 @@ export interface EnhancementRecommendations {
   workflow_breakdown: WorkflowItem[];
   ui_structure: UIStructureItem[];
   side_by_side_comparison?: SideBySideComparison;
+  brand_context?: {
+    target_url: string;
+    primary_color: string;
+    theme?: "light" | "dark";
+  };
   data_model_hypothesis: DataEntityItem[];
   integration_map: IntegrationItem[];
   automation_opportunities: AutomationItem[];

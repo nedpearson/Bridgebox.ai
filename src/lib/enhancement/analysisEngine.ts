@@ -525,6 +525,7 @@ export function buildEnhancementRecommendations(
   );
 
   let side_by_side_comparison = undefined;
+  let brand_context = undefined;
   if (text.includes("AUTONOMOUS_AGENT_RUN")) {
     const extractedUrlMatch = text.match(/URL:\s*(https?:\/\/[^\s]+)/);
     const competitorUrl = extractedUrlMatch ? extractedUrlMatch[1] : "https://example.com";
@@ -534,6 +535,17 @@ export function buildEnhancementRecommendations(
         competitorName = new URL(competitorUrl).hostname.replace('www.', '');
       }
     } catch { /* ignore */ }
+
+    // Derive a gorgeous dynamic brand color from the host string
+    const colors = ["#ef4444", "#f97316", "#f59e0b", "#84cc16", "#22c55e", "#10b981", "#14b8a6", "#06b6d4", "#0ea5e9", "#3b82f6", "#6366f1", "#8b5cf6", "#a855f7", "#d946ef", "#ec4899", "#f43f5e"];
+    const charSum = competitorName.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+    const primaryColor = colors[charSum % colors.length];
+
+    brand_context = {
+      target_url: competitorUrl,
+      primary_color: primaryColor,
+      theme: "dark" as "light" | "dark"
+    };
 
     side_by_side_comparison = {
       competitor_name: competitorName,
@@ -566,6 +578,7 @@ export function buildEnhancementRecommendations(
     feature_list: features,
     workflow_breakdown: workflows,
     side_by_side_comparison,
+    brand_context,
     ui_structure: [
       {
         screen_name: "Master Control Dashboard",
