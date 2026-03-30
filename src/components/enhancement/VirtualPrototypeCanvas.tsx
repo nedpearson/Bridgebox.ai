@@ -180,21 +180,58 @@ export default function VirtualPrototypeCanvas({ layoutType, screenName, onInter
        {/* Sidebar Sandbox */}
        <div className="w-72 border-r border-slate-700/50 bg-slate-800/20 p-4 space-y-6 overflow-y-auto">
          <div>
-           <div className="w-full h-40 bg-black border border-slate-700 rounded-xl flex items-center justify-center mb-4 overflow-hidden relative shadow-[0_0_20px_rgba(99,102,241,0.15)]">
-              {/* Actual Native Video Embedded in the Layout Sidebar representing physical footage */}
-              <video 
-                 src="https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" 
-                 className="w-full h-full object-cover opacity-90" 
-                 autoPlay 
-                 controls 
-                 loop 
-                 muted 
-              />
-              <div className="absolute top-2 left-2 bg-red-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded animate-pulse shadow-lg tracking-wider">LIVE FOOTAGE</div>
+           <div className="w-full h-40 bg-slate-900 border border-slate-700 rounded-xl flex flex-col mb-4 overflow-hidden relative shadow-[0_0_20px_rgba(99,102,241,0.15)] group">
+              {/* OSX Miniature Header */}
+              <div className="h-4 bg-slate-800 border-b border-slate-700/50 flex items-center px-2 gap-1 w-full relative z-20">
+                 <div className="w-1.5 h-1.5 rounded-full bg-red-500/80" />
+                 <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
+                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
+              </div>
+              
+              {/* Miniature Simulated UI Walkthrough */}
+              <div className="flex-1 relative overflow-hidden flex pt-2">
+                 {/* Mini Sidebar */}
+                 <div className="w-12 border-r border-slate-800 space-y-2 p-1.5">
+                    <div className="h-1.5 w-full bg-indigo-500/30 rounded" />
+                    <div className="h-1 w-2/3 bg-slate-600 rounded" />
+                    <div className="h-1 w-3/4 bg-slate-600 rounded" />
+                 </div>
+                 {/* Mini Main Content Area */}
+                 <div className="flex-1 p-2 space-y-2 relative">
+                    <div className="h-2 w-16 bg-slate-700 rounded" />
+                    <div className="flex gap-1">
+                       <div className="flex-1 h-8 border border-slate-700 rounded bg-slate-800/40 relative overflow-hidden">
+                          <motion.div animate={{ height: ['0%', '100%', '30%'] }} transition={{ duration: 4, repeat: Infinity }} className="absolute bottom-0 inset-x-0 bg-indigo-500/40" />
+                       </div>
+                       <div className="w-8 h-8 border border-slate-700 rounded bg-slate-800/40 p-1">
+                          <div className="w-full h-full rounded-full border border-emerald-500/50" />
+                       </div>
+                    </div>
+                    {/* Tiny animated cursor */}
+                    <motion.div
+                       animate={{ x: [0, 50, 20, 0], y: [0, 10, -10, 0] }}
+                       transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                       className="absolute left-4 top-4 z-50 drop-shadow-md"
+                    >
+                       <MousePointerClick className="w-3 h-3 text-white fill-slate-900" />
+                    </motion.div>
+                 </div>
+                 <div className="absolute inset-x-0 bottom-0 h-4 bg-black/60 backdrop-blur-[2px] border-t border-slate-700/50 flex items-center justify-between px-2">
+                    <div className="flex gap-1">
+                       <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                       <div className="w-1.5 h-1.5 rounded-full bg-slate-600" />
+                    </div>
+                    <div className="w-12 h-0.5 bg-slate-700 rounded overflow-hidden">
+                       <motion.div animate={{ width: ['0%', '100%'] }} transition={{ duration: 5, repeat: Infinity }} className="h-full bg-indigo-500" />
+                    </div>
+                 </div>
+              </div>
+              
+              <div className="absolute top-1 right-2 bg-red-500 text-white text-[7px] font-bold px-1.5 py-[1px] rounded animate-pulse shadow-lg tracking-wider z-30">REC</div>
            </div>
            <div className="space-y-1 text-center border-b border-slate-700/50 pb-4">
-             <div className="text-sm text-white font-bold uppercase tracking-wide">Servicargo Feature Set</div>
-             <div className="text-[10px] text-slate-400">Reference: tears_of_steel_hq.mp4</div>
+             <div className="text-sm text-white font-bold uppercase tracking-wide">Client UI Reference</div>
+             <div className="text-[10px] text-slate-400">Source: virtual_recording_engine.ai</div>
            </div>
          </div>
            <div className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Linked Schema Objects</div>
