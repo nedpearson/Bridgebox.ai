@@ -9,11 +9,31 @@ import CompetitiveMatrixSection from "../components/marketing/CompetitiveMatrixS
 import InstantDemoSection from "../components/marketing/InstantDemoSection";
 import PricingClaritySection from "../components/marketing/PricingClaritySection";
 import SocialProofCTASection from "../components/marketing/SocialProofCTASection";
+import { SEO } from '../components/seo/SEO';
 
 export default function Home() {
+  const schema = {
+    "@type": "Organization",
+    "name": "Bridgebox AI",
+    "url": "https://bridgebox.ai",
+    "logo": "https://bridgebox.ai/image.png",
+    "description": "Enterprise workflow automation and custom AI software development.",
+    "sameAs": [
+      "https://linkedin.com/company/bridgebox-ai",
+      "https://twitter.com/bridgebox-ai"
+    ]
+  };
+
   return (
-    <div className="pt-20 bg-slate-950 font-sans text-slate-300">
-      {/* SECTION 1: Above The Fold */}
+    <>
+      <SEO 
+        title="AI Workflow Automation & Custom Software Platform"
+        description="Bridgebox seamlessly integrates disconnected SaaS tools and accelerates custom software development using secure AI automation pipelines. Start building."
+        canonicalUrl="/"
+        jsonLdSchema={schema}
+      />
+      <div className="pt-20 bg-slate-950 font-sans text-slate-300">
+        {/* SECTION 1: Above The Fold */}
       <HeroSection />
 
       {/* SECTION 2: Explainer Logistics */}
@@ -46,5 +66,6 @@ export default function Home() {
       {/* SECTION 11-12: Closing Validation Funnel */}
       <SocialProofCTASection />
     </div>
+    </>
   );
 }

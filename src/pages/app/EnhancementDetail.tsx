@@ -492,7 +492,10 @@ export default function EnhancementDetail() {
                         </p>
 
                         {/* Literal localized feature video preview mockup */}
-                        <FeatureVideoPreview featureName={f.name} />
+                        <FeatureVideoPreview 
+                          featureName={f.name} 
+                          actualMediaUrl={request.bb_enhancement_media?.find(m => m.file_type === 'video')?.storage_url}
+                        />
                       </div>
                       <span className="text-xs text-slate-500 flex-shrink-0 font-mono bg-slate-800/80 px-2 py-1 rounded border border-slate-700">
                         {Math.round(f.confidence * 100)}%
