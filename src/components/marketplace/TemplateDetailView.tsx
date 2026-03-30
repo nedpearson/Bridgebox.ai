@@ -23,7 +23,8 @@ export default function TemplateDetailView({
   templateId: string;
   onClose: () => void;
 }) {
-  const { currentOrganization } = useAuth();
+  const { currentOrganization, profile } = useAuth();
+  const isSuperAdmin = profile?.role === "super_admin";
   const [template, setTemplate] = useState<any>(null);
   const [benchmarks, setBenchmarks] = useState<any>(null);
   const [isInstalling, setIsInstalling] = useState(false);
@@ -80,7 +81,7 @@ export default function TemplateDetailView({
     if (!currentOrganization || !template) return;
 
     // Stripe/Gate Interception for Premium Tooling
-    if (template.is_premium) {
+    if (template.is_premium && !isSuperAdmin) {
       const paymentSuccess = await checkoutPremiumTemplate(
         template.id,
         template.price_amount,
@@ -211,7 +212,7 @@ export default function TemplateDetailView({
           <div className="w-full md:w-80 space-y-6">
             <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
               <div className="flex items-baseline justify-between mb-6">
-                {template.is_premium ? (
+                {template.is_premium && !isSuperAdmin ? (
                   <>
                     <span className="text-3xl font-black text-white">
                       ${template.price_amount || 249}
@@ -221,7 +222,14 @@ export default function TemplateDetailView({
                     </span>
                   </>
                 ) : (
-                  <span className="text-3xl font-black text-white">Free</span>
+                  <>
+                    <span className="text-3xl font-black text-white">Free</span>
+                    {template.is_premium && isSuperAdmin && (
+                      <span className="text-xs font-bold text-emerald-400 ml-3 border border-emerald-500/30 bg-emerald-500/10 px-2 py-1 rounded-full uppercase tracking-wider">
+                        Admin Bypass
+                      </span>
+                    )}
+                  </>
                 )}
               </div>
 
@@ -250,7 +258,7 @@ export default function TemplateDetailView({
                     <Clock className="w-5 h-5 animate-spin" /> Provisioning Data
                     Iso-Layer...
                   </>
-                ) : template.is_premium ? (
+                ) : template.is_premium && !isSuperAdmin ? (
                   <>
                     <Copy className="w-5 h-5" /> Purchase & Deploy
                   </>
