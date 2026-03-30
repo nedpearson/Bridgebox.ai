@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for wealth management."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Mailgun Integration",
-      "url": "/integrations/mailgun"
+      "text": "Explore Payroll Processing Compliance For Travel",
+      "url": "/industry/travel-payroll-processing-compliance"
     },
     {
-      "text": "Explore Client Intake Automation For Oil And Gas",
-      "url": "/industry/oil-and-gas-client-intake-automation"
+      "text": "Explore Bridgebox Zoom Integration",
+      "url": "/integrations/zoom"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Hvac",
-      "url": "/industry/hvac-payroll-processing-compliance"
+      "text": "Explore Bridgebox Notion Integration",
+      "url": "/integrations/notion"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Nonprofits",
-      "url": "/industry/nonprofits-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Dental Clinics",
+      "url": "/industry/dental-clinics-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Client Intake Automation For Hvac",
-      "url": "/industry/hvac-client-intake-automation"
+      "text": "Explore Bridgebox Vs Celigo",
+      "url": "/compare/bridgebox-vs-celigo"
     }
   ]
 }

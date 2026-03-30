@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for education."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Twilio Integration",
-      "url": "/integrations/twilio"
+      "text": "Explore Multi-Tenant Architecture",
+      "url": "/features/multi-tenant-architecture"
     },
     {
-      "text": "Explore Energy",
-      "url": "/industry/energy"
+      "text": "Explore Bridgebox Zoom Integration",
+      "url": "/integrations/zoom"
     },
     {
-      "text": "Explore Client Intake Automation For Energy",
-      "url": "/industry/energy-client-intake-automation"
+      "text": "Explore Document Management Workflow For Oil And Gas",
+      "url": "/industry/oil-and-gas-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
+      "text": "Explore Inventory Depletion Alerts For Insurance",
+      "url": "/industry/insurance-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Document Extraction",
-      "url": "/use-cases/document-extraction"
+      "text": "Explore Document Management Workflow For Education",
+      "url": "/industry/education-document-management-workflow"
     }
   ]
 }

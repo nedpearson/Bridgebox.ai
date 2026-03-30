@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate commission tracking."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Healthcare",
-      "url": "/industry/healthcare"
+      "text": "Explore 5 Ways To Automate Food And Beverage Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-food-and-beverage-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Pest Control Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-pest-control-operations-without-coding"
+      "text": "Explore Client Intake Automation For Staffing",
+      "url": "/industry/staffing-client-intake-automation"
     },
     {
-      "text": "Explore Document Management Workflow For Oil And Gas",
-      "url": "/industry/oil-and-gas-document-management-workflow"
+      "text": "Explore Document Management Workflow For Insurance",
+      "url": "/industry/insurance-document-management-workflow"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Automotive Repair",
+      "url": "/industry/automotive-repair-payroll-processing-compliance"
     },
     {
-      "text": "Explore Document Management Workflow For Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness-document-management-workflow"
+      "text": "Explore Client Intake Automation For Oil And Gas",
+      "url": "/industry/oil-and-gas-client-intake-automation"
     }
   ]
 }

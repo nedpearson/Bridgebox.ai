@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for retail."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Document Management Workflow For Agencies",
-      "url": "/industry/agencies-document-management-workflow"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     },
     {
-      "text": "Explore 5 Ways To Automate Warehousing Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-warehousing-operations-without-coding"
+      "text": "Explore Construction",
+      "url": "/industry/construction"
     },
     {
-      "text": "Explore How Ai Is Disrupting Travel In 2026",
-      "url": "/blog/how-ai-is-disrupting-travel-in-2026"
+      "text": "Explore Inventory Depletion Alerts For Construction",
+      "url": "/industry/construction-inventory-depletion-alerts"
     },
     {
-      "text": "Explore 5 Ways To Automate Travel Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-travel-operations-without-coding"
+      "text": "Explore Payroll Processing Compliance For E-Commerce",
+      "url": "/industry/e-commerce-payroll-processing-compliance"
     },
     {
-      "text": "Explore Workflow Orchestration",
-      "url": "/features/workflow-orchestration"
+      "text": "Explore Bridgebox Zendesk Integration",
+      "url": "/integrations/zendesk"
     }
   ]
 }

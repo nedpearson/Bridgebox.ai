@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting engineering in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Financial Services",
-      "url": "/industry/financial-services"
+      "text": "Explore Bridgebox Vs Mulesoft",
+      "url": "/compare/bridgebox-vs-mulesoft"
     },
     {
-      "text": "Explore Bridgebox Quickbooks Integration",
-      "url": "/integrations/quickbooks"
+      "text": "Explore Oil And Gas",
+      "url": "/industry/oil-and-gas"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Energy",
-      "url": "/industry/energy-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Retail",
+      "url": "/industry/retail-document-management-workflow"
     },
     {
-      "text": "Explore Client Intake Automation For Oil And Gas",
-      "url": "/industry/oil-and-gas-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Healthcare",
+      "url": "/industry/healthcare-payroll-processing-compliance"
     },
     {
-      "text": "Explore Document Management Workflow For Automotive Repair",
-      "url": "/industry/automotive-repair-document-management-workflow"
+      "text": "Explore Client Intake Automation For Healthcare",
+      "url": "/industry/healthcare-client-intake-automation"
     }
   ]
 }

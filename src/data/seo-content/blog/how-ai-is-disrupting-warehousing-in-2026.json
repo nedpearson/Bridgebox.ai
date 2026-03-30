@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting warehousing in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Fitness",
-      "url": "/industry/fitness-inventory-depletion-alerts"
+      "text": "Explore The Ultimate Guide To Scaling Client Onboarding Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-client-onboarding-processes"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Healthcare",
-      "url": "/industry/healthcare-payroll-processing-compliance"
+      "text": "Explore Document Management Workflow For Wealth Management",
+      "url": "/industry/wealth-management-document-management-workflow"
     },
     {
-      "text": "Explore Accounting",
-      "url": "/industry/accounting"
+      "text": "Explore Client Intake Automation For Construction",
+      "url": "/industry/construction-client-intake-automation"
     },
     {
-      "text": "Explore Client Intake Automation For Law Firms",
-      "url": "/industry/law-firms-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Logistics",
+      "url": "/industry/logistics-payroll-processing-compliance"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Accounting",
-      "url": "/industry/accounting-payroll-processing-compliance"
+      "text": "Explore Payroll Processing Compliance For Construction",
+      "url": "/industry/construction-payroll-processing-compliance"
     }
   ]
 }

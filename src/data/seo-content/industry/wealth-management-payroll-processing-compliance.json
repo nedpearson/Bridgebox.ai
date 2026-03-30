@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for wealth management."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
+      "text": "Explore Automate Maintenance Requests",
+      "url": "/use-cases/maintenance-requests"
     },
     {
-      "text": "Explore Automate Inventory Auditing",
-      "url": "/use-cases/inventory-auditing"
+      "text": "Explore Automate Support Ticket Routing",
+      "url": "/use-cases/support-ticket-routing"
     },
     {
-      "text": "Explore Api Proxying",
-      "url": "/features/api-proxying"
+      "text": "Explore Payroll Processing Compliance For Agencies",
+      "url": "/industry/agencies-payroll-processing-compliance"
     },
     {
-      "text": "Explore 5 Ways To Automate Hospitality Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-hospitality-operations-without-coding"
+      "text": "Explore Automate Commission Tracking",
+      "url": "/use-cases/commission-tracking"
     },
     {
-      "text": "Explore Engineering",
-      "url": "/industry/engineering"
+      "text": "Explore Automate Loan Processing",
+      "url": "/use-cases/loan-processing"
     }
   ]
 }

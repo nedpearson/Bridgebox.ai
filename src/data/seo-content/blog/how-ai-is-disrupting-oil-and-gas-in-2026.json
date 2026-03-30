@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting oil and gas in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Media",
-      "url": "/industry/media-inventory-depletion-alerts"
+      "text": "Explore Automate Inventory Management",
+      "url": "/use-cases/inventory-management"
     },
     {
-      "text": "Explore Wealth Management",
-      "url": "/industry/wealth-management"
+      "text": "Explore Inventory Depletion Alerts For Automotive Repair",
+      "url": "/industry/automotive-repair-inventory-depletion-alerts"
+    },
+    {
+      "text": "Explore Client Intake Automation For Healthcare",
+      "url": "/industry/healthcare-client-intake-automation"
+    },
+    {
+      "text": "Explore Document Management Workflow For Insurance",
+      "url": "/industry/insurance-document-management-workflow"
     },
     {
       "text": "Explore Client Intake Automation For Logistics",
       "url": "/industry/logistics-client-intake-automation"
-    },
-    {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
-    },
-    {
-      "text": "Explore Payroll Processing Compliance For Telecommunications",
-      "url": "/industry/telecommunications-payroll-processing-compliance"
     }
   ]
 }

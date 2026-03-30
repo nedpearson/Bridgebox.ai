@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for pest control."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Custom Development",
-      "url": "/compare/bridgebox-vs-custom-development"
+      "text": "Explore 5 Ways To Automate Beauty And Wellness Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-beauty-and-wellness-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Construction Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-construction-operations-without-coding"
+      "text": "Explore Inventory Depletion Alerts For Manufacturing",
+      "url": "/industry/manufacturing-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Webhook Listeners",
-      "url": "/features/webhook-listeners"
+      "text": "Explore Bridgebox Vs Power Automate",
+      "url": "/compare/bridgebox-vs-power-automate"
     },
     {
-      "text": "Explore Bridgebox Vs Ifttt",
-      "url": "/compare/bridgebox-vs-ifttt"
+      "text": "Explore Document Management Workflow For E-Commerce",
+      "url": "/industry/e-commerce-document-management-workflow"
     },
     {
-      "text": "Explore Audit Logging",
-      "url": "/features/audit-logging"
+      "text": "Explore Automate Lead Qualification",
+      "url": "/use-cases/lead-qualification"
     }
   ]
 }

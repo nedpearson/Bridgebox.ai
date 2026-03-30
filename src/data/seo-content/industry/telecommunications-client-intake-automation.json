@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for telecommunications."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Boomi",
-      "url": "/compare/bridgebox-vs-boomi"
+      "text": "Explore 5 Ways To Automate Beauty And Wellness Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-beauty-and-wellness-operations-without-coding"
     },
     {
-      "text": "Explore Client Intake Automation For Dealerships",
-      "url": "/industry/dealerships-client-intake-automation"
+      "text": "Explore The Ultimate Guide To Scaling Invoice Processing Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-invoice-processing-processes"
     },
     {
-      "text": "Explore Automate Inventory Management",
-      "url": "/use-cases/inventory-management"
+      "text": "Explore How Ai Is Disrupting Automotive Repair In 2026",
+      "url": "/blog/how-ai-is-disrupting-automotive-repair-in-2026"
     },
     {
-      "text": "Explore Document Management Workflow For Construction",
-      "url": "/industry/construction-document-management-workflow"
+      "text": "Explore 5 Ways To Automate Insurance Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-insurance-operations-without-coding"
     },
     {
-      "text": "Explore Bridgebox Zoom Integration",
-      "url": "/integrations/zoom"
+      "text": "Explore 5 Ways To Automate Automotive Repair Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-automotive-repair-operations-without-coding"
     }
   ]
 }

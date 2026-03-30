@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting accounting in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Retool",
-      "url": "/compare/bridgebox-vs-retool"
+      "text": "Explore Bridgebox Vs Boomi",
+      "url": "/compare/bridgebox-vs-boomi"
     },
     {
-      "text": "Explore Hospitality",
-      "url": "/industry/hospitality"
+      "text": "Explore Client Intake Automation For Warehousing",
+      "url": "/industry/warehousing-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For E-Commerce",
-      "url": "/industry/e-commerce-payroll-processing-compliance"
+      "text": "Explore Construction",
+      "url": "/industry/construction"
     },
     {
-      "text": "Explore Document Management Workflow For Veterinary",
-      "url": "/industry/veterinary-document-management-workflow"
+      "text": "Explore Document Management Workflow For Real Estate",
+      "url": "/industry/real-estate-document-management-workflow"
     },
     {
-      "text": "Explore Document Management Workflow For Recruiting",
-      "url": "/industry/recruiting-document-management-workflow"
+      "text": "Explore Client Intake Automation For Logistics",
+      "url": "/industry/logistics-client-intake-automation"
     }
   ]
 }

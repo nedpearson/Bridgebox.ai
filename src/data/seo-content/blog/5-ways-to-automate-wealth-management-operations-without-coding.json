@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate wealth management operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Expense Approvals",
-      "url": "/use-cases/expense-approvals"
+      "text": "Explore Security",
+      "url": "/industry/security"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Retail",
-      "url": "/industry/retail-payroll-processing-compliance"
+      "text": "Explore Staffing",
+      "url": "/industry/staffing"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Retail",
-      "url": "/industry/retail-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Staffing",
+      "url": "/industry/staffing-document-management-workflow"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Logistics",
-      "url": "/industry/logistics-payroll-processing-compliance"
+      "text": "Explore Payroll Processing Compliance For Oil And Gas",
+      "url": "/industry/oil-and-gas-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Aws Integration",
-      "url": "/integrations/aws"
+      "text": "Explore Client Intake Automation For Construction",
+      "url": "/industry/construction-client-intake-automation"
     }
   ]
 }

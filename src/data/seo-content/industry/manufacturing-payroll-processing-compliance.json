@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for manufacturing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Celigo",
-      "url": "/compare/bridgebox-vs-celigo"
+      "text": "Explore Automate Asset Management",
+      "url": "/use-cases/asset-management"
     },
     {
       "text": "Explore Automate Order Fulfillment",
       "url": "/use-cases/order-fulfillment"
     },
     {
-      "text": "Explore Automate Audit Logs Reporting",
-      "url": "/use-cases/audit-logs-reporting"
+      "text": "Explore Bridgebox Vs Pipedream",
+      "url": "/compare/bridgebox-vs-pipedream"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Logistics Tracking Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-logistics-tracking-processes"
+      "text": "Explore Bridgebox Vs Make.Com",
+      "url": "/compare/bridgebox-vs-make-com"
     },
     {
-      "text": "Explore Bridgebox Shopify Integration",
-      "url": "/integrations/shopify"
+      "text": "Explore Automate Subscription Billing",
+      "url": "/use-cases/subscription-billing"
     }
   ]
 }

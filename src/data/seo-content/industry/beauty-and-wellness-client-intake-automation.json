@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for beauty and wellness."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Sap Integration",
-      "url": "/integrations/sap"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     },
     {
-      "text": "Explore Bridgebox Gitlab Integration",
-      "url": "/integrations/gitlab"
+      "text": "Explore Payroll Processing Compliance For Staffing",
+      "url": "/industry/staffing-payroll-processing-compliance"
     },
     {
-      "text": "Explore 5 Ways To Automate Retail Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-retail-operations-without-coding"
+      "text": "Explore 5 Ways To Automate Property Management Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-property-management-operations-without-coding"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Support Ticket Routing Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-support-ticket-routing-processes"
+      "text": "Explore Bridgebox Typeform Integration",
+      "url": "/integrations/typeform"
     },
     {
-      "text": "Explore 5 Ways To Automate Insurance Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-insurance-operations-without-coding"
+      "text": "Explore Bridgebox Zendesk Integration",
+      "url": "/integrations/zendesk"
     }
   ]
 }

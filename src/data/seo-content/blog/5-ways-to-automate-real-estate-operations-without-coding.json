@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate real estate operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Role-Based Access Control",
-      "url": "/features/role-based-access-control"
+      "text": "Explore Recruiting",
+      "url": "/industry/recruiting"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Financial Services",
-      "url": "/industry/financial-services-payroll-processing-compliance"
+      "text": "Explore Bridgebox Workday Integration",
+      "url": "/integrations/workday"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Media",
-      "url": "/industry/media-inventory-depletion-alerts"
+      "text": "Explore Automate Payment Reconciliation",
+      "url": "/use-cases/payment-reconciliation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Telecommunications",
-      "url": "/industry/telecommunications-payroll-processing-compliance"
+      "text": "Explore Automate Support Ticket Routing",
+      "url": "/use-cases/support-ticket-routing"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Dealerships",
-      "url": "/industry/dealerships-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Dental Clinics",
+      "url": "/industry/dental-clinics-inventory-depletion-alerts"
     }
   ]
 }

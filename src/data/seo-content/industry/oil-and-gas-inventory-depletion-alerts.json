@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for oil and gas."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Document Management Workflow For Dealerships",
-      "url": "/industry/dealerships-document-management-workflow"
+      "text": "Explore Automate Shift Scheduling",
+      "url": "/use-cases/shift-scheduling"
     },
     {
-      "text": "Explore Automate Vendor Onboarding",
-      "url": "/use-cases/vendor-onboarding"
+      "text": "Explore Human-In-The-Loop Approvals",
+      "url": "/features/human-in-the-loop-approvals"
     },
     {
-      "text": "Explore Bridgebox Monday.Com Integration",
-      "url": "/integrations/monday-com"
+      "text": "Explore Automate CRM Sync",
+      "url": "/use-cases/crm-sync"
     },
     {
-      "text": "Explore Automate Lead Nurturing",
-      "url": "/use-cases/lead-nurturing"
+      "text": "Explore Client Intake Automation For Energy",
+      "url": "/industry/energy-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Shopify Integration",
-      "url": "/integrations/shopify"
+      "text": "Explore Bridgebox Vs Ifttt",
+      "url": "/compare/bridgebox-vs-ifttt"
     }
   ]
 }

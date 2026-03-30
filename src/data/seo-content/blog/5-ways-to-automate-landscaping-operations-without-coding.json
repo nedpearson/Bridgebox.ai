@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate landscaping operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Workflow Orchestration",
-      "url": "/features/workflow-orchestration"
+      "text": "Explore Document Management Workflow For Food And Beverage",
+      "url": "/industry/food-and-beverage-document-management-workflow"
     },
     {
-      "text": "Explore Automate Booking Reminders",
-      "url": "/use-cases/booking-reminders"
+      "text": "Explore Automate Payment Reconciliation",
+      "url": "/use-cases/payment-reconciliation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Security",
-      "url": "/industry/security-payroll-processing-compliance"
+      "text": "Explore Document Management Workflow For Dealerships",
+      "url": "/industry/dealerships-document-management-workflow"
     },
     {
-      "text": "Explore Client Intake Automation For Pest Control",
-      "url": "/industry/pest-control-client-intake-automation"
+      "text": "Explore Client Intake Automation For Logistics",
+      "url": "/industry/logistics-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Fitness",
-      "url": "/industry/fitness-payroll-processing-compliance"
+      "text": "Explore Healthcare",
+      "url": "/industry/healthcare"
     }
   ]
 }

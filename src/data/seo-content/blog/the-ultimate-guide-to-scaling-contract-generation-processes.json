@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling contract generation processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Document Management Workflow For Property Management",
-      "url": "/industry/property-management-document-management-workflow"
+      "text": "Explore Audit Logging",
+      "url": "/features/audit-logging"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Hospitality",
-      "url": "/industry/hospitality-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Energy",
+      "url": "/industry/energy-payroll-processing-compliance"
     },
     {
-      "text": "Explore Accounting",
-      "url": "/industry/accounting"
+      "text": "Explore Document Management Workflow For Agencies",
+      "url": "/industry/agencies-document-management-workflow"
     },
     {
-      "text": "Explore Education",
-      "url": "/industry/education"
+      "text": "Explore Document Management Workflow For Law Firms",
+      "url": "/industry/law-firms-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
+      "text": "Explore Document Management Workflow For Real Estate",
+      "url": "/industry/real-estate-document-management-workflow"
     }
   ]
 }

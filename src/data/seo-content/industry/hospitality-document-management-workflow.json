@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for hospitality."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Zoom Integration",
-      "url": "/integrations/zoom"
+      "text": "Explore How Ai Is Disrupting Veterinary In 2026",
+      "url": "/blog/how-ai-is-disrupting-veterinary-in-2026"
     },
     {
-      "text": "Explore 5 Ways To Automate Manufacturing Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-manufacturing-operations-without-coding"
+      "text": "Explore Bridgebox Vs Glide",
+      "url": "/compare/bridgebox-vs-glide"
     },
     {
-      "text": "Explore How Ai Is Disrupting Insurance In 2026",
-      "url": "/blog/how-ai-is-disrupting-insurance-in-2026"
+      "text": "Explore Bridgebox Docusign Integration",
+      "url": "/integrations/docusign"
     },
     {
-      "text": "Explore 5 Ways To Automate Insurance Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-insurance-operations-without-coding"
+      "text": "Explore Inventory Depletion Alerts For E-Commerce",
+      "url": "/industry/e-commerce-inventory-depletion-alerts"
     },
     {
-      "text": "Explore 5 Ways To Automate Engineering Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-engineering-operations-without-coding"
+      "text": "Explore Payroll Processing Compliance For Oil And Gas",
+      "url": "/industry/oil-and-gas-payroll-processing-compliance"
     }
   ]
 }

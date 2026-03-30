@@ -26,6 +26,20 @@
         "description": "You can't easily deploy customized client portals via Custom Development. Bridgebox auto-generates your front-ends tied directly to your pipelines."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox vs custom development."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -53,24 +67,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Celigo",
-      "url": "/compare/bridgebox-vs-celigo"
+      "text": "Explore Manufacturing",
+      "url": "/industry/manufacturing"
     },
     {
-      "text": "Explore How Ai Is Disrupting Oil And Gas In 2026",
-      "url": "/blog/how-ai-is-disrupting-oil-and-gas-in-2026"
+      "text": "Explore Document Management Workflow For Food And Beverage",
+      "url": "/industry/food-and-beverage-document-management-workflow"
+    },
+    {
+      "text": "Explore Document Management Workflow For Dealerships",
+      "url": "/industry/dealerships-document-management-workflow"
     },
     {
       "text": "Explore Bridgebox Teams Integration",
       "url": "/integrations/teams"
     },
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
-    },
-    {
-      "text": "Explore 5 Ways To Automate Property Management Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-property-management-operations-without-coding"
+      "text": "Explore Document Management Workflow For Warehousing",
+      "url": "/industry/warehousing-document-management-workflow"
     }
   ]
 }

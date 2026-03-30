@@ -26,6 +26,20 @@
         "description": "You can't easily deploy customized client portals via Tray.Io. Bridgebox auto-generates your front-ends tied directly to your pipelines."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox vs tray.io."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -53,24 +67,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Property Management",
-      "url": "/industry/property-management-client-intake-automation"
+      "text": "Explore Automate Tax Document Sorting",
+      "url": "/use-cases/tax-document-sorting"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Law Firms",
-      "url": "/industry/law-firms-payroll-processing-compliance"
+      "text": "Explore Role-Based Access Control",
+      "url": "/features/role-based-access-control"
     },
     {
-      "text": "Explore Document Management Workflow For Construction",
-      "url": "/industry/construction-document-management-workflow"
+      "text": "Explore Bridgebox Github Integration",
+      "url": "/integrations/github"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Construction",
-      "url": "/industry/construction-inventory-depletion-alerts"
+      "text": "Explore Automate Inventory Management",
+      "url": "/use-cases/inventory-management"
     },
     {
-      "text": "Explore Client Intake Automation For Healthcare",
-      "url": "/industry/healthcare-client-intake-automation"
+      "text": "Explore Automate Compliance Reporting",
+      "url": "/use-cases/compliance-reporting"
     }
   ]
 }

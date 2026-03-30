@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate healthcare operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Document Management Workflow For E-Commerce",
-      "url": "/industry/e-commerce-document-management-workflow"
+      "text": "Explore Bridgebox Vs Ifttt",
+      "url": "/compare/bridgebox-vs-ifttt"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Travel",
-      "url": "/industry/travel-payroll-processing-compliance"
+      "text": "Explore Hospitality",
+      "url": "/industry/hospitality"
     },
     {
-      "text": "Explore Bridgebox Twilio Integration",
-      "url": "/integrations/twilio"
+      "text": "Explore Document Management Workflow For Agencies",
+      "url": "/industry/agencies-document-management-workflow"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Property Management",
-      "url": "/industry/property-management-payroll-processing-compliance"
+      "text": "Explore Document Management Workflow For Warehousing",
+      "url": "/industry/warehousing-document-management-workflow"
     },
     {
-      "text": "Explore Automate Booking Reminders",
-      "url": "/use-cases/booking-reminders"
+      "text": "Explore Inventory Depletion Alerts For Nonprofits",
+      "url": "/industry/nonprofits-inventory-depletion-alerts"
     }
   ]
 }

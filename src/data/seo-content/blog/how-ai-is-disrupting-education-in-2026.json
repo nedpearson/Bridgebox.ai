@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting education in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Law Firms",
-      "url": "/industry/law-firms-client-intake-automation"
+      "text": "Explore Inventory Depletion Alerts For Nonprofits",
+      "url": "/industry/nonprofits-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
+      "text": "Explore Client Intake Automation For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-client-intake-automation"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Landscaping",
-      "url": "/industry/landscaping-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-document-management-workflow"
     },
     {
-      "text": "Explore Client Intake Automation For Recruiting",
-      "url": "/industry/recruiting-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-payroll-processing-compliance"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Law Firms",
-      "url": "/industry/law-firms-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Plumbing",
+      "url": "/industry/plumbing-document-management-workflow"
     }
   ]
 }

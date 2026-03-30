@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for dealerships."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Cron Schedulers",
-      "url": "/features/cron-schedulers"
+      "text": "Explore 5 Ways To Automate E-Commerce Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-e-commerce-operations-without-coding"
     },
     {
-      "text": "Explore Document Management Workflow For Law Firms",
-      "url": "/industry/law-firms-document-management-workflow"
+      "text": "Explore The Ultimate Guide To Scaling Invoice Processing Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-invoice-processing-processes"
     },
     {
-      "text": "Explore Bridgebox Vs Celigo",
-      "url": "/compare/bridgebox-vs-celigo"
+      "text": "Explore Automate Cancellation Flows",
+      "url": "/use-cases/cancellation-flows"
     },
     {
-      "text": "Explore Bridgebox Github Integration",
-      "url": "/integrations/github"
+      "text": "Explore Property Management",
+      "url": "/industry/property-management"
     },
     {
-      "text": "Explore Bridgebox Vs Tray.Io",
-      "url": "/compare/bridgebox-vs-tray-io"
+      "text": "Explore Automate Booking Reminders",
+      "url": "/use-cases/booking-reminders"
     }
   ]
 }

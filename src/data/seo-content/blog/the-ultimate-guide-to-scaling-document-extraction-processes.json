@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling document extraction processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Subscription Billing",
-      "url": "/use-cases/subscription-billing"
+      "text": "Explore Client Intake Automation For Insurance",
+      "url": "/industry/insurance-client-intake-automation"
     },
     {
-      "text": "Explore Client Intake Automation For Accounting",
-      "url": "/industry/accounting-client-intake-automation"
+      "text": "Explore Client Intake Automation For Food And Beverage",
+      "url": "/industry/food-and-beverage-client-intake-automation"
     },
     {
-      "text": "Explore Client Intake Automation For Warehousing",
-      "url": "/industry/warehousing-client-intake-automation"
+      "text": "Explore Automate Event Registration",
+      "url": "/use-cases/event-registration"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Financial Services",
-      "url": "/industry/financial-services-inventory-depletion-alerts"
+      "text": "Explore Inventory Depletion Alerts For Recruiting",
+      "url": "/industry/recruiting-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Architecture",
-      "url": "/industry/architecture"
+      "text": "Explore Client Intake Automation For Property Management",
+      "url": "/industry/property-management-client-intake-automation"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate order fulfillment."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Mailgun Integration",
-      "url": "/integrations/mailgun"
+      "text": "Explore Bridgebox Activecampaign Integration",
+      "url": "/integrations/activecampaign"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Automotive Repair",
-      "url": "/industry/automotive-repair-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Client Intake Automation For Engineering",
-      "url": "/industry/engineering-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Financial Services",
+      "url": "/industry/financial-services-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automotive Repair",
-      "url": "/industry/automotive-repair"
+      "text": "Explore Healthcare",
+      "url": "/industry/healthcare"
     },
     {
-      "text": "Explore Oil And Gas",
-      "url": "/industry/oil-and-gas"
+      "text": "Explore Accounting",
+      "url": "/industry/accounting"
     }
   ]
 }

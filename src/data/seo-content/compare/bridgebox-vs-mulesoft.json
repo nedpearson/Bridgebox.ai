@@ -26,6 +26,20 @@
         "description": "You can't easily deploy customized client portals via Mulesoft. Bridgebox auto-generates your front-ends tied directly to your pipelines."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox vs mulesoft."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -53,24 +67,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
+      "text": "Explore Bridgebox Google Drive Integration",
+      "url": "/integrations/google-drive"
     },
     {
-      "text": "Explore Document Management Workflow For Security",
-      "url": "/industry/security-document-management-workflow"
+      "text": "Explore Client Intake Automation For Hospitality",
+      "url": "/industry/hospitality-client-intake-automation"
     },
     {
-      "text": "Explore Automate Order Fulfillment",
-      "url": "/use-cases/order-fulfillment"
+      "text": "Explore Client Intake Automation For Staffing",
+      "url": "/industry/staffing-client-intake-automation"
     },
     {
-      "text": "Explore 5 Ways To Automate Nonprofits Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-nonprofits-operations-without-coding"
+      "text": "Explore Document Management Workflow For Travel",
+      "url": "/industry/travel-document-management-workflow"
     },
     {
-      "text": "Explore 5 Ways To Automate Law Firms Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-law-firms-operations-without-coding"
+      "text": "Explore Inventory Depletion Alerts For Energy",
+      "url": "/industry/energy-inventory-depletion-alerts"
     }
   ]
 }

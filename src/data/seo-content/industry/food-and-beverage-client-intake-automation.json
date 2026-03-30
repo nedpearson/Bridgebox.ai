@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for food and beverage."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Retail In 2026",
-      "url": "/blog/how-ai-is-disrupting-retail-in-2026"
+      "text": "Explore The Ultimate Guide To Scaling Inventory Management Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-inventory-management-processes"
     },
     {
-      "text": "Explore Bridgebox Mailchimp Integration",
-      "url": "/integrations/mailchimp"
+      "text": "Explore Bridgebox Trello Integration",
+      "url": "/integrations/trello"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Invoice Processing Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-invoice-processing-processes"
+      "text": "Explore Bridgebox Vs Custom Development",
+      "url": "/compare/bridgebox-vs-custom-development"
     },
     {
-      "text": "Explore Data Normalization",
-      "url": "/features/data-normalization"
+      "text": "Explore Bridgebox Vs Manual Labor",
+      "url": "/compare/bridgebox-vs-manual-labor"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Nonprofits",
-      "url": "/industry/nonprofits-payroll-processing-compliance"
+      "text": "Explore Automate Candidate Screening",
+      "url": "/use-cases/candidate-screening"
     }
   ]
 }

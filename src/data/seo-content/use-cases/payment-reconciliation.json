@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate payment reconciliation."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Manufacturing",
-      "url": "/industry/manufacturing-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Food And Beverage",
+      "url": "/industry/food-and-beverage-payroll-processing-compliance"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Security",
-      "url": "/industry/security-payroll-processing-compliance"
+      "text": "Explore Payroll Processing Compliance For Hvac",
+      "url": "/industry/hvac-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Vs Pipedream",
-      "url": "/compare/bridgebox-vs-pipedream"
+      "text": "Explore Payroll Processing Compliance For Agencies",
+      "url": "/industry/agencies-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Vs Manual Labor",
-      "url": "/compare/bridgebox-vs-manual-labor"
+      "text": "Explore Education",
+      "url": "/industry/education"
     },
     {
-      "text": "Explore Plumbing",
-      "url": "/industry/plumbing"
+      "text": "Explore Document Management Workflow For Law Firms",
+      "url": "/industry/law-firms-document-management-workflow"
     }
   ]
 }

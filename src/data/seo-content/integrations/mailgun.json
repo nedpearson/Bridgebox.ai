@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox mailgun integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Integrately",
-      "url": "/compare/bridgebox-vs-integrately"
+      "text": "Explore Scheduled Triggers",
+      "url": "/features/scheduled-triggers"
     },
     {
-      "text": "Explore Client Intake Automation For Logistics",
-      "url": "/industry/logistics-client-intake-automation"
+      "text": "Explore Document Management Workflow For Logistics",
+      "url": "/industry/logistics-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Slack Integration",
-      "url": "/integrations/slack"
+      "text": "Explore Payroll Processing Compliance For Nonprofits",
+      "url": "/industry/nonprofits-payroll-processing-compliance"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Travel",
-      "url": "/industry/travel-payroll-processing-compliance"
+      "text": "Explore Bridgebox Zoom Integration",
+      "url": "/integrations/zoom"
     },
     {
-      "text": "Explore Bridgebox Vs N8n",
-      "url": "/compare/bridgebox-vs-n8n"
+      "text": "Explore Bridgebox Netsuite Integration",
+      "url": "/integrations/netsuite"
     }
   ]
 }

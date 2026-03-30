@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate contract generation."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore The Ultimate Guide To Scaling Support Ticket Routing Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-support-ticket-routing-processes"
+      "text": "Explore Client Intake Automation For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-client-intake-automation"
     },
     {
-      "text": "Explore 5 Ways To Automate Accounting Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-accounting-operations-without-coding"
+      "text": "Explore Document Management Workflow For Manufacturing",
+      "url": "/industry/manufacturing-document-management-workflow"
     },
     {
-      "text": "Explore 5 Ways To Automate Logistics Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-logistics-operations-without-coding"
+      "text": "Explore 5 Ways To Automate Architecture Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-architecture-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Plumbing Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-plumbing-operations-without-coding"
+      "text": "Explore Bridgebox Vs Celigo",
+      "url": "/compare/bridgebox-vs-celigo"
     },
     {
-      "text": "Explore 5 Ways To Automate Engineering Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-engineering-operations-without-coding"
+      "text": "Explore Document Management Workflow For Agencies",
+      "url": "/industry/agencies-document-management-workflow"
     }
   ]
 }

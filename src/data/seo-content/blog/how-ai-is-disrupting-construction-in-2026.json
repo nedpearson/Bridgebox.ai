@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting construction in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Manufacturing",
-      "url": "/industry/manufacturing-client-intake-automation"
+      "text": "Explore Automate Email Triage",
+      "url": "/use-cases/email-triage"
     },
     {
-      "text": "Explore Media",
-      "url": "/industry/media"
+      "text": "Explore Payroll Processing Compliance For Dental Clinics",
+      "url": "/industry/dental-clinics-payroll-processing-compliance"
     },
     {
-      "text": "Explore Plumbing",
-      "url": "/industry/plumbing"
+      "text": "Explore Payroll Processing Compliance For Financial Services",
+      "url": "/industry/financial-services-payroll-processing-compliance"
     },
     {
-      "text": "Explore Veterinary",
-      "url": "/industry/veterinary"
+      "text": "Explore Property Management",
+      "url": "/industry/property-management"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Automotive Repair",
-      "url": "/industry/automotive-repair-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Nonprofits",
+      "url": "/industry/nonprofits-payroll-processing-compliance"
     }
   ]
 }

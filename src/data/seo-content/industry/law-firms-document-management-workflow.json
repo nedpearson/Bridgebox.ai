@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for law firms."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Veterinary Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-veterinary-operations-without-coding"
+      "text": "Explore Bridgebox Vs Autocode",
+      "url": "/compare/bridgebox-vs-autocode"
     },
     {
-      "text": "Explore Automate Cancellation Flows",
-      "url": "/use-cases/cancellation-flows"
+      "text": "Explore Inventory Depletion Alerts For Law Firms",
+      "url": "/industry/law-firms-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Zoom Integration",
-      "url": "/integrations/zoom"
+      "text": "Explore Bridgebox Vs Glide",
+      "url": "/compare/bridgebox-vs-glide"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Client Onboarding Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-client-onboarding-processes"
+      "text": "Explore Automate Inventory Management",
+      "url": "/use-cases/inventory-management"
     },
     {
-      "text": "Explore Bridgebox Mailgun Integration",
-      "url": "/integrations/mailgun"
+      "text": "Explore Inventory Depletion Alerts For Property Management",
+      "url": "/industry/property-management-inventory-depletion-alerts"
     }
   ]
 }

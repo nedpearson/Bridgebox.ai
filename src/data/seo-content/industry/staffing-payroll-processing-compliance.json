@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for staffing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Custom Form Builder",
-      "url": "/features/custom-form-builder"
+      "text": "Explore Client Intake Automation For Travel",
+      "url": "/industry/travel-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Sendgrid Integration",
-      "url": "/integrations/sendgrid"
+      "text": "Explore Bridgebox Vs Tray.Io",
+      "url": "/compare/bridgebox-vs-tray-io"
     },
     {
-      "text": "Explore Bridgebox Airtable Integration",
-      "url": "/integrations/airtable"
+      "text": "Explore 5 Ways To Automate Construction Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-construction-operations-without-coding"
     },
     {
-      "text": "Explore Bridgebox Vs Retool",
-      "url": "/compare/bridgebox-vs-retool"
+      "text": "Explore Automate Shift Scheduling",
+      "url": "/use-cases/shift-scheduling"
     },
     {
-      "text": "Explore Bridgebox Vs Zapier",
-      "url": "/compare/bridgebox-vs-zapier"
+      "text": "Explore Automate Maintenance Requests",
+      "url": "/use-cases/maintenance-requests"
     }
   ]
 }

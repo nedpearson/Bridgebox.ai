@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for agencies."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Energy",
-      "url": "/industry/energy-client-intake-automation"
+      "text": "Explore 5 Ways To Automate Landscaping Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-landscaping-operations-without-coding"
     },
     {
-      "text": "Explore Bridgebox Zendesk Integration",
-      "url": "/integrations/zendesk"
+      "text": "Explore Payroll Processing Compliance For Staffing",
+      "url": "/industry/staffing-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Loan Processing",
-      "url": "/use-cases/loan-processing"
+      "text": "Explore Client Intake Automation For Security",
+      "url": "/industry/security-client-intake-automation"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Lead Qualification Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-lead-qualification-processes"
+      "text": "Explore Bridgebox Google Drive Integration",
+      "url": "/integrations/google-drive"
     },
     {
-      "text": "Explore Client Intake Automation For Insurance",
-      "url": "/industry/insurance-client-intake-automation"
+      "text": "Explore Landscaping",
+      "url": "/industry/landscaping"
     }
   ]
 }

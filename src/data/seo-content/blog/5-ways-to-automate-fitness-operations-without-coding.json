@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate fitness operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Mailgun Integration",
-      "url": "/integrations/mailgun"
+      "text": "Explore Payroll Processing Compliance For Architecture",
+      "url": "/industry/architecture-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Notion Integration",
-      "url": "/integrations/notion"
+      "text": "Explore Payroll Processing Compliance For Automotive Repair",
+      "url": "/industry/automotive-repair-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Typeform Integration",
-      "url": "/integrations/typeform"
+      "text": "Explore Automate Loan Processing",
+      "url": "/use-cases/loan-processing"
     },
     {
-      "text": "Explore Bridgebox Workday Integration",
-      "url": "/integrations/workday"
+      "text": "Explore Inventory Depletion Alerts For Retail",
+      "url": "/industry/retail-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Zoom Integration",
-      "url": "/integrations/zoom"
+      "text": "Explore Agencies",
+      "url": "/industry/agencies"
     }
   ]
 }

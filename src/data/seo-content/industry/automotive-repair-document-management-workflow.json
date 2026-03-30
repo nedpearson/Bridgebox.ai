@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for automotive repair."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Workato",
-      "url": "/compare/bridgebox-vs-workato"
+      "text": "Explore Automate Booking Reminders",
+      "url": "/use-cases/booking-reminders"
     },
     {
-      "text": "Explore 5 Ways To Automate E-Commerce Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-e-commerce-operations-without-coding"
+      "text": "Explore Webhook Listeners",
+      "url": "/features/webhook-listeners"
     },
     {
-      "text": "Explore Automate Appointment Booking",
-      "url": "/use-cases/appointment-booking"
+      "text": "Explore Payroll Processing Compliance For Retail",
+      "url": "/industry/retail-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Event Registration",
-      "url": "/use-cases/event-registration"
+      "text": "Explore Ai Logic Gates",
+      "url": "/features/ai-logic-gates"
     },
     {
-      "text": "Explore Bridgebox Workday Integration",
-      "url": "/integrations/workday"
+      "text": "Explore Bridgebox Stripe Integration",
+      "url": "/integrations/stripe"
     }
   ]
 }

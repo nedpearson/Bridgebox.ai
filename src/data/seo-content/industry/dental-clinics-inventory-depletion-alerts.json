@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for dental clinics."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Gmail Integration",
-      "url": "/integrations/gmail"
+      "text": "Explore Integration Engine",
+      "url": "/features/integration-engine"
     },
     {
-      "text": "Explore 5 Ways To Automate Recruiting Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-recruiting-operations-without-coding"
+      "text": "Explore Client Intake Automation For Dental Clinics",
+      "url": "/industry/dental-clinics-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Vs Zapier",
-      "url": "/compare/bridgebox-vs-zapier"
+      "text": "Explore Document Management Workflow For Hospitality",
+      "url": "/industry/hospitality-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Salesforce Integration",
-      "url": "/integrations/salesforce"
+      "text": "Explore Bridgebox Vs Workato",
+      "url": "/compare/bridgebox-vs-workato"
     },
     {
-      "text": "Explore Bridgebox Vs Mulesoft",
-      "url": "/compare/bridgebox-vs-mulesoft"
+      "text": "Explore Payroll Processing Compliance For Financial Services",
+      "url": "/industry/financial-services-payroll-processing-compliance"
     }
   ]
 }

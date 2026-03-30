@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for e-commerce."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Automotive Repair",
-      "url": "/industry/automotive-repair-client-intake-automation"
+      "text": "Explore 5 Ways To Automate Plumbing Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-plumbing-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Warehousing Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-warehousing-operations-without-coding"
+      "text": "Explore Bridgebox Vs Boomi",
+      "url": "/compare/bridgebox-vs-boomi"
     },
     {
-      "text": "Explore Document Management Workflow For Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness-document-management-workflow"
+      "text": "Explore Insurance",
+      "url": "/industry/insurance"
     },
     {
-      "text": "Explore Document Management Workflow For Plumbing",
-      "url": "/industry/plumbing-document-management-workflow"
+      "text": "Explore Client Intake Automation For Accounting",
+      "url": "/industry/accounting-client-intake-automation"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Manufacturing",
-      "url": "/industry/manufacturing-inventory-depletion-alerts"
+      "text": "Explore Inventory Depletion Alerts For Construction",
+      "url": "/industry/construction-inventory-depletion-alerts"
     }
   ]
 }

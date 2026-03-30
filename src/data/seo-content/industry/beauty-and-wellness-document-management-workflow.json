@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for beauty and wellness."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automotive Repair",
-      "url": "/industry/automotive-repair"
+      "text": "Explore 5 Ways To Automate Entertainment Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-entertainment-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Agencies Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-agencies-operations-without-coding"
+      "text": "Explore Bridgebox Asana Integration",
+      "url": "/integrations/asana"
     },
     {
-      "text": "Explore Bridgebox Workday Integration",
-      "url": "/integrations/workday"
+      "text": "Explore Automate Candidate Screening",
+      "url": "/use-cases/candidate-screening"
     },
     {
-      "text": "Explore Ai Logic Gates",
-      "url": "/features/ai-logic-gates"
+      "text": "Explore Bridgebox Sendgrid Integration",
+      "url": "/integrations/sendgrid"
     },
     {
-      "text": "Explore Bridgebox Vs Workato",
-      "url": "/compare/bridgebox-vs-workato"
+      "text": "Explore Automate Audit Logs Reporting",
+      "url": "/use-cases/audit-logs-reporting"
     }
   ]
 }

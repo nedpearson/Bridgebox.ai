@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox notion integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Commission Tracking",
-      "url": "/use-cases/commission-tracking"
+      "text": "Explore Client Intake Automation For Construction",
+      "url": "/industry/construction-client-intake-automation"
     },
     {
-      "text": "Explore Client Intake Automation For Oil And Gas",
-      "url": "/industry/oil-and-gas-client-intake-automation"
+      "text": "Explore Automate Vendor Management",
+      "url": "/use-cases/vendor-management"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Insurance",
-      "url": "/industry/insurance-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Vs Glide",
+      "url": "/compare/bridgebox-vs-glide"
     },
     {
-      "text": "Explore Client Intake Automation For Travel",
-      "url": "/industry/travel-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Hvac",
+      "url": "/industry/hvac-payroll-processing-compliance"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Travel",
-      "url": "/industry/travel-payroll-processing-compliance"
+      "text": "Explore Automate Support Ticket Routing",
+      "url": "/use-cases/support-ticket-routing"
     }
   ]
 }

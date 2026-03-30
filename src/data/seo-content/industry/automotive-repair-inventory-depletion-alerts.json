@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for automotive repair."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Landscaping In 2026",
-      "url": "/blog/how-ai-is-disrupting-landscaping-in-2026"
+      "text": "Explore How Ai Is Disrupting Nonprofits In 2026",
+      "url": "/blog/how-ai-is-disrupting-nonprofits-in-2026"
     },
     {
-      "text": "Explore How Ai Is Disrupting Fitness In 2026",
-      "url": "/blog/how-ai-is-disrupting-fitness-in-2026"
+      "text": "Explore Automate Fleet Routing",
+      "url": "/use-cases/fleet-routing"
     },
     {
-      "text": "Explore Automate Vendor Management",
-      "url": "/use-cases/vendor-management"
+      "text": "Explore Automate Proposal Drafting",
+      "url": "/use-cases/proposal-drafting"
     },
     {
-      "text": "Explore 5 Ways To Automate Travel Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-travel-operations-without-coding"
+      "text": "Explore Automate Logistics Tracking",
+      "url": "/use-cases/logistics-tracking"
     },
     {
-      "text": "Explore Automate Shift Scheduling",
-      "url": "/use-cases/shift-scheduling"
+      "text": "Explore Automate Candidate Screening",
+      "url": "/use-cases/candidate-screening"
     }
   ]
 }

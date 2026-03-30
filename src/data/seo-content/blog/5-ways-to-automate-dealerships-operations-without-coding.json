@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate dealerships operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Document Management Workflow For Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness-document-management-workflow"
+      "text": "Explore Document Management Workflow For Insurance",
+      "url": "/industry/insurance-document-management-workflow"
     },
     {
-      "text": "Explore Automate Lead Nurturing",
-      "url": "/use-cases/lead-nurturing"
+      "text": "Explore Bridgebox Bamboo Hr Integration",
+      "url": "/integrations/bamboo-hr"
     },
     {
-      "text": "Explore Document Management Workflow For Hvac",
-      "url": "/industry/hvac-document-management-workflow"
-    },
-    {
-      "text": "Explore Hvac",
-      "url": "/industry/hvac"
+      "text": "Explore Automate Loan Processing",
+      "url": "/use-cases/loan-processing"
     },
     {
       "text": "Explore Document Management Workflow For Plumbing",
       "url": "/industry/plumbing-document-management-workflow"
+    },
+    {
+      "text": "Explore Automate Invoice Processing",
+      "url": "/use-cases/invoice-processing"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for plumbing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Workday Integration",
-      "url": "/integrations/workday"
+      "text": "Explore Automate Candidate Screening",
+      "url": "/use-cases/candidate-screening"
     },
     {
-      "text": "Explore Bridgebox Toggl Integration",
-      "url": "/integrations/toggl"
+      "text": "Explore 5 Ways To Automate E-Commerce Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-e-commerce-operations-without-coding"
     },
     {
-      "text": "Explore How Ai Is Disrupting Healthcare In 2026",
-      "url": "/blog/how-ai-is-disrupting-healthcare-in-2026"
+      "text": "Explore Inventory Depletion Alerts For Fitness",
+      "url": "/industry/fitness-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Branching Logic",
-      "url": "/features/branching-logic"
+      "text": "Explore Payroll Processing Compliance For Engineering",
+      "url": "/industry/engineering-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Aws Integration",
-      "url": "/integrations/aws"
+      "text": "Explore Inventory Depletion Alerts For Accounting",
+      "url": "/industry/accounting-inventory-depletion-alerts"
     }
   ]
 }

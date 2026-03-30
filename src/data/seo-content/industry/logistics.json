@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for logistics."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Shopify Integration",
-      "url": "/integrations/shopify"
+      "text": "Explore 5 Ways To Automate Oil And Gas Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-oil-and-gas-operations-without-coding"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Invoice Processing Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-invoice-processing-processes"
+      "text": "Explore Bridgebox Toggl Integration",
+      "url": "/integrations/toggl"
     },
     {
-      "text": "Explore How Ai Is Disrupting Manufacturing In 2026",
-      "url": "/blog/how-ai-is-disrupting-manufacturing-in-2026"
+      "text": "Explore Document Management Workflow For Entertainment",
+      "url": "/industry/entertainment-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Bamboo Hr Integration",
-      "url": "/integrations/bamboo-hr"
+      "text": "Explore Automate Event Registration",
+      "url": "/use-cases/event-registration"
     },
     {
-      "text": "Explore How Ai Is Disrupting Financial Services In 2026",
-      "url": "/blog/how-ai-is-disrupting-financial-services-in-2026"
+      "text": "Explore Automate Asset Management",
+      "url": "/use-cases/asset-management"
     }
   ]
 }

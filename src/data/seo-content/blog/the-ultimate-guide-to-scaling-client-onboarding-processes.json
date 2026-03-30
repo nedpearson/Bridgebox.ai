@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling client onboarding processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Manufacturing",
-      "url": "/industry/manufacturing-client-intake-automation"
+      "text": "Explore Bridgebox Sap Integration",
+      "url": "/integrations/sap"
     },
     {
-      "text": "Explore Document Management Workflow For Automotive Repair",
-      "url": "/industry/automotive-repair-document-management-workflow"
+      "text": "Explore Bridgebox Vs Zapier",
+      "url": "/compare/bridgebox-vs-zapier"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Energy",
-      "url": "/industry/energy-payroll-processing-compliance"
+      "text": "Explore Fitness",
+      "url": "/industry/fitness"
     },
     {
-      "text": "Explore Client Intake Automation For E-Commerce",
-      "url": "/industry/e-commerce-client-intake-automation"
+      "text": "Explore Inventory Depletion Alerts For Hvac",
+      "url": "/industry/hvac-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Veterinary",
-      "url": "/industry/veterinary-payroll-processing-compliance"
+      "text": "Explore Document Management Workflow For Landscaping",
+      "url": "/industry/landscaping-document-management-workflow"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate accounting operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Document Extraction",
-      "url": "/use-cases/document-extraction"
+      "text": "Explore Inventory Depletion Alerts For Plumbing",
+      "url": "/industry/plumbing-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Insurance",
-      "url": "/industry/insurance-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Dental Clinics",
+      "url": "/industry/dental-clinics-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Cancellation Flows",
-      "url": "/use-cases/cancellation-flows"
+      "text": "Explore Client Intake Automation For Automotive Repair",
+      "url": "/industry/automotive-repair-client-intake-automation"
     },
     {
-      "text": "Explore Client Intake Automation For Staffing",
-      "url": "/industry/staffing-client-intake-automation"
+      "text": "Explore Inventory Depletion Alerts For Veterinary",
+      "url": "/industry/veterinary-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Real Estate",
-      "url": "/industry/real-estate-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Warehousing",
+      "url": "/industry/warehousing-payroll-processing-compliance"
     }
   ]
 }

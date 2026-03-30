@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox google drive integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Security",
-      "url": "/industry/security-client-intake-automation"
+      "text": "Explore Security",
+      "url": "/industry/security"
     },
     {
-      "text": "Explore Document Management Workflow For Manufacturing",
-      "url": "/industry/manufacturing-document-management-workflow"
+      "text": "Explore Payroll Processing Compliance For Landscaping",
+      "url": "/industry/landscaping-payroll-processing-compliance"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Architecture",
-      "url": "/industry/architecture-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Wealth Management",
+      "url": "/industry/wealth-management-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Landscaping",
-      "url": "/industry/landscaping"
+      "text": "Explore Document Management Workflow For Insurance",
+      "url": "/industry/insurance-document-management-workflow"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Architecture",
-      "url": "/industry/architecture-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Construction",
+      "url": "/industry/construction-document-management-workflow"
     }
   ]
 }

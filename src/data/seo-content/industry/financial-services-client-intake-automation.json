@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for financial services."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Document Management Workflow For Agencies",
-      "url": "/industry/agencies-document-management-workflow"
+      "text": "Explore Multi-Tenant Architecture",
+      "url": "/features/multi-tenant-architecture"
     },
     {
-      "text": "Explore 5 Ways To Automate Property Management Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-property-management-operations-without-coding"
+      "text": "Explore How Ai Is Disrupting Manufacturing In 2026",
+      "url": "/blog/how-ai-is-disrupting-manufacturing-in-2026"
     },
     {
-      "text": "Explore Bridgebox Mailgun Integration",
-      "url": "/integrations/mailgun"
+      "text": "Explore How Ai Is Disrupting Financial Services In 2026",
+      "url": "/blog/how-ai-is-disrupting-financial-services-in-2026"
     },
     {
-      "text": "Explore Bridgebox Oracle Integration",
-      "url": "/integrations/oracle"
+      "text": "Explore 5 Ways To Automate Nonprofits Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-nonprofits-operations-without-coding"
     },
     {
-      "text": "Explore Bridgebox Slack Integration",
-      "url": "/integrations/slack"
+      "text": "Explore Bridgebox Calendly Integration",
+      "url": "/integrations/calendly"
     }
   ]
 }

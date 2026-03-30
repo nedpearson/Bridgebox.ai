@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for construction."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Recruiting Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-recruiting-operations-without-coding"
+      "text": "Explore E-Commerce",
+      "url": "/industry/e-commerce"
     },
     {
-      "text": "Explore 5 Ways To Automate Nonprofits Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-nonprofits-operations-without-coding"
+      "text": "Explore Bridgebox Quickbooks Integration",
+      "url": "/integrations/quickbooks"
     },
     {
-      "text": "Explore 5 Ways To Automate Warehousing Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-warehousing-operations-without-coding"
+      "text": "Explore Inventory Depletion Alerts For Fitness",
+      "url": "/industry/fitness-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Logistics Tracking",
-      "url": "/use-cases/logistics-tracking"
+      "text": "Explore Automate Contract Generation",
+      "url": "/use-cases/contract-generation"
     },
     {
-      "text": "Explore Bridgebox Mailchimp Integration",
-      "url": "/integrations/mailchimp"
+      "text": "Explore Document Management Workflow For Manufacturing",
+      "url": "/industry/manufacturing-document-management-workflow"
     }
   ]
 }

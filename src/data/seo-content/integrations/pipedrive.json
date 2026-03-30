@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox pipedrive integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Plumbing",
-      "url": "/industry/plumbing-inventory-depletion-alerts"
+      "text": "Explore Nonprofits",
+      "url": "/industry/nonprofits"
     },
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
+      "text": "Explore Inventory Depletion Alerts For Security",
+      "url": "/industry/security-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Proposal Drafting",
-      "url": "/use-cases/proposal-drafting"
+      "text": "Explore 5 Ways To Automate Wealth Management Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-wealth-management-operations-without-coding"
     },
     {
-      "text": "Explore Automate Commission Tracking",
-      "url": "/use-cases/commission-tracking"
+      "text": "Explore 5 Ways To Automate Recruiting Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-recruiting-operations-without-coding"
     },
     {
-      "text": "Explore Client Intake Automation For Security",
-      "url": "/industry/security-client-intake-automation"
+      "text": "Explore Api Proxying",
+      "url": "/features/api-proxying"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting fitness in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Scheduled Triggers",
-      "url": "/features/scheduled-triggers"
+      "text": "Explore Document Management Workflow For Insurance",
+      "url": "/industry/insurance-document-management-workflow"
     },
     {
-      "text": "Explore Client Intake Automation For Insurance",
-      "url": "/industry/insurance-client-intake-automation"
+      "text": "Explore Bridgebox Salesforce Integration",
+      "url": "/integrations/salesforce"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Dealerships",
-      "url": "/industry/dealerships-payroll-processing-compliance"
+      "text": "Explore Automate Logistics Tracking",
+      "url": "/use-cases/logistics-tracking"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Accounting",
-      "url": "/industry/accounting-inventory-depletion-alerts"
+      "text": "Explore Client Intake Automation For Fitness",
+      "url": "/industry/fitness-client-intake-automation"
     },
     {
-      "text": "Explore E-Commerce",
-      "url": "/industry/e-commerce"
+      "text": "Explore Document Management Workflow For Pest Control",
+      "url": "/industry/pest-control-document-management-workflow"
     }
   ]
 }

@@ -196,6 +196,33 @@ const ProgrammaticSeoPage = () => {
           </section>
         )}
 
+        {/* Visual Workflow Steps (Exploiting Competitor Generics) */}
+        {data.content.workflowSteps && (
+          <section className="py-24 max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4">How the {capitalize(data.keyword)} Pipeline Works</h2>
+              <p className="text-slate-400 text-lg">A true enterprise system doesn't just trigger simple actions—it natively orchestrates complex transactional environments autonomously.</p>
+            </div>
+            
+            <div className="relative">
+              {/* Desktop Connecting Logic Line */}
+              <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500/0 via-indigo-500/50 to-indigo-500/0"></div>
+              
+              <div className="grid lg:grid-cols-3 gap-12 lg:gap-8 relative z-10">
+                 {data.content.workflowSteps.map((step: any, idx: number) => (
+                    <div key={idx} className="bg-slate-950 border border-slate-800 rounded-2xl p-8 relative hover:border-indigo-500/40 transition-colors">
+                       <div className="absolute -top-6 left-8 lg:left-1/2 lg:-translate-x-1/2 w-12 h-12 bg-slate-900 border-2 border-indigo-500 rounded-full flex items-center justify-center text-indigo-400 font-bold text-xl shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                         {idx + 1}
+                       </div>
+                       <h3 className="text-xl font-bold text-white mb-3 mt-4 lg:text-center">{step.title}</h3>
+                       <p className="text-slate-400 leading-relaxed text-sm lg:text-center">{step.description}</p>
+                    </div>
+                 ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* SEO Internal Link Graph Mapping (Phase 5) */}
         {data.internalLinks && data.internalLinks.length > 0 && (
           <section className="py-24 max-w-7xl mx-auto px-6 lg:px-8 border-b border-slate-800">

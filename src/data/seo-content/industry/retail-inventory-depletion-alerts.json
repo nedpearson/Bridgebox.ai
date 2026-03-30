@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for retail."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Toggl Integration",
-      "url": "/integrations/toggl"
+      "text": "Explore Cron Schedulers",
+      "url": "/features/cron-schedulers"
     },
     {
-      "text": "Explore Entertainment",
-      "url": "/industry/entertainment"
+      "text": "Explore Workflow Orchestration",
+      "url": "/features/workflow-orchestration"
     },
     {
-      "text": "Explore Automate Loan Processing",
-      "url": "/use-cases/loan-processing"
+      "text": "Explore How Ai Is Disrupting Engineering In 2026",
+      "url": "/blog/how-ai-is-disrupting-engineering-in-2026"
     },
     {
-      "text": "Explore Automate Support Ticket Routing",
-      "url": "/use-cases/support-ticket-routing"
+      "text": "Explore How Ai Is Disrupting Veterinary In 2026",
+      "url": "/blog/how-ai-is-disrupting-veterinary-in-2026"
     },
     {
-      "text": "Explore Agencies",
-      "url": "/industry/agencies"
+      "text": "Explore The Ultimate Guide To Scaling Contract Generation Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-contract-generation-processes"
     }
   ]
 }

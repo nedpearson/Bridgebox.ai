@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox hubspot integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
+      "text": "Explore Healthcare",
+      "url": "/industry/healthcare"
+    },
+    {
+      "text": "Explore Bridgebox Vs Boomi",
+      "url": "/compare/bridgebox-vs-boomi"
+    },
+    {
+      "text": "Explore Custom Form Builder",
+      "url": "/features/custom-form-builder"
+    },
+    {
       "text": "Explore 5 Ways To Automate Energy Operations Without Coding",
       "url": "/blog/5-ways-to-automate-energy-operations-without-coding"
     },
     {
-      "text": "Explore Client Intake Automation For Oil And Gas",
-      "url": "/industry/oil-and-gas-client-intake-automation"
-    },
-    {
-      "text": "Explore Payroll Processing Compliance For Wealth Management",
-      "url": "/industry/wealth-management-payroll-processing-compliance"
-    },
-    {
-      "text": "Explore Client Intake Automation For Hvac",
-      "url": "/industry/hvac-client-intake-automation"
-    },
-    {
-      "text": "Explore Payroll Processing Compliance For Financial Services",
-      "url": "/industry/financial-services-payroll-processing-compliance"
+      "text": "Explore How Ai Is Disrupting Hvac In 2026",
+      "url": "/blog/how-ai-is-disrupting-hvac-in-2026"
     }
   ]
 }

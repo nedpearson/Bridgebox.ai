@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to workflow orchestration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Nonprofits",
-      "url": "/industry/nonprofits-client-intake-automation"
+      "text": "Explore Client Intake Automation For Warehousing",
+      "url": "/industry/warehousing-client-intake-automation"
     },
     {
-      "text": "Explore Document Management Workflow For Recruiting",
-      "url": "/industry/recruiting-document-management-workflow"
+      "text": "Explore Automate Logistics Tracking",
+      "url": "/use-cases/logistics-tracking"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Warehousing",
-      "url": "/industry/warehousing-payroll-processing-compliance"
+      "text": "Explore Bridgebox Zoom Integration",
+      "url": "/integrations/zoom"
     },
     {
-      "text": "Explore Logistics",
-      "url": "/industry/logistics"
+      "text": "Explore Automate Vendor Onboarding",
+      "url": "/use-cases/vendor-onboarding"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Pest Control",
-      "url": "/industry/pest-control-payroll-processing-compliance"
+      "text": "Explore Bridgebox Vs Mulesoft",
+      "url": "/compare/bridgebox-vs-mulesoft"
     }
   ]
 }

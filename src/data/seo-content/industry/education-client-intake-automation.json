@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for education."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Twilio Integration",
-      "url": "/integrations/twilio"
+      "text": "Explore Bridgebox Vs Manual Labor",
+      "url": "/compare/bridgebox-vs-manual-labor"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Client Onboarding Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-client-onboarding-processes"
+      "text": "Explore Bridgebox Sendgrid Integration",
+      "url": "/integrations/sendgrid"
     },
     {
-      "text": "Explore How Ai Is Disrupting Financial Services In 2026",
-      "url": "/blog/how-ai-is-disrupting-financial-services-in-2026"
+      "text": "Explore Automate Quality Assurance",
+      "url": "/use-cases/quality-assurance"
     },
     {
-      "text": "Explore 5 Ways To Automate Healthcare Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-healthcare-operations-without-coding"
+      "text": "Explore How Ai Is Disrupting Real Estate In 2026",
+      "url": "/blog/how-ai-is-disrupting-real-estate-in-2026"
     },
     {
-      "text": "Explore Data Normalization",
-      "url": "/features/data-normalization"
+      "text": "Explore Payroll Processing Compliance For Media",
+      "url": "/industry/media-payroll-processing-compliance"
     }
   ]
 }

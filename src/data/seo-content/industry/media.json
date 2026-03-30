@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for media."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Harvest Integration",
-      "url": "/integrations/harvest"
+      "text": "Explore Inventory Depletion Alerts For Recruiting",
+      "url": "/industry/recruiting-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Employee Onboarding",
-      "url": "/use-cases/employee-onboarding"
+      "text": "Explore Bridgebox Teams Integration",
+      "url": "/integrations/teams"
     },
     {
-      "text": "Explore Bridgebox Vs Celigo",
-      "url": "/compare/bridgebox-vs-celigo"
+      "text": "Explore Automate Subscription Billing",
+      "url": "/use-cases/subscription-billing"
     },
     {
-      "text": "Explore Dealerships",
-      "url": "/industry/dealerships"
+      "text": "Explore Bridgebox Vs N8n",
+      "url": "/compare/bridgebox-vs-n8n"
     },
     {
-      "text": "Explore Automate Payment Reconciliation",
-      "url": "/use-cases/payment-reconciliation"
+      "text": "Explore Bridgebox Vs Power Automate",
+      "url": "/compare/bridgebox-vs-power-automate"
     }
   ]
 }

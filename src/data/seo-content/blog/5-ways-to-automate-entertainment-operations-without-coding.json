@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate entertainment operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Logistics",
-      "url": "/industry/logistics"
+      "text": "Explore Oil And Gas",
+      "url": "/industry/oil-and-gas"
     },
     {
-      "text": "Explore Integration Engine",
-      "url": "/features/integration-engine"
+      "text": "Explore Financial Services",
+      "url": "/industry/financial-services"
     },
     {
-      "text": "Explore Architecture",
-      "url": "/industry/architecture"
+      "text": "Explore Automate Appointment Booking",
+      "url": "/use-cases/appointment-booking"
     },
     {
-      "text": "Explore Document Management Workflow For Nonprofits",
-      "url": "/industry/nonprofits-document-management-workflow"
+      "text": "Explore Automate Email Triage",
+      "url": "/use-cases/email-triage"
     },
     {
-      "text": "Explore Document Management Workflow For E-Commerce",
-      "url": "/industry/e-commerce-document-management-workflow"
+      "text": "Explore Automate Supply Chain Alerts",
+      "url": "/use-cases/supply-chain-alerts"
     }
   ]
 }

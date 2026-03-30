@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for food and beverage."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Agencies",
-      "url": "/industry/agencies-client-intake-automation"
+      "text": "Explore Bridgebox Gitlab Integration",
+      "url": "/integrations/gitlab"
     },
     {
-      "text": "Explore Automate Vendor Onboarding",
-      "url": "/use-cases/vendor-onboarding"
+      "text": "Explore Automate Audit Logs Reporting",
+      "url": "/use-cases/audit-logs-reporting"
     },
     {
-      "text": "Explore Automate Support Ticket Routing",
-      "url": "/use-cases/support-ticket-routing"
+      "text": "Explore Automate CRM Sync",
+      "url": "/use-cases/crm-sync"
     },
     {
-      "text": "Explore How Ai Is Disrupting Wealth Management In 2026",
-      "url": "/blog/how-ai-is-disrupting-wealth-management-in-2026"
+      "text": "Explore Automate Event Registration",
+      "url": "/use-cases/event-registration"
     },
     {
-      "text": "Explore How Ai Is Disrupting Real Estate In 2026",
-      "url": "/blog/how-ai-is-disrupting-real-estate-in-2026"
+      "text": "Explore Bridgebox Gmail Integration",
+      "url": "/integrations/gmail"
     }
   ]
 }

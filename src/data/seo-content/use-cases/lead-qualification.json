@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate lead qualification."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Food And Beverage",
-      "url": "/industry/food-and-beverage-client-intake-automation"
+      "text": "Explore The Ultimate Guide To Scaling Invoice Processing Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-invoice-processing-processes"
     },
     {
-      "text": "Explore Bridgebox Vs Make.Com",
-      "url": "/compare/bridgebox-vs-make-com"
+      "text": "Explore Payroll Processing Compliance For Plumbing",
+      "url": "/industry/plumbing-payroll-processing-compliance"
     },
     {
-      "text": "Explore Document Management Workflow For Financial Services",
-      "url": "/industry/financial-services-document-management-workflow"
+      "text": "Explore Api Proxying",
+      "url": "/features/api-proxying"
     },
     {
-      "text": "Explore Client Intake Automation For Fitness",
-      "url": "/industry/fitness-client-intake-automation"
+      "text": "Explore Bridgebox Activecampaign Integration",
+      "url": "/integrations/activecampaign"
     },
     {
-      "text": "Explore Client Intake Automation For Manufacturing",
-      "url": "/industry/manufacturing-client-intake-automation"
+      "text": "Explore Human-In-The-Loop Approvals",
+      "url": "/features/human-in-the-loop-approvals"
     }
   ]
 }

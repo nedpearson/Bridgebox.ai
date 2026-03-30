@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for accounting."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Insurance",
-      "url": "/industry/insurance-client-intake-automation"
+      "text": "Explore Client Intake Automation For Staffing",
+      "url": "/industry/staffing-client-intake-automation"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Compliance Reporting Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-compliance-reporting-processes"
+      "text": "Explore Bridgebox Vs Autocode",
+      "url": "/compare/bridgebox-vs-autocode"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Wealth Management",
-      "url": "/industry/wealth-management-payroll-processing-compliance"
+      "text": "Explore Bridgebox Gitlab Integration",
+      "url": "/integrations/gitlab"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Security",
+      "url": "/industry/security-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Sap Integration",
-      "url": "/integrations/sap"
+      "text": "Explore 5 Ways To Automate Media Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-media-operations-without-coding"
     }
   ]
 }

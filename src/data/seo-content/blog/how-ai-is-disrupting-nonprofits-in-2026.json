@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting nonprofits in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Wealth Management",
-      "url": "/industry/wealth-management-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Sap Integration",
+      "url": "/integrations/sap"
     },
     {
-      "text": "Explore Document Management Workflow For Energy",
-      "url": "/industry/energy-document-management-workflow"
+      "text": "Explore Bridgebox Vs Integrately",
+      "url": "/compare/bridgebox-vs-integrately"
     },
     {
-      "text": "Explore Document Management Workflow For Oil And Gas",
-      "url": "/industry/oil-and-gas-document-management-workflow"
+      "text": "Explore Bridgebox Vs Ifttt",
+      "url": "/compare/bridgebox-vs-ifttt"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness-payroll-processing-compliance"
+      "text": "Explore Bridgebox Salesforce Integration",
+      "url": "/integrations/salesforce"
     },
     {
-      "text": "Explore Document Management Workflow For Property Management",
-      "url": "/industry/property-management-document-management-workflow"
+      "text": "Explore Bridgebox Trello Integration",
+      "url": "/integrations/trello"
     }
   ]
 }

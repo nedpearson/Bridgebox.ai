@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox smartsheet integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Food And Beverage",
-      "url": "/industry/food-and-beverage"
+      "text": "Explore Client Intake Automation For Accounting",
+      "url": "/industry/accounting-client-intake-automation"
     },
     {
-      "text": "Explore How Ai Is Disrupting Oil And Gas In 2026",
-      "url": "/blog/how-ai-is-disrupting-oil-and-gas-in-2026"
+      "text": "Explore Education",
+      "url": "/industry/education"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Automotive Repair",
-      "url": "/industry/automotive-repair-inventory-depletion-alerts"
+      "text": "Explore Logistics",
+      "url": "/industry/logistics"
     },
     {
-      "text": "Explore Engineering",
-      "url": "/industry/engineering"
+      "text": "Explore Document Management Workflow For Retail",
+      "url": "/industry/retail-document-management-workflow"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Automotive Repair",
-      "url": "/industry/automotive-repair-payroll-processing-compliance"
+      "text": "Explore Client Intake Automation For Dental Clinics",
+      "url": "/industry/dental-clinics-client-intake-automation"
     }
   ]
 }

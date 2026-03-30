@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox stripe integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Booking Reminders",
-      "url": "/use-cases/booking-reminders"
+      "text": "Explore 5 Ways To Automate Staffing Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-staffing-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Real Estate Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-real-estate-operations-without-coding"
+      "text": "Explore Bridgebox Monday.Com Integration",
+      "url": "/integrations/monday-com"
     },
     {
-      "text": "Explore Bridgebox Vs Celigo",
-      "url": "/compare/bridgebox-vs-celigo"
+      "text": "Explore Automate Maintenance Requests",
+      "url": "/use-cases/maintenance-requests"
     },
     {
-      "text": "Explore Api Proxying",
-      "url": "/features/api-proxying"
+      "text": "Explore Security",
+      "url": "/industry/security"
     },
     {
-      "text": "Explore Automate Inventory Management",
-      "url": "/use-cases/inventory-management"
+      "text": "Explore Document Management Workflow For Plumbing",
+      "url": "/industry/plumbing-document-management-workflow"
     }
   ]
 }

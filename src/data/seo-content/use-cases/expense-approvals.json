@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate expense approvals."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Healthcare Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-healthcare-operations-without-coding"
+      "text": "Explore Bridgebox Shopify Integration",
+      "url": "/integrations/shopify"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Security",
-      "url": "/industry/security-inventory-depletion-alerts"
+      "text": "Explore Inventory Depletion Alerts For Energy",
+      "url": "/industry/energy-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Plumbing",
-      "url": "/industry/plumbing-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Agencies",
+      "url": "/industry/agencies-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Vs Retool",
-      "url": "/compare/bridgebox-vs-retool"
+      "text": "Explore Payroll Processing Compliance For Law Firms",
+      "url": "/industry/law-firms-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Notion Integration",
-      "url": "/integrations/notion"
+      "text": "Explore Construction",
+      "url": "/industry/construction"
     }
   ]
 }

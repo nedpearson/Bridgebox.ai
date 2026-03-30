@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to scheduled triggers."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Document Management Workflow For Law Firms",
-      "url": "/industry/law-firms-document-management-workflow"
+      "text": "Explore How Ai Is Disrupting Engineering In 2026",
+      "url": "/blog/how-ai-is-disrupting-engineering-in-2026"
+    },
+    {
+      "text": "Explore How Ai Is Disrupting Accounting In 2026",
+      "url": "/blog/how-ai-is-disrupting-accounting-in-2026"
     },
     {
       "text": "Explore 5 Ways To Automate Accounting Operations Without Coding",
       "url": "/blog/5-ways-to-automate-accounting-operations-without-coding"
     },
     {
-      "text": "Explore How Ai Is Disrupting Telecommunications In 2026",
-      "url": "/blog/how-ai-is-disrupting-telecommunications-in-2026"
+      "text": "Explore How Ai Is Disrupting Veterinary In 2026",
+      "url": "/blog/how-ai-is-disrupting-veterinary-in-2026"
     },
     {
-      "text": "Explore How Ai Is Disrupting Property Management In 2026",
-      "url": "/blog/how-ai-is-disrupting-property-management-in-2026"
-    },
-    {
-      "text": "Explore How Ai Is Disrupting Dealerships In 2026",
-      "url": "/blog/how-ai-is-disrupting-dealerships-in-2026"
+      "text": "Explore How Ai Is Disrupting Healthcare In 2026",
+      "url": "/blog/how-ai-is-disrupting-healthcare-in-2026"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling compliance reporting processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Hospitality",
-      "url": "/industry/hospitality-client-intake-automation"
+      "text": "Explore Dealerships",
+      "url": "/industry/dealerships"
     },
     {
-      "text": "Explore Bridgebox Vs Retool",
-      "url": "/compare/bridgebox-vs-retool"
+      "text": "Explore Client Intake Automation For Nonprofits",
+      "url": "/industry/nonprofits-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Hubspot Integration",
-      "url": "/integrations/hubspot"
+      "text": "Explore Document Management Workflow For Media",
+      "url": "/industry/media-document-management-workflow"
     },
     {
-      "text": "Explore Automate Subscription Billing",
-      "url": "/use-cases/subscription-billing"
+      "text": "Explore Document Management Workflow For Nonprofits",
+      "url": "/industry/nonprofits-document-management-workflow"
     },
     {
-      "text": "Explore Automate Fleet Routing",
-      "url": "/use-cases/fleet-routing"
+      "text": "Explore Client Intake Automation For Manufacturing",
+      "url": "/industry/manufacturing-client-intake-automation"
     }
   ]
 }

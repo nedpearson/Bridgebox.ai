@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate client onboarding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Property Management In 2026",
-      "url": "/blog/how-ai-is-disrupting-property-management-in-2026"
+      "text": "Explore 5 Ways To Automate Retail Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-retail-operations-without-coding"
     },
     {
-      "text": "Explore Financial Services",
-      "url": "/industry/financial-services"
+      "text": "Explore 5 Ways To Automate Hvac Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-hvac-operations-without-coding"
     },
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore How Ai Is Disrupting Dealerships In 2026",
+      "url": "/blog/how-ai-is-disrupting-dealerships-in-2026"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Recruiting",
-      "url": "/industry/recruiting-payroll-processing-compliance"
+      "text": "Explore How Ai Is Disrupting Staffing In 2026",
+      "url": "/blog/how-ai-is-disrupting-staffing-in-2026"
     },
     {
-      "text": "Explore Energy",
-      "url": "/industry/energy"
+      "text": "Explore 5 Ways To Automate Real Estate Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-real-estate-operations-without-coding"
     }
   ]
 }

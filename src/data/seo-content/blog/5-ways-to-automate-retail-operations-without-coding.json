@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate retail operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Veterinary",
-      "url": "/industry/veterinary-client-intake-automation"
+      "text": "Explore Bridgebox Vs Make.Com",
+      "url": "/compare/bridgebox-vs-make-com"
     },
     {
-      "text": "Explore Human-In-The-Loop Approvals",
-      "url": "/features/human-in-the-loop-approvals"
+      "text": "Explore Bridgebox Dropbox Integration",
+      "url": "/integrations/dropbox"
     },
     {
-      "text": "Explore Automate Proposal Drafting",
-      "url": "/use-cases/proposal-drafting"
+      "text": "Explore Payroll Processing Compliance For Financial Services",
+      "url": "/industry/financial-services-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
+      "text": "Explore Inventory Depletion Alerts For Oil And Gas",
+      "url": "/industry/oil-and-gas-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Vs Celigo",
-      "url": "/compare/bridgebox-vs-celigo"
+      "text": "Explore Automate Email Triage",
+      "url": "/use-cases/email-triage"
     }
   ]
 }

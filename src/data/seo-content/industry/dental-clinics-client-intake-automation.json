@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for dental clinics."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Sendgrid Integration",
-      "url": "/integrations/sendgrid"
+      "text": "Explore Bridgebox Vs Mulesoft",
+      "url": "/compare/bridgebox-vs-mulesoft"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Accounting",
-      "url": "/industry/accounting-inventory-depletion-alerts"
+      "text": "Explore Inventory Depletion Alerts For Dealerships",
+      "url": "/industry/dealerships-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Vs Make.Com",
-      "url": "/compare/bridgebox-vs-make-com"
+      "text": "Explore Automate Expense Approvals",
+      "url": "/use-cases/expense-approvals"
     },
     {
-      "text": "Explore Healthcare",
-      "url": "/industry/healthcare"
+      "text": "Explore 5 Ways To Automate Manufacturing Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-manufacturing-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Automotive Repair Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-automotive-repair-operations-without-coding"
+      "text": "Explore 5 Ways To Automate Hospitality Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-hospitality-operations-without-coding"
     }
   ]
 }

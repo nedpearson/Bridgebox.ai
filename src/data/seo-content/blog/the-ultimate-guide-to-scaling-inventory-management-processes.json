@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling inventory management processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Healthcare",
-      "url": "/industry/healthcare-payroll-processing-compliance"
+      "text": "Explore Client Intake Automation For Oil And Gas",
+      "url": "/industry/oil-and-gas-client-intake-automation"
     },
     {
-      "text": "Explore Plumbing",
-      "url": "/industry/plumbing"
+      "text": "Explore Bridgebox Vs Integrately",
+      "url": "/compare/bridgebox-vs-integrately"
     },
     {
-      "text": "Explore Document Management Workflow For Recruiting",
-      "url": "/industry/recruiting-document-management-workflow"
+      "text": "Explore Client Intake Automation For Financial Services",
+      "url": "/industry/financial-services-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Warehousing",
-      "url": "/industry/warehousing-payroll-processing-compliance"
+      "text": "Explore Bridgebox Vs Bubble",
+      "url": "/compare/bridgebox-vs-bubble"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Construction",
-      "url": "/industry/construction-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Landscaping",
+      "url": "/industry/landscaping-document-management-workflow"
     }
   ]
 }

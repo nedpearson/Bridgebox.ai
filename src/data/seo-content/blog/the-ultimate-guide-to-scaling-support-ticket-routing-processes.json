@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling support ticket routing processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Teams Integration",
-      "url": "/integrations/teams"
+      "text": "Explore Bridgebox Asana Integration",
+      "url": "/integrations/asana"
     },
     {
-      "text": "Explore Automate Appointment Booking",
-      "url": "/use-cases/appointment-booking"
+      "text": "Explore Document Management Workflow For Energy",
+      "url": "/industry/energy-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Vs Manual Labor",
-      "url": "/compare/bridgebox-vs-manual-labor"
+      "text": "Explore Law Firms",
+      "url": "/industry/law-firms"
     },
     {
-      "text": "Explore Automate Proposal Drafting",
-      "url": "/use-cases/proposal-drafting"
+      "text": "Explore Client Intake Automation For Wealth Management",
+      "url": "/industry/wealth-management-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Vs Bubble",
-      "url": "/compare/bridgebox-vs-bubble"
+      "text": "Explore Client Intake Automation For Accounting",
+      "url": "/industry/accounting-client-intake-automation"
     }
   ]
 }

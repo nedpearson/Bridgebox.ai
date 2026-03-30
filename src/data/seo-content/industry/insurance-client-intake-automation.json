@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for insurance."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Oil And Gas In 2026",
-      "url": "/blog/how-ai-is-disrupting-oil-and-gas-in-2026"
+      "text": "Explore 5 Ways To Automate Dental Clinics Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-dental-clinics-operations-without-coding"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Real Estate",
-      "url": "/industry/real-estate-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Intercom Integration",
+      "url": "/integrations/intercom"
     },
     {
-      "text": "Explore Automate Data Entry",
-      "url": "/use-cases/data-entry"
+      "text": "Explore Document Management Workflow For Telecommunications",
+      "url": "/industry/telecommunications-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Zoom Integration",
-      "url": "/integrations/zoom"
+      "text": "Explore Automate Contract Generation",
+      "url": "/use-cases/contract-generation"
     },
     {
-      "text": "Explore Bridgebox Quickbooks Integration",
-      "url": "/integrations/quickbooks"
+      "text": "Explore Cron Schedulers",
+      "url": "/features/cron-schedulers"
     }
   ]
 }

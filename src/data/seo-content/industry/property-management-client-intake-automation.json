@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for property management."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore E-Commerce",
-      "url": "/industry/e-commerce"
+      "text": "Explore How Ai Is Disrupting Automotive Repair In 2026",
+      "url": "/blog/how-ai-is-disrupting-automotive-repair-in-2026"
     },
     {
-      "text": "Explore Automate Asset Management",
-      "url": "/use-cases/asset-management"
+      "text": "Explore Automate Subscription Billing",
+      "url": "/use-cases/subscription-billing"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Logistics Tracking Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-logistics-tracking-processes"
+      "text": "Explore Energy",
+      "url": "/industry/energy"
     },
     {
-      "text": "Explore 5 Ways To Automate Automotive Repair Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-automotive-repair-operations-without-coding"
+      "text": "Explore Inventory Depletion Alerts For Accounting",
+      "url": "/industry/accounting-inventory-depletion-alerts"
     },
     {
-      "text": "Explore How Ai Is Disrupting Wealth Management In 2026",
-      "url": "/blog/how-ai-is-disrupting-wealth-management-in-2026"
+      "text": "Explore Payroll Processing Compliance For Financial Services",
+      "url": "/industry/financial-services-payroll-processing-compliance"
     }
   ]
 }

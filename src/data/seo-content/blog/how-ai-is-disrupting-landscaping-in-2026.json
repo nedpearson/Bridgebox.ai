@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting landscaping in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Construction",
-      "url": "/industry/construction-payroll-processing-compliance"
+      "text": "Explore Audit Logging",
+      "url": "/features/audit-logging"
     },
     {
-      "text": "Explore Workflow Orchestration",
-      "url": "/features/workflow-orchestration"
+      "text": "Explore Recruiting",
+      "url": "/industry/recruiting"
     },
     {
-      "text": "Explore Client Intake Automation For Wealth Management",
-      "url": "/industry/wealth-management-client-intake-automation"
+      "text": "Explore Client Intake Automation For Food And Beverage",
+      "url": "/industry/food-and-beverage-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Vs Pipedream",
-      "url": "/compare/bridgebox-vs-pipedream"
+      "text": "Explore Staffing",
+      "url": "/industry/staffing"
     },
     {
-      "text": "Explore Client Intake Automation For Law Firms",
-      "url": "/industry/law-firms-client-intake-automation"
+      "text": "Explore Client Intake Automation For Property Management",
+      "url": "/industry/property-management-client-intake-automation"
     }
   ]
 }

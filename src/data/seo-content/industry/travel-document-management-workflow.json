@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for travel."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Construction Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-construction-operations-without-coding"
+      "text": "Explore Bridgebox Zendesk Integration",
+      "url": "/integrations/zendesk"
     },
     {
-      "text": "Explore Bridgebox Vs Mulesoft",
-      "url": "/compare/bridgebox-vs-mulesoft"
+      "text": "Explore The Ultimate Guide To Scaling Compliance Reporting Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-compliance-reporting-processes"
     },
     {
-      "text": "Explore Client Intake Automation For Law Firms",
-      "url": "/industry/law-firms-client-intake-automation"
+      "text": "Explore Document Management Workflow For E-Commerce",
+      "url": "/industry/e-commerce-document-management-workflow"
     },
     {
-      "text": "Explore Automate Email Triage",
-      "url": "/use-cases/email-triage"
+      "text": "Explore Construction",
+      "url": "/industry/construction"
     },
     {
-      "text": "Explore Bridgebox Twilio Integration",
-      "url": "/integrations/twilio"
+      "text": "Explore Automate Cancellation Flows",
+      "url": "/use-cases/cancellation-flows"
     }
   ]
 }

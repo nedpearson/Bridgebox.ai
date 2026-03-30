@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting real estate in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Veterinary In 2026",
-      "url": "/blog/how-ai-is-disrupting-veterinary-in-2026"
+      "text": "Explore Automate Supply Chain Alerts",
+      "url": "/use-cases/supply-chain-alerts"
     },
     {
-      "text": "Explore Automotive Repair",
-      "url": "/industry/automotive-repair"
+      "text": "Explore Bridgebox Toggl Integration",
+      "url": "/integrations/toggl"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Construction",
-      "url": "/industry/construction-payroll-processing-compliance"
+      "text": "Explore Automate Contract Generation",
+      "url": "/use-cases/contract-generation"
     },
     {
-      "text": "Explore Document Management Workflow For Dealerships",
-      "url": "/industry/dealerships-document-management-workflow"
+      "text": "Explore Integration Engine",
+      "url": "/features/integration-engine"
     },
     {
-      "text": "Explore Healthcare",
-      "url": "/industry/healthcare"
+      "text": "Explore Bridgebox Vs Integrately",
+      "url": "/compare/bridgebox-vs-integrately"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate manufacturing operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Dealerships",
-      "url": "/industry/dealerships"
+      "text": "Explore Inventory Depletion Alerts For Retail",
+      "url": "/industry/retail-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Contract Generation",
-      "url": "/use-cases/contract-generation"
+      "text": "Explore Inventory Depletion Alerts For Energy",
+      "url": "/industry/energy-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Logistics",
-      "url": "/industry/logistics-payroll-processing-compliance"
+      "text": "Explore Automate Email Triage",
+      "url": "/use-cases/email-triage"
     },
     {
-      "text": "Explore Client Intake Automation For Agencies",
-      "url": "/industry/agencies-client-intake-automation"
+      "text": "Explore Bridgebox Activecampaign Integration",
+      "url": "/integrations/activecampaign"
     },
     {
-      "text": "Explore Client Intake Automation For Construction",
-      "url": "/industry/construction-client-intake-automation"
+      "text": "Explore Document Management Workflow For Logistics",
+      "url": "/industry/logistics-document-management-workflow"
     }
   ]
 }

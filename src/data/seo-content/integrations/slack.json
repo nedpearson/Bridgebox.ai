@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox slack integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Security",
-      "url": "/industry/security"
+      "text": "Explore Payroll Processing Compliance For Media",
+      "url": "/industry/media-payroll-processing-compliance"
     },
     {
-      "text": "Explore Document Management Workflow For Nonprofits",
-      "url": "/industry/nonprofits-document-management-workflow"
+      "text": "Explore 5 Ways To Automate Food And Beverage Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-food-and-beverage-operations-without-coding"
     },
     {
-      "text": "Explore Document Management Workflow For Energy",
-      "url": "/industry/energy-document-management-workflow"
+      "text": "Explore Payroll Processing Compliance For Entertainment",
+      "url": "/industry/entertainment-payroll-processing-compliance"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Insurance",
-      "url": "/industry/insurance-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Retail",
+      "url": "/industry/retail-document-management-workflow"
     },
     {
-      "text": "Explore 5 Ways To Automate Hospitality Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-hospitality-operations-without-coding"
+      "text": "Explore Payroll Processing Compliance For Oil And Gas",
+      "url": "/industry/oil-and-gas-payroll-processing-compliance"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for pest control."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Retail In 2026",
-      "url": "/blog/how-ai-is-disrupting-retail-in-2026"
+      "text": "Explore 5 Ways To Automate Property Management Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-property-management-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Veterinary Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-veterinary-operations-without-coding"
+      "text": "Explore 5 Ways To Automate Warehousing Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-warehousing-operations-without-coding"
     },
     {
-      "text": "Explore How Ai Is Disrupting Warehousing In 2026",
-      "url": "/blog/how-ai-is-disrupting-warehousing-in-2026"
+      "text": "Explore How Ai Is Disrupting Architecture In 2026",
+      "url": "/blog/how-ai-is-disrupting-architecture-in-2026"
     },
     {
-      "text": "Explore Bridgebox Calendly Integration",
-      "url": "/integrations/calendly"
+      "text": "Explore 5 Ways To Automate Architecture Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-architecture-operations-without-coding"
     },
     {
-      "text": "Explore How Ai Is Disrupting Media In 2026",
-      "url": "/blog/how-ai-is-disrupting-media-in-2026"
+      "text": "Explore Client Intake Automation For Engineering",
+      "url": "/industry/engineering-client-intake-automation"
     }
   ]
 }

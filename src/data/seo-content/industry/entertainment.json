@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for entertainment."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Financial Services In 2026",
-      "url": "/blog/how-ai-is-disrupting-financial-services-in-2026"
+      "text": "Explore Automate Expense Approvals",
+      "url": "/use-cases/expense-approvals"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Lead Qualification Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-lead-qualification-processes"
+      "text": "Explore Bridgebox Harvest Integration",
+      "url": "/integrations/harvest"
     },
     {
-      "text": "Explore How Ai Is Disrupting Real Estate In 2026",
-      "url": "/blog/how-ai-is-disrupting-real-estate-in-2026"
+      "text": "Explore Automate Commission Tracking",
+      "url": "/use-cases/commission-tracking"
     },
     {
-      "text": "Explore How Ai Is Disrupting Dental Clinics In 2026",
-      "url": "/blog/how-ai-is-disrupting-dental-clinics-in-2026"
+      "text": "Explore Bridgebox Gitlab Integration",
+      "url": "/integrations/gitlab"
     },
     {
-      "text": "Explore Visual Canvas",
-      "url": "/features/visual-canvas"
+      "text": "Explore Bridgebox Dropbox Integration",
+      "url": "/integrations/dropbox"
     }
   ]
 }

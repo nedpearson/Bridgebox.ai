@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate event registration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Github Integration",
-      "url": "/integrations/github"
+      "text": "Explore Property Management",
+      "url": "/industry/property-management"
     },
     {
-      "text": "Explore Client Intake Automation For Entertainment",
-      "url": "/industry/entertainment-client-intake-automation"
+      "text": "Explore 5 Ways To Automate Logistics Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-logistics-operations-without-coding"
     },
     {
-      "text": "Explore Fitness",
-      "url": "/industry/fitness"
+      "text": "Explore Inventory Depletion Alerts For Hospitality",
+      "url": "/industry/hospitality-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Accounting",
-      "url": "/industry/accounting-payroll-processing-compliance"
+      "text": "Explore Client Intake Automation For Healthcare",
+      "url": "/industry/healthcare-client-intake-automation"
     },
     {
-      "text": "Explore Document Management Workflow For Automotive Repair",
-      "url": "/industry/automotive-repair-document-management-workflow"
+      "text": "Explore Client Intake Automation For Logistics",
+      "url": "/industry/logistics-client-intake-automation"
     }
   ]
 }

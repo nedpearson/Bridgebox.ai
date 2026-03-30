@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for dealerships."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -59,20 +73,20 @@
       "url": "/use-cases/commission-tracking"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Document Extraction Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-document-extraction-processes"
+      "text": "Explore Automate Quote Generation",
+      "url": "/use-cases/quote-generation"
     },
     {
-      "text": "Explore Automate Booking Reminders",
-      "url": "/use-cases/booking-reminders"
+      "text": "Explore Staffing",
+      "url": "/industry/staffing"
     },
     {
-      "text": "Explore Bridgebox Vs Boomi",
-      "url": "/compare/bridgebox-vs-boomi"
+      "text": "Explore Bridgebox Dropbox Integration",
+      "url": "/integrations/dropbox"
     },
     {
-      "text": "Explore Client Intake Automation For Logistics",
-      "url": "/industry/logistics-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Property Management",
+      "url": "/industry/property-management-payroll-processing-compliance"
     }
   ]
 }

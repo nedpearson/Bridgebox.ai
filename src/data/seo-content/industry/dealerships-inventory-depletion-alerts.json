@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for dealerships."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Contract Generation",
-      "url": "/use-cases/contract-generation"
+      "text": "Explore Multi-Tenant Architecture",
+      "url": "/features/multi-tenant-architecture"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Lead Qualification Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-lead-qualification-processes"
+      "text": "Explore How Ai Is Disrupting Recruiting In 2026",
+      "url": "/blog/how-ai-is-disrupting-recruiting-in-2026"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Nonprofits",
-      "url": "/industry/nonprofits-inventory-depletion-alerts"
+      "text": "Explore Screen Recording Ingestion",
+      "url": "/features/screen-recording-ingestion"
     },
     {
-      "text": "Explore Nonprofits",
-      "url": "/industry/nonprofits"
+      "text": "Explore Bridgebox Mailgun Integration",
+      "url": "/integrations/mailgun"
     },
     {
-      "text": "Explore Automate Appointment Booking",
-      "url": "/use-cases/appointment-booking"
+      "text": "Explore Voice-To-Build",
+      "url": "/features/voice-to-build"
     }
   ]
 }

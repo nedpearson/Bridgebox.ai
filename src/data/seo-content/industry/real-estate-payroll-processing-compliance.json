@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for real estate."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Hvac In 2026",
-      "url": "/blog/how-ai-is-disrupting-hvac-in-2026"
+      "text": "Explore How Ai Is Disrupting Insurance In 2026",
+      "url": "/blog/how-ai-is-disrupting-insurance-in-2026"
     },
     {
-      "text": "Explore Client Intake Automation For Travel",
-      "url": "/industry/travel-client-intake-automation"
+      "text": "Explore Bridgebox Toggl Integration",
+      "url": "/integrations/toggl"
     },
     {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
+      "text": "Explore Api Proxying",
+      "url": "/features/api-proxying"
     },
     {
-      "text": "Explore Automate Fleet Routing",
-      "url": "/use-cases/fleet-routing"
+      "text": "Explore Audit Logging",
+      "url": "/features/audit-logging"
     },
     {
-      "text": "Explore Food And Beverage",
-      "url": "/industry/food-and-beverage"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     }
   ]
 }

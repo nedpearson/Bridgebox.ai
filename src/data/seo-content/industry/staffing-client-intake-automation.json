@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for staffing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Dropbox Integration",
-      "url": "/integrations/dropbox"
+      "text": "Explore Bridgebox Vs Mulesoft",
+      "url": "/compare/bridgebox-vs-mulesoft"
     },
     {
-      "text": "Explore Automate Audit Logs Reporting",
-      "url": "/use-cases/audit-logs-reporting"
+      "text": "Explore Bridgebox Vs Power Automate",
+      "url": "/compare/bridgebox-vs-power-automate"
     },
     {
-      "text": "Explore Automate Booking Reminders",
-      "url": "/use-cases/booking-reminders"
+      "text": "Explore Automate Inventory Auditing",
+      "url": "/use-cases/inventory-auditing"
     },
     {
-      "text": "Explore 5 Ways To Automate Architecture Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-architecture-operations-without-coding"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     },
     {
-      "text": "Explore 5 Ways To Automate Nonprofits Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-nonprofits-operations-without-coding"
+      "text": "Explore Bridgebox Vs Tray.Io",
+      "url": "/compare/bridgebox-vs-tray-io"
     }
   ]
 }

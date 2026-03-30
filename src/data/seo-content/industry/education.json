@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for education."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Glide",
-      "url": "/compare/bridgebox-vs-glide"
+      "text": "Explore Bridgebox Vs Make.Com",
+      "url": "/compare/bridgebox-vs-make-com"
     },
     {
-      "text": "Explore Bridgebox Gmail Integration",
-      "url": "/integrations/gmail"
+      "text": "Explore Bridgebox Intercom Integration",
+      "url": "/integrations/intercom"
     },
     {
-      "text": "Explore Automate Employee Onboarding",
-      "url": "/use-cases/employee-onboarding"
+      "text": "Explore Document Management Workflow For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-document-management-workflow"
     },
     {
-      "text": "Explore Automate Contract Generation",
-      "url": "/use-cases/contract-generation"
+      "text": "Explore Payroll Processing Compliance For Travel",
+      "url": "/industry/travel-payroll-processing-compliance"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Oil And Gas",
-      "url": "/industry/oil-and-gas-payroll-processing-compliance"
+      "text": "Explore Law Firms",
+      "url": "/industry/law-firms"
     }
   ]
 }

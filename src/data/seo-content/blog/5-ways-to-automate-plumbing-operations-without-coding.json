@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate plumbing operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Compliance Reporting",
-      "url": "/use-cases/compliance-reporting"
+      "text": "Explore Document Management Workflow For Oil And Gas",
+      "url": "/industry/oil-and-gas-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Activecampaign Integration",
-      "url": "/integrations/activecampaign"
+      "text": "Explore Client Intake Automation For Recruiting",
+      "url": "/industry/recruiting-client-intake-automation"
     },
     {
-      "text": "Explore Automotive Repair",
-      "url": "/industry/automotive-repair"
+      "text": "Explore Payroll Processing Compliance For Nonprofits",
+      "url": "/industry/nonprofits-payroll-processing-compliance"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Recruiting",
-      "url": "/industry/recruiting-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Insurance",
+      "url": "/industry/insurance-payroll-processing-compliance"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness-payroll-processing-compliance"
+      "text": "Explore Client Intake Automation For Real Estate",
+      "url": "/industry/real-estate-client-intake-automation"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate hospitality operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Document Management Workflow For Retail",
-      "url": "/industry/retail-document-management-workflow"
+      "text": "Explore Bridgebox Pipedrive Integration",
+      "url": "/integrations/pipedrive"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Media",
-      "url": "/industry/media-inventory-depletion-alerts"
+      "text": "Explore Automate Invoice Processing",
+      "url": "/use-cases/invoice-processing"
     },
     {
-      "text": "Explore Telecommunications",
-      "url": "/industry/telecommunications"
+      "text": "Explore Automate Loan Processing",
+      "url": "/use-cases/loan-processing"
     },
     {
-      "text": "Explore Document Management Workflow For Accounting",
-      "url": "/industry/accounting-document-management-workflow"
+      "text": "Explore Automate Lead Qualification",
+      "url": "/use-cases/lead-qualification"
     },
     {
-      "text": "Explore Document Management Workflow For Agencies",
-      "url": "/industry/agencies-document-management-workflow"
+      "text": "Explore Automate Email Triage",
+      "url": "/use-cases/email-triage"
     }
   ]
 }

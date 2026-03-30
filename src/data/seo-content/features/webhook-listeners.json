@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to webhook listeners."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Netsuite Integration",
-      "url": "/integrations/netsuite"
+      "text": "Explore 5 Ways To Automate Recruiting Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-recruiting-operations-without-coding"
     },
     {
-      "text": "Explore Automate Email Triage",
-      "url": "/use-cases/email-triage"
+      "text": "Explore Client Intake Automation For Insurance",
+      "url": "/industry/insurance-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Travel",
-      "url": "/industry/travel-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Entertainment",
+      "url": "/industry/entertainment-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Client Intake Automation For Warehousing",
-      "url": "/industry/warehousing-client-intake-automation"
+      "text": "Explore Wealth Management",
+      "url": "/industry/wealth-management"
     },
     {
-      "text": "Explore Client Intake Automation For Agencies",
-      "url": "/industry/agencies-client-intake-automation"
+      "text": "Explore Document Management Workflow For Hvac",
+      "url": "/industry/hvac-document-management-workflow"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for wealth management."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Toggl Integration",
-      "url": "/integrations/toggl"
+      "text": "Explore Inventory Depletion Alerts For Real Estate",
+      "url": "/industry/real-estate-inventory-depletion-alerts"
     },
     {
-      "text": "Explore How Ai Is Disrupting Telecommunications In 2026",
-      "url": "/blog/how-ai-is-disrupting-telecommunications-in-2026"
+      "text": "Explore 5 Ways To Automate E-Commerce Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-e-commerce-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Telecommunications Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-telecommunications-operations-without-coding"
+      "text": "Explore Bridgebox Oracle Integration",
+      "url": "/integrations/oracle"
     },
     {
-      "text": "Explore 5 Ways To Automate Dental Clinics Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-dental-clinics-operations-without-coding"
+      "text": "Explore How Ai Is Disrupting Real Estate In 2026",
+      "url": "/blog/how-ai-is-disrupting-real-estate-in-2026"
     },
     {
-      "text": "Explore How Ai Is Disrupting Nonprofits In 2026",
-      "url": "/blog/how-ai-is-disrupting-nonprofits-in-2026"
+      "text": "Explore Bridgebox Activecampaign Integration",
+      "url": "/integrations/activecampaign"
     }
   ]
 }

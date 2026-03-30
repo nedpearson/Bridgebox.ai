@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate construction operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Oil And Gas",
-      "url": "/industry/oil-and-gas-client-intake-automation"
+      "text": "Explore Pest Control",
+      "url": "/industry/pest-control"
     },
     {
-      "text": "Explore Client Intake Automation For Landscaping",
-      "url": "/industry/landscaping-client-intake-automation"
+      "text": "Explore Inventory Depletion Alerts For Financial Services",
+      "url": "/industry/financial-services-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Role-Based Access Control",
-      "url": "/features/role-based-access-control"
+      "text": "Explore Payroll Processing Compliance For Travel",
+      "url": "/industry/travel-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
+      "text": "Explore Inventory Depletion Alerts For Law Firms",
+      "url": "/industry/law-firms-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Vendor Onboarding",
-      "url": "/use-cases/vendor-onboarding"
+      "text": "Explore Financial Services",
+      "url": "/industry/financial-services"
     }
   ]
 }

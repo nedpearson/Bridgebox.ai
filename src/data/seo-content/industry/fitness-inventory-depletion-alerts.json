@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for fitness."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Engineering In 2026",
-      "url": "/blog/how-ai-is-disrupting-engineering-in-2026"
+      "text": "Explore Automate Client Onboarding",
+      "url": "/use-cases/client-onboarding"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Law Firms",
-      "url": "/industry/law-firms-inventory-depletion-alerts"
+      "text": "Explore Automate Asset Management",
+      "url": "/use-cases/asset-management"
     },
     {
-      "text": "Explore Document Management Workflow For Manufacturing",
-      "url": "/industry/manufacturing-document-management-workflow"
+      "text": "Explore Bridgebox Toggl Integration",
+      "url": "/integrations/toggl"
     },
     {
-      "text": "Explore Insurance",
-      "url": "/industry/insurance"
+      "text": "Explore Bridgebox Typeform Integration",
+      "url": "/integrations/typeform"
     },
     {
-      "text": "Explore Nonprofits",
-      "url": "/industry/nonprofits"
+      "text": "Explore Automate Candidate Screening",
+      "url": "/use-cases/candidate-screening"
     }
   ]
 }

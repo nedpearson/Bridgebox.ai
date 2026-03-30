@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting property management in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Proposal Drafting",
-      "url": "/use-cases/proposal-drafting"
+      "text": "Explore Logistics",
+      "url": "/industry/logistics"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Energy",
-      "url": "/industry/energy-inventory-depletion-alerts"
+      "text": "Explore Inventory Depletion Alerts For Landscaping",
+      "url": "/industry/landscaping-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Architecture",
-      "url": "/industry/architecture-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Slack Integration",
+      "url": "/integrations/slack"
     },
     {
-      "text": "Explore Document Management Workflow For Engineering",
-      "url": "/industry/engineering-document-management-workflow"
+      "text": "Explore Automate Quality Assurance",
+      "url": "/use-cases/quality-assurance"
     },
     {
-      "text": "Explore Client Intake Automation For Energy",
-      "url": "/industry/energy-client-intake-automation"
+      "text": "Explore Bridgebox Vs Retool",
+      "url": "/compare/bridgebox-vs-retool"
     }
   ]
 }

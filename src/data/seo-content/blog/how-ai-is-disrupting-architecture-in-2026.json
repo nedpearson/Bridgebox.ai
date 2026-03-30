@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting architecture in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Activecampaign Integration",
-      "url": "/integrations/activecampaign"
+      "text": "Explore The Ultimate Guide To Scaling Compliance Reporting Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-compliance-reporting-processes"
     },
     {
-      "text": "Explore Data Normalization",
-      "url": "/features/data-normalization"
+      "text": "Explore Client Intake Automation For Oil And Gas",
+      "url": "/industry/oil-and-gas-client-intake-automation"
     },
     {
-      "text": "Explore Workflow Orchestration",
-      "url": "/features/workflow-orchestration"
+      "text": "Explore Client Intake Automation For Hospitality",
+      "url": "/industry/hospitality-client-intake-automation"
     },
     {
-      "text": "Explore 5 Ways To Automate Nonprofits Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-nonprofits-operations-without-coding"
+      "text": "Explore Inventory Depletion Alerts For Agencies",
+      "url": "/industry/agencies-inventory-depletion-alerts"
     },
     {
-      "text": "Explore 5 Ways To Automate Security Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-security-operations-without-coding"
+      "text": "Explore Payroll Processing Compliance For Dental Clinics",
+      "url": "/industry/dental-clinics-payroll-processing-compliance"
     }
   ]
 }

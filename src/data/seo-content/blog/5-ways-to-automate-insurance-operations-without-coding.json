@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate insurance operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness"
+      "text": "Explore Construction",
+      "url": "/industry/construction"
     },
     {
-      "text": "Explore Fitness",
-      "url": "/industry/fitness"
+      "text": "Explore Document Management Workflow For Hospitality",
+      "url": "/industry/hospitality-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Jira Integration",
-      "url": "/integrations/jira"
+      "text": "Explore Inventory Depletion Alerts For Logistics",
+      "url": "/industry/logistics-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Security",
-      "url": "/industry/security-payroll-processing-compliance"
+      "text": "Explore Law Firms",
+      "url": "/industry/law-firms"
     },
     {
-      "text": "Explore Bridgebox Vs Retool",
-      "url": "/compare/bridgebox-vs-retool"
+      "text": "Explore Inventory Depletion Alerts For Financial Services",
+      "url": "/industry/financial-services-inventory-depletion-alerts"
     }
   ]
 }

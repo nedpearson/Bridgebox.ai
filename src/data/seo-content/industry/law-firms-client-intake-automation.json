@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for law firms."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Integration Engine",
-      "url": "/features/integration-engine"
+      "text": "Explore Client Intake Automation For Engineering",
+      "url": "/industry/engineering-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Xero Integration",
-      "url": "/integrations/xero"
+      "text": "Explore 5 Ways To Automate Plumbing Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-plumbing-operations-without-coding"
     },
     {
-      "text": "Explore Bridgebox Monday.Com Integration",
-      "url": "/integrations/monday-com"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     },
     {
-      "text": "Explore Bridgebox Vs Glide",
-      "url": "/compare/bridgebox-vs-glide"
+      "text": "Explore Document Management Workflow For Financial Services",
+      "url": "/industry/financial-services-document-management-workflow"
     },
     {
-      "text": "Explore Automate Candidate Screening",
-      "url": "/use-cases/candidate-screening"
+      "text": "Explore Client Intake Automation For Real Estate",
+      "url": "/industry/real-estate-client-intake-automation"
     }
   ]
 }

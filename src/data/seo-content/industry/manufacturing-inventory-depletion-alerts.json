@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for manufacturing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Plumbing",
-      "url": "/industry/plumbing"
+      "text": "Explore Payroll Processing Compliance For Accounting",
+      "url": "/industry/accounting-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Twilio Integration",
-      "url": "/integrations/twilio"
+      "text": "Explore Automate Supply Chain Alerts",
+      "url": "/use-cases/supply-chain-alerts"
     },
     {
-      "text": "Explore How Ai Is Disrupting Security In 2026",
-      "url": "/blog/how-ai-is-disrupting-security-in-2026"
+      "text": "Explore Bridgebox Vs Celigo",
+      "url": "/compare/bridgebox-vs-celigo"
     },
     {
-      "text": "Explore Integration Engine",
-      "url": "/features/integration-engine"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     },
     {
-      "text": "Explore Scheduled Triggers",
-      "url": "/features/scheduled-triggers"
+      "text": "Explore Dealerships",
+      "url": "/industry/dealerships"
     }
   ]
 }

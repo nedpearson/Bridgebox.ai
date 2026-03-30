@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate staffing operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Oracle Integration",
-      "url": "/integrations/oracle"
+      "text": "Explore Client Intake Automation For Real Estate",
+      "url": "/industry/real-estate-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Automotive Repair",
-      "url": "/industry/automotive-repair-payroll-processing-compliance"
+      "text": "Explore Veterinary",
+      "url": "/industry/veterinary"
     },
     {
-      "text": "Explore Document Management Workflow For Veterinary",
-      "url": "/industry/veterinary-document-management-workflow"
+      "text": "Explore Logistics",
+      "url": "/industry/logistics"
     },
     {
-      "text": "Explore Architecture",
-      "url": "/industry/architecture"
+      "text": "Explore Bridgebox Dropbox Integration",
+      "url": "/integrations/dropbox"
     },
     {
-      "text": "Explore Document Management Workflow For Engineering",
-      "url": "/industry/engineering-document-management-workflow"
+      "text": "Explore Client Intake Automation For Telecommunications",
+      "url": "/industry/telecommunications-client-intake-automation"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for plumbing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore The Ultimate Guide To Scaling Compliance Reporting Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-compliance-reporting-processes"
+      "text": "Explore 5 Ways To Automate Recruiting Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-recruiting-operations-without-coding"
     },
     {
-      "text": "Explore How Ai Is Disrupting Automotive Repair In 2026",
-      "url": "/blog/how-ai-is-disrupting-automotive-repair-in-2026"
+      "text": "Explore Inventory Depletion Alerts For Pest Control",
+      "url": "/industry/pest-control-inventory-depletion-alerts"
     },
     {
-      "text": "Explore How Ai Is Disrupting Dental Clinics In 2026",
-      "url": "/blog/how-ai-is-disrupting-dental-clinics-in-2026"
+      "text": "Explore Payroll Processing Compliance For Pest Control",
+      "url": "/industry/pest-control-payroll-processing-compliance"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Financial Services",
-      "url": "/industry/financial-services-inventory-depletion-alerts"
+      "text": "Explore Automate Proposal Drafting",
+      "url": "/use-cases/proposal-drafting"
     },
     {
-      "text": "Explore Role-Based Access Control",
-      "url": "/features/role-based-access-control"
+      "text": "Explore Automate Support Ticket Routing",
+      "url": "/use-cases/support-ticket-routing"
     }
   ]
 }

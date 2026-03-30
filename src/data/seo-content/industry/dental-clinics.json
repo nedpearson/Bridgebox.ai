@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for dental clinics."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Bubble",
-      "url": "/compare/bridgebox-vs-bubble"
+      "text": "Explore Custom Form Builder",
+      "url": "/features/custom-form-builder"
     },
     {
-      "text": "Explore 5 Ways To Automate Dental Clinics Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-dental-clinics-operations-without-coding"
+      "text": "Explore 5 Ways To Automate E-Commerce Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-e-commerce-operations-without-coding"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Insurance",
-      "url": "/industry/insurance-inventory-depletion-alerts"
+      "text": "Explore Audit Logging",
+      "url": "/features/audit-logging"
     },
     {
-      "text": "Explore Automate Compliance Reporting",
-      "url": "/use-cases/compliance-reporting"
+      "text": "Explore 5 Ways To Automate Oil And Gas Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-oil-and-gas-operations-without-coding"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Construction",
-      "url": "/industry/construction-payroll-processing-compliance"
+      "text": "Explore The Ultimate Guide To Scaling Client Onboarding Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-client-onboarding-processes"
     }
   ]
 }

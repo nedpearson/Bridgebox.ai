@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting food and beverage in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Client Onboarding",
-      "url": "/use-cases/client-onboarding"
+      "text": "Explore Client Intake Automation For Oil And Gas",
+      "url": "/industry/oil-and-gas-client-intake-automation"
     },
     {
-      "text": "Explore Client Intake Automation For Financial Services",
-      "url": "/industry/financial-services-client-intake-automation"
+      "text": "Explore Bridgebox Vs Appsheet",
+      "url": "/compare/bridgebox-vs-appsheet"
     },
     {
-      "text": "Explore Client Intake Automation For Property Management",
-      "url": "/industry/property-management-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-payroll-processing-compliance"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Oil And Gas",
-      "url": "/industry/oil-and-gas-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Landscaping",
+      "url": "/industry/landscaping-payroll-processing-compliance"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Logistics",
-      "url": "/industry/logistics-inventory-depletion-alerts"
+      "text": "Explore Pest Control",
+      "url": "/industry/pest-control"
     }
   ]
 }

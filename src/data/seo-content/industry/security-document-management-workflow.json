@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for security."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Bamboo Hr Integration",
-      "url": "/integrations/bamboo-hr"
+      "text": "Explore Screen Recording Ingestion",
+      "url": "/features/screen-recording-ingestion"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Entertainment",
-      "url": "/industry/entertainment-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Plumbing",
+      "url": "/industry/plumbing-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Inventory Management",
-      "url": "/use-cases/inventory-management"
+      "text": "Explore Payroll Processing Compliance For Logistics",
+      "url": "/industry/logistics-payroll-processing-compliance"
     },
     {
-      "text": "Explore Client Intake Automation For Construction",
-      "url": "/industry/construction-client-intake-automation"
+      "text": "Explore Document Management Workflow For Accounting",
+      "url": "/industry/accounting-document-management-workflow"
     },
     {
-      "text": "Explore Hvac",
-      "url": "/industry/hvac"
+      "text": "Explore Automate Proposal Drafting",
+      "url": "/use-cases/proposal-drafting"
     }
   ]
 }

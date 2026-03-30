@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate vendor onboarding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Media",
-      "url": "/industry/media-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Manufacturing",
+      "url": "/industry/manufacturing-payroll-processing-compliance"
     },
     {
-      "text": "Explore Document Management Workflow For Logistics",
-      "url": "/industry/logistics-document-management-workflow"
+      "text": "Explore Document Management Workflow For Hospitality",
+      "url": "/industry/hospitality-document-management-workflow"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Logistics",
-      "url": "/industry/logistics-inventory-depletion-alerts"
+      "text": "Explore 5 Ways To Automate Healthcare Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-healthcare-operations-without-coding"
     },
     {
-      "text": "Explore Client Intake Automation For Accounting",
-      "url": "/industry/accounting-client-intake-automation"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Healthcare",
-      "url": "/industry/healthcare-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Hvac",
+      "url": "/industry/hvac-payroll-processing-compliance"
     }
   ]
 }

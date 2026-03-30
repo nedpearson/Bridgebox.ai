@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox intercom integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Veterinary",
-      "url": "/industry/veterinary"
+      "text": "Explore Automate Audit Logs Reporting",
+      "url": "/use-cases/audit-logs-reporting"
     },
     {
-      "text": "Explore Bridgebox Vs Autocode",
-      "url": "/compare/bridgebox-vs-autocode"
+      "text": "Explore Automate Document Extraction",
+      "url": "/use-cases/document-extraction"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Plumbing",
-      "url": "/industry/plumbing-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Pest Control",
+      "url": "/industry/pest-control-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Document Management Workflow For Automotive Repair",
-      "url": "/industry/automotive-repair-document-management-workflow"
+      "text": "Explore Automate Data Entry",
+      "url": "/use-cases/data-entry"
     },
     {
-      "text": "Explore Client Intake Automation For Wealth Management",
-      "url": "/industry/wealth-management-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Healthcare",
+      "url": "/industry/healthcare-payroll-processing-compliance"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for engineering."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Architecture Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-architecture-operations-without-coding"
+      "text": "Explore Bridgebox Vs Autocode",
+      "url": "/compare/bridgebox-vs-autocode"
     },
     {
-      "text": "Explore Document Management Workflow For Fitness",
-      "url": "/industry/fitness-document-management-workflow"
+      "text": "Explore Automate Asset Management",
+      "url": "/use-cases/asset-management"
     },
     {
-      "text": "Explore Automate Appointment Booking",
-      "url": "/use-cases/appointment-booking"
+      "text": "Explore Inventory Depletion Alerts For Education",
+      "url": "/industry/education-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Google Drive Integration",
-      "url": "/integrations/google-drive"
+      "text": "Explore Construction",
+      "url": "/industry/construction"
     },
     {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
+      "text": "Explore Automate Payment Reconciliation",
+      "url": "/use-cases/payment-reconciliation"
     }
   ]
 }

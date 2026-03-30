@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for retail."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Salesforce Integration",
-      "url": "/integrations/salesforce"
+      "text": "Explore Payroll Processing Compliance For Plumbing",
+      "url": "/industry/plumbing-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Dropbox Integration",
-      "url": "/integrations/dropbox"
+      "text": "Explore Document Management Workflow For Logistics",
+      "url": "/industry/logistics-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Vs Retool",
-      "url": "/compare/bridgebox-vs-retool"
+      "text": "Explore Bridgebox Vs Autocode",
+      "url": "/compare/bridgebox-vs-autocode"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Support Ticket Routing Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-support-ticket-routing-processes"
+      "text": "Explore Automate Commission Tracking",
+      "url": "/use-cases/commission-tracking"
     },
     {
-      "text": "Explore Automate Asset Management",
-      "url": "/use-cases/asset-management"
+      "text": "Explore Automate Fleet Routing",
+      "url": "/use-cases/fleet-routing"
     }
   ]
 }

@@ -26,6 +26,20 @@
         "description": "You can't easily deploy customized client portals via Ifttt. Bridgebox auto-generates your front-ends tied directly to your pipelines."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox vs ifttt."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -53,24 +67,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Gitlab Integration",
-      "url": "/integrations/gitlab"
+      "text": "Explore Bridgebox Calendly Integration",
+      "url": "/integrations/calendly"
     },
     {
-      "text": "Explore Custom Form Builder",
-      "url": "/features/custom-form-builder"
+      "text": "Explore Document Management Workflow For Automotive Repair",
+      "url": "/industry/automotive-repair-document-management-workflow"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Financial Services",
-      "url": "/industry/financial-services-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Recruiting",
+      "url": "/industry/recruiting-document-management-workflow"
     },
     {
-      "text": "Explore Audit Logging",
-      "url": "/features/audit-logging"
+      "text": "Explore Warehousing",
+      "url": "/industry/warehousing"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Logistics",
-      "url": "/industry/logistics-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Travel",
+      "url": "/industry/travel-payroll-processing-compliance"
     }
   ]
 }

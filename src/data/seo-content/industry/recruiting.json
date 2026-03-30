@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for recruiting."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore The Ultimate Guide To Scaling Contract Generation Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-contract-generation-processes"
+      "text": "Explore Architecture",
+      "url": "/industry/architecture"
     },
     {
-      "text": "Explore Bridgebox Shopify Integration",
-      "url": "/integrations/shopify"
+      "text": "Explore Payroll Processing Compliance For Manufacturing",
+      "url": "/industry/manufacturing-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate CRM Sync",
-      "url": "/use-cases/crm-sync"
+      "text": "Explore Document Management Workflow For Property Management",
+      "url": "/industry/property-management-document-management-workflow"
     },
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
+      "text": "Explore Education",
+      "url": "/industry/education"
     },
     {
-      "text": "Explore Automate Lead Nurturing",
-      "url": "/use-cases/lead-nurturing"
+      "text": "Explore Document Management Workflow For Financial Services",
+      "url": "/industry/financial-services-document-management-workflow"
     }
   ]
 }

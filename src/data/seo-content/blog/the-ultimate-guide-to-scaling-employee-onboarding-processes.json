@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling employee onboarding processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore Food And Beverage",
+      "url": "/industry/food-and-beverage"
     },
     {
-      "text": "Explore Landscaping",
-      "url": "/industry/landscaping"
+      "text": "Explore Inventory Depletion Alerts For Recruiting",
+      "url": "/industry/recruiting-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Pest Control",
-      "url": "/industry/pest-control-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Media",
+      "url": "/industry/media-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Github Integration",
-      "url": "/integrations/github"
+      "text": "Explore Payroll Processing Compliance For Veterinary",
+      "url": "/industry/veterinary-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Vs Power Automate",
-      "url": "/compare/bridgebox-vs-power-automate"
+      "text": "Explore Payroll Processing Compliance For Automotive Repair",
+      "url": "/industry/automotive-repair-payroll-processing-compliance"
     }
   ]
 }

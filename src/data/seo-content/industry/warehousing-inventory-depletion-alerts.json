@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for warehousing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Hvac",
-      "url": "/industry/hvac-client-intake-automation"
+      "text": "Explore Automate Social Media Posting",
+      "url": "/use-cases/social-media-posting"
     },
     {
-      "text": "Explore 5 Ways To Automate Landscaping Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-landscaping-operations-without-coding"
+      "text": "Explore Bridgebox Shopify Integration",
+      "url": "/integrations/shopify"
     },
     {
-      "text": "Explore Automate Loan Processing",
-      "url": "/use-cases/loan-processing"
+      "text": "Explore Automate Client Onboarding",
+      "url": "/use-cases/client-onboarding"
     },
     {
-      "text": "Explore Automate Supply Chain Alerts",
-      "url": "/use-cases/supply-chain-alerts"
+      "text": "Explore Automate Maintenance Requests",
+      "url": "/use-cases/maintenance-requests"
     },
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore Automate Inventory Auditing",
+      "url": "/use-cases/inventory-auditing"
     }
   ]
 }

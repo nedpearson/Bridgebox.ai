@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to integration engine."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Manufacturing",
-      "url": "/industry/manufacturing-payroll-processing-compliance"
+      "text": "Explore Automate CRM Sync",
+      "url": "/use-cases/crm-sync"
     },
     {
-      "text": "Explore Accounting",
-      "url": "/industry/accounting"
+      "text": "Explore Inventory Depletion Alerts For Education",
+      "url": "/industry/education-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Financial Services",
-      "url": "/industry/financial-services-payroll-processing-compliance"
+      "text": "Explore Client Intake Automation For Travel",
+      "url": "/industry/travel-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Agencies",
-      "url": "/industry/agencies-payroll-processing-compliance"
+      "text": "Explore Document Management Workflow For Recruiting",
+      "url": "/industry/recruiting-document-management-workflow"
     },
     {
-      "text": "Explore Client Intake Automation For Construction",
-      "url": "/industry/construction-client-intake-automation"
+      "text": "Explore Document Management Workflow For Staffing",
+      "url": "/industry/staffing-document-management-workflow"
     }
   ]
 }

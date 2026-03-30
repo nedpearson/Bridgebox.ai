@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting staffing in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Plumbing",
-      "url": "/industry/plumbing-payroll-processing-compliance"
+      "text": "Explore Human-In-The-Loop Approvals",
+      "url": "/features/human-in-the-loop-approvals"
     },
     {
-      "text": "Explore Automate Support Ticket Routing",
-      "url": "/use-cases/support-ticket-routing"
+      "text": "Explore Document Management Workflow For Accounting",
+      "url": "/industry/accounting-document-management-workflow"
     },
     {
-      "text": "Explore Automate Social Media Posting",
-      "url": "/use-cases/social-media-posting"
+      "text": "Explore Inventory Depletion Alerts For Financial Services",
+      "url": "/industry/financial-services-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Sap Integration",
-      "url": "/integrations/sap"
+      "text": "Explore Client Intake Automation For Financial Services",
+      "url": "/industry/financial-services-client-intake-automation"
     },
     {
-      "text": "Explore Fitness",
-      "url": "/industry/fitness"
+      "text": "Explore Payroll Processing Compliance For Entertainment",
+      "url": "/industry/entertainment-payroll-processing-compliance"
     }
   ]
 }

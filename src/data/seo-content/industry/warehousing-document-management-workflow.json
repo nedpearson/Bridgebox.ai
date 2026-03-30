@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for warehousing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Hospitality Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-hospitality-operations-without-coding"
+      "text": "Explore Bridgebox Vs Tray.Io",
+      "url": "/compare/bridgebox-vs-tray-io"
     },
     {
-      "text": "Explore 5 Ways To Automate Architecture Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-architecture-operations-without-coding"
+      "text": "Explore Automate Supply Chain Alerts",
+      "url": "/use-cases/supply-chain-alerts"
     },
     {
-      "text": "Explore Bridgebox Airtable Integration",
-      "url": "/integrations/airtable"
+      "text": "Explore Bridgebox Shopify Integration",
+      "url": "/integrations/shopify"
     },
     {
-      "text": "Explore Audit Logging",
-      "url": "/features/audit-logging"
+      "text": "Explore Automate Refund Processing",
+      "url": "/use-cases/refund-processing"
     },
     {
-      "text": "Explore Automate Employee Onboarding",
-      "url": "/use-cases/employee-onboarding"
+      "text": "Explore Document Management Workflow For Hospitality",
+      "url": "/industry/hospitality-document-management-workflow"
     }
   ]
 }

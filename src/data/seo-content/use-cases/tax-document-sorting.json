@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate tax document sorting."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Stripe Integration",
-      "url": "/integrations/stripe"
+      "text": "Explore Inventory Depletion Alerts For Plumbing",
+      "url": "/industry/plumbing-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Client Intake Automation For Automotive Repair",
-      "url": "/industry/automotive-repair-client-intake-automation"
+      "text": "Explore Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness"
     },
     {
-      "text": "Explore Accounting",
-      "url": "/industry/accounting"
+      "text": "Explore Payroll Processing Compliance For Food And Beverage",
+      "url": "/industry/food-and-beverage-payroll-processing-compliance"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Financial Services",
-      "url": "/industry/financial-services-payroll-processing-compliance"
+      "text": "Explore Payroll Processing Compliance For Recruiting",
+      "url": "/industry/recruiting-payroll-processing-compliance"
     },
     {
-      "text": "Explore Document Management Workflow For Real Estate",
-      "url": "/industry/real-estate-document-management-workflow"
+      "text": "Explore Bridgebox Zoom Integration",
+      "url": "/integrations/zoom"
     }
   ]
 }

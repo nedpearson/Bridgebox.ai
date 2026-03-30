@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for e-commerce."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Inventory Management",
-      "url": "/use-cases/inventory-management"
+      "text": "Explore Integration Engine",
+      "url": "/features/integration-engine"
     },
     {
-      "text": "Explore Bridgebox Slack Integration",
-      "url": "/integrations/slack"
+      "text": "Explore 5 Ways To Automate Staffing Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-staffing-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Wealth Management Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-wealth-management-operations-without-coding"
+      "text": "Explore 5 Ways To Automate Manufacturing Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-manufacturing-operations-without-coding"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Telecommunications",
-      "url": "/industry/telecommunications-inventory-depletion-alerts"
+      "text": "Explore Screen Recording Ingestion",
+      "url": "/features/screen-recording-ingestion"
     },
     {
-      "text": "Explore How Ai Is Disrupting Entertainment In 2026",
-      "url": "/blog/how-ai-is-disrupting-entertainment-in-2026"
+      "text": "Explore Scheduled Triggers",
+      "url": "/features/scheduled-triggers"
     }
   ]
 }

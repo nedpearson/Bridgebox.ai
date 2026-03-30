@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for wealth management."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
+      "text": "Explore Inventory Depletion Alerts For Dental Clinics",
+      "url": "/industry/dental-clinics-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Contract Generation",
-      "url": "/use-cases/contract-generation"
+      "text": "Explore Automate Vendor Onboarding",
+      "url": "/use-cases/vendor-onboarding"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Construction",
-      "url": "/industry/construction-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Hospitality",
+      "url": "/industry/hospitality-document-management-workflow"
     },
     {
-      "text": "Explore Automate Document Extraction",
-      "url": "/use-cases/document-extraction"
+      "text": "Explore How Ai Is Disrupting Real Estate In 2026",
+      "url": "/blog/how-ai-is-disrupting-real-estate-in-2026"
     },
     {
-      "text": "Explore Client Intake Automation For Healthcare",
-      "url": "/industry/healthcare-client-intake-automation"
+      "text": "Explore 5 Ways To Automate Architecture Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-architecture-operations-without-coding"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to document management workflow for construction."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Landscaping",
-      "url": "/industry/landscaping"
+      "text": "Explore Document Management Workflow For Travel",
+      "url": "/industry/travel-document-management-workflow"
     },
     {
-      "text": "Explore Automate Loan Processing",
-      "url": "/use-cases/loan-processing"
+      "text": "Explore Audit Logging",
+      "url": "/features/audit-logging"
     },
     {
-      "text": "Explore 5 Ways To Automate Hvac Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-hvac-operations-without-coding"
+      "text": "Explore Bridgebox Asana Integration",
+      "url": "/integrations/asana"
     },
     {
-      "text": "Explore How Ai Is Disrupting E-Commerce In 2026",
-      "url": "/blog/how-ai-is-disrupting-e-commerce-in-2026"
+      "text": "Explore Client Intake Automation For Engineering",
+      "url": "/industry/engineering-client-intake-automation"
     },
     {
-      "text": "Explore How Ai Is Disrupting Construction In 2026",
-      "url": "/blog/how-ai-is-disrupting-construction-in-2026"
+      "text": "Explore How Ai Is Disrupting Insurance In 2026",
+      "url": "/blog/how-ai-is-disrupting-insurance-in-2026"
     }
   ]
 }

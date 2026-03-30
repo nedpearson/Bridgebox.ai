@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate recruiting operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Plumbing",
-      "url": "/industry/plumbing"
+      "text": "Explore Payroll Processing Compliance For Logistics",
+      "url": "/industry/logistics-payroll-processing-compliance"
     },
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore Custom Form Builder",
+      "url": "/features/custom-form-builder"
     },
     {
       "text": "Explore Construction",
       "url": "/industry/construction"
     },
     {
-      "text": "Explore Client Intake Automation For Hospitality",
-      "url": "/industry/hospitality-client-intake-automation"
+      "text": "Explore Document Management Workflow For Dealerships",
+      "url": "/industry/dealerships-document-management-workflow"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Dental Clinics",
-      "url": "/industry/dental-clinics-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Warehousing",
+      "url": "/industry/warehousing-inventory-depletion-alerts"
     }
   ]
 }

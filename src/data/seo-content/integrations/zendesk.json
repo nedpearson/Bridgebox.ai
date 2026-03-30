@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox zendesk integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Law Firms",
-      "url": "/industry/law-firms-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Telecommunications",
+      "url": "/industry/telecommunications-document-management-workflow"
     },
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore Plumbing",
+      "url": "/industry/plumbing"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Travel",
-      "url": "/industry/travel-inventory-depletion-alerts"
+      "text": "Explore Logistics",
+      "url": "/industry/logistics"
     },
     {
-      "text": "Explore Automate Social Media Posting",
-      "url": "/use-cases/social-media-posting"
+      "text": "Explore Fitness",
+      "url": "/industry/fitness"
     },
     {
-      "text": "Explore Bridgebox Workday Integration",
-      "url": "/integrations/workday"
+      "text": "Explore Document Management Workflow For Automotive Repair",
+      "url": "/industry/automotive-repair-document-management-workflow"
     }
   ]
 }

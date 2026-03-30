@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting logistics in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Celigo",
-      "url": "/compare/bridgebox-vs-celigo"
+      "text": "Explore Client Intake Automation For Telecommunications",
+      "url": "/industry/telecommunications-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
+      "text": "Explore Client Intake Automation For Entertainment",
+      "url": "/industry/entertainment-client-intake-automation"
     },
     {
-      "text": "Explore Api Proxying",
-      "url": "/features/api-proxying"
+      "text": "Explore Staffing",
+      "url": "/industry/staffing"
     },
     {
-      "text": "Explore Bridgebox Sendgrid Integration",
-      "url": "/integrations/sendgrid"
+      "text": "Explore Bridgebox Docusign Integration",
+      "url": "/integrations/docusign"
     },
     {
-      "text": "Explore Bridgebox Vs Autocode",
-      "url": "/compare/bridgebox-vs-autocode"
+      "text": "Explore Branching Logic",
+      "url": "/features/branching-logic"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate social media posting."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Education",
-      "url": "/industry/education-inventory-depletion-alerts"
+      "text": "Explore How Ai Is Disrupting Automotive Repair In 2026",
+      "url": "/blog/how-ai-is-disrupting-automotive-repair-in-2026"
     },
     {
-      "text": "Explore Client Intake Automation For Entertainment",
-      "url": "/industry/entertainment-client-intake-automation"
+      "text": "Explore Document Management Workflow For Hospitality",
+      "url": "/industry/hospitality-document-management-workflow"
     },
     {
-      "text": "Explore 5 Ways To Automate Property Management Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-property-management-operations-without-coding"
+      "text": "Explore Dental Clinics",
+      "url": "/industry/dental-clinics"
     },
     {
-      "text": "Explore Automate Subscription Billing",
-      "url": "/use-cases/subscription-billing"
+      "text": "Explore Client Intake Automation For Law Firms",
+      "url": "/industry/law-firms-client-intake-automation"
     },
     {
-      "text": "Explore Automate Social Media Posting",
-      "url": "/use-cases/social-media-posting"
+      "text": "Explore Payroll Processing Compliance For Agencies",
+      "url": "/industry/agencies-payroll-processing-compliance"
     }
   ]
 }

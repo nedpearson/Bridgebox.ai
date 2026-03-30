@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for construction."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Financial Services Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-financial-services-operations-without-coding"
+      "text": "Explore 5 Ways To Automate Retail Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-retail-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Education Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-education-operations-without-coding"
+      "text": "Explore Cron Schedulers",
+      "url": "/features/cron-schedulers"
     },
     {
-      "text": "Explore Workflow Orchestration",
-      "url": "/features/workflow-orchestration"
+      "text": "Explore The Ultimate Guide To Scaling Compliance Reporting Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-compliance-reporting-processes"
     },
     {
-      "text": "Explore 5 Ways To Automate E-Commerce Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-e-commerce-operations-without-coding"
+      "text": "Explore Ai Logic Gates",
+      "url": "/features/ai-logic-gates"
     },
     {
-      "text": "Explore 5 Ways To Automate Construction Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-construction-operations-without-coding"
+      "text": "Explore Bridgebox Intercom Integration",
+      "url": "/integrations/intercom"
     }
   ]
 }

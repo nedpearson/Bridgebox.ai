@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox mailchimp integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore The Ultimate Guide To Scaling Document Extraction Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-document-extraction-processes"
+      "text": "Explore Client Intake Automation For Agencies",
+      "url": "/industry/agencies-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Vs Custom Development",
-      "url": "/compare/bridgebox-vs-custom-development"
+      "text": "Explore Document Management Workflow For Hospitality",
+      "url": "/industry/hospitality-document-management-workflow"
     },
     {
-      "text": "Explore Automate Booking Reminders",
-      "url": "/use-cases/booking-reminders"
+      "text": "Explore Payroll Processing Compliance For Wealth Management",
+      "url": "/industry/wealth-management-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Monday.Com Integration",
-      "url": "/integrations/monday-com"
+      "text": "Explore Payroll Processing Compliance For Veterinary",
+      "url": "/industry/veterinary-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Quote Generation",
-      "url": "/use-cases/quote-generation"
+      "text": "Explore Education",
+      "url": "/industry/education"
     }
   ]
 }

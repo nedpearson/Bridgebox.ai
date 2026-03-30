@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling lead qualification processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Agencies",
-      "url": "/industry/agencies-payroll-processing-compliance"
-    },
-    {
-      "text": "Explore Bridgebox Vs Autocode",
-      "url": "/compare/bridgebox-vs-autocode"
-    },
-    {
       "text": "Explore Inventory Depletion Alerts For Automotive Repair",
       "url": "/industry/automotive-repair-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Client Intake Automation For Dealerships",
-      "url": "/industry/dealerships-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Veterinary",
+      "url": "/industry/veterinary-payroll-processing-compliance"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Financial Services",
-      "url": "/industry/financial-services-inventory-depletion-alerts"
+      "text": "Explore 5 Ways To Automate Architecture Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-architecture-operations-without-coding"
+    },
+    {
+      "text": "Explore Document Management Workflow For Engineering",
+      "url": "/industry/engineering-document-management-workflow"
+    },
+    {
+      "text": "Explore Payroll Processing Compliance For Travel",
+      "url": "/industry/travel-payroll-processing-compliance"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting recruiting in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Dealerships",
-      "url": "/industry/dealerships-payroll-processing-compliance"
+      "text": "Explore Bridgebox Vs Mulesoft",
+      "url": "/compare/bridgebox-vs-mulesoft"
     },
     {
-      "text": "Explore Logistics",
-      "url": "/industry/logistics"
+      "text": "Explore Document Management Workflow For Media",
+      "url": "/industry/media-document-management-workflow"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Construction",
-      "url": "/industry/construction-payroll-processing-compliance"
+      "text": "Explore Document Management Workflow For E-Commerce",
+      "url": "/industry/e-commerce-document-management-workflow"
     },
     {
-      "text": "Explore Automate Data Entry",
-      "url": "/use-cases/data-entry"
+      "text": "Explore Client Intake Automation For Recruiting",
+      "url": "/industry/recruiting-client-intake-automation"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Financial Services",
-      "url": "/industry/financial-services-inventory-depletion-alerts"
+      "text": "Explore Inventory Depletion Alerts For Dental Clinics",
+      "url": "/industry/dental-clinics-inventory-depletion-alerts"
     }
   ]
 }

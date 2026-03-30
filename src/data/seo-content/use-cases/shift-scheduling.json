@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate shift scheduling."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Education",
-      "url": "/industry/education-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Vs Bubble",
+      "url": "/compare/bridgebox-vs-bubble"
     },
     {
-      "text": "Explore 5 Ways To Automate Construction Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-construction-operations-without-coding"
+      "text": "Explore Bridgebox Vs Power Automate",
+      "url": "/compare/bridgebox-vs-power-automate"
     },
     {
-      "text": "Explore Bridgebox Vs N8n",
-      "url": "/compare/bridgebox-vs-n8n"
+      "text": "Explore Bridgebox Smartsheet Integration",
+      "url": "/integrations/smartsheet"
     },
     {
-      "text": "Explore Ai Logic Gates",
-      "url": "/features/ai-logic-gates"
+      "text": "Explore Client Intake Automation For Nonprofits",
+      "url": "/industry/nonprofits-client-intake-automation"
     },
     {
-      "text": "Explore Automate Booking Reminders",
-      "url": "/use-cases/booking-reminders"
+      "text": "Explore 5 Ways To Automate Financial Services Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-financial-services-operations-without-coding"
     }
   ]
 }

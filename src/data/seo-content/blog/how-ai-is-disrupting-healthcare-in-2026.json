@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting healthcare in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Property Management",
-      "url": "/industry/property-management-payroll-processing-compliance"
+      "text": "Explore Human-In-The-Loop Approvals",
+      "url": "/features/human-in-the-loop-approvals"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Wealth Management",
-      "url": "/industry/wealth-management-payroll-processing-compliance"
+      "text": "Explore Document Management Workflow For Law Firms",
+      "url": "/industry/law-firms-document-management-workflow"
     },
     {
-      "text": "Explore Document Management Workflow For Logistics",
-      "url": "/industry/logistics-document-management-workflow"
+      "text": "Explore E-Commerce",
+      "url": "/industry/e-commerce"
     },
     {
-      "text": "Explore Document Management Workflow For Pest Control",
-      "url": "/industry/pest-control-document-management-workflow"
+      "text": "Explore Agencies",
+      "url": "/industry/agencies"
     },
     {
-      "text": "Explore Healthcare",
-      "url": "/industry/healthcare"
+      "text": "Explore Client Intake Automation For Law Firms",
+      "url": "/industry/law-firms-client-intake-automation"
     }
   ]
 }

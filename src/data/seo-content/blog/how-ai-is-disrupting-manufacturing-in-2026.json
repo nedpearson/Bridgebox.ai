@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting manufacturing in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Oil And Gas",
-      "url": "/industry/oil-and-gas-payroll-processing-compliance"
+      "text": "Explore Automate Expense Approvals",
+      "url": "/use-cases/expense-approvals"
     },
     {
-      "text": "Explore Automate Proposal Drafting",
-      "url": "/use-cases/proposal-drafting"
+      "text": "Explore Client Intake Automation For Retail",
+      "url": "/industry/retail-client-intake-automation"
     },
     {
-      "text": "Explore Automate Tax Document Sorting",
-      "url": "/use-cases/tax-document-sorting"
+      "text": "Explore Property Management",
+      "url": "/industry/property-management"
     },
     {
-      "text": "Explore Automate Candidate Screening",
-      "url": "/use-cases/candidate-screening"
+      "text": "Explore Document Management Workflow For Veterinary",
+      "url": "/industry/veterinary-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Github Integration",
-      "url": "/integrations/github"
+      "text": "Explore Document Management Workflow For Financial Services",
+      "url": "/industry/financial-services-document-management-workflow"
     }
   ]
 }

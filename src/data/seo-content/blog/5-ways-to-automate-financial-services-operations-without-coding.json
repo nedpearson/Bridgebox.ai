@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate financial services operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Insurance",
-      "url": "/industry/insurance-payroll-processing-compliance"
+      "text": "Explore Entertainment",
+      "url": "/industry/entertainment"
     },
     {
-      "text": "Explore Bridgebox Vs Integrately",
-      "url": "/compare/bridgebox-vs-integrately"
+      "text": "Explore Automate Cancellation Flows",
+      "url": "/use-cases/cancellation-flows"
     },
     {
-      "text": "Explore Bridgebox Aws Integration",
-      "url": "/integrations/aws"
+      "text": "Explore Human-In-The-Loop Approvals",
+      "url": "/features/human-in-the-loop-approvals"
     },
     {
-      "text": "Explore Automate Email Triage",
-      "url": "/use-cases/email-triage"
+      "text": "Explore Bridgebox Vs Glide",
+      "url": "/compare/bridgebox-vs-glide"
     },
     {
-      "text": "Explore Client Intake Automation For Nonprofits",
-      "url": "/industry/nonprofits-client-intake-automation"
+      "text": "Explore Bridgebox Asana Integration",
+      "url": "/integrations/asana"
     }
   ]
 }

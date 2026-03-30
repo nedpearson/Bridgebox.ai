@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting agencies in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Aws Integration",
-      "url": "/integrations/aws"
-    },
-    {
-      "text": "Explore Automate Fleet Routing",
-      "url": "/use-cases/fleet-routing"
-    },
-    {
-      "text": "Explore Automate Cancellation Flows",
-      "url": "/use-cases/cancellation-flows"
-    },
-    {
       "text": "Explore Automate Maintenance Requests",
       "url": "/use-cases/maintenance-requests"
     },
     {
-      "text": "Explore Automate Inventory Auditing",
-      "url": "/use-cases/inventory-auditing"
+      "text": "Explore Integration Engine",
+      "url": "/features/integration-engine"
+    },
+    {
+      "text": "Explore Client Intake Automation For Security",
+      "url": "/industry/security-client-intake-automation"
+    },
+    {
+      "text": "Explore Document Management Workflow For Fitness",
+      "url": "/industry/fitness-document-management-workflow"
+    },
+    {
+      "text": "Explore Document Management Workflow For Security",
+      "url": "/industry/security-document-management-workflow"
     }
   ]
 }

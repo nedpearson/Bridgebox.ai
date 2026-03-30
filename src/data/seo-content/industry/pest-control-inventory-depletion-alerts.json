@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for pest control."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Law Firms In 2026",
-      "url": "/blog/how-ai-is-disrupting-law-firms-in-2026"
+      "text": "Explore Webhook Listeners",
+      "url": "/features/webhook-listeners"
     },
     {
-      "text": "Explore Bridgebox Harvest Integration",
-      "url": "/integrations/harvest"
+      "text": "Explore Automate Quote Generation",
+      "url": "/use-cases/quote-generation"
     },
     {
-      "text": "Explore How Ai Is Disrupting Dealerships In 2026",
-      "url": "/blog/how-ai-is-disrupting-dealerships-in-2026"
+      "text": "Explore Payroll Processing Compliance For Fitness",
+      "url": "/industry/fitness-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Toggl Integration",
-      "url": "/integrations/toggl"
+      "text": "Explore Automate Invoice Processing",
+      "url": "/use-cases/invoice-processing"
     },
     {
-      "text": "Explore How Ai Is Disrupting Logistics In 2026",
-      "url": "/blog/how-ai-is-disrupting-logistics-in-2026"
+      "text": "Explore Automate Compliance Reporting",
+      "url": "/use-cases/compliance-reporting"
     }
   ]
 }

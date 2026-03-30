@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate dental clinics operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Github Integration",
-      "url": "/integrations/github"
-    },
-    {
-      "text": "Explore Financial Services",
-      "url": "/industry/financial-services"
-    },
-    {
-      "text": "Explore Document Management Workflow For Engineering",
-      "url": "/industry/engineering-document-management-workflow"
-    },
-    {
-      "text": "Explore Client Intake Automation For Education",
-      "url": "/industry/education-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Retail",
+      "url": "/industry/retail-payroll-processing-compliance"
     },
     {
       "text": "Explore Dealerships",
       "url": "/industry/dealerships"
+    },
+    {
+      "text": "Explore Payroll Processing Compliance For Wealth Management",
+      "url": "/industry/wealth-management-payroll-processing-compliance"
+    },
+    {
+      "text": "Explore Client Intake Automation For Veterinary",
+      "url": "/industry/veterinary-client-intake-automation"
+    },
+    {
+      "text": "Explore Financial Services",
+      "url": "/industry/financial-services"
     }
   ]
 }

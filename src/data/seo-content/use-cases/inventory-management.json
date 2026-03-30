@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate inventory management."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Landscaping",
-      "url": "/industry/landscaping-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Github Integration",
+      "url": "/integrations/github"
     },
     {
-      "text": "Explore How Ai Is Disrupting Education In 2026",
-      "url": "/blog/how-ai-is-disrupting-education-in-2026"
+      "text": "Explore The Ultimate Guide To Scaling Logistics Tracking Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-logistics-tracking-processes"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Financial Services",
-      "url": "/industry/financial-services-payroll-processing-compliance"
+      "text": "Explore 5 Ways To Automate Media Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-media-operations-without-coding"
     },
     {
-      "text": "Explore Client Intake Automation For Plumbing",
-      "url": "/industry/plumbing-client-intake-automation"
+      "text": "Explore 5 Ways To Automate Entertainment Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-entertainment-operations-without-coding"
     },
     {
-      "text": "Explore Insurance",
-      "url": "/industry/insurance"
+      "text": "Explore The Ultimate Guide To Scaling Document Extraction Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-document-extraction-processes"
     }
   ]
 }

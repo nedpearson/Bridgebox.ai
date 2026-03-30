@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for security."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Construction",
-      "url": "/industry/construction-payroll-processing-compliance"
+      "text": "Explore 5 Ways To Automate Real Estate Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-real-estate-operations-without-coding"
     },
     {
-      "text": "Explore Bridgebox Smartsheet Integration",
-      "url": "/integrations/smartsheet"
+      "text": "Explore Bridgebox Vs Workato",
+      "url": "/compare/bridgebox-vs-workato"
     },
     {
-      "text": "Explore 5 Ways To Automate Accounting Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-accounting-operations-without-coding"
+      "text": "Explore Bridgebox Jira Integration",
+      "url": "/integrations/jira"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Compliance Reporting Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-compliance-reporting-processes"
+      "text": "Explore Automate Client Onboarding",
+      "url": "/use-cases/client-onboarding"
     },
     {
-      "text": "Explore How Ai Is Disrupting Healthcare In 2026",
-      "url": "/blog/how-ai-is-disrupting-healthcare-in-2026"
+      "text": "Explore Bridgebox Mailgun Integration",
+      "url": "/integrations/mailgun"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate logistics operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Docusign Integration",
-      "url": "/integrations/docusign"
+      "text": "Explore Document Management Workflow For Plumbing",
+      "url": "/industry/plumbing-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Vs Power Automate",
-      "url": "/compare/bridgebox-vs-power-automate"
+      "text": "Explore Document Management Workflow For Healthcare",
+      "url": "/industry/healthcare-document-management-workflow"
     },
     {
-      "text": "Explore Automate Maintenance Requests",
-      "url": "/use-cases/maintenance-requests"
+      "text": "Explore Dealerships",
+      "url": "/industry/dealerships"
     },
     {
-      "text": "Explore Bridgebox Vs Workato",
-      "url": "/compare/bridgebox-vs-workato"
+      "text": "Explore Inventory Depletion Alerts For Manufacturing",
+      "url": "/industry/manufacturing-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Audit Logs Reporting",
-      "url": "/use-cases/audit-logs-reporting"
+      "text": "Explore Inventory Depletion Alerts For Staffing",
+      "url": "/industry/staffing-inventory-depletion-alerts"
     }
   ]
 }

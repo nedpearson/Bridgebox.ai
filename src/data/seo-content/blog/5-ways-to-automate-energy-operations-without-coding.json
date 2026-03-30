@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate energy operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Teams Integration",
-      "url": "/integrations/teams"
+      "text": "Explore Bridgebox Gitlab Integration",
+      "url": "/integrations/gitlab"
     },
     {
-      "text": "Explore Architecture",
-      "url": "/industry/architecture"
+      "text": "Explore Payroll Processing Compliance For E-Commerce",
+      "url": "/industry/e-commerce-payroll-processing-compliance"
     },
     {
-      "text": "Explore Accounting",
-      "url": "/industry/accounting"
+      "text": "Explore Client Intake Automation For Insurance",
+      "url": "/industry/insurance-client-intake-automation"
     },
     {
-      "text": "Explore Client Intake Automation For Automotive Repair",
-      "url": "/industry/automotive-repair-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Nonprofits",
+      "url": "/industry/nonprofits-payroll-processing-compliance"
     },
     {
-      "text": "Explore Client Intake Automation For Education",
-      "url": "/industry/education-client-intake-automation"
+      "text": "Explore Engineering",
+      "url": "/industry/engineering"
     }
   ]
 }

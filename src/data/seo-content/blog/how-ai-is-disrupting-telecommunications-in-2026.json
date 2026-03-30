@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting telecommunications in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Tray.Io",
-      "url": "/compare/bridgebox-vs-tray-io"
+      "text": "Explore Inventory Depletion Alerts For Veterinary",
+      "url": "/industry/veterinary-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Booking Reminders",
-      "url": "/use-cases/booking-reminders"
+      "text": "Explore Automate Candidate Screening",
+      "url": "/use-cases/candidate-screening"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Hvac",
-      "url": "/industry/hvac-inventory-depletion-alerts"
+      "text": "Explore Automate Lead Qualification",
+      "url": "/use-cases/lead-qualification"
     },
     {
-      "text": "Explore Human-In-The-Loop Approvals",
-      "url": "/features/human-in-the-loop-approvals"
+      "text": "Explore Landscaping",
+      "url": "/industry/landscaping"
     },
     {
-      "text": "Explore Bridgebox Salesforce Integration",
-      "url": "/integrations/salesforce"
+      "text": "Explore Bridgebox Activecampaign Integration",
+      "url": "/integrations/activecampaign"
     }
   ]
 }

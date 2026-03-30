@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting retail in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Logistics",
-      "url": "/industry/logistics-inventory-depletion-alerts"
-    },
-    {
-      "text": "Explore Bridgebox Activecampaign Integration",
-      "url": "/integrations/activecampaign"
-    },
-    {
-      "text": "Explore Document Management Workflow For Law Firms",
-      "url": "/industry/law-firms-document-management-workflow"
-    },
-    {
       "text": "Explore Law Firms",
       "url": "/industry/law-firms"
     },
     {
-      "text": "Explore Document Management Workflow For Veterinary",
-      "url": "/industry/veterinary-document-management-workflow"
+      "text": "Explore Fitness",
+      "url": "/industry/fitness"
+    },
+    {
+      "text": "Explore Client Intake Automation For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-client-intake-automation"
+    },
+    {
+      "text": "Explore Recruiting",
+      "url": "/industry/recruiting"
+    },
+    {
+      "text": "Explore Document Management Workflow For Property Management",
+      "url": "/industry/property-management-document-management-workflow"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for nonprofits."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Shopify Integration",
-      "url": "/integrations/shopify"
+      "text": "Explore Bridgebox Gitlab Integration",
+      "url": "/integrations/gitlab"
     },
     {
-      "text": "Explore Automate Compliance Reporting",
-      "url": "/use-cases/compliance-reporting"
+      "text": "Explore 5 Ways To Automate Dental Clinics Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-dental-clinics-operations-without-coding"
     },
     {
-      "text": "Explore Bridgebox Aws Integration",
-      "url": "/integrations/aws"
+      "text": "Explore Voice-To-Build",
+      "url": "/features/voice-to-build"
     },
     {
-      "text": "Explore Client Intake Automation For Hospitality",
-      "url": "/industry/hospitality-client-intake-automation"
+      "text": "Explore Role-Based Access Control",
+      "url": "/features/role-based-access-control"
     },
     {
-      "text": "Explore 5 Ways To Automate Accounting Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-accounting-operations-without-coding"
+      "text": "Explore The Ultimate Guide To Scaling Client Onboarding Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-client-onboarding-processes"
     }
   ]
 }

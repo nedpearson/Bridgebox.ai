@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate beauty and wellness operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Nonprofits",
-      "url": "/industry/nonprofits-client-intake-automation"
+      "text": "Explore Document Management Workflow For Food And Beverage",
+      "url": "/industry/food-and-beverage-document-management-workflow"
     },
     {
-      "text": "Explore Client Intake Automation For Food And Beverage",
-      "url": "/industry/food-and-beverage-client-intake-automation"
+      "text": "Explore Bridgebox Google Drive Integration",
+      "url": "/integrations/google-drive"
     },
     {
-      "text": "Explore Accounting",
-      "url": "/industry/accounting"
+      "text": "Explore Inventory Depletion Alerts For Travel",
+      "url": "/industry/travel-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Security",
-      "url": "/industry/security-payroll-processing-compliance"
+      "text": "Explore Dental Clinics",
+      "url": "/industry/dental-clinics"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Energy",
-      "url": "/industry/energy-inventory-depletion-alerts"
+      "text": "Explore Inventory Depletion Alerts For Warehousing",
+      "url": "/industry/warehousing-inventory-depletion-alerts"
     }
   ]
 }

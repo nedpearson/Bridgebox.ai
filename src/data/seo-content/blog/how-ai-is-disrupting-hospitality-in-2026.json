@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting hospitality in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Fitness",
-      "url": "/industry/fitness-client-intake-automation"
+      "text": "Explore 5 Ways To Automate Insurance Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-insurance-operations-without-coding"
     },
     {
-      "text": "Explore Client Intake Automation For Manufacturing",
-      "url": "/industry/manufacturing-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Telecommunications",
+      "url": "/industry/telecommunications-payroll-processing-compliance"
     },
     {
-      "text": "Explore Document Management Workflow For Insurance",
-      "url": "/industry/insurance-document-management-workflow"
+      "text": "Explore Inventory Depletion Alerts For Telecommunications",
+      "url": "/industry/telecommunications-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Law Firms",
-      "url": "/industry/law-firms-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Accounting",
+      "url": "/industry/accounting-document-management-workflow"
     },
     {
-      "text": "Explore Document Management Workflow For Telecommunications",
-      "url": "/industry/telecommunications-document-management-workflow"
+      "text": "Explore Payroll Processing Compliance For Law Firms",
+      "url": "/industry/law-firms-payroll-processing-compliance"
     }
   ]
 }

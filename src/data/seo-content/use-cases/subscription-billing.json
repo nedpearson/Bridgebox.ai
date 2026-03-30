@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate subscription billing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Pest Control Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-pest-control-operations-without-coding"
+      "text": "Explore Hospitality",
+      "url": "/industry/hospitality"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Engineering",
-      "url": "/industry/engineering-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Oracle Integration",
+      "url": "/integrations/oracle"
     },
     {
-      "text": "Explore Client Intake Automation For Dental Clinics",
-      "url": "/industry/dental-clinics-client-intake-automation"
+      "text": "Explore Inventory Depletion Alerts For Property Management",
+      "url": "/industry/property-management-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Client Intake Automation For Law Firms",
-      "url": "/industry/law-firms-client-intake-automation"
+      "text": "Explore How Ai Is Disrupting Agencies In 2026",
+      "url": "/blog/how-ai-is-disrupting-agencies-in-2026"
     },
     {
-      "text": "Explore Payroll Processing Compliance For E-Commerce",
-      "url": "/industry/e-commerce-payroll-processing-compliance"
+      "text": "Explore Payroll Processing Compliance For Fitness",
+      "url": "/industry/fitness-payroll-processing-compliance"
     }
   ]
 }

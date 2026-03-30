@@ -26,6 +26,20 @@
         "description": "You can't easily deploy customized client portals via Manual Labor. Bridgebox auto-generates your front-ends tied directly to your pipelines."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox vs manual labor."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -53,24 +67,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Security",
-      "url": "/industry/security-client-intake-automation"
+      "text": "Explore Client Intake Automation For Energy",
+      "url": "/industry/energy-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Staffing",
-      "url": "/industry/staffing-payroll-processing-compliance"
+      "text": "Explore Automate Supply Chain Alerts",
+      "url": "/use-cases/supply-chain-alerts"
     },
     {
-      "text": "Explore Media",
-      "url": "/industry/media"
+      "text": "Explore Client Intake Automation For Travel",
+      "url": "/industry/travel-client-intake-automation"
     },
     {
-      "text": "Explore Client Intake Automation For Agencies",
-      "url": "/industry/agencies-client-intake-automation"
+      "text": "Explore Landscaping",
+      "url": "/industry/landscaping"
     },
     {
-      "text": "Explore How Ai Is Disrupting Energy In 2026",
-      "url": "/blog/how-ai-is-disrupting-energy-in-2026"
+      "text": "Explore Client Intake Automation For Architecture",
+      "url": "/industry/architecture-client-intake-automation"
     }
   ]
 }

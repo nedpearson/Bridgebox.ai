@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for law firms."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Compliance Reporting",
-      "url": "/use-cases/compliance-reporting"
+      "text": "Explore Automate Support Ticket Routing",
+      "url": "/use-cases/support-ticket-routing"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Employee Onboarding Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-employee-onboarding-processes"
+      "text": "Explore Client Intake Automation For Property Management",
+      "url": "/industry/property-management-client-intake-automation"
     },
     {
-      "text": "Explore Automate Inventory Management",
-      "url": "/use-cases/inventory-management"
+      "text": "Explore Travel",
+      "url": "/industry/travel"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Wealth Management",
-      "url": "/industry/wealth-management-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Entertainment",
+      "url": "/industry/entertainment-inventory-depletion-alerts"
     },
     {
-      "text": "Explore E-Commerce",
-      "url": "/industry/e-commerce"
+      "text": "Explore Automate Expense Approvals",
+      "url": "/use-cases/expense-approvals"
     }
   ]
 }

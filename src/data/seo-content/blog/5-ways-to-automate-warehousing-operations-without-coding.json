@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate warehousing operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Visual Canvas",
-      "url": "/features/visual-canvas"
+      "text": "Explore Bridgebox Vs Boomi",
+      "url": "/compare/bridgebox-vs-boomi"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Warehousing",
-      "url": "/industry/warehousing-payroll-processing-compliance"
+      "text": "Explore How Ai Is Disrupting Manufacturing In 2026",
+      "url": "/blog/how-ai-is-disrupting-manufacturing-in-2026"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Law Firms",
-      "url": "/industry/law-firms-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Github Integration",
+      "url": "/integrations/github"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Insurance",
-      "url": "/industry/insurance-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Hvac",
+      "url": "/industry/hvac-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore Bridgebox Vs Ifttt",
+      "url": "/compare/bridgebox-vs-ifttt"
     }
   ]
 }

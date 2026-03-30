@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling logistics tracking processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Pipedream",
-      "url": "/compare/bridgebox-vs-pipedream"
+      "text": "Explore Automate Quality Assurance",
+      "url": "/use-cases/quality-assurance"
     },
     {
-      "text": "Explore Food And Beverage",
-      "url": "/industry/food-and-beverage"
+      "text": "Explore Client Intake Automation For Construction",
+      "url": "/industry/construction-client-intake-automation"
     },
     {
-      "text": "Explore Logistics",
-      "url": "/industry/logistics"
+      "text": "Explore Inventory Depletion Alerts For Logistics",
+      "url": "/industry/logistics-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Document Management Workflow For Travel",
-      "url": "/industry/travel-document-management-workflow"
+      "text": "Explore E-Commerce",
+      "url": "/industry/e-commerce"
     },
     {
-      "text": "Explore Travel",
-      "url": "/industry/travel"
+      "text": "Explore Client Intake Automation For Insurance",
+      "url": "/industry/insurance-client-intake-automation"
     }
   ]
 }

@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting entertainment in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Nonprofits",
-      "url": "/industry/nonprofits"
+      "text": "Explore Payroll Processing Compliance For Accounting",
+      "url": "/industry/accounting-payroll-processing-compliance"
     },
     {
-      "text": "Explore Document Management Workflow For Hospitality",
-      "url": "/industry/hospitality-document-management-workflow"
+      "text": "Explore Inventory Depletion Alerts For Healthcare",
+      "url": "/industry/healthcare-inventory-depletion-alerts"
     },
     {
-      "text": "Explore 5 Ways To Automate Financial Services Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-financial-services-operations-without-coding"
+      "text": "Explore Integration Engine",
+      "url": "/features/integration-engine"
     },
     {
-      "text": "Explore Automate Client Onboarding",
-      "url": "/use-cases/client-onboarding"
+      "text": "Explore Document Management Workflow For Veterinary",
+      "url": "/industry/veterinary-document-management-workflow"
     },
     {
-      "text": "Explore Automate Expense Approvals",
-      "url": "/use-cases/expense-approvals"
+      "text": "Explore Law Firms",
+      "url": "/industry/law-firms"
     }
   ]
 }

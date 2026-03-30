@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for entertainment."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Dental Clinics In 2026",
-      "url": "/blog/how-ai-is-disrupting-dental-clinics-in-2026"
+      "text": "Explore Automate Employee Onboarding",
+      "url": "/use-cases/employee-onboarding"
     },
     {
-      "text": "Explore Bridgebox Mailgun Integration",
-      "url": "/integrations/mailgun"
+      "text": "Explore Bridgebox Sap Integration",
+      "url": "/integrations/sap"
     },
     {
-      "text": "Explore 5 Ways To Automate Oil And Gas Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-oil-and-gas-operations-without-coding"
+      "text": "Explore Bridgebox Shopify Integration",
+      "url": "/integrations/shopify"
     },
     {
-      "text": "Explore Human-In-The-Loop Approvals",
-      "url": "/features/human-in-the-loop-approvals"
+      "text": "Explore Inventory Depletion Alerts For Retail",
+      "url": "/industry/retail-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Event Registration",
-      "url": "/use-cases/event-registration"
+      "text": "Explore Document Management Workflow For Dental Clinics",
+      "url": "/industry/dental-clinics-document-management-workflow"
     }
   ]
 }

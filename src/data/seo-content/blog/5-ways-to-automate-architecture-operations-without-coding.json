@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate architecture operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Oil And Gas",
-      "url": "/industry/oil-and-gas-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Automotive Repair",
+      "url": "/industry/automotive-repair-payroll-processing-compliance"
     },
     {
-      "text": "Explore Real Estate",
-      "url": "/industry/real-estate"
+      "text": "Explore Automate Social Media Posting",
+      "url": "/use-cases/social-media-posting"
     },
     {
-      "text": "Explore Bridgebox Shopify Integration",
-      "url": "/integrations/shopify"
+      "text": "Explore Client Intake Automation For Dealerships",
+      "url": "/industry/dealerships-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Quickbooks Integration",
-      "url": "/integrations/quickbooks"
+      "text": "Explore Payroll Processing Compliance For Media",
+      "url": "/industry/media-payroll-processing-compliance"
     },
     {
-      "text": "Explore Branching Logic",
-      "url": "/features/branching-logic"
+      "text": "Explore Payroll Processing Compliance For Engineering",
+      "url": "/industry/engineering-payroll-processing-compliance"
     }
   ]
 }

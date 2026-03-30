@@ -54,6 +54,11 @@ function buildPageData(category, slug, keyword, data) {
         { title: "Zero Technical Debt", description: "Our AI generates clean, scalable architecture behind the scenes." },
         { title: "End-to-End Security", description: "Bank-level encryption and strict multi-tenant data isolation natively." }
       ],
+      workflowSteps: data.workflowSteps || [
+        { title: "Ingest Trigger", description: `Capture incoming logic securely from internal events or webhook payloads relating to ${keyword}.` },
+        { title: "Apply Intelligence", description: "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules." },
+        { title: "Execute Action", description: "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely." }
+      ],
       featuresUsed: data.features || [intentClusters.features[0], intentClusters.features[1], intentClusters.features[2]],
       integrationsReferenced: data.integrations || [intentClusters.integrations[0], intentClusters.integrations[1]],
       faq: data.faq || [

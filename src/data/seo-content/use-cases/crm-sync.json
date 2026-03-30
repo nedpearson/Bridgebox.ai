@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate CRM sync."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Cron Schedulers",
-      "url": "/features/cron-schedulers"
+      "text": "Explore Document Management Workflow For Plumbing",
+      "url": "/industry/plumbing-document-management-workflow"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Media",
-      "url": "/industry/media-inventory-depletion-alerts"
+      "text": "Explore Screen Recording Ingestion",
+      "url": "/features/screen-recording-ingestion"
     },
     {
-      "text": "Explore Document Management Workflow For Engineering",
-      "url": "/industry/engineering-document-management-workflow"
+      "text": "Explore Bridgebox Netsuite Integration",
+      "url": "/integrations/netsuite"
     },
     {
-      "text": "Explore Client Intake Automation For Agencies",
-      "url": "/industry/agencies-client-intake-automation"
+      "text": "Explore 5 Ways To Automate Fitness Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-fitness-operations-without-coding"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Automotive Repair",
-      "url": "/industry/automotive-repair-payroll-processing-compliance"
+      "text": "Explore Bridgebox Sap Integration",
+      "url": "/integrations/sap"
     }
   ]
 }

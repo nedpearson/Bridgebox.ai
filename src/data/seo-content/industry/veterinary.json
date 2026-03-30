@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for veterinary."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Salesforce Integration",
-      "url": "/integrations/salesforce"
+      "text": "Explore Bridgebox Vs Manual Labor",
+      "url": "/compare/bridgebox-vs-manual-labor"
     },
     {
-      "text": "Explore Document Management Workflow For Food And Beverage",
-      "url": "/industry/food-and-beverage-document-management-workflow"
+      "text": "Explore The Ultimate Guide To Scaling Logistics Tracking Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-logistics-tracking-processes"
     },
     {
-      "text": "Explore Automate Event Registration",
-      "url": "/use-cases/event-registration"
+      "text": "Explore Bridgebox Vs N8n",
+      "url": "/compare/bridgebox-vs-n8n"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Veterinary",
-      "url": "/industry/veterinary-payroll-processing-compliance"
+      "text": "Explore Bridgebox Vs Make.Com",
+      "url": "/compare/bridgebox-vs-make-com"
     },
     {
-      "text": "Explore Bridgebox Shopify Integration",
-      "url": "/integrations/shopify"
+      "text": "Explore Automate Support Ticket Routing",
+      "url": "/use-cases/support-ticket-routing"
     }
   ]
 }

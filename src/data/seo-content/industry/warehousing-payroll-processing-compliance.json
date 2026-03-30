@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to payroll processing compliance for warehousing."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Workday Integration",
+      "url": "/integrations/workday"
     },
     {
-      "text": "Explore Workflow Orchestration",
-      "url": "/features/workflow-orchestration"
+      "text": "Explore Bridgebox Vs Custom Development",
+      "url": "/compare/bridgebox-vs-custom-development"
     },
     {
-      "text": "Explore Pest Control",
-      "url": "/industry/pest-control"
+      "text": "Explore Inventory Depletion Alerts For Construction",
+      "url": "/industry/construction-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Xero Integration",
-      "url": "/integrations/xero"
+      "text": "Explore Automate Payment Reconciliation",
+      "url": "/use-cases/payment-reconciliation"
     },
     {
-      "text": "Explore Automate Subscription Billing",
-      "url": "/use-cases/subscription-billing"
+      "text": "Explore Client Intake Automation For Healthcare",
+      "url": "/industry/healthcare-client-intake-automation"
     }
   ]
 }

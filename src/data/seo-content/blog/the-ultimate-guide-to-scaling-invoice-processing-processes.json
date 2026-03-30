@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to the ultimate guide to scaling invoice processing processes."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Inventory Management",
-      "url": "/use-cases/inventory-management"
+      "text": "Explore Bridgebox Vs Make.Com",
+      "url": "/compare/bridgebox-vs-make-com"
     },
     {
-      "text": "Explore Oil And Gas",
-      "url": "/industry/oil-and-gas"
+      "text": "Explore Bridgebox Vs Tray.Io",
+      "url": "/compare/bridgebox-vs-tray-io"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Construction",
-      "url": "/industry/construction-inventory-depletion-alerts"
+      "text": "Explore Hvac",
+      "url": "/industry/hvac"
     },
     {
-      "text": "Explore Financial Services",
-      "url": "/industry/financial-services"
+      "text": "Explore Scheduled Triggers",
+      "url": "/features/scheduled-triggers"
     },
     {
-      "text": "Explore Media",
-      "url": "/industry/media"
+      "text": "Explore Automate Candidate Screening",
+      "url": "/use-cases/candidate-screening"
     }
   ]
 }

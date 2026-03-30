@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting travel in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Mailchimp Integration",
-      "url": "/integrations/mailchimp"
+      "text": "Explore Workflow Orchestration",
+      "url": "/features/workflow-orchestration"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Financial Services",
-      "url": "/industry/financial-services-payroll-processing-compliance"
+      "text": "Explore Client Intake Automation For Insurance",
+      "url": "/industry/insurance-client-intake-automation"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Nonprofits",
-      "url": "/industry/nonprofits-inventory-depletion-alerts"
+      "text": "Explore Client Intake Automation For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Property Management",
-      "url": "/industry/property-management-payroll-processing-compliance"
+      "text": "Explore Law Firms",
+      "url": "/industry/law-firms"
     },
     {
-      "text": "Explore Energy",
-      "url": "/industry/energy"
+      "text": "Explore Client Intake Automation For Law Firms",
+      "url": "/industry/law-firms-client-intake-automation"
     }
   ]
 }

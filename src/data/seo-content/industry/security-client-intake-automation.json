@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to client intake automation for security."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Intercom Integration",
-      "url": "/integrations/intercom"
+      "text": "Explore 5 Ways To Automate Veterinary Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-veterinary-operations-without-coding"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Construction",
-      "url": "/industry/construction-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Mailgun Integration",
+      "url": "/integrations/mailgun"
     },
     {
-      "text": "Explore Dental Clinics",
-      "url": "/industry/dental-clinics"
+      "text": "Explore Automate Tax Document Sorting",
+      "url": "/use-cases/tax-document-sorting"
     },
     {
-      "text": "Explore Automate Contract Generation",
-      "url": "/use-cases/contract-generation"
+      "text": "Explore Document Management Workflow For Wealth Management",
+      "url": "/industry/wealth-management-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Vs Ifttt",
-      "url": "/compare/bridgebox-vs-ifttt"
+      "text": "Explore Client Intake Automation For Travel",
+      "url": "/industry/travel-client-intake-automation"
     }
   ]
 }

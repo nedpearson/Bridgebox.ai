@@ -30,6 +30,20 @@
         "description": "Never miss a step. Force strict logic gates across your workflow ensuring regulatory rules are fired consistently."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to ai automation for nonprofits."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "data normalization",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Asset Management",
-      "url": "/use-cases/asset-management"
+      "text": "Explore 5 Ways To Automate Agencies Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-agencies-operations-without-coding"
     },
     {
-      "text": "Explore 5 Ways To Automate Automotive Repair Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-automotive-repair-operations-without-coding"
+      "text": "Explore 5 Ways To Automate Insurance Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-insurance-operations-without-coding"
     },
     {
-      "text": "Explore Automate Maintenance Requests",
-      "url": "/use-cases/maintenance-requests"
+      "text": "Explore 5 Ways To Automate Wealth Management Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-wealth-management-operations-without-coding"
     },
     {
-      "text": "Explore Bridgebox Activecampaign Integration",
-      "url": "/integrations/activecampaign"
+      "text": "Explore 5 Ways To Automate Recruiting Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-recruiting-operations-without-coding"
     },
     {
-      "text": "Explore Bridgebox Github Integration",
-      "url": "/integrations/github"
+      "text": "Explore 5 Ways To Automate Nonprofits Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-nonprofits-operations-without-coding"
     }
   ]
 }

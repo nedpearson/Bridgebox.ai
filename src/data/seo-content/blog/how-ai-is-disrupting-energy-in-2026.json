@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting energy in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Media",
-      "url": "/industry/media-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Dental Clinics",
+      "url": "/industry/dental-clinics-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Beauty And Wellness",
-      "url": "/industry/beauty-and-wellness-payroll-processing-compliance"
+      "text": "Explore 5 Ways To Automate Education Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-education-operations-without-coding"
     },
     {
-      "text": "Explore Education",
-      "url": "/industry/education"
+      "text": "Explore Bridgebox Oracle Integration",
+      "url": "/integrations/oracle"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Hospitality",
-      "url": "/industry/hospitality-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Hospitality",
+      "url": "/industry/hospitality-document-management-workflow"
     },
     {
-      "text": "Explore Wealth Management",
-      "url": "/industry/wealth-management"
+      "text": "Explore Inventory Depletion Alerts For Dealerships",
+      "url": "/industry/dealerships-inventory-depletion-alerts"
     }
   ]
 }

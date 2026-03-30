@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to automate email triage."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "workflow orchestration",
       "ai logic gates"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Logistics Tracking",
-      "url": "/use-cases/logistics-tracking"
+      "text": "Explore Inventory Depletion Alerts For Pest Control",
+      "url": "/industry/pest-control-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Hvac",
-      "url": "/industry/hvac-payroll-processing-compliance"
+      "text": "Explore Document Management Workflow For Financial Services",
+      "url": "/industry/financial-services-document-management-workflow"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Real Estate",
-      "url": "/industry/real-estate-inventory-depletion-alerts"
+      "text": "Explore Inventory Depletion Alerts For Manufacturing",
+      "url": "/industry/manufacturing-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Salesforce Integration",
-      "url": "/integrations/salesforce"
+      "text": "Explore Client Intake Automation For Accounting",
+      "url": "/industry/accounting-client-intake-automation"
     },
     {
-      "text": "Explore 5 Ways To Automate Media Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-media-operations-without-coding"
+      "text": "Explore Payroll Processing Compliance For Logistics",
+      "url": "/industry/logistics-payroll-processing-compliance"
     }
   ]
 }

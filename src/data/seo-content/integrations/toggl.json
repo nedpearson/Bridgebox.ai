@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to bridgebox toggl integration."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Automotive Repair",
-      "url": "/industry/automotive-repair-client-intake-automation"
+      "text": "Explore How Ai Is Disrupting Warehousing In 2026",
+      "url": "/blog/how-ai-is-disrupting-warehousing-in-2026"
     },
     {
-      "text": "Explore Client Intake Automation For Hospitality",
-      "url": "/industry/hospitality-client-intake-automation"
+      "text": "Explore Data Normalization",
+      "url": "/features/data-normalization"
     },
     {
-      "text": "Explore Insurance",
-      "url": "/industry/insurance"
+      "text": "Explore Automate Booking Reminders",
+      "url": "/use-cases/booking-reminders"
     },
     {
-      "text": "Explore Automate Fleet Routing",
-      "url": "/use-cases/fleet-routing"
+      "text": "Explore How Ai Is Disrupting Law Firms In 2026",
+      "url": "/blog/how-ai-is-disrupting-law-firms-in-2026"
     },
     {
-      "text": "Explore 5 Ways To Automate Dealerships Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-dealerships-operations-without-coding"
+      "text": "Explore 5 Ways To Automate Property Management Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-property-management-operations-without-coding"
     }
   ]
 }

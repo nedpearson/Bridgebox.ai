@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting plumbing in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Client Intake Automation For Engineering",
-      "url": "/industry/engineering-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Telecommunications",
+      "url": "/industry/telecommunications-payroll-processing-compliance"
     },
     {
-      "text": "Explore Client Intake Automation For Automotive Repair",
-      "url": "/industry/automotive-repair-client-intake-automation"
+      "text": "Explore Retail",
+      "url": "/industry/retail"
     },
     {
-      "text": "Explore Client Intake Automation For Dental Clinics",
-      "url": "/industry/dental-clinics-client-intake-automation"
+      "text": "Explore Payroll Processing Compliance For Veterinary",
+      "url": "/industry/veterinary-payroll-processing-compliance"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Recruiting",
-      "url": "/industry/recruiting-inventory-depletion-alerts"
+      "text": "Explore Document Management Workflow For Property Management",
+      "url": "/industry/property-management-document-management-workflow"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Dental Clinics",
-      "url": "/industry/dental-clinics-payroll-processing-compliance"
+      "text": "Explore Healthcare",
+      "url": "/industry/healthcare"
     }
   ]
 }

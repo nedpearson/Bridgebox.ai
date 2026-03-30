@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate nonprofits operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Payroll Processing Compliance For Dealerships",
-      "url": "/industry/dealerships-payroll-processing-compliance"
+      "text": "Explore Automate Social Media Posting",
+      "url": "/use-cases/social-media-posting"
     },
     {
-      "text": "Explore Client Intake Automation For Engineering",
-      "url": "/industry/engineering-client-intake-automation"
+      "text": "Explore Client Intake Automation For Fitness",
+      "url": "/industry/fitness-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Travel",
-      "url": "/industry/travel-payroll-processing-compliance"
+      "text": "Explore Security",
+      "url": "/industry/security"
     },
     {
-      "text": "Explore Document Management Workflow For Food And Beverage",
-      "url": "/industry/food-and-beverage-document-management-workflow"
+      "text": "Explore Client Intake Automation For Pest Control",
+      "url": "/industry/pest-control-client-intake-automation"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Insurance",
-      "url": "/industry/insurance-payroll-processing-compliance"
+      "text": "Explore Automate Email Triage",
+      "url": "/use-cases/email-triage"
     }
   ]
 }

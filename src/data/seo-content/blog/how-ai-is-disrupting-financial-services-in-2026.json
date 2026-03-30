@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to how ai is disrupting financial services in 2026."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Property Management",
-      "url": "/industry/property-management-inventory-depletion-alerts"
+      "text": "Explore Bridgebox Shopify Integration",
+      "url": "/integrations/shopify"
     },
     {
-      "text": "Explore Document Management Workflow For Staffing",
-      "url": "/industry/staffing-document-management-workflow"
+      "text": "Explore Automate Order Fulfillment",
+      "url": "/use-cases/order-fulfillment"
     },
     {
-      "text": "Explore Document Management Workflow For Fitness",
-      "url": "/industry/fitness-document-management-workflow"
+      "text": "Explore Hvac",
+      "url": "/industry/hvac"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Law Firms",
-      "url": "/industry/law-firms-payroll-processing-compliance"
+      "text": "Explore Automate Proposal Drafting",
+      "url": "/use-cases/proposal-drafting"
     },
     {
-      "text": "Explore Payroll Processing Compliance For Dealerships",
-      "url": "/industry/dealerships-payroll-processing-compliance"
+      "text": "Explore Inventory Depletion Alerts For Landscaping",
+      "url": "/industry/landscaping-inventory-depletion-alerts"
     }
   ]
 }

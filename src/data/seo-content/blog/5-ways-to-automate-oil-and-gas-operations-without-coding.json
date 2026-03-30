@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to 5 ways to automate oil and gas operations without coding."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "voice-to-build",
       "screen recording ingestion",
@@ -57,24 +71,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Inventory Depletion Alerts For Oil And Gas",
-      "url": "/industry/oil-and-gas-inventory-depletion-alerts"
+      "text": "Explore Payroll Processing Compliance For Travel",
+      "url": "/industry/travel-payroll-processing-compliance"
     },
     {
-      "text": "Explore Inventory Depletion Alerts For Retail",
-      "url": "/industry/retail-inventory-depletion-alerts"
+      "text": "Explore 5 Ways To Automate Beauty And Wellness Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-beauty-and-wellness-operations-without-coding"
     },
     {
-      "text": "Explore Financial Services",
-      "url": "/industry/financial-services"
+      "text": "Explore Client Intake Automation For Fitness",
+      "url": "/industry/fitness-client-intake-automation"
     },
     {
-      "text": "Explore Client Intake Automation For Retail",
-      "url": "/industry/retail-client-intake-automation"
+      "text": "Explore Automate Expense Approvals",
+      "url": "/use-cases/expense-approvals"
     },
     {
-      "text": "Explore Dental Clinics",
-      "url": "/industry/dental-clinics"
+      "text": "Explore Payroll Processing Compliance For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-payroll-processing-compliance"
     }
   ]
 }

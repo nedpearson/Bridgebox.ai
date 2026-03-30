@@ -30,6 +30,20 @@
         "description": "Bank-level encryption and strict multi-tenant data isolation natively."
       }
     ],
+    "workflowSteps": [
+      {
+        "title": "Ingest Trigger",
+        "description": "Capture incoming logic securely from internal events or webhook payloads relating to inventory depletion alerts for law firms."
+      },
+      {
+        "title": "Apply Intelligence",
+        "description": "Route the payload through the Bridgebox AI cognitive layer, parsing constraints against your specific logic rules."
+      },
+      {
+        "title": "Execute Action",
+        "description": "Autonomously fire the required updates directly into your ecosystem, eliminating the manual bottleneck completely."
+      }
+    ],
     "featuresUsed": [
       "integration engine",
       "visual canvas"
@@ -55,24 +69,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Document Management Workflow For Law Firms",
-      "url": "/industry/law-firms-document-management-workflow"
-    },
-    {
-      "text": "Explore 5 Ways To Automate Dental Clinics Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-dental-clinics-operations-without-coding"
+      "text": "Explore Automate Document Extraction",
+      "url": "/use-cases/document-extraction"
     },
     {
       "text": "Explore 5 Ways To Automate Nonprofits Operations Without Coding",
       "url": "/blog/5-ways-to-automate-nonprofits-operations-without-coding"
     },
     {
-      "text": "Explore Automate Shift Scheduling",
-      "url": "/use-cases/shift-scheduling"
+      "text": "Explore Document Management Workflow For Food And Beverage",
+      "url": "/industry/food-and-beverage-document-management-workflow"
     },
     {
-      "text": "Explore Automate Lead Qualification",
-      "url": "/use-cases/lead-qualification"
+      "text": "Explore Automate Social Media Posting",
+      "url": "/use-cases/social-media-posting"
+    },
+    {
+      "text": "Explore Payroll Processing Compliance For E-Commerce",
+      "url": "/industry/e-commerce-payroll-processing-compliance"
     }
   ]
 }
