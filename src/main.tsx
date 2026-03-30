@@ -5,6 +5,12 @@ import { GlobalErrorBoundary } from "./components/GlobalErrorBoundary";
 import { Toaster } from "react-hot-toast";
 import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
+import { initAnalytics } from "./lib/analytics";
+
+// Initialize non-blocking tracking (Phase 10)
+if (import.meta.env.PROD) {
+  initAnalytics();
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
