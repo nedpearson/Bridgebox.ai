@@ -1,16 +1,16 @@
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, Box } from "lucide-react";
 
 interface EmptyStateProps {
-  icon: LucideIcon;
+  icon?: LucideIcon;
   title: string;
   description: string;
   action?: ReactNode;
 }
 
 export default function EmptyState({
-  icon: Icon,
+  icon: Icon = Box,
   title,
   description,
   action,
