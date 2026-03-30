@@ -204,14 +204,17 @@ export default function UploadRecordingModal({
             currentOrganization.id,
             baseEventType,
             (user as any)?.id,
-            { fileName: pf.file.name, fileSize: pf.file.size },
+            { 
+              fileName: pf.file.name, 
+              fileSize: pf.file.size,
+              approvedDollarSpend: ((totalCost) * 0.5).toFixed(2)
+            },
             totalCost,
+            true // allowOverdraft: true, bypasses hard blockers and records negative balance
           );
 
           if (!creditResult.success) {
-            throw new Error(
-              `Insufficient AI credits. Need ${totalCost} credits for this file size.`,
-            );
+            throw new Error(`Insufficient AI credits and Overdraft authorization naturally failed.`);
           }
 
           await enhancementMediaService.upload({

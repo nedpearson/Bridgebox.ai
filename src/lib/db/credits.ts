@@ -80,6 +80,7 @@ export const creditsService = {
     userId?: string,
     metadata?: Record<string, any>,
     overrideCost?: number,
+    allowOverdraft?: boolean,
   ): Promise<{ success: boolean; balance: number; shortfall?: number }> {
     const cost = overrideCost ?? CREDIT_COSTS[eventType] ?? 0;
     if (cost === 0) return { success: true, balance: 0 };
@@ -100,7 +101,7 @@ export const creditsService = {
       return { success: true, balance: wallet.balance };
     }
 
-    if (wallet.balance < cost) {
+    if (wallet.balance < cost && !allowOverdraft) {
       return {
         success: false,
         balance: wallet.balance,
