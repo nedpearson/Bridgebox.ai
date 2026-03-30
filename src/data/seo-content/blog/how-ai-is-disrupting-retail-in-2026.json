@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Data Normalization",
-      "url": "/features/data-normalization"
+      "text": "Explore Inventory Depletion Alerts For Logistics",
+      "url": "/industry/logistics-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Dental Clinics",
-      "url": "/industry/dental-clinics"
+      "text": "Explore Bridgebox Activecampaign Integration",
+      "url": "/integrations/activecampaign"
     },
     {
-      "text": "Explore Automate Expense Approvals",
-      "url": "/use-cases/expense-approvals"
+      "text": "Explore Document Management Workflow For Law Firms",
+      "url": "/industry/law-firms-document-management-workflow"
     },
     {
-      "text": "Explore Automate Shift Scheduling",
-      "url": "/use-cases/shift-scheduling"
+      "text": "Explore Law Firms",
+      "url": "/industry/law-firms"
     },
     {
-      "text": "Explore Healthcare",
-      "url": "/industry/healthcare"
+      "text": "Explore Document Management Workflow For Veterinary",
+      "url": "/industry/veterinary-document-management-workflow"
     }
   ]
 }

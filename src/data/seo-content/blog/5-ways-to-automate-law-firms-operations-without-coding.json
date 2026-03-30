@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Audit Logging",
-      "url": "/features/audit-logging"
+      "text": "Explore Document Management Workflow For Retail",
+      "url": "/industry/retail-document-management-workflow"
     },
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
+      "text": "Explore Inventory Depletion Alerts For Dental Clinics",
+      "url": "/industry/dental-clinics-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Invoice Processing",
-      "url": "/use-cases/invoice-processing"
+      "text": "Explore Financial Services",
+      "url": "/industry/financial-services"
     },
     {
-      "text": "Explore Dental Clinics",
-      "url": "/industry/dental-clinics"
+      "text": "Explore Veterinary",
+      "url": "/industry/veterinary"
     },
     {
-      "text": "Explore Automate Supply Chain Alerts",
-      "url": "/use-cases/supply-chain-alerts"
+      "text": "Explore Document Management Workflow For Manufacturing",
+      "url": "/industry/manufacturing-document-management-workflow"
     }
   ]
 }

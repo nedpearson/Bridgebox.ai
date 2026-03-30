@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Integration Engine",
-      "url": "/features/integration-engine"
+      "text": "Explore Automate Booking Reminders",
+      "url": "/use-cases/booking-reminders"
     },
     {
-      "text": "Explore Dealerships",
-      "url": "/industry/dealerships"
+      "text": "Explore Payroll Processing Compliance For Accounting",
+      "url": "/industry/accounting-payroll-processing-compliance"
     },
     {
-      "text": "Explore 5 Ways To Automate Wealth Management Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-wealth-management-operations-without-coding"
+      "text": "Explore Inventory Depletion Alerts For Recruiting",
+      "url": "/industry/recruiting-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Custom Form Builder",
-      "url": "/features/custom-form-builder"
+      "text": "Explore Document Management Workflow For Veterinary",
+      "url": "/industry/veterinary-document-management-workflow"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Document Extraction Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-document-extraction-processes"
+      "text": "Explore Inventory Depletion Alerts For Law Firms",
+      "url": "/industry/law-firms-inventory-depletion-alerts"
     }
   ]
 }

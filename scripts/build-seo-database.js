@@ -12,12 +12,13 @@ function ensureDir(dir) {
 // 🧠 PHASE 1 — KEYWORD INTELLIGENCE ENGINE & VARIATIONS
 // ---------------------------------------------------------
 const intentClusters = {
-  core: ['ai workflow automation', 'business process automation ai', 'custom software development ai', 'no code ai builder', 'enterprise automation platform'],
-  industries: ['law firms', 'logistics', 'accounting', 'healthcare', 'real estate', 'dealerships', 'construction', 'agencies', 'e-commerce', 'financial services', 'manufacturing', 'education', 'hospitality', 'retail', 'insurance', 'wealth management', 'dental clinics', 'veterinary', 'property management', 'automotive repair'],
-  useCases: ['invoice processing', 'client onboarding', 'logistics tracking', 'inventory management', 'document extraction', 'contract generation', 'employee onboarding', 'lead qualification', 'support ticket routing', 'compliance reporting', 'expense approvals', 'shift scheduling', 'data entry', 'payment reconciliation', 'CRM sync', 'proposal drafting', 'social media posting', 'email triage', 'appointment booking', 'vendor management', 'supply chain alerts', 'quality assurance', 'refund processing', 'commission tracking', 'fleet routing', 'tax document sorting', 'asset management', 'maintenance requests', 'loan processing', 'event registration'],
-  features: ['voice-to-build', 'screen recording ingestion', 'integration engine', 'workflow orchestration', 'visual canvas', 'data normalization', 'ai logic gates', 'human-in-the-loop approvals', 'multi-tenant architecture', 'role-based access control', 'webhook listeners', 'scheduled triggers', 'api proxying', 'audit logging', 'custom form builder'],
-  competitors: ['zapier', 'make.com', 'workato', 'tray.io', 'n8n', 'retool', 'bubble', 'autocode', 'custom development', 'manual labor'],
-  integrations: ['quickbooks', 'salesforce', 'google drive', 'slack', 'gmail', 'hubspot', 'jira', 'monday.com', 'airtable', 'notion', 'stripe', 'shopify', 'xero', 'zendesk', 'dropbox', 'docusign', 'teams', 'asana', 'trello', 'mailchimp']
+  core: ['ai workflow automation platform', 'custom ai software development', 'workflow automation software for businesses', 'ai integration platform', 'business automation platform', 'enterprise workflow automation', 'build custom software without coding', 'ai business operating system'],
+  industries: ['law firms', 'logistics', 'accounting', 'healthcare', 'real estate', 'dealerships', 'construction', 'agencies', 'e-commerce', 'financial services', 'manufacturing', 'education', 'hospitality', 'retail', 'insurance', 'wealth management', 'dental clinics', 'veterinary', 'property management', 'automotive repair', 'nonprofits', 'recruiting', 'staffing', 'architecture', 'engineering', 'energy', 'oil and gas', 'telecommunications', 'media', 'entertainment', 'travel', 'food and beverage', 'warehousing', 'beauty and wellness', 'fitness', 'landscaping', 'pest control', 'hvac', 'plumbing', 'security'],
+  industrySubWorkflows: ['client intake automation', 'document management workflow', 'payroll processing compliance', 'inventory depletion alerts'],
+  useCases: ['invoice processing', 'client onboarding', 'logistics tracking', 'inventory management', 'document extraction', 'contract generation', 'employee onboarding', 'lead qualification', 'support ticket routing', 'compliance reporting', 'expense approvals', 'shift scheduling', 'data entry', 'payment reconciliation', 'CRM sync', 'proposal drafting', 'social media posting', 'email triage', 'appointment booking', 'vendor management', 'supply chain alerts', 'quality assurance', 'refund processing', 'commission tracking', 'fleet routing', 'tax document sorting', 'asset management', 'maintenance requests', 'loan processing', 'event registration', 'lead nurturing', 'candidate screening', 'order fulfillment', 'subscription billing', 'cancellation flows', 'booking reminders', 'quote generation', 'inventory auditing', 'audit logs reporting', 'vendor onboarding'],
+  features: ['voice-to-build', 'screen recording ingestion', 'integration engine', 'workflow orchestration', 'visual canvas', 'data normalization', 'ai logic gates', 'human-in-the-loop approvals', 'multi-tenant architecture', 'role-based access control', 'webhook listeners', 'scheduled triggers', 'api proxying', 'audit logging', 'custom form builder', 'cron schedulers', 'branching logic'],
+  competitors: ['zapier', 'make.com', 'workato', 'tray.io', 'n8n', 'retool', 'bubble', 'autocode', 'custom development', 'manual labor', 'pipedream', 'boomi', 'mulesoft', 'ifttt', 'celigo', 'integrately', 'power automate', 'appsheet', 'glide'],
+  integrations: ['quickbooks', 'salesforce', 'google drive', 'slack', 'gmail', 'hubspot', 'jira', 'monday.com', 'airtable', 'notion', 'stripe', 'shopify', 'xero', 'zendesk', 'dropbox', 'docusign', 'teams', 'asana', 'trello', 'mailchimp', 'zoom', 'github', 'gitlab', 'aws', 'twilio', 'sendgrid', 'mailgun', 'intercom', 'activecampaign', 'typeform', 'calendly', 'harvest', 'toggl', 'bamboo hr', 'workday', 'sap', 'oracle', 'netsuite', 'pipedrive', 'smartsheet']
 };
 
 const internalLinks = [];
@@ -77,9 +78,10 @@ function buildPageData(category, slug, keyword, data) {
 const formatSlug = (str) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 const capitalize = (str) => str.replace(/\b\w/g, l => l.toUpperCase());
 
-// GENERATE 20+ INDUSTRY PAGES
+// GENERATE 40+ INDUSTRY PAGES
 console.log("Generating Industry Pages...");
 intentClusters.industries.forEach((industry, i) => {
+  // Main Industry Hub
   buildPageData("industry", formatSlug(industry), `ai automation for ${industry}`, {
     intent: "commercial",
     titlePrefix: `AI Automation Software for ${capitalize(industry)}`,
@@ -93,6 +95,19 @@ intentClusters.industries.forEach((industry, i) => {
     ],
     features: [intentClusters.features[0], intentClusters.features[5], intentClusters.features[7]],
     integrations: [intentClusters.integrations[i % intentClusters.integrations.length], intentClusters.integrations[(i+1) % intentClusters.integrations.length]]
+  });
+
+  // Industry Sub-pages
+  intentClusters.industrySubWorkflows.forEach((subFlow) => {
+     buildPageData("industry", `${formatSlug(industry)}-${formatSlug(subFlow)}`, `${subFlow} for ${industry}`, {
+       intent: "transactional",
+       titlePrefix: `${capitalize(subFlow)} Software for ${capitalize(industry)}`,
+       h1: `Automate ${capitalize(subFlow)} in ${capitalize(industry)}`,
+       problem: `Handling ${subFlow} manually inside ${industry} introduces devastating risks, bottlenecks, and compliance issues.`,
+       solution: `Bridgebox orchestrates perfect conditional execution of ${subFlow} explicitly conforming to the rigor required by ${industry} operations.`,
+       features: [intentClusters.features[2], intentClusters.features[4]],
+       integrations: [intentClusters.integrations[i % intentClusters.integrations.length]]
+     });
   });
 });
 

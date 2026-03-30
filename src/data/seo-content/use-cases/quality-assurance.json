@@ -35,7 +35,7 @@
       "ai logic gates"
     ],
     "integrationsReferenced": [
-      "salesforce"
+      "github"
     ],
     "faq": [
       {
@@ -55,24 +55,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Make.Com",
-      "url": "/compare/bridgebox-vs-make-com"
+      "text": "Explore Bridgebox Vs Integrately",
+      "url": "/compare/bridgebox-vs-integrately"
     },
     {
-      "text": "Explore Ai Logic Gates",
-      "url": "/features/ai-logic-gates"
+      "text": "Explore Inventory Depletion Alerts For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Vs Custom Development",
-      "url": "/compare/bridgebox-vs-custom-development"
+      "text": "Explore Payroll Processing Compliance For Construction",
+      "url": "/industry/construction-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Gmail Integration",
-      "url": "/integrations/gmail"
+      "text": "Explore Document Management Workflow For Wealth Management",
+      "url": "/industry/wealth-management-document-management-workflow"
     },
     {
-      "text": "Explore Logistics",
-      "url": "/industry/logistics"
+      "text": "Explore Inventory Depletion Alerts For Pest Control",
+      "url": "/industry/pest-control-inventory-depletion-alerts"
     }
   ]
 }

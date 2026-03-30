@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Google Drive Integration",
-      "url": "/integrations/google-drive"
+      "text": "Explore Bridgebox Docusign Integration",
+      "url": "/integrations/docusign"
     },
     {
-      "text": "Explore Healthcare",
-      "url": "/industry/healthcare"
+      "text": "Explore Bridgebox Vs Power Automate",
+      "url": "/compare/bridgebox-vs-power-automate"
     },
     {
-      "text": "Explore Real Estate",
-      "url": "/industry/real-estate"
+      "text": "Explore Automate Maintenance Requests",
+      "url": "/use-cases/maintenance-requests"
     },
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
+      "text": "Explore Bridgebox Vs Workato",
+      "url": "/compare/bridgebox-vs-workato"
     },
     {
-      "text": "Explore Automate Payment Reconciliation",
-      "url": "/use-cases/payment-reconciliation"
+      "text": "Explore Automate Audit Logs Reporting",
+      "url": "/use-cases/audit-logs-reporting"
     }
   ]
 }

@@ -35,7 +35,7 @@
       "ai logic gates"
     ],
     "integrationsReferenced": [
-      "jira"
+      "mailgun"
     ],
     "faq": [
       {
@@ -55,24 +55,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Construction",
-      "url": "/industry/construction"
+      "text": "Explore How Ai Is Disrupting Energy In 2026",
+      "url": "/blog/how-ai-is-disrupting-energy-in-2026"
     },
     {
-      "text": "Explore Automate Invoice Processing",
-      "url": "/use-cases/invoice-processing"
+      "text": "Explore Client Intake Automation For Wealth Management",
+      "url": "/industry/wealth-management-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Shopify Integration",
-      "url": "/integrations/shopify"
+      "text": "Explore Inventory Depletion Alerts For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Monday.Com Integration",
-      "url": "/integrations/monday-com"
+      "text": "Explore Healthcare",
+      "url": "/industry/healthcare"
     },
     {
-      "text": "Explore How Ai Is Disrupting Insurance In 2026",
-      "url": "/blog/how-ai-is-disrupting-insurance-in-2026"
+      "text": "Explore Client Intake Automation For Manufacturing",
+      "url": "/industry/manufacturing-client-intake-automation"
     }
   ]
 }

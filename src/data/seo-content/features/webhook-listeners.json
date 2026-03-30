@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Workato",
-      "url": "/compare/bridgebox-vs-workato"
+      "text": "Explore Bridgebox Netsuite Integration",
+      "url": "/integrations/netsuite"
     },
     {
-      "text": "Explore Manufacturing",
-      "url": "/industry/manufacturing"
+      "text": "Explore Automate Email Triage",
+      "url": "/use-cases/email-triage"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Client Onboarding Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-client-onboarding-processes"
+      "text": "Explore Payroll Processing Compliance For Travel",
+      "url": "/industry/travel-payroll-processing-compliance"
     },
     {
-      "text": "Explore Veterinary",
-      "url": "/industry/veterinary"
+      "text": "Explore Client Intake Automation For Warehousing",
+      "url": "/industry/warehousing-client-intake-automation"
     },
     {
-      "text": "Explore Automotive Repair",
-      "url": "/industry/automotive-repair"
+      "text": "Explore Client Intake Automation For Agencies",
+      "url": "/industry/agencies-client-intake-automation"
     }
   ]
 }

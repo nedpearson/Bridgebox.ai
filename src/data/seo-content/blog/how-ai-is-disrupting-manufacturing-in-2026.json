@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Integration Engine",
-      "url": "/features/integration-engine"
+      "text": "Explore Payroll Processing Compliance For Oil And Gas",
+      "url": "/industry/oil-and-gas-payroll-processing-compliance"
     },
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore Automate Proposal Drafting",
+      "url": "/use-cases/proposal-drafting"
     },
     {
-      "text": "Explore Manufacturing",
-      "url": "/industry/manufacturing"
+      "text": "Explore Automate Tax Document Sorting",
+      "url": "/use-cases/tax-document-sorting"
     },
     {
-      "text": "Explore Education",
-      "url": "/industry/education"
+      "text": "Explore Automate Candidate Screening",
+      "url": "/use-cases/candidate-screening"
     },
     {
-      "text": "Explore Logistics",
-      "url": "/industry/logistics"
+      "text": "Explore Bridgebox Github Integration",
+      "url": "/integrations/github"
     }
   ]
 }

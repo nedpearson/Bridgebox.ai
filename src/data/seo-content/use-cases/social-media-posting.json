@@ -55,24 +55,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Data Normalization",
-      "url": "/features/data-normalization"
+      "text": "Explore Inventory Depletion Alerts For Education",
+      "url": "/industry/education-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Integration Engine",
-      "url": "/features/integration-engine"
+      "text": "Explore Client Intake Automation For Entertainment",
+      "url": "/industry/entertainment-client-intake-automation"
     },
     {
-      "text": "Explore Multi-Tenant Architecture",
-      "url": "/features/multi-tenant-architecture"
+      "text": "Explore 5 Ways To Automate Property Management Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-property-management-operations-without-coding"
     },
     {
-      "text": "Explore Visual Canvas",
-      "url": "/features/visual-canvas"
+      "text": "Explore Automate Subscription Billing",
+      "url": "/use-cases/subscription-billing"
     },
     {
-      "text": "Explore Automate Invoice Processing",
-      "url": "/use-cases/invoice-processing"
+      "text": "Explore Automate Social Media Posting",
+      "url": "/use-cases/social-media-posting"
     }
   ]
 }

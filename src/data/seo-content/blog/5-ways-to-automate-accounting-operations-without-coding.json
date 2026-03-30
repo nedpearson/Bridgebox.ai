@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Client Onboarding",
-      "url": "/use-cases/client-onboarding"
+      "text": "Explore Automate Document Extraction",
+      "url": "/use-cases/document-extraction"
     },
     {
-      "text": "Explore Bridgebox Airtable Integration",
-      "url": "/integrations/airtable"
+      "text": "Explore Payroll Processing Compliance For Insurance",
+      "url": "/industry/insurance-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Docusign Integration",
-      "url": "/integrations/docusign"
+      "text": "Explore Automate Cancellation Flows",
+      "url": "/use-cases/cancellation-flows"
     },
     {
-      "text": "Explore Dealerships",
-      "url": "/industry/dealerships"
+      "text": "Explore Client Intake Automation For Staffing",
+      "url": "/industry/staffing-client-intake-automation"
     },
     {
-      "text": "Explore Accounting",
-      "url": "/industry/accounting"
+      "text": "Explore Inventory Depletion Alerts For Real Estate",
+      "url": "/industry/real-estate-inventory-depletion-alerts"
     }
   ]
 }

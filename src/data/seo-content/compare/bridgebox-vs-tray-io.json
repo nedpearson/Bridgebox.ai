@@ -53,24 +53,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate CRM Sync",
-      "url": "/use-cases/crm-sync"
+      "text": "Explore Client Intake Automation For Property Management",
+      "url": "/industry/property-management-client-intake-automation"
     },
     {
-      "text": "Explore Workflow Orchestration",
-      "url": "/features/workflow-orchestration"
+      "text": "Explore Payroll Processing Compliance For Law Firms",
+      "url": "/industry/law-firms-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Employee Onboarding",
-      "url": "/use-cases/employee-onboarding"
+      "text": "Explore Document Management Workflow For Construction",
+      "url": "/industry/construction-document-management-workflow"
     },
     {
-      "text": "Explore Education",
-      "url": "/industry/education"
+      "text": "Explore Inventory Depletion Alerts For Construction",
+      "url": "/industry/construction-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Contract Generation",
-      "url": "/use-cases/contract-generation"
+      "text": "Explore Client Intake Automation For Healthcare",
+      "url": "/industry/healthcare-client-intake-automation"
     }
   ]
 }

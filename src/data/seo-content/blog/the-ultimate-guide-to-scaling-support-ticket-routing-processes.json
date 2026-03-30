@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Scheduled Triggers",
-      "url": "/features/scheduled-triggers"
+      "text": "Explore Bridgebox Teams Integration",
+      "url": "/integrations/teams"
     },
     {
-      "text": "Explore Automate Vendor Management",
-      "url": "/use-cases/vendor-management"
+      "text": "Explore Automate Appointment Booking",
+      "url": "/use-cases/appointment-booking"
     },
     {
-      "text": "Explore Bridgebox Hubspot Integration",
-      "url": "/integrations/hubspot"
+      "text": "Explore Bridgebox Vs Manual Labor",
+      "url": "/compare/bridgebox-vs-manual-labor"
     },
     {
-      "text": "Explore Bridgebox Vs Workato",
-      "url": "/compare/bridgebox-vs-workato"
+      "text": "Explore Automate Proposal Drafting",
+      "url": "/use-cases/proposal-drafting"
     },
     {
-      "text": "Explore Automate Support Ticket Routing",
-      "url": "/use-cases/support-ticket-routing"
+      "text": "Explore Bridgebox Vs Bubble",
+      "url": "/compare/bridgebox-vs-bubble"
     }
   ]
 }

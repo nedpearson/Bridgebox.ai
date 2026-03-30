@@ -35,7 +35,7 @@
       "ai logic gates"
     ],
     "integrationsReferenced": [
-      "gmail"
+      "twilio"
     ],
     "faq": [
       {
@@ -55,24 +55,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Real Estate",
-      "url": "/industry/real-estate"
+      "text": "Explore Document Management Workflow For Entertainment",
+      "url": "/industry/entertainment-document-management-workflow"
+    },
+    {
+      "text": "Explore Bridgebox Vs Manual Labor",
+      "url": "/compare/bridgebox-vs-manual-labor"
     },
     {
       "text": "Explore How Ai Is Disrupting Construction In 2026",
       "url": "/blog/how-ai-is-disrupting-construction-in-2026"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Compliance Reporting Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-compliance-reporting-processes"
+      "text": "Explore Bridgebox Typeform Integration",
+      "url": "/integrations/typeform"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Logistics Tracking Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-logistics-tracking-processes"
-    },
-    {
-      "text": "Explore 5 Ways To Automate Financial Services Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-financial-services-operations-without-coding"
+      "text": "Explore Bridgebox Activecampaign Integration",
+      "url": "/integrations/activecampaign"
     }
   ]
 }

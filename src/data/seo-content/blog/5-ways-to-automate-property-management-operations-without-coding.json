@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Appointment Booking",
-      "url": "/use-cases/appointment-booking"
+      "text": "Explore Bridgebox Vs Appsheet",
+      "url": "/compare/bridgebox-vs-appsheet"
     },
     {
-      "text": "Explore Bridgebox Airtable Integration",
-      "url": "/integrations/airtable"
+      "text": "Explore Client Intake Automation For Property Management",
+      "url": "/industry/property-management-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Docusign Integration",
-      "url": "/integrations/docusign"
+      "text": "Explore Inventory Depletion Alerts For Real Estate",
+      "url": "/industry/real-estate-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Insurance",
-      "url": "/industry/insurance"
+      "text": "Explore Inventory Depletion Alerts For Dealerships",
+      "url": "/industry/dealerships-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Integration Engine",
-      "url": "/features/integration-engine"
+      "text": "Explore Payroll Processing Compliance For Law Firms",
+      "url": "/industry/law-firms-payroll-processing-compliance"
     }
   ]
 }

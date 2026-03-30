@@ -6,8 +6,48 @@
   },
   {
     "category": "industry",
+    "slug": "law-firms-client-intake-automation",
+    "keyword": "client intake automation for law firms"
+  },
+  {
+    "category": "industry",
+    "slug": "law-firms-document-management-workflow",
+    "keyword": "document management workflow for law firms"
+  },
+  {
+    "category": "industry",
+    "slug": "law-firms-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for law firms"
+  },
+  {
+    "category": "industry",
+    "slug": "law-firms-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for law firms"
+  },
+  {
+    "category": "industry",
     "slug": "logistics",
     "keyword": "ai automation for logistics"
+  },
+  {
+    "category": "industry",
+    "slug": "logistics-client-intake-automation",
+    "keyword": "client intake automation for logistics"
+  },
+  {
+    "category": "industry",
+    "slug": "logistics-document-management-workflow",
+    "keyword": "document management workflow for logistics"
+  },
+  {
+    "category": "industry",
+    "slug": "logistics-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for logistics"
+  },
+  {
+    "category": "industry",
+    "slug": "logistics-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for logistics"
   },
   {
     "category": "industry",
@@ -16,8 +56,48 @@
   },
   {
     "category": "industry",
+    "slug": "accounting-client-intake-automation",
+    "keyword": "client intake automation for accounting"
+  },
+  {
+    "category": "industry",
+    "slug": "accounting-document-management-workflow",
+    "keyword": "document management workflow for accounting"
+  },
+  {
+    "category": "industry",
+    "slug": "accounting-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for accounting"
+  },
+  {
+    "category": "industry",
+    "slug": "accounting-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for accounting"
+  },
+  {
+    "category": "industry",
     "slug": "healthcare",
     "keyword": "ai automation for healthcare"
+  },
+  {
+    "category": "industry",
+    "slug": "healthcare-client-intake-automation",
+    "keyword": "client intake automation for healthcare"
+  },
+  {
+    "category": "industry",
+    "slug": "healthcare-document-management-workflow",
+    "keyword": "document management workflow for healthcare"
+  },
+  {
+    "category": "industry",
+    "slug": "healthcare-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for healthcare"
+  },
+  {
+    "category": "industry",
+    "slug": "healthcare-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for healthcare"
   },
   {
     "category": "industry",
@@ -26,8 +106,48 @@
   },
   {
     "category": "industry",
+    "slug": "real-estate-client-intake-automation",
+    "keyword": "client intake automation for real estate"
+  },
+  {
+    "category": "industry",
+    "slug": "real-estate-document-management-workflow",
+    "keyword": "document management workflow for real estate"
+  },
+  {
+    "category": "industry",
+    "slug": "real-estate-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for real estate"
+  },
+  {
+    "category": "industry",
+    "slug": "real-estate-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for real estate"
+  },
+  {
+    "category": "industry",
     "slug": "dealerships",
     "keyword": "ai automation for dealerships"
+  },
+  {
+    "category": "industry",
+    "slug": "dealerships-client-intake-automation",
+    "keyword": "client intake automation for dealerships"
+  },
+  {
+    "category": "industry",
+    "slug": "dealerships-document-management-workflow",
+    "keyword": "document management workflow for dealerships"
+  },
+  {
+    "category": "industry",
+    "slug": "dealerships-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for dealerships"
+  },
+  {
+    "category": "industry",
+    "slug": "dealerships-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for dealerships"
   },
   {
     "category": "industry",
@@ -36,8 +156,48 @@
   },
   {
     "category": "industry",
+    "slug": "construction-client-intake-automation",
+    "keyword": "client intake automation for construction"
+  },
+  {
+    "category": "industry",
+    "slug": "construction-document-management-workflow",
+    "keyword": "document management workflow for construction"
+  },
+  {
+    "category": "industry",
+    "slug": "construction-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for construction"
+  },
+  {
+    "category": "industry",
+    "slug": "construction-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for construction"
+  },
+  {
+    "category": "industry",
     "slug": "agencies",
     "keyword": "ai automation for agencies"
+  },
+  {
+    "category": "industry",
+    "slug": "agencies-client-intake-automation",
+    "keyword": "client intake automation for agencies"
+  },
+  {
+    "category": "industry",
+    "slug": "agencies-document-management-workflow",
+    "keyword": "document management workflow for agencies"
+  },
+  {
+    "category": "industry",
+    "slug": "agencies-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for agencies"
+  },
+  {
+    "category": "industry",
+    "slug": "agencies-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for agencies"
   },
   {
     "category": "industry",
@@ -46,8 +206,48 @@
   },
   {
     "category": "industry",
+    "slug": "e-commerce-client-intake-automation",
+    "keyword": "client intake automation for e-commerce"
+  },
+  {
+    "category": "industry",
+    "slug": "e-commerce-document-management-workflow",
+    "keyword": "document management workflow for e-commerce"
+  },
+  {
+    "category": "industry",
+    "slug": "e-commerce-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for e-commerce"
+  },
+  {
+    "category": "industry",
+    "slug": "e-commerce-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for e-commerce"
+  },
+  {
+    "category": "industry",
     "slug": "financial-services",
     "keyword": "ai automation for financial services"
+  },
+  {
+    "category": "industry",
+    "slug": "financial-services-client-intake-automation",
+    "keyword": "client intake automation for financial services"
+  },
+  {
+    "category": "industry",
+    "slug": "financial-services-document-management-workflow",
+    "keyword": "document management workflow for financial services"
+  },
+  {
+    "category": "industry",
+    "slug": "financial-services-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for financial services"
+  },
+  {
+    "category": "industry",
+    "slug": "financial-services-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for financial services"
   },
   {
     "category": "industry",
@@ -56,8 +256,48 @@
   },
   {
     "category": "industry",
+    "slug": "manufacturing-client-intake-automation",
+    "keyword": "client intake automation for manufacturing"
+  },
+  {
+    "category": "industry",
+    "slug": "manufacturing-document-management-workflow",
+    "keyword": "document management workflow for manufacturing"
+  },
+  {
+    "category": "industry",
+    "slug": "manufacturing-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for manufacturing"
+  },
+  {
+    "category": "industry",
+    "slug": "manufacturing-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for manufacturing"
+  },
+  {
+    "category": "industry",
     "slug": "education",
     "keyword": "ai automation for education"
+  },
+  {
+    "category": "industry",
+    "slug": "education-client-intake-automation",
+    "keyword": "client intake automation for education"
+  },
+  {
+    "category": "industry",
+    "slug": "education-document-management-workflow",
+    "keyword": "document management workflow for education"
+  },
+  {
+    "category": "industry",
+    "slug": "education-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for education"
+  },
+  {
+    "category": "industry",
+    "slug": "education-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for education"
   },
   {
     "category": "industry",
@@ -66,8 +306,48 @@
   },
   {
     "category": "industry",
+    "slug": "hospitality-client-intake-automation",
+    "keyword": "client intake automation for hospitality"
+  },
+  {
+    "category": "industry",
+    "slug": "hospitality-document-management-workflow",
+    "keyword": "document management workflow for hospitality"
+  },
+  {
+    "category": "industry",
+    "slug": "hospitality-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for hospitality"
+  },
+  {
+    "category": "industry",
+    "slug": "hospitality-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for hospitality"
+  },
+  {
+    "category": "industry",
     "slug": "retail",
     "keyword": "ai automation for retail"
+  },
+  {
+    "category": "industry",
+    "slug": "retail-client-intake-automation",
+    "keyword": "client intake automation for retail"
+  },
+  {
+    "category": "industry",
+    "slug": "retail-document-management-workflow",
+    "keyword": "document management workflow for retail"
+  },
+  {
+    "category": "industry",
+    "slug": "retail-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for retail"
+  },
+  {
+    "category": "industry",
+    "slug": "retail-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for retail"
   },
   {
     "category": "industry",
@@ -76,8 +356,48 @@
   },
   {
     "category": "industry",
+    "slug": "insurance-client-intake-automation",
+    "keyword": "client intake automation for insurance"
+  },
+  {
+    "category": "industry",
+    "slug": "insurance-document-management-workflow",
+    "keyword": "document management workflow for insurance"
+  },
+  {
+    "category": "industry",
+    "slug": "insurance-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for insurance"
+  },
+  {
+    "category": "industry",
+    "slug": "insurance-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for insurance"
+  },
+  {
+    "category": "industry",
     "slug": "wealth-management",
     "keyword": "ai automation for wealth management"
+  },
+  {
+    "category": "industry",
+    "slug": "wealth-management-client-intake-automation",
+    "keyword": "client intake automation for wealth management"
+  },
+  {
+    "category": "industry",
+    "slug": "wealth-management-document-management-workflow",
+    "keyword": "document management workflow for wealth management"
+  },
+  {
+    "category": "industry",
+    "slug": "wealth-management-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for wealth management"
+  },
+  {
+    "category": "industry",
+    "slug": "wealth-management-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for wealth management"
   },
   {
     "category": "industry",
@@ -86,8 +406,48 @@
   },
   {
     "category": "industry",
+    "slug": "dental-clinics-client-intake-automation",
+    "keyword": "client intake automation for dental clinics"
+  },
+  {
+    "category": "industry",
+    "slug": "dental-clinics-document-management-workflow",
+    "keyword": "document management workflow for dental clinics"
+  },
+  {
+    "category": "industry",
+    "slug": "dental-clinics-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for dental clinics"
+  },
+  {
+    "category": "industry",
+    "slug": "dental-clinics-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for dental clinics"
+  },
+  {
+    "category": "industry",
     "slug": "veterinary",
     "keyword": "ai automation for veterinary"
+  },
+  {
+    "category": "industry",
+    "slug": "veterinary-client-intake-automation",
+    "keyword": "client intake automation for veterinary"
+  },
+  {
+    "category": "industry",
+    "slug": "veterinary-document-management-workflow",
+    "keyword": "document management workflow for veterinary"
+  },
+  {
+    "category": "industry",
+    "slug": "veterinary-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for veterinary"
+  },
+  {
+    "category": "industry",
+    "slug": "veterinary-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for veterinary"
   },
   {
     "category": "industry",
@@ -96,8 +456,548 @@
   },
   {
     "category": "industry",
+    "slug": "property-management-client-intake-automation",
+    "keyword": "client intake automation for property management"
+  },
+  {
+    "category": "industry",
+    "slug": "property-management-document-management-workflow",
+    "keyword": "document management workflow for property management"
+  },
+  {
+    "category": "industry",
+    "slug": "property-management-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for property management"
+  },
+  {
+    "category": "industry",
+    "slug": "property-management-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for property management"
+  },
+  {
+    "category": "industry",
     "slug": "automotive-repair",
     "keyword": "ai automation for automotive repair"
+  },
+  {
+    "category": "industry",
+    "slug": "automotive-repair-client-intake-automation",
+    "keyword": "client intake automation for automotive repair"
+  },
+  {
+    "category": "industry",
+    "slug": "automotive-repair-document-management-workflow",
+    "keyword": "document management workflow for automotive repair"
+  },
+  {
+    "category": "industry",
+    "slug": "automotive-repair-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for automotive repair"
+  },
+  {
+    "category": "industry",
+    "slug": "automotive-repair-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for automotive repair"
+  },
+  {
+    "category": "industry",
+    "slug": "nonprofits",
+    "keyword": "ai automation for nonprofits"
+  },
+  {
+    "category": "industry",
+    "slug": "nonprofits-client-intake-automation",
+    "keyword": "client intake automation for nonprofits"
+  },
+  {
+    "category": "industry",
+    "slug": "nonprofits-document-management-workflow",
+    "keyword": "document management workflow for nonprofits"
+  },
+  {
+    "category": "industry",
+    "slug": "nonprofits-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for nonprofits"
+  },
+  {
+    "category": "industry",
+    "slug": "nonprofits-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for nonprofits"
+  },
+  {
+    "category": "industry",
+    "slug": "recruiting",
+    "keyword": "ai automation for recruiting"
+  },
+  {
+    "category": "industry",
+    "slug": "recruiting-client-intake-automation",
+    "keyword": "client intake automation for recruiting"
+  },
+  {
+    "category": "industry",
+    "slug": "recruiting-document-management-workflow",
+    "keyword": "document management workflow for recruiting"
+  },
+  {
+    "category": "industry",
+    "slug": "recruiting-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for recruiting"
+  },
+  {
+    "category": "industry",
+    "slug": "recruiting-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for recruiting"
+  },
+  {
+    "category": "industry",
+    "slug": "staffing",
+    "keyword": "ai automation for staffing"
+  },
+  {
+    "category": "industry",
+    "slug": "staffing-client-intake-automation",
+    "keyword": "client intake automation for staffing"
+  },
+  {
+    "category": "industry",
+    "slug": "staffing-document-management-workflow",
+    "keyword": "document management workflow for staffing"
+  },
+  {
+    "category": "industry",
+    "slug": "staffing-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for staffing"
+  },
+  {
+    "category": "industry",
+    "slug": "staffing-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for staffing"
+  },
+  {
+    "category": "industry",
+    "slug": "architecture",
+    "keyword": "ai automation for architecture"
+  },
+  {
+    "category": "industry",
+    "slug": "architecture-client-intake-automation",
+    "keyword": "client intake automation for architecture"
+  },
+  {
+    "category": "industry",
+    "slug": "architecture-document-management-workflow",
+    "keyword": "document management workflow for architecture"
+  },
+  {
+    "category": "industry",
+    "slug": "architecture-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for architecture"
+  },
+  {
+    "category": "industry",
+    "slug": "architecture-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for architecture"
+  },
+  {
+    "category": "industry",
+    "slug": "engineering",
+    "keyword": "ai automation for engineering"
+  },
+  {
+    "category": "industry",
+    "slug": "engineering-client-intake-automation",
+    "keyword": "client intake automation for engineering"
+  },
+  {
+    "category": "industry",
+    "slug": "engineering-document-management-workflow",
+    "keyword": "document management workflow for engineering"
+  },
+  {
+    "category": "industry",
+    "slug": "engineering-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for engineering"
+  },
+  {
+    "category": "industry",
+    "slug": "engineering-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for engineering"
+  },
+  {
+    "category": "industry",
+    "slug": "energy",
+    "keyword": "ai automation for energy"
+  },
+  {
+    "category": "industry",
+    "slug": "energy-client-intake-automation",
+    "keyword": "client intake automation for energy"
+  },
+  {
+    "category": "industry",
+    "slug": "energy-document-management-workflow",
+    "keyword": "document management workflow for energy"
+  },
+  {
+    "category": "industry",
+    "slug": "energy-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for energy"
+  },
+  {
+    "category": "industry",
+    "slug": "energy-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for energy"
+  },
+  {
+    "category": "industry",
+    "slug": "oil-and-gas",
+    "keyword": "ai automation for oil and gas"
+  },
+  {
+    "category": "industry",
+    "slug": "oil-and-gas-client-intake-automation",
+    "keyword": "client intake automation for oil and gas"
+  },
+  {
+    "category": "industry",
+    "slug": "oil-and-gas-document-management-workflow",
+    "keyword": "document management workflow for oil and gas"
+  },
+  {
+    "category": "industry",
+    "slug": "oil-and-gas-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for oil and gas"
+  },
+  {
+    "category": "industry",
+    "slug": "oil-and-gas-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for oil and gas"
+  },
+  {
+    "category": "industry",
+    "slug": "telecommunications",
+    "keyword": "ai automation for telecommunications"
+  },
+  {
+    "category": "industry",
+    "slug": "telecommunications-client-intake-automation",
+    "keyword": "client intake automation for telecommunications"
+  },
+  {
+    "category": "industry",
+    "slug": "telecommunications-document-management-workflow",
+    "keyword": "document management workflow for telecommunications"
+  },
+  {
+    "category": "industry",
+    "slug": "telecommunications-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for telecommunications"
+  },
+  {
+    "category": "industry",
+    "slug": "telecommunications-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for telecommunications"
+  },
+  {
+    "category": "industry",
+    "slug": "media",
+    "keyword": "ai automation for media"
+  },
+  {
+    "category": "industry",
+    "slug": "media-client-intake-automation",
+    "keyword": "client intake automation for media"
+  },
+  {
+    "category": "industry",
+    "slug": "media-document-management-workflow",
+    "keyword": "document management workflow for media"
+  },
+  {
+    "category": "industry",
+    "slug": "media-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for media"
+  },
+  {
+    "category": "industry",
+    "slug": "media-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for media"
+  },
+  {
+    "category": "industry",
+    "slug": "entertainment",
+    "keyword": "ai automation for entertainment"
+  },
+  {
+    "category": "industry",
+    "slug": "entertainment-client-intake-automation",
+    "keyword": "client intake automation for entertainment"
+  },
+  {
+    "category": "industry",
+    "slug": "entertainment-document-management-workflow",
+    "keyword": "document management workflow for entertainment"
+  },
+  {
+    "category": "industry",
+    "slug": "entertainment-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for entertainment"
+  },
+  {
+    "category": "industry",
+    "slug": "entertainment-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for entertainment"
+  },
+  {
+    "category": "industry",
+    "slug": "travel",
+    "keyword": "ai automation for travel"
+  },
+  {
+    "category": "industry",
+    "slug": "travel-client-intake-automation",
+    "keyword": "client intake automation for travel"
+  },
+  {
+    "category": "industry",
+    "slug": "travel-document-management-workflow",
+    "keyword": "document management workflow for travel"
+  },
+  {
+    "category": "industry",
+    "slug": "travel-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for travel"
+  },
+  {
+    "category": "industry",
+    "slug": "travel-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for travel"
+  },
+  {
+    "category": "industry",
+    "slug": "food-and-beverage",
+    "keyword": "ai automation for food and beverage"
+  },
+  {
+    "category": "industry",
+    "slug": "food-and-beverage-client-intake-automation",
+    "keyword": "client intake automation for food and beverage"
+  },
+  {
+    "category": "industry",
+    "slug": "food-and-beverage-document-management-workflow",
+    "keyword": "document management workflow for food and beverage"
+  },
+  {
+    "category": "industry",
+    "slug": "food-and-beverage-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for food and beverage"
+  },
+  {
+    "category": "industry",
+    "slug": "food-and-beverage-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for food and beverage"
+  },
+  {
+    "category": "industry",
+    "slug": "warehousing",
+    "keyword": "ai automation for warehousing"
+  },
+  {
+    "category": "industry",
+    "slug": "warehousing-client-intake-automation",
+    "keyword": "client intake automation for warehousing"
+  },
+  {
+    "category": "industry",
+    "slug": "warehousing-document-management-workflow",
+    "keyword": "document management workflow for warehousing"
+  },
+  {
+    "category": "industry",
+    "slug": "warehousing-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for warehousing"
+  },
+  {
+    "category": "industry",
+    "slug": "warehousing-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for warehousing"
+  },
+  {
+    "category": "industry",
+    "slug": "beauty-and-wellness",
+    "keyword": "ai automation for beauty and wellness"
+  },
+  {
+    "category": "industry",
+    "slug": "beauty-and-wellness-client-intake-automation",
+    "keyword": "client intake automation for beauty and wellness"
+  },
+  {
+    "category": "industry",
+    "slug": "beauty-and-wellness-document-management-workflow",
+    "keyword": "document management workflow for beauty and wellness"
+  },
+  {
+    "category": "industry",
+    "slug": "beauty-and-wellness-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for beauty and wellness"
+  },
+  {
+    "category": "industry",
+    "slug": "beauty-and-wellness-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for beauty and wellness"
+  },
+  {
+    "category": "industry",
+    "slug": "fitness",
+    "keyword": "ai automation for fitness"
+  },
+  {
+    "category": "industry",
+    "slug": "fitness-client-intake-automation",
+    "keyword": "client intake automation for fitness"
+  },
+  {
+    "category": "industry",
+    "slug": "fitness-document-management-workflow",
+    "keyword": "document management workflow for fitness"
+  },
+  {
+    "category": "industry",
+    "slug": "fitness-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for fitness"
+  },
+  {
+    "category": "industry",
+    "slug": "fitness-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for fitness"
+  },
+  {
+    "category": "industry",
+    "slug": "landscaping",
+    "keyword": "ai automation for landscaping"
+  },
+  {
+    "category": "industry",
+    "slug": "landscaping-client-intake-automation",
+    "keyword": "client intake automation for landscaping"
+  },
+  {
+    "category": "industry",
+    "slug": "landscaping-document-management-workflow",
+    "keyword": "document management workflow for landscaping"
+  },
+  {
+    "category": "industry",
+    "slug": "landscaping-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for landscaping"
+  },
+  {
+    "category": "industry",
+    "slug": "landscaping-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for landscaping"
+  },
+  {
+    "category": "industry",
+    "slug": "pest-control",
+    "keyword": "ai automation for pest control"
+  },
+  {
+    "category": "industry",
+    "slug": "pest-control-client-intake-automation",
+    "keyword": "client intake automation for pest control"
+  },
+  {
+    "category": "industry",
+    "slug": "pest-control-document-management-workflow",
+    "keyword": "document management workflow for pest control"
+  },
+  {
+    "category": "industry",
+    "slug": "pest-control-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for pest control"
+  },
+  {
+    "category": "industry",
+    "slug": "pest-control-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for pest control"
+  },
+  {
+    "category": "industry",
+    "slug": "hvac",
+    "keyword": "ai automation for hvac"
+  },
+  {
+    "category": "industry",
+    "slug": "hvac-client-intake-automation",
+    "keyword": "client intake automation for hvac"
+  },
+  {
+    "category": "industry",
+    "slug": "hvac-document-management-workflow",
+    "keyword": "document management workflow for hvac"
+  },
+  {
+    "category": "industry",
+    "slug": "hvac-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for hvac"
+  },
+  {
+    "category": "industry",
+    "slug": "hvac-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for hvac"
+  },
+  {
+    "category": "industry",
+    "slug": "plumbing",
+    "keyword": "ai automation for plumbing"
+  },
+  {
+    "category": "industry",
+    "slug": "plumbing-client-intake-automation",
+    "keyword": "client intake automation for plumbing"
+  },
+  {
+    "category": "industry",
+    "slug": "plumbing-document-management-workflow",
+    "keyword": "document management workflow for plumbing"
+  },
+  {
+    "category": "industry",
+    "slug": "plumbing-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for plumbing"
+  },
+  {
+    "category": "industry",
+    "slug": "plumbing-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for plumbing"
+  },
+  {
+    "category": "industry",
+    "slug": "security",
+    "keyword": "ai automation for security"
+  },
+  {
+    "category": "industry",
+    "slug": "security-client-intake-automation",
+    "keyword": "client intake automation for security"
+  },
+  {
+    "category": "industry",
+    "slug": "security-document-management-workflow",
+    "keyword": "document management workflow for security"
+  },
+  {
+    "category": "industry",
+    "slug": "security-payroll-processing-compliance",
+    "keyword": "payroll processing compliance for security"
+  },
+  {
+    "category": "industry",
+    "slug": "security-inventory-depletion-alerts",
+    "keyword": "inventory depletion alerts for security"
   },
   {
     "category": "use-cases",
@@ -250,6 +1150,56 @@
     "keyword": "automate event registration"
   },
   {
+    "category": "use-cases",
+    "slug": "lead-nurturing",
+    "keyword": "automate lead nurturing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "candidate-screening",
+    "keyword": "automate candidate screening"
+  },
+  {
+    "category": "use-cases",
+    "slug": "order-fulfillment",
+    "keyword": "automate order fulfillment"
+  },
+  {
+    "category": "use-cases",
+    "slug": "subscription-billing",
+    "keyword": "automate subscription billing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "cancellation-flows",
+    "keyword": "automate cancellation flows"
+  },
+  {
+    "category": "use-cases",
+    "slug": "booking-reminders",
+    "keyword": "automate booking reminders"
+  },
+  {
+    "category": "use-cases",
+    "slug": "quote-generation",
+    "keyword": "automate quote generation"
+  },
+  {
+    "category": "use-cases",
+    "slug": "inventory-auditing",
+    "keyword": "automate inventory auditing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "audit-logs-reporting",
+    "keyword": "automate audit logs reporting"
+  },
+  {
+    "category": "use-cases",
+    "slug": "vendor-onboarding",
+    "keyword": "automate vendor onboarding"
+  },
+  {
     "category": "compare",
     "slug": "bridgebox-vs-zapier",
     "keyword": "bridgebox vs zapier"
@@ -298,6 +1248,51 @@
     "category": "compare",
     "slug": "bridgebox-vs-manual-labor",
     "keyword": "bridgebox vs manual labor"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-pipedream",
+    "keyword": "bridgebox vs pipedream"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-boomi",
+    "keyword": "bridgebox vs boomi"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-mulesoft",
+    "keyword": "bridgebox vs mulesoft"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-ifttt",
+    "keyword": "bridgebox vs ifttt"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-celigo",
+    "keyword": "bridgebox vs celigo"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-integrately",
+    "keyword": "bridgebox vs integrately"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-power-automate",
+    "keyword": "bridgebox vs power automate"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-appsheet",
+    "keyword": "bridgebox vs appsheet"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-glide",
+    "keyword": "bridgebox vs glide"
   },
   {
     "category": "integrations",
@@ -400,6 +1395,106 @@
     "keyword": "bridgebox mailchimp integration"
   },
   {
+    "category": "integrations",
+    "slug": "zoom",
+    "keyword": "bridgebox zoom integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "github",
+    "keyword": "bridgebox github integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "gitlab",
+    "keyword": "bridgebox gitlab integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "aws",
+    "keyword": "bridgebox aws integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "twilio",
+    "keyword": "bridgebox twilio integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "sendgrid",
+    "keyword": "bridgebox sendgrid integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "mailgun",
+    "keyword": "bridgebox mailgun integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "intercom",
+    "keyword": "bridgebox intercom integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "activecampaign",
+    "keyword": "bridgebox activecampaign integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "typeform",
+    "keyword": "bridgebox typeform integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "calendly",
+    "keyword": "bridgebox calendly integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "harvest",
+    "keyword": "bridgebox harvest integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "toggl",
+    "keyword": "bridgebox toggl integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "bamboo-hr",
+    "keyword": "bridgebox bamboo hr integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "workday",
+    "keyword": "bridgebox workday integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "sap",
+    "keyword": "bridgebox sap integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "oracle",
+    "keyword": "bridgebox oracle integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "netsuite",
+    "keyword": "bridgebox netsuite integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "pipedrive",
+    "keyword": "bridgebox pipedrive integration"
+  },
+  {
+    "category": "integrations",
+    "slug": "smartsheet",
+    "keyword": "bridgebox smartsheet integration"
+  },
+  {
     "category": "features",
     "slug": "voice-to-build",
     "keyword": "voice-to-build"
@@ -473,6 +1568,16 @@
     "category": "features",
     "slug": "custom-form-builder",
     "keyword": "custom form builder"
+  },
+  {
+    "category": "features",
+    "slug": "cron-schedulers",
+    "keyword": "cron schedulers"
+  },
+  {
+    "category": "features",
+    "slug": "branching-logic",
+    "keyword": "branching logic"
   },
   {
     "category": "blog",
@@ -673,6 +1778,206 @@
     "category": "blog",
     "slug": "5-ways-to-automate-automotive-repair-operations-without-coding",
     "keyword": "5 ways to automate automotive repair operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-nonprofits-in-2026",
+    "keyword": "how ai is disrupting nonprofits in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-nonprofits-operations-without-coding",
+    "keyword": "5 ways to automate nonprofits operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-recruiting-in-2026",
+    "keyword": "how ai is disrupting recruiting in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-recruiting-operations-without-coding",
+    "keyword": "5 ways to automate recruiting operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-staffing-in-2026",
+    "keyword": "how ai is disrupting staffing in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-staffing-operations-without-coding",
+    "keyword": "5 ways to automate staffing operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-architecture-in-2026",
+    "keyword": "how ai is disrupting architecture in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-architecture-operations-without-coding",
+    "keyword": "5 ways to automate architecture operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-engineering-in-2026",
+    "keyword": "how ai is disrupting engineering in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-engineering-operations-without-coding",
+    "keyword": "5 ways to automate engineering operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-energy-in-2026",
+    "keyword": "how ai is disrupting energy in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-energy-operations-without-coding",
+    "keyword": "5 ways to automate energy operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-oil-and-gas-in-2026",
+    "keyword": "how ai is disrupting oil and gas in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-oil-and-gas-operations-without-coding",
+    "keyword": "5 ways to automate oil and gas operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-telecommunications-in-2026",
+    "keyword": "how ai is disrupting telecommunications in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-telecommunications-operations-without-coding",
+    "keyword": "5 ways to automate telecommunications operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-media-in-2026",
+    "keyword": "how ai is disrupting media in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-media-operations-without-coding",
+    "keyword": "5 ways to automate media operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-entertainment-in-2026",
+    "keyword": "how ai is disrupting entertainment in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-entertainment-operations-without-coding",
+    "keyword": "5 ways to automate entertainment operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-travel-in-2026",
+    "keyword": "how ai is disrupting travel in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-travel-operations-without-coding",
+    "keyword": "5 ways to automate travel operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-food-and-beverage-in-2026",
+    "keyword": "how ai is disrupting food and beverage in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-food-and-beverage-operations-without-coding",
+    "keyword": "5 ways to automate food and beverage operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-warehousing-in-2026",
+    "keyword": "how ai is disrupting warehousing in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-warehousing-operations-without-coding",
+    "keyword": "5 ways to automate warehousing operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-beauty-and-wellness-in-2026",
+    "keyword": "how ai is disrupting beauty and wellness in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-beauty-and-wellness-operations-without-coding",
+    "keyword": "5 ways to automate beauty and wellness operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-fitness-in-2026",
+    "keyword": "how ai is disrupting fitness in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-fitness-operations-without-coding",
+    "keyword": "5 ways to automate fitness operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-landscaping-in-2026",
+    "keyword": "how ai is disrupting landscaping in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-landscaping-operations-without-coding",
+    "keyword": "5 ways to automate landscaping operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-pest-control-in-2026",
+    "keyword": "how ai is disrupting pest control in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-pest-control-operations-without-coding",
+    "keyword": "5 ways to automate pest control operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-hvac-in-2026",
+    "keyword": "how ai is disrupting hvac in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-hvac-operations-without-coding",
+    "keyword": "5 ways to automate hvac operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-plumbing-in-2026",
+    "keyword": "how ai is disrupting plumbing in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-plumbing-operations-without-coding",
+    "keyword": "5 ways to automate plumbing operations without coding"
+  },
+  {
+    "category": "blog",
+    "slug": "how-ai-is-disrupting-security-in-2026",
+    "keyword": "how ai is disrupting security in 2026"
+  },
+  {
+    "category": "blog",
+    "slug": "5-ways-to-automate-security-operations-without-coding",
+    "keyword": "5 ways to automate security operations without coding"
   },
   {
     "category": "blog",

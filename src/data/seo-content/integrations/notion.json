@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Loan Processing",
-      "url": "/use-cases/loan-processing"
+      "text": "Explore Automate Commission Tracking",
+      "url": "/use-cases/commission-tracking"
     },
     {
-      "text": "Explore 5 Ways To Automate Dealerships Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-dealerships-operations-without-coding"
+      "text": "Explore Client Intake Automation For Oil And Gas",
+      "url": "/industry/oil-and-gas-client-intake-automation"
     },
     {
-      "text": "Explore 5 Ways To Automate Education Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-education-operations-without-coding"
+      "text": "Explore Inventory Depletion Alerts For Insurance",
+      "url": "/industry/insurance-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Human-In-The-Loop Approvals",
-      "url": "/features/human-in-the-loop-approvals"
+      "text": "Explore Client Intake Automation For Travel",
+      "url": "/industry/travel-client-intake-automation"
     },
     {
-      "text": "Explore Automate Document Extraction",
-      "url": "/use-cases/document-extraction"
+      "text": "Explore Payroll Processing Compliance For Travel",
+      "url": "/industry/travel-payroll-processing-compliance"
     }
   ]
 }

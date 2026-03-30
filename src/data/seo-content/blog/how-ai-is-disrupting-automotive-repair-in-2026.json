@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Client Onboarding",
-      "url": "/use-cases/client-onboarding"
+      "text": "Explore Automate Proposal Drafting",
+      "url": "/use-cases/proposal-drafting"
     },
     {
-      "text": "Explore Bridgebox Salesforce Integration",
-      "url": "/integrations/salesforce"
+      "text": "Explore Document Management Workflow For Education",
+      "url": "/industry/education-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Vs Bubble",
-      "url": "/compare/bridgebox-vs-bubble"
+      "text": "Explore Inventory Depletion Alerts For Accounting",
+      "url": "/industry/accounting-inventory-depletion-alerts"
     },
     {
-      "text": "Explore 5 Ways To Automate Financial Services Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-financial-services-operations-without-coding"
+      "text": "Explore Payroll Processing Compliance For Manufacturing",
+      "url": "/industry/manufacturing-payroll-processing-compliance"
     },
     {
-      "text": "Explore How Ai Is Disrupting Manufacturing In 2026",
-      "url": "/blog/how-ai-is-disrupting-manufacturing-in-2026"
+      "text": "Explore Client Intake Automation For Logistics",
+      "url": "/industry/logistics-client-intake-automation"
     }
   ]
 }

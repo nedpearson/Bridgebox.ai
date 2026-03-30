@@ -1,0 +1,78 @@
+{
+  "id": "industry-travel-client-intake-automation",
+  "category": "industry",
+  "slug": "travel-client-intake-automation",
+  "keyword": "client intake automation for travel",
+  "intent": "transactional",
+  "difficulty": "medium",
+  "priority": "high",
+  "metadata": {
+    "title": "Client Intake Automation Software for Travel | Bridgebox AI",
+    "description": "Discover how Bridgebox AI can streamline your operations with client intake automation for travel. Automate intelligently and scale without heavy custom development.",
+    "canonical": "https://bridgebox.ai/industry/travel-client-intake-automation"
+  },
+  "content": {
+    "heroH1": "Automate Client Intake Automation in Travel",
+    "heroSubtitle": "Stop doing manual work. Bridgebox AI builds and orchestrates your client intake automation for travel processes automatically using intelligent voice and visual mapping.",
+    "problemStatement": "Handling client intake automation manually inside travel introduces devastating risks, bottlenecks, and compliance issues.",
+    "solutionExplanation": "Bridgebox orchestrates perfect conditional execution of client intake automation explicitly conforming to the rigor required by travel operations.",
+    "benefits": [
+      {
+        "title": "Rapid Deployment",
+        "description": "Launch enterprise-grade automations in days, not months."
+      },
+      {
+        "title": "Zero Technical Debt",
+        "description": "Our AI generates clean, scalable architecture behind the scenes."
+      },
+      {
+        "title": "End-to-End Security",
+        "description": "Bank-level encryption and strict multi-tenant data isolation natively."
+      }
+    ],
+    "featuresUsed": [
+      "integration engine",
+      "visual canvas"
+    ],
+    "integrationsReferenced": [
+      "calendly"
+    ],
+    "faq": [
+      {
+        "question": "How long does it take to implement client intake automation for travel logic?",
+        "answer": "Depending on complexity, Bridgebox can orchestrate your initial workflow in minutes to hours using Voice-to-Build capabilities."
+      },
+      {
+        "question": "Do I need a database administrator?",
+        "answer": "No. Bridgebox natively provisions and scales your relational tables autonomously through your conversational intents."
+      }
+    ],
+    "cta": {
+      "primary": "Start Building for Free",
+      "secondary": "Talk to an Automation Architect",
+      "trustText": "Join innovative companies replacing legacy systems with autonomous software."
+    }
+  },
+  "internalLinks": [
+    {
+      "text": "Explore Bridgebox Gmail Integration",
+      "url": "/integrations/gmail"
+    },
+    {
+      "text": "Explore Bridgebox Monday.Com Integration",
+      "url": "/integrations/monday-com"
+    },
+    {
+      "text": "Explore Bridgebox Salesforce Integration",
+      "url": "/integrations/salesforce"
+    },
+    {
+      "text": "Explore Document Management Workflow For Telecommunications",
+      "url": "/industry/telecommunications-document-management-workflow"
+    },
+    {
+      "text": "Explore Automate Subscription Billing",
+      "url": "/use-cases/subscription-billing"
+    }
+  ]
+}

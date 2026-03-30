@@ -37,7 +37,7 @@
     ],
     "integrationsReferenced": [
       "mailchimp",
-      "quickbooks"
+      "zoom"
     ],
     "faq": [
       {
@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Custom Form Builder",
-      "url": "/features/custom-form-builder"
+      "text": "Explore Webhook Listeners",
+      "url": "/features/webhook-listeners"
     },
     {
-      "text": "Explore Automate Contract Generation",
-      "url": "/use-cases/contract-generation"
+      "text": "Explore Client Intake Automation For Security",
+      "url": "/industry/security-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Zendesk Integration",
-      "url": "/integrations/zendesk"
+      "text": "Explore Bridgebox Vs Tray.Io",
+      "url": "/compare/bridgebox-vs-tray-io"
     },
     {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
+      "text": "Explore Document Management Workflow For Staffing",
+      "url": "/industry/staffing-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Vs Workato",
-      "url": "/compare/bridgebox-vs-workato"
+      "text": "Explore Bridgebox Mailchimp Integration",
+      "url": "/integrations/mailchimp"
     }
   ]
 }

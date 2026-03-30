@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Airtable Integration",
-      "url": "/integrations/airtable"
+      "text": "Explore Inventory Depletion Alerts For Media",
+      "url": "/industry/media-inventory-depletion-alerts"
+    },
+    {
+      "text": "Explore Payroll Processing Compliance For Education",
+      "url": "/industry/education-payroll-processing-compliance"
+    },
+    {
+      "text": "Explore Client Intake Automation For Law Firms",
+      "url": "/industry/law-firms-client-intake-automation"
     },
     {
       "text": "Explore Construction",
       "url": "/industry/construction"
     },
     {
-      "text": "Explore Bridgebox Slack Integration",
-      "url": "/integrations/slack"
-    },
-    {
-      "text": "Explore Automate Compliance Reporting",
-      "url": "/use-cases/compliance-reporting"
-    },
-    {
-      "text": "Explore Healthcare",
-      "url": "/industry/healthcare"
+      "text": "Explore 5 Ways To Automate Architecture Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-architecture-operations-without-coding"
     }
   ]
 }

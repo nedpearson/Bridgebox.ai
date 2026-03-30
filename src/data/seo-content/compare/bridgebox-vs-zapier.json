@@ -53,24 +53,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore Bridgebox Google Drive Integration",
+      "url": "/integrations/google-drive"
     },
     {
-      "text": "Explore Education",
-      "url": "/industry/education"
+      "text": "Explore Document Management Workflow For Fitness",
+      "url": "/industry/fitness-document-management-workflow"
     },
     {
-      "text": "Explore Automate Payment Reconciliation",
-      "url": "/use-cases/payment-reconciliation"
+      "text": "Explore Client Intake Automation For Education",
+      "url": "/industry/education-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Xero Integration",
-      "url": "/integrations/xero"
+      "text": "Explore Payroll Processing Compliance For Manufacturing",
+      "url": "/industry/manufacturing-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Gmail Integration",
-      "url": "/integrations/gmail"
+      "text": "Explore Payroll Processing Compliance For Agencies",
+      "url": "/industry/agencies-payroll-processing-compliance"
     }
   ]
 }

@@ -35,7 +35,7 @@
       "ai logic gates"
     ],
     "integrationsReferenced": [
-      "slack"
+      "aws"
     ],
     "faq": [
       {
@@ -55,24 +55,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Zendesk Integration",
-      "url": "/integrations/zendesk"
+      "text": "Explore Healthcare",
+      "url": "/industry/healthcare"
     },
     {
-      "text": "Explore Bridgebox Monday.Com Integration",
-      "url": "/integrations/monday-com"
+      "text": "Explore 5 Ways To Automate Pest Control Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-pest-control-operations-without-coding"
     },
     {
-      "text": "Explore Manufacturing",
-      "url": "/industry/manufacturing"
+      "text": "Explore Document Management Workflow For Oil And Gas",
+      "url": "/industry/oil-and-gas-document-management-workflow"
     },
     {
-      "text": "Explore Financial Services",
-      "url": "/industry/financial-services"
+      "text": "Explore Inventory Depletion Alerts For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-inventory-depletion-alerts"
     },
     {
-      "text": "Explore 5 Ways To Automate Accounting Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-accounting-operations-without-coding"
+      "text": "Explore Document Management Workflow For Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness-document-management-workflow"
     }
   ]
 }

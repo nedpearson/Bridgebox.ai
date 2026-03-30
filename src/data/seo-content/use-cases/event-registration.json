@@ -35,7 +35,7 @@
       "ai logic gates"
     ],
     "integrationsReferenced": [
-      "notion"
+      "typeform"
     ],
     "faq": [
       {
@@ -55,24 +55,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Monday.Com Integration",
-      "url": "/integrations/monday-com"
+      "text": "Explore Bridgebox Github Integration",
+      "url": "/integrations/github"
     },
     {
-      "text": "Explore Financial Services",
-      "url": "/industry/financial-services"
+      "text": "Explore Client Intake Automation For Entertainment",
+      "url": "/industry/entertainment-client-intake-automation"
     },
     {
-      "text": "Explore How Ai Is Disrupting Healthcare In 2026",
-      "url": "/blog/how-ai-is-disrupting-healthcare-in-2026"
+      "text": "Explore Fitness",
+      "url": "/industry/fitness"
     },
     {
-      "text": "Explore Bridgebox Zendesk Integration",
-      "url": "/integrations/zendesk"
+      "text": "Explore Payroll Processing Compliance For Accounting",
+      "url": "/industry/accounting-payroll-processing-compliance"
     },
     {
-      "text": "Explore Scheduled Triggers",
-      "url": "/features/scheduled-triggers"
+      "text": "Explore Document Management Workflow For Automotive Repair",
+      "url": "/industry/automotive-repair-document-management-workflow"
     }
   ]
 }

@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Social Media Posting",
-      "url": "/use-cases/social-media-posting"
+      "text": "Explore Property Management",
+      "url": "/industry/property-management"
     },
     {
-      "text": "Explore How Ai Is Disrupting Accounting In 2026",
-      "url": "/blog/how-ai-is-disrupting-accounting-in-2026"
-    },
-    {
-      "text": "Explore The Ultimate Guide To Scaling Employee Onboarding Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-employee-onboarding-processes"
-    },
-    {
-      "text": "Explore Automate Employee Onboarding",
-      "url": "/use-cases/employee-onboarding"
+      "text": "Explore Automate Fleet Routing",
+      "url": "/use-cases/fleet-routing"
     },
     {
       "text": "Explore How Ai Is Disrupting Law Firms In 2026",
       "url": "/blog/how-ai-is-disrupting-law-firms-in-2026"
+    },
+    {
+      "text": "Explore Automate Candidate Screening",
+      "url": "/use-cases/candidate-screening"
+    },
+    {
+      "text": "Explore Automate Subscription Billing",
+      "url": "/use-cases/subscription-billing"
     }
   ]
 }

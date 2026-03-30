@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore Automate Expense Approvals",
+      "url": "/use-cases/expense-approvals"
     },
     {
-      "text": "Explore Logistics",
-      "url": "/industry/logistics"
+      "text": "Explore Payroll Processing Compliance For Retail",
+      "url": "/industry/retail-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Invoice Processing",
-      "url": "/use-cases/invoice-processing"
+      "text": "Explore Inventory Depletion Alerts For Retail",
+      "url": "/industry/retail-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Integration Engine",
-      "url": "/features/integration-engine"
+      "text": "Explore Payroll Processing Compliance For Logistics",
+      "url": "/industry/logistics-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Slack Integration",
-      "url": "/integrations/slack"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     }
   ]
 }

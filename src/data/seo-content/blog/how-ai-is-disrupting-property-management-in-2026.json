@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Email Triage",
-      "url": "/use-cases/email-triage"
+      "text": "Explore Automate Proposal Drafting",
+      "url": "/use-cases/proposal-drafting"
     },
     {
-      "text": "Explore Automate Lead Qualification",
-      "url": "/use-cases/lead-qualification"
+      "text": "Explore Inventory Depletion Alerts For Energy",
+      "url": "/industry/energy-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Logistics Tracking",
-      "url": "/use-cases/logistics-tracking"
+      "text": "Explore Inventory Depletion Alerts For Architecture",
+      "url": "/industry/architecture-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Vendor Management",
-      "url": "/use-cases/vendor-management"
+      "text": "Explore Document Management Workflow For Engineering",
+      "url": "/industry/engineering-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Vs N8n",
-      "url": "/compare/bridgebox-vs-n8n"
+      "text": "Explore Client Intake Automation For Energy",
+      "url": "/industry/energy-client-intake-automation"
     }
   ]
 }

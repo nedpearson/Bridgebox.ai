@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Vendor Management",
-      "url": "/use-cases/vendor-management"
+      "text": "Explore Document Management Workflow For Manufacturing",
+      "url": "/industry/manufacturing-document-management-workflow"
     },
     {
-      "text": "Explore The Ultimate Guide To Scaling Invoice Processing Processes",
-      "url": "/blog/the-ultimate-guide-to-scaling-invoice-processing-processes"
+      "text": "Explore The Ultimate Guide To Scaling Support Ticket Routing Processes",
+      "url": "/blog/the-ultimate-guide-to-scaling-support-ticket-routing-processes"
     },
     {
-      "text": "Explore Bridgebox Vs Workato",
-      "url": "/compare/bridgebox-vs-workato"
+      "text": "Explore Automate Tax Document Sorting",
+      "url": "/use-cases/tax-document-sorting"
     },
     {
-      "text": "Explore Bridgebox Vs Manual Labor",
-      "url": "/compare/bridgebox-vs-manual-labor"
+      "text": "Explore Bridgebox Calendly Integration",
+      "url": "/integrations/calendly"
     },
     {
-      "text": "Explore Human-In-The-Loop Approvals",
-      "url": "/features/human-in-the-loop-approvals"
+      "text": "Explore Inventory Depletion Alerts For Hvac",
+      "url": "/industry/hvac-inventory-depletion-alerts"
     }
   ]
 }

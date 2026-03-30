@@ -35,7 +35,7 @@
       "ai logic gates"
     ],
     "integrationsReferenced": [
-      "quickbooks"
+      "zoom"
     ],
     "faq": [
       {
@@ -55,24 +55,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Education In 2026",
-      "url": "/blog/how-ai-is-disrupting-education-in-2026"
+      "text": "Explore Inventory Depletion Alerts For Real Estate",
+      "url": "/industry/real-estate-inventory-depletion-alerts"
     },
     {
-      "text": "Explore How Ai Is Disrupting Hospitality In 2026",
-      "url": "/blog/how-ai-is-disrupting-hospitality-in-2026"
+      "text": "Explore How Ai Is Disrupting Law Firms In 2026",
+      "url": "/blog/how-ai-is-disrupting-law-firms-in-2026"
     },
     {
-      "text": "Explore Bridgebox Quickbooks Integration",
-      "url": "/integrations/quickbooks"
+      "text": "Explore Payroll Processing Compliance For Hvac",
+      "url": "/industry/hvac-payroll-processing-compliance"
     },
     {
-      "text": "Explore Insurance",
-      "url": "/industry/insurance"
+      "text": "Explore Bridgebox Activecampaign Integration",
+      "url": "/integrations/activecampaign"
     },
     {
-      "text": "Explore 5 Ways To Automate Wealth Management Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-wealth-management-operations-without-coding"
+      "text": "Explore Food And Beverage",
+      "url": "/industry/food-and-beverage"
     }
   ]
 }

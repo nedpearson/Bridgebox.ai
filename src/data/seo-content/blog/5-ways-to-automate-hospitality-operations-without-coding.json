@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Expense Approvals",
-      "url": "/use-cases/expense-approvals"
+      "text": "Explore Document Management Workflow For Retail",
+      "url": "/industry/retail-document-management-workflow"
     },
     {
-      "text": "Explore Automate Lead Qualification",
-      "url": "/use-cases/lead-qualification"
+      "text": "Explore Inventory Depletion Alerts For Media",
+      "url": "/industry/media-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Google Drive Integration",
-      "url": "/integrations/google-drive"
+      "text": "Explore Telecommunications",
+      "url": "/industry/telecommunications"
     },
     {
-      "text": "Explore Automate Tax Document Sorting",
-      "url": "/use-cases/tax-document-sorting"
+      "text": "Explore Document Management Workflow For Accounting",
+      "url": "/industry/accounting-document-management-workflow"
     },
     {
-      "text": "Explore Financial Services",
-      "url": "/industry/financial-services"
+      "text": "Explore Document Management Workflow For Agencies",
+      "url": "/industry/agencies-document-management-workflow"
     }
   ]
 }

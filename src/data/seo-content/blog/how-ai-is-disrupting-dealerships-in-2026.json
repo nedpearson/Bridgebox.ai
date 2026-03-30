@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Voice-To-Build",
-      "url": "/features/voice-to-build"
+      "text": "Explore Bridgebox Twilio Integration",
+      "url": "/integrations/twilio"
     },
     {
-      "text": "Explore Automate Support Ticket Routing",
-      "url": "/use-cases/support-ticket-routing"
+      "text": "Explore Document Management Workflow For Dental Clinics",
+      "url": "/industry/dental-clinics-document-management-workflow"
     },
     {
-      "text": "Explore Construction",
-      "url": "/industry/construction"
+      "text": "Explore Client Intake Automation For Property Management",
+      "url": "/industry/property-management-client-intake-automation"
     },
     {
-      "text": "Explore Wealth Management",
-      "url": "/industry/wealth-management"
+      "text": "Explore Payroll Processing Compliance For Education",
+      "url": "/industry/education-payroll-processing-compliance"
     },
     {
-      "text": "Explore Hospitality",
-      "url": "/industry/hospitality"
+      "text": "Explore Education",
+      "url": "/industry/education"
     }
   ]
 }

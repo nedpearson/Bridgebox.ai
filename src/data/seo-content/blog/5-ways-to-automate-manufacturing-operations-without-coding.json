@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Manual Labor",
-      "url": "/compare/bridgebox-vs-manual-labor"
+      "text": "Explore Dealerships",
+      "url": "/industry/dealerships"
     },
     {
-      "text": "Explore Retail",
-      "url": "/industry/retail"
+      "text": "Explore Automate Contract Generation",
+      "url": "/use-cases/contract-generation"
     },
     {
-      "text": "Explore Automate Expense Approvals",
-      "url": "/use-cases/expense-approvals"
+      "text": "Explore Payroll Processing Compliance For Logistics",
+      "url": "/industry/logistics-payroll-processing-compliance"
     },
     {
-      "text": "Explore Education",
-      "url": "/industry/education"
+      "text": "Explore Client Intake Automation For Agencies",
+      "url": "/industry/agencies-client-intake-automation"
     },
     {
-      "text": "Explore Automate Appointment Booking",
-      "url": "/use-cases/appointment-booking"
+      "text": "Explore Client Intake Automation For Construction",
+      "url": "/industry/construction-client-intake-automation"
     }
   ]
 }

@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs N8n",
-      "url": "/compare/bridgebox-vs-n8n"
+      "text": "Explore Bridgebox Xero Integration",
+      "url": "/integrations/xero"
     },
     {
-      "text": "Explore Automate Compliance Reporting",
-      "url": "/use-cases/compliance-reporting"
+      "text": "Explore 5 Ways To Automate Oil And Gas Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-oil-and-gas-operations-without-coding"
     },
     {
-      "text": "Explore Construction",
-      "url": "/industry/construction"
+      "text": "Explore 5 Ways To Automate Engineering Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-engineering-operations-without-coding"
     },
     {
-      "text": "Explore Accounting",
-      "url": "/industry/accounting"
+      "text": "Explore 5 Ways To Automate Retail Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-retail-operations-without-coding"
     },
     {
-      "text": "Explore Automate Supply Chain Alerts",
-      "url": "/use-cases/supply-chain-alerts"
+      "text": "Explore Audit Logging",
+      "url": "/features/audit-logging"
     }
   ]
 }

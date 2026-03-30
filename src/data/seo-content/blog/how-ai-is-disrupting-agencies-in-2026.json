@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Proposal Drafting",
-      "url": "/use-cases/proposal-drafting"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     },
     {
-      "text": "Explore Veterinary",
-      "url": "/industry/veterinary"
+      "text": "Explore Automate Fleet Routing",
+      "url": "/use-cases/fleet-routing"
     },
     {
-      "text": "Explore Bridgebox Zendesk Integration",
-      "url": "/integrations/zendesk"
+      "text": "Explore Automate Cancellation Flows",
+      "url": "/use-cases/cancellation-flows"
     },
     {
-      "text": "Explore Ai Logic Gates",
-      "url": "/features/ai-logic-gates"
+      "text": "Explore Automate Maintenance Requests",
+      "url": "/use-cases/maintenance-requests"
     },
     {
-      "text": "Explore Bridgebox Quickbooks Integration",
-      "url": "/integrations/quickbooks"
+      "text": "Explore Automate Inventory Auditing",
+      "url": "/use-cases/inventory-auditing"
     }
   ]
 }

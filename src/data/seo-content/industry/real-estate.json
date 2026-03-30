@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs Retool",
-      "url": "/compare/bridgebox-vs-retool"
-    },
-    {
-      "text": "Explore Automate Refund Processing",
-      "url": "/use-cases/refund-processing"
-    },
-    {
-      "text": "Explore Automate Event Registration",
-      "url": "/use-cases/event-registration"
-    },
-    {
       "text": "Explore Bridgebox Jira Integration",
       "url": "/integrations/jira"
     },
     {
-      "text": "Explore Automate Document Extraction",
-      "url": "/use-cases/document-extraction"
+      "text": "Explore 5 Ways To Automate Construction Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-construction-operations-without-coding"
+    },
+    {
+      "text": "Explore 5 Ways To Automate Automotive Repair Operations Without Coding",
+      "url": "/blog/5-ways-to-automate-automotive-repair-operations-without-coding"
+    },
+    {
+      "text": "Explore Multi-Tenant Architecture",
+      "url": "/features/multi-tenant-architecture"
+    },
+    {
+      "text": "Explore Automate Quality Assurance",
+      "url": "/use-cases/quality-assurance"
     }
   ]
 }

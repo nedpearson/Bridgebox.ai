@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Webhook Listeners",
-      "url": "/features/webhook-listeners"
+      "text": "Explore Education",
+      "url": "/industry/education"
     },
     {
-      "text": "Explore Bridgebox Salesforce Integration",
-      "url": "/integrations/salesforce"
+      "text": "Explore Inventory Depletion Alerts For Architecture",
+      "url": "/industry/architecture-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Google Drive Integration",
-      "url": "/integrations/google-drive"
+      "text": "Explore Document Management Workflow For Construction",
+      "url": "/industry/construction-document-management-workflow"
     },
     {
-      "text": "Explore Automate Expense Approvals",
-      "url": "/use-cases/expense-approvals"
+      "text": "Explore Client Intake Automation For Real Estate",
+      "url": "/industry/real-estate-client-intake-automation"
     },
     {
-      "text": "Explore Audit Logging",
-      "url": "/features/audit-logging"
+      "text": "Explore Document Management Workflow For Accounting",
+      "url": "/industry/accounting-document-management-workflow"
     }
   ]
 }

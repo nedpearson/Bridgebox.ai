@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Audit Logging",
-      "url": "/features/audit-logging"
+      "text": "Explore Client Intake Automation For Hospitality",
+      "url": "/industry/hospitality-client-intake-automation"
     },
     {
-      "text": "Explore Wealth Management",
-      "url": "/industry/wealth-management"
+      "text": "Explore Bridgebox Vs Retool",
+      "url": "/compare/bridgebox-vs-retool"
     },
     {
-      "text": "Explore Bridgebox Vs Manual Labor",
-      "url": "/compare/bridgebox-vs-manual-labor"
+      "text": "Explore Bridgebox Hubspot Integration",
+      "url": "/integrations/hubspot"
     },
     {
-      "text": "Explore Automate Vendor Management",
-      "url": "/use-cases/vendor-management"
+      "text": "Explore Automate Subscription Billing",
+      "url": "/use-cases/subscription-billing"
     },
     {
-      "text": "Explore Hospitality",
-      "url": "/industry/hospitality"
+      "text": "Explore Automate Fleet Routing",
+      "url": "/use-cases/fleet-routing"
     }
   ]
 }

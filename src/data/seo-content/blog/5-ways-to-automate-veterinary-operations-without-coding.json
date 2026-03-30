@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Vendor Management",
-      "url": "/use-cases/vendor-management"
+      "text": "Explore Automate CRM Sync",
+      "url": "/use-cases/crm-sync"
+    },
+    {
+      "text": "Explore Automate Data Entry",
+      "url": "/use-cases/data-entry"
+    },
+    {
+      "text": "Explore Automate Audit Logs Reporting",
+      "url": "/use-cases/audit-logs-reporting"
     },
     {
       "text": "Explore Bridgebox Vs Retool",
       "url": "/compare/bridgebox-vs-retool"
     },
     {
-      "text": "Explore Bridgebox Gmail Integration",
-      "url": "/integrations/gmail"
-    },
-    {
-      "text": "Explore Financial Services",
-      "url": "/industry/financial-services"
-    },
-    {
-      "text": "Explore Automate Email Triage",
-      "url": "/use-cases/email-triage"
+      "text": "Explore Automate Quote Generation",
+      "url": "/use-cases/quote-generation"
     }
   ]
 }

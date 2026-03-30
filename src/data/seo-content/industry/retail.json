@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Property Management Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-property-management-operations-without-coding"
+      "text": "Explore Automate Compliance Reporting",
+      "url": "/use-cases/compliance-reporting"
     },
     {
-      "text": "Explore 5 Ways To Automate Healthcare Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-healthcare-operations-without-coding"
+      "text": "Explore Bridgebox Zoom Integration",
+      "url": "/integrations/zoom"
     },
     {
-      "text": "Explore Ai Logic Gates",
-      "url": "/features/ai-logic-gates"
+      "text": "Explore Automate Invoice Processing",
+      "url": "/use-cases/invoice-processing"
     },
     {
-      "text": "Explore 5 Ways To Automate Agencies Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-agencies-operations-without-coding"
+      "text": "Explore Automate Order Fulfillment",
+      "url": "/use-cases/order-fulfillment"
     },
     {
-      "text": "Explore Webhook Listeners",
-      "url": "/features/webhook-listeners"
+      "text": "Explore Automate Event Registration",
+      "url": "/use-cases/event-registration"
     }
   ]
 }

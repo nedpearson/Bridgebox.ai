@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore E-Commerce",
-      "url": "/industry/e-commerce"
+      "text": "Explore Automate Compliance Reporting",
+      "url": "/use-cases/compliance-reporting"
     },
     {
-      "text": "Explore Bridgebox Vs Manual Labor",
-      "url": "/compare/bridgebox-vs-manual-labor"
+      "text": "Explore Automate Proposal Drafting",
+      "url": "/use-cases/proposal-drafting"
     },
     {
-      "text": "Explore Automate Email Triage",
-      "url": "/use-cases/email-triage"
+      "text": "Explore Inventory Depletion Alerts For Manufacturing",
+      "url": "/industry/manufacturing-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Salesforce Integration",
-      "url": "/integrations/salesforce"
+      "text": "Explore Payroll Processing Compliance For E-Commerce",
+      "url": "/industry/e-commerce-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Xero Integration",
-      "url": "/integrations/xero"
+      "text": "Explore Bridgebox Netsuite Integration",
+      "url": "/integrations/netsuite"
     }
   ]
 }

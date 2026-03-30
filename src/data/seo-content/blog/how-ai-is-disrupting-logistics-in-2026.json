@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Construction",
-      "url": "/industry/construction"
+      "text": "Explore Bridgebox Vs Celigo",
+      "url": "/compare/bridgebox-vs-celigo"
     },
     {
-      "text": "Explore Automate Vendor Management",
-      "url": "/use-cases/vendor-management"
+      "text": "Explore Bridgebox Asana Integration",
+      "url": "/integrations/asana"
     },
     {
-      "text": "Explore E-Commerce",
-      "url": "/industry/e-commerce"
+      "text": "Explore Api Proxying",
+      "url": "/features/api-proxying"
     },
     {
-      "text": "Explore Bridgebox Dropbox Integration",
-      "url": "/integrations/dropbox"
+      "text": "Explore Bridgebox Sendgrid Integration",
+      "url": "/integrations/sendgrid"
     },
     {
-      "text": "Explore Bridgebox Vs Make.Com",
-      "url": "/compare/bridgebox-vs-make-com"
+      "text": "Explore Bridgebox Vs Autocode",
+      "url": "/compare/bridgebox-vs-autocode"
     }
   ]
 }

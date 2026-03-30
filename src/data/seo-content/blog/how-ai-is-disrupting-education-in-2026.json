@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Law Firms",
-      "url": "/industry/law-firms"
+      "text": "Explore Client Intake Automation For Law Firms",
+      "url": "/industry/law-firms-client-intake-automation"
     },
     {
-      "text": "Explore Agencies",
-      "url": "/industry/agencies"
+      "text": "Explore Bridgebox Asana Integration",
+      "url": "/integrations/asana"
     },
     {
-      "text": "Explore Automate Commission Tracking",
-      "url": "/use-cases/commission-tracking"
+      "text": "Explore Inventory Depletion Alerts For Landscaping",
+      "url": "/industry/landscaping-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Automate Support Ticket Routing",
-      "url": "/use-cases/support-ticket-routing"
+      "text": "Explore Client Intake Automation For Recruiting",
+      "url": "/industry/recruiting-client-intake-automation"
     },
     {
-      "text": "Explore Automotive Repair",
-      "url": "/industry/automotive-repair"
+      "text": "Explore Inventory Depletion Alerts For Law Firms",
+      "url": "/industry/law-firms-inventory-depletion-alerts"
     }
   ]
 }

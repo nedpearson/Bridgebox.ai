@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Integration Engine",
-      "url": "/features/integration-engine"
+      "text": "Explore Beauty And Wellness",
+      "url": "/industry/beauty-and-wellness"
     },
     {
-      "text": "Explore Webhook Listeners",
-      "url": "/features/webhook-listeners"
+      "text": "Explore Fitness",
+      "url": "/industry/fitness"
     },
     {
-      "text": "Explore Agencies",
-      "url": "/industry/agencies"
+      "text": "Explore Bridgebox Jira Integration",
+      "url": "/integrations/jira"
     },
     {
-      "text": "Explore Bridgebox Vs Bubble",
-      "url": "/compare/bridgebox-vs-bubble"
+      "text": "Explore Payroll Processing Compliance For Security",
+      "url": "/industry/security-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Compliance Reporting",
-      "url": "/use-cases/compliance-reporting"
+      "text": "Explore Bridgebox Vs Retool",
+      "url": "/compare/bridgebox-vs-retool"
     }
   ]
 }

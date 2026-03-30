@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Bridgebox Vs N8n",
-      "url": "/compare/bridgebox-vs-n8n"
+      "text": "Explore Client Intake Automation For Manufacturing",
+      "url": "/industry/manufacturing-client-intake-automation"
     },
     {
-      "text": "Explore Manufacturing",
-      "url": "/industry/manufacturing"
+      "text": "Explore Media",
+      "url": "/industry/media"
     },
     {
-      "text": "Explore Automate Fleet Routing",
-      "url": "/use-cases/fleet-routing"
+      "text": "Explore Plumbing",
+      "url": "/industry/plumbing"
     },
     {
-      "text": "Explore Construction",
-      "url": "/industry/construction"
+      "text": "Explore Veterinary",
+      "url": "/industry/veterinary"
     },
     {
-      "text": "Explore Automate Expense Approvals",
-      "url": "/use-cases/expense-approvals"
+      "text": "Explore Inventory Depletion Alerts For Automotive Repair",
+      "url": "/industry/automotive-repair-inventory-depletion-alerts"
     }
   ]
 }

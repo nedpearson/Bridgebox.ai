@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Logistics",
-      "url": "/industry/logistics"
+      "text": "Explore Document Management Workflow For Accounting",
+      "url": "/industry/accounting-document-management-workflow"
     },
     {
-      "text": "Explore E-Commerce",
-      "url": "/industry/e-commerce"
+      "text": "Explore Automate Order Fulfillment",
+      "url": "/use-cases/order-fulfillment"
     },
     {
-      "text": "Explore Automate Client Onboarding",
-      "url": "/use-cases/client-onboarding"
+      "text": "Explore Pest Control",
+      "url": "/industry/pest-control"
     },
     {
-      "text": "Explore Education",
-      "url": "/industry/education"
+      "text": "Explore Inventory Depletion Alerts For E-Commerce",
+      "url": "/industry/e-commerce-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Asana Integration",
-      "url": "/integrations/asana"
+      "text": "Explore Document Management Workflow For Healthcare",
+      "url": "/industry/healthcare-document-management-workflow"
     }
   ]
 }

@@ -35,7 +35,7 @@
       "ai logic gates"
     ],
     "integrationsReferenced": [
-      "hubspot"
+      "sendgrid"
     ],
     "faq": [
       {
@@ -55,24 +55,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore How Ai Is Disrupting Insurance In 2026",
-      "url": "/blog/how-ai-is-disrupting-insurance-in-2026"
+      "text": "Explore Bridgebox Stripe Integration",
+      "url": "/integrations/stripe"
     },
     {
-      "text": "Explore Automate Commission Tracking",
-      "url": "/use-cases/commission-tracking"
+      "text": "Explore Client Intake Automation For Automotive Repair",
+      "url": "/industry/automotive-repair-client-intake-automation"
     },
     {
-      "text": "Explore Bridgebox Quickbooks Integration",
-      "url": "/integrations/quickbooks"
+      "text": "Explore Accounting",
+      "url": "/industry/accounting"
     },
     {
-      "text": "Explore 5 Ways To Automate Healthcare Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-healthcare-operations-without-coding"
+      "text": "Explore Payroll Processing Compliance For Financial Services",
+      "url": "/industry/financial-services-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Vs Tray.Io",
-      "url": "/compare/bridgebox-vs-tray-io"
+      "text": "Explore Document Management Workflow For Real Estate",
+      "url": "/industry/real-estate-document-management-workflow"
     }
   ]
 }

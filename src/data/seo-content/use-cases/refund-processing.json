@@ -35,7 +35,7 @@
       "ai logic gates"
     ],
     "integrationsReferenced": [
-      "google drive"
+      "gitlab"
     ],
     "faq": [
       {
@@ -55,24 +55,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore 5 Ways To Automate Dealerships Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-dealerships-operations-without-coding"
+      "text": "Explore Client Intake Automation For Logistics",
+      "url": "/industry/logistics-client-intake-automation"
     },
     {
-      "text": "Explore Data Normalization",
-      "url": "/features/data-normalization"
+      "text": "Explore Bridgebox Smartsheet Integration",
+      "url": "/integrations/smartsheet"
     },
     {
-      "text": "Explore Bridgebox Shopify Integration",
-      "url": "/integrations/shopify"
+      "text": "Explore Staffing",
+      "url": "/industry/staffing"
     },
     {
-      "text": "Explore Scheduled Triggers",
-      "url": "/features/scheduled-triggers"
+      "text": "Explore Client Intake Automation For Recruiting",
+      "url": "/industry/recruiting-client-intake-automation"
     },
     {
-      "text": "Explore Ai Logic Gates",
-      "url": "/features/ai-logic-gates"
+      "text": "Explore Client Intake Automation For Financial Services",
+      "url": "/industry/financial-services-client-intake-automation"
     }
   ]
 }

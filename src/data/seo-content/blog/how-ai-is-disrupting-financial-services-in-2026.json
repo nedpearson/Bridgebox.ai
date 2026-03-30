@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Workflow Orchestration",
-      "url": "/features/workflow-orchestration"
+      "text": "Explore Inventory Depletion Alerts For Property Management",
+      "url": "/industry/property-management-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Healthcare",
-      "url": "/industry/healthcare"
+      "text": "Explore Document Management Workflow For Staffing",
+      "url": "/industry/staffing-document-management-workflow"
     },
     {
-      "text": "Explore Bridgebox Xero Integration",
-      "url": "/integrations/xero"
+      "text": "Explore Document Management Workflow For Fitness",
+      "url": "/industry/fitness-document-management-workflow"
     },
     {
-      "text": "Explore Automate Appointment Booking",
-      "url": "/use-cases/appointment-booking"
+      "text": "Explore Payroll Processing Compliance For Law Firms",
+      "url": "/industry/law-firms-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Employee Onboarding",
-      "url": "/use-cases/employee-onboarding"
+      "text": "Explore Payroll Processing Compliance For Dealerships",
+      "url": "/industry/dealerships-payroll-processing-compliance"
     }
   ]
 }

@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Contract Generation",
-      "url": "/use-cases/contract-generation"
+      "text": "Explore Payroll Processing Compliance For Insurance",
+      "url": "/industry/insurance-payroll-processing-compliance"
     },
     {
-      "text": "Explore Bridgebox Vs Retool",
-      "url": "/compare/bridgebox-vs-retool"
+      "text": "Explore Bridgebox Vs Integrately",
+      "url": "/compare/bridgebox-vs-integrately"
     },
     {
-      "text": "Explore 5 Ways To Automate Accounting Operations Without Coding",
-      "url": "/blog/5-ways-to-automate-accounting-operations-without-coding"
+      "text": "Explore Bridgebox Aws Integration",
+      "url": "/integrations/aws"
     },
     {
-      "text": "Explore Role-Based Access Control",
-      "url": "/features/role-based-access-control"
+      "text": "Explore Automate Email Triage",
+      "url": "/use-cases/email-triage"
     },
     {
-      "text": "Explore Bridgebox Salesforce Integration",
-      "url": "/integrations/salesforce"
+      "text": "Explore Client Intake Automation For Nonprofits",
+      "url": "/industry/nonprofits-client-intake-automation"
     }
   ]
 }

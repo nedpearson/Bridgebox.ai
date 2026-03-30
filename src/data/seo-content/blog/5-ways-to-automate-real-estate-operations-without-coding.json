@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Payment Reconciliation",
-      "url": "/use-cases/payment-reconciliation"
+      "text": "Explore Role-Based Access Control",
+      "url": "/features/role-based-access-control"
     },
     {
-      "text": "Explore Bridgebox Vs Workato",
-      "url": "/compare/bridgebox-vs-workato"
+      "text": "Explore Payroll Processing Compliance For Financial Services",
+      "url": "/industry/financial-services-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Maintenance Requests",
-      "url": "/use-cases/maintenance-requests"
+      "text": "Explore Inventory Depletion Alerts For Media",
+      "url": "/industry/media-inventory-depletion-alerts"
     },
     {
-      "text": "Explore Bridgebox Slack Integration",
-      "url": "/integrations/slack"
+      "text": "Explore Payroll Processing Compliance For Telecommunications",
+      "url": "/industry/telecommunications-payroll-processing-compliance"
     },
     {
-      "text": "Explore Automate Fleet Routing",
-      "url": "/use-cases/fleet-routing"
+      "text": "Explore Payroll Processing Compliance For Dealerships",
+      "url": "/industry/dealerships-payroll-processing-compliance"
     }
   ]
 }

@@ -57,24 +57,24 @@
   },
   "internalLinks": [
     {
-      "text": "Explore Automate Quality Assurance",
-      "url": "/use-cases/quality-assurance"
+      "text": "Explore Automate Vendor Management",
+      "url": "/use-cases/vendor-management"
     },
     {
-      "text": "Explore E-Commerce",
-      "url": "/industry/e-commerce"
+      "text": "Explore Client Intake Automation For Media",
+      "url": "/industry/media-client-intake-automation"
     },
     {
-      "text": "Explore Automate Refund Processing",
-      "url": "/use-cases/refund-processing"
+      "text": "Explore Retail",
+      "url": "/industry/retail"
     },
     {
-      "text": "Explore Automate Asset Management",
-      "url": "/use-cases/asset-management"
+      "text": "Explore Construction",
+      "url": "/industry/construction"
     },
     {
-      "text": "Explore Automate Contract Generation",
-      "url": "/use-cases/contract-generation"
+      "text": "Explore Payroll Processing Compliance For Healthcare",
+      "url": "/industry/healthcare-payroll-processing-compliance"
     }
   ]
 }
