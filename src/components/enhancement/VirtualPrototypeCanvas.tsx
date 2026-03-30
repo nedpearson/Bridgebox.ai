@@ -288,7 +288,7 @@ export default function VirtualPrototypeCanvas({
             >
               {/* Click Ripple Indicator */}
               {i === 1 && (
-                <div className="absolute inset-0 bg-indigo-500/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px]">
+                <div className="absolute inset-0 bg-slate-900/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm z-20">
                   <span className="bg-indigo-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow flex items-center gap-1.5">
                     <MousePointerClick className="w-3 h-3" /> Execute Trigger
                   </span>
@@ -324,8 +324,13 @@ export default function VirtualPrototypeCanvas({
                 <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-[pulse_2s_ease-in-out_Infinity]" />
                 Original Recorded Footage
               </div>
-              <div className="text-[9px] text-slate-500 font-mono">
-                0:14 / 1:22
+              <div className="flex items-center gap-2">
+                <div className="text-[9px] text-slate-500 font-mono">
+                  0:14 / 1:22
+                </div>
+                <button className="text-[9px] bg-slate-700 hover:bg-slate-600 text-slate-100 font-bold px-2 py-0.5 rounded shadow flex items-center gap-1 cursor-pointer transition-colors">
+                  <MousePointerClick className="w-3 h-3" /> DRILL DOWN
+                </button>
               </div>
             </div>
             <div className="relative h-64 flex flex-col opacity-75 bg-[#f0f2f5] overflow-hidden">
@@ -390,8 +395,13 @@ export default function VirtualPrototypeCanvas({
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Bridgebox Replicated Feature
               </div>
-              <div className="text-[9px] text-indigo-400 font-mono tracking-widest bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">
-                LIVE RUNTIME
+              <div className="flex items-center gap-2">
+                <div className="text-[9px] text-indigo-400 font-mono tracking-widest bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">
+                  LIVE RUNTIME
+                </div>
+                <button className="text-[9px] bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2 py-0.5 rounded shadow flex items-center gap-1 cursor-pointer transition-colors shadow-indigo-500/20">
+                  <MousePointerClick className="w-3 h-3" /> DRILL DOWN
+                </button>
               </div>
             </div>
             <div className="relative h-64 flex bg-[#060a14] relative z-10 overflow-hidden">
@@ -490,7 +500,7 @@ export default function VirtualPrototypeCanvas({
             ),
           )}
         </div>
-        <div className="space-y-4 flex-1 overflow-y-auto pr-2">
+        <div className="space-y-4 flex-1 overflow-y-auto pr-2 min-h-0 pb-4">
           {[
             {
               title: "GPS Tracking Integration",
@@ -540,7 +550,7 @@ export default function VirtualPrototypeCanvas({
         </div>
 
         {/* Floating Form Actions */}
-        <div className="mt-auto border-t border-slate-700/50 pt-4 flex justify-end gap-3">
+        <div className="mt-auto border-t border-slate-700/50 pt-4 flex justify-end gap-3 shrink-0 bg-[#060a14] relative z-20">
           <div className="px-4 py-2 rounded-lg bg-slate-800 text-slate-400 text-sm font-medium">
             Cancel
           </div>
