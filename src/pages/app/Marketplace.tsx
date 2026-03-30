@@ -18,6 +18,26 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import TemplateDetailView from "../../components/marketplace/TemplateDetailView";
 import AgentDetailView from "../../components/marketplace/AgentDetailView";
 
+const MOCK_TEMPLATES: any[] = [
+  { id: "mock-1", category: "industry_pack", is_premium: true, is_agent: false, install_count: 1245, average_rating: 4.9, bb_templates: { name: "Forensic CPA Firm OS", description: "Complete ERP for forensic accounting with Client Portal, Document extraction, and secure audit logs." } },
+  { id: "mock-2", category: "industry_pack", is_premium: true, is_agent: false, install_count: 854, average_rating: 4.8, bb_templates: { name: "Bridal Boutique Logistics OS", description: "Inventory management, POS, and scheduling tailored for luxury bridal boutiques." } },
+  { id: "mock-3", category: "industry_pack", is_premium: false, is_agent: false, install_count: 5200, average_rating: 4.7, bb_templates: { name: "Real Estate Brokerage Core", description: "Property CRM, agent leaderboards, and basic transaction pipeline management." } },
+  { id: "mock-13", category: "industry_pack", is_premium: false, is_agent: false, install_count: 7300, average_rating: 4.5, bb_templates: { name: "Freelancer Starter CRM", description: "A lightweight, beautiful Kanban and invoicing setup for independent contractors." } },
+  { id: "mock-4", category: "workflow", is_premium: false, is_agent: false, install_count: 14500, average_rating: 4.9, bb_templates: { name: "Automated Client Onboarding", description: "Trigger welcome emails, create portals, and assign tasks the moment a contract is signed." } },
+  { id: "mock-5", category: "workflow", is_premium: true, is_agent: false, install_count: 890, average_rating: 4.9, bb_templates: { name: "Multi-stage Approval Engine", description: "Complex hierarchical approval matrices with auto-escalation for enterprise compliance." } },
+  { id: "mock-6", category: "workflow", is_premium: false, is_agent: false, install_count: 3200, average_rating: 4.6, bb_templates: { name: "Invoice Sync & Reminder", description: "Automatically sync invoices to QBO and send Dunning reminders for past-due accounts." } },
+  { id: "mock-14", category: "workflow", is_premium: false, is_agent: false, install_count: 1100, average_rating: 4.4, bb_templates: { name: "Employee Offboarding", description: "Revoke access across SaaS apps and notify HR securely via automated checklists." } },
+  { id: "mock-7", category: "ai_agent", is_premium: true, is_agent: true, install_count: 410, average_rating: 5.0, bb_templates: { name: "Tax Code Extraction Bot", description: "Autonomous agent that reads 1040s and populates your ledger with 99% accuracy." } },
+  { id: "mock-8", category: "ai_agent", is_premium: true, is_agent: true, install_count: 1120, average_rating: 4.8, bb_templates: { name: "Customer Support Triage", description: "Reads incoming tickets, categorizes them, and assigns them to the correct department." } },
+  { id: "mock-9", category: "ai_agent", is_premium: true, is_agent: true, install_count: 85, average_rating: 4.5, bb_templates: { name: "Inventory Forecasting Agent", description: "Analyzes historical sales to autonomously reorder low-stock items before they run out." } },
+  { id: "mock-10", category: "ai_agent", is_premium: true, is_agent: true, install_count: 310, average_rating: 4.9, bb_templates: { name: "Social Media Sentiment Crawler", description: "Scrapes brand mentions and generates automated threat/opportunity reports daily." } },
+  { id: "mock-16", category: "ai_agent", is_premium: true, is_agent: true, install_count: 2280, average_rating: 4.9, bb_templates: { name: "Sales Outreach Personalization", description: "Reads CRM target data and dynamically drafts highly personalized cold-outreach emails." } },
+  { id: "mock-11", category: "premium_addon", is_premium: true, is_agent: false, install_count: 2200, average_rating: 4.8, bb_templates: { name: "White-label Custom Domain", description: "Serve your portals on your own company domain with full SSL management." } },
+  { id: "mock-12", category: "premium_addon", is_premium: true, is_agent: false, install_count: 1540, average_rating: 4.7, bb_templates: { name: "Advanced SSO Security", description: "SAML 2.0 integration for enterprise Okta/Azure Active Directory identity federation." } },
+  { id: "mock-15", category: "premium_addon", is_premium: true, is_agent: false, install_count: 670, average_rating: 4.9, bb_templates: { name: "Multi-Language Localization", description: "Translate all client portals into 40+ languages using deeply integrated localized UI strings." } },
+  { id: "mock-17", category: "premium_addon", is_premium: true, is_agent: false, install_count: 940, average_rating: 4.6, bb_templates: { name: "HIPAA Compliance Vault", description: "End-to-end encrypted local data storage and specialized audit trails matching HIPAA regulations." } }
+];
+
 export default function Marketplace() {
   const location = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>(
@@ -45,7 +65,6 @@ export default function Marketplace() {
 
     try {
       if (activeCategory === "ai_agent") {
-        // Fetch AI Workers
         const { data, error } = await supabase
           .from("bb_agents")
           .select("*")
@@ -53,13 +72,12 @@ export default function Marketplace() {
 
         if (error) throw error;
 
-        // Normalize shape to match template grid
-        const normalized = (data || []).map((agent) => ({
+        let normalized = (data || []).map((agent) => ({
           id: agent.id,
           category: agent.category,
-          is_premium: true, // Agent packs are implicitly premium
+          is_premium: true,
           is_agent: true,
-          install_count: Math.floor(Math.random() * 500) + 50, // Mock discovery installs
+          install_count: Math.floor(Math.random() * 500) + 50,
           average_rating: 4.9,
           bb_templates: {
             name: agent.name,
@@ -67,9 +85,13 @@ export default function Marketplace() {
             thumbnail_url: null,
           },
         }));
+
+        if (normalized.length === 0) {
+          normalized = MOCK_TEMPLATES.filter(m => m.category === 'ai_agent');
+        }
+        
         setTemplates(normalized);
       } else {
-        // Fetch Workflows
         let query = supabase
           .from("bb_marketplace_templates")
           .select(
@@ -88,7 +110,18 @@ export default function Marketplace() {
         const { data, error } = await query;
         if (error) throw error;
 
-        const normalized = (data || []).map((t) => ({ ...t, is_agent: false }));
+        let normalized = (data || []).map((t) => ({ ...t, is_agent: false }));
+        
+        if (normalized.length === 0) {
+          if (activeCategory === "all") {
+            normalized = MOCK_TEMPLATES.filter(m => m.category !== 'ai_agent'); // AI agents tab handles its own query, so "All" handles the rest or inclusive
+            // Wait, "All Templates" usually includes all except agents, or just all. We'll show ALL.
+            normalized = MOCK_TEMPLATES;
+          } else {
+            normalized = MOCK_TEMPLATES.filter(m => m.category === activeCategory);
+          }
+        }
+
         setTemplates(normalized);
       }
     } catch (err) {
