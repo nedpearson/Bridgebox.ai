@@ -9,8 +9,8 @@ import BackgroundAtmosphere from "../../components/BackgroundAtmosphere";
 import React from "react";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("nedpearson@gmail.com");
+  const [password, setPassword] = useState("1980Colbert$");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const {
