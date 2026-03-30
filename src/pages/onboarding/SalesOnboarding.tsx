@@ -43,6 +43,8 @@ const MODELS = [
 ];
 const INTEGRATIONS = ["stripe", "quickbooks", "slack", "gmail"];
 
+import { SEO } from "../../components/seo/SEO";
+
 export default function SalesOnboarding() {
   const [currentStep, setCurrentStep] = useState(0);
   const [billingInterval, setBillingInterval] = useState<"monthly" | "annual">(
@@ -464,7 +466,13 @@ export default function SalesOnboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center py-12 px-4 selection:bg-indigo-500/30">
+    <>
+      <SEO 
+        title="Build Custom Software without Coding - Book a Demo | Bridgebox"
+        description="Discuss your enterprise bottlenecks. We'll show you how Bridgebox literally engineers your custom operation software structure during the call."
+        canonicalUrl="/sales-onboarding"
+      />
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center py-12 px-4 selection:bg-indigo-500/30">
       {/* Progress Tracker */}
       <div className="w-full max-w-4xl mb-12 flex justify-center items-center px-4 space-x-4 sm:space-x-12">
         {STEPS.map((step, idx) => (
@@ -564,5 +572,6 @@ export default function SalesOnboarding() {
         </div>
       </div>
     </div>
+    </>
   );
 }

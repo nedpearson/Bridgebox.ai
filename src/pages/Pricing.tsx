@@ -16,6 +16,8 @@ import { staggerContainer, staggerItem } from "../utils/animations";
 import { useLeadModal } from "../hooks/useLeadModal";
 import { PLANS, formatPlanPrice } from "../lib/plans";
 
+import { SEO } from "../components/seo/SEO";
+
 export default function Pricing() {
   const { openModal } = useLeadModal();
   const [billingInterval, setBillingInterval] = useState<"monthly" | "yearly">(
@@ -54,7 +56,13 @@ export default function Pricing() {
   ];
 
   return (
-    <div className="pt-20">
+    <>
+      <SEO 
+        title="Workflow Automation Software for Businesses | Bridgebox Pricing"
+        description="Transparent enterprise pricing. Replace your disjointed legacy tool stack with a single, infinitely scalable autonomous software layer."
+        canonicalUrl="/pricing"
+      />
+      <div className="pt-20">
       <Section background="gradient" className="pt-32 pb-16 relative">
         <GridPattern />
         <div className="text-center max-w-4xl mx-auto relative z-10">
@@ -467,5 +475,6 @@ export default function Pricing() {
         </motion.div>
       </Section>
     </div>
+    </>
   );
 }

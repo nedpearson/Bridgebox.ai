@@ -1201,11 +1201,6 @@
   },
   {
     "category": "compare",
-    "slug": "bridgebox-vs-zapier",
-    "keyword": "bridgebox vs zapier"
-  },
-  {
-    "category": "compare",
     "slug": "bridgebox-vs-make-com",
     "keyword": "bridgebox vs make.com"
   },
@@ -1238,11 +1233,6 @@
     "category": "compare",
     "slug": "bridgebox-vs-autocode",
     "keyword": "bridgebox vs autocode"
-  },
-  {
-    "category": "compare",
-    "slug": "bridgebox-vs-custom-development",
-    "keyword": "bridgebox vs custom development"
   },
   {
     "category": "compare",
@@ -1508,11 +1498,6 @@
     "category": "features",
     "slug": "integration-engine",
     "keyword": "integration engine"
-  },
-  {
-    "category": "features",
-    "slug": "workflow-orchestration",
-    "keyword": "workflow orchestration"
   },
   {
     "category": "features",
@@ -2028,5 +2013,230 @@
     "category": "blog",
     "slug": "the-ultimate-guide-to-scaling-compliance-reporting-processes",
     "keyword": "the ultimate guide to scaling compliance reporting processes"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-client-onboarding",
+    "keyword": "automate client onboarding"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-invoice-processing",
+    "keyword": "automate invoice processing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-document-processing",
+    "keyword": "automate document processing"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-approvals-workflow",
+    "keyword": "automate approvals workflow"
+  },
+  {
+    "category": "use-cases",
+    "slug": "integrate-crm-and-accounting-software",
+    "keyword": "integrate crm and accounting software"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-reporting-dashboards",
+    "keyword": "automate reporting dashboards"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-lead-management",
+    "keyword": "automate lead management"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-internal-workflows",
+    "keyword": "automate internal workflows"
+  },
+  {
+    "category": "use-cases",
+    "slug": "build-internal-tools-without-developers",
+    "keyword": "build internal tools without developers"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-operations-management",
+    "keyword": "automate operations management"
+  },
+  {
+    "category": "use-cases",
+    "slug": "centralize-business-processes",
+    "keyword": "centralize business processes"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-task-management",
+    "keyword": "automate task management"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-data-entry-workflows",
+    "keyword": "automate data entry workflows"
+  },
+  {
+    "category": "use-cases",
+    "slug": "unify-multiple-software-systems",
+    "keyword": "unify multiple software systems"
+  },
+  {
+    "category": "use-cases",
+    "slug": "automate-client-communication",
+    "keyword": "automate client communication"
+  },
+  {
+    "category": "industry",
+    "slug": "ai-automation-for-law-firms",
+    "keyword": "ai automation for law firms"
+  },
+  {
+    "category": "industry",
+    "slug": "logistics-workflow-automation",
+    "keyword": "logistics workflow automation"
+  },
+  {
+    "category": "industry",
+    "slug": "accounting-automation-platform",
+    "keyword": "accounting automation platform"
+  },
+  {
+    "category": "industry",
+    "slug": "healthcare-workflow-automation",
+    "keyword": "healthcare workflow automation"
+  },
+  {
+    "category": "industry",
+    "slug": "real-estate-automation-software",
+    "keyword": "real estate automation software"
+  },
+  {
+    "category": "industry",
+    "slug": "construction-workflow-automation",
+    "keyword": "construction workflow automation"
+  },
+  {
+    "category": "industry",
+    "slug": "dealership-automation-platform",
+    "keyword": "dealership automation platform"
+  },
+  {
+    "category": "industry",
+    "slug": "e-commerce-workflow-automation",
+    "keyword": "e-commerce workflow automation"
+  },
+  {
+    "category": "industry",
+    "slug": "consulting-business-automation",
+    "keyword": "consulting business automation"
+  },
+  {
+    "category": "industry",
+    "slug": "service-business-automation",
+    "keyword": "service business automation"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-zapier",
+    "keyword": "bridgebox vs Zapier"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-make",
+    "keyword": "bridgebox vs Make.com"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-custom-development",
+    "keyword": "bridgebox vs custom development"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-no-code-tools",
+    "keyword": "bridgebox vs no-code tools"
+  },
+  {
+    "category": "compare",
+    "slug": "bridgebox-vs-hiring-developers",
+    "keyword": "bridgebox vs hiring developers"
+  },
+  {
+    "category": "features",
+    "slug": "ai-workflow-automation-engine",
+    "keyword": "AI workflow automation engine"
+  },
+  {
+    "category": "features",
+    "slug": "voice-to-build-software",
+    "keyword": "voice-to-build software"
+  },
+  {
+    "category": "features",
+    "slug": "screen-recording-to-software-builder",
+    "keyword": "screen recording to software builder"
+  },
+  {
+    "category": "features",
+    "slug": "integration-platform",
+    "keyword": "integration platform"
+  },
+  {
+    "category": "features",
+    "slug": "workflow-orchestration",
+    "keyword": "workflow orchestration"
+  },
+  {
+    "category": "features",
+    "slug": "analytics-dashboard",
+    "keyword": "analytics dashboard"
+  },
+  {
+    "category": "features",
+    "slug": "admin-control-system",
+    "keyword": "admin control system"
+  },
+  {
+    "category": "features",
+    "slug": "automation-monitoring",
+    "keyword": "automation monitoring"
+  },
+  {
+    "category": "features",
+    "slug": "client-collaboration-tools",
+    "keyword": "client collaboration tools"
+  },
+  {
+    "category": "features",
+    "slug": "multi-system-integration-engine",
+    "keyword": "multi-system integration engine"
+  },
+  {
+    "category": "integrations",
+    "slug": "bridgebox-quickbooks-integration",
+    "keyword": "integrate quickbooks"
+  },
+  {
+    "category": "integrations",
+    "slug": "bridgebox-salesforce-integration",
+    "keyword": "integrate salesforce"
+  },
+  {
+    "category": "integrations",
+    "slug": "bridgebox-google drive-integration",
+    "keyword": "integrate google drive"
+  },
+  {
+    "category": "integrations",
+    "slug": "bridgebox-slack-integration",
+    "keyword": "integrate slack"
+  },
+  {
+    "category": "integrations",
+    "slug": "bridgebox-hubspot-integration",
+    "keyword": "integrate hubspot"
   }
 ]

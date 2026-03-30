@@ -7,6 +7,8 @@ import GridPattern from "../components/GridPattern";
 import FinalCTA from "../components/FinalCTA";
 import { staggerContainer, staggerItem } from "../utils/animations";
 
+import { SEO } from "../components/seo/SEO";
+
 export default function About() {
   const principles = [
     {
@@ -81,7 +83,13 @@ export default function About() {
   ];
 
   return (
-    <div className="pt-20">
+    <>
+      <SEO 
+        title="Leading Business Automation Platform | About Bridgebox AI"
+        description="Meet the core engineering team establishing the global standard for true native workflow orchestration and custom software delivery."
+        canonicalUrl="/about"
+      />
+      <div className="pt-20">
       <Section background="gradient" className="pt-32 pb-16 relative">
         <GridPattern />
         <div className="text-center max-w-4xl mx-auto relative z-10">
@@ -320,9 +328,10 @@ export default function About() {
       </Section>
 
       <FinalCTA
-        headline="Partner with Bridgebox"
-        subtext="Build the intelligent infrastructure that powers tomorrow's business. Let's engineer custom software that transforms your operations and drives lasting competitive advantage."
+        headline="Join the Automation Revolution"
+        subtext="See how our team can transform your enterprise operations with intelligent, unified software infrastructure."
       />
     </div>
+    </>
   );
 }

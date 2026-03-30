@@ -20,6 +20,8 @@ import GridPattern from "../components/GridPattern";
 import FinalCTA from "../components/FinalCTA";
 import { staggerContainer, staggerItem } from "../utils/animations";
 
+import { SEO } from "../components/seo/SEO";
+
 export default function Platform() {
   const platformFeatures = [
     {
@@ -110,7 +112,13 @@ export default function Platform() {
   ];
 
   return (
-    <div className="pt-20">
+    <>
+      <SEO 
+        title="Custom AI Software Development Platform | Bridgebox AI"
+        description="Stop fighting generic tools. Build custom enterprise software without developers using the Bridgebox Autonomous Orchestration Engine."
+        canonicalUrl="/platform"
+      />
+      <div className="pt-20">
       <Section background="gradient" className="pt-32 pb-16 relative">
         <GridPattern />
         <div className="text-center max-w-4xl mx-auto mb-16 relative z-10">
@@ -308,5 +316,6 @@ export default function Platform() {
         subtext="See how Bridgebox transforms your operations with intelligent automation, real-time insights, and unified system control."
       />
     </div>
+    </>
   );
 }

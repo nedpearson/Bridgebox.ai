@@ -1276,11 +1276,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bridgebox.ai/compare/bridgebox-vs-zapier</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://bridgebox.ai/compare/bridgebox-vs-make-com</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1312,11 +1307,6 @@
   </url>
   <url>
     <loc>https://bridgebox.ai/compare/bridgebox-vs-autocode</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bridgebox.ai/compare/bridgebox-vs-custom-development</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1582,11 +1572,6 @@
   </url>
   <url>
     <loc>https://bridgebox.ai/features/integration-engine</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bridgebox.ai/features/workflow-orchestration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2102,6 +2087,231 @@
   </url>
   <url>
     <loc>https://bridgebox.ai/blog/the-ultimate-guide-to-scaling-compliance-reporting-processes</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-client-onboarding</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-invoice-processing</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-document-processing</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-approvals-workflow</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/integrate-crm-and-accounting-software</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-reporting-dashboards</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-lead-management</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-internal-workflows</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/build-internal-tools-without-developers</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-operations-management</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/centralize-business-processes</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-task-management</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-data-entry-workflows</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/unify-multiple-software-systems</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/use-cases/automate-client-communication</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/ai-automation-for-law-firms</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/logistics-workflow-automation</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/accounting-automation-platform</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/healthcare-workflow-automation</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/real-estate-automation-software</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/construction-workflow-automation</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/dealership-automation-platform</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/e-commerce-workflow-automation</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/consulting-business-automation</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/industry/service-business-automation</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/compare/bridgebox-vs-zapier</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/compare/bridgebox-vs-make</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/compare/bridgebox-vs-custom-development</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/compare/bridgebox-vs-no-code-tools</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/compare/bridgebox-vs-hiring-developers</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/ai-workflow-automation-engine</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/voice-to-build-software</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/screen-recording-to-software-builder</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/integration-platform</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/workflow-orchestration</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/analytics-dashboard</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/admin-control-system</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/automation-monitoring</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/client-collaboration-tools</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/features/multi-system-integration-engine</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/integrations/bridgebox-quickbooks-integration</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/integrations/bridgebox-salesforce-integration</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/integrations/bridgebox-google drive-integration</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/integrations/bridgebox-slack-integration</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bridgebox.ai/integrations/bridgebox-hubspot-integration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
