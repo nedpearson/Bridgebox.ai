@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { 
   BarChart3, LayoutDashboard, Settings, Users, FileText, 
   Bell, Search, Plus, MoreVertical, LayoutGrid, CheckSquare,
-  ArrowRight, MousePointerClick, Database
+  ArrowRight, MousePointerClick, Database, Activity
 } from 'lucide-react';
 
 export type MockupLayoutType = 'dashboard' | 'kanban' | 'detail' | 'table' | 'generic';
@@ -218,57 +218,84 @@ export default function VirtualPrototypeCanvas({ layoutType, screenName, onInter
                   </div>
                   <div className="text-[9px] text-slate-500 font-mono">0:14 / 1:22</div>
                </div>
-               <div className="relative h-32 flex p-3 opacity-60 grayscale-[40%] bg-slate-950">
-                   {/* Mini Player Structure for Original Footage */}
-                   <div className="w-10 border-r border-slate-800 space-y-2 pr-2">
-                       <div className="h-1.5 w-full bg-slate-600 rounded" />
-                       <div className="h-1 w-2/3 bg-slate-700 rounded" />
+               <div className="relative h-44 flex flex-col opacity-75 bg-[#f0f2f5] overflow-hidden">
+                   {/* Hyper-realistic Real Visuals for Legacy Software */}
+                   <div className="w-full h-5 bg-[#3b5998] flex items-center px-2 gap-2 text-white/80 shrink-0 shadow">
+                       <LayoutDashboard className="w-3 h-3" />
+                       <span className="text-[8px] font-bold tracking-widest uppercase">Admin Portal v4.2</span>
                    </div>
-                   <div className="flex-1 pl-3 space-y-2 relative">
-                       <div className="h-2 w-16 bg-slate-700 rounded" />
-                       <div className="flex gap-2">
-                          <div className="flex-1 h-12 bg-slate-800 rounded border border-slate-700 relative overflow-hidden">
-                             <motion.div animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 2, repeat: Infinity }} className="absolute bottom-2 left-2 right-2 h-1/2 bg-slate-600/50 rounded" />
-                          </div>
-                       </div>
+                   <div className="flex flex-1 overflow-hidden relative">
+                      <div className="w-16 bg-white border-r border-[#d3d6db] p-1.5 space-y-1">
+                         {[1,2,3,4].map(btn => <div key={btn} className="h-2 w-full bg-[#e9ebee] rounded border border-[#ccd0d5]" />)}
+                      </div>
+                      <div className="flex-1 p-2 space-y-2 relative overflow-hidden">
+                         <div className="text-[10px] font-bold text-[#1d2129]">Customer CRM Overview</div>
+                         <div className="grid grid-cols-2 gap-2">
+                            <div className="bg-white border border-[#ccd0d5] h-8 rounded p-1 flex items-center shadow-sm text-[8px] font-bold text-[#1d2129] px-2"><Users className="w-3 h-3 text-[#3b5998] mr-1" /> Active Stats</div>
+                            <div className="bg-white border border-[#ccd0d5] h-8 rounded p-1 flex flex-col justify-center shadow-sm text-[7px] text-[#4b4f56] px-2">Metric 2<br/><span className="text-[#1d2129] font-bold text-[9px]">$44,592</span></div>
+                         </div>
+                         <div className="bg-white border border-[#ccd0d5] shadow-sm rounded flex flex-col pb-1">
+                            <div className="h-3 bg-[#e9ebee] border-b border-[#ccd0d5] w-full mt-1 mb-1" />
+                            {[1, 2, 3].map(row => <div key={row} className="h-1.5 bg-[#f6f7f9] mx-1 mb-0.5" />)}
+                         </div>
+                         <motion.div animate={{ opacity: [1, 0.5, 1], y: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }} className="absolute bottom-2 right-4 text-[#3b5998]">
+                            <MousePointerClick className="w-4 h-4 fill-white" />
+                         </motion.div>
+                      </div>
                    </div>
                </div>
             </div>
 
             {/* Player 2: Replicated Synthesized App */}
-            <div className="border border-indigo-500/40 rounded-xl bg-slate-900 overflow-hidden flex flex-col shadow-[0_0_20px_rgba(99,102,241,0.2)] relative">
-               <div className="absolute inset-0 bg-indigo-500/5 pointer-events-none" />
-               <div className="px-3 py-1.5 bg-indigo-900/30 border-b border-indigo-500/30 flex items-center justify-between relative z-10">
+            <div className="border border-indigo-500/40 rounded-xl bg-[#030614] overflow-hidden flex flex-col shadow-[0_0_20px_rgba(99,102,241,0.2)] relative">
+               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-transparent to-transparent pointer-events-none" />
+               <div className="px-3 py-1.5 bg-black/60 border-b border-indigo-500/30 flex items-center justify-between relative z-10 backdrop-blur-md">
                   <div className="uppercase tracking-widest text-[9px] font-bold text-indigo-300 flex items-center gap-1.5">
-                     <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                      Bridgebox Replicated Feature
                   </div>
-                  <div className="text-[9px] text-indigo-400 font-mono">LIVE RUNTIME</div>
+                  <div className="text-[9px] text-indigo-400 font-mono tracking-widest bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">LIVE RUNTIME</div>
                </div>
-               <div className="relative h-32 flex p-3 bg-slate-950 relative z-10">
-                   {/* Enhanced Mini Player Structure for Replica */}
-                   <div className="w-12 border-r border-slate-800 space-y-2 pr-2">
-                       <div className="h-1.5 w-full bg-indigo-500 rounded shadow-[0_0_8px_rgba(99,102,241,0.8)]" />
-                       <div className="h-1 w-3/4 bg-slate-600 rounded" />
-                       <div className="h-1 w-2/3 bg-slate-600 rounded" />
+               <div className="relative h-44 flex bg-[#060a14] relative z-10 overflow-hidden">
+                   {/* Hyper-realistic Modern Software Mockup Recording */}
+                   <div className="w-20 border-r border-slate-800/80 bg-[#02040a] space-y-2 p-2 relative z-10">
+                       <div className="h-4 w-4 rounded bg-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.8)] flex items-center justify-center text-white mb-4"><span className="text-[7px] font-bold">BB</span></div>
+                       {[LayoutDashboard, Activity, Users, Settings].map((Icon, idx) => (
+                           <motion.div key={idx} whileHover={{x:2}} className={`flex items-center gap-1.5 p-1 rounded transition-colors ${idx===1 ? 'bg-indigo-500/20 text-indigo-300' : 'text-slate-500 hover:text-slate-300'}`}>
+                               <Icon className="w-3 h-3" />
+                               <div className={`h-1 flex-1 rounded ${idx===1 ? 'bg-indigo-400/50' : 'bg-slate-700'}`} />
+                           </motion.div>
+                       ))}
                    </div>
-                   <div className="flex-1 pl-3 space-y-2 relative">
-                       <div className="h-2 w-20 bg-indigo-400 rounded" />
-                       <div className="flex gap-2 h-14">
-                          <div className="flex-1 bg-slate-800 border-t border-indigo-500/50 rounded shadow-inner relative overflow-hidden">
-                             <motion.div animate={{ height: ['0%', '100%'] }} transition={{ duration: 3, repeat: Infinity }} className="absolute bottom-0 inset-x-0 bg-indigo-500/20" />
+                   <div className="flex-1 p-3 space-y-3 relative overflow-hidden bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:10px_10px]">
+                       <div className="flex items-center justify-between">
+                          <div className="h-2.5 w-24 bg-gradient-to-r from-white to-slate-400 text-transparent bg-clip-text text-[9px] font-bold uppercase tracking-widest leading-none">Global Network Output</div>
+                          <div className="h-3 w-3 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"><Bell className="w-1.5 h-1.5 text-slate-400" /></div>
+                       </div>
+                       <div className="grid grid-cols-2 gap-2 h-10">
+                          <div className="flex-1 bg-slate-900 border-t border-indigo-500/50 rounded shadow-[inset_0_1px_rgba(255,255,255,0.1)] relative overflow-hidden p-1.5 flex flex-col justify-between">
+                             <div className="text-[7px] text-slate-400 uppercase tracking-widest font-bold">Peak Volumes</div>
+                             <div className="text-sm font-light text-white leading-none">94,302</div>
+                             <motion.div animate={{ width: ['0%', '100%'] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeOut' }} className="absolute bottom-0 left-0 bg-indigo-500/40 h-[2px]" />
                           </div>
-                          <div className="w-8 h-8 rounded-full border border-emerald-500/50 flex items-center justify-center bg-emerald-500/10 shrink-0 mt-1">
-                             <CheckSquare className="w-3 h-3 text-emerald-400" />
+                          <div className="flex-1 bg-slate-900/50 border border-slate-800 rounded relative overflow-hidden p-1.5 flex items-center gap-1.5">
+                             <div className="w-6 h-6 rounded bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
+                                <Activity className="w-3 h-3 text-emerald-400" />
+                             </div>
+                             <div className="flex flex-col">
+                                <span className="text-[6px] text-slate-500 uppercase">Status</span>
+                                <span className="text-[8px] text-emerald-400 font-bold tracking-wider">DEPLOYED</span>
+                             </div>
                           </div>
                        </div>
-                       {/* High Quality Cursor */}
+                       
+                       {/* High Quality Automated Replica App Interaction Cursor */}
                        <motion.div
-                          animate={{ x: [0, 40, 10, 0], y: [0, 5, -5, 0] }}
-                          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                          className="absolute left-6 top-6 z-50 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+                          animate={{ x: [0, 60, 20, 0], y: [0, 8, -5, 0], scale: [1, 0.9, 1, 1] }}
+                          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+                          className="absolute left-[30%] top-[40%] z-50 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
                        >
-                          <MousePointerClick className="w-4 h-4 text-white fill-slate-800" />
+                          <MousePointerClick className="w-4 h-4 text-white fill-[#060a14]" />
                        </motion.div>
                    </div>
                </div>
