@@ -341,6 +341,37 @@ export default function EnhancementDetail() {
               </div>
             </CollapsibleSection>
 
+            {/* Side by Side Competitor Comparison */}
+            {rec.side_by_side_comparison && (
+              <CollapsibleSection title={`Competitive Analysis: vs ${rec.side_by_side_comparison.competitor_name}`} icon={Target} defaultOpen={true}>
+                <div className="space-y-4">
+                 {rec.side_by_side_comparison.features.map((feat: any, ix: number) => (
+                   <div key={ix} className="bg-slate-800/50 border border-slate-700/80 rounded-xl p-5 space-y-4 shadow-sm hover:border-violet-500/30 transition-all">
+                     <h4 className="text-white font-bold text-base flex items-center gap-2 tracking-wide"><Target className="w-5 h-5 text-violet-400"/> {feat.feature_name}</h4>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                       <div className="p-4 bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/20 rounded-xl">
+                         <p className="text-[11px] text-red-400 font-bold tracking-widest uppercase mb-2 flex items-center gap-1.5"><MonitorPlay className="w-3.5 h-3.5"/> {rec.side_by_side_comparison.competitor_name} (Current)</p>
+                         <p className="text-sm text-slate-300 leading-relaxed">{feat.competitor_implementation}</p>
+                       </div>
+                       <div className="p-4 bg-gradient-to-br from-emerald-500/10 to-blue-500/5 border border-emerald-500/30 rounded-xl relative overflow-hidden group">
+                         <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-400/30 transition-colors"></div>
+                         <p className="text-[11px] text-emerald-400 font-bold tracking-widest uppercase mb-2 flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5"/> Bridgebox.ai (Proposed)</p>
+                         <p className="text-sm text-white font-medium leading-relaxed relative z-10">{feat.bridgebox_implementation}</p>
+                       </div>
+                     </div>
+                     <div className="px-4 py-3 bg-indigo-500/10 border border-indigo-500/20 rounded-lg inline-flex items-start gap-2.5 w-full">
+                       <CheckCircle2 className="w-4 h-4 text-indigo-400 mt-0.5 flex-shrink-0" />
+                       <span className="text-sm text-indigo-200 font-medium">
+                         <strong className="text-indigo-300 mr-1.5">Strategic Advantage:</strong>
+                         {feat.advantage}
+                       </span>
+                     </div>
+                   </div>
+                 ))}
+                </div>
+              </CollapsibleSection>
+            )}
+
             {/* Interactive Virtual Prototype Walkthrough Player */}
             {rec.ui_structure?.length > 0 && (
               <CollapsibleSection

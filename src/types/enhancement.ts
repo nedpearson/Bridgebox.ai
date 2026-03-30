@@ -93,11 +93,23 @@ export interface EnhancementRequest {
   bb_voice_sessions?: VoiceSession[];
 }
 
+export interface SideBySideComparison {
+  competitor_name: string;
+  competitor_url?: string;
+  features: Array<{
+    feature_name: string;
+    competitor_implementation: string;
+    bridgebox_implementation: string;
+    advantage: string;
+  }>;
+}
+
 export interface EnhancementRecommendations {
   business_summary: string;
   feature_list: FeatureItem[];
   workflow_breakdown: WorkflowItem[];
   ui_structure: UIStructureItem[];
+  side_by_side_comparison?: SideBySideComparison;
   data_model_hypothesis: DataEntityItem[];
   integration_map: IntegrationItem[];
   automation_opportunities: AutomationItem[];
