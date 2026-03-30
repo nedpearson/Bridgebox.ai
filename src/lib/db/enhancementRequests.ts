@@ -214,6 +214,17 @@ export const enhancementRequestsService = {
       .eq("workspace_id", workspaceId);
 
     if (error) throw error;
+    try {
+      await auditService.logEvent({
+        organizationId: workspaceId,
+        actionType: "delete",
+        resourceType: "enhancement_request",
+        resourceId: id,
+        deltaJson: { status: "deleted" },
+      });
+    } catch (e) {
+      console.warn("Audit log failed", e);
+    }
   },
 
   async incrementMediaCount(id: string, workspaceId: string): Promise<void> {

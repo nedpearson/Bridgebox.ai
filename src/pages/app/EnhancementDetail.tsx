@@ -26,6 +26,7 @@ import {
   Database,
   LayoutTemplate,
   Play,
+  Trash2,
 } from "lucide-react";
 import AppHeader from "../../components/app/AppHeader";
 import Card from "../../components/Card";
@@ -163,6 +164,23 @@ export default function EnhancementDetail() {
     }
   }, [request, currentOrganization, load]);
 
+  const handleDeleteDraft = useCallback(async () => {
+    if (!request || !currentOrganization) return;
+    if (!window.confirm("Are you sure you want to permanently delete this stuck draft?")) return;
+    
+    setActioning(true);
+    try {
+      await enhancementRequestsService.delete(
+        request.id,
+        currentOrganization.id,
+      );
+      navigate("/app/enhancements");
+    } catch (err: any) {
+      setError(err.message || "Failed to delete draft");
+      setActioning(false);
+    }
+  }, [request, currentOrganization, navigate]);
+
   if (loading)
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -215,6 +233,25 @@ export default function EnhancementDetail() {
             </div>
 
             {/* Actions */}
+            {request.status === "draft" && (
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleDeleteDraft}
+                  disabled={actioning}
+                  className="border-red-500/30 text-red-400 hover:bg-red-500/10"
+                >
+                  {actioning ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="w-4 h-4 mr-1.5" />
+                  )}
+                  Delete Draft
+                </Button>
+              </div>
+            )}
+
             {(request.status === "ready_for_review" ||
               request.status === "submitted") && (
               <div className="flex items-center gap-3 flex-shrink-0">
